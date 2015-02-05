@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Widget: {{ widget.name }} ({{ widget.actual_frequency }})</h1>
+<table class="simple_table">
+    <tr>
+        <th>Statistic</th>
+        <th>Last Updated</th>
+        <th>Value</th>
+        <th>Actions</th>
+    </tr>
+    {% for stat in stats %}
+        <tr>
+            <td>{{ stat.statistic.name }}</td>
+            <td>
+                {% if stat.statistic.data_last_updated %}
+                    {{ stat.statistic.data_last_updated|date:"d/m/Y h:i:sa" }}
+                {% else %}<i>no data</i>{% endif %}
+            </td>
+            <td>
+                {% if stat.statistic.data_last_updated %}
+                    {% if stat.statistic.is_list %}
+                        {{ stat.listdata.count }} list items
+                    {% else %}
+                        {% if stat.statistic.is_numeric %}
+                            {{ stat.data.display_val }}
+                        {% endif %}
+                    {% endif %}
+                {% else %}<i>no data</i>{% endif %}
+            </td>
+            <td>
+                <a href="{% url "edit_stat" widget_url=widget.url actual_frequency_url=widget.actual_frequency_url tile_url=stat.statistic.tile.url stat_name=stat.statistic.name %}">
+                    {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

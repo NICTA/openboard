@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Widgets</h2>
+<table class="simple_table">
+    <tr>
+        <th>Widget Name</th>
+        <th>Freq</th>
+        <th>Last Updated</th>
+        <th>Actions</th>
+    </tr>
+    {% for w in widgets %}
+        <tr>
+            <td>{{ w.name }}</td>
+            <td>{{ w.actual_frequency }}</td>
+            <td>
+                {% if w.data_last_updated %}
+                    {{ w.data_last_updated|date:"d/m/Y h:i:sa" }}
+                {% else %}<i>no data</i>{% endif %}
+            </td>
+            <td>
+                <a href="{% url "view_widget_data" widget_url=w.url actual_frequency_url=w.actual_frequency_url %}">
+                    {% if w.data_last_updated %}Edit Data{% else %}Enter Data{% endif %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

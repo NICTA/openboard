@@ -1,4 +1,5 @@
 from django.db import models
+from widget_data.models import StatisticData, StatisticListItem
 
 # Create your models here.
 
@@ -45,16 +46,15 @@ class Category(models.Model):
         ordering=("sort_order",)
 
 class WidgetDefinition(models.Model):
-    themes = models.ManyToManyField(Theme)
+    _lud_cache = None
     category = models.ForeignKey(Category)
-    location = models.ForeignKey(Location)
-    frequency = models.ForeignKey(Frequency)
     name = models.CharField(max_length=60)
     url  = models.SlugField()
     expansion_hint = models.CharField(max_length=80)
     source_url = models.URLField(max_length=400)
     actual_frequency = models.CharField(max_length=40)
-    refresh_rate = models.IntegerField()
+    actual_frequency_url = models.SlugField()
+    refresh_rate = models.IntegerField(help_text="in seconds")
     sort_order = models.IntegerField()
     def __getstate__(self):
         return {
@@ -70,14 +70,36 @@ class WidgetDefinition(models.Model):
             "refresh_rate": self.refresh_rate,
         }
     def __unicode__(self):
-        return "%s (%s:%s)" % (self.name, self.location.name, self.frequency.name)
+        return "%s (%s)" % (self.name, self.actual_frequency)
+    def data_last_updated(self, update=False):
+        if self._lud_cache and not update:
+            return self._lud_cache
+        lud_statdata = StatisticData.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
+        lud_listdata = StatisticListItem.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
+        self._lud_cache = max(lud_statdata, lud_listdata)
+        return self._lud_cache
     class Meta:
         unique_together = (
-            ("location", "frequency", "name"),
-            ("location", "frequency", "url"),
-            ("location", "frequency", "category", "sort_order"),
+            ("name", "actual_frequency"),
+            ("url", "actual_frequency"),
+            ("name", "actual_frequency_url"),
+            ("url", "actual_frequency_url"),
+            ("category", "sort_order"),
         )
-        ordering = ("location", "frequency", "category", "sort_order")
+        ordering = ("category", "sort_order")
+
+class WidgetDeclaration(models.Model):
+    definition = models.ForeignKey(WidgetDefinition)
+    themes = models.ManyToManyField(Theme)
+    frequency = models.ForeignKey(Frequency)
+    location = models.ForeignKey(Location)
+    def __unicode__(self):
+        return "%s (%s:%s)" % (self.definition.name, self.location.name, self.frequency.name)
+    def __getstate__(self):
+        return self.definition.__getstate__()
+    class Meta:
+        unique_together = ( ("location", "frequency", "definition"),)
+        ordering = ("location", "frequency", "definition")
 
 class TileDefinition(models.Model):
     SINGLE_MAIN_STAT = 1
@@ -98,9 +120,10 @@ class TileDefinition(models.Model):
                     (GRAPH, tile_types[GRAPH]),
                     # (MAP, tile_types[MAP]),
                 ))
-    expansion =  models.BooleanField(default=False)
-    sort_order = models.IntegerField()
-    am_pm = models.BooleanField(default=False)
+    expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
+    url = models.SlugField()
+    sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
+    am_pm = models.BooleanField(default=False, help_text="Only used for single_main_stat type tiles")
     def clean(self):
         # am_pm only for single_main_stat
         if self.tile_type != self.SINGLE_MAIN_STAT:
@@ -126,8 +149,8 @@ class TileDefinition(models.Model):
         else:
             return "%s (default tile)" % (unicode(self.widget))
     class Meta:
-        unique_together=[("widget", "sort_order")]
-        ordering=["widget", "sort_order"]
+        unique_together=[("widget", "sort_order"), ("widget", "url")]
+        ordering=["widget", "expansion", "sort_order"]
 
 class TrafficLightScale(models.Model):
     name=models.CharField(max_length=80, unique=True)
@@ -135,12 +158,14 @@ class TrafficLightScale(models.Model):
         return self.name
     def __getstate__(self):
         return [ c.__getstate__() for c in self.trafficlightscalecode_set.all() ]
+    def choices(self):
+        return [ (c.value, c.value) for c in self.trafficlightscalecode_set.all() ]
 
 class TrafficLightScaleCode(models.Model):
     scale = models.ForeignKey(TrafficLightScale)
     value = models.SlugField()
     colour = models.CharField(max_length=50)
-    sort_order = models.IntegerField()
+    sort_order = models.IntegerField(help_text='"Good" codes should have lower sort order than "Bad" codes.')
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
     def __getstate__(self):
@@ -153,6 +178,7 @@ class TrafficLightScaleCode(models.Model):
         ordering = [ "scale", "sort_order" ]
    
 class Statistic(models.Model):
+    _lud_cache = None
     STRING = 1
     NUMERIC = 2
     STRING_KVL = 3
@@ -187,6 +213,70 @@ class Statistic(models.Model):
             self.traffic_light_scale == None
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
+    def is_numeric(self):
+        return self.stat_type in (self.NUMERIC, self.NUMERIC_KVL)
+    def is_list(self):
+        return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL,
+                                self.STRING_LIST)
+    def initial_form_datum(self, sd):
+        result = {}
+        if self.is_numeric():
+            if self.num_precision == 0:
+                result["value"] = sd.intval
+            else:
+                result["value"] = sd.strval
+        else:
+            result["value"] = sd.decval
+        if self.traffic_light_scale:
+            result["traffic_light_code"] = sd.traffic_light_code.value
+        if self.trend:
+            result["trend"] = unicode(sd.trend)
+        if self.is_list():
+            if self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL):
+                result["label"] = sd.keyval
+            result["sort_order"] = sd.sort_order
+        return result
+    def get_data(self):
+        if self.is_list():
+            return StatisticListItem.objects.filter(statistic=self)
+        else:
+            try:
+                return StatisticData.objects.get(statistic=self)
+            except StatisticData.DoesNotExist:
+                return None
+    def get_data_json(self):
+        data = self.get_data()
+        if self.is_list():
+            return [] # TODO
+        json = {}
+        if data:
+            json["value"] = data.value()
+            if self.traffic_light_scale:
+                json["traffic_light"]=data.traffic_light_code.value
+            if self.trend:
+                json["trend"]=data.trend
+        return json
+    def initial_form_data(self):
+        if self.is_list():
+            return [ self.initial_form_datum(sd) for sd in self.get_data() ]
+        else:
+            sd = self.get_data()
+            if sd:
+                return self.initial_form_datum(sd)
+            else:
+                return {}
+    def data_last_updated(self, update=False):
+        if self._lud_cache and not update:
+            return self._lud_cache
+        if self.is_list():
+            self._luc_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
+        else:
+            try:
+                self._lud_cache = StatisticData.objects.get(statistic=self).last_updated
+            except StatisticData.DoesNotExist:
+                self._lud_cache = None
+                lud_statdata = None
+        return self._lud_cache
     def __getstate__(self):
         state = {
             "name": self.name,
