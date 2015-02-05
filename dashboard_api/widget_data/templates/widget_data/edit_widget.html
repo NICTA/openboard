@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Widget: {{ widget.name }} ({{ widget.actual_frequency }})</h1>
+<h2>Tile: {{ tile.url }}</h2>
+<h3>Statistic: {{ statistic.name }}</h3>
+{% if statistic.is_list %}
+{% else %}
+    <form action="{% url "edit_stat" widget_url=widget.url actual_frequency_url=widget.actual_frequency_url tile_url=statistic.tile.url stat_name=statistic.name %}" method="post">{% csrf_token %}
+    <table border="0">
+    {% for field in form %}
+        <tr>
+            <td><b>{{ field.label_tag }}</b></td>
+            <td>{{ field }}</td>
+            <td>{{ field.errors }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    <input name="submit" type="submit" value="Save" class="button"/>
+    <input name="cancel" type="submit" value="Cancel" class="button"/>
+    {% if statistic.get_data %}
+    <input name="delete" type="submit" value="Delete" class="button"
+        onclick="return confirm('Are you sure you want to delete the data for this statistic?');"
+    />
+    {% endif %}
+    </form>
+{% endif %}
+{% endblock %}
