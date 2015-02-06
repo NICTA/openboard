@@ -21,9 +21,7 @@
                     {% if stat.statistic.is_list %}
                         {{ stat.listdata.count }} list items
                     {% else %}
-                        {% if stat.statistic.is_numeric %}
-                            {{ stat.data.display_val }}
-                        {% endif %}
+                        {{ stat.data.display_val }}
                     {% endif %}
                 {% else %}<i>no data</i>{% endif %}
             </td>
@@ -35,4 +33,5 @@
         </tr>
     {% endfor %}
 </table>
+<p><a href="{% url "list_widget_data" %}">Return to List of Available Widgets</a></p>
 {% endblock %}
