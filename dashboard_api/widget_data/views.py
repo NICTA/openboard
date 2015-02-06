@@ -18,6 +18,12 @@ def user_has_edit_permission(user, widget):
     # TODO: Check permissions
     return True
 
+def clean_traffic_light_code(self):
+    data = self.cleaned_data["traffic_light_code"]
+    if data=="":
+        raise forms.ValidationError("Must set the traffic light code")
+    return data
+
 def getFormClassForStatistic(stat):
     form_fields = OrderedDict()
     field_count = 0
@@ -30,12 +36,17 @@ def getFormClassForStatistic(stat):
         else:
             form_fields["value"] = forms.DecimalField(required=True, 
                         decimal_places=stat.num_precision)
+    elif stat.stat_type == stat.AM_PM:
+        form_fields["value"] = forms.ChoiceField(required=True,
+                        choices = ( ("am", "am"), ("pm", "pm") )
+                        )
     else:
         form_fields["value"] = forms.CharField(max_length=120, required=True)
     field_count += 1
     if stat.traffic_light_scale:
-        form_fields["traffic_light_code"] = forms.ChoiceField(required=True,
-                        choices = stat.traffic_light_scale.choices())
+        form_fields["traffic_light_code"] = forms.ChoiceField(
+                        choices = stat.traffic_light_scale.choices(allow_null=True))
+        form_fields["clean_traffic_light_code"] = clean_traffic_light_code
         field_count += 1
     if stat.trend:
         form_fields["trend"] = forms.ChoiceField(required=True,
@@ -112,13 +123,43 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_name):
 
     form_class = getFormClassForStatistic(s)
     if s.is_list():
-        form_class = forms.formsets.formset_factory(form_class)
+        form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
     if request.method == 'POST':
-        if request.POST.get("submit"):
+        if request.POST.get("submit") or request.POST.get("submit_stay"):
             form = form_class(request.POST)
             if form.is_valid():
                 if s.is_list():
-                    pass
+                    StatisticListItem.objects.filter(statistic=s).delete()
+                    for subform in form:
+                        fd = subform.cleaned_data
+                        if fd and not fd.get("DELETE"):
+                            sli = StatisticListItem(statistic=s)
+                            if s.is_numeric():
+                                if s.num_precision == 0:
+                                    sli.intval = fd["value"]
+                                else:
+                                    sli.decval = fd["value"]
+                            else:
+                                sli.strval = fd["value"]
+                            if s.traffic_light_scale:
+                                try:
+                                    tlc = TrafficLightScaleCode.objects.get(scale=s.traffic_light_scale, value=fd["traffic_light_code"])
+                                except TrafficLightScaleCode.DoesNotExist:
+                                    # TODO: handle error - transactions??
+                                    tlc = None
+                                sli.traffic_light_code = tlc
+                            if s.trend:
+                                sli.trend = int(fd["trend"])
+                            if s.stat_type in (s.NUMERIC_KVL, s.STRING_KVL):
+                                sli.keyval = fd["label"]
+                            sli.sort_order = fd["sort_order"]
+                            sli.save()
+                    if request.POST.get("submit"):
+                        return redirect("view_widget_data", 
+                                widget_url=w.url, 
+                                actual_frequency_url=w.actual_frequency_url)
+                    else:
+                        form = form_class(initial=s.initial_form_data())
                 else:
                     fd = form.cleaned_data
                     sd = s.get_data()

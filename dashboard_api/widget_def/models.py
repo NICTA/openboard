@@ -76,7 +76,13 @@ class WidgetDefinition(models.Model):
             return self._lud_cache
         lud_statdata = StatisticData.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
         lud_listdata = StatisticListItem.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
-        self._lud_cache = max(lud_statdata, lud_listdata)
+        if lud_statdata is None:
+            max_date = lud_listdata
+        elif lud_listdata is None:
+            max_date = lud_statdata
+        else:   
+            max_date = max(lud_statdata, lud_listdata)
+        self._lud_cache = max_date
         return self._lud_cache
     class Meta:
         unique_together = (
@@ -123,18 +129,11 @@ class TileDefinition(models.Model):
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
-    am_pm = models.BooleanField(default=False, help_text="Only used for single_main_stat type tiles")
-    def clean(self):
-        # am_pm only for single_main_stat
-        if self.tile_type != self.SINGLE_MAIN_STAT:
-            self.am_pm = False
     def __getstate__(self):
         state = {
             "type": self.tile_types[self.tile_type],
             "expansion": unicode(self.expansion).lower()
         }
-        if self.tile_type == self.SINGLE_MAIN_STAT:
-            state["am_pm"] = unicode(self.am_pm).lower()
         if self.tile_type in (self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
         if self.tile_type == self.GRAPH:
@@ -158,8 +157,13 @@ class TrafficLightScale(models.Model):
         return self.name
     def __getstate__(self):
         return [ c.__getstate__() for c in self.trafficlightscalecode_set.all() ]
-    def choices(self):
-        return [ (c.value, c.value) for c in self.trafficlightscalecode_set.all() ]
+    def choices(self, allow_null=False):
+        if allow_null:
+            choices = [ ("", "--"), ]
+        else:
+            choices = []
+        choices.extend([ (c.value, c.value) for c in self.trafficlightscalecode_set.all() ])
+        return choices
 
 class TrafficLightScaleCode(models.Model):
     scale = models.ForeignKey(TrafficLightScale)
@@ -184,7 +188,8 @@ class Statistic(models.Model):
     STRING_KVL = 3
     NUMERIC_KVL = 4
     STRING_LIST = 5
-    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list" ]
+    AM_PM = 6
+    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.SlugField(blank=True)
     stat_type = models.SmallIntegerField(choices=(
@@ -193,6 +198,7 @@ class Statistic(models.Model):
                     (STRING_KVL, stat_types[STRING_KVL]),
                     (NUMERIC_KVL, stat_types[NUMERIC_KVL]),
                     (STRING_LIST, stat_types[STRING_LIST]),
+                    (AM_PM, stat_types[AM_PM]),
                 ))
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     trend = models.BooleanField(default=False)
@@ -209,7 +215,7 @@ class Statistic(models.Model):
             self.unit_suffix = None
             self.unit_underfix = None
             self.unit_signed = False
-        if self.stat_type == self.STRING_LIST:
+        if self.stat_type in (self.STRING_LIST, self.AM_PM):
             self.traffic_light_scale == None
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
@@ -224,9 +230,9 @@ class Statistic(models.Model):
             if self.num_precision == 0:
                 result["value"] = sd.intval
             else:
-                result["value"] = sd.strval
+                result["value"] = sd.decval
         else:
-            result["value"] = sd.decval
+            result["value"] = sd.strval
         if self.traffic_light_scale:
             result["traffic_light_code"] = sd.traffic_light_code.value
         if self.trend:
@@ -247,14 +253,19 @@ class Statistic(models.Model):
     def get_data_json(self):
         data = self.get_data()
         if self.is_list():
-            return [] # TODO
+            return [ self.jsonise(datum) for datum in data ]
+        else:
+            return jsonise(data)
+    def jsonise(self, datum):
         json = {}
-        if data:
-            json["value"] = data.value()
+        if datum:
+            json["value"] = datum.value()
+            if self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL):
+                json["label"]=datum.keyval
             if self.traffic_light_scale:
-                json["traffic_light"]=data.traffic_light_code.value
+                json["traffic_light"]=datum.traffic_light_code.value
             if self.trend:
-                json["trend"]=data.trend
+                json["trend"]=datum.trend
         return json
     def initial_form_data(self):
         if self.is_list():
@@ -269,7 +280,7 @@ class Statistic(models.Model):
         if self._lud_cache and not update:
             return self._lud_cache
         if self.is_list():
-            self._luc_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
+            self._lud_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
         else:
             try:
                 self._lud_cache = StatisticData.objects.get(statistic=self).last_updated

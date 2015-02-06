@@ -38,7 +38,7 @@ class StatisticData(models.Model):
         return "<Data for %s>" % unicode(self.statistic)
 
 class StatisticListItem(models.Model):
-    statistic = models.ForeignKey("widget_def.Statistic", unique=True)
+    statistic = models.ForeignKey("widget_def.Statistic")
     keyval = models.CharField(max_length=120, null=True, blank=True)
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,
@@ -59,6 +59,15 @@ class StatisticListItem(models.Model):
             else:
                 ctx = Context(rounding=ROUND_HALFUP)
                 return unicode(self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ctx))
+        else:
+            return self.strval
+    def value(self):
+        if self.statistic.is_numeric():
+            if self.statistic.num_precision == 0:
+                return self.intval
+            else:
+                ctx = Context(rounding=ROUND_HALFUP)
+                return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ctx)
         else:
             return self.strval
     def __unicode__(self):

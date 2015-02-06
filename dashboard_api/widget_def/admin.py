@@ -57,7 +57,7 @@ class StatisticInline(admin.StackedInline):
 @admin.register(TileDefinition)
 class TileAdmin(admin.ModelAdmin):
     inlines = [StatisticInline]
-    list_display = ('widget', 'expansion', 'sort_order')
+    list_display = ('url', 'widget', 'expansion', 'sort_order')
     filter_verticali = ('widget',)
     
 
