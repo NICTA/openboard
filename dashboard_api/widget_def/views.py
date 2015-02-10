@@ -1,16 +1,25 @@
 import json
+import decimal
+
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
+
 from widget_def.models import *
 
 # View utility methods
 
+class DecimalAwareEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, decimal.Decimal):
+            return float(o)
+        return super(DecimalAwareEncoder, self).default(o)
+
 def json_list(request, data):
     fmt = request.GET.get("format", "json")
     if fmt == "html":
-        dump = json.dumps(data, indent=4)
+        dump = json.dumps(data, indent=4, cls=DecimalAwareEncoder)
         return render(request, "json_api.html", { 'data': dump })
-    dump = json.dumps(data, separators=(',',':'))
+    dump = json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
     return HttpResponse(dump, content_type='application/json')
 
 def get_theme_from_request(request, use_default=False):

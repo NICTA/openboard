@@ -45,9 +45,19 @@ class Category(models.Model):
     class Meta:
         ordering=("sort_order",)
 
+class Subcategory(models.Model):
+    category = models.ForeignKey(Category)
+    name = models.CharField(max_length=60)
+    sort_order = models.IntegerField()
+    def __unicode__(self):
+        return "%s:%s" % (self.category.name, self.name)
+    class Meta:
+        unique_together=(('category', 'name'), ('category', 'sort_order'))
+        ordering= ('category', 'sort_order')
+ 
 class WidgetDefinition(models.Model):
     _lud_cache = None
-    category = models.ForeignKey(Category)
+    subcategory = models.ForeignKey(Subcategory)
     name = models.CharField(max_length=60)
     url  = models.SlugField()
     expansion_hint = models.CharField(max_length=80)
@@ -58,7 +68,8 @@ class WidgetDefinition(models.Model):
     sort_order = models.IntegerField()
     def __getstate__(self):
         return {
-            "category": self.category.name,
+            "category": self.subcategory.category.name,
+            "subcategory": self.subcategory.name,
             "name": self.name,
             "url": self.url,
             "display": {
@@ -90,9 +101,9 @@ class WidgetDefinition(models.Model):
             ("url", "actual_frequency"),
             ("name", "actual_frequency_url"),
             ("url", "actual_frequency_url"),
-            ("category", "sort_order"),
+            ("subcategory", "sort_order"),
         )
-        ordering = ("category", "sort_order")
+        ordering = ("subcategory", "sort_order")
 
 class WidgetDeclaration(models.Model):
     definition = models.ForeignKey(WidgetDefinition)
@@ -151,6 +162,36 @@ class TileDefinition(models.Model):
         unique_together=[("widget", "sort_order"), ("widget", "url")]
         ordering=["widget", "expansion", "sort_order"]
 
+class IconLibrary(models.Model):
+    name=models.SlugField(unique=True)
+    def __unicode__(self):
+        return self.name
+    def __getstate__(self):
+        return [ c.__getstate__() for c in self.iconcode_set.all() ]
+    def choices(self, allow_null=False):
+        if allow_null:
+            choices = [ ("", "--"), ]
+        else:
+            choices = []
+        choices.extend([ (c.value, c.value) for c in self.iconcode_set.all() ])
+        return choices
+
+class IconCode(models.Model):
+    scale=models.ForeignKey(IconLibrary)
+    value=models.SlugField()
+    description=models.CharField(max_length=80)
+    sort_order=models.IntegerField()
+    def __unicode__(self):
+        return "%s:%s" % (self.scale.name, self.value)
+    def __getstate__(self):
+        return {
+            "value": self.value,
+            "alt_text": self.description
+        }
+    class Meta:
+        unique_together=[ ("scale", "value"), ("scale", "sort_order") ]
+        ordering = [ "scale", "sort_order" ]
+ 
 class TrafficLightScale(models.Model):
     name=models.CharField(max_length=80, unique=True)
     def __unicode__(self):
@@ -191,7 +232,9 @@ class Statistic(models.Model):
     AM_PM = 6
     stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" ]
     tile = models.ForeignKey(TileDefinition)
-    name = models.SlugField(blank=True)
+    name = models.CharField(max_length=80, blank=True)
+    url = models.SlugField()
+    name_as_label=models.BooleanField(default=True)
     stat_type = models.SmallIntegerField(choices=(
                     (STRING, stat_types[STRING]),
                     (NUMERIC, stat_types[NUMERIC]),
@@ -201,6 +244,7 @@ class Statistic(models.Model):
                     (AM_PM, stat_types[AM_PM]),
                 ))
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
+    icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
     trend = models.BooleanField(default=False)
     num_precision = models.SmallIntegerField(blank=True, null=True)
     unit_prefix = models.CharField(max_length="10", blank=True, null=True)
@@ -216,7 +260,10 @@ class Statistic(models.Model):
             self.unit_underfix = None
             self.unit_signed = False
         if self.stat_type in (self.STRING_LIST, self.AM_PM):
-            self.traffic_light_scale == None
+            self.traffic_light_scale = None
+            self.icon_library = None
+        if self.is_list():
+            name_as_label=True
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
     def is_numeric(self):
@@ -235,12 +282,16 @@ class Statistic(models.Model):
             result["value"] = sd.strval
         if self.traffic_light_scale:
             result["traffic_light_code"] = sd.traffic_light_code.value
+        if self.icon_library:
+            result["icon_code"] = sd.icon_code.value
         if self.trend:
             result["trend"] = unicode(sd.trend)
         if self.is_list():
             if self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL):
                 result["label"] = sd.keyval
             result["sort_order"] = sd.sort_order
+        elif not self.name_as_label:
+            result["label"] = sd.label
         return result
     def get_data(self):
         if self.is_list():
@@ -255,15 +306,19 @@ class Statistic(models.Model):
         if self.is_list():
             return [ self.jsonise(datum) for datum in data ]
         else:
-            return jsonise(data)
+            return self.jsonise(data)
     def jsonise(self, datum):
         json = {}
         if datum:
             json["value"] = datum.value()
             if self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL):
                 json["label"]=datum.keyval
+            elif not self.name_as_label:
+                json["label"]=datum.label
             if self.traffic_light_scale:
                 json["traffic_light"]=datum.traffic_light_code.value
+            if self.icon_library:
+                json["icon"]=datum.icon_code.value
             if self.trend:
                 json["trend"]=datum.trend
         return json
@@ -291,6 +346,8 @@ class Statistic(models.Model):
     def __getstate__(self):
         state = {
             "name": self.name,
+            "name_as_label": str(self.name_as_label).lower(),
+            "url": self.url,
             "type": self.stat_types[self.stat_type]
         }
         if self.stat_type in ( self.NUMERIC, self.NUMERIC_KVL ):
@@ -310,8 +367,12 @@ class Statistic(models.Model):
                 state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
             else:
                 state["traffic_light_scale"] = None
+            if self.icon_library:
+                state["icon_library"] = self.icon_library.__getstate__()
+            else:
+                state["icon_library"] = None
         return state
     class Meta:
-        unique_together = [("tile", "name")]
+        unique_together = [("tile", "name"), ("tile", "url")]
         ordering = [ "tile", "sort_order" ]
 

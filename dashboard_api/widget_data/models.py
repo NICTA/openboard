@@ -1,15 +1,17 @@
-from decimal import Decimal, Context
+from decimal import Decimal, ROUND_HALF_UP
 from django.db import models
 
 # Create your models here.
 
 class StatisticData(models.Model):
     statistic = models.ForeignKey("widget_def.Statistic", unique=True)
+    label=models.CharField(max_length=80, blank=True, null=True)
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,
                         blank=True, null=True)
     strval = models.CharField(max_length=120, null=True, blank=True)
     traffic_light_code = models.ForeignKey("widget_def.TrafficLightScaleCode", blank=True, null=True)
+    icon_code = models.ForeignKey("widget_def.IconCode", blank=True, null=True)
     trend = models.SmallIntegerField(choices=(
                     (1, "Upwards"),
                     (0, "Steady"),
@@ -21,8 +23,7 @@ class StatisticData(models.Model):
             if self.statistic.num_precision == 0:
                 return unicode(self.intval)
             else:
-                ctx = Context(rounding=ROUND_HALFUP)
-                return unicode(self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ctx))
+                return unicode(self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP))
         else:
             return self.strval
     def value(self):
@@ -30,8 +31,7 @@ class StatisticData(models.Model):
             if self.statistic.num_precision == 0:
                 return self.intval
             else:
-                ctx = Context(rounding=ROUND_HALFUP)
-                return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ctx)
+                return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP)
         else:
             return self.strval
     def __unicode__(self):
@@ -45,6 +45,7 @@ class StatisticListItem(models.Model):
                         blank=True, null=True)
     strval = models.CharField(max_length=120, null=True, blank=True)
     traffic_light_code = models.ForeignKey("widget_def.TrafficLightScaleCode", blank=True, null=True)
+    icon_code = models.ForeignKey("widget_def.IconCode", blank=True, null=True)
     trend = models.SmallIntegerField(choices=(
                     (1, "Upwards"),
                     (0, "Steady"),
@@ -57,8 +58,7 @@ class StatisticListItem(models.Model):
             if self.statistic.num_precision == 0:
                 return unicode(self.intval)
             else:
-                ctx = Context(rounding=ROUND_HALFUP)
-                return unicode(self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ctx))
+                return unicode(self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP))
         else:
             return self.strval
     def value(self):
@@ -66,8 +66,7 @@ class StatisticListItem(models.Model):
             if self.statistic.num_precision == 0:
                 return self.intval
             else:
-                ctx = Context(rounding=ROUND_HALFUP)
-                return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ctx)
+                return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP)
         else:
             return self.strval
     def __unicode__(self):

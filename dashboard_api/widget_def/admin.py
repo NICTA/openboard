@@ -15,9 +15,13 @@ class LocationAdmin(admin.ModelAdmin):
 class FrequencyAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'sort_order')
 
+class SubcategoryAdminInline(admin.TabularInline):
+    model = Subcategory
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'sort_order')
+    inlines = [ SubcategoryAdminInline ]
 
 class TrafficLightScaleCodeAdminInline(admin.TabularInline):
     model = TrafficLightScaleCode
@@ -26,6 +30,14 @@ class TrafficLightScaleCodeAdminInline(admin.TabularInline):
 class TrafficLightScaleAdmin(admin.ModelAdmin):
     list_display = ('name',)
     inlines = [ TrafficLightScaleCodeAdminInline ]
+
+class IconCodeAdminInline(admin.TabularInline):
+    model = IconCode
+
+@admin.register(IconLibrary)
+class IconLibraryAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    inlines = [ IconCodeAdminInline ]
 
 class TileInline(admin.TabularInline):
     model = TileDefinition
@@ -38,14 +50,14 @@ class DeclarationInline(admin.TabularInline):
 @admin.register(WidgetDefinition)
 class WidgetAdmin(admin.ModelAdmin):
     inlines = [DeclarationInline, TileInline]
-    list_display = ('name', 'url', 'actual_frequency', 'category', 'sort_order')
+    list_display = ('name', 'url', 'actual_frequency', 'subcategory', 'sort_order')
 
 class StatisticInline(admin.StackedInline):
     model = Statistic
     extra = 2
     fieldsets = (
             (None, {
-                'fields': ('name', 'stat_type', 'traffic_light_scale', 'trend', 'sort_order'),
+                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'icon_library', 'trend', 'sort_order'),
             }),
             ('Numeric', {
                 'fields': ('num_precision', 'unit_prefix', 'unit_suffix', 'unit_underfix', 'unit_signed'),
