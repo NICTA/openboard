@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^data/$', 'widget_data.views.list_widgets', name='list_widget_data'),
     url(r'^data/(?P<widget_url>[^/]+)/(?P<actual_frequency_url>[^/]+)$', 
                         'widget_data.views.view_widget', name="view_widget_data"),
-    url(r'^data/(?P<widget_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<tile_url>[^/]+)/(?P<stat_name>[^/]*)$', 
+    url(r'^data/(?P<widget_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<tile_url>[^/]+)/(?P<stat_url>[^/]*)$', 
                         'widget_data.views.edit_stat', name="edit_stat"),
 
     url(r'^admin/', include(admin.site.urls)),

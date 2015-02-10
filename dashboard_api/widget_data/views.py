@@ -4,7 +4,7 @@ from django.http import HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django import forms
 
-from widget_def.models import WidgetDeclaration, WidgetDefinition, Statistic, TrafficLightScaleCode
+from widget_def.models import WidgetDeclaration, WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode
 from widget_data.models import StatisticData, StatisticListItem
 from widget_def.views import json_list, get_location_from_request, get_frequency_from_request
 
@@ -24,11 +24,20 @@ def clean_traffic_light_code(self):
         raise forms.ValidationError("Must set the traffic light code")
     return data
 
+def clean_icon_code(self):
+    data = self.cleaned_data["icon_code"]
+    if data=="":
+        raise forms.ValidationError("Must set the icon code")
+    return data
+
 def getFormClassForStatistic(stat):
     form_fields = OrderedDict()
     field_count = 0
     if stat.stat_type in (Statistic.STRING_KVL, Statistic.NUMERIC_KVL):
         form_fields["label"] = forms.CharField(required=True, max_length=120)
+        field_count += 1
+    elif not stat.name_as_label:
+        form_fields["label"] = forms.CharField(required=True, max_length=80)
         field_count += 1
     if stat.is_numeric():
         if stat.num_precision == 0:
@@ -47,6 +56,11 @@ def getFormClassForStatistic(stat):
         form_fields["traffic_light_code"] = forms.ChoiceField(
                         choices = stat.traffic_light_scale.choices(allow_null=True))
         form_fields["clean_traffic_light_code"] = clean_traffic_light_code
+        field_count += 1
+    if stat.icon_library:
+        form_fields["icon_code"] = forms.ChoiceField(
+                        choices = stat.icon_library.choices(allow_null=True))
+        form_fields["clean_icon_code"] = clean_icon_code
         field_count += 1
     if stat.trend:
         form_fields["trend"] = forms.ChoiceField(required=True,
@@ -74,7 +88,7 @@ def get_widget_data(request, widget_url):
         return HttpResponseNotFound("This Widget does not exist")
     json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget.definition):
-        json[statistic.name] = statistic.get_data_json()
+        json[statistic.url] = statistic.get_data_json()
     return json_list(request, json)
 
 def list_widgets(request):
@@ -109,7 +123,7 @@ def view_widget(request, widget_url, actual_frequency_url):
             "stats": stats,
             })
 
-def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_name):
+def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
     try:
         w = WidgetDefinition.objects.get(url=widget_url, actual_frequency_url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
@@ -117,7 +131,7 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_name):
     if not user_has_edit_permission(request.user, w):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
     try:
-        s = Statistic.objects.get(tile__widget=w, tile__url=tile_url, name=stat_name)
+        s = Statistic.objects.get(tile__widget=w, tile__url=tile_url, url=stat_url)
     except Statistic.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
 
@@ -172,6 +186,8 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_name):
                             sd.decval = fd["value"]
                     else:
                         sd.strval = fd["value"]
+                    if not s.name_as_label:
+                        sd.label = fd["label"]
                     if s.traffic_light_scale:
                         try:
                             tlc = TrafficLightScaleCode.objects.get(scale=s.traffic_light_scale, value=fd["traffic_light_code"])
@@ -179,6 +195,13 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_name):
                             # TODO: handle error
                             tlc = None
                         sd.traffic_light_code = tlc
+                    if s.icon_library:
+                        try:
+                            icon = IconCode.objects.get(scale=s.icon_library, value=fd["icon_code"])
+                        except IconCode.DoesNotExist:
+                            # TODO: handle error
+                            icon = None
+                        sd.icon_code = icon
                     if s.trend:
                         sd.trend = int(fd["trend"])
                     sd.save()

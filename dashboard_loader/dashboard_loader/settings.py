@@ -1,5 +1,5 @@
 """
-Django settings for dashboard_api project.
+Django settings for dashboard_loader project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -17,18 +17,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k_&ywy8shj9!_zsyvlr1+z25z_8e9_t1m1c+qi9lp3tqn^a-fo'
+SECRET_KEY = 'les^szd_%a)i5wy8j#8_2wl$3u5a$ih38^$$a)x-6793j9bm1@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-
-TEMPLATE_LOADERS = ('django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    )
-TEMPLATE_DIRS = (
-)
 
 ALLOWED_HOSTS = []
 
@@ -36,15 +30,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'dashboard_api',
+    'dashboard_loader',
     'widget_def',
     'widget_data',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'bom_loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,9 +46,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'dashboard_api.urls'
+ROOT_URLCONF = 'dashboard_loader.urls'
 
-WSGI_APPLICATION = 'dashboard_api.wsgi.application'
+WSGI_APPLICATION = 'dashboard_loader.wsgi.application'
 
 
 # Database
@@ -88,18 +77,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-LOCALROOT = os.path.dirname(os.path.abspath(__file__)) + "/.."
-
-STATIC_ROOT = LOCALROOT + '/static'
-STATICFILES_DIRS = (
-        LOCALROOT + '/dashboard_api/static',
-        )
-STATICFILES_FINDERS = (
-        'django.contrib.staticfiles.finders.FileSystemFinder',
-        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-        )
-STATIC_URL = '/static/'
 
