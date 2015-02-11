@@ -185,6 +185,7 @@ class IconCode(models.Model):
         return "%s:%s" % (self.scale.name, self.value)
     def __getstate__(self):
         return {
+            "library": self.scale.name,
             "value": self.value,
             "alt_text": self.description
         }
@@ -318,7 +319,7 @@ class Statistic(models.Model):
             if self.traffic_light_scale:
                 json["traffic_light"]=datum.traffic_light_code.value
             if self.icon_library:
-                json["icon"]=datum.icon_code.value
+                json["icon"]=datum.icon_code.__getstate__()
             if self.trend:
                 json["trend"]=datum.trend
         return json
@@ -368,7 +369,7 @@ class Statistic(models.Model):
             else:
                 state["traffic_light_scale"] = None
             if self.icon_library:
-                state["icon_library"] = self.icon_library.__getstate__()
+                state["icon_library"] = self.icon_library.name
             else:
                 state["icon_library"] = None
         return state

@@ -3,7 +3,6 @@ import decimal
 
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
-
 from widget_def.models import *
 
 # View utility methods
@@ -67,6 +66,10 @@ def get_locations(request):
 
 def get_frequencies(request):
     data = [ f.__getstate__() for f in Frequency.objects.all() ]
+    return json_list(request, data)
+
+def get_icon_libraries(request):
+    data = { l.name : l.__getstate__() for l in IconLibrary.objects.all() }
     return json_list(request, data)
 
 def get_widgets(request):
