@@ -11,6 +11,8 @@ from dashboard_loader.loader_utils import LoaderException, update_loader, set_st
 # refresh_rate = 60*15
 refresh_rate = 1
 
+# From  http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=36&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=066062
+# Should be updated every now and then.
 monthly_avg_temp = [
     25.9, 25.8, 24.8, 
     22.4, 19.5, 17.0, 
@@ -56,7 +58,7 @@ def set_short_forecast(forecast_period, maxstat, minstat, forecast_stat, label=N
     return icon
 
 def update_data(loader, verbosity=0, logger=None):
-    update_forecasts()
+    update_forecasts(verbosity, logger)
     update_current_temp()
 
 def update_current_temp():
@@ -91,7 +93,7 @@ def update_current_temp():
     buf.close()
     raise LoaderException("No observations data for Sydney available")
 
-def update_forecasts():
+def update_forecasts(verbosity, logger):
     # Forecasts
     ftp = FTP('ftp2.bom.gov.au')
     ftp.login()
@@ -139,6 +141,10 @@ def update_forecasts():
             else:
                 continue
     if long_forecast and long_forecast_icon:
+        if verbosity >= 3:
+            print >> logger, "Long forecast %d characters: <%s>" % (
+                                        len(long_forecast),
+                                        long_forecast)
         set_statistic_data("weather", "rt", "today_long_forecast", long_forecast, icon_code=long_forecast_icon)
     else:
         clear_statistic_data("weather", "rt", "today_long_forecast")

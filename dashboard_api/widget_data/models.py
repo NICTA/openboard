@@ -9,7 +9,7 @@ class StatisticData(models.Model):
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,
                         blank=True, null=True)
-    strval = models.CharField(max_length=200, null=True, blank=True)
+    strval = models.CharField(max_length=400, null=True, blank=True)
     traffic_light_code = models.ForeignKey("widget_def.TrafficLightScaleCode", blank=True, null=True)
     icon_code = models.ForeignKey("widget_def.IconCode", blank=True, null=True)
     trend = models.SmallIntegerField(choices=(
@@ -43,7 +43,7 @@ class StatisticListItem(models.Model):
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,
                         blank=True, null=True)
-    strval = models.CharField(max_length=200, null=True, blank=True)
+    strval = models.CharField(max_length=400, null=True, blank=True)
     traffic_light_code = models.ForeignKey("widget_def.TrafficLightScaleCode", blank=True, null=True)
     icon_code = models.ForeignKey("widget_def.IconCode", blank=True, null=True)
     trend = models.SmallIntegerField(choices=(

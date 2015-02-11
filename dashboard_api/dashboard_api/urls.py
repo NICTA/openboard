@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^api/locations/$', 'widget_def.views.get_locations', name='get_locations'),
     url(r'^api/frequencies/$', 'widget_def.views.get_frequencies', name='get_frequencies'),
     url(r'^api/widgets/$', 'widget_def.views.get_widgets', name='get_frequencies'),
+    url(r'^api/icons/$', 'widget_def.views.get_icon_libraries', name='get_icon_libraries'),
 
     url(r'^api/widgets/(?P<widget_url>[^/]+)$', 'widget_data.views.get_widget_data', name='get_widget_data'),
 
