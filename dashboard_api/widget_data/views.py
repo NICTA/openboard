@@ -50,7 +50,7 @@ def getFormClassForStatistic(stat):
                         choices = ( ("am", "am"), ("pm", "pm") )
                         )
     else:
-        form_fields["value"] = forms.CharField(max_length=120, required=True)
+        form_fields["value"] = forms.CharField(max_length=200, required=True)
     field_count += 1
     if stat.traffic_light_scale:
         form_fields["traffic_light_code"] = forms.ChoiceField(
