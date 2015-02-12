@@ -71,7 +71,7 @@ DATABASES = {
         'NAME': 'dashboard',
         'USER': 'dashboard',
         'PASSWORD': 'h3av3n0nast1ck',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
     }
 }
 
