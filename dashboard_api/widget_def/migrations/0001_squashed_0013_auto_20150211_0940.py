@@ -6,8 +6,6 @@ from django.db import models, migrations
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'widget_def', '0001_initial'), (b'widget_def', '0002_auto_20150203_0002'), (b'widget_def', '0003_auto_20150203_0253'), (b'widget_def', '0004_auto_20150204_0249'), (b'widget_def', '0005_auto_20150204_0351'), (b'widget_def', '0006_auto_20150204_0404'), (b'widget_def', '0007_auto_20150204_0406'), (b'widget_def', '0008_auto_20150205_2334'), (b'widget_def', '0009_auto_20150210_1442'), (b'widget_def', '0010_auto_20150211_0901'), (b'widget_def', '0011_auto_20150211_0908'), (b'widget_def', '0012_auto_20150211_0936'), (b'widget_def', '0013_auto_20150211_0940')]
-
     dependencies = [
     ]
 
