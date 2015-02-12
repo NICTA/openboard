@@ -350,15 +350,15 @@ class Migration(migrations.Migration):
             name='subcategory',
             unique_together=set([('category', 'sort_order'), ('category', 'name')]),
         ),
-        migrations.AlterModelOptions(
-            name='widgetdefinition',
-            options={'ordering': ('subcategory', 'sort_order')},
-        ),
         migrations.AddField(
             model_name='widgetdefinition',
             name='subcategory',
             field=models.ForeignKey(default=1, to='widget_def.Subcategory'),
             preserve_default=False,
+        ),
+        migrations.AlterModelOptions(
+            name='widgetdefinition',
+            options={'ordering': ('subcategory', 'sort_order')},
         ),
         migrations.AlterUniqueTogether(
             name='widgetdefinition',
