@@ -1,6 +1,8 @@
 #/bin/bash
 
-source ./setpythonpath.sh
+cd /home/phaesler/src/dashboard/dashboard_loader
+
+. ./setpythonpath.sh
 
 if [ $1 ]
 then

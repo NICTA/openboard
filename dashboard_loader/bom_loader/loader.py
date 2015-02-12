@@ -8,8 +8,8 @@ import xml.etree.ElementTree as ET
 from dashboard_loader.loader_utils import LoaderException, update_loader, set_statistic_data, clear_statistic_data,get_icon, get_statistic
 
 # Refresh data every 15 minutes
-# refresh_rate = 60*15
-refresh_rate = 1
+refresh_rate = 60*15
+# refresh_rate = 1
 
 # From  http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=36&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=066062
 # Should be updated every now and then.
@@ -19,6 +19,8 @@ monthly_avg_temp = [
     16.3, 17.8, 20.0, 
     22.1, 23.6, 25.2,
 ]
+
+# Icon examples here: http://www.bom.gov.au/info/forecast_icons.shtml
 
 def xmldateparse(ds):
     return datetime.date(int(ds[0:4]), int(ds[5:7]), int(ds[8:10]))
