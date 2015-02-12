@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('last_updated', models.DateTimeField(auto_now=True)),
                 ('statistic', models.ForeignKey(to='widget_def.Statistic')),
                 ('traffic_light_code', models.ForeignKey(blank=True, to='widget_def.TrafficLightScaleCode', null=True)),
-                ('icon_code', field=models.ForeignKey(blank=True, to='widget_def.IconCode', null=True)),
+                ('icon_code', models.ForeignKey(blank=True, to='widget_def.IconCode', null=True)),
             ],
             options={
                 'ordering': ('statistic', 'sort_order'),
