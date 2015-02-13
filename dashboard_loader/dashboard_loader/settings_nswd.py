@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '.nsw-dashboard.research.nicta.com.au', '.nsw-dashboard.research.nicta.com.au.' ]
 
 
 # Application definition
