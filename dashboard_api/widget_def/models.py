@@ -66,6 +66,24 @@ class WidgetDefinition(models.Model):
     actual_frequency_url = models.SlugField()
     refresh_rate = models.IntegerField(help_text="in seconds")
     sort_order = models.IntegerField()
+    def validate(self):
+        """Validate Widget Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
+        problems = []
+        if self.widgetdeclaration_set.all().count() == 0:
+            problems.append("Widget %s has no declarations" % self.url)
+        default_tiles = self.tiledefinition_set.filter(expansion=False).count()
+        if default_tiles != 1:
+            problems.append("Widget %s has %d default (non-expansion) tiles - must have one and only one" % (self.url, default_tiles))
+        tiles = self.tiledefinition_set.all()
+        stat_urls = {}
+        for stat in Statistic.objects.filter(tile__widget=self):
+            if stat.url in stat_urls:
+                problems.append("Widget %s has two statistics with url '%s' (in tiles %s and %s)" % (self.url, stat.url, stat.tile.url, stat_urls[stat.url]))
+            else:
+                stat_urls[stat.url] = stat.tile.url
+        for tile in tiles:
+            problems.extend(tile.validate())
+        return problems
     def __getstate__(self):
         return {
             "category": self.subcategory.category.name,
@@ -140,6 +158,7 @@ class TileDefinition(models.Model):
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
+    # graph_def, map_def
     def __getstate__(self):
         state = {
             "type": self.tile_types[self.tile_type],
@@ -152,7 +171,46 @@ class TileDefinition(models.Model):
         if self.tile_type == self.MAP:
             pass # TODO
         return state
-    # graph_def, map_def
+    def validate(self):
+        """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
+        problems = []
+        # Number of statistics
+        min_stat_count = 0
+        max_stat_count = 20
+        if self.tile_type == self.SINGLE_MAIN_STAT:
+            min_stat_count = 1
+        elif self.tile_type in (self.DOUBLE_MAIN_STAT,
+                            self.PRIORITY_LIST, self.URGENCY_LIST):
+            min_stat_count = 2
+        elif self.tile_type in (self.LIST_OVERFLOW, self.GRAPH, self.MAP):
+            max_stat_count = 0
+        num_stats = self.statistic_set.all().count()
+        if num_stats < min_stat_count:
+            problems.append("Tile %s of Widget %s has %d statistics defined (minimum: %d)" % (self.url, self.widget.url, num_stats, min_stat_count))
+        if num_stats > max_stat_count:
+            problems.append("Tile %s of Widget %s has %d statistics defined (maximum: %d)" % (self.url, self.widget.url, num_stats, max_stat_count))
+        # List overflow rules
+        if self.tile_type == self.LIST_OVERFLOW:
+            if not self.expansion:
+                problems.append("Tile %s of Widget %s is of type List Overflow but is not an expansion tile" % (self.url, self.widget.url))
+            else:
+                try:
+                    default_tile = self.widget.tiledefinition_set.get(expansion=False)
+                    if default_tile.tile_type not in (self.PRIORITY_LIST, self.URGENCY_LIST):
+                        problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url))
+                except (TileDefinition.DoesNotExist, 
+                        TileDefinition.MultipleObjectsReturned):
+                    # Should already have been reported as an error higher up
+                    pass
+        # List tile should not have list statistics
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+            for stat in self.statistic_set.all():
+                if stat.is_list():
+                    problems.append("Tile %s of Widget %s is a list tile and contains statistic %s, which is a list statistic. (Cannot have lists of lists)." % (self.url, self.widget.url, stat.url))
+        # Validate all stats.
+        for stat in self.statistic_set.all():
+            problems.extend(stat.validate())
+        return problems
     def __unicode__(self):
         if self.expansion:
             return "%s (expansion tile %d)" % (unicode(self.widget), self.sort_order)
@@ -254,7 +312,7 @@ class Statistic(models.Model):
     unit_signed = models.BooleanField(default=False)
     sort_order = models.IntegerField()
     def clean(self):
-        if self.stat_type not in (self.NUMERIC, self.NUMERIC_KVL):
+        if not self.is_numeric():
             self.num_precision = None
             self.unit_prefix = None
             self.unit_suffix = None
@@ -265,6 +323,17 @@ class Statistic(models.Model):
             self.icon_library = None
         if self.is_list():
             name_as_label=True
+    def validate(self):
+        """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
+        self.clean()
+        self.save()
+        problems = []
+        if self.is_numeric():
+            if self.num_precision is None:
+                problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url))
+            elif self.num_precision < 0:
+                problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url))
+        return problems
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
     def is_numeric(self):
