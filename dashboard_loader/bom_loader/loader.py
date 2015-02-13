@@ -59,9 +59,10 @@ def set_short_forecast(forecast_period, maxstat, minstat, forecast_stat, label=N
     set_statistic_data("weather", "rt", forecast_stat, forecast, icon_code=icon, label=label)
     return icon
 
-def update_data(loader, verbosity=0, logger=None):
-    update_forecasts(verbosity, logger)
+def update_data(loader, verbosity=0):
+    messages = update_forecasts(verbosity)
     update_current_temp()
+    return messages
 
 def update_current_temp():
     ftp = FTP('ftp2.bom.gov.au')
@@ -95,7 +96,9 @@ def update_current_temp():
     buf.close()
     raise LoaderException("No observations data for Sydney available")
 
-def update_forecasts(verbosity, logger):
+def update_forecasts(verbosity):
+    messages = []
+
     # Forecasts
     ftp = FTP('ftp2.bom.gov.au')
     ftp.login()
@@ -144,9 +147,9 @@ def update_forecasts(verbosity, logger):
                 continue
     if long_forecast and long_forecast_icon:
         if verbosity >= 3:
-            print >> logger, "Long forecast %d characters: <%s>" % (
+            messages.append("Long forecast %d characters: <%s>" % (
                                         len(long_forecast),
-                                        long_forecast)
+                                        long_forecast))
         set_statistic_data("weather", "rt", "today_long_forecast", long_forecast, icon_code=long_forecast_icon)
     else:
         clear_statistic_data("weather", "rt", "today_long_forecast")
@@ -155,4 +158,4 @@ def update_forecasts(verbosity, logger):
     climate_delta = decimal.Decimal(stat) - decimal.Decimal(monthly_avg_temp[today.month-1])
     trend = int(climate_delta.compare(decimal.Decimal("0")))
     set_statistic_data("weather", "rt", "seasonal_average", climate_delta, trend=trend)
-    return
+    return messages
