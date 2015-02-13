@@ -3,6 +3,7 @@ from django.db import models
 class Loader(models.Model):
     app = models.CharField(max_length=80, unique=True)
     refresh_rate=models.IntegerField()
+    suspended=models.BooleanField(default=False)
     last_loaded=models.DateTimeField(null=True, blank=True)
     locked_by=models.IntegerField(null=True, blank=True)
     def __unicode__(self):
