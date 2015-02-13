@@ -30,7 +30,7 @@ TEMPLATE_LOADERS = ('django.template.loaders.filesystem.Loader',
 TEMPLATE_DIRS = (
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '.nsw-dashboard.research.nicta.com.au' , '.nsw-dashboard.research.nicta.com.au.' ]
 
 
 # Application definition
