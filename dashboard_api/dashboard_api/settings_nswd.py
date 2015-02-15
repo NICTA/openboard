@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'dashboard_api',
     'widget_def',
     'widget_data',
-    'coresheaders',
+    'corsheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
