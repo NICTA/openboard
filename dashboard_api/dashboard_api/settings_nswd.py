@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'dashboard_api',
     'widget_def',
     'widget_data',
+    'coresheaders',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -48,6 +49,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -73,6 +75,24 @@ DATABASES = {
         'HOST': '127.0.0.1',
     }
 }
+
+# CORS
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# If not allowing all, use whitelist:
+# CORS_ORIGIN_WHITELIST = ('hostname.domain.com', 'foo.bar.com.au',)
+# or regex_whitelists:
+# CORS_ORIGIN_REGEX_WHITELIST = ('^(https?://)?(\w+\.)?google\.com$', )
+
+# Can restrict methods.  Default is all methods.
+# CORS_ALLOW_METHODS= ('GET', )
+
+# CORS_ALLOW_CREDENTIALS: specify whether or not cookies are allowed to be included in cross-site HTTP requests (CORS).  Default: False
+# CORS_ALLOW_CREDENTIALS = True
+
+# See https://github.com/ottoyiu/django-cors-headers/blob/master/README.md
+# for other CORS options.
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
