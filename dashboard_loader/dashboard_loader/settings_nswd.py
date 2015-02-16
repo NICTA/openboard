@@ -92,6 +92,9 @@ CELERYBEAT_SCHEDULE = {
     },
 }
 
+LOGIN_URL = "/data/login"
+LOGOUT_URL = "/data/logout"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 LOCALROOT = os.path.dirname(os.path.abspath(__file__)) + "/.."

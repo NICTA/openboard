@@ -7,7 +7,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     # Views for manually maintaining data
-    url(r'^widgets$', 'dashboard_loader.views.list_widgets', name='list_widget_data'),
+    url(r'^login$', 'dashboard_loader.views.login_view', name='login'),
+    url(r'^logout$', 'dashboard_loader.views.logout_view', name='logout'),
+    url(r'^$', 'dashboard_loader.views.list_widgets', name='list_widget_data'),
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<actual_frequency_url>[^/]+)$', 
                         'dashboard_loader.views.view_widget', name="view_widget_data"),
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<tile_url>[^/]+)/(?P<stat_url>[^/]*)$', 
