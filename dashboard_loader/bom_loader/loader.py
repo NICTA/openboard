@@ -7,8 +7,8 @@ import xml.etree.ElementTree as ET
 
 from dashboard_loader.loader_utils import LoaderException, update_loader, set_statistic_data, clear_statistic_data,get_icon, get_statistic
 
-# Refresh data every 15 minutes
-refresh_rate = 60*15
+# Refresh data every 5 minutes
+refresh_rate = 60*5
 # refresh_rate = 1
 
 # From  http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=36&p_display_type=dataFile&p_startYear=&p_c=&p_stn_num=066062
