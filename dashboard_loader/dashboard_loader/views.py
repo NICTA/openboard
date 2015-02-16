@@ -1,92 +1,60 @@
-from collections import OrderedDict
-
 from django import forms
 from django.http import HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode
 from widget_data.models import StatisticData, StatisticListItem
-
-
-# Permission methods
-
-def get_editable_widgets_for_user(user):
-    # TODO: Check permissions
-    return WidgetDefinition.objects.all()
-
-def user_has_edit_permission(user, widget):
-    # TODO: Check permissions
-    return True
-
-# Dynamic data form methods
-
-def clean_traffic_light_code(self):
-    data = self.cleaned_data["traffic_light_code"]
-    if data=="":
-        raise forms.ValidationError("Must set the traffic light code")
-    return data
-
-def clean_icon_code(self):
-    data = self.cleaned_data["icon_code"]
-    if data=="":
-        raise forms.ValidationError("Must set the icon code")
-    return data
-
-def getFormClassForStatistic(stat):
-    form_fields = OrderedDict()
-    field_count = 0
-    if stat.stat_type in (Statistic.STRING_KVL, Statistic.NUMERIC_KVL):
-        form_fields["label"] = forms.CharField(required=True, max_length=120)
-        field_count += 1
-    elif not stat.name_as_label:
-        form_fields["label"] = forms.CharField(required=True, max_length=80)
-        field_count += 1
-    if stat.is_numeric():
-        if stat.num_precision == 0:
-            form_fields["value"] = forms.IntegerField(required=True)
-        else:
-            form_fields["value"] = forms.DecimalField(required=True, 
-                        decimal_places=stat.num_precision)
-    elif stat.stat_type == stat.AM_PM:
-        form_fields["value"] = forms.ChoiceField(required=True,
-                        choices = ( ("am", "am"), ("pm", "pm") )
-                        )
-    else:
-        form_fields["value"] = forms.CharField(max_length=400, required=True)
-    field_count += 1
-    if stat.traffic_light_scale:
-        form_fields["traffic_light_code"] = forms.ChoiceField(
-                        choices = stat.traffic_light_scale.choices(allow_null=True))
-        form_fields["clean_traffic_light_code"] = clean_traffic_light_code
-        field_count += 1
-    if stat.icon_library:
-        form_fields["icon_code"] = forms.ChoiceField(
-                        choices = stat.icon_library.choices(allow_null=True))
-        form_fields["clean_icon_code"] = clean_icon_code
-        field_count += 1
-    if stat.trend:
-        form_fields["trend"] = forms.ChoiceField(required=True,
-                        choices = (
-                            ("1", "Upwards"),
-                            ("0", "Steady"),
-                            ("-1", "Downwards"),
-                        ))
-        field_count += 1
-    if stat.is_list():
-        form_fields["sort_order"] = forms.IntegerField(required=True)
-        field_count += 1
-    form_fields["field_count"] = field_count
-    return type(str("Stat_%s_Form" % stat.name), (forms.Form,), form_fields)
+from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission
+from dashboard_loader.dynform import get_form_class_for_statistic
 
 # View methods
 
+# Authentication Views
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=255, label="User name")
+    password = forms.CharField(max_length=255, widget=forms.widgets.PasswordInput)
 
+def login_view(request):
+    error = None
+    next_url = request.GET.get("next")
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                if next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect("list_widget_data")
+            else:
+                 error = "Sorry, that account has been deactivated"
+        else:
+             error = "Invalid login"
+    form = LoginForm()
+    return render(request, "login.html", {
+            "next": next_url,
+            "form": form,
+            "error": error,
+            })
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect("login")
+
+# Data Editing Views
+@login_required
 def list_widgets(request):
     editable_widgets = get_editable_widgets_for_user(request.user)
     return render(request, "widget_data/list_widgets.html", {
             "widgets": editable_widgets
             })
 
+@login_required
 def view_widget(request, widget_url, actual_frequency_url):
     try:
         w = WidgetDefinition.objects.get(url=widget_url, 
@@ -113,6 +81,7 @@ def view_widget(request, widget_url, actual_frequency_url):
             "stats": stats,
             })
 
+@login_required
 def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
     try:
         w = WidgetDefinition.objects.get(url=widget_url, actual_frequency_url=actual_frequency_url)
@@ -125,7 +94,7 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
     except Statistic.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
 
-    form_class = getFormClassForStatistic(s)
+    form_class = get_form_class_for_statistic(s)
     if s.is_list():
         form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
     if request.method == 'POST':

@@ -162,6 +162,9 @@ div.instructions, div.instructions p {
 #user {
         background: #FFFFFF;
 	text-align: right;
+        padding-top: 0.5em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
 }
 
 table.simple_table, table.simple_table td {
