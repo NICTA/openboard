@@ -24,7 +24,7 @@ class Command(BaseCommand):
             apps = Loader.objects.all()
         for app in apps:
             try:
-                messages = update(app, verbosity=verbosity, async=True)
+                messages = update(app, verbosity=verbosity, async=False)
                 for msg in messages:
                     print >> self.stdout, msg
             except LoaderException, e:

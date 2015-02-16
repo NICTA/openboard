@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db import transaction
 
 from dashboard_loader.models import Loader
-from widget_def.models import Statistic, IconCode
+from widget_def.models import Statistic, IconCode, TrafficLightScaleCode
 from widget_data.models import StatisticData, StatisticListItem
 
 class LoaderException(Exception):
@@ -103,6 +103,14 @@ def get_icon(library, lookup):
             return IconCode.objects.get(scale__name=library, value=lookup)
     except IconCode.DoesNotExist:
         return None
+
+def get_traffic_light_code(stat, value):
+    if not stat.traffic_light_scale:
+        raise LoaderException("Statistic %s does not have a traffic light scale" % stat.url)
+    try:
+        return stat.traffic_light_scale.trafficlightscalecode_set.get(value=value)
+    except TrafficLightScaleCode.DoesNotExist:
+        raise LoaderException("Traffic light code %s not found in scale %s for statistic %s" % (value,stat.traffic_light_scale.name, stat.url))
 
 def do_update(app, verbosity=0):
     _tmp = __import__(app + ".loader", globals(), locals(), ["update_data",], -1)

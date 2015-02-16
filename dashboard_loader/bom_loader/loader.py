@@ -5,7 +5,7 @@ from tempfile import TemporaryFile
 from ftplib import FTP
 import xml.etree.ElementTree as ET
 
-from dashboard_loader.loader_utils import LoaderException, update_loader, set_statistic_data, clear_statistic_data,get_icon, get_statistic
+from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data,get_icon, get_statistic
 
 # Refresh data every 5 minutes
 refresh_rate = 60*5
