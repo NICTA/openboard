@@ -3,23 +3,30 @@ import pytz
 import os
 
 from django.conf import settings
+from django.db import transaction
 
+from dashboard_loader.models import Loader
 from widget_def.models import Statistic, IconCode
 from widget_data.models import StatisticData, StatisticListItem
 
 class LoaderException(Exception):
     pass
 
-def lock_update(loader):
+@transaction.atomic
+def lock_update(app):
+    try:
+        loader = Loader.objects.get(app=app)
+    except Loader.DoesNotExist:
+        return None
     if loader.locked_by:
         try:
             os.getpgid(loader.locked_by)
-            return False
+            return loader
         except OSError:
             pass
     loader.locked_by = os.getpid()
     loader.save()
-    return True
+    return loader
 
 def update_loader(loader):
     tz = pytz.timezone(settings.TIME_ZONE)
@@ -96,4 +103,17 @@ def get_icon(library, lookup):
             return IconCode.objects.get(scale__name=library, value=lookup)
     except IconCode.DoesNotExist:
         return None
+
+def do_update(app, verbosity=0):
+    _tmp = __import__(app + ".loader", globals(), locals(), ["update_data",], -1)
+    update_data = _tmp.update_data
+    loader = lock_update(app)
+    if loader.locked_by_me():
+        messages = update_data(loader, verbosity=verbosity)
+        update_loader(loader)
+        if verbosity > 0:
+            messages.append("Data updated for %s" % app)
+        return messages
+    elif verbosity > 0:
+        return [ "Data update for %s is locked by another update process" % app]
 

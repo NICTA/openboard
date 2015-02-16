@@ -3,29 +3,26 @@ import pytz
 
 from django.conf import settings
 
-from dashboard_loader.loader_utils import update_loader, lock_update
+from dashboard_loader.models import Loader
+from dashboard_loader.loader_utils import update_loader, lock_update, do_update
+from dashboard_loader.tasks import update_app_data
 
-def update(app, verbosity=0, force=False):
-    tz = pytz.timezone(settings.TIME_ZONE)
-    if app.suspended and not force:
-        if verbosity >= 3:
-            return ["Loader %s is suspended" % app.app, ]
-        return []
-    if app.last_loaded:
-        now = datetime.datetime.now(tz)
-        diff = now - app.last_loaded
-        if diff.total_seconds() < app.refresh_rate and not force:
+def update(loader, verbosity=0, force=False, async=True):
+    if not isinstance(loader, Loader):
+        try:
+            loader = Loader.objects.get(app=loader)
+        except Loader.DoesNotExist:
+            return [u"%s not a valid loader" % unicode(loader) ]
+    if not force:
+        reason = loader.reason_to_not_run()
+        if reason:
             if verbosity >= 3:
-                return ["Loader %s not due for refresh until %s" % (app.app, (app.last_loaded + datetime.timedelta(seconds=app.refresh_rate)).astimezone(tz).strftime("%d/%m/%Y %H:%M:%S")) ]
-            return []
-    _tmp = __import__(app.app + ".loader", globals(), locals(), ["update_data",], -1)
-    update_data = _tmp.update_data
-    if lock_update(app):
-        messages = update_data(app, verbosity=verbosity)
-        update_loader(app)
-        if verbosity > 0:
-            messages.append("Data updated for %s" % app.app)
-        return messages
-    elif verbosity > 0:
-        return [ "Data update for %s is locked by another update process" % app.app]
+                return [ reason ]
+            else:
+                return []
+    if async:
+        update_app_data.delay(loader.app)
+        return ["Update of app %s started" % loader.app]
+    else:
+        return do_update(loader.app, verbosity=verbosity)
 

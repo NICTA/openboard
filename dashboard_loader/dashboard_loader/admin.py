@@ -17,7 +17,7 @@ class LoaderAdmin(admin.ModelAdmin):
         errors = []
         for l in queryset:
             try:
-                infos.extend(update(l, verbosity=3, force=True))
+                infos.extend(update(l, verbosity=3, force=True, async=False))
             except LoaderException, e:
                 errors.append(unicode(e))
         for err in errors:

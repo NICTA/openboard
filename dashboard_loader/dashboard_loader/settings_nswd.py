@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import datetime
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -83,6 +84,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+CELERYBEAT_SCHEDULE = {
+    'poll_all_apps': {
+            'task': 'dashboard_loader.tasks.update_all_apps',
+            'schedule': datetime.timedelta(seconds=1),
+            'args': (),
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
