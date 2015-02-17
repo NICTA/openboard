@@ -12,7 +12,7 @@ sys.path.append('/home/phaesler/src/dashboard/dashboard_loader')
 sys.path.append('/home/phaesler/src/dashboard/dashboard_api')
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dashboard_loader.settings_nswd")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dashboard_loader.settings")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
