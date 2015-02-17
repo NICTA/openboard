@@ -1,4 +1,4 @@
-export DJANGO_SETTINGS_MODULE="dashboard_loader.settings_nswd"
+export DJANGO_SETTINGS_MODULE="dashboard_loader.settings"
 
 # Absolute or relative path to the 'celery' command:
 CELERY_BIN="/usr/local/bin/celery"

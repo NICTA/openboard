@@ -18,14 +18,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'les^szd_%a)i5wy8j#8_2wl$3u5a$ih38^$$a)x-6793j9bm1@'
+# SECRET_KEY = ## Set in local settings file!!
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = [ '.nsw-dashboard.research.nicta.com.au', '.nsw-dashboard.research.nicta.com.au.' ]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -58,20 +58,6 @@ ROOT_URLCONF = 'dashboard_loader.urls'
 
 WSGI_APPLICATION = 'dashboard_loader.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dashboard',
-        'USER': 'dashboard',
-        'PASSWORD': 'h3av3n0nast1ck',
-        'HOST': '127.0.0.1',
-    }
-}
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -93,8 +79,8 @@ CELERYBEAT_SCHEDULE = {
     },
 }
 
-LOGIN_URL = "/data/login"
-LOGOUT_URL = "/data/logout"
+LOGIN_URL="/login"
+LOGOUT="/logout"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

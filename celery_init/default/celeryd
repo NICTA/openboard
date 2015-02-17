@@ -1,4 +1,4 @@
-export DJANGO_SETTINGS_MODULE="dashboard_loader.settings_nswd"
+export DJANGO_SETTINGS_MODULE="dashboard_loader.settings"
 
 # Names of nodes to start
 #   most will only start one node:
