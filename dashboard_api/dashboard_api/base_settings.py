@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k_&ywy8shj9!_zsyvlr1+z25z_8e9_t1m1c+qi9lp3tqn^a-fo'
+# Override in local settings.py
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,20 +60,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'dashboard_api.urls'
 
 WSGI_APPLICATION = 'dashboard_api.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dashboard',
-        'USER': 'dashboard',
-        'PASSWORD': 'h3av3n0nast1ck',
-        'HOST': '127.0.0.1',
-    }
-}
 
 # CORS
 
