@@ -1,0 +1,272 @@
+{
+    "tiles": [
+        {
+            "url": "weather_main", 
+            "statistics": [
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 100, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Now", 
+                    "url": "current_temp", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 1, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 200, 
+                    "unit_signed": 1, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Seasonal average", 
+                    "url": "seasonal_average", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 1, 
+                    "sort_order": 300, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": "weather_icon_scale", 
+                    "name": "Today", 
+                    "url": "today_short_forecast", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 1
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 400, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Max", 
+                    "url": "today_max", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 500, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Min", 
+                    "url": "today_min", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 1, 
+            "sort_order": 100, 
+            "expansion": 0
+        }, 
+        {
+            "url": "weather_detail", 
+            "statistics": [
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 1, 
+                    "sort_order": 100, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": "weather_icon_scale", 
+                    "name": "Today", 
+                    "url": "today_long_forecast", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 1
+                }, 
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 0, 
+                    "sort_order": 200, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": "weather_icon_scale", 
+                    "name": "Day 1 Forecast", 
+                    "url": "day_1_forecast", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 1
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 0, 
+                    "sort_order": 300, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Day 1 Max", 
+                    "url": "day_1_max", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 0, 
+                    "sort_order": 400, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Day 1 Min", 
+                    "url": "day_1_min", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 0, 
+                    "sort_order": 500, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": "weather_icon_scale", 
+                    "name": "Day 2 Forecast", 
+                    "url": "day_2_forecast", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 1
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 0, 
+                    "sort_order": 600, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Day 2 Max", 
+                    "url": "day_2_max", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 0, 
+                    "sort_order": 700, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Day 2 Min", 
+                    "url": "day_2_min", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 0, 
+                    "sort_order": 800, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": "weather_icon_scale", 
+                    "name": "Day 3 Forecast", 
+                    "url": "day_3_forecast", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 1
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 0, 
+                    "sort_order": 900, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Day 3 Max", 
+                    "url": "day_3_max", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 0, 
+                    "sort_order": 1000, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "\u00b0C", 
+                    "icon_library": null, 
+                    "name": "Day 3 Min", 
+                    "url": "day_3_min", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 3, 
+            "sort_order": 200, 
+            "expansion": 1
+        }
+    ], 
+    "subcategory": "Baseline", 
+    "actual_frequency_url": "rt", 
+    "source_url": "http://www.bom.gov.au/", 
+    "actual_frequency": "Real time", 
+    "sort_order": 100, 
+    "expansion_hint": "Detailed weather", 
+    "category": "General", 
+    "name": "Weather", 
+    "refresh_rate": 300, 
+    "url": "weather", 
+    "declarations": [
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "syd"
+        }, 
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "nsw"
+        }
+    ]
+}
+

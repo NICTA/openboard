@@ -1,0 +1,77 @@
+{
+    "tiles": [
+        {
+            "url": "warnings_main", 
+            "statistics": [
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 1, 
+                    "sort_order": 100, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": null, 
+                    "name": "Warnings", 
+                    "url": "warnings_list", 
+                    "num_precision": null, 
+                    "traffic_light_scale": "warning_scale", 
+                    "stat_type": 3
+                }
+            ], 
+            "tile_type": 1, 
+            "sort_order": 100, 
+            "expansion": 0
+        }, 
+        {
+            "url": "warnings_expansion", 
+            "statistics": [
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 1, 
+                    "sort_order": 100, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": null, 
+                    "name": "Warnings Details", 
+                    "url": "warnings_details_list", 
+                    "num_precision": null, 
+                    "traffic_light_scale": "warning_scale", 
+                    "stat_type": 3
+                }
+            ], 
+            "tile_type": 1, 
+            "sort_order": 200, 
+            "expansion": 1
+        }
+    ], 
+    "subcategory": "Warnings", 
+    "actual_frequency_url": "rt", 
+    "source_url": "http://emergencynsw.info/", 
+    "actual_frequency": "Real time", 
+    "sort_order": 200, 
+    "expansion_hint": "See Warnings", 
+    "category": "Environment and Infrastructure", 
+    "name": "Emergency Warnings", 
+    "refresh_rate": 30, 
+    "url": "emergency_warnings", 
+    "declarations": [
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "syd"
+        }, 
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "nsw"
+        }
+    ]
+}
+
