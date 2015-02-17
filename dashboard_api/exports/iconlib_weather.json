@@ -1,0 +1,91 @@
+{
+    "library_name": "weather_icon_scale", 
+    "codes": [
+        {
+            "sort_order": 1, 
+            "description": "Sunny", 
+            "value": "sunny"
+        }, 
+        {
+            "sort_order": 2, 
+            "description": "Clear", 
+            "value": "clear"
+        }, 
+        {
+            "sort_order": 3, 
+            "description": "Partly Cloudy", 
+            "value": "partly_cloudy"
+        }, 
+        {
+            "sort_order": 4, 
+            "description": "Cloudy", 
+            "value": "cloudy"
+        }, 
+        {
+            "sort_order": 6, 
+            "description": "Hazy", 
+            "value": "hazy"
+        }, 
+        {
+            "sort_order": 8, 
+            "description": "Light Rain", 
+            "value": "light_rain"
+        }, 
+        {
+            "sort_order": 9, 
+            "description": "Windy", 
+            "value": "windy"
+        }, 
+        {
+            "sort_order": 10, 
+            "description": "Fog", 
+            "value": "fog"
+        }, 
+        {
+            "sort_order": 11, 
+            "description": "Showers", 
+            "value": "shower"
+        }, 
+        {
+            "sort_order": 12, 
+            "description": "Rain", 
+            "value": "rain"
+        }, 
+        {
+            "sort_order": 13, 
+            "description": "Dusty", 
+            "value": "dusty"
+        }, 
+        {
+            "sort_order": 14, 
+            "description": "Frost", 
+            "value": "frost"
+        }, 
+        {
+            "sort_order": 15, 
+            "description": "Snow", 
+            "value": "snow"
+        }, 
+        {
+            "sort_order": 16, 
+            "description": "Storms", 
+            "value": "storm"
+        }, 
+        {
+            "sort_order": 17, 
+            "description": "Light Showers", 
+            "value": "light_shower"
+        }, 
+        {
+            "sort_order": 18, 
+            "description": "Heavy Showers", 
+            "value": "heavy_shower"
+        }, 
+        {
+            "sort_order": 19, 
+            "description": "Cyclone", 
+            "value": "Cyclone"
+        }
+    ]
+}
+

@@ -1,0 +1,152 @@
+{
+    "tiles": [
+        {
+            "url": "travel_speeds_rt_default", 
+            "statistics": [
+                {
+                    "unit_prefix": "", 
+                    "trend": 1, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 0, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "kph", 
+                    "icon_library": null, 
+                    "name": "", 
+                    "url": "average_speed", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": null, 
+                    "trend": 0, 
+                    "unit_underfix": null, 
+                    "name_as_label": 1, 
+                    "sort_order": 50, 
+                    "unit_signed": 0, 
+                    "unit_suffix": null, 
+                    "icon_library": null, 
+                    "name": "am/pm", 
+                    "url": "am_pm", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 6
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 100, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "kph", 
+                    "icon_library": null, 
+                    "name": "YTD", 
+                    "url": "ytd", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 300, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "kph", 
+                    "icon_library": null, 
+                    "name": "Target", 
+                    "url": "target", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 1, 
+            "sort_order": 100, 
+            "expansion": 0
+        }, 
+        {
+            "url": "travel_speeds_rt_expansion", 
+            "statistics": [
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 100, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "kph", 
+                    "icon_library": null, 
+                    "name": "M7", 
+                    "url": "m7", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 200, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "kph", 
+                    "icon_library": null, 
+                    "name": "M5", 
+                    "url": "m5", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": 0, 
+                    "unit_underfix": "", 
+                    "name_as_label": 1, 
+                    "sort_order": 400, 
+                    "unit_signed": 0, 
+                    "unit_suffix": "kph", 
+                    "icon_library": null, 
+                    "name": "M3", 
+                    "url": "m3", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 4, 
+            "sort_order": 200, 
+            "expansion": 1
+        }
+    ], 
+    "subcategory": "Transport", 
+    "actual_frequency_url": "rt", 
+    "source_url": "http://roadsreport.rms.nsw.gov.au/", 
+    "actual_frequency": "Real time", 
+    "sort_order": 700, 
+    "expansion_hint": "Key Roads", 
+    "category": "Service Delivery", 
+    "name": "Travel Speeds", 
+    "refresh_rate": 5, 
+    "url": "road_speeds", 
+    "declarations": [
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "syd"
+        }, 
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "nsw"
+        }
+    ]
+}
+
