@@ -98,6 +98,53 @@ class WidgetDefinition(models.Model):
             "actual_frequency": self.actual_frequency,
             "refresh_rate": self.refresh_rate,
         }
+    def export(self):
+        return {
+            "category": self.subcategory.category.name,
+            "subcategory": self.subcategory.name,
+            "name": self.name,
+            "url": self.url,
+            "expansion_hint": self.expansion_hint,
+            "source_url": self.source_url,
+            "actual_frequency": self.actual_frequency,
+            "actual_frequency_url": self.actual_frequency_url,
+            "refresh_rate": self.refresh_rate,
+            "sort_order": self.sort_order,
+            "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
+            "declarations": [ wd.export() for wd in self.widgetdeclaration_set.all() ],
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            w = WidgetDefinition.objects.get(url=data["url"], actual_frequency_url=data["actual_frequency_url"])
+        except WidgetDefinition.DoesNotExist:
+            w = WidgetDefinition(url=data["url"], actual_frequency_url=data["actual_frequency_url"])
+        w.subcategory =  Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
+        w.name = data["name"]
+        w.expansion_hint = data["expansion_hint"]
+        w.source_url = data["source_url"]
+        w.actual_frequency = data["actual_frequency"]
+        w.refresh_rate = data["refresh_rate"]
+        w.sort_order = data["sort_order"]
+        w.save()
+        tile_urls = []
+        for t in data["tiles"]:
+            TileDefinition.import_data(w, t)
+            tile_urls.append(t["url"])
+        for tile in w.tiledefinition_set.all():
+            if tile.url not in tile_urls:
+                tile.delete()
+        for d in data["declarations"]:
+            wd=WidgetDeclaration.import_data(w, d)
+        for wd in w.widgetdeclaration_set.all():
+            found = False
+            for decl in data["declarations"]:
+                if wd.location.url == decl["location"] and wd.frequency.url == decl["frequency"]:
+                    found = True
+                    break
+            if not found:
+                wd.delete()
+        return w
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.actual_frequency)
     def data_last_updated(self, update=False):
@@ -132,6 +179,28 @@ class WidgetDeclaration(models.Model):
         return "%s (%s:%s)" % (self.definition.name, self.location.name, self.frequency.name)
     def __getstate__(self):
         return self.definition.__getstate__()
+    def export(self):
+        return {
+            "themes": [ t.url for t in self.themes.all() ],
+            "frequency": self.frequency.url,
+            "location": self.location.url,
+        }
+    @classmethod
+    def import_data(cls, definition, data):
+        try:
+            decl = WidgetDeclaration.objects.get(definition=definition, 
+                            location__url=data["location"],
+                            frequency__url=data["frequency"])
+        except WidgetDeclaration.DoesNotExist:
+            decl = WidgetDeclaration(definition=definition)
+            decl.location = Location.objects.get(url=data["location"])
+            decl.frequency = Frequency.objects.get(url=data["frequency"])
+            decl.save()
+        decl.themes.clear()
+        for t in data["themes"]:
+            theme = Theme.objects.get(url=t)
+            decl.themes.add(theme)
+        return decl
     class Meta:
         unique_together = ( ("location", "frequency", "definition"),)
         ordering = ("location", "frequency", "definition")
@@ -171,6 +240,32 @@ class TileDefinition(models.Model):
         if self.tile_type == self.MAP:
             pass # TODO
         return state
+    def export(self):
+        return {
+            "tile_type": self.tile_type,
+            "expansion": int(self.expansion),
+            "url": self.url,
+            "sort_order": self.sort_order,
+            "statistics": [ s.export() for s in self.statistic_set.all() ],
+        }
+    @classmethod
+    def import_data(cls, widget, data):
+        try:
+            t = TileDefinition.objects.get(widget=widget, url=data["url"])
+        except TileDefinition.DoesNotExist:
+            t = TileDeclaration(widget=widget, url=data["url"])
+        t.tile_type = data["tile_type"]
+        t.expansion = bool(data["expansion"])
+        t.sort_order = data["sort_order"]
+        t.save()
+        stat_urls = []
+        for s in data["statistics"]:
+            Statistic.import_data(t, s)
+            stat_urls.append(s["url"])
+        for stat in t.statistic_set.all():
+            if stat.url not in stat_urls:
+                stat.delete()
+        return t
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         problems = []
@@ -226,6 +321,26 @@ class IconLibrary(models.Model):
         return self.name
     def __getstate__(self):
         return [ c.__getstate__() for c in self.iconcode_set.all() ]
+    def export(self):
+        return {
+            "library_name": self.name,
+            "codes": [ c.export() for c in self.iconcode_set.all() ]
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            l = IconLibrary.objects.get(name=data["library_name"])
+        except IconLibrary.DoesNotExist:
+            l = IconLibrary(name=data["library_name"])
+            l.save()
+        values = []
+        for c in data["codes"]:
+            IconCode.import_data(l, c)
+            values.append(c["value"])
+        for code in l.iconcode_set.all():
+            if code.value not in values:
+                code.delete()
+        return l
     def choices(self, allow_null=False):
         if allow_null:
             choices = [ ("", "--"), ]
@@ -241,6 +356,22 @@ class IconCode(models.Model):
     sort_order=models.IntegerField()
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
+    def export(self):
+        return {
+            "value": self.value,
+            "description": self.description,
+            "sort_order": self.sort_order
+        }
+    @classmethod
+    def import_data(cls, library, data):
+        try:
+            code = IconCode.objects.get(scale=library, value=data["value"])
+        except IconCode.DoesNotExist:
+            code = IconCode(scale=library, value=data["value"])
+        code.description = data["description"]
+        code.sort_order = data["sort_order"]
+        code.save()
+        return code
     def __getstate__(self):
         return {
             "library": self.scale.name,
@@ -255,6 +386,26 @@ class TrafficLightScale(models.Model):
     name=models.CharField(max_length=80, unique=True)
     def __unicode__(self):
         return self.name
+    def export(self):
+        return {
+            "scale_name": self.name,
+            "codes": [ c.export() for c in self.trafficlightscalecode_set.all() ]
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            l = TrafficLightScale.objects.get(name=data["scale_name"])
+        except TrafficLightScale.DoesNotExist:
+            l = TrafficLightScale(name=data["scale_name"])
+            l.save()
+        values = []
+        for c in data["codes"]:
+            TrafficLightScaleCode.import_data(l, c)
+            values.append(c["value"])
+        for code in l.trafficlightscalecode_set.all():
+            if code.value not in values:
+                code.delete()
+        return l
     def __getstate__(self):
         return [ c.__getstate__() for c in self.trafficlightscalecode_set.all() ]
     def choices(self, allow_null=False):
@@ -272,6 +423,22 @@ class TrafficLightScaleCode(models.Model):
     sort_order = models.IntegerField(help_text='"Good" codes should have lower sort order than "Bad" codes.')
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
+    def export(self):
+        return {
+            "value": self.value,
+            "colour": self.colour,
+            "sort_order": self.sort_order
+        }
+    @classmethod
+    def import_data(cls, scale, data):
+        try:
+            code = TrafficLightScaleCode.objects.get(scale=scale, value=data["value"])
+        except TrafficLightScale.DoesNotExist:
+            code = IconCode(scale=scale, value=data["value"])
+        code.colour = data["colour"]
+        code.sort_order = data["sort_order"]
+        code.save()
+        return code
     def __getstate__(self):
         return {
             "value": self.value,
@@ -413,6 +580,56 @@ class Statistic(models.Model):
                 self._lud_cache = None
                 lud_statdata = None
         return self._lud_cache
+    def export(self):
+        if self.traffic_light_scale:
+            traffic_light_scale_name = self.traffic_light_scale.name
+        else:
+            traffic_light_scale_name = None
+        if self.icon_library:
+            icon_library_name = self.icon_library.name
+        else:
+            icon_library_name = None
+        return {
+            "name": self.name,
+            "url": self.url,
+            "name_as_label": int(self.name_as_label),
+            "stat_type": self.stat_type,
+            "traffic_light_scale": traffic_light_scale_name,
+            "icon_library": icon_library_name,
+            "trend": int(self.trend),
+            "num_precision": self.num_precision,
+            "unit_prefix": self.unit_prefix,
+            "unit_suffix": self.unit_suffix,
+            "unit_underfix": self.unit_underfix,
+            "unit_signed": int(self.unit_signed),
+            "sort_order": self.sort_order,
+        }
+    @classmethod
+    def import_data(cls, tile, data):
+        try:
+            s = Statistic.objects.get(tile=tile, url=data["url"])
+        except Statistic.DoesNotExist:
+            s = Statistic(tile=tile, url=data["url"])
+        s.name = data["name"]
+        s.name_as_label = bool(data["name_as_label"])
+        s.stat_type = data["stat_type"]
+        s.trend = bool(data["trend"])
+        s.num_precision = data["num_precision"]
+        s.unit_prefix = data["unit_prefix"]
+        s.unit_suffix = data["unit_suffix"]
+        s.unit_underfix = data["unit_underfix"]
+        s.unit_signed = bool(data["unit_signed"])
+        s.sort_order = data["sort_order"]
+        if data["traffic_light_scale"]:
+            s.traffic_light_scale = TrafficLightScale.objects.get(name=data["traffic_light_scale"])
+        else:
+            s.traffic_light_scale = None
+        if data["icon_library"]:
+            s.icon_library = IconLibrary.objects.get(name=data["icon_library"])
+        else:
+            s.icon_library = None
+        s.save()
+        return s
     def __getstate__(self):
         state = {
             "name": self.name,
