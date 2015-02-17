@@ -22,7 +22,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dashboard',
         'USER': 'dashboard',
-        'PASSWORD': 'h3av3n0nast1ck',
+        'PASSWORD': 'passwd',
         'HOST': '127.0.0.1',
     }
 }
