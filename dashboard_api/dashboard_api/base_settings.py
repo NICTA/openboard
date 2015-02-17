@@ -40,8 +40,6 @@ INSTALLED_APPS = (
     'widget_def',
     'widget_data',
     'corsheaders',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
 )
