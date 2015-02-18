@@ -5,11 +5,11 @@
             "statistics": [
                 {
                     "unit_prefix": null, 
-                    "trend": 0, 
+                    "trend": false, 
                     "unit_underfix": null, 
-                    "name_as_label": 1, 
+                    "name_as_label": true, 
                     "sort_order": 100, 
-                    "unit_signed": 0, 
+                    "unit_signed": false, 
                     "unit_suffix": null, 
                     "icon_library": null, 
                     "name": "Warnings", 
@@ -21,18 +21,18 @@
             ], 
             "tile_type": 1, 
             "sort_order": 100, 
-            "expansion": 0
+            "expansion": false
         }, 
         {
             "url": "warnings_expansion", 
             "statistics": [
                 {
                     "unit_prefix": null, 
-                    "trend": 0, 
+                    "trend": false, 
                     "unit_underfix": null, 
-                    "name_as_label": 1, 
+                    "name_as_label": true, 
                     "sort_order": 100, 
-                    "unit_signed": 0, 
+                    "unit_signed": false, 
                     "unit_suffix": null, 
                     "icon_library": null, 
                     "name": "Warnings Details", 
@@ -44,7 +44,7 @@
             ], 
             "tile_type": 1, 
             "sort_order": 200, 
-            "expansion": 1
+            "expansion": true
         }
     ], 
     "subcategory": "Warnings", 
