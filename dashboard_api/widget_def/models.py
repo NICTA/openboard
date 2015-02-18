@@ -231,7 +231,7 @@ class TileDefinition(models.Model):
     def __getstate__(self):
         state = {
             "type": self.tile_types[self.tile_type],
-            "expansion": unicode(self.expansion).lower()
+            "expansion": self.expansion,
         }
         if self.tile_type in (self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
@@ -243,7 +243,7 @@ class TileDefinition(models.Model):
     def export(self):
         return {
             "tile_type": self.tile_type,
-            "expansion": int(self.expansion),
+            "expansion": self.expansion,
             "url": self.url,
             "sort_order": self.sort_order,
             "statistics": [ s.export() for s in self.statistic_set.all() ],
@@ -255,7 +255,7 @@ class TileDefinition(models.Model):
         except TileDefinition.DoesNotExist:
             t = TileDeclaration(widget=widget, url=data["url"])
         t.tile_type = data["tile_type"]
-        t.expansion = bool(data["expansion"])
+        t.expansion = data["expansion"]
         t.sort_order = data["sort_order"]
         t.save()
         stat_urls = []
@@ -592,16 +592,16 @@ class Statistic(models.Model):
         return {
             "name": self.name,
             "url": self.url,
-            "name_as_label": int(self.name_as_label),
+            "name_as_label": self.name_as_label,
             "stat_type": self.stat_type,
             "traffic_light_scale": traffic_light_scale_name,
             "icon_library": icon_library_name,
-            "trend": int(self.trend),
+            "trend": self.trend,
             "num_precision": self.num_precision,
             "unit_prefix": self.unit_prefix,
             "unit_suffix": self.unit_suffix,
             "unit_underfix": self.unit_underfix,
-            "unit_signed": int(self.unit_signed),
+            "unit_signed": self.unit_signed,
             "sort_order": self.sort_order,
         }
     @classmethod
@@ -611,14 +611,14 @@ class Statistic(models.Model):
         except Statistic.DoesNotExist:
             s = Statistic(tile=tile, url=data["url"])
         s.name = data["name"]
-        s.name_as_label = bool(data["name_as_label"])
+        s.name_as_label = data["name_as_label"]
         s.stat_type = data["stat_type"]
-        s.trend = bool(data["trend"])
+        s.trend = data["trend"]
         s.num_precision = data["num_precision"]
         s.unit_prefix = data["unit_prefix"]
         s.unit_suffix = data["unit_suffix"]
         s.unit_underfix = data["unit_underfix"]
-        s.unit_signed = bool(data["unit_signed"])
+        s.unit_signed = data["unit_signed"]
         s.sort_order = data["sort_order"]
         if data["traffic_light_scale"]:
             s.traffic_light_scale = TrafficLightScale.objects.get(name=data["traffic_light_scale"])
@@ -633,7 +633,7 @@ class Statistic(models.Model):
     def __getstate__(self):
         state = {
             "name": self.name,
-            "name_as_label": str(self.name_as_label).lower(),
+            "name_as_label": self.name_as_label,
             "url": self.url,
             "type": self.stat_types[self.stat_type]
         }
@@ -649,7 +649,7 @@ class Statistic(models.Model):
             if self.unit_signed:
                 state["unit"]["signed"] = "true"
         if self.stat_type != self.STRING_LIST:
-            state["trend"] = unicode(self.trend).lower()
+            state["trend"] = self.trend
             if self.traffic_light_scale:
                 state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
             else:
