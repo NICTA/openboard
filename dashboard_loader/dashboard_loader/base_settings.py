@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'widget_data',
     'bom_loader',
     'travel_speed_loader',
+    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
