@@ -4,8 +4,8 @@ from django.db import models
 
 class Road(models.Model):
     name = models.CharField(max_length=5, unique=True)
-    am_direction=models.CharField(max_length=1)
-    pm_direction=models.CharField(max_length=1)
+    am_direction=models.CharField(max_length=2)
+    pm_direction=models.CharField(max_length=2)
     def __unicode__(self):
         return self.name
 
