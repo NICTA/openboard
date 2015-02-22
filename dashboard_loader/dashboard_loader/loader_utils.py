@@ -38,7 +38,7 @@ def get_statistic(widget_url, widget_actual_frequency_url, statistic_url):
     try:
         return Statistic.objects.get(url=statistic_url, tile__widget__url=widget_url, tile__widget__actual_frequency_url=widget_actual_frequency_url)
     except Statistic.DoesNotExist:
-        raise LoaderException("Statistic %s for Widget %s.%s (tile %s) does not exist" % (statistic_url, widget_url, widget_actual_frequency_url, tile_url))
+        raise LoaderException("Statistic %s for Widget %s.%s does not exist" % (statistic_url, widget_url, widget_actual_frequency_url))
 
 def clear_statistic_data(widget_url, widget_actual_frequency_url, 
                 statistic_url):
