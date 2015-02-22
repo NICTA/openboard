@@ -16,45 +16,7 @@ refresh_rate = 60 * 10
 def get_livetrafficdata(http, filename, label, messages, verbosity=0):
     http.request("GET", "http://livetraffic.rta.nsw.gov.au/traffic/travel_time/%s" % filename)
     resp = http.getresponse()
-    if verbosity >= 3:
-        messages.append("%s returned %d" % (label, resp.status))
     return json.load(resp)["features"]
-
-def check_features(features, roadname, messages, verbosity=0):
-    try:
-        road = Road.objects.get(name=roadname)
-    except Road.DoesNotExist:
-        road = Road(name=roadname)
-        road.am_direction = features[0]["id"][0]
-        if road.am_direction == 'N':
-            road.pm_direction = 'S'
-        elif road.am_direction == 'S':
-            road.pm_direction = 'N'
-        elif road.am_direction == 'W':
-            road.pm_direction = 'E'
-        else:
-            road.pm_direction = 'W'
-        road.save()
-    for f in features:
-        fid = f["id"]
-        try:
-            section = RoadSection.objects.get(road=road,label=fid)
-        except RoadSection.DoesNotExist:
-            section = RoadSection(road=road,label=fid)
-        section.route_direction = fid[0]
-        if f["properties"].get("direction"):
-            section.direction=f["properties"]["direction"]
-        else:
-            section.direction=section.route_direction
-        section.origin=f["properties"]["fromDisplayName"]
-        section.destination=f["properties"]["toDisplayName"]
-        # HACK DATA FIX!!!!
-        if roadname == "M2" and fid == "ETOTAL":
-            if section.origin != "M7":
-                section.origin = "M7"
-            else:
-                messages.append("HACK DATA FIX no longer required")
-        section.save()
 
 def load_speeds(features, name, am, target, stats, messages, verbosity=0):
     try:
@@ -77,7 +39,7 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
         travel_time = f["properties"]["travelTimeMinutes"]
         stats["total_travel_time"]  += travel_time
         stats["total_distance"]  += distance
-        if (fid[0] == road.am_direction and am) or (fid[0] == road.pm_direction and not am):
+        if (fid[0] in road.am_direction and am) or (fid[0] in road.pm_direction and not am):
             speed_stat = get_statistic("road_speeds", "rt", name)
             speed = float(distance) / (float(travel_time) / 60.0)
             if speed < target:
@@ -106,10 +68,6 @@ def update_data(loader, verbosity=0):
     m2_features = get_livetrafficdata(http, "m2.json", "M2", messages, verbosity)
     m4_features = get_livetrafficdata(http, "m4.json", "M4", messages, verbosity)
     m7_features = get_livetrafficdata(http, "m7.json", "M7", messages, verbosity)
-    check_features(m1_features, "M1", messages, verbosity)
-    check_features(m2_features, "M2", messages, verbosity)
-    check_features(m4_features, "M4", messages, verbosity)
-    check_features(m7_features, "M7", messages, verbosity)
     total_stats = {
         'total_travel_time': 0,
         'total_distance': 0
