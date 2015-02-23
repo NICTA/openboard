@@ -249,6 +249,7 @@
     "sort_order": 100, 
     "expansion_hint": "Detailed weather", 
     "category": "General", 
+    "about": "<p>All weather observations and forecast data is sourced directly from the Bureau of Meteorology open data API.</p>", 
     "name": "Weather", 
     "refresh_rate": 300, 
     "url": "weather", 

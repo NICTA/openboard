@@ -28,9 +28,11 @@ def lock_update(app):
     loader.save()
     return loader
 
-def update_loader(loader):
+def update_loader(loader, success=True):
     tz = pytz.timezone(settings.TIME_ZONE)
-    loader.last_loaded = datetime.datetime.now(tz)
+    loader.last_run = datetime.datetime.now(tz)
+    if success:
+        loader.last_loaded = loader.last_run
     loader.locked_by = None
     loader.save()
 
@@ -117,7 +119,11 @@ def do_update(app, verbosity=0):
     update_data = _tmp.update_data
     loader = lock_update(app)
     if loader.locked_by_me():
-        messages = update_data(loader, verbosity=verbosity)
+        try:
+            messages = update_data(loader, verbosity=verbosity)
+        except LoaderException, e:
+            update_loader(loader, False)
+            return [ "Data update for %s failed: %s" % (app, unicode(e)) ]
         update_loader(loader)
         if verbosity > 0:
             messages.append("Data updated for %s" % app)

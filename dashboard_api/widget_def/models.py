@@ -66,9 +66,13 @@ class WidgetDefinition(models.Model):
     actual_frequency_url = models.SlugField()
     refresh_rate = models.IntegerField(help_text="in seconds")
     sort_order = models.IntegerField()
+    about = models.TextField(null=True, blank=True)
+    last_updated = models.DateTimeField()
     def validate(self):
         """Validate Widget Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         problems = []
+        if not self.about:
+            problems.append("Widget %s has no 'about' information" % self.url)
         if self.widgetdeclaration_set.all().count() == 0:
             problems.append("Widget %s has no declarations" % self.url)
         default_tiles = self.tiledefinition_set.filter(expansion=False).count()
@@ -97,6 +101,7 @@ class WidgetDefinition(models.Model):
             "source_url": self.source_url,
             "actual_frequency": self.actual_frequency,
             "refresh_rate": self.refresh_rate,
+            "about": self.about,
         }
     def export(self):
         return {
@@ -110,6 +115,7 @@ class WidgetDefinition(models.Model):
             "actual_frequency_url": self.actual_frequency_url,
             "refresh_rate": self.refresh_rate,
             "sort_order": self.sort_order,
+            "about": self.about,
             "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
             "declarations": [ wd.export() for wd in self.widgetdeclaration_set.all() ],
         }
@@ -126,6 +132,7 @@ class WidgetDefinition(models.Model):
         w.actual_frequency = data["actual_frequency"]
         w.refresh_rate = data["refresh_rate"]
         w.sort_order = data["sort_order"]
+        w.about = data["about"]
         w.save()
         tile_urls = []
         for t in data["tiles"]:
