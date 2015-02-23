@@ -2,7 +2,7 @@ import time
 import datetime
 import decimal
 from tempfile import TemporaryFile
-from ftplib import FTP
+from ftplib import FTP, error_perm, error_temp
 import xml.etree.ElementTree as ET
 
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data,get_icon, get_statistic
@@ -21,6 +21,13 @@ monthly_avg_temp = [
 ]
 
 # Icon examples here: http://www.bom.gov.au/info/forecast_icons.shtml
+
+    # IDN10064.xml - Forecasts
+    # IDN60920.xml - NSW observations
+# IDN65068:   Fire  Danger levels
+# IDN65156:   Thunderstorm warning (txt)
+# IDN20400:   Marine Wind Warnings
+# IDN336*: Flood Warnings (TXT): "XXXX FLOOD WARNING"  (e.g. XXXX=MAJOR|MINOR|MODERATE|FINAL?) (txt)
 
 def xmldateparse(ds):
     return datetime.date(int(ds[0:4]), int(ds[5:7]), int(ds[8:10]))
@@ -62,6 +69,52 @@ def set_short_forecast(forecast_period, maxstat, minstat, forecast_stat, label=N
 def update_data(loader, verbosity=0):
     messages = update_forecasts(verbosity)
     update_current_temp()
+    messages.extend(update_warnings(verbosity))
+    return messages
+
+def update_warnings(verbosity=0):
+    messages = []
+    ftp = FTP('ftp2.bom.gov.au')
+    ftp.login()
+    ftp.cwd('anon/gen/fwo')
+    # IDN20400.xml:   Marine Wind Warnings
+    try:
+        buf = TemporaryFile()
+        ftp.retrbinary('RETR IDN20400.xml', buf.write)
+        buf.seek(0)
+        buf.close()
+        if verbosity > 0:
+            messages.append("Retreived marine wind warnings")
+    except (error_perm, error_temp):
+        if verbosity > 0:
+            messages.append("No marine wind warnings found")
+    # IDN336*: Flood Warnings (TXT): "XXXX FLOOD WARNING"  (e.g. XXXX=SEVERE|MAJOR|MINOR|MODERATE|FINAL?)
+    files = []
+    def append_file_name(filename):
+        if filename.startswith("IDN366") and filename.endswith(".txt"):
+            files.append(filename)
+    ftp.retrlines('NLST', append_file_name)
+    for f in files:
+        buf = TemporaryFile()
+        ftp.retrbinary('RETR %s' % f, buf.write)
+        buf.seek(0)
+        buf.close()
+        if verbosity > 0:
+            messages.append("Retrieved flood warning: %s" % f)
+    if not files and verbosity > 0:
+        messages.append("No flood warnings retreived")
+    # IDN65156:   Thunderstorm warning (txt)
+    try:
+        buf = TemporaryFile()
+        ftp.retrbinary('RETR IDN65156.txt', buf.write)
+        buf.seek(0)
+        buf.close()
+        if verbosity > 0:
+            messages.append("Retreived thunderstorm warnings")
+    except (error_perm, error_temp):
+        if verbosity > 0:
+            messages.append("No thunderstorm warnings found")
+    ftp.quit()
     return messages
 
 def update_current_temp():
@@ -69,6 +122,7 @@ def update_current_temp():
     ftp.login()
     ftp.cwd('anon/gen/fwo')
     buf = TemporaryFile()
+    # IDN60920.xml - NSW observations
     ftp.retrbinary('RETR IDN60920.xml', buf.write)
     ftp.quit()
     buf.seek(0)
@@ -104,6 +158,7 @@ def update_forecasts(verbosity):
     ftp.login()
     ftp.cwd('anon/gen/fwo')
     buf = TemporaryFile()
+    # IDN10064.xml - Forecasts
     ftp.retrbinary('RETR IDN10064.xml', buf.write)
     ftp.quit()
     buf.seek(0)
