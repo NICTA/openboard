@@ -15,8 +15,12 @@ def get_widget_data(request, widget_url):
                     location=location, definition__url=widget_url)
     except WidgetDeclaration.DoesNotExist:
         return HttpResponseNotFound("This Widget does not exist")
-    json = {}
+    stats_json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget.definition):
-        json[statistic.url] = statistic.get_data_json()
+        stats_json[statistic.url] = statistic.get_data_json()
+    json = {
+        "widget_last_updated": widget.definition.last_updated.strftime("%Y-%m-%dT%H:%M:%S%z"),
+        "statistics": stats_json,
+    }
     return json_list(request, json)
 

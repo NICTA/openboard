@@ -54,6 +54,7 @@
     "sort_order": 200, 
     "expansion_hint": "See Warnings", 
     "category": "Environment and Infrastructure", 
+    "about": "<p>Emergency Warning information is currently updated manually by developers.</p>", 
     "name": "Emergency Warnings", 
     "refresh_rate": 30, 
     "url": "emergency_warnings", 

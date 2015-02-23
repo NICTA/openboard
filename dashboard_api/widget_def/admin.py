@@ -53,6 +53,7 @@ class WidgetAdmin(admin.ModelAdmin):
     inlines = [DeclarationInline, TileInline]
     list_display = ('name', 'url', 'actual_frequency', 'subcategory', 'sort_order')
     actions = ['validate']
+    readonly_fields=('last_updated',)
     def validate(self, request, queryset):
         problems = []
         for w in queryset:

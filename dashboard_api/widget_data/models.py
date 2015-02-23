@@ -1,7 +1,15 @@
 from decimal import Decimal, ROUND_HALF_UP
+import datetime
+import pytz
+
+from django.conf import settings
 from django.db import models
 
 # Create your models here.
+
+def update_widget(widget_def):
+    widget_def.last_updated = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
+    widget_def.save()
 
 class StatisticData(models.Model):
     statistic = models.ForeignKey("widget_def.Statistic", unique=True)
@@ -34,6 +42,9 @@ class StatisticData(models.Model):
                 return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP)
         else:
             return self.strval
+    def save(self, *args, **kwargs):
+        update_widget(self.statistic.tile.widget)
+        super(StatisticData, self).save(*args, **kwargs)
     def __unicode__(self):
         return "<Data for %s>" % unicode(self.statistic)
 
@@ -53,6 +64,9 @@ class StatisticListItem(models.Model):
                 ), blank=True, null=True)
     sort_order = models.IntegerField()
     last_updated = models.DateTimeField(auto_now=True)
+    def save(self, *args, **kwargs):
+        update_widget(self.statistic.tile.widget)
+        super(StatisticData, self).save(*args, **kwargs)
     def display_val(self):
         if self.statistic.is_numeric():
             if self.statistic.num_precision == 0:
