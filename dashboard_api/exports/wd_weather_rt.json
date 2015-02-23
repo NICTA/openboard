@@ -249,7 +249,7 @@
     "sort_order": 100, 
     "expansion_hint": "Detailed weather", 
     "category": "General", 
-    "about": "<p>All weather observations and forecast data is sourced directly from the Bureau of Meteorology open data API.</p>", 
+    "about": "<p>All weather observations and forecast data are for the Sydney Observatory weather station and are sourced directly from the Bureau of Meteorology open data API.</p>\r\n<p>The seasonal average trend is obtained by comparing the current temperature to the long term (e.g. over all years since records begain) average temperature for the month.</p>", 
     "name": "Weather", 
     "refresh_rate": 300, 
     "url": "weather", 
