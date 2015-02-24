@@ -93,10 +93,46 @@ def set_statistic_data(widget_url, widget_actual_frequency_url, statistic_url,
 
 def clear_statistic_list(widget_url, widget_actual_frequency_url, statistic_url):
     stat = get_statistic(widget_url, widget_actual_frequency_url, statistic_url)
-
+    stat.statisticlistitem_set.all().delete()
+    
 def add_statistic_list_item(widget_url, widget_actual_frequency_url, statistic_url, value, sort_order, label=None, traffic_light_code=None, icon_code=None, trend=None):
     stat = get_statistic(widget_url, widget_actual_frequency_url, statistic_url)
-
+    if not stat.is_list():
+        raise LoaderException("Not a list statistic %s" % statistic_url)
+    if stat.is_kvlist() and not label:
+        raise LoaderException("Must provide a label for list items for statistic %s" % statistic_url)
+    elif not stat.is_kvlist() and label:
+        raise LoaderException("Cannot provide a label for list items for statistic %s" % statistic_url)
+    if stat.trend and trend is None:
+        raise LoaderException("Must provide a trend for statistic %s" % statistic_url)
+    if stat.traffic_light_scale and not traffic_light_code:
+        raise LoaderException("Must provide a traffic light code for statistic %s" % statistic_url)
+    if stat.icon_library and not icon_code:
+        raise LoaderException("Must provide a icon code for statistic %s" % statistic_url)
+    if stat.traffic_light_scale and isinstance(traffic_light_code, TrafficLightScaleCode):
+        tlc = traffic_light_code
+    elif stat.traffic_light_scale:
+        tlc = get_traffic_light_code(stat, traffic_light_code)
+    else:
+        tlc = None
+    if stat.icon_library and isinstance(icon_code, IconCode):
+        ic = icon_code
+    elif stat.icon_library:
+        ic = get_icon(stat.icon_library.name, icon_code)
+    else:
+        ic = None
+    item = StatisticListItem(statistic=stat, keyval=label, trend=trend,
+            sort_order=sort_order, 
+            traffic_light_code=tlc, icon_code=ic)
+    if stat.is_numeric():
+        if stat.num_precision == 0:
+            item.intval = value
+        else:
+            item.decval = value
+    else:
+        item.strval = value
+    item.save()
+             
 def get_icon(library, lookup):
     try: 
         if isinstance(lookup, int):
@@ -104,7 +140,7 @@ def get_icon(library, lookup):
         else:
             return IconCode.objects.get(scale__name=library, value=lookup)
     except IconCode.DoesNotExist:
-        return None
+        raise LoaderException("Icon code %s:%s does not exist" % (library, lookup))
 
 def get_traffic_light_code(stat, value):
     if not stat.traffic_light_scale:
@@ -130,4 +166,8 @@ def do_update(app, verbosity=0):
         return messages
     elif verbosity > 0:
         return [ "Data update for %s is locked by another update process" % app]
+
+@transaction.atomic
+def call_in_transaction(func, *args, **kwargs):
+    return func(*args, **kwargs)
 

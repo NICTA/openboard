@@ -8,27 +8,27 @@
         {
             "colour": "grey", 
             "sort_order": 200, 
-            "value": "info"
+            "value": "minor"
         }, 
         {
             "colour": "blue", 
             "sort_order": 250, 
-            "value": "low"
+            "value": "major"
         }, 
         {
             "colour": "amber", 
             "sort_order": 300, 
-            "value": "moderate"
+            "value": "strong"
         }, 
         {
             "colour": "red", 
             "sort_order": 400, 
-            "value": "high"
+            "value": "severe"
         }, 
         {
             "colour": "dark_red", 
             "sort_order": 500, 
-            "value": "severe"
+            "value": "extreme"
         }
     ], 
     "scale_name": "warning_scale"

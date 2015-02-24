@@ -67,7 +67,6 @@ class WidgetDefinition(models.Model):
     refresh_rate = models.IntegerField(help_text="in seconds")
     sort_order = models.IntegerField()
     about = models.TextField(null=True, blank=True)
-    last_updated = models.DateTimeField()
     def validate(self):
         """Validate Widget Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         problems = []
@@ -515,6 +514,8 @@ class Statistic(models.Model):
     def is_list(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL,
                                 self.STRING_LIST)
+    def is_kvlist(self):
+        return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL)
     def initial_form_datum(self, sd):
         result = {}
         if self.is_numeric():
