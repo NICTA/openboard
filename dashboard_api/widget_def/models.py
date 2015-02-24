@@ -439,7 +439,7 @@ class TrafficLightScaleCode(models.Model):
     def import_data(cls, scale, data):
         try:
             code = TrafficLightScaleCode.objects.get(scale=scale, value=data["value"])
-        except TrafficLightScale.DoesNotExist:
+        except TrafficLightScaleCode.DoesNotExist:
             code = IconCode(scale=scale, value=data["value"])
         code.colour = data["colour"]
         code.sort_order = data["sort_order"]
