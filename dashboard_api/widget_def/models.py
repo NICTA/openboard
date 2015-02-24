@@ -259,7 +259,7 @@ class TileDefinition(models.Model):
         try:
             t = TileDefinition.objects.get(widget=widget, url=data["url"])
         except TileDefinition.DoesNotExist:
-            t = TileDeclaration(widget=widget, url=data["url"])
+            t = TileDefinition(widget=widget, url=data["url"])
         t.tile_type = data["tile_type"]
         t.expansion = data["expansion"]
         t.sort_order = data["sort_order"]
