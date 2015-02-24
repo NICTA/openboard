@@ -19,7 +19,7 @@ def get_widget_data(request, widget_url):
     for statistic in Statistic.objects.filter(tile__widget=widget.definition):
         stats_json[statistic.url] = statistic.get_data_json()
     json = {
-        "widget_last_updated": widget.definition.date_last_updated().strftime("%Y-%m-%dT%H:%M:%S%z"),
+        "widget_last_updated": widget.definition.data_last_updated().strftime("%Y-%m-%dT%H:%M:%S%z"),
         "statistics": stats_json,
     }
     return json_list(request, json)
