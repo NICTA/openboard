@@ -440,7 +440,7 @@ class TrafficLightScaleCode(models.Model):
         try:
             code = TrafficLightScaleCode.objects.get(scale=scale, value=data["value"])
         except TrafficLightScaleCode.DoesNotExist:
-            code = IconCode(scale=scale, value=data["value"])
+            code = TrafficLightScaleCode(scale=scale, value=data["value"])
         code.colour = data["colour"]
         code.sort_order = data["sort_order"]
         code.save()
