@@ -168,9 +168,7 @@ class WidgetDefinition(models.Model):
         return self._lud_cache
     class Meta:
         unique_together = (
-            ("name", "actual_frequency"),
             ("url", "actual_frequency"),
-            ("name", "actual_frequency_url"),
             ("url", "actual_frequency_url"),
             ("subcategory", "sort_order"),
         )
@@ -297,7 +295,14 @@ class TileDefinition(models.Model):
             else:
                 try:
                     default_tile = self.widget.tiledefinition_set.get(expansion=False)
-                    if default_tile.tile_type not in (self.PRIORITY_LIST, self.URGENCY_LIST):
+                    if default_tile.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+                        pass # OK
+                    elif default_tile.tile_type == self.SINGLE_MAIN_STAT:
+                        if default_tile.statistic_set.count() > 0 and default_tile.statistic_set.all()[0].is_list():
+                            pass #OK
+                        else:
+                            problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url))
+                    else:
                         problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url))
                 except (TileDefinition.DoesNotExist, 
                         TileDefinition.MultipleObjectsReturned):

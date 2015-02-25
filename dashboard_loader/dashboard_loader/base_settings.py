@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'bom_loader',
     'dam_level_loader',
     'travel_speed_loader',
+    'traffic_incident_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',

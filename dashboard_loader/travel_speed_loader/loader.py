@@ -95,24 +95,3 @@ def update_data(loader, verbosity=0):
     set_statistic_data("road_speeds", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
     return messages
 
-
-def randomiser_stub():
-    message = []
-    target=42
-    speed_stat = get_statistic("road_speeds", "rt", "average_speed")
-    last_speed = speed_stat.get_data().intval
-    new_speed = int(round(random.gauss(45, 3)))
-    if last_speed > new_speed:
-        trend = -1
-    elif last_speed < new_speed:
-        trend = 1
-    else:
-        trend = 0
-    if new_speed < target:
-        tlc = get_traffic_light_code(speed_stat, "bad")
-    elif new_speed < target * 1.15:
-        tlc = get_traffic_light_code(speed_stat, "poor")
-    else:
-        tlc = get_traffic_light_code(speed_stat, "good")
-    set_statistic_data("road_speeds", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
-    return messages

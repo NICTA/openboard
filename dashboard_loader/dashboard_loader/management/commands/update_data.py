@@ -1,3 +1,4 @@
+from optparse import make_option
 from django.core.management.base import BaseCommand, CommandError
 
 from dashboard_loader.models import Loader
@@ -8,6 +9,11 @@ from dashboard_loader.management.update_data import update
 class Command(BaseCommand):
     args="[<app1> [<app2> ....]]"
     help = "Run selected loaders, or all loaders if none passed in"
+    option_list = BaseCommand.option_list + (
+                make_option("-f", "--force",
+                        action="store_true", default=False, dest="force",
+                        help="Force loader to run"),
+            )
 
     def handle(self, *args, **options):
         verbosity = int(options["verbosity"])
@@ -24,7 +30,8 @@ class Command(BaseCommand):
             apps = Loader.objects.all()
         for app in apps:
             try:
-                messages = update(app, verbosity=verbosity, async=False)
+                messages = update(app, verbosity=verbosity, 
+                                force=options["force"], async=False)
                 for msg in messages:
                     print >> self.stdout, msg
             except LoaderException, e:
