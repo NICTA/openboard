@@ -10,8 +10,8 @@ from django.conf import settings
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code
 from travel_speed_loader.models import Road, RoadSection
 
-# Refresh every 10 minutes
-refresh_rate = 60 * 10
+# Refresh every 2 minutes
+refresh_rate = 60 * 2
 
 def get_livetrafficdata(http, filename, label, messages, verbosity=0):
     http.request("GET", "http://livetraffic.rta.nsw.gov.au/traffic/travel_time/%s" % filename)
