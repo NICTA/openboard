@@ -68,6 +68,7 @@ def update_data(loader, verbosity=0):
     m2_features = get_livetrafficdata(http, "m2.json", "M2", messages, verbosity)
     m4_features = get_livetrafficdata(http, "m4.json", "M4", messages, verbosity)
     m7_features = get_livetrafficdata(http, "m7.json", "M7", messages, verbosity)
+    http.close()
     total_stats = {
         'total_travel_time': 0,
         'total_distance': 0

@@ -73,12 +73,22 @@ def set_statistic_data(widget_url, widget_actual_frequency_url, statistic_url,
         data.trend = trend
     if stat.traffic_light_scale and not traffic_light_code:
         raise LoaderException("Must provide a traffic light code for statistic %s" % statistic_url)
+    if stat.traffic_light_scale and isinstance(traffic_light_code, TrafficLightScaleCode):
+        tlc = traffic_light_code
+    elif stat.traffic_light_scale:
+        tlc = get_traffic_light_code(stat, traffic_light_code)
     else:
-        data.traffic_light_code = traffic_light_code
+        tlc = None
+    data.traffic_light_code = tlc
     if stat.icon_library and not icon_code:
         raise LoaderException("Must provide a icon code for statistic %s" % statistic_url)
+    if stat.icon_library and isinstance(icon_code, IconCode):
+        ic = icon_code
+    elif stat.icon_library:
+        ic = get_icon(stat.icon_library.name, icon_code)
     else:
-        data.icon_code = icon_code
+        ic = None
+    data.icon_code = ic
     if stat.is_numeric():
         if stat.num_precision == 0:
             data.intval = value

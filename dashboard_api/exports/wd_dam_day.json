@@ -1,0 +1,138 @@
+{
+    "tiles": [
+        {
+            "url": "dam-day-main", 
+            "statistics": [
+                {
+                    "unit_prefix": "", 
+                    "trend": true, 
+                    "unit_underfix": "ALL DAMS AV.", 
+                    "name_as_label": true, 
+                    "sort_order": 100, 
+                    "unit_signed": false, 
+                    "unit_suffix": "%", 
+                    "icon_library": null, 
+                    "name": "SCA Levels", 
+                    "url": "all_dams_avg", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": false, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 200, 
+                    "unit_signed": false, 
+                    "unit_suffix": "%", 
+                    "icon_library": null, 
+                    "name": "LAST WEEK", 
+                    "url": "all_dams_last_week", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 1, 
+            "sort_order": 10, 
+            "expansion": false
+        }, 
+        {
+            "url": "dam-day-expansion", 
+            "statistics": [
+                {
+                    "unit_prefix": "", 
+                    "trend": true, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 100, 
+                    "unit_signed": false, 
+                    "unit_suffix": "%", 
+                    "icon_library": null, 
+                    "name": "Warragamba", 
+                    "url": "warragamba", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": true, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 200, 
+                    "unit_signed": false, 
+                    "unit_suffix": "%", 
+                    "icon_library": null, 
+                    "name": "Avon", 
+                    "url": "avon", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": true, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 300, 
+                    "unit_signed": false, 
+                    "unit_suffix": "%", 
+                    "icon_library": null, 
+                    "name": "Cataract", 
+                    "url": "cataract", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": true, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 400, 
+                    "unit_signed": false, 
+                    "unit_suffix": "%", 
+                    "icon_library": null, 
+                    "name": "Cordeaux", 
+                    "url": "cordeaux", 
+                    "num_precision": 1, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 3, 
+            "sort_order": 20, 
+            "expansion": true
+        }
+    ], 
+    "subcategory": "Water", 
+    "actual_frequency_url": "day", 
+    "source_url": "http://www.sca.nsw.gov.au/water/dam-levels", 
+    "actual_frequency": "Daily", 
+    "sort_order": 250, 
+    "expansion_hint": "Key Dams", 
+    "category": "Environment and Infrastructure", 
+    "about": "<p>Data taken from the Sydney Catchment Authority</p>\r\n<p>Key dams are the four largest dams serving Greater Sydney.</p>", 
+    "name": "Dam Levels", 
+    "refresh_rate": 7200, 
+    "url": "dam", 
+    "declarations": [
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "syd"
+        }, 
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "nsw"
+        }
+    ]
+}
+
