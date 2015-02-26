@@ -61,7 +61,7 @@ def update_data(loader, verbosity=0):
     else:
         am = False
         set_statistic_data("road_speeds", "rt", "am_pm", "pm")
-        target = 42
+        target = 37
     set_statistic_data("road_speeds", "rt", "target", target)
     http = httplib.HTTPConnection("livetraffic.rta.nsw.gov.au")
     m1_features = get_livetrafficdata(http, "f3.json", "M1", messages, verbosity)

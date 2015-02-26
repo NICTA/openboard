@@ -9,22 +9,22 @@ def create_update_roads(apps, schema_editor):
         m1 = Road.objects.get(name="M1")
     except Road.DoesNotExist:
         m1 = Road(name="M1")
-    m1.am_direction="N"
-    m1.pm_direction="S"
+    m1.am_direction="S"
+    m1.pm_direction="N"
     m1.save()
     try:
         m2 = Road.objects.get(name="M2")
     except Road.DoesNotExist:
         m2 = Road(name="M2")
-    m2.am_direction="WE"
-    m2.pm_direction="WE"
+    m2.am_direction="E"
+    m2.pm_direction="W"
     m2.save()
     try:
         m4 = Road.objects.get(name="M4")
     except Road.DoesNotExist:
         m4 = Road(name="M4")
-    m4.am_direction="WE"
-    m4.pm_direction="WE"
+    m4.am_direction="E"
+    m4.pm_direction="W"
     m4.save()
     try:
         m7 = Road.objects.get(name="M7")
