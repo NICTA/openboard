@@ -44,10 +44,12 @@ class StatisticData(models.Model):
 class StatisticListItem(models.Model):
     statistic = models.ForeignKey("widget_def.Statistic")
     keyval = models.CharField(max_length=120, null=True, blank=True)
+    datekey = models.DateField(null=True, blank=True)
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,
                         blank=True, null=True)
     strval = models.CharField(max_length=400, null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
     traffic_light_code = models.ForeignKey("widget_def.TrafficLightScaleCode", blank=True, null=True)
     icon_code = models.ForeignKey("widget_def.IconCode", blank=True, null=True)
     trend = models.SmallIntegerField(choices=(
@@ -76,6 +78,6 @@ class StatisticListItem(models.Model):
     def __unicode__(self):
         return "<List for %s (%d)>" % (unicode(self.statistic), self.sort_order)
     class Meta:
-        unique_together = ("statistic", "sort_order")
-        ordering = ("statistic", "sort_order")
+        unique_together = ("statistic", "datekey", "sort_order")
+        ordering = ("statistic", "datekey", "sort_order")
 

@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django import forms
+from django.forms.extras import SelectDateWidget
 
 from widget_def.models import Statistic
 
@@ -21,9 +22,11 @@ def clean_icon_code(self):
 def get_form_class_for_statistic(stat):
     form_fields = OrderedDict()
     field_count = 0
-    if stat.stat_type in (Statistic.STRING_KVL, Statistic.NUMERIC_KVL):
+    if stat.is_kvlist():
         form_fields["label"] = forms.CharField(required=True, max_length=120)
         field_count += 1
+    elif stat.is_eventlist():
+        form_fields["date"] = forms.DateField(required=True, widget=SelectDateWidget)
     elif not stat.name_as_label:
         form_fields["label"] = forms.CharField(required=True, max_length=80)
         field_count += 1
@@ -59,6 +62,8 @@ def get_form_class_for_statistic(stat):
                         ))
         field_count += 1
     if stat.is_list():
+        if stat.hyperlinkable:
+            form_fields["url"] = forms.URLField(required=False)
         form_fields["sort_order"] = forms.IntegerField(required=True)
         field_count += 1
     form_fields["field_count"] = field_count

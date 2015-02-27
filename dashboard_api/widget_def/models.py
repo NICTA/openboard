@@ -217,7 +217,8 @@ class TileDefinition(models.Model):
     LIST_OVERFLOW = 5
     GRAPH = 6
     MAP = 7
-    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map" ]
+    CALENDAR = 8
+    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar" ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
@@ -226,6 +227,7 @@ class TileDefinition(models.Model):
                     (URGENCY_LIST, tile_types[URGENCY_LIST]),
                     (LIST_OVERFLOW, tile_types[LIST_OVERFLOW]),
                     (GRAPH, tile_types[GRAPH]),
+                    (CALENDAR, tile_types[CALENDAR]),
                     # (MAP, tile_types[MAP]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
@@ -237,7 +239,7 @@ class TileDefinition(models.Model):
             "type": self.tile_types[self.tile_type],
             "expansion": self.expansion,
         }
-        if self.tile_type in (self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
+        if self.tile_type in (self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
         if self.tile_type == self.GRAPH:
             pass # TODO
@@ -276,7 +278,7 @@ class TileDefinition(models.Model):
         # Number of statistics
         min_stat_count = 0
         max_stat_count = 20
-        if self.tile_type == self.SINGLE_MAIN_STAT:
+        if self.tile_type in (self.SINGLE_MAIN_STAT, self.CALENDAR):
             min_stat_count = 1
         elif self.tile_type in (self.DOUBLE_MAIN_STAT,
                             self.PRIORITY_LIST, self.URGENCY_LIST):
@@ -467,7 +469,8 @@ class Statistic(models.Model):
     NUMERIC_KVL = 4
     STRING_LIST = 5
     AM_PM = 6
-    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" ]
+    EVENT_LIST = 7
+    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" , "event_list" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.CharField(max_length=80, blank=True)
     url = models.SlugField()
@@ -479,6 +482,7 @@ class Statistic(models.Model):
                     (NUMERIC_KVL, stat_types[NUMERIC_KVL]),
                     (STRING_LIST, stat_types[STRING_LIST]),
                     (AM_PM, stat_types[AM_PM]),
+                    (EVENT_LIST, stat_types[EVENT_LIST]),
                 ))
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
@@ -489,6 +493,7 @@ class Statistic(models.Model):
     unit_underfix = models.CharField(max_length="40", blank=True, null=True)
     unit_signed = models.BooleanField(default=False)
     sort_order = models.IntegerField()
+    hyperlinkable = models.BooleanField(default=False)
     def clean(self):
         if not self.is_numeric():
             self.num_precision = None
@@ -499,10 +504,15 @@ class Statistic(models.Model):
         if self.stat_type in (self.STRING_LIST, self.AM_PM):
             self.traffic_light_scale = None
             self.icon_library = None
+        if self.stat_type == self.EVENT_LIST:
+            self.traffic_light_scale = None
+            self.trend = False
         if self.is_list():
             name_as_label=True
+        else:
+            self.hyperlinkable = False
     def validate(self):
-        """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
+        """Validate Statistic Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         self.clean()
         self.save()
         problems = []
@@ -511,6 +521,8 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url))
             elif self.num_precision < 0:
                 problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url))
+        if self.is_eventlist() and self.tile.tile_type != self.tile.CALENDAR:
+            problems.append("Event List statistic only allowed on a Calendar tile")
         return problems
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
@@ -518,7 +530,9 @@ class Statistic(models.Model):
         return self.stat_type in (self.NUMERIC, self.NUMERIC_KVL)
     def is_list(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL,
-                                self.STRING_LIST)
+                                self.STRING_LIST, self.EVENT_LIST)
+    def is_eventlist(self):
+        return self.stat_type == (self.EVENT_LIST)
     def is_kvlist(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL)
     def initial_form_datum(self, sd):
@@ -536,9 +550,13 @@ class Statistic(models.Model):
             result["icon_code"] = sd.icon_code.value
         if self.trend:
             result["trend"] = unicode(sd.trend)
+        if self.hyperlinkable:
+            result["url"] = sd.url
         if self.is_list():
-            if self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL):
+            if self.is_kvlist():
                 result["label"] = sd.keyval
+            elif self.is_eventlist():
+                result["date"] = sd.datekey
             result["sort_order"] = sd.sort_order
         elif not self.name_as_label:
             result["label"] = sd.label
@@ -561,10 +579,14 @@ class Statistic(models.Model):
         json = {}
         if datum:
             json["value"] = datum.value()
-            if self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL):
+            if self.is_kvlist():
                 json["label"]=datum.keyval
+            elif self.is_eventlist():
+                json["date"]=datum.datekey.strftime("%Y-%m-%d")
             elif not self.name_as_label:
                 json["label"]=datum.label
+            if self.hyperlinkable:
+                json["url"]=datum.url
             if self.traffic_light_scale:
                 json["traffic_light"]=datum.traffic_light_code.value
             if self.icon_library:
@@ -610,6 +632,7 @@ class Statistic(models.Model):
             "traffic_light_scale": traffic_light_scale_name,
             "icon_library": icon_library_name,
             "trend": self.trend,
+            "hyperlinkable": self.hyperlinkable,
             "num_precision": self.num_precision,
             "unit_prefix": self.unit_prefix,
             "unit_suffix": self.unit_suffix,
@@ -626,6 +649,7 @@ class Statistic(models.Model):
         s.name = data["name"]
         s.name_as_label = data["name_as_label"]
         s.stat_type = data["stat_type"]
+        s.hyperlinkable = data.get("hyperlinkable", False)
         s.trend = data["trend"]
         s.num_precision = data["num_precision"]
         s.unit_prefix = data["unit_prefix"]
@@ -648,9 +672,9 @@ class Statistic(models.Model):
             "name": self.name,
             "name_as_label": self.name_as_label,
             "url": self.url,
-            "type": self.stat_types[self.stat_type]
+            "type": self.stat_types[self.stat_type],
         }
-        if self.stat_type in ( self.NUMERIC, self.NUMERIC_KVL ):
+        if self.is_numeric():
             state["precision"] = self.num_precision
             state["unit"] = {}
             if self.unit_prefix:
@@ -671,6 +695,8 @@ class Statistic(models.Model):
                 state["icon_library"] = self.icon_library.name
             else:
                 state["icon_library"] = None
+        if self.is_list():
+            state["hyperlinkable"] = self.hyperlinkable
         return state
     class Meta:
         unique_together = [("tile", "name"), ("tile", "url")]

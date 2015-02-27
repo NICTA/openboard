@@ -123,8 +123,12 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
                                 sli.traffic_light_code = tlc
                             if s.trend:
                                 sli.trend = int(fd["trend"])
-                            if s.stat_type in (s.NUMERIC_KVL, s.STRING_KVL):
+                            if s.is_kvlist():
                                 sli.keyval = fd["label"]
+                            if s.is_eventlist():
+                                sli.datekey = fd["date"]
+                            if s.hyperlinkable:
+                                sli.url = fd["url"]
                             sli.sort_order = fd["sort_order"]
                             sli.save()
                     if request.POST.get("submit"):

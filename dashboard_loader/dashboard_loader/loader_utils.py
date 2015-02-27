@@ -105,7 +105,8 @@ def clear_statistic_list(widget_url, widget_actual_frequency_url, statistic_url)
     stat = get_statistic(widget_url, widget_actual_frequency_url, statistic_url)
     stat.statisticlistitem_set.all().delete()
     
-def add_statistic_list_item(widget_url, widget_actual_frequency_url, statistic_url, value, sort_order, label=None, traffic_light_code=None, icon_code=None, trend=None):
+def add_statistic_list_item(widget_url, widget_actual_frequency_url, statistic_url, value, sort_order, 
+                label=None, traffic_light_code=None, icon_code=None, trend=None, url=None):
     stat = get_statistic(widget_url, widget_actual_frequency_url, statistic_url)
     if not stat.is_list():
         raise LoaderException("Not a list statistic %s" % statistic_url)
@@ -115,6 +116,8 @@ def add_statistic_list_item(widget_url, widget_actual_frequency_url, statistic_u
         raise LoaderException("Cannot provide a label for list items for statistic %s" % statistic_url)
     if stat.trend and trend is None:
         raise LoaderException("Must provide a trend for statistic %s" % statistic_url)
+    if stat.hyperlinkable:
+        stat.url = url 
     if stat.traffic_light_scale and not traffic_light_code:
         raise LoaderException("Must provide a traffic light code for statistic %s" % statistic_url)
     if stat.icon_library and not icon_code:
