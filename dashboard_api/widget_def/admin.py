@@ -82,7 +82,34 @@ class StatisticInline(admin.StackedInline):
 class TileAdmin(admin.ModelAdmin):
     inlines = [StatisticInline]
     list_display = ('url', 'widget', 'expansion', 'sort_order')
-    filter_verticali = ('widget',)
-    
+    list_filter = ('widget',)
 
+class GraphClusterInline(admin.StackedInline):
+    model = GraphCluster
+    extra = 2
 
+class GraphDatasetInline(admin.StackedInline):
+    model = GraphDataset
+    extra = 2
+
+@admin.register(GraphDefinition)
+class GraphAdmin(admin.ModelAdmin):
+    inlines = [ GraphClusterInline, GraphDatasetInline ]
+    list_display = ('widget', 'tile')
+    fieldsets = (
+        (None, {
+            'fields': ('tile', 'heading', 'graph_type'),
+         }),
+        ('Numeric Axes', {
+            'fields': ('numeric_axis_label', 'numeric_axis_always_show_zero',
+                    'use_secondary_numeric_axis',
+                    'secondary_numeric_axis_label', 'secondary_numeric_axis_always_show_zero',),
+            'description': 'Not used for Pie Charts',
+            'classes': ('collapse',),
+         }),
+        ('Horizontal Axis', {
+            'fields': ('horiz_axis_label', 'horiz_axis_type'),
+            'description': 'Only used for Line Graphs',
+            'classes': ('collapse',),
+         }),
+    )

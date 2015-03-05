@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Widget: {{ widget.name }} ({{ widget.actual_frequency }})</h1>
+<h2>Tile: {{ statistic.tile.url }}</h2>
+<form action="{% url "edit_graph" widget_url=widget.url actual_frequency_url=widget.actual_frequency_url tile_url=graph.tile.url %}" method="post">{% csrf_token %}
+{{ form.management_form }}
+<table border="0">
+{% for subform in form %}
+    <tr>
+        {% for field in subform %}
+            <td><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</td>
+        {% endfor %}
+    </tr>
+{% endfor %}
+</table>
+<input name="submit" type="submit" value="Save" class="button"/>
+<input name="submit_stay" type="submit" value="Save and Continue" class="button"/>
+<input name="cancel" type="submit" value="Cancel" class="button"/>
+</form>
+{% endblock %}

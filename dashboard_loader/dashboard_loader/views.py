@@ -4,10 +4,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode
-from widget_data.models import StatisticData, StatisticListItem
+from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition
+from widget_data.models import StatisticData, StatisticListItem, GraphData
 from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission
-from dashboard_loader.dynform import get_form_class_for_statistic
+from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
 
 # View methods
 
@@ -76,9 +76,17 @@ def view_widget(request, widget_url, actual_frequency_url):
                 "data": data,
                 "listdata": listdata,
             })
+    graphs = []
+    for graph in GraphDefinition.objects.filter(tile__widget=w):
+        data = GraphData.objects.filter(graph=graph)
+        graphs.append({
+                "graph": graph,
+                "data": data
+                }) 
     return render(request, "widget_data/view_widget.html", {
             "widget": w,
             "stats": stats,
+            "graphs": graphs,
             })
 
 @login_required
@@ -92,7 +100,7 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
     try:
         s = Statistic.objects.get(tile__widget=w, tile__url=tile_url, url=stat_url)
     except Statistic.DoesNotExist:
-        return HttpResponseNotFound("This Widget Definition does not exist")
+        return HttpResponseNotFound("This Statistic does not exist")
 
     form_class = get_form_class_for_statistic(s)
     if s.is_list():
@@ -193,4 +201,64 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
                 "statistic": s,
                 "form": form
                 })
+
+@login_required
+def edit_graph(request, widget_url, actual_frequency_url, tile_url):
+    try:
+        w = WidgetDefinition.objects.get(url=widget_url, actual_frequency_url=actual_frequency_url)
+    except WidgetDefinition.DoesNotExist:
+        return HttpResponseNotFound("This Widget Definition does not exist")
+    if not user_has_edit_permission(request.user, w):
+        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
+    try:
+        g = GraphDefinition.objects.get(tile__widget=w, tile__url=tile_url)
+    except GraphDefinition.DoesNotExist:
+        return HttpResponseNotFound("This Graph does not exist")
+
+    form_class = get_form_class_for_graph(g)
+    form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=10)
+    if request.method == 'POST':
+        if request.POST.get("submit") or request.POST.get("submit_stay"):
+            form = form_class(request.POST)
+            if form.is_valid():
+                GraphData.objects.filter(graph=g).delete()
+                for subform in form:
+                    fd = subform.cleaned_data
+                    if fd and not fd.get("DELETE"):
+                        gd = GraphData(graph=g)
+                        gd.value = fd["value"]
+                        if g.use_clusters():
+                            # Lookup?
+                            gd.cluster = fd["cluster"]
+                        # Lookup?
+                        gd.dataset = fd["dataset"]
+                        if g.graph_type == g.LINE:
+                            if g.horiz_axis_type == g.NUMERIC:
+                                gd.horiz_numericval = fd["horiz_value"]
+                            elif g.horiz_axis_type == g.DATE:
+                                gd.horiz_dateval = fd["horiz_value"]
+                            elif g.horiz_axis_type == g.TIME:
+                                gd.horiz_timeval = fd["horiz_value"]
+                        gd.save()
+                if request.POST.get("submit"):
+                    return redirect("view_widget_data", 
+                            widget_url=w.url, 
+                            actual_frequency_url=w.actual_frequency_url)
+                else:
+                    form = form_class(initial=g.initial_form_data())
+        elif request.POST.get("cancel"):
+            return redirect("view_widget_data", 
+                        widget_url=w.url, 
+                        actual_frequency_url=w.actual_frequency_url)
+        else:
+            form = form_class(initial=g.initial_form_data())
+    else:
+        form = form_class(initial=g.initial_form_data())
+
+    return render(request, "widget_data/edit_graph.html", {
+                "widget": w,
+                "graph": g,
+                "form": form
+                })
+
 

@@ -52,3 +52,12 @@ def get_frequency_from_request(request, use_default=False):
         else:
             raise Http404("Frequency %s does not exist" % frequency_url)
     return frequency
+
+def update_maxmin(value, _min, _max):
+    if _min is None:
+        _min = value
+        _max = value
+    else:
+        _min = min(value, _min)
+        _max = max(value, _max)
+    return (_min, _max)

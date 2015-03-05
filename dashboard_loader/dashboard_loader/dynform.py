@@ -3,7 +3,7 @@ from collections import OrderedDict
 from django import forms
 from django.forms.extras import SelectDateWidget
 
-from widget_def.models import Statistic
+from dashboard_loader.time_widget import SelectTimeWidget
 
 # Dynamic data form methods
 
@@ -68,4 +68,26 @@ def get_form_class_for_statistic(stat):
         field_count += 1
     form_fields["field_count"] = field_count
     return type(str("Stat_%s_Form" % stat.name), (forms.Form,), form_fields)
+
+def get_form_class_for_graph(graph):
+    form_fields = OrderedDict()
+    field_count = 0
+    if graph.use_clusters():
+        form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.graphcluster_set.all(), to_field_name="url", required=True)
+        field_count += 1
+    form_fields["dataset"] = forms.ModelChoiceField(queryset=graph.graphdataset_set.all(), to_field_name="url", required=True)
+    field_count += 1
+    form_fields["value"] = forms.DecimalField(required=True, decimal_places=4)
+    field_count += 1
+    if graph.graph_type == graph.LINE:
+        if graph.horiz_axis_type == graph.NUMERIC:
+            form_fields["horiz_value"] = forms.DecimalField(required=True, decimal_places=4)
+        elif graph.horiz_axis_type == graph.DATE:
+            form_fields["horiz_value"] = forms.DateField(required=True, widget=SelectDateWidget)
+        elif graph.horiz_axis_type == graph.TIME:
+            form_fields["horiz_value"] = forms.TimeField(required=True, widget=SelectTimeWidget)
+        field_count += 1
+    form_fields["field_count"] = field_count
+    return type(str("Graph_%s_Form" % graph.tile.url), (forms.Form,), 
+                        form_fields)  
 

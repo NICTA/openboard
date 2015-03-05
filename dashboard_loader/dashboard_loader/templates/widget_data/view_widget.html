@@ -33,5 +33,35 @@
         </tr>
     {% endfor %}
 </table>
+{% if graphs %}
+<table class="simple_table">
+    <tr>
+        <th>Graph</th>
+        <th>Last Updated</th>
+        <th>Datapoints</th>
+        <th>Actions</th>
+    </tr>
+    {% for g in graphs %}
+    <tr>
+        <td>{{ g.tile.url }}</td>
+        <td>
+            {% if g.graph.data_last_updated %}
+                {{ g.graph.data_last_updated|date:"d/m/Y h:i:sa" }}
+            {% else %}<i>no data</i>{% endif %}
+        </td>
+        <td>
+            {% if g.graph.data_last_updated %}
+                {{ g.data.count }}
+            {% else %}<i>no data</i>{% endif %}
+        </td>
+        <td>
+            <a href="{% url "edit_graph" widget_url=widget.url actual_frequency_url=widget.actual_frequency_url tile_url=g.graph.tile.url %}">
+                {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
 <p><a href="{% url "list_widget_data" %}">Return to List of Available Widgets</a></p>
 {% endblock %}
