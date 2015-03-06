@@ -48,6 +48,7 @@
                 "secondary_numeric_axis_label": "Minutes", 
                 "secondary_numeric_axis_always_show_zero": true, 
                 "horiz_axis_label": "", 
+                "use_secondary_numeric_axis": true, 
                 "graph_type": 1, 
                 "horiz_axis_type": 3, 
                 "datasets": {
@@ -64,7 +65,6 @@
                 }, 
                 "numeric_axis_label": "Visits", 
                 "clusters": {}, 
-                "user_secondary_numeric_axis": true, 
                 "heading": ""
             }, 
             "tile_type": 6, 

@@ -807,7 +807,7 @@ class GraphDefinition(models.Model):
                 "graph_type": self.graph_type,
                 "numeric_axis_label": self.numeric_axis_label,
                 "numeric_axis_always_show_zero": self.numeric_axis_always_show_zero,
-                "user_secondary_numeric_axis": self.use_secondary_numeric_axis,
+                "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
                 "secondary_numeric_axis_label": self.secondary_numeric_axis_label,
                 "secondary_numeric_axis_always_show_zero": self.secondary_numeric_axis_always_show_zero,
                 "horiz_axis_label": self.horiz_axis_label,
