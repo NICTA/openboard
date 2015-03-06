@@ -847,7 +847,7 @@ class GraphDefinition(models.Model):
             dataset_urls = []
             for (d_url, dataset) in data["datasets"].items():
                 GraphDataset.import_data(g, d_url, dataset)
-                cluster_urls.append(d_url)
+                dataset_urls.append(d_url)
             for dataset in g.graphdataset_set.all():
                 if dataset.url not in dataset_urls:
                     dataset.delete()
@@ -963,6 +963,7 @@ class GraphDataset(models.Model):
             d = GraphDataset(graph=g, url=url)
         d.label = data["label"]
         d.colour = data["colour"]
+        d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
         d.save()
     def __getstate__(self):
         state = {
