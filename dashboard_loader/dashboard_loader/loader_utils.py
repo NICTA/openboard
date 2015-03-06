@@ -1,3 +1,4 @@
+import decimal
 import datetime
 import pytz
 import os
@@ -6,8 +7,8 @@ from django.conf import settings
 from django.db import transaction
 
 from dashboard_loader.models import Loader
-from widget_def.models import Statistic, IconCode, TrafficLightScaleCode
-from widget_data.models import StatisticData, StatisticListItem
+from widget_def.models import Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster
+from widget_data.models import StatisticData, StatisticListItem, GraphData
 
 class LoaderException(Exception):
     pass
@@ -183,4 +184,40 @@ def do_update(app, verbosity=0):
 @transaction.atomic
 def call_in_transaction(func, *args, **kwargs):
     return func(*args, **kwargs)
+
+def get_graph(widget_url, widget_actual_frequency_url, tile_url):
+    try:
+        return GraphDefinition.objects.get(tile__url=tile_url, tile__widget__url=widget_url, tile__widget__actual_frequency_url=widget_actual_frequency_url)
+    except GraphDefinition.DoesNotExist:
+        raise LoaderException("Graph for tile %s of widget %s:%s does not exist"%(tile_url, widget_url, widget_actual_frequency_url))
+
+def clear_graph_data(graph):
+    graph.get_data().delete()
+
+def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
+    if not isinstance(dataset, GraphDataset):
+        try:
+            dataset = GraphDataset.objects.get(graph=graph, url=dataset)
+        except GraphDataset.DoesNotExist:
+            raise LoaderException("Dataset %s for graph %s does not exist" % (str(dataset), graph.tile.url))
+    value = decimal.Decimal(value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_EVEN)
+    gd = GraphData(graph=graph, dataset=dataset,value=value)
+    if graph.use_clusters():
+        if not cluster:
+            raise LoaderException("Must supply cluster for data for graph %s" % graph.tile.url)   
+        elif not isinstance(cluster, GraphCluster):
+            try:
+                cluster = GraphCluster.objects.get(graph=graph, url=cluster)
+            except GraphCluster.DoesNotExist:
+                raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+        gd.cluster = cluster
+    else:
+        if graph.horiz_axis_type == graph.NUMERIC:
+            gd.horiz_numericval = decimal.Decimal(horiz_value).quantize(decimal.Decimal("0.0001", rounding=decimal.ROUND_HALF_EVEN))
+        elif graph.horiz_axis_type == graph.DATE:
+            gd.horiz_dateval = horiz_value
+        elif graph.horiz_axis_type == graph.TIME:
+            gd.horiz_timeval = horiz_value
+    gd.save()
+    return gd
 

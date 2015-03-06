@@ -778,6 +778,11 @@ class GraphDefinition(models.Model):
             return result
         def get_data(self):
             return GraphData.objects.filter(graph=self).natural_order(self)
+        def get_last_datum(self, dataset, cluster=None):
+            gd = None
+            for gd in GraphData.objects.filter(graph=self, dataset__url=dataset, cluster__url=cluster).natural_order(self):
+                pass
+            return gd
         def data_last_updated(self, update=False):
             if self._lud_cache and not update:
                 return self._lud_cache
@@ -801,10 +806,10 @@ class GraphDefinition(models.Model):
                 "heading": self.heading,
                 "graph_type": self.graph_type,
                 "numeric_axis_label": self.numeric_axis_label,
-                "numeric_axis_always_show_zero": self.numeric_always_show_zero,
+                "numeric_axis_always_show_zero": self.numeric_axis_always_show_zero,
                 "user_secondary_numeric_axis": self.use_secondary_numeric_axis,
                 "secondary_numeric_axis_label": self.secondary_numeric_axis_label,
-                "secondary_numeric_axis_always_show_zero": self.secondary_numeric_always_show_zero,
+                "secondary_numeric_axis_always_show_zero": self.secondary_numeric_axis_always_show_zero,
                 "horiz_axis_label": self.horiz_axis_label,
                 "horiz_axis_type": self.horiz_axis_type,
                 "clusters": { c.url: c.label for c in self.graphcluster_set.all() },

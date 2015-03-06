@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'traffic_incident_loader',
     'calendar_updater',
     'beach_quality_loader',
+    'servicensw_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
