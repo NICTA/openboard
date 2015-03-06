@@ -836,6 +836,7 @@ class GraphDefinition(models.Model):
             g.secondary_numeric_axis_always_show_zero = data["secondary_numeric_axis_always_show_zero"]
             g.horiz_axis_label = data["horiz_axis_label"]
             g.horiz_axis_type = data["horiz_axis_type"]
+            g.save()
             cluster_urls = []
             for (c_url, c_label) in data["clusters"].items():
                 GraphCluster.import_data(g, c_url, c_label)
