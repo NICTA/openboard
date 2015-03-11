@@ -56,7 +56,7 @@
     "sort_order": 300, 
     "expansion_hint": "Other Regions", 
     "category": "Public Safety", 
-    "about": "<p>Data taken from NSW Rural Fire Services, via the Bureau of Meteorology.</p>", 
+    "about": "<p>Data taken from NSW Rural Fire Services.</p>", 
     "name": "Fire Danger Ratings", 
     "refresh_rate": 3600, 
     "url": "fire", 

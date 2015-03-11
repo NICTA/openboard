@@ -71,7 +71,7 @@ def update_data(loader, verbosity=0):
     messages.extend(call_in_transaction(update_forecasts,verbosity))
     call_in_transaction(update_current_temp)
     messages.extend(call_in_transaction(update_warnings,verbosity))
-    messages.extend(call_in_transaction(update_fire_danger,verbosity))
+# messages.extend(call_in_transaction(update_fire_danger,verbosity))
     return messages
 
 class FireDanger(object):
@@ -341,7 +341,7 @@ def update_warnings(verbosity=0):
                 else:
                     messages.append("Unparseable thunderstorm warning: %s" % line)
             elif state == 1 and line.startswith("for "):
-                match = re.match("^for (.*)$")
+                match = re.match("^for (.*)$", line)
                 if match:
                     tw["detail"] += line.title()
                     tw["phenomena"] = match.group(1).title()
@@ -349,11 +349,11 @@ def update_warnings(verbosity=0):
                     state = 2
                 else:
                     messages.append("Unparseable thunderstorm warning phenomena: %s" % line)
-            elif state == 2 and line == "For people in the":
+            elif state == 2 and line.startswith("For people in"):
                 tw["detail"] += line.title() + " "
                 state = 3
             elif state == 3:
-                if line:
+                if line.strip():
                     tw["detail"] += line.title() + " "
                     tw["areas"] += line.title() + " "
                 else:

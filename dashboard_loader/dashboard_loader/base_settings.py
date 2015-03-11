@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'calendar_updater',
     'beach_quality_loader',
     'servicensw_loader',
+    'rfs_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
