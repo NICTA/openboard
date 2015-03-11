@@ -1,3 +1,6 @@
+from django.contrib.auth import authenticate, login
+from django.http.response import HttpResponseForbidden
+
 from widget_def.models import *
 from widget_def.view_utils import json_list
 from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request
@@ -27,4 +30,23 @@ def get_widgets(request):
     widgets = theme.widgetdeclaration_set.filter(location=location, frequency=frequency)
     data = [ w.__getstate__() for w in widgets ]
     return json_list(request, data)
-    
+
+def api_login(request):
+    username = request.POST.get('username')
+    if not username:
+        username = request.GET.get('username')
+    password = request.POST.get('password')
+    if not password:
+        password = request.GET.get('password')
+    if username and password:
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return json_list(request, [])
+            else:
+                return HttpForbidden("User is inactive")
+        else:
+            return HttpForbidden("Bad username or password")
+    else:
+        return HttpForbidden("Username and password not supplied")

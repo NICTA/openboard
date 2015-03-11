@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'widget_def',
     'widget_data',
     'corsheaders',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
 )
@@ -89,4 +91,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SESSION_COOKE_AGE = 24*60*60*2
+
+SESSION_COOKIE_HTTPONLY = False
 

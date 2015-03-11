@@ -6,6 +6,9 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     
     # Simple list API views
+    url(r'^login/$', 'widget_def.views.api_login', name='login'),
+
+    # Simple list API views
     url(r'^themes/$', 'widget_def.views.get_themes', name='get_themes'),
     url(r'^locations/$', 'widget_def.views.get_locations', name='get_locations'),
     url(r'^frequencies/$', 'widget_def.views.get_frequencies', name='get_frequencies'),
