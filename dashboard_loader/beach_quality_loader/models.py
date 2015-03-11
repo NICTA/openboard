@@ -9,6 +9,7 @@ class BeachSummaryHistory(models.Model):
     PITTWATER = 'PIWAT'
     CENTRAL_COAST = 'CTRCT'
     ILLAWARRA = 'ILLAW'
+    HUNTER = 'HUNTR'
     regions = {
         SYDNEY_OCEAN: 'Sydney Ocean',
         SYDNEY_HARBOUR: 'Sydney Harbour',
@@ -16,12 +17,26 @@ class BeachSummaryHistory(models.Model):
         PITTWATER: 'Pittwater',
         CENTRAL_COAST: 'Central Coast',
         ILLAWARRA: 'Illawarra',
+        HUNTER: 'Hunter',
     }
     day=models.DateField(auto_now=True)
     region=models.CharField(max_length=5, choices=regions.items())
     num_pollution_unlikely=models.IntegerField()
     num_pollution_possible=models.IntegerField()
     num_pollution_likely=models.IntegerField()
+    @classmethod
+    def sydney_beaches(cls):
+        return (cls.SYDNEY_OCEAN,
+                                cls.SYDNEY_HARBOUR,
+                                # cls.BOTANY_BAY,
+                                # cls.PITTWATER,
+        )
+    @classmethod
+    def ocean_beaches(cls):
+        return (cls.SYDNEY_OCEAN,
+                    cls.CENTRAL_COAST,
+                    cls.ILLAWARRA,
+                    cls.HUNTER)
     def is_sydney(self):
         return self.region in (self.SYDNEY_OCEAN,
                                 self.SYDNEY_HARBOUR,

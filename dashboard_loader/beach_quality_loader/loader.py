@@ -51,8 +51,108 @@ def update_data(loader, verbosity=0):
         messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.ILLAWARRA, resp))
     except LoaderException, e:
         messages.append("Error updating Illawarra beach data: %s" % unicode(e))
+    try:
+        http.request("GET", "http://www.environment.nsw.gov.au/beachapp/HunterBulletin.xml")
+        resp = http.getresponse()
+        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.HUNTER, resp))
+    except LoaderException, e:
+        messages.append("Error updating Hunter beach data: %s" % unicode(e))
     http.close()
+    try:
+        messages.extend(call_in_transaction(update_stats))
+    except LoaderException, e:
+        messages.append("Error updating widget stats: %s" % unicode(e))
     return messages
+
+def update_stats():
+    messages = []
+    today = datetime.date.today()
+    start_of_year = datetime.datetime(today.year, 1, 1)
+    messages.extend(update_summary_stat(
+            "beaches-nsw", "day", "all_ocean_beaches",
+            BeachSummaryHistory.objects.filter(
+                region__in=BeachSummaryHistory.ocean_beaches,
+                day=today),
+            BeachSummaryHistory.objects.filter(
+                region__in=BeachSummaryHistory.ocean_beaches,
+                day=day_before(today))
+            ))
+    messages.extend(update_summary_stat(
+            "beaches-nsw", "day", "all_ocean_ytd",
+            BeachSummaryHistory.objects.filter(
+                region__in=BeachSummaryHistory.ocean_beaches,
+                day__gte=start_of_year,
+                day__lte=today
+                )
+            ))
+    for region in BeachSummaryHistory.regions:
+        messages.extend(update_summary_stat(
+                "beaches-nsw", "day", "region_%s" % region,
+                BeachSummaryHistory.objects.filter(
+                    region=region,
+                    day=today
+                    )
+                ))
+    messages.append("Statistics updated") 
+    return messages
+
+def day_before(d):
+    dt = datetime.datetime.combine(d, datetime.time(0,0,0))
+    dt -= datetime.timedelta(days=1)
+    return dt.date
+
+def update_summary_stat(widget_url, widget_freq_url, statistic_url,
+        beachsummary_set, trend_cmp_set=None):
+    messages = []
+    if not beachsummary_set:
+        return ["Beach summary set for widget %s:%s is empty" % (widget_url, widget_freq_url)]
+    total_likely = 0
+    total_possible = 0
+    total_unlikely = 0
+    for bs in beachsummary_set:
+        total_likely += bs.num_pollution_likely
+        total_possible += bs.num_pollution_possible
+        total_unlikely += bs.num_pollution_unlikely
+    (value, tlc) = summarise_quality(total_likely, total_possible, total_unlikely)
+    if trend_cmp_set is None:
+        trend = None
+    elif trend_cmp_set:
+        total_likely = 0
+        total_possible = 0
+        total_unlikely = 0
+        for bs in trend_cmp_set:
+            total_likely += bs.num_pollution_likely
+            total_possible += bs.num_pollution_possible
+            total_unlikely += bs.num_pollution_unlikely
+        (trend_value, trend_tlc) = summarise_quality(total_likely, total_possible, total_unlikely)
+        trend = value_cmp(trend_value, value) 
+    else:
+        messages.append("No past data to determine trend")
+        trend = 0
+    set_statistic_data(widget_url, widget_freq_url, statistic_url, value,
+                traffic_light_code = tlc, trend=trend)
+    return messages
+
+def value_cmp(old, new):
+    if old == new:
+        return 0
+    elif old == "Poor":
+        return 1
+    elif old == "Good":
+        return -1
+    elif new == "Poor":
+        return -1
+    else:
+        return 1
+
+def summarise_quality(total_likely, total_possible, total_unlikely):
+    total = float(total_likely + total_possible + total_unlikely)
+    if total_likely/total > 0.2 or (total_possible + total_likely)/total > 0.7:
+        return ("Poor", "bad")
+    elif (total_possible + total_likely)/total > 0.4:
+        return ("Fair", "poor")
+    else:
+        return ("Good", "good")
 
 def process_xml(region, resp):
     xml = ET.parse(resp)
@@ -91,7 +191,7 @@ def process_xml(region, resp):
             else:
                 num_likely += 1
     try:
-        summary = BeachSummaryHistory.objects.get(region=region, day=datetime.datetime.today())
+        summary = BeachSummaryHistory.objects.get(region=region, day=datetime.date.today())
     except BeachSummaryHistory.DoesNotExist:
         summary = BeachSummaryHistory(region=region)
     if num_unlikely + num_possible + num_likely == 0:
