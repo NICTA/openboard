@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'beach_quality_loader',
     'servicensw_loader',
     'rfs_loader',
+    'transport_static_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -102,4 +103,7 @@ STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
         )
 STATIC_URL = '/static/'
+
+TDX_USERNAME="paul.haesler@nicta.com.au"
+TDX_PASSWORD="N1ct@da$hdb"
 

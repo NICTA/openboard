@@ -13,11 +13,15 @@ class Command(BaseCommand):
                 make_option("-f", "--force",
                         action="store_true", default=False, dest="force",
                         help="Force loader to run"),
+                make_option("-V", "--VERBOSE",
+                        action="store_true", default=False, dest="super_verbose",
+                        help="Maximum verbosity"),
             )
 
     def handle(self, *args, **options):
         verbosity = int(options["verbosity"])
-
+        if options["super_verbose"]:
+            verbosity = 10
         if args:
             apps = []
             for arg in args:
