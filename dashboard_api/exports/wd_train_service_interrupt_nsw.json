@@ -86,9 +86,9 @@
                     "icon_library": null, 
                     "name": "", 
                     "hyperlinkable": true, 
-                    "url": "interruption", 
+                    "url": "interruptions", 
                     "num_precision": null, 
-                    "traffic_light_scale": null, 
+                    "traffic_light_scale": "std 3 code", 
                     "stat_type": 5
                 }
             ], 
