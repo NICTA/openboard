@@ -272,7 +272,7 @@ class StopTime(models.Model):
     headsign = models.CharField(max_length=200, null=True, blank=True)
     pickup_type = models.SmallIntegerField(choices=pickup_dropoff_types.items())
     dropoff_type = models.SmallIntegerField(choices=pickup_dropoff_types.items())
-    shape_dist_travelled = models.DecimalField(max_digits=16, decimal_places=10)
+    shape_dist_travelled = models.DecimalField(max_digits=16, decimal_places=10, null=True, blank=True)
     def set_arrival_time(self, val):
         (time, offset) = self.parse_time_val(val)
         self.arrival_time = time
@@ -319,7 +319,10 @@ class StopTime(models.Model):
             st.headsign=None
         st.pickup_type = int(row[6])
         st.dropoff_type = int(row[7])
-        st.shape_dist_travelled=decimal.Decimal(row[8])
+        if row[8]:
+            st.shape_dist_travelled=decimal.Decimal(row[8])
+        else:
+            st.shape_dist_travelled=None
         return st
     def unique_key(self):
         return (self.trip.trip_id, self.stop_sequence)
