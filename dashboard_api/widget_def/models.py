@@ -526,7 +526,7 @@ class Statistic(models.Model):
             self.unit_suffix = None
             self.unit_underfix = None
             self.unit_signed = False
-        if self.stat_type in (self.STRING_LIST, self.AM_PM):
+        if self.stat_type == self.AM_PM:
             self.traffic_light_scale = None
             self.icon_library = None
         if self.stat_type == self.EVENT_LIST:

@@ -1,0 +1,121 @@
+{
+    "tiles": [
+        {
+            "url": "train_svc_interrupt_syd_main", 
+            "statistics": [
+                {
+                    "unit_prefix": "", 
+                    "trend": false, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 10, 
+                    "unit_signed": false, 
+                    "unit_suffix": " lines", 
+                    "icon_library": null, 
+                    "name": "Delays on", 
+                    "hyperlinkable": false, 
+                    "url": "delays", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": false, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 20, 
+                    "unit_signed": false, 
+                    "unit_suffix": " lines", 
+                    "icon_library": null, 
+                    "name": "Cancellations on", 
+                    "hyperlinkable": false, 
+                    "url": "cancellations", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": false, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 30, 
+                    "unit_signed": false, 
+                    "unit_suffix": " lines", 
+                    "icon_library": null, 
+                    "name": "Current Trackwork on", 
+                    "hyperlinkable": false, 
+                    "url": "current_trackwork", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }, 
+                {
+                    "unit_prefix": "", 
+                    "trend": false, 
+                    "unit_underfix": "", 
+                    "name_as_label": true, 
+                    "sort_order": 40, 
+                    "unit_signed": false, 
+                    "unit_suffix": " lines", 
+                    "icon_library": null, 
+                    "name": "Scheduled Overnight Trackwork on", 
+                    "hyperlinkable": false, 
+                    "url": "sched_overnight_trackwork", 
+                    "num_precision": 0, 
+                    "traffic_light_scale": "std 3 code", 
+                    "stat_type": 2
+                }
+            ], 
+            "tile_type": 3, 
+            "sort_order": 10, 
+            "expansion": false
+        }, 
+        {
+            "url": "train_svc_interrupt_syd_exp", 
+            "statistics": [
+                {
+                    "unit_prefix": null, 
+                    "trend": false, 
+                    "unit_underfix": null, 
+                    "name_as_label": true, 
+                    "sort_order": 10, 
+                    "unit_signed": false, 
+                    "unit_suffix": null, 
+                    "icon_library": null, 
+                    "name": "", 
+                    "hyperlinkable": true, 
+                    "url": "interruptions", 
+                    "num_precision": null, 
+                    "traffic_light_scale": null, 
+                    "stat_type": 5
+                }
+            ], 
+            "tile_type": 1, 
+            "sort_order": 20, 
+            "expansion": true
+        }
+    ], 
+    "subcategory": "Public Transport", 
+    "actual_frequency_url": "rt", 
+    "source_url": "http://www.sydneytrains.info/rss/", 
+    "actual_frequency": "Real time", 
+    "sort_order": 200, 
+    "expansion_hint": "Details", 
+    "category": "Service Delivery", 
+    "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes Sydney suburban services only (T1-T7 plus South West Rail Link).</p>", 
+    "name": "Train Service Interruptions", 
+    "refresh_rate": 100, 
+    "url": "train_service_interrupt_syd", 
+    "declarations": [
+        {
+            "themes": [
+                "all"
+            ], 
+            "frequency": "rt", 
+            "location": "syd"
+        }
+    ]
+}
+
