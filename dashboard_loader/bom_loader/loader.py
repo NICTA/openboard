@@ -220,6 +220,8 @@ class Severity(object):
     def __str__(self):
         return self._sevs[self._index]
     def __cmp__(self, other):
+        if other is None:
+            return 1
         return cmp(self._index, other._index)
 
 def trans_xml_warntype(wt):
@@ -256,10 +258,12 @@ def update_warnings(verbosity=0):
                             severity = None
                             phenomena = None
                             areas = None
-                            if fp[0].tag == 'text' and fp[0].attrib["warning_summary"]:
+                            if fp[0].tag == 'text' and fp[0].attrib["type"] == "warning_summary":
                                 detail = fp[0].text
                             elif fp[0].tag == 'hazard':
                                 warning_type = fp[0].attrib["type"]
+                                if fp[0].attrib["severity"] == "CAN":
+                                    break
                                 severity = Severity(fp[0].attrib["severity"])
                                 for hazelem in fp[0]:
                                     if hazelem.tag == 'priority':
@@ -268,6 +272,7 @@ def update_warnings(verbosity=0):
                                         phenomena = hazelem.text
                                     elif hazelem.tag == 'text' and hazelem.attrib["type"]=="warning_areas":
                                         areas = hazelem.text
+                        if detail and severity:
                             warnings.append({
                                     "detail": detail,
                                     "warning_type": trans_xml_warntype(warning_type),
