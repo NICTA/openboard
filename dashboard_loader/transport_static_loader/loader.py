@@ -59,10 +59,10 @@ def update_static_data(verbosity=0):
         messages.extend(call_in_transaction(load_static_data,gtfs_zip.open("stops.txt"), Stop, verbosity))
         if verbosity >= 5:
             print "Stops loaded"
-        messages.extend(call_in_transaction(load_static_data,gtfs_zip.open("trips.txt"), Trip, verbosity))
+        messages.extend(call_in_transaction(load_static_data,gtfs_zip.open("trips.txt"), Trip, verbosity, batch_size=1000))
         if verbosity >= 5:
             print "Trips loaded"
-        messages.extend(call_in_transaction(load_static_data,gtfs_zip.open("stop_times.txt"), StopTime, verbosity))
+        messages.extend(load_static_data(gtfs_zip.open("stop_times.txt"), StopTime, verbosity, batch_size=5000))
         if verbosity >= 5:
             print "Stop Times loaded"
     except LoaderException, e:
@@ -73,17 +73,55 @@ def update_static_data(verbosity=0):
         messages.append("Static data updated")
     return messages
 
-def load_static_data(csv_file, model, verbosity=0):
+def load_static_data(csv_file, model, verbosity=0, batch_size=1):
     messages = []
     reader = csv.reader(csv_file)
     header_skipped = False
+    batch = []
+    saves = 0
+    batch_creates = 0
+    skipped = 0
     for row in reader:
         if not header_skipped:
             header_skipped=True
             continue
         m = model.load_csv_row(row)
-        m.save()
-    if verbosity > 3:
-        messages.append("%s load complete" % model.__name__)
+        if m.is_dirty:
+            if batch_size == 1:
+                m.save()
+                saves += 1
+            else:
+                if m.id:
+                    m.save()
+                    saves += 1
+                else:
+                    batch.append(m)
+                    if len(batch) >= batch_size:
+                        model.objects.bulk_create(batch)
+                        batch_creates += 1
+                        batch = []
+        else:
+            skipped += 1
+    if batch:
+        model.objects.bulk_create(batch)
+        batch_creates += 1
+    if verbosity >= 3:
+        if batch_size == 1:
+            messages.append("%s load complete: %d objects skipped, %d objects saved" % (model.__name__, skipped, saves))
+        else:
+            messages.append("%s load complete: %d objects skipped, %d objects updated, %d batch creates" % (
+                                    model.__name__, 
+                                    skipped,
+                                    saves,
+                                    batch_creates))
+    if verbosity >= 5:
+        if batch_size == 1:
+            print "%s load complete: %d objects skipped, %d objects saved" % (model.__name__, skipped, saves)
+        else:
+            print "%s load complete: %d objects skipped, %d objects updated, %d batch creates" % (
+                                    model.__name__, 
+                                    skipped,
+                                    saves,
+                                    batch_creates)
     return messages
 

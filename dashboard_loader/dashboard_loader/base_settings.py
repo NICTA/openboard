@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'rfs_loader',
     'transport_static_loader',
     'train_interruptions_loader',
+    'air_pollution_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',

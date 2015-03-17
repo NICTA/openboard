@@ -8,6 +8,9 @@ from dashboard_loader.loader_utils import LoaderException
 class Agency(models.Model):
     agency_id = models.CharField(max_length=10, unique=True)
     agency_name = models.CharField(max_length=200)
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(Agency, self).__init__(*args, **kwargs)
     def __unicode__(self):
         return "%s (%s)" % (agency_id, agency_name)
     @classmethod
@@ -17,6 +20,7 @@ class Agency(models.Model):
             agency = cls.objects.get(agency_id=agency_id)
         except cls.DoesNotExist:
             agency = cls(agency_id=agency_id)
+        agency.is_dirty = True
         agency.agency_name = row[1] 
         return agency
     def unique_key(self):
@@ -36,6 +40,9 @@ class Calendar(models.Model):
     sunday = models.BooleanField(default=True)
     start_date = models.DateField()
     end_date = models.DateField()
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(Calendar, self).__init__(*args, **kwargs)
     def set_dates(self, start_ds, end_ds):
         self.start_date = datetime.datetime(int(start_ds[0:4]),
                                             int(start_ds[4:6]),
@@ -63,6 +70,7 @@ class Calendar(models.Model):
             calendar = cls.objects.get(service_id=service_id)
         except cls.DoesNotExist:
             calendar = cls(service_id=service_id)
+        calendar.is_dirty = True
         calendar.monday = bool(int(row[1]))
         calendar.tuesday = bool(int(row[2]))
         calendar.wednesday = bool(int(row[3]))
@@ -88,6 +96,9 @@ class CalendarDate(models.Model):
     calendar = models.ForeignKey(Calendar)
     exception_date = models.DateField()
     exception_type = models.SmallIntegerField(choices=exception_types.items())
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(CalendarDate, self).__init__(*args, **kwargs)
     class Meta:
         unique_together=(('calendar', 'exception_date'),)
         ordering = ('calendar', 'exception_date')
@@ -100,7 +111,10 @@ class CalendarDate(models.Model):
         except cls.DoesNotExist:
             cd = cls(calendar=Calendar.objects.get(service_id=service_id),
                     exception_date=date)
-        cd.exception_type=int(row[2])
+            cd.is_dirty = True
+        if cd.exception_type != int(row[2]):
+            cd.is_dirty = True
+            cd.exception_type=int(row[2])
         return cd
     def unique_key(self):
         return (self.calendar.service_id, self.exception_date)
@@ -130,6 +144,9 @@ class Route(models.Model):
     service_type = models.SmallIntegerField(choices=service_types.items())
     colour=models.CharField(max_length=6)
     text_colour=models.CharField(max_length=6)
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(Route, self).__init__(*args, **kwargs)
     @classmethod
     def load_csv_row(cls, row):
         route_id = row[0]
@@ -137,6 +154,7 @@ class Route(models.Model):
             route = cls.objects.get(route_id=route_id)
         except cls.DoesNotExist:
             route = cls(route_id=route_id)
+        route.is_dirty = True
         route.agency = Agency.objects.get(agency_id=row[1])
         if row[2]:
             route.short_name = row[2]
@@ -166,6 +184,9 @@ class Stop(models.Model):
     parent_station = models.ForeignKey("self", null=True, blank=True)
     wheelchair_boarding = models.NullBooleanField()
     platform_number = models.CharField(max_length=50, null=True, blank=True)
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(Stop, self).__init__(*args, **kwargs)
     def set_wheelchair_boarding(self, val):
         if int(val) == 1:
             self.wheelchair_boarding = True
@@ -180,6 +201,7 @@ class Stop(models.Model):
             stop = cls.objects.get(stop_id=stop_id)
         except cls.DoesNotExist:
             stop = cls(stop_id=stop_id)
+        stop.is_dirty = True
         if row[1]:
             stop.transit_stop_number=int(row[1])
         else:
@@ -220,6 +242,9 @@ class Trip(models.Model):
     main_direction = models.BooleanField(default=False)
     block_id = models.CharField(max_length=20, null=True, blank=True)
     wheelchair_accessible = models.NullBooleanField()
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(Trip, self).__init__(*args, **kwargs)
     def set_wheelchair_accessible(self, val):
         if int(val) == 1:
             self.wheelchair_accessible = True
@@ -234,16 +259,32 @@ class Trip(models.Model):
             trip = cls.objects.get(trip_id=trip_id)
         except cls.DoesNotExist:
             trip = cls(trip_id=trip_id)
-        trip.route = Route.objects.get(route_id=row[0])
-        trip.calendar = Calendar.objects.get(service_id=row[1])
-        trip.shape_id = row[3]
-        trip.headsign = row[4]
-        trip.main_direction = bool(int(row[5]))
-        if row[6]:
+            trip.is_dirty = True
+        if not trip.route_id or trip.route.route_id != row[0]:
+            trip.is_dirty = True
+            trip.route = Route.objects.get(route_id=row[0])
+        if not trip.calendar_id or trip.calendar.service_id != row[1]:
+            trip.is_dirty = True
+            trip.calendar = Calendar.objects.get(service_id=row[1])
+        if trip.shape_id != row[3]:
+            trip.is_dirty = True
+            trip.shape_id = row[3]
+        if trip.headsign != row[4]:
+            trip.is_dirty = True
+            trip.headsign = row[4]
+        if trip.main_direction != bool(int(row[5])):
+            trip.is_dirty = True
+            trip.main_direction = bool(int(row[5]))
+        if row[6] and trip.block_id != row[6]:
+            trip.is_dirty = True
             trip.block_id = row[6]
-        else:
+        elif not row[6] and trip.block_id is not None:
+            trip.is_dirty = True
             trip.block_id = None
+        old_wheelchair = trip.wheelchair_accessible
         trip.set_wheelchair_accessible(row[7])
+        if old_wheelchair != trip.wheelchair_accessible:
+            trip.is_dirty = True
         return trip
     def unique_key(self):
         return self.trip_id
@@ -273,6 +314,9 @@ class StopTime(models.Model):
     pickup_type = models.SmallIntegerField(choices=pickup_dropoff_types.items())
     dropoff_type = models.SmallIntegerField(choices=pickup_dropoff_types.items())
     shape_dist_travelled = models.DecimalField(max_digits=16, decimal_places=10, null=True, blank=True)
+    def __init__(self, *args, **kwargs):
+        self.is_dirty=False
+        super(StopTime, self).__init__(*args, **kwargs)
     def set_arrival_time(self, val):
         (time, offset) = self.parse_time_val(val)
         self.arrival_time = time
@@ -310,18 +354,42 @@ class StopTime(models.Model):
         except cls.DoesNotExist:
             st = cls(trip=Trip.objects.get(trip_id=trip_id), 
                                 stop_sequence=stop_sequence)
-        st.stop = Stop.objects.get(stop_id=row[3])
+            st.is_dirty=True
+        if not st.stop_id or st.stop.stop_id != row[3]:
+            st.is_dirty = True
+            st.stop = Stop.objects.get(stop_id=row[3])
+        orig_arrive_time = st.arrival_time
+        orig_arrive_time_day_offset = st.arrival_time_day_offset
+        orig_depart_time = st.departure_time
+        orig_depart_time_day_offset = st.departure_time_day_offset
         st.set_arrival_time(row[1])
         st.set_departure_time(row[2])
+        if ( orig_arrive_time != st.arrival_time
+            or orig_arrive_time_day_offset != st.arrival_time_day_offset
+            or orig_depart_time != st.departure_time
+            or orig_depart_time_day_offset != st.departure_time_day_offset):
+            st.is_dirty = True
         if row[5]:
+            if st.headsign != row[5]:
+                st.is_dirty = True
             st.headsign=row[5]
         else:
+            if st.headsign is not None:
+                st.is_dirty = True
             st.headsign=None
-        st.pickup_type = int(row[6])
-        st.dropoff_type = int(row[7])
+        if st.pickup_type != int(row[6]):
+            st.is_dirty = True
+            st.pickup_type = int(row[6])
+        if st.dropoff_type != int(row[7]):
+            st.is_dirty = True
+            st.dropoff_type = int(row[7])
         if row[8]:
-            st.shape_dist_travelled=decimal.Decimal(row[8])
-        else:
+            val = decimal.Decimal(row[8])
+            if st.shape_dist_travelled != val:
+                st.is_dirty = True
+                st.shape_dist_travelled=val
+        elif st.shape_dist_travelled is not None:
+            st.is_dirty = True
             st.shape_dist_travelled=None
         return st
     def unique_key(self):
