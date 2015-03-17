@@ -168,13 +168,13 @@ def get_traffic_light_code(stat, value):
     except TrafficLightScaleCode.DoesNotExist:
         raise LoaderException("Traffic light code %s not found in scale %s for statistic %s" % (value,stat.traffic_light_scale.name, stat.url))
 
-def do_update(app, verbosity=0):
+def do_update(app, verbosity=0, force=False):
     _tmp = __import__(app + ".loader", globals(), locals(), ["update_data",], -1)
     update_data = _tmp.update_data
     loader = lock_update(app)
     if loader.locked_by_me():
         reason = loader.reason_to_not_run()
-        if not reason:
+        if not reason or force:
             try:
                 messages = update_data(loader, verbosity=verbosity)
             except LoaderException, e:

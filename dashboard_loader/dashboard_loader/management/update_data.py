@@ -24,5 +24,5 @@ def update(loader, verbosity=0, force=False, async=True):
         update_app_data.delay(loader.app)
         return ["Update of app %s started" % loader.app]
     else:
-        return do_update(loader.app, verbosity=verbosity)
+        return do_update(loader.app, verbosity=verbosity, force=True)
 
