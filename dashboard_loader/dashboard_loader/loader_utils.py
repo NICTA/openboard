@@ -29,6 +29,10 @@ def lock_update(app):
     loader.save()
     return loader
 
+def unlock_loader(loader):
+    loader.locked_by = None
+    loader.save()
+
 def update_loader(loader, success=True):
     tz = pytz.timezone(settings.TIME_ZONE)
     loader.last_run = datetime.datetime.now(tz)
@@ -169,15 +173,20 @@ def do_update(app, verbosity=0):
     update_data = _tmp.update_data
     loader = lock_update(app)
     if loader.locked_by_me():
-        try:
-            messages = update_data(loader, verbosity=verbosity)
-        except LoaderException, e:
-            update_loader(loader, False)
-            return [ "Data update for %s failed: %s" % (app, unicode(e)) ]
-        update_loader(loader)
-        if verbosity > 0:
-            messages.append("Data updated for %s" % app)
-        return messages
+        reason = loader.reason_to_not_run()
+        if not reason:
+            try:
+                messages = update_data(loader, verbosity=verbosity)
+            except LoaderException, e:
+                update_loader(loader, False)
+                return [ "Data update for %s failed: %s" % (app, unicode(e)) ]
+            update_loader(loader)
+            if verbosity > 0:
+                messages.append("Data updated for %s" % app)
+            return messages
+        else:
+            unlock_loader(loader)
+            return [ reason ]
     elif verbosity > 0:
         return [ "Data update for %s is locked by another update process" % app]
 
