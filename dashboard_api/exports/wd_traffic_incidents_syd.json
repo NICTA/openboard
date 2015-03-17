@@ -45,9 +45,7 @@
     "url": "traffic_incidents_syd", 
     "declarations": [
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "syd"
         }

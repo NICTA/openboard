@@ -110,9 +110,7 @@
     "url": "train_service_interrupt_nsw", 
     "declarations": [
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "nsw"
         }

@@ -45,9 +45,7 @@
     "url": "traffic_incidents_nsw", 
     "declarations": [
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "nsw"
         }

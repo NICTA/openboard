@@ -158,16 +158,12 @@
     "url": "road_speeds", 
     "declarations": [
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "syd"
         }, 
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "nsw"
         }

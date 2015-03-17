@@ -88,7 +88,7 @@
                     "hyperlinkable": true, 
                     "url": "interruptions", 
                     "num_precision": null, 
-                    "traffic_light_scale": null, 
+                    "traffic_light_scale": "std 3 code", 
                     "stat_type": 5
                 }
             ], 
@@ -110,9 +110,7 @@
     "url": "train_service_interrupt_syd", 
     "declarations": [
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "syd"
         }

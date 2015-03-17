@@ -62,9 +62,7 @@
     "url": "air_pollution_nsw", 
     "declarations": [
         {
-            "themes": [
-                "all"
-            ], 
+            "theme": "all", 
             "frequency": "rt", 
             "location": "nsw"
         }

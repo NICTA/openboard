@@ -27,7 +27,7 @@ def get_widgets(request):
     theme = get_theme_from_request(request)
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
-    widgets = theme.widgetdeclaration_set.filter(location=location, frequency=frequency)
+    widgets = WidgetDeclaration.objects.filter(theme=theme, location=location, frequency=frequency)
     data = [ w.__getstate__() for w in widgets ]
     return json_list(request, data)
 

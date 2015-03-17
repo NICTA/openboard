@@ -183,16 +183,16 @@ class WidgetDefinition(models.Model):
 
 class WidgetDeclaration(models.Model):
     definition = models.ForeignKey(WidgetDefinition)
-    themes = models.ManyToManyField(Theme)
+    theme = models.ForeignKey(Theme)
     frequency = models.ForeignKey(Frequency)
     location = models.ForeignKey(Location)
     def __unicode__(self):
-        return "%s (%s:%s)" % (self.definition.name, self.location.name, self.frequency.name)
+        return "%s (%s:%s:%s)" % (self.definition.name, self.theme.name, self.location.name, self.frequency.name)
     def __getstate__(self):
         return self.definition.__getstate__()
     def export(self):
         return {
-            "themes": [ t.url for t in self.themes.all() ],
+            "theme": self.theme.url,
             "frequency": self.frequency.url,
             "location": self.location.url,
         }
@@ -206,15 +206,12 @@ class WidgetDeclaration(models.Model):
             decl = WidgetDeclaration(definition=definition)
             decl.location = Location.objects.get(url=data["location"])
             decl.frequency = Frequency.objects.get(url=data["frequency"])
+            decl.theme = Frequency.objects.get(url=data["theme"])
             decl.save()
-        decl.themes.clear()
-        for t in data["themes"]:
-            theme = Theme.objects.get(url=t)
-            decl.themes.add(theme)
         return decl
     class Meta:
-        unique_together = ( ("location", "frequency", "definition"),)
-        ordering = ("location", "frequency", "definition")
+        unique_together = ( ("theme", "location", "frequency", "definition"),)
+        ordering = ("theme", "location", "frequency", "definition")
 
 class TileDefinition(models.Model):
     SINGLE_MAIN_STAT = 1
