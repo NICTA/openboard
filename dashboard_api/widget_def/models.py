@@ -240,7 +240,7 @@ class WidgetDeclaration(models.Model):
             decl = WidgetDeclaration(definition=definition)
             decl.location = Location.objects.get(url=data["location"])
             decl.frequency = Frequency.objects.get(url=data["frequency"])
-            decl.theme = Frequency.objects.get(url=data["theme"])
+            decl.theme = Theme.objects.get(url=data["theme"])
             decl.save()
         return decl
     class Meta:
