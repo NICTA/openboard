@@ -15,13 +15,13 @@ def update_data(loader, verbosity=0):
     tz = pytz.timezone(settings.TIME_ZONE)
     now = datetime.datetime.now(tz)
     if now.hour in range(1, 14):
-        set_statistic_data("road_speeds", "rt", "am_pm", "am")
+        set_statistic_data("road_speeds", "syd", "rt", "am_pm", "am")
         target = 39
     else:
-        set_statistic_data("road_speeds", "rt", "am_pm", "pm")
+        set_statistic_data("road_speeds", "syd", "rt", "am_pm", "pm")
         target = 42
-    set_statistic_data("road_speeds", "rt", "target", target)
-    speed_stat = get_statistic("road_speeds", "rt", "average_speed")
+    set_statistic_data("road_speeds", "syd", "rt", "target", target)
+    speed_stat = get_statistic("road_speeds", "syd", "rt", "average_speed")
     last_speed = speed_stat.get_data().intval
     new_speed = int(round(random.gauss(45, 3)))
     if last_speed > new_speed:
@@ -36,5 +36,5 @@ def update_data(loader, verbosity=0):
         tlc = get_traffic_light_code(speed_stat, "poor")
     else:
         tlc = get_traffic_light_code(speed_stat, "good")
-    set_statistic_data("road_speeds", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
+    set_statistic_data("road_speeds", "syd", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
     return messages

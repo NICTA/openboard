@@ -69,7 +69,7 @@ def update_stats():
     today = datetime.date.today()
     start_of_year = datetime.datetime(today.year, 1, 1)
     messages.extend(update_summary_stat(
-            "beaches-nsw", "day", "all_ocean_beaches",
+            "beaches", "nsw", "day", "all_ocean_beaches",
             BeachSummaryHistory.objects.filter(
                 region__in=BeachSummaryHistory.ocean_beaches,
                 day=today),
@@ -78,7 +78,7 @@ def update_stats():
                 day=day_before(today))
             ))
     messages.extend(update_summary_stat(
-            "beaches-nsw", "day", "all_ocean_ytd",
+            "beaches", "nsw", "day", "all_ocean_ytd",
             BeachSummaryHistory.objects.filter(
                 region__in=BeachSummaryHistory.ocean_beaches,
                 day__gte=start_of_year,
@@ -87,7 +87,7 @@ def update_stats():
             ))
     for region in BeachSummaryHistory.regions:
         messages.extend(update_summary_stat(
-                "beaches-nsw", "day", "region_%s" % region,
+                "beaches", "nsw", "day", "region_%s" % region,
                 BeachSummaryHistory.objects.filter(
                     region=region,
                     day=today
@@ -101,11 +101,11 @@ def day_before(d):
     dt -= datetime.timedelta(days=1)
     return dt.date
 
-def update_summary_stat(widget_url, widget_freq_url, statistic_url,
+def update_summary_stat(widget_url, widget_location_url, widget_freq_url, statistic_url,
         beachsummary_set, trend_cmp_set=None):
     messages = []
     if not beachsummary_set:
-        return ["Beach summary set for widget %s:%s is empty" % (widget_url, widget_freq_url)]
+        return ["Beach summary set for widget %s(%s,%s) is empty" % (widget_url, widget_location_url, widget_freq_url)]
     total_likely = 0
     total_possible = 0
     total_unlikely = 0
@@ -129,7 +129,7 @@ def update_summary_stat(widget_url, widget_freq_url, statistic_url,
     else:
         messages.append("No past data to determine trend")
         trend = 0
-    set_statistic_data(widget_url, widget_freq_url, statistic_url, value,
+    set_statistic_data(widget_url, widget_location_url, widget_freq_url, statistic_url, value,
                 traffic_light_code = tlc, trend=trend)
     return messages
 

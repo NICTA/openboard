@@ -40,7 +40,7 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
         stats["total_travel_time"]  += travel_time
         stats["total_distance"]  += distance
         if (fid[0] in road.am_direction and am) or (fid[0] in road.pm_direction and not am):
-            speed_stat = get_statistic("road_speeds", "rt", name)
+            speed_stat = get_statistic("road_speeds", "syd", "rt", name)
             speed = float(distance) / (float(travel_time) / 60.0)
             if speed < target:
                 tlc = get_traffic_light_code(speed_stat, "bad")
@@ -48,7 +48,7 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
                 tlc = get_traffic_light_code(speed_stat, "poor")
             else:
                 tlc = get_traffic_light_code(speed_stat, "good")
-            set_statistic_data("road_speeds", "rt", name, speed, traffic_light_code=tlc)
+            set_statistic_data("road_speeds", "syd", "rt", name, speed, traffic_light_code=tlc)
 
 def update_data(loader, verbosity=0):
     messages = []
@@ -56,13 +56,13 @@ def update_data(loader, verbosity=0):
     now = datetime.datetime.now(tz)
     if now.hour in range(1, 14):
         am = True
-        set_statistic_data("road_speeds", "rt", "am_pm", "am")
+        set_statistic_data("road_speeds", "syd", "rt", "am_pm", "am")
         target = 39
     else:
         am = False
-        set_statistic_data("road_speeds", "rt", "am_pm", "pm")
+        set_statistic_data("road_speeds", "syd", "rt", "am_pm", "pm")
         target = 37
-    set_statistic_data("road_speeds", "rt", "target", target)
+    set_statistic_data("road_speeds", "syd", "rt", "target", target)
     http = httplib.HTTPConnection("livetraffic.rta.nsw.gov.au")
     m1_features = get_livetrafficdata(http, "f3.json", "M1", messages, verbosity)
     m2_features = get_livetrafficdata(http, "m2.json", "M2", messages, verbosity)
@@ -77,7 +77,7 @@ def update_data(loader, verbosity=0):
     load_speeds(m2_features, "M2", am, target,total_stats, messages, verbosity)
     load_speeds(m4_features, "M4", am, target,total_stats, messages, verbosity)
     load_speeds(m7_features, "M7", am, target,total_stats, messages, verbosity)
-    speed_stat = get_statistic("road_speeds", "rt", "average_speed")
+    speed_stat = get_statistic("road_speeds", "syd", "rt", "average_speed")
     last_speed = speed_stat.get_data().intval
     new_speed = float(total_stats["total_travel_time"])/(float(total_stats["total_distance"])/60.0)
     if abs(last_speed - new_speed) < 0.1:
@@ -92,6 +92,6 @@ def update_data(loader, verbosity=0):
         tlc = get_traffic_light_code(speed_stat, "poor")
     else:
         tlc = get_traffic_light_code(speed_stat, "good")
-    set_statistic_data("road_speeds", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
+    set_statistic_data("road_speeds", "syd", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
     return messages
 

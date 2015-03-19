@@ -4,6 +4,7 @@
 <table class="simple_table">
     <tr>
         <th>Widget Name</th>
+        <th>Location</th>
         <th>Freq</th>
         <th>Last Updated</th>
         <th>Actions</th>
@@ -11,14 +12,15 @@
     {% for w in widgets %}
         <tr>
             <td>{{ w.name }}</td>
-            <td>{{ w.actual_frequency }}</td>
+            <td>{{ w.actual_location.name }}</td>
+            <td>{{ w.actual_frequency.actual_display }}</td>
             <td>
                 {% if w.data_last_updated %}
                     {{ w.data_last_updated|date:"d/m/Y h:i:sa" }}
                 {% else %}<i>no data</i>{% endif %}
             </td>
             <td>
-                <a href="{% url "view_widget_data" widget_url=w.url actual_frequency_url=w.actual_frequency_url %}">
+                <a href="{% url "view_widget_data" widget_url=w.url actual_location_url=w.actual_location.url actual_frequency_url=w.actual_frequency.url %}">
                     {% if w.data_last_updated %}Edit Data{% else %}Enter Data{% endif %}
                 </a>
             </td>

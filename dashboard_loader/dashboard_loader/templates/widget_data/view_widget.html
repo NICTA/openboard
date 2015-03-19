@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Widget: {{ widget.name }} ({{ widget.actual_frequency }})</h1>
+<h1>Widget: {{ widget.name }} ({{ widget.actual_location.name }}, {{ widget.actual_frequency.name }})</h1>
 <table class="simple_table">
     <tr>
         <th>Statistic</th>
@@ -26,7 +26,7 @@
                 {% else %}<i>no data</i>{% endif %}
             </td>
             <td>
-                <a href="{% url "edit_stat" widget_url=widget.url actual_frequency_url=widget.actual_frequency_url tile_url=stat.statistic.tile.url stat_url=stat.statistic.url %}">
+                <a href="{% url "edit_stat" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url stat_url=stat.statistic.url %}">
                     {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
                 </a>
             </td>
@@ -55,7 +55,7 @@
             {% else %}<i>no data</i>{% endif %}
         </td>
         <td>
-            <a href="{% url "edit_graph" widget_url=widget.url actual_frequency_url=widget.actual_frequency_url tile_url=g.graph.tile.url %}">
+            <a href="{% url "edit_graph" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url tile_url=g.graph.tile.url %}">
                 {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
             </a>
         </td>

@@ -41,15 +41,17 @@ def update_loader(loader, success=True):
     loader.locked_by = None
     loader.save()
 
-def get_statistic(widget_url, widget_actual_frequency_url, statistic_url):
+def get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url):
     try:
-        return Statistic.objects.get(url=statistic_url, tile__widget__url=widget_url, tile__widget__actual_frequency_url=widget_actual_frequency_url)
+        return Statistic.objects.get(url=statistic_url, tile__widget__url=widget_url, 
+                tile__widget__actual_location__url=actual_location_url,
+                tile__widget__actual_frequency__url=actual_frequency_url)
     except Statistic.DoesNotExist:
-        raise LoaderException("Statistic %s for Widget %s.%s does not exist" % (statistic_url, widget_url, widget_actual_frequency_url))
+        raise LoaderException("Statistic %s for Widget %s(%s,%s) does not exist" % (statistic_url, widget_url, actual_location_url, actual_frequency_url))
 
-def clear_statistic_data(widget_url, widget_actual_frequency_url, 
+def clear_statistic_data(widget_url, actual_location_url, actual_frequency_url, 
                 statistic_url):
-    stat = get_statistic(widget_url, widget_actual_frequency_url,
+    stat = get_statistic(widget_url, actual_location_url, actual_frequency_url,
                                     statistic_url)
     if stat.is_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
@@ -57,11 +59,13 @@ def clear_statistic_data(widget_url, widget_actual_frequency_url,
     if data:
         data.delete()
  
-def set_statistic_data(widget_url, widget_actual_frequency_url, statistic_url, 
+def set_statistic_data(widget_url, 
+                    actual_location_url, actual_frequency_url, 
+                    statistic_url, 
                     value, 
                     traffic_light_code=None, icon_code=None, 
                     trend=None, label=None):
-    stat = get_statistic(widget_url, widget_actual_frequency_url,
+    stat = get_statistic(widget_url, actual_location_url, actual_frequency_url,
                                     statistic_url)
     if stat.is_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
@@ -106,13 +110,17 @@ def set_statistic_data(widget_url, widget_actual_frequency_url, statistic_url,
     except Exception, e:
         raise LoaderException(str(e))
 
-def clear_statistic_list(widget_url, widget_actual_frequency_url, statistic_url):
-    stat = get_statistic(widget_url, widget_actual_frequency_url, statistic_url)
+def clear_statistic_list(widget_url, actual_location_url, actual_frequency_url, 
+                statistic_url):
+    stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
     stat.statisticlistitem_set.all().delete()
     
-def add_statistic_list_item(widget_url, widget_actual_frequency_url, statistic_url, value, sort_order, 
-                label=None, traffic_light_code=None, icon_code=None, trend=None, url=None):
-    stat = get_statistic(widget_url, widget_actual_frequency_url, statistic_url)
+def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_url, 
+                statistic_url, 
+                value, sort_order, 
+                label=None, traffic_light_code=None, icon_code=None, 
+                trend=None, url=None):
+    stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
     if not stat.is_list():
         raise LoaderException("Not a list statistic %s" % statistic_url)
     if stat.is_kvlist() and not label:
@@ -194,11 +202,14 @@ def do_update(app, verbosity=0, force=False):
 def call_in_transaction(func, *args, **kwargs):
     return func(*args, **kwargs)
 
-def get_graph(widget_url, widget_actual_frequency_url, tile_url):
+def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
     try:
-        return GraphDefinition.objects.get(tile__url=tile_url, tile__widget__url=widget_url, tile__widget__actual_frequency_url=widget_actual_frequency_url)
+        return GraphDefinition.objects.get(tile__url=tile_url, 
+                tile__widget__url=widget_url, 
+                tile__widget__actual_location__url=actual_location_url,
+                tile__widget__actual_frequency__url=actual_frequency_url)
     except GraphDefinition.DoesNotExist:
-        raise LoaderException("Graph for tile %s of widget %s:%s does not exist"%(tile_url, widget_url, widget_actual_frequency_url))
+        raise LoaderException("Graph for tile %s of widget %s:(%s,%s) does not exist"%(tile_url, widget_url, actual_location_url, actual_frequency_url))
 
 def clear_graph_data(graph):
     graph.get_data().delete()

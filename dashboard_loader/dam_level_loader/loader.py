@@ -59,11 +59,11 @@ class WaterLevelHtmlParser(HTMLParser):
                     trend = -1
                 tlc = self.tlc(self.pc)
                 tlc_lastweek = self.tlc(last_week)
-                set_statistic_data("dam", "day", "all_dams_avg", 
+                set_statistic_data("dam", "syd", "day", "all_dams_avg", 
                                     self.pc,
                                     trend = trend,
                                     traffic_light_code = tlc)
-                set_statistic_data("dam", "day", "all_dams_last_week", 
+                set_statistic_data("dam", "syd", "day", "all_dams_last_week", 
                                     last_week,
                                     traffic_light_code = tlc_lastweek)
                 self.main_stats_written = True
@@ -86,7 +86,7 @@ class WaterLevelHtmlParser(HTMLParser):
                     else:
                         trend = -1
                     tlc = self.tlc(self.pc)
-                    set_statistic_data("dam", "day", dam, 
+                    set_statistic_data("dam", "syd", "day", dam, 
                                     self.pc,
                                     trend = trend,
                                     traffic_light_code = tlc)

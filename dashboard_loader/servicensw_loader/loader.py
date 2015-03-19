@@ -19,9 +19,9 @@ TF_HOUR = 1
 def update_data(loader, verbosity=0):
     messages = []
     wb = get_xls_workbook(messages)
-    graph_counters=get_graph("service_nsw_svc_counters", "rt", "service_nsw_svc_counters_graph")
-    graph_calls=get_graph("service_nsw_svc_calls", "rt", "service_nsw_svc_calls_graph")
-    graph_www=get_graph("service_nsw_svc_www", "hour", "service_nsw_svc_www_graph")
+    graph_counters=get_graph("service_nsw_svc_counters", "syd", "rt", "service_nsw_svc_counters_graph")
+    graph_calls=get_graph("service_nsw_svc_calls", "syd", "rt", "service_nsw_svc_calls_graph")
+    graph_www=get_graph("service_nsw_svc_www", "syd", "hour", "service_nsw_svc_www_graph")
     call_in_transaction(load_data, wb.sheets()[0], TF_QUARTER_HOUR_RANGE, 
             "customers", "wait",
             graph_counters, messages, True)
@@ -51,10 +51,13 @@ def get_xls_workbook(messages):
 def update_widget(graph, count_dataset, duration_dataset, 
                 count_statistic, duration_statistic, time_format,
                 bad_duration, poor_duration):
-    count_stat = get_statistic(graph.tile.widget.url, graph.tile.widget.actual_frequency_url,
+    count_stat = get_statistic(graph.tile.widget.url, 
+                        graph.tile.widget.actual_location.url, 
+                        graph.tile.widget.actual_frequency.url,
                         count_statistic)
     duration_stat = get_statistic(graph.tile.widget.url, 
-                        graph.tile.widget.actual_frequency_url,
+                        graph.tile.widget.actual_location.url,
+                        graph.tile.widget.actual_frequency.url,
                         duration_statistic)
     last_count_data = graph.get_last_datum(count_dataset)
     last_duration_data = graph.get_last_datum(duration_dataset)
@@ -74,7 +77,9 @@ def update_widget(graph, count_dataset, duration_dataset,
         trend = -1
     tlc = get_traffic_light_code(count_stat, "good")
     if not oldval or trend != 0:
-        set_statistic_data(graph.tile.widget.url, graph.tile.widget.actual_frequency_url,
+        set_statistic_data(graph.tile.widget.url, 
+                        graph.tile.widget.actual_location.url,
+                        graph.tile.widget.actual_frequency.url,
                         count_statistic, last_count_data.value / decimal.Decimal(period),
                         traffic_light_code=tlc, trend=trend)
     # duration
@@ -98,7 +103,9 @@ def update_widget(graph, count_dataset, duration_dataset,
     else:
         tlc = get_traffic_light_code(count_stat, "good")
     if not oldval or trend != 0:
-        set_statistic_data(graph.tile.widget.url, graph.tile.widget.actual_frequency_url,
+        set_statistic_data(graph.tile.widget.url, 
+                        graph.tile.widget.actual_location.url,
+                        graph.tile.widget.actual_frequency.url,
                         duration_statistic, newval,
                         traffic_light_code=tlc, trend=trend)
     return

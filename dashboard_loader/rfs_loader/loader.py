@@ -87,15 +87,15 @@ def update_fire_danger(verbosity=0):
             expand_ratings.append(fd)
     main_ratings.sort(reverse=True)
     expand_ratings.sort(reverse=True)
-    clear_statistic_list("fire", "day", "rating_list_main")
+    clear_statistic_list("fire", "nsw", "day", "rating_list_main")
     sort_order = 10
     for fd in main_ratings:
-        add_statistic_list_item("fire", "day", "rating_list_main", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw", "day", "rating_list_main", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         sort_order += 10
-    clear_statistic_list("fire", "day", "rating_list_expansion")
+    clear_statistic_list("fire", "nsw", "day", "rating_list_expansion")
     for fd in expand_ratings:
-        add_statistic_list_item("fire", "day", "rating_list_expansion", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw", "day", "rating_list_expansion", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         sort_order += 10
     return messages

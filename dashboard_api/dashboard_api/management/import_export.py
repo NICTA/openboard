@@ -3,14 +3,18 @@ from widget_def.models import WidgetDefinition, TrafficLightScale, IconLibrary
 class ImportExportException(Exception):
     pass
 
-def export_widget(widget, actual_frequency_url=None):
+def export_widget(widget, actual_location_url, actual_frequency_url=None):
     if not isinstance(widget, WidgetDefinition):
+        if not actual_location_url:
+            raise ImportExportException("Must pass actual_location_url when exporting widget by url")
         if not actual_frequency_url:
             raise ImportExportException("Must pass actual_frequency_url when exporting widget by url")
         try:
-            widget = WidgetDefinition.objects.get(url=widget, actual_frequency_url=actual_frequency_url)
+            widget = WidgetDefinition.objects.get(url=widget, 
+                                actual_frequency__url=actual_frequency_url,
+                                actual_location__url=actual_location_url)
         except WidgetDefinition.DoesNotExist:
-            raise ImportExportException("Widget %s:%s does not exist" % (widget, actual_frequency_url))
+            raise ImportExportException("Widget %s:(%s,%s) does not exist" % (widget, actual_location_url, actual_frequency_url))
     return widget.export()
 
 def export_trafficlightscale(scale):

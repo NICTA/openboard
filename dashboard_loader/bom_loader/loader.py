@@ -54,23 +54,22 @@ def set_short_forecast(forecast_period, maxstat, minstat, forecast_stat, label=N
     icon_index = get_element(forecast_period, "forecast_icon_code")
     if maxtemp is not None:
         if label:
-            set_statistic_data("weather", "rt", maxstat, int(maxtemp), label="Max")
+            set_statistic_data("weather", "syd", "rt", maxstat, int(maxtemp), label="Max")
         else:
-            set_statistic_data("weather", "rt", maxstat, int(maxtemp))
+            set_statistic_data("weather", "syd", "rt", maxstat, int(maxtemp))
     if mintemp is not None:
         if label:
-            set_statistic_data("weather", "rt", minstat, int(mintemp), label="Min")
+            set_statistic_data("weather", "syd", "rt", minstat, int(mintemp), label="Min")
         else:
-            set_statistic_data("weather", "rt", minstat, int(mintemp))
+            set_statistic_data("weather", "syd", "rt", minstat, int(mintemp))
     icon = get_icon("weather_icon_scale", int(icon_index))
-    set_statistic_data("weather", "rt", forecast_stat, forecast, icon_code=icon, label=label)
+    set_statistic_data("weather", "syd", "rt", forecast_stat, forecast, icon_code=icon, label=label)
     return icon
 
 def update_data(loader, verbosity=0):
     messages = []
     messages.extend(call_in_transaction(update_forecasts,verbosity))
     call_in_transaction(update_current_temp)
-    messages.extend(call_in_transaction(update_warnings,verbosity))
 # messages.extend(call_in_transaction(update_fire_danger,verbosity))
     return messages
 
@@ -147,15 +146,15 @@ def update_fire_danger(verbosity=0):
     buf.close()
     main_ratings.sort(reverse=True)
     expand_ratings.sort(reverse=True)
-    clear_statistic_list("fire", "day", "rating_list_main")
+    clear_statistic_list("fire", "nsw", "day", "rating_list_main")
     sort_order = 10
     for fd in main_ratings:
-        add_statistic_list_item("fire", "day", "rating_list_main", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw", "day", "rating_list_main", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         sort_order += 10
-    clear_statistic_list("fire", "day", "rating_list_expansion")
+    clear_statistic_list("fire", "nsw", "day", "rating_list_expansion")
     for fd in expand_ratings:
-        add_statistic_list_item("fire", "day", "rating_list_expansion", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw", "day", "rating_list_expansion", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         sort_order += 10
     return messages
@@ -411,7 +410,7 @@ def update_current_temp():
                 if level.attrib["type"] == "surface":
                     temp = get_element(level, "air_temperature")
                     temp = decimal.Decimal(temp)
-                    set_statistic_data("weather", "rt", "current_temp", temp)
+                    set_statistic_data("weather", "syd", "rt", "current_temp", temp)
                     buf.close()
                     return
             buf.close()
@@ -474,12 +473,12 @@ def update_forecasts(verbosity):
         #    messages.append("Long forecast %d characters: <%s>" % (
         #                                len(long_forecast),
         #                                long_forecast))
-        set_statistic_data("weather", "rt", "today_long_forecast", long_forecast, icon_code=long_forecast_icon)
+        set_statistic_data("weather", "syd", "rt", "today_long_forecast", long_forecast, icon_code=long_forecast_icon)
     else:
-        clear_statistic_data("weather", "rt", "today_long_forecast")
+        clear_statistic_data("weather", "syd", "rt", "today_long_forecast")
     buf.close()
-    stat = get_statistic("weather", "rt", "today_max").get_data().intval
+    stat = get_statistic("weather", "syd", "rt", "today_max").get_data().intval
     climate_delta = decimal.Decimal(stat) - decimal.Decimal(monthly_avg_temp[today.month-1])
     trend = int(climate_delta.compare(decimal.Decimal("0")))
-    set_statistic_data("weather", "rt", "seasonal_average", climate_delta, trend=trend)
+    set_statistic_data("weather", "syd", "rt", "seasonal_average", climate_delta, trend=trend)
     return messages

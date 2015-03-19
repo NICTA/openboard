@@ -63,17 +63,17 @@ def update_data(loader, verbosity=0):
     return messages
 
 def load_incidents(incidents):
-    clear_statistic_list("traffic_incidents_syd", "rt", "incidents")
+    clear_statistic_list("traffic_incidents", "syd", "rt", "incidents")
     index = 0
     for (region, stats) in incidents["syd"].items():
-        add_statistic_list_item("traffic_incidents_syd", "rt", "incidents",
+        add_statistic_list_item("traffic_incidents", "syd", "rt", "incidents",
                                 stats["count"], (stats["severity_tlc"] * 100) + index,
                                 label=region, traffic_light_code=severity_tlc[stats["severity_tlc"]])
         index += 1
-    clear_statistic_list("traffic_incidents_nsw", "rt", "incidents")
+    clear_statistic_list("traffic_incidents", "nsw", "rt", "incidents")
     index = 0
     for (region, stats) in incidents["nsw"].items():
-        add_statistic_list_item("traffic_incidents_nsw", "rt", "incidents",
+        add_statistic_list_item("traffic_incidents", "nsw", "rt", "incidents",
                                 stats["count"], (stats["severity_tlc"] * 100) + index,
                                 label=region, traffic_light_code=severity_tlc[stats["severity_tlc"]])
         index += 1

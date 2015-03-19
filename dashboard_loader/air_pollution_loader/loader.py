@@ -99,16 +99,16 @@ class AirPollutionHtmlParser(HTMLParser):
                 for region, rating_val in zip(self.last_row_texts, self.row_texts):
                     rating=PollutionRating(rating_val)
                     if "Sydney" in region:
-                        add_statistic_list_item("air_pollution_syd", "rt", "regions", rating.display(), self.sort_order,
+                        add_statistic_list_item("air_pollution", "syd", "rt", "regions", rating.display(), self.sort_order,
                                     label=region, traffic_light_code=rating.tlc())
                         if rating > self.sydney_worst:
                             self.sydney_worst = rating
                     else:
-                        add_statistic_list_item("air_pollution_nsw", "rt", "regions", rating.display(), self.sort_order,
+                        add_statistic_list_item("air_pollution", "nsw", "rt", "regions", rating.display(), self.sort_order,
                                     label=region, traffic_light_code=rating.tlc())
                     self.sort_order += 10
         elif tag == "table" and self.tables_instack() == 1 and self.level_2_table_number == 1:
-            add_statistic_list_item("air_pollution_nsw", "rt", "regions", self.sydney_worst.display(), 10,
+            add_statistic_list_item("air_pollution", "nsw", "rt", "regions", self.sydney_worst.display(), 10,
                         label="Sydney", traffic_light_code=self.sydney_worst.tlc())
         elif tag == "table" and self.tables_instack() == 1 and self.level_2_table_number == 2:
             self.in_syd_forecast_table = False
@@ -117,9 +117,9 @@ class AirPollutionHtmlParser(HTMLParser):
                 val = " ".join(self.row_text)
                 try:
                     rating = PollutionRating(val)
-                    set_statistic_data("air_pollution_nsw", "rt", "sydney_forecast", rating.display(),
+                    set_statistic_data("air_pollution", "nsw", "rt", "sydney_forecast", rating.display(),
                                             traffic_light_code = rating.tlc())
-                    set_statistic_data("air_pollution_syd", "rt", "sydney_forecast", rating.display(),
+                    set_statistic_data("air_pollution", "syd", "rt", "sydney_forecast", rating.display(),
                                             traffic_light_code = rating.tlc())
                 except HTMLParseError:
                     pass
@@ -144,8 +144,8 @@ def get_airdata(messages, verbosity=0):
     http = httplib.HTTPConnection("airquality.environment.nsw.gov.au")
     http.request("GET", "http://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=25")
     resp = http.getresponse()
-    clear_statistic_list("air_pollution_syd", "rt", "regions")
-    clear_statistic_list("air_pollution_nsw", "rt", "regions")
+    clear_statistic_list("air_pollution", "syd", "rt", "regions")
+    clear_statistic_list("air_pollution", "nsw", "rt", "regions")
     parser = AirPollutionHtmlParser(messages, verbosity)
     parser.feed(resp.read())
     http.close()

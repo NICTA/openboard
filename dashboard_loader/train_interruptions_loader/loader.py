@@ -33,15 +33,15 @@ def update_data(loader, verbosity=0):
     interruptions["syd"].extend(trackwork["syd"])
     messages.append("Processed trackwork")
     http.close()
-    load_interruptions("train_service_interrupt_syd", interruptions["syd"])
-    load_interruptions("train_service_interrupt_nsw", interruptions["all"])
+    load_interruptions("train_service_interrupt", "syd", interruptions["syd"])
+    load_interruptions("train_service_interrupt", "nsw", interruptions["all"])
     return messages
 
-def load_interruptions(widget, interruptions):
-    clear_statistic_list(widget, "rt", "interruptions")
+def load_interruptions(widget, location_url, interruptions):
+    clear_statistic_list(widget, location_url, "rt", "interruptions")
     sort_order=10
     for i in interruptions:
-        add_statistic_list_item(widget, "rt", "interruptions",
+        add_statistic_list_item(widget, location_url, "rt", "interruptions",
                 i["text"], sort_order, traffic_light_code=i["tlc"], url=i["link"])
         sort_order += 10
 
@@ -108,13 +108,13 @@ def process_trackwork(resp, messages):
                 trackwork["syd"].append(interruption)
     syd_current_tlc = zerogood_tlc(syd_current, 3)
     all_current_tlc = zerogood_tlc(all_current, 3)
-    set_statistic_data("train_service_interrupt_syd", "rt", "current_trackwork",
+    set_statistic_data("train_service_interrupt", "syd", "rt", "current_trackwork",
                         syd_current, traffic_light_code = syd_current_tlc)
-    set_statistic_data("train_service_interrupt_nsw", "rt", "current_trackwork",
+    set_statistic_data("train_service_interrupt", "nsw", "rt", "current_trackwork",
                         all_current, traffic_light_code = all_current_tlc)
-    set_statistic_data("train_service_interrupt_syd", "rt", "sched_overnight_trackwork",
+    set_statistic_data("train_service_interrupt", "syd", "rt", "sched_overnight_trackwork",
                         syd_scheduled, traffic_light_code = "good")
-    set_statistic_data("train_service_interrupt_nsw", "rt", "sched_overnight_trackwork",
+    set_statistic_data("train_service_interrupt", "nsw", "rt", "sched_overnight_trackwork",
                         all_scheduled, traffic_light_code = "good")
     interruption = {
         "text": "No trackworks today",
@@ -164,13 +164,13 @@ def process_interruptions(resp, messages):
             elif elem.tag == 'description':
                 description = elem.text
         if title == 'Good service':
-            set_statistic_data("train_service_interrupt_syd", "rt", "delays",
+            set_statistic_data("train_service_interrupt", "syd", "rt", "delays",
                                 0, traffic_light_code = "good")
-            set_statistic_data("train_service_interrupt_syd", "rt", "cancellations",
+            set_statistic_data("train_service_interrupt", "syd", "rt", "cancellations",
                                 0, traffic_light_code = "good")
-            set_statistic_data("train_service_interrupt_nsw", "rt", "delays",
+            set_statistic_data("train_service_interrupt", "nsw", "rt", "delays",
                                 0, traffic_light_code = "good")
-            set_statistic_data("train_service_interrupt_nsw", "rt", "cancellations",
+            set_statistic_data("train_service_interrupt", "nsw", "rt", "cancellations",
                                 0, traffic_light_code = "good")
             return {
                 "all": [{
@@ -220,13 +220,13 @@ def process_interruptions(resp, messages):
     all_del_tlc = zerogood_tlc(all_delays, 7)
     syd_cx_tlc = zerogood_tlc(syd_cancellations, 3)
     all_cx_tlc = zerogood_tlc(all_cancellations, 3)
-    set_statistic_data("train_service_interrupt_syd", "rt", "delays",
+    set_statistic_data("train_service_interrupt", "syd", "rt", "delays",
                         syd_delays, traffic_light_code = syd_del_tlc)
-    set_statistic_data("train_service_interrupt_syd", "rt", "cancellations",
+    set_statistic_data("train_service_interrupt", "syd", "rt", "cancellations",
                         syd_cancellations, traffic_light_code = syd_cx_tlc)
-    set_statistic_data("train_service_interrupt_nsw", "rt", "delays",
+    set_statistic_data("train_service_interrupt", "nsw", "rt", "delays",
                         all_delays, traffic_light_code = all_del_tlc)
-    set_statistic_data("train_service_interrupt_nsw", "rt", "cancellations",
+    set_statistic_data("train_service_interrupt", "nsw", "rt", "cancellations",
                         all_cancellations, traffic_light_code = all_cx_tlc)
     return interruptions
 

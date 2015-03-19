@@ -8,7 +8,7 @@ class Theme(models.Model):
     url  = models.SlugField(unique=True)
     sort_order = models.IntegerField()
     def __unicode__(self):
-        return self.name
+        return self.url
     def __getstate__(self):
         return {"name": self.name, "url": self.url}
     class Meta:
@@ -19,7 +19,7 @@ class Location(models.Model):
     url  = models.SlugField(unique=True)
     sort_order = models.IntegerField()
     def __unicode__(self):
-        return self.name
+        return self.url
     def __getstate__(self):
         return {"name": self.name, "url": self.url}
     class Meta:
@@ -32,7 +32,7 @@ class Frequency(models.Model):
     actual_display = models.CharField(max_length=60, unique=True)
     sort_order = models.IntegerField()
     def __unicode__(self):
-        return self.name
+        return self.url
     class Meta:
         verbose_name_plural = "frequencies"
         ordering=("sort_order",)
@@ -76,8 +76,8 @@ class WidgetDefinition(models.Model):
     url  = models.SlugField()
     expansion_hint = models.CharField(max_length=80)
     source_url = models.URLField(max_length=400)
-    actual_frequency = models.CharField(max_length=40)
-    actual_frequency_url = models.SlugField()
+    actual_location = models.ForeignKey(Location)
+    actual_frequency = models.ForeignKey(Frequency)
     refresh_rate = models.IntegerField(help_text="in seconds")
     sort_order = models.IntegerField()
     about = models.TextField(null=True, blank=True)
@@ -112,7 +112,7 @@ class WidgetDefinition(models.Model):
                 "tiles": [ tile.__getstate__() for tile in self.tiledefinition_set.all() ],
             },
             "source_url": self.source_url,
-            "actual_frequency": self.actual_frequency,
+            "actual_frequency": self.actual_frequency.actual_display,
             "refresh_rate": self.refresh_rate,
             "about": self.about,
         }
@@ -124,8 +124,8 @@ class WidgetDefinition(models.Model):
             "url": self.url,
             "expansion_hint": self.expansion_hint,
             "source_url": self.source_url,
-            "actual_frequency": self.actual_frequency,
-            "actual_frequency_url": self.actual_frequency_url,
+            "actual_frequency_url": self.actual_frequency.url,
+            "actual_location_url": self.actual_location.url,
             "refresh_rate": self.refresh_rate,
             "sort_order": self.sort_order,
             "about": self.about,
@@ -135,14 +135,15 @@ class WidgetDefinition(models.Model):
     @classmethod
     def import_data(cls, data):
         try:
-            w = WidgetDefinition.objects.get(url=data["url"], actual_frequency_url=data["actual_frequency_url"])
+            w = WidgetDefinition.objects.get(url=data["url"], actual_frequency__url=data["actual_frequency_url"], actual_location__url=data["actual_location_url"])
         except WidgetDefinition.DoesNotExist:
-            w = WidgetDefinition(url=data["url"], actual_frequency_url=data["actual_frequency_url"])
+            w = WidgetDefinition(url=data["url"], 
+                            actual_frequency=Frequency.objects.get(url=data["actual_frequency_url"]),
+                            actual_location=Location.objects.get(url=data["actual_location_url"]))
         w.subcategory =  Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
         w.name = data["name"]
         w.expansion_hint = data["expansion_hint"]
         w.source_url = data["source_url"]
-        w.actual_frequency = data["actual_frequency"]
         w.refresh_rate = data["refresh_rate"]
         w.sort_order = data["sort_order"]
         w.about = data["about"]
@@ -177,8 +178,7 @@ class WidgetDefinition(models.Model):
         return self._lud_cache
     class Meta:
         unique_together = (
-            ("url", "actual_frequency"),
-            ("url", "actual_frequency_url"),
+            ("url", "actual_location", "actual_frequency"),
             ("subcategory", "sort_order"),
         )
         ordering = ("subcategory", "sort_order")

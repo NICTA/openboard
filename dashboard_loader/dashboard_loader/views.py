@@ -55,10 +55,11 @@ def list_widgets(request):
             })
 
 @login_required
-def view_widget(request, widget_url, actual_frequency_url):
+def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
     try:
         w = WidgetDefinition.objects.get(url=widget_url, 
-                    actual_frequency_url=actual_frequency_url)
+                    actual_location__url=actual_location_url,
+                    actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
@@ -90,15 +91,17 @@ def view_widget(request, widget_url, actual_frequency_url):
             })
 
 @login_required
-def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
+def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, stat_url):
     try:
-        w = WidgetDefinition.objects.get(url=widget_url, actual_frequency_url=actual_frequency_url)
+        w = WidgetDefinition.objects.get(url=widget_url, 
+                    actual_location__url=actual_location_url,
+                    actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
     try:
-        s = Statistic.objects.get(tile__widget=w, tile__url=tile_url, url=stat_url)
+        s = Statistic.objects.get(tile__widget=w, url=stat_url)
     except Statistic.DoesNotExist:
         return HttpResponseNotFound("This Statistic does not exist")
 
@@ -142,7 +145,8 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
                     if request.POST.get("submit"):
                         return redirect("view_widget_data", 
                                 widget_url=w.url, 
-                                actual_frequency_url=w.actual_frequency_url)
+                                actual_location_url=w.actual_location.url,
+                                actual_frequency_url=w.actual_frequency.url)
                     else:
                         form = form_class(initial=s.initial_form_data())
                 else:
@@ -178,19 +182,22 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
                     sd.save()
                     return redirect("view_widget_data", 
                             widget_url=w.url, 
-                            actual_frequency_url=w.actual_frequency_url)
+                            actual_location_url=w.actual_location.url,
+                            actual_frequency_url=w.actual_frequency.url)
                     
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
                         widget_url=w.url, 
-                        actual_frequency_url=w.actual_frequency_url)
+                        actual_location_url=w.actual_location.url,
+                        actual_frequency_url=w.actual_frequency.url)
         elif not s.is_list() and request.POST.get("delete"):
             sd = s.get_data()
             if sd:
                 sd.delete()
             return redirect("view_widget_data", 
                         widget_url=w.url, 
-                        actual_frequency_url=w.actual_frequency_url)
+                        actual_location_url=w.actual_location.url,
+                        actual_frequency_url=w.actual_frequency.url)
         else:
             form = form_class(initial=s.initial_form_data())
     else:
@@ -203,9 +210,11 @@ def edit_stat(request, widget_url, actual_frequency_url, tile_url, stat_url):
                 })
 
 @login_required
-def edit_graph(request, widget_url, actual_frequency_url, tile_url):
+def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, tile_url):
     try:
-        w = WidgetDefinition.objects.get(url=widget_url, actual_frequency_url=actual_frequency_url)
+        w = WidgetDefinition.objects.get(url=widget_url, 
+                        actual_location__url=actual_location_url,
+                        actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
@@ -243,13 +252,15 @@ def edit_graph(request, widget_url, actual_frequency_url, tile_url):
                 if request.POST.get("submit"):
                     return redirect("view_widget_data", 
                             widget_url=w.url, 
-                            actual_frequency_url=w.actual_frequency_url)
+                            actual_location_url=w.actual_location.url,
+                            actual_frequency_url=w.actual_frequency.url)
                 else:
                     form = form_class(initial=g.initial_form_data())
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
                         widget_url=w.url, 
-                        actual_frequency_url=w.actual_frequency_url)
+                        actual_location_url=w.actual_location.url,
+                        actual_frequency_url=w.actual_frequency.url)
         else:
             form = form_class(initial=g.initial_form_data())
     else:
