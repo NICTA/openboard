@@ -67,7 +67,6 @@ def update_fire_danger(verbosity=0):
                 rating = elem.text
             elif elem.tag == 'FirebanToday':
                 fireban = (elem.text == 'Yes')
-        print "<%s> %s %s %s" % (district.tag, region, rating, str(fireban))
         if rating is None:
             continue
         if region == "Greater Sydney Region":

@@ -57,7 +57,7 @@ def list_widgets(request):
 @login_required
 def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
     try:
-        w = WidgetDefinition.objects.get(url=widget_url, 
+        w = WidgetDefinition.objects.get(family__url=widget_url, 
                     actual_location__url=actual_location_url,
                     actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
@@ -93,7 +93,7 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
 @login_required
 def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, stat_url):
     try:
-        w = WidgetDefinition.objects.get(url=widget_url, 
+        w = WidgetDefinition.objects.get(family__url=widget_url, 
                     actual_location__url=actual_location_url,
                     actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
@@ -144,7 +144,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                             sli.save()
                     if request.POST.get("submit"):
                         return redirect("view_widget_data", 
-                                widget_url=w.url, 
+                                widget_url=w.family.url, 
                                 actual_location_url=w.actual_location.url,
                                 actual_frequency_url=w.actual_frequency.url)
                     else:
@@ -181,13 +181,13 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                         sd.trend = int(fd["trend"])
                     sd.save()
                     return redirect("view_widget_data", 
-                            widget_url=w.url, 
+                            widget_url=w.family.url, 
                             actual_location_url=w.actual_location.url,
                             actual_frequency_url=w.actual_frequency.url)
                     
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
-                        widget_url=w.url, 
+                        widget_url=w.family.url, 
                         actual_location_url=w.actual_location.url,
                         actual_frequency_url=w.actual_frequency.url)
         elif not s.is_list() and request.POST.get("delete"):
@@ -195,7 +195,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
             if sd:
                 sd.delete()
             return redirect("view_widget_data", 
-                        widget_url=w.url, 
+                        widget_url=w.family.url, 
                         actual_location_url=w.actual_location.url,
                         actual_frequency_url=w.actual_frequency.url)
         else:
@@ -212,7 +212,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
 @login_required
 def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, tile_url):
     try:
-        w = WidgetDefinition.objects.get(url=widget_url, 
+        w = WidgetDefinition.objects.get(family__url=widget_url, 
                         actual_location__url=actual_location_url,
                         actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
@@ -251,14 +251,14 @@ def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, t
                         gd.save()
                 if request.POST.get("submit"):
                     return redirect("view_widget_data", 
-                            widget_url=w.url, 
+                            widget_url=w.family.url, 
                             actual_location_url=w.actual_location.url,
                             actual_frequency_url=w.actual_frequency.url)
                 else:
                     form = form_class(initial=g.initial_form_data())
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
-                        widget_url=w.url, 
+                        widget_url=w.family.url, 
                         actual_location_url=w.actual_location.url,
                         actual_frequency_url=w.actual_frequency.url)
         else:

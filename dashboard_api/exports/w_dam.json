@@ -1,0 +1,144 @@
+{
+    "category": "Environment and Planning", 
+    "subcategory": "Water", 
+    "url": "dam", 
+    "source_url": "http://www.sca.nsw.gov.au/water/dam-levels", 
+    "definitions": [
+        {
+            "about": "<p>Data taken from the Sydney Catchment Authority</p>\r\n<p>Key dams are the four largest dams serving Greater Sydney.</p>", 
+            "sort_order": 700, 
+            "tiles": [
+                {
+                    "url": "dam-day-main", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "ALL DAMS AV.", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "SCA Levels", 
+                            "hyperlinkable": false, 
+                            "url": "all_dams_avg", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "LAST WEEK", 
+                            "hyperlinkable": false, 
+                            "url": "all_dams_last_week", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "tile_type": 1, 
+                    "sort_order": 10, 
+                    "expansion": false
+                }, 
+                {
+                    "url": "dam-day-expansion", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "Warragamba", 
+                            "hyperlinkable": false, 
+                            "url": "warragamba", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "Avon", 
+                            "hyperlinkable": false, 
+                            "url": "avon", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 300, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "Cataract", 
+                            "hyperlinkable": false, 
+                            "url": "cataract", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 400, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "Cordeaux", 
+                            "hyperlinkable": false, 
+                            "url": "cordeaux", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "tile_type": 3, 
+                    "sort_order": 20, 
+                    "expansion": true
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 7200, 
+            "expansion_hint": "Key Dams", 
+            "actual_frequency_url": "day", 
+            "actual_location_url": "syd"
+        }
+    ], 
+    "name": "Dam Levels"
+}
+

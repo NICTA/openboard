@@ -69,16 +69,49 @@ def max_with_nulls(*args):
     else:
         return max(*maxargs)
 
-class WidgetDefinition(models.Model):
-    _lud_cache = None
+class WidgetFamily(models.Model):
     subcategory = models.ForeignKey(Subcategory)
     name = models.CharField(max_length=60)
-    url  = models.SlugField()
-    expansion_hint = models.CharField(max_length=80)
+    url  = models.SlugField(unique=True)
     source_url = models.URLField(max_length=400)
+    def __unicode__(self):
+        return self.name
+    def export(self):
+        return {
+            "category": self.subcategory.category.name,
+            "subcategory": self.subcategory.name,
+            "name": self.name,
+            "url": self.url,
+            "source_url": self.source_url,
+            "definitions": [ wd.export() for wd in self.widgetdefinition_set.all() ]
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            fam = cls.objects.get(url=data["url"])
+        except cls.DoesNotExist:
+            fam = cls(url=data["url"])
+        fam.subcategory =  Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
+        fam.name = data["name"]
+        fam.source_url = data["source_url"]
+        fam.save()
+        definitions = []
+        for defn in data["definitions"]:
+            WidgetDefinition.import_data(fam, defn)
+            definitions.append((defn["actual_location_url"], defn["actual_frequency_url"]))
+        for defn in fam.widgetdefinition_set.all():
+            if (defn.actual_location.url, defn.actual_frequency.url) not in definitions:
+                defn.delete()
+        return fam
+
+class WidgetDefinition(models.Model):
+    _lud_cache = None
+    family = models.ForeignKey(WidgetFamily)
+    expansion_hint = models.CharField(max_length=80)
     actual_location = models.ForeignKey(Location)
     actual_frequency = models.ForeignKey(Frequency)
     refresh_rate = models.IntegerField(help_text="in seconds")
+# TODO sort_order should be unique
     sort_order = models.IntegerField()
     about = models.TextField(null=True, blank=True)
     def validate(self):
@@ -101,29 +134,32 @@ class WidgetDefinition(models.Model):
         for tile in tiles:
             problems.extend(tile.validate())
         return problems
+    def subcategory(self):
+        return self.family.subcategory
+    def url(self):
+        return self.family.url
+    def name(self):
+        return self.family.name
+    def source_url(self):
+        return self.family.source_url
     def __getstate__(self):
         return {
-            "category": self.subcategory.category.name,
-            "subcategory": self.subcategory.name,
-            "name": self.name,
-            "url": self.url,
+            "category": self.subcategory().category.name,
+            "subcategory": self.subcategory().name,
+            "name": self.name(),
+            "url": self.url(),
             "display": {
                 "expansion_hint": self.expansion_hint,
                 "tiles": [ tile.__getstate__() for tile in self.tiledefinition_set.all() ],
             },
-            "source_url": self.source_url,
+            "source_url": self.source_url(),
             "actual_frequency": self.actual_frequency.actual_display,
             "refresh_rate": self.refresh_rate,
             "about": self.about,
         }
     def export(self):
         return {
-            "category": self.subcategory.category.name,
-            "subcategory": self.subcategory.name,
-            "name": self.name,
-            "url": self.url,
             "expansion_hint": self.expansion_hint,
-            "source_url": self.source_url,
             "actual_frequency_url": self.actual_frequency.url,
             "actual_location_url": self.actual_location.url,
             "refresh_rate": self.refresh_rate,
@@ -133,17 +169,14 @@ class WidgetDefinition(models.Model):
             "declarations": [ wd.export() for wd in self.widgetdeclaration_set.all() ],
         }
     @classmethod
-    def import_data(cls, data):
+    def import_data(cls, family, data):
         try:
-            w = WidgetDefinition.objects.get(url=data["url"], actual_frequency__url=data["actual_frequency_url"], actual_location__url=data["actual_location_url"])
+            w = WidgetDefinition.objects.get(family=family, actual_frequency__url=data["actual_frequency_url"], actual_location__url=data["actual_location_url"])
         except WidgetDefinition.DoesNotExist:
-            w = WidgetDefinition(url=data["url"], 
+            w = WidgetDefinition(family=family,
                             actual_frequency=Frequency.objects.get(url=data["actual_frequency_url"]),
                             actual_location=Location.objects.get(url=data["actual_location_url"]))
-        w.subcategory =  Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
-        w.name = data["name"]
         w.expansion_hint = data["expansion_hint"]
-        w.source_url = data["source_url"]
         w.refresh_rate = data["refresh_rate"]
         w.sort_order = data["sort_order"]
         w.about = data["about"]
@@ -167,7 +200,7 @@ class WidgetDefinition(models.Model):
                 wd.delete()
         return w
     def __unicode__(self):
-        return "%s (%s)" % (self.name, self.actual_frequency)
+        return "%s (%s, %s)" % (self.family.name, self.actual_location.name, self.actual_frequency.name)
     def data_last_updated(self, update=False):
         if self._lud_cache and not update:
             return self._lud_cache
@@ -178,10 +211,9 @@ class WidgetDefinition(models.Model):
         return self._lud_cache
     class Meta:
         unique_together = (
-            ("url", "actual_location", "actual_frequency"),
-            ("subcategory", "sort_order"),
+            ("family", "actual_location", "actual_frequency"),
         )
-        ordering = ("subcategory", "sort_order")
+        ordering = ("family__subcategory", "sort_order")
 
 class WidgetDeclaration(models.Model):
     definition = models.ForeignKey(WidgetDefinition)
@@ -189,7 +221,7 @@ class WidgetDeclaration(models.Model):
     frequency = models.ForeignKey(Frequency)
     location = models.ForeignKey(Location)
     def __unicode__(self):
-        return "%s (%s:%s:%s)" % (self.definition.name, self.theme.name, self.location.name, self.frequency.name)
+        return "%s (%s:%s:%s)" % (self.definition.family.name, self.theme.name, self.location.name, self.frequency.name)
     def __getstate__(self):
         return self.definition.__getstate__()
     def export(self):

@@ -1,0 +1,103 @@
+{
+    "category": "Service Delivery", 
+    "subcategory": "Service NSW", 
+    "url": "service_nsw_svc_www", 
+    "source_url": "http://www.service.nsw.gov.au/", 
+    "definitions": [
+        {
+            "about": "<p>Average number of website visits and average visit duration over most recent 1 hour interval.</p>\r\n<p>Data supplied by Service NSW. Currently static sample data only.</p>", 
+            "sort_order": 420, 
+            "tiles": [
+                {
+                    "url": "service_nsw_svc_www_main", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "per minute", 
+                            "icon_library": null, 
+                            "name": "Visits", 
+                            "hyperlinkable": false, 
+                            "url": "visits", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": null, 
+                            "trend": true, 
+                            "unit_underfix": null, 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "icon_library": null, 
+                            "name": "Avg Duration", 
+                            "hyperlinkable": false, 
+                            "url": "duration", 
+                            "num_precision": null, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 1
+                        }
+                    ], 
+                    "tile_type": 2, 
+                    "sort_order": 100, 
+                    "expansion": false
+                }, 
+                {
+                    "statistics": [], 
+                    "url": "service_nsw_svc_www_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "secondary_numeric_axis_label": "Minutes", 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": true, 
+                        "graph_type": 1, 
+                        "horiz_axis_type": 3, 
+                        "datasets": {
+                            "duration": {
+                                "use_secondary_numeric_axis": false, 
+                                "colour": "red", 
+                                "label": "Avg Visit Duration"
+                            }, 
+                            "visits": {
+                                "use_secondary_numeric_axis": false, 
+                                "colour": "blue", 
+                                "label": "Visits"
+                            }
+                        }, 
+                        "numeric_axis_label": "Visits", 
+                        "clusters": {}, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "expansion": true, 
+                    "sort_order": 200
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 300, 
+            "expansion_hint": "Activity", 
+            "actual_frequency_url": "hour", 
+            "actual_location_url": "syd"
+        }
+    ], 
+    "name": "Service NSW - Website Visits"
+}
+

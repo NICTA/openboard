@@ -43,7 +43,8 @@ def update_loader(loader, success=True):
 
 def get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url):
     try:
-        return Statistic.objects.get(url=statistic_url, tile__widget__url=widget_url, 
+        return Statistic.objects.get(url=statistic_url, 
+                tile__widget__family__url=widget_url, 
                 tile__widget__actual_location__url=actual_location_url,
                 tile__widget__actual_frequency__url=actual_frequency_url)
     except Statistic.DoesNotExist:
@@ -205,7 +206,7 @@ def call_in_transaction(func, *args, **kwargs):
 def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
     try:
         return GraphDefinition.objects.get(tile__url=tile_url, 
-                tile__widget__url=widget_url, 
+                tile__widget__family__url=widget_url, 
                 tile__widget__actual_location__url=actual_location_url,
                 tile__widget__actual_frequency__url=actual_frequency_url)
     except GraphDefinition.DoesNotExist:

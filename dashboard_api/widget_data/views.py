@@ -14,7 +14,7 @@ def get_widget_data(request, widget_url):
     frequency = get_frequency_from_request(request)
     try:
         widget = WidgetDeclaration.objects.get(frequency=frequency,
-                    location=location, definition__url=widget_url)
+                    location=location, definition__family__url=widget_url)
     except WidgetDeclaration.DoesNotExist:
         return HttpResponseNotFound("This Widget does not exist")
     stats_json = {}
@@ -31,7 +31,7 @@ def get_graph_data(request, widget_url):
     frequency = get_frequency_from_request(request)
     try:
         widget = WidgetDeclaration.objects.get(frequency=frequency,
-                    location=location, definition__url=widget_url)
+                    location=location, definition__family__url=widget_url)
     except WidgetDeclaration.DoesNotExist:
         return HttpResponseNotFound("This Widget does not exist")
     graph_json = {}
