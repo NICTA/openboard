@@ -14,7 +14,7 @@ class LocationAdmin(admin.ModelAdmin):
 
 @admin.register(Frequency)
 class FrequencyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'sort_order')
+    list_display = ('name', 'actual_display', 'url', 'display_mode', 'sort_order')
 
 class SubcategoryAdminInline(admin.TabularInline):
     model = Subcategory

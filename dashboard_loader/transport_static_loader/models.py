@@ -384,7 +384,7 @@ class StopTime(models.Model):
             st.is_dirty = True
             st.dropoff_type = int(row[7])
         if row[8]:
-            val = decimal.Decimal(row[8])
+            val = decimal.Decimal(row[8]).quantize(decimal.Decimal("0.0000000001"), rounding=decimal.ROUND_HALF_EVEN)
             if st.shape_dist_travelled != val:
                 st.is_dirty = True
                 st.shape_dist_travelled=val

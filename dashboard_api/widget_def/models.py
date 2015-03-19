@@ -28,6 +28,8 @@ class Location(models.Model):
 class Frequency(models.Model):
     name = models.CharField(max_length=60, unique=True)
     url  = models.SlugField(unique=True)
+    display_mode = models.BooleanField(default=True)
+    actual_display = models.CharField(max_length=60, unique=True)
     sort_order = models.IntegerField()
     def __unicode__(self):
         return self.name

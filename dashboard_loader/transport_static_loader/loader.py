@@ -4,7 +4,9 @@ import zipfile
 import tempfile
 import csv
 import base64
+import gc
 
+from django import db
 from django.conf import settings
 
 from dashboard_loader.loader_utils import LoaderException, call_in_transaction
@@ -62,6 +64,7 @@ def update_static_data(verbosity=0):
         messages.extend(call_in_transaction(load_static_data,gtfs_zip.open("trips.txt"), Trip, verbosity, batch_size=1000))
         if verbosity >= 5:
             print "Trips loaded"
+        db.reset_queries()
         messages.extend(load_static_data(gtfs_zip.open("stop_times.txt"), StopTime, verbosity, batch_size=5000))
         if verbosity >= 5:
             print "Stop Times loaded"
@@ -81,6 +84,7 @@ def load_static_data(csv_file, model, verbosity=0, batch_size=1):
     saves = 0
     batch_creates = 0
     skipped = 0
+    rows_read = 0
     for row in reader:
         if not header_skipped:
             header_skipped=True
@@ -102,6 +106,19 @@ def load_static_data(csv_file, model, verbosity=0, batch_size=1):
                         batch = []
         else:
             skipped += 1
+        rows_read += 1
+        if rows_read % 400000 == 0:
+            db.reset_queries()
+        if batch_size > 1 and rows_read % 10000 == 0 and verbosity >= 5:
+            print "Processed %d rows:" % rows_read,
+            if batch_size == 1:
+                print "%d objects skipped, %d objects saved" % (skipped, saves)
+            else:
+                print "%d objects skipped, %d objects updated, %d batch creates (%d queued)" % (
+                                        skipped,
+                                        saves,
+                                        batch_creates,
+                                        len(batch))
     if batch:
         model.objects.bulk_create(batch)
         batch_creates += 1

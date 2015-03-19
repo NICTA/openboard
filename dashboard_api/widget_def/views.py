@@ -16,7 +16,7 @@ def get_locations(request):
     return json_list(request, data)
 
 def get_frequencies(request):
-    data = [ f.__getstate__() for f in Frequency.objects.all() ]
+    data = [ f.__getstate__() for f in Frequency.objects.filter(display_mode=True) ]
     return json_list(request, data)
 
 def get_icon_libraries(request):
