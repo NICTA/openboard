@@ -104,6 +104,7 @@ def load_static_data(csv_file, model, verbosity=0, batch_size=1):
                         model.objects.bulk_create(batch)
                         batch_creates += 1
                         batch = []
+                        db.reset_queries()
         else:
             skipped += 1
         rows_read += 1
@@ -121,6 +122,7 @@ def load_static_data(csv_file, model, verbosity=0, batch_size=1):
                                         len(batch))
     if batch:
         model.objects.bulk_create(batch)
+        db.reset_queries()
         batch_creates += 1
     if verbosity >= 3:
         if batch_size == 1:
