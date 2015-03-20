@@ -73,7 +73,7 @@ class StatisticInline(admin.StackedInline):
     extra = 2
     fieldsets = (
             (None, {
-                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'icon_library', 'trend', 'hyperlinkable', 'sort_order'),
+                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'list_label_width', 'traffic_light_scale', 'icon_library', 'trend', 'hyperlinkable', 'sort_order'),
             }),
             ('Numeric', {
                 'fields': ('num_precision', 'unit_prefix', 'unit_suffix', 'unit_underfix', 'unit_signed'),

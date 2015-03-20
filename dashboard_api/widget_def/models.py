@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
 from widget_data.models import StatisticData, StatisticListItem, GraphData
 
 # Create your models here.
@@ -567,6 +568,7 @@ class Statistic(models.Model):
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
     trend = models.BooleanField(default=False)
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(50), MaxValueValidator(80)])
     num_precision = models.SmallIntegerField(blank=True, null=True)
     unit_prefix = models.CharField(max_length="10", blank=True, null=True)
     unit_suffix = models.CharField(max_length="10", blank=True, null=True)
@@ -587,6 +589,8 @@ class Statistic(models.Model):
         if self.stat_type == self.EVENT_LIST:
             self.traffic_light_scale = None
             self.trend = False
+        if not self.is_kvlist():
+            self.list_label_width=None
         if self.is_list():
             name_as_label=True
         else:
@@ -601,6 +605,8 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url()))
             elif self.num_precision < 0:
                 problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url()))
+        if self.is_kvlist() and self.list_label_width is None:
+            problems.append("Statistic %s of Widget %s is a key-value list but does not specify the list label width" % (self.url, self.tile.widget.url()))
         if self.is_eventlist() and self.tile.tile_type != self.tile.CALENDAR:
             problems.append("Event List statistic only allowed on a Calendar tile")
         return problems
@@ -710,6 +716,7 @@ class Statistic(models.Model):
             "stat_type": self.stat_type,
             "traffic_light_scale": traffic_light_scale_name,
             "icon_library": icon_library_name,
+            "list_label_width": self.list_label_width,
             "trend": self.trend,
             "hyperlinkable": self.hyperlinkable,
             "num_precision": self.num_precision,
@@ -731,6 +738,7 @@ class Statistic(models.Model):
         s.hyperlinkable = data.get("hyperlinkable", False)
         s.trend = data["trend"]
         s.num_precision = data["num_precision"]
+        s.list_label_width = data.get("list_label_width")
         s.unit_prefix = data["unit_prefix"]
         s.unit_suffix = data["unit_suffix"]
         s.unit_underfix = data["unit_underfix"]
@@ -777,6 +785,8 @@ class Statistic(models.Model):
                 state["icon_library"] = None
         if self.is_list():
             state["hyperlinkable"] = self.hyperlinkable
+        if self.is_kvlist():
+            state["list_label_width"] = self.list_label_width
         return state
     class Meta:
         unique_together = [("tile", "name"), ("tile", "url")]
