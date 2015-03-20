@@ -343,6 +343,8 @@ class TileDefinition(models.Model):
         elif self.tile_type in (self.DOUBLE_MAIN_STAT,
                             self.PRIORITY_LIST, self.URGENCY_LIST):
             min_stat_count = 2
+            if self.tile_type == self.DOUBLE_MAIN_STAT:
+                max_stat_count = 2
         elif self.tile_type in (self.LIST_OVERFLOW, self.GRAPH, self.MAP):
             max_stat_count = 0
         num_stats = self.statistic_set.all().count()
@@ -378,7 +380,7 @@ class TileDefinition(models.Model):
         # Must gave a graph if and only if a graph tile
         if self.tile_type == self.GRAPH:
             try:
-                g = GraphDefinition.objects(tile=self)
+                g = GraphDefinition.objects.get(tile=self)
                 problems.extend(g.validate())
             except GraphDefinition.DoesNotExist:
                 problems.append("Tile %s of Widget %s is a graph tile but does not have a graph defined" % (self.url, self.widget.url()))
@@ -387,7 +389,7 @@ class TileDefinition(models.Model):
         # Must have a grid if and only if a grid tile
         if self.tile_type == self.GRID:
             try:
-                g = GridDefinition.objects(tile=self)
+                g = GridDefinition.objects.get(tile=self)
                 problems.extend(g.validate())
             except GridDefinition.DoesNotExist:
                 problems.append("Tile %s of Widget %s is a grid tile but does not have a grid defined" % (self.url, self.widget.url()))
