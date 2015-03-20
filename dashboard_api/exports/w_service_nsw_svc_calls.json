@@ -1,5 +1,6 @@
 {
     "category": "Service Delivery", 
+    "subtitle": "Call Centres", 
     "subcategory": "Service NSW", 
     "url": "service_nsw_svc_calls", 
     "source_url": "http://www.service.nsw.gov.au/", 
@@ -98,6 +99,6 @@
             "actual_location_url": "syd"
         }
     ], 
-    "name": "Service NSW - Call Centres"
+    "name": "Service NSW"
 }
 

@@ -1,5 +1,6 @@
 {
     "category": "Service Delivery", 
+    "subtitle": null, 
     "subcategory": "Public Transport", 
     "url": "train_service_interrupt", 
     "source_url": "http://www.sydneytrains.info/rss/", 

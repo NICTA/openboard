@@ -117,3 +117,32 @@ class GraphAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
          }),
     )
+
+class GridColumnInline(admin.StackedInline):
+    model = GridColumn
+    extra = 2
+
+class GridRowInline(admin.StackedInline):
+    model = GridRow
+    extra = 2
+
+class GridStatisticInline(admin.StackedInline):
+    model = GridStatistic
+    extra = 2
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if len(request.resolver_match.args) == 1:
+            grid = GridDefinition.objects.get(id=int(request.resolver_match.args[0]))
+            if db_field.name == "column":
+                kwargs["queryset"] = GridColumn.objects.filter(grid=grid)
+            elif db_field.name == "row":
+                kwargs["queryset"] = GridRow.objects.filter(grid=grid)
+            elif db_field.name == "statistic":
+                kwargs["queryset"] = Statistic.objects.filter(tile=grid.tile)
+        return super(GridStatisticInline, self).formfield_for_foreignkey(db_field,
+                        request, **kwargs)
+
+@admin.register(GridDefinition)
+class GridAdmin(admin.ModelAdmin):
+    inlines = [ GridColumnInline, GridRowInline, GridStatisticInline ]
+    list_display = ("widget", "tile")
+

@@ -72,6 +72,7 @@ def max_with_nulls(*args):
 class WidgetFamily(models.Model):
     subcategory = models.ForeignKey(Subcategory)
     name = models.CharField(max_length=60)
+    subtitle = models.CharField(max_length=60, null=True, blank=True)
     url  = models.SlugField(unique=True)
     source_url = models.URLField(max_length=400)
     def __unicode__(self):
@@ -80,6 +81,7 @@ class WidgetFamily(models.Model):
         return {
             "category": self.subcategory.category.name,
             "subcategory": self.subcategory.name,
+            "subtitle": self.subtitle,
             "name": self.name,
             "url": self.url,
             "source_url": self.source_url,
@@ -92,6 +94,10 @@ class WidgetFamily(models.Model):
         except cls.DoesNotExist:
             fam = cls(url=data["url"])
         fam.subcategory =  Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
+        if data.get("subtitle"):
+            fam.subtitle = data["subtitle"]
+        else:
+            fam.subtitle = None
         fam.name = data["name"]
         fam.source_url = data["source_url"]
         fam.save()
@@ -111,8 +117,7 @@ class WidgetDefinition(models.Model):
     actual_location = models.ForeignKey(Location)
     actual_frequency = models.ForeignKey(Frequency)
     refresh_rate = models.IntegerField(help_text="in seconds")
-# TODO sort_order should be unique
-    sort_order = models.IntegerField()
+    sort_order = models.IntegerField(unique=True)
     about = models.TextField(null=True, blank=True)
     def validate(self):
         """Validate Widget Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
@@ -147,6 +152,7 @@ class WidgetDefinition(models.Model):
             "category": self.subcategory().category.name,
             "subcategory": self.subcategory().name,
             "name": self.name(),
+            "subtitle": self.family.subtitle,
             "url": self.url(),
             "display": {
                 "expansion_hint": self.expansion_hint,
@@ -218,7 +224,9 @@ class WidgetDefinition(models.Model):
 class WidgetDeclaration(models.Model):
     definition = models.ForeignKey(WidgetDefinition)
     theme = models.ForeignKey(Theme)
-    frequency = models.ForeignKey(Frequency)
+    frequency = models.ForeignKey(Frequency, limit_choices_to={
+                            "display_mode": True
+                    })
     location = models.ForeignKey(Location)
     def __unicode__(self):
         return "%s (%s:%s:%s)" % (self.definition.family.name, self.theme.name, self.location.name, self.frequency.name)
@@ -256,7 +264,8 @@ class TileDefinition(models.Model):
     GRAPH = 6
     MAP = 7
     CALENDAR = 8
-    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar" ]
+    GRID = 9
+    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar", "grid" ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
@@ -267,6 +276,7 @@ class TileDefinition(models.Model):
                     (GRAPH, tile_types[GRAPH]),
                     (CALENDAR, tile_types[CALENDAR]),
                     # (MAP, tile_types[MAP]),
+                    (GRID, tile_types[GRID]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     url = models.SlugField()
@@ -284,6 +294,8 @@ class TileDefinition(models.Model):
             state.update(g.__getstate__())
         if self.tile_type == self.MAP:
             pass # TODO
+        if self.tile_type == self.GRID:
+            state["grid"] = GridDefinition.objects.get(tile=self).__getstate__()
         return state
     def export(self):
         exp = {
@@ -294,11 +306,11 @@ class TileDefinition(models.Model):
             "statistics": [ s.export() for s in self.statistic_set.all() ],
         }
         if self.tile_type == self.GRAPH:
-            try:
-                g = self.graphdefinition_set.get()
-                exp["graph"] = g.export()
-            except GraphDefinition.DoesNotExist:
-                exp["graph"] = None
+            g = self.graphdefinition_set.get()
+            exp["graph"] = g.export()
+        if self.tile_type == self.GRID:
+            g = self.griddefinition_set.get()
+            exp["grid"] = g.export()
         return exp
     @classmethod
     def import_data(cls, widget, data):
@@ -318,6 +330,7 @@ class TileDefinition(models.Model):
             if stat.url not in stat_urls:
                 stat.delete()
         GraphDefinition.import_data(t, data.get("graph"))
+        GridDefinition.import_data(t, data.get("grid"))
         return t
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
@@ -334,13 +347,13 @@ class TileDefinition(models.Model):
             max_stat_count = 0
         num_stats = self.statistic_set.all().count()
         if num_stats < min_stat_count:
-            problems.append("Tile %s of Widget %s has %d statistics defined (minimum: %d)" % (self.url, self.widget.url, num_stats, min_stat_count))
+            problems.append("Tile %s of Widget %s has %d statistics defined (minimum: %d)" % (self.url, self.widget.url(), num_stats, min_stat_count))
         if num_stats > max_stat_count:
-            problems.append("Tile %s of Widget %s has %d statistics defined (maximum: %d)" % (self.url, self.widget.url, num_stats, max_stat_count))
+            problems.append("Tile %s of Widget %s has %d statistics defined (maximum: %d)" % (self.url, self.widget.url(), num_stats, max_stat_count))
         # List overflow rules
         if self.tile_type == self.LIST_OVERFLOW:
             if not self.expansion:
-                problems.append("Tile %s of Widget %s is of type List Overflow but is not an expansion tile" % (self.url, self.widget.url))
+                problems.append("Tile %s of Widget %s is of type List Overflow but is not an expansion tile" % (self.url, self.widget.url()))
             else:
                 try:
                     default_tile = self.widget.tiledefinition_set.get(expansion=False)
@@ -350,9 +363,9 @@ class TileDefinition(models.Model):
                         if default_tile.statistic_set.count() > 0 and default_tile.statistic_set.all()[0].is_list():
                             pass #OK
                         else:
-                            problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url))
+                            problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url()))
                     else:
-                        problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url))
+                        problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url()))
                 except (TileDefinition.DoesNotExist, 
                         TileDefinition.MultipleObjectsReturned):
                     # Should already have been reported as an error higher up
@@ -361,16 +374,25 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
             for stat in self.statistic_set.all():
                 if stat.is_list():
-                    problems.append("Tile %s of Widget %s is a list tile and contains statistic %s, which is a list statistic. (Cannot have lists of lists)." % (self.url, self.widget.url, stat.url))
+                    problems.append("Tile %s of Widget %s is a list tile and contains statistic %s, which is a list statistic. (Cannot have lists of lists)." % (self.url, self.widget.url(), stat.url))
         # Must gave a graph if and only if a graph tile
         if self.tile_type == self.GRAPH:
             try:
                 g = GraphDefinition.objects(tile=self)
                 problems.extend(g.validate())
             except GraphDefinition.DoesNotExist:
-                problems.append("Tile %s of Widget %s is a graph tile but does not have a graph defined" % (self.url, self.widget.url))
+                problems.append("Tile %s of Widget %s is a graph tile but does not have a graph defined" % (self.url, self.widget.url()))
         else:
             self.graphdefinition_set.all().delete()
+        # Must have a grid if and only if a grid tile
+        if self.tile_type == self.GRID:
+            try:
+                g = GridDefinition.objects(tile=self)
+                problems.extend(g.validate())
+            except GridDefinition.DoesNotExist:
+                problems.append("Tile %s of Widget %s is a grid tile but does not have a grid defined" % (self.url, self.widget.url()))
+        else:
+            self.griddefinition_set.all().delete()
         # Validate all stats.
         for stat in self.statistic_set.all():
             problems.extend(stat.validate())
@@ -574,9 +596,9 @@ class Statistic(models.Model):
         problems = []
         if self.is_numeric():
             if self.num_precision is None:
-                problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url))
+                problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url()))
             elif self.num_precision < 0:
-                problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url))
+                problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url()))
         if self.is_eventlist() and self.tile.tile_type != self.tile.CALENDAR:
             problems.append("Event List statistic only allowed on a Calendar tile")
         return problems
@@ -724,11 +746,12 @@ class Statistic(models.Model):
         return s
     def __getstate__(self):
         state = {
-            "name": self.name,
-            "name_as_label": self.name_as_label,
             "url": self.url,
             "type": self.stat_types[self.stat_type],
         }
+        if self.tile.tile_type != TileDefinition.GRID:
+            state["name"] = self.name,
+            state["name_as_label"] = self.name_as_label
         if self.is_numeric():
             state["precision"] = self.num_precision
             state["unit"] = {}
@@ -831,7 +854,7 @@ class GraphDefinition(models.Model):
         class Meta:
             ordering=('tile',)
         def __unicode__(self):
-            return "%s:%s:graph" % (self.tile.widget.url, self.tile.url)
+            return "%s:%s:graph" % (self.tile.widget.url(), self.tile.url)
         def export(self):
             return {
                 "heading": self.heading,
@@ -938,12 +961,12 @@ class GraphDefinition(models.Model):
                 ds.save()
             if self.use_clusters():
                 if self.graphcluster_set.count() == 0:
-                    problems.append("Graph for tile %s of widget %s is a %s graph but has no clusters defined" % (self.tile.url, self.widget.url, self.graph_types[self.graph_type]))
+                    problems.append("Graph for tile %s of widget %s is a %s graph but has no clusters defined" % (self.tile.url, self.widget.url(), self.graph_types[self.graph_type]))
             else:
                 if self.horiz_axis_type == 0:
-                    problems.append("Graph for tile %s of widget %s is a line graph but does not specify horizontal axis type" % (self.tile.url, self.tile.widget.url))
+                    problems.append("Graph for tile %s of widget %s is a line graph but does not specify horizontal axis type" % (self.tile.url, self.tile.widget.url()))
             if self.graphdataset_set.count() == 0:
-                problems.append("Graph for tile %s of widget %s has no datasets defined" % (self.tile.url, self.widget.url))
+                problems.append("Graph for tile %s of widget %s has no datasets defined" % (self.tile.url, self.widget.url()))
             return problems
 
 class GraphCluster(models.Model):
@@ -1007,4 +1030,160 @@ class GraphDataset(models.Model):
             else:
                 state["use_secondary_numeric_axis"] = self.use_secondary_numeric_axis
         return state
+
+class GridDefinition(models.Model):
+    tile = models.ForeignKey(TileDefinition, limit_choices_to={
+                                'tile_type': TileDefinition.GRID,
+                                }, unique=True)
+    corner_label = models.CharField(max_length=50)
+    def widget(self):
+        return self.tile.widget
+    def __unicode__(self):
+        return "Grid for tile: %s" % unicode(self.tile)
+    def export(self):
+        return {
+            "corner_label": self.corner_label,
+            "columns": [ c.export() for c in self.gridcolumn_set.all() ],
+            "rows": [ c.export() for c in self.gridrow_set.all() ],
+        }
+    def __getstate__(self):
+        return {
+            "corner_label": self.corner_label,
+            "columns": [ c.__getstate__() for c in self.gridcolumn_set.all() ],
+            "rows": [ c.__getstate__() for c in self.gridrow_set.all() ],
+        }
+    def validate(self):
+        problems = []
+        ncols = self.gridcolumn_set.count()
+        nrows = self.gridrow_set.count()
+        if ncols < 1 or ncols > 3:
+            problems.append("Number of GridColumns must be at least one and at most 3 (not %d)" % ncols)
+        if nrows < 1:
+            problems.append("Number of GridRows must be at least one (not %d)" % nrows)
+        if self.tile.widget.family.subtitle and nrows > 2:
+            problems.append("Number of GridRows cannot be more than 2 if a widget subtitle is defined (not %d)" % nrows)
+        if not self.tile.widget.family.subtitle and nrows > 3:
+            problems.append("Number of GridRows cannot be more than 3 if a widget subtitle is not defined (not %d)" % nrows)
+        required_stat_count = ncols * nrows
+        stat_count = self.tile.statistic_set.count()
+        gridstat_count = self.gridstatistic_set.count()
+        if stat_count > gridstat_count:
+            problems.append("Not all tile statistics have been defined in the grid")
+        if stat_count > required_stat_count:
+            problems.append("Not enough tile statistics to fill the grid")
+        for gs in self.gridstatistic_set.all():
+            if gs.row.grid != self:
+                problems.append("Data mismatch in grid, row %s", gs.row.label)
+            if gs.column.grid != self:
+                problems.append("Data mismatch in grid, col %s", gs.column.label)
+            if gs.statistic.tile != self.tile:
+                problems.append("Data mismatch in grid, statistic %s", gs.statistic.url)
+        return problems
+    @classmethod
+    def import_data(cls, tile, data):
+        try:
+            g = cls.objects.get(tile=tile)
+            if not data:
+                g.delete()
+                return
+        except cls.DoesNotExist:
+            if data:
+                g = cls(tile=tile)
+            else:
+                return 
+        g.corner_label = data["corner_label"]
+        g.save()
+        columns = []
+        for c in data["columns"]:
+            col = GridColumn.import_data(g, c)
+            columns.append(col.label)
+        for col in g.gridcolumn_set.all():
+            if col.label not in columns:
+                col.delete()
+        rows = []
+        for r in data["rows"]:
+            row = GridRow.import_data(g, r)
+            rows.append(row.label)
+        for row in g.gridrow_set.all():
+            if row.label not in rows:
+                row.delete()
+
+class GridColumn(models.Model):
+    grid = models.ForeignKey(GridDefinition)
+    label = models.CharField(max_length=50)
+    sort_order = models.IntegerField()
+    def export(self):
+        return {
+            "label": self.label,
+            "sort_order": self.sort_order,
+        }
+    def __getstate__(self):
+        return {
+            "label": self.label,
+        }
+    @classmethod
+    def import_data(cls, grid, data):
+        try:
+            gc = cls.objects.get(grid=grid, label=data["label"])
+        except cls.DoesNotExist:
+            gc = cls(grid=grid, label=data["label"])
+        gc.sort_order = data["sort_order"]
+        gc.save()
+        return gc
+    class Meta:
+        unique_together=( ("grid", "label"), ("grid", "sort_order") )
+        ordering = ("grid", "sort_order")
+    def __unicode__(self):
+        return "Column %s" % self.label
+
+class GridRow(models.Model):
+    grid = models.ForeignKey(GridDefinition)
+    label = models.CharField(max_length=50)
+    sort_order = models.IntegerField()
+    def export(self):
+        return {
+            "label": self.label,
+            "sort_order": self.sort_order,
+            "statistics": [ s.export() for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
+        }
+    def __getstate__(self):
+        return {
+            "label": self.label,
+            "statistics": [ s.__getstate__() for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
+        }
+    @classmethod
+    def import_data(cls, grid, data):
+        try:
+            gr = cls.objects.get(grid=grid, label=data["label"])
+        except cls.DoesNotExist:
+            gr = cls(grid=grid, label=data["label"])
+        gr.sort_order = data["sort_order"]
+        gr.save()
+        grid.gridstatistic_set.filter(row=gr).delete()
+        for (col, sdata) in zip(grid.gridcolumn_set.all(), data["statistics"]):
+            stat = Statistic.import_data(grid.tile, sdata)
+            try:
+                gs = GridStatistic.objects.get(grid=grid, row=gr, column=col, statistic=stat)
+            except GridStatistic.DoesNotExist:
+                gs = GridStatistic(grid=grid, row=gr, column=col, statistic=stat)
+                gs.save()
+        return gr
+    class Meta:
+        unique_together=( ("grid", "label"), ("grid", "sort_order") )
+        ordering = ("grid", "sort_order")
+    def __unicode__(self):
+        return "Row %s" % self.label
+
+class GridStatistic(models.Model):
+    grid = models.ForeignKey(GridDefinition)
+    column = models.ForeignKey(GridColumn)
+    row = models.ForeignKey(GridRow)
+    statistic = models.ForeignKey(Statistic)
+    def export(self):
+        return self.statistic.export()
+    def __getstate__(self):
+        return self.statistic.__getstate__()
+    class Meta:
+        unique_together = ( ("grid", "column", "row"), ("grid", "statistic") )
+        ordering = ("grid", "row", "column")
 

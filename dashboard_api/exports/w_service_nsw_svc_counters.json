@@ -1,5 +1,6 @@
 {
     "category": "Service Delivery", 
+    "subtitle": "Counter Service", 
     "subcategory": "Service NSW", 
     "url": "service_nsw_svc_counters", 
     "source_url": "http://www.service.nsw.gov.au/", 
@@ -98,6 +99,6 @@
             "actual_location_url": "syd"
         }
     ], 
-    "name": "Service NSW - Counters"
+    "name": "Service NSW"
 }
 

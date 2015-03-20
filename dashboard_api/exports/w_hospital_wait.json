@@ -1,0 +1,196 @@
+{
+    "category": "Service Delivery", 
+    "subtitle": "Emergency Departments", 
+    "subcategory": "Health", 
+    "url": "hospital_wait", 
+    "source_url": "http://www.emergencywait.health.nsw.gov.au/hospitals/rted/index.asp", 
+    "definitions": [
+        {
+            "about": "<p>Hospital Waiting times</p>", 
+            "sort_order": 500, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "category 1 ontime", 
+                            "hyperlinkable": false, 
+                            "url": "cat1_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "category 2 ontime", 
+                            "hyperlinkable": false, 
+                            "url": "cat2_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 300, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "category 1 admissions", 
+                            "hyperlinkable": false, 
+                            "url": "cat1_admissions", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 400, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "category 2 admissions", 
+                            "hyperlinkable": false, 
+                            "url": "cat2_admissions", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "url": "hospital-wait-main", 
+                    "tile_type": 9, 
+                    "expansion": false, 
+                    "sort_order": 100, 
+                    "grid": {
+                        "corner_label": "Category", 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 100, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "category 1 ontime", 
+                                        "hyperlinkable": false, 
+                                        "url": "cat1_ontime", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": "std 3 code", 
+                                        "stat_type": 2
+                                    }, 
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 300, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "category 1 admissions", 
+                                        "hyperlinkable": false, 
+                                        "url": "cat1_admissions", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": "std 3 code", 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 1, 
+                                "label": "1"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 200, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "category 2 ontime", 
+                                        "hyperlinkable": false, 
+                                        "url": "cat2_ontime", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": "std 3 code", 
+                                        "stat_type": 2
+                                    }, 
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 400, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "category 2 admissions", 
+                                        "hyperlinkable": false, 
+                                        "url": "cat2_admissions", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": "std 3 code", 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 2, 
+                                "label": "2"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "On-time"
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "label": "Admissions"
+                            }
+                        ]
+                    }
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 3600, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "day", 
+            "actual_location_url": "syd"
+        }
+    ], 
+    "name": "Hospital Waiting Times"
+}
+
