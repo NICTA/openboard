@@ -10,12 +10,11 @@
             "sort_order": 700, 
             "tiles": [
                 {
-                    "url": "dam-day-main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
                             "trend": true, 
-                            "unit_underfix": "ALL DAMS AV.", 
+                            "unit_underfix": "all dams average", 
                             "name_as_label": true, 
                             "sort_order": 100, 
                             "unit_signed": false, 
@@ -38,7 +37,7 @@
                             "unit_signed": false, 
                             "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "LAST WEEK", 
+                            "name": "Last week", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_dams_last_week", 
@@ -47,9 +46,69 @@
                             "stat_type": 2
                         }
                     ], 
-                    "tile_type": 1, 
+                    "url": "dam-day-main", 
+                    "tile_type": 9, 
+                    "expansion": false, 
                     "sort_order": 10, 
-                    "expansion": false
+                    "grid": {
+                        "corner_label": "", 
+                        "show_column_headers": false, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": true, 
+                                        "unit_underfix": "all dams average", 
+                                        "name_as_label": true, 
+                                        "sort_order": 100, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "%", 
+                                        "icon_library": null, 
+                                        "name": "SCA Levels", 
+                                        "list_label_width": null, 
+                                        "hyperlinkable": false, 
+                                        "url": "all_dams_avg", 
+                                        "num_precision": 1, 
+                                        "traffic_light_scale": "std 3 code", 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 100, 
+                                "label": "SCA Levels"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 200, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "%", 
+                                        "icon_library": null, 
+                                        "name": "Last week", 
+                                        "list_label_width": null, 
+                                        "hyperlinkable": false, 
+                                        "url": "all_dams_last_week", 
+                                        "num_precision": 1, 
+                                        "traffic_light_scale": "std 3 code", 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Last week"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Dam Levels"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }, 
                 {
                     "url": "dam-day-expansion", 
@@ -141,7 +200,7 @@
                 }
             ], 
             "refresh_rate": 7200, 
-            "expansion_hint": "Key Dams", 
+            "expansion_hint": "Show more", 
             "actual_frequency_url": "day", 
             "actual_location_url": "syd"
         }

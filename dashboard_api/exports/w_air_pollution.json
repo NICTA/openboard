@@ -21,7 +21,7 @@
                             "unit_signed": false, 
                             "unit_suffix": null, 
                             "icon_library": null, 
-                            "name": "Syd forecast", 
+                            "name": "Sydney forecast", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
@@ -68,7 +68,7 @@
                 }
             ], 
             "refresh_rate": 600, 
-            "expansion_hint": "Key Areas", 
+            "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "syd"
         }, 
@@ -88,7 +88,7 @@
                             "unit_signed": false, 
                             "unit_suffix": null, 
                             "icon_library": null, 
-                            "name": "Syd forecast", 
+                            "name": "Sydney forecast", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
@@ -135,7 +135,7 @@
                 }
             ], 
             "refresh_rate": 600, 
-            "expansion_hint": "Key Areas", 
+            "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "nsw"
         }

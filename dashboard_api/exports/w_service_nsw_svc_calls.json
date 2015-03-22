@@ -96,7 +96,7 @@
                 }
             ], 
             "refresh_rate": 300, 
-            "expansion_hint": "Activity", 
+            "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "syd"
         }

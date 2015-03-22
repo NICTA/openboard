@@ -86,6 +86,7 @@
                     "sort_order": 100, 
                     "grid": {
                         "corner_label": "Category", 
+                        "show_column_headers": true, 
                         "rows": [
                             {
                                 "statistics": [
@@ -177,7 +178,8 @@
                                 "sort_order": 200, 
                                 "label": "Admissions"
                             }
-                        ]
+                        ], 
+                        "show_row_headers": true
                     }
                 }
             ], 

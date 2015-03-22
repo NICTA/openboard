@@ -73,7 +73,7 @@
                 }
             ], 
             "refresh_rate": 7200, 
-            "expansion_hint": "Calendar", 
+            "expansion_hint": "See all events", 
             "actual_frequency_url": "day", 
             "actual_location_url": "nsw"
         }

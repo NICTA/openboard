@@ -1,6 +1,6 @@
 {
     "category": "Environment and Planning", 
-    "subtitle": null, 
+    "subtitle": "Water quality", 
     "subcategory": "Environment", 
     "url": "beaches", 
     "source_url": "http://www.environment.nsw.gov.au/beach/", 
@@ -183,11 +183,16 @@
                 {
                     "theme": "all", 
                     "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
                     "location": "nsw"
                 }
             ], 
             "refresh_rate": 3600, 
-            "expansion_hint": "Regions", 
+            "expansion_hint": "Show more", 
             "actual_frequency_url": "day", 
             "actual_location_url": "nsw"
         }

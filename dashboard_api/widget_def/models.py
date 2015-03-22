@@ -146,6 +146,8 @@ class WidgetDefinition(models.Model):
         return self.family.url
     def name(self):
         return self.family.name
+    def subtitle(self):
+        return self.family.subtitle
     def source_url(self):
         return self.family.source_url
     def __getstate__(self):
@@ -1047,7 +1049,9 @@ class GridDefinition(models.Model):
     tile = models.ForeignKey(TileDefinition, limit_choices_to={
                                 'tile_type': TileDefinition.GRID,
                                 }, unique=True)
-    corner_label = models.CharField(max_length=50)
+    corner_label = models.CharField(max_length=50, null=True, blank=True)
+    show_column_headers = models.BooleanField(default=True)
+    show_row_headers = models.BooleanField(default=True)
     def widget(self):
         return self.tile.widget
     def __unicode__(self):
@@ -1055,12 +1059,16 @@ class GridDefinition(models.Model):
     def export(self):
         return {
             "corner_label": self.corner_label,
+            "show_column_headers": self.show_column_headers,
+            "show_row_headers": self.show_row_headers,
             "columns": [ c.export() for c in self.gridcolumn_set.all() ],
             "rows": [ c.export() for c in self.gridrow_set.all() ],
         }
     def __getstate__(self):
         return {
             "corner_label": self.corner_label,
+            "show_column_headers": self.show_column_headers,
+            "show_row_headers": self.show_row_headers,
             "columns": [ c.__getstate__() for c in self.gridcolumn_set.all() ],
             "rows": [ c.__getstate__() for c in self.gridrow_set.all() ],
         }
@@ -1104,6 +1112,8 @@ class GridDefinition(models.Model):
             else:
                 return 
         g.corner_label = data["corner_label"]
+        g.show_column_headers = data["show_column_headers"]
+        g.show_row_headers = data["show_row_headers"]
         g.save()
         columns = []
         for c in data["columns"]:
