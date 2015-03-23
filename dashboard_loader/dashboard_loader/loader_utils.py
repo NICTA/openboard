@@ -2,6 +2,7 @@ import decimal
 import datetime
 import pytz
 import os
+import thread
 
 from django.conf import settings
 from django.db import transaction
@@ -25,7 +26,7 @@ def lock_update(app):
             return loader
         except OSError:
             pass
-    loader.locked_by = os.getpid()
+    loader.lock()
     loader.save()
     return loader
 
@@ -197,7 +198,7 @@ def do_update(app, verbosity=0, force=False):
             unlock_loader(loader)
             return [ reason ]
     elif verbosity > 0:
-        return [ "Data update for %s is locked by another update process" % app]
+        return [ "Data update for %s is locked by another update process/thread" % app]
 
 @transaction.atomic
 def call_in_transaction(func, *args, **kwargs):

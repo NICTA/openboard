@@ -1,6 +1,7 @@
 import os
 import pytz
 import datetime
+import thread
 
 from django.db import models
 from django.conf import settings
@@ -11,7 +12,9 @@ class Loader(models.Model):
     suspended=models.BooleanField(default=False)
     last_run=models.DateTimeField(null=True, blank=True)
     last_loaded=models.DateTimeField(null=True, blank=True)
-    locked_by=models.IntegerField(null=True, blank=True)
+    last_locked=models.DateTimeField(null=True, blank=True)
+    locked_by_process=models.IntegerField(null=True, blank=True)
+    locked_by_thread=models.IntegerField(null=True, blank=True)
     def reason_to_not_run(self):
         tz = pytz.timezone(settings.TIME_ZONE)
         if self.suspended:
@@ -28,8 +31,12 @@ class Loader(models.Model):
                 if diff.total_seconds() < failure_recovery:
                     return "Last attempt to run loader %s failed. Waiting to retry at %s" % (self.app, (self.last_run + datetime.timedelta(seconds=failure_recovery)).astimezone(tz).strftime("%d/%m/%Y %H:%M:%S"))
         return None
+    def lock(self):
+        self.locked_by_process = os.getpid()
+        self.locked_by_thread = thread.get_ident()
+        self.last_locked = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
     def locked_by_me(self):
-        if self.locked_by and self.locked_by == os.getpid():
+        if self.locked_by and self.locked_by_process == os.getpid() and self.locked_by_thread == thread.get_ident(): 
             return True
         else:
             return False
