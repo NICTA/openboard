@@ -59,7 +59,7 @@
                             "hyperlinkable": false, 
                             "url": "cat1_admissions", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -76,7 +76,7 @@
                             "hyperlinkable": false, 
                             "url": "cat2_admissions", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }
                     ], 
@@ -121,7 +121,7 @@
                                         "hyperlinkable": false, 
                                         "url": "cat1_admissions", 
                                         "num_precision": 0, 
-                                        "traffic_light_scale": "std 3 code", 
+                                        "traffic_light_scale": null, 
                                         "stat_type": 2
                                     }
                                 ], 
@@ -161,7 +161,7 @@
                                         "hyperlinkable": false, 
                                         "url": "cat2_admissions", 
                                         "num_precision": 0, 
-                                        "traffic_light_scale": "std 3 code", 
+                                        "traffic_light_scale": null, 
                                         "stat_type": 2
                                     }
                                 ], 

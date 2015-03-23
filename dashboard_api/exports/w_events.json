@@ -30,7 +30,7 @@
                             "stat_type": 5
                         }
                     ], 
-                    "tile_type": 1, 
+                    "tile_type": 10, 
                     "sort_order": 100, 
                     "expansion": false
                 }, 

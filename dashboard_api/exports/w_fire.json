@@ -30,7 +30,7 @@
                             "stat_type": 3
                         }
                     ], 
-                    "tile_type": 1, 
+                    "tile_type": 10, 
                     "sort_order": 1, 
                     "expansion": false
                 }, 
@@ -55,7 +55,7 @@
                             "stat_type": 3
                         }
                     ], 
-                    "tile_type": 1, 
+                    "tile_type": 10, 
                     "sort_order": 200, 
                     "expansion": true
                 }

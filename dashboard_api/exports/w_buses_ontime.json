@@ -1,30 +1,30 @@
 {
     "category": "Service Delivery", 
-    "subtitle": null, 
+    "subtitle": "On time at commencement", 
     "subcategory": "Public Transport", 
-    "url": "train_service_interrupt", 
-    "source_url": "http://www.sydneytrains.info/rss/", 
+    "url": "buses_ontime", 
+    "source_url": "http://www.sydneybuses.info/", 
     "definitions": [
         {
-            "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes all Sydney suburban services regional inter-city services.</p>", 
-            "sort_order": 320, 
+            "about": "<p>Daily summary supplied manually by Transport NSW.</p>", 
+            "sort_order": 305, 
             "tiles": [
                 {
-                    "url": "train_svc_interrupt_nsw_main", 
+                    "url": "buses_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
-                            "trend": false, 
+                            "trend": true, 
                             "unit_underfix": "", 
                             "name_as_label": true, 
                             "sort_order": 10, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Delays on", 
+                            "name": "", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "delays", 
+                            "url": "all_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -36,12 +36,12 @@
                             "name_as_label": true, 
                             "sort_order": 20, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Cancellations", 
+                            "name": "YTD", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "cancellations", 
+                            "url": "ytd_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -53,82 +53,23 @@
                             "name_as_label": true, 
                             "sort_order": 30, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Trackwork on", 
+                            "name": "Target", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "current_trackwork", 
+                            "url": "target_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 2
-                        }, 
-                        {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
-                            "name_as_label": true, 
-                            "sort_order": 40, 
-                            "unit_signed": false, 
-                            "unit_suffix": " lines", 
-                            "icon_library": null, 
-                            "name": "Overnight work on", 
-                            "list_label_width": null, 
-                            "hyperlinkable": false, 
-                            "url": "sched_overnight_trackwork", 
-                            "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }
                     ], 
-                    "tile_type": 3, 
+                    "tile_type": 1, 
                     "sort_order": 10, 
                     "expansion": false
                 }, 
                 {
-                    "url": "train_svc_interrupt_nsw_exp", 
-                    "statistics": [
-                        {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "list_label_width": null, 
-                            "hyperlinkable": true, 
-                            "url": "interruptions", 
-                            "num_precision": null, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 5
-                        }
-                    ], 
-                    "tile_type": 10, 
-                    "sort_order": 20, 
-                    "expansion": true
-                }
-            ], 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "nsw"
-                }
-            ], 
-            "refresh_rate": 100, 
-            "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "nsw"
-        }, 
-        {
-            "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes Sydney suburban services only (T1-T7 plus South West Rail Link).</p>", 
-            "sort_order": 340, 
-            "tiles": [
-                {
-                    "url": "train_svc_interrupt_syd_main", 
+                    "url": "buses_exp", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -137,12 +78,12 @@
                             "name_as_label": true, 
                             "sort_order": 10, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Delays on", 
+                            "name": "M10", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "delays", 
+                            "url": "m10_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -154,12 +95,12 @@
                             "name_as_label": true, 
                             "sort_order": 20, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Cancellations", 
+                            "name": "M20", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "cancellations", 
+                            "url": "m20_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -171,12 +112,12 @@
                             "name_as_label": true, 
                             "sort_order": 30, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Trackwork on", 
+                            "name": "M30", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "current_trackwork", 
+                            "url": "m30_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -188,43 +129,86 @@
                             "name_as_label": true, 
                             "sort_order": 40, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Overnight work on", 
+                            "name": "M40", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "sched_overnight_trackwork", 
+                            "url": "m40_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 41, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "M41", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "m41_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 50, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "M50", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "m50_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 52, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "M52", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "m52_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 54, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "M54", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "m54_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
                         }
                     ], 
                     "tile_type": 3, 
-                    "sort_order": 10, 
-                    "expansion": false
-                }, 
-                {
-                    "url": "train_svc_interrupt_syd_exp", 
-                    "statistics": [
-                        {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "list_label_width": null, 
-                            "hyperlinkable": true, 
-                            "url": "interruptions", 
-                            "num_precision": null, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 5
-                        }
-                    ], 
-                    "tile_type": 10, 
                     "sort_order": 20, 
                     "expansion": true
                 }
@@ -234,14 +218,19 @@
                     "theme": "all", 
                     "frequency": "rt", 
                     "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
                 }
             ], 
-            "refresh_rate": 100, 
+            "refresh_rate": 3600, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
+            "actual_frequency_url": "day", 
             "actual_location_url": "syd"
         }
     ], 
-    "name": "Train Line Incidents"
+    "name": "Buses"
 }
 

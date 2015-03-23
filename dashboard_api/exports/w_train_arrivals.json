@@ -1,30 +1,30 @@
 {
     "category": "Service Delivery", 
-    "subtitle": null, 
+    "subtitle": "Arrival at Central on time", 
     "subcategory": "Public Transport", 
-    "url": "train_service_interrupt", 
-    "source_url": "http://www.sydneytrains.info/rss/", 
+    "url": "train_arrivals", 
+    "source_url": "http://www.sydneytrains.info/service_updates/", 
     "definitions": [
         {
-            "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes all Sydney suburban services regional inter-city services.</p>", 
-            "sort_order": 320, 
+            "about": "<p>Manually entered daily summary data supplied by Transport NSW</p>", 
+            "sort_order": 300, 
             "tiles": [
                 {
-                    "url": "train_svc_interrupt_nsw_main", 
+                    "url": "train_arrivals_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
-                            "trend": false, 
+                            "trend": true, 
                             "unit_underfix": "", 
                             "name_as_label": true, 
                             "sort_order": 10, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Delays on", 
+                            "name": "", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "delays", 
+                            "url": "all_on_time", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -36,12 +36,12 @@
                             "name_as_label": true, 
                             "sort_order": 20, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Cancellations", 
+                            "name": "YTD", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "cancellations", 
+                            "url": "all_on_time_ytd", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -53,82 +53,23 @@
                             "name_as_label": true, 
                             "sort_order": 30, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Trackwork on", 
+                            "name": "Target", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "current_trackwork", 
+                            "url": "all_on_time_target", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 2
-                        }, 
-                        {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
-                            "name_as_label": true, 
-                            "sort_order": 40, 
-                            "unit_signed": false, 
-                            "unit_suffix": " lines", 
-                            "icon_library": null, 
-                            "name": "Overnight work on", 
-                            "list_label_width": null, 
-                            "hyperlinkable": false, 
-                            "url": "sched_overnight_trackwork", 
-                            "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }
                     ], 
-                    "tile_type": 3, 
+                    "tile_type": 1, 
                     "sort_order": 10, 
                     "expansion": false
                 }, 
                 {
-                    "url": "train_svc_interrupt_nsw_exp", 
-                    "statistics": [
-                        {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "list_label_width": null, 
-                            "hyperlinkable": true, 
-                            "url": "interruptions", 
-                            "num_precision": null, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 5
-                        }
-                    ], 
-                    "tile_type": 10, 
-                    "sort_order": 20, 
-                    "expansion": true
-                }
-            ], 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "nsw"
-                }
-            ], 
-            "refresh_rate": 100, 
-            "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "nsw"
-        }, 
-        {
-            "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes Sydney suburban services only (T1-T7 plus South West Rail Link).</p>", 
-            "sort_order": 340, 
-            "tiles": [
-                {
-                    "url": "train_svc_interrupt_syd_main", 
+                    "url": "train_arrivals_expansion", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -137,12 +78,12 @@
                             "name_as_label": true, 
                             "sort_order": 10, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Delays on", 
+                            "name": "T1 North Shore, Northern & Western", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "delays", 
+                            "url": "t1_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -154,12 +95,12 @@
                             "name_as_label": true, 
                             "sort_order": 20, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Cancellations", 
+                            "name": "T2 Inner West & South", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "cancellations", 
+                            "url": "t2_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -171,12 +112,12 @@
                             "name_as_label": true, 
                             "sort_order": 30, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Trackwork on", 
+                            "name": "T3 Bankstown", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "current_trackwork", 
+                            "url": "t3_ontime", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -188,43 +129,69 @@
                             "name_as_label": true, 
                             "sort_order": 40, 
                             "unit_signed": false, 
-                            "unit_suffix": " lines", 
+                            "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "Overnight work on", 
+                            "name": "T4 Eastern Suburbs & Illawarra", 
                             "list_label_width": null, 
                             "hyperlinkable": false, 
-                            "url": "sched_overnight_trackwork", 
+                            "url": "t4_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 50, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "T5 Cumberland", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "t5_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 60, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "T6 Carlingford", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "t6_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 70, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "T7 Olympic Park", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "t7_online", 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
                         }
                     ], 
                     "tile_type": 3, 
-                    "sort_order": 10, 
-                    "expansion": false
-                }, 
-                {
-                    "url": "train_svc_interrupt_syd_exp", 
-                    "statistics": [
-                        {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "list_label_width": null, 
-                            "hyperlinkable": true, 
-                            "url": "interruptions", 
-                            "num_precision": null, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 5
-                        }
-                    ], 
-                    "tile_type": 10, 
                     "sort_order": 20, 
                     "expansion": true
                 }
@@ -234,14 +201,19 @@
                     "theme": "all", 
                     "frequency": "rt", 
                     "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
                 }
             ], 
-            "refresh_rate": 100, 
+            "refresh_rate": 3600, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
+            "actual_frequency_url": "day", 
             "actual_location_url": "syd"
         }
     ], 
-    "name": "Train Line Incidents"
+    "name": "Trains"
 }
 

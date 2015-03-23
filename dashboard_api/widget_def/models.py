@@ -268,7 +268,8 @@ class TileDefinition(models.Model):
     MAP = 7
     CALENDAR = 8
     GRID = 9
-    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar", "grid" ]
+    SINGLE_LIST_STAT = 10
+    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar", "grid", "single_list_stat" ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
@@ -280,6 +281,7 @@ class TileDefinition(models.Model):
                     (CALENDAR, tile_types[CALENDAR]),
                     # (MAP, tile_types[MAP]),
                     (GRID, tile_types[GRID]),
+                    (SINGLE_LIST_STAT, tile_types[SINGLE_LIST_STAT]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     url = models.SlugField()
@@ -341,8 +343,10 @@ class TileDefinition(models.Model):
         # Number of statistics
         min_stat_count = 0
         max_stat_count = 20
-        if self.tile_type in (self.SINGLE_MAIN_STAT, self.CALENDAR):
+        if self.tile_type in (self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.CALENDAR):
             min_stat_count = 1
+            if self.tile_type == self.SINGLE_LIST_STAT:
+                max_stat_count = 1
         elif self.tile_type in (self.DOUBLE_MAIN_STAT,
                             self.PRIORITY_LIST, self.URGENCY_LIST):
             min_stat_count = 2
@@ -364,22 +368,19 @@ class TileDefinition(models.Model):
                     default_tile = self.widget.tiledefinition_set.get(expansion=False)
                     if default_tile.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
                         pass # OK
-                    elif default_tile.tile_type == self.SINGLE_MAIN_STAT:
-                        if default_tile.statistic_set.count() > 0 and default_tile.statistic_set.all()[0].is_list():
-                            pass #OK
-                        else:
-                            problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url()))
+                    elif default_tile.tile_type == self.SINGLE_LIST_STAT:
+                        pass #OK
                     else:
                         problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url()))
                 except (TileDefinition.DoesNotExist, 
                         TileDefinition.MultipleObjectsReturned):
                     # Should already have been reported as an error higher up
                     pass
-        # List tile should not have list statistics
-        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+        # only single_list_Stat tile should have list statistics
+        if self.tile_type not in (self.SINGLE_LIST_STAT, self.CALENDAR):
             for stat in self.statistic_set.all():
                 if stat.is_list():
-                    problems.append("Tile %s of Widget %s is a list tile and contains statistic %s, which is a list statistic. (Cannot have lists of lists)." % (self.url, self.widget.url(), stat.url))
+                    problems.append("Tile %s of Widget %s is not a single_list_stat tile or a calendar tile and contains statistic %s, which is a list statistic. (Lists can only appear in single_list_stat and calendar tiles)." % (self.url, self.widget.url(), stat.url))
         # Must gave a graph if and only if a graph tile
         if self.tile_type == self.GRAPH:
             try:
