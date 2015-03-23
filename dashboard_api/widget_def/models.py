@@ -292,7 +292,7 @@ class TileDefinition(models.Model):
             "type": self.tile_types[self.tile_type],
             "expansion": self.expansion,
         }
-        if self.tile_type in (self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR):
+        if self.tile_type in (self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
         if self.tile_type == self.GRAPH:
             g = GraphDefinition.objects.get(tile=self)
