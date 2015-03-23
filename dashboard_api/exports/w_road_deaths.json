@@ -1,0 +1,117 @@
+{
+    "category": "Service Delivery", 
+    "subtitle": "Road deaths per 100,000 pop.", 
+    "subcategory": "Roads", 
+    "url": "road_deaths", 
+    "source_url": "http://roadsafety.transport.nsw.gov.au/statistics/interactivecrashstats/index.html", 
+    "definitions": [
+        {
+            "about": "<p>Dummy data</p>", 
+            "sort_order": 260, 
+            "tiles": [
+                {
+                    "url": "road_deaths_main", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "last 12 months", 
+                            "name_as_label": true, 
+                            "sort_order": 10, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "12month_rolling_rate", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Last year", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "last_year_rate", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 30, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Fatalities", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "12month_rolling_fatalities", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "tile_type": 1, 
+                    "sort_order": 10, 
+                    "expansion": false
+                }, 
+                {
+                    "url": "road_deaths_exp", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 10, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Fatalities by region", 
+                            "list_label_width": 50, 
+                            "hyperlinkable": false, 
+                            "url": "regional_fatalities", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 4
+                        }
+                    ], 
+                    "tile_type": 10, 
+                    "sort_order": 20, 
+                    "expansion": true
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 3600, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "dummy", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "name": "Road Safety"
+}
+
