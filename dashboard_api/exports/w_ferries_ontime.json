@@ -1,0 +1,219 @@
+{
+    "category": "Service Delivery", 
+    "subtitle": "On time at commencement", 
+    "subcategory": "Public Transport", 
+    "url": "ferries_ontime", 
+    "source_url": "http://www.transport.nsw.gov.au/content/sydney-ferries-time-running", 
+    "definitions": [
+        {
+            "about": "<p>Daily summary supplied manually by Transport NSW.</p>", 
+            "sort_order": 310, 
+            "tiles": [
+                {
+                    "url": "ferries_main", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 10, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "all_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "YTD", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "all_on_time_ytd", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 30, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "Target", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "all_target", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "tile_type": 1, 
+                    "sort_order": 10, 
+                    "expansion": false
+                }, 
+                {
+                    "url": "ferries_exp", 
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 10, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F1 Manly", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f1_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F2 Taronga Zoo", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f2_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 30, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F3 Parramatta River", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f3_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 40, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F4 Darling Harbour", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f4_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 50, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F5 Neutral Bay", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f5_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 60, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F6 Mosman Bay", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f6_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 70, 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "F7 Eastern Suburbs", 
+                            "list_label_width": null, 
+                            "hyperlinkable": false, 
+                            "url": "f7_ontime", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": "std 3 code", 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "tile_type": 3, 
+                    "sort_order": 20, 
+                    "expansion": true
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 3600, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "day", 
+            "actual_location_url": "syd"
+        }
+    ], 
+    "name": "Ferries"
+}
+
