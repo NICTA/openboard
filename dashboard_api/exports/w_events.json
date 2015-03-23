@@ -10,7 +10,6 @@
             "sort_order": 150, 
             "tiles": [
                 {
-                    "url": "event-today", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -22,7 +21,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Today", 
-                            "list_label_width": null, 
                             "hyperlinkable": true, 
                             "url": "today", 
                             "num_precision": null, 
@@ -30,12 +28,13 @@
                             "stat_type": 5
                         }
                     ], 
+                    "list_label_width": 100, 
+                    "url": "event-today", 
                     "tile_type": 10, 
-                    "sort_order": 100, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 100
                 }, 
                 {
-                    "url": "event-calendar", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -47,7 +46,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Event Calendar", 
-                            "list_label_width": null, 
                             "hyperlinkable": true, 
                             "url": "calendar", 
                             "num_precision": null, 
@@ -55,9 +53,11 @@
                             "stat_type": 7
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "event-calendar", 
                     "tile_type": 8, 
-                    "sort_order": 200, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 200
                 }
             ], 
             "declarations": [

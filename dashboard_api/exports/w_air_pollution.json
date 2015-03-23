@@ -10,7 +10,6 @@
             "sort_order": 820, 
             "tiles": [
                 {
-                    "url": "air_pollution_syd_main", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -21,8 +20,7 @@
                             "unit_signed": false, 
                             "unit_suffix": null, 
                             "icon_library": null, 
-                            "name": "Sydney forecast", 
-                            "list_label_width": null, 
+                            "name": "", 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
                             "num_precision": null, 
@@ -30,12 +28,13 @@
                             "stat_type": 1
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "air_pollution_syd_main", 
                     "tile_type": 1, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "air_pollution_syd_exp", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -47,7 +46,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": 50, 
                             "hyperlinkable": false, 
                             "url": "regions", 
                             "num_precision": null, 
@@ -55,9 +53,11 @@
                             "stat_type": 3
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "air_pollution_syd_exp", 
                     "tile_type": 10, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [
@@ -77,7 +77,6 @@
             "sort_order": 840, 
             "tiles": [
                 {
-                    "url": "air_pollution_nsw_main", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -88,8 +87,7 @@
                             "unit_signed": false, 
                             "unit_suffix": null, 
                             "icon_library": null, 
-                            "name": "Sydney forecast", 
-                            "list_label_width": null, 
+                            "name": "", 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
                             "num_precision": null, 
@@ -97,12 +95,13 @@
                             "stat_type": 1
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "air_pollution_nsw_main", 
                     "tile_type": 1, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "air_pollution_nsw_exp", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -114,7 +113,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": 50, 
                             "hyperlinkable": false, 
                             "url": "regions", 
                             "num_precision": null, 
@@ -122,9 +120,11 @@
                             "stat_type": 3
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "air_pollution_nsw_exp", 
                     "tile_type": 10, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [

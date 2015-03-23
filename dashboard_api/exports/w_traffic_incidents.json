@@ -10,7 +10,6 @@
             "sort_order": 220, 
             "tiles": [
                 {
-                    "url": "traffic_incidents_syd_rt_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -22,7 +21,6 @@
                             "unit_suffix": "Incidents", 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": 50, 
                             "hyperlinkable": false, 
                             "url": "incidents", 
                             "num_precision": 0, 
@@ -30,16 +28,19 @@
                             "stat_type": 4
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "traffic_incidents_syd_rt_main", 
                     "tile_type": 10, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "traffic_incidents_syd_rt_expansion", 
                     "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "traffic_incidents_syd_rt_expansion", 
                     "tile_type": 5, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [
@@ -59,7 +60,6 @@
             "sort_order": 240, 
             "tiles": [
                 {
-                    "url": "traffic_incidents_nsw_rt_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -71,7 +71,6 @@
                             "unit_suffix": "Incidents", 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": 50, 
                             "hyperlinkable": false, 
                             "url": "incidents", 
                             "num_precision": 0, 
@@ -79,16 +78,19 @@
                             "stat_type": 4
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "traffic_incidents_nsw_rt_main", 
                     "tile_type": 10, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "traffic_incidents_nsw_rt_expansion", 
                     "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "traffic_incidents_nsw_rt_expansion", 
                     "tile_type": 5, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [

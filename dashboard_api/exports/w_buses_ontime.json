@@ -10,7 +10,6 @@
             "sort_order": 305, 
             "tiles": [
                 {
-                    "url": "buses_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -22,7 +21,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_ontime", 
                             "num_precision": 0, 
@@ -39,7 +37,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "YTD", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "ytd_ontime", 
                             "num_precision": 0, 
@@ -56,7 +53,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Target", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "target_ontime", 
                             "num_precision": 0, 
@@ -64,12 +60,13 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "buses_main", 
                     "tile_type": 1, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "buses_exp", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -81,7 +78,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M10", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m10_ontime", 
                             "num_precision": 0, 
@@ -98,7 +94,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M20", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m20_ontime", 
                             "num_precision": 0, 
@@ -115,7 +110,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M30", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m30_ontime", 
                             "num_precision": 0, 
@@ -132,7 +126,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M40", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m40_ontime", 
                             "num_precision": 0, 
@@ -149,7 +142,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M41", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m41_ontime", 
                             "num_precision": 0, 
@@ -166,7 +158,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M50", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m50_ontime", 
                             "num_precision": 0, 
@@ -183,7 +174,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M52", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m52_ontime", 
                             "num_precision": 0, 
@@ -200,7 +190,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "M54", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "m54_ontime", 
                             "num_precision": 0, 
@@ -208,9 +197,11 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "buses_exp", 
                     "tile_type": 3, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [

@@ -10,7 +10,6 @@
             "sort_order": 320, 
             "tiles": [
                 {
-                    "url": "train_svc_interrupt_nsw_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -22,7 +21,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Delays on", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "delays", 
                             "num_precision": 0, 
@@ -39,7 +37,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Cancellations", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "cancellations", 
                             "num_precision": 0, 
@@ -56,7 +53,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Trackwork on", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "current_trackwork", 
                             "num_precision": 0, 
@@ -73,7 +69,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Overnight work on", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "sched_overnight_trackwork", 
                             "num_precision": 0, 
@@ -81,12 +76,13 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": 60, 
+                    "url": "train_svc_interrupt_nsw_main", 
                     "tile_type": 3, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 60
                 }, 
                 {
-                    "url": "train_svc_interrupt_nsw_exp", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -98,7 +94,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": null, 
                             "hyperlinkable": true, 
                             "url": "interruptions", 
                             "num_precision": null, 
@@ -106,9 +101,11 @@
                             "stat_type": 5
                         }
                     ], 
+                    "list_label_width": 100, 
+                    "url": "train_svc_interrupt_nsw_exp", 
                     "tile_type": 10, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [
@@ -128,7 +125,6 @@
             "sort_order": 340, 
             "tiles": [
                 {
-                    "url": "train_svc_interrupt_syd_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -140,7 +136,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Delays on", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "delays", 
                             "num_precision": 0, 
@@ -157,7 +152,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Cancellations", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "cancellations", 
                             "num_precision": 0, 
@@ -174,7 +168,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Trackwork on", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "current_trackwork", 
                             "num_precision": 0, 
@@ -191,7 +184,6 @@
                             "unit_suffix": " lines", 
                             "icon_library": null, 
                             "name": "Overnight work on", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "sched_overnight_trackwork", 
                             "num_precision": 0, 
@@ -199,12 +191,13 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": 60, 
+                    "url": "train_svc_interrupt_syd_main", 
                     "tile_type": 3, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "train_svc_interrupt_syd_exp", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -216,7 +209,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": null, 
                             "hyperlinkable": true, 
                             "url": "interruptions", 
                             "num_precision": null, 
@@ -224,9 +216,11 @@
                             "stat_type": 5
                         }
                     ], 
+                    "list_label_width": 100, 
+                    "url": "train_svc_interrupt_syd_exp", 
                     "tile_type": 10, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [

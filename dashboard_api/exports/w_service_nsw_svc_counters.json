@@ -10,7 +10,6 @@
             "sort_order": 440, 
             "tiles": [
                 {
-                    "url": "service_nsw_svc_counters_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -22,7 +21,6 @@
                             "unit_suffix": "", 
                             "icon_library": null, 
                             "name": "Customers", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "visits", 
                             "num_precision": 2, 
@@ -39,7 +37,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Wait Time", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "wait", 
                             "num_precision": null, 
@@ -47,12 +44,15 @@
                             "stat_type": 1
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "service_nsw_svc_counters_main", 
                     "tile_type": 2, 
-                    "sort_order": 100, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 100
                 }, 
                 {
                     "statistics": [], 
+                    "list_label_width": null, 
                     "url": "service_nsw_svc_counters_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": true, 

@@ -284,6 +284,7 @@ class TileDefinition(models.Model):
                     (SINGLE_LIST_STAT, tile_types[SINGLE_LIST_STAT]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(50), MaxValueValidator(100)])
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
     # graph_def, map_def
@@ -294,6 +295,8 @@ class TileDefinition(models.Model):
         }
         if self.tile_type in (self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
+        if self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
+            state["list_label_width"] = self.list_label_width
         if self.tile_type == self.GRAPH:
             g = GraphDefinition.objects.get(tile=self)
             state.update(g.__getstate__())
@@ -308,6 +311,7 @@ class TileDefinition(models.Model):
             "expansion": self.expansion,
             "url": self.url,
             "sort_order": self.sort_order,
+            "list_label_width": self.list_label_width,
             "statistics": [ s.export() for s in self.statistic_set.all() ],
         }
         if self.tile_type == self.GRAPH:
@@ -325,6 +329,7 @@ class TileDefinition(models.Model):
             t = TileDefinition(widget=widget, url=data["url"])
         t.tile_type = data["tile_type"]
         t.expansion = data["expansion"]
+        t.list_label_widh = data.get("list_label_width")
         t.sort_order = data["sort_order"]
         t.save()
         stat_urls = []
@@ -381,6 +386,23 @@ class TileDefinition(models.Model):
             for stat in self.statistic_set.all():
                 if stat.is_list():
                     problems.append("Tile %s of Widget %s is not a single_list_stat tile or a calendar tile and contains statistic %s, which is a list statistic. (Lists can only appear in single_list_stat and calendar tiles)." % (self.url, self.widget.url(), stat.url))
+        # Validate list_label_width:
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+            if not self.list_label_width:
+                problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))
+            elif self.list_label_width > 80:
+                problems.append("Tile %s of Widget %s is of list type has list label width greater than 80%%" % (self.url, self.widget.url()))
+        elif self.tile_type == self.SINGLE_LIST_STAT:
+            if not self.list_label_width:
+                problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))
+            else:
+                for stat in self.statistic_set.all():
+                    if stat.stat_type == stat.STRING_LIST:
+                        if self.list_label_width != 100:
+                            problems.append("Tile %s of Widget %s has a string list stat but does not have the list label width set to 100%%" % (self.url, self.widget.url()))
+        else:
+            self.list_label_width = None
+            self.save()
         # Must gave a graph if and only if a graph tile
         if self.tile_type == self.GRAPH:
             try:
@@ -571,7 +593,6 @@ class Statistic(models.Model):
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
     trend = models.BooleanField(default=False)
-    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(50), MaxValueValidator(80)])
     num_precision = models.SmallIntegerField(blank=True, null=True)
     unit_prefix = models.CharField(max_length="10", blank=True, null=True)
     unit_suffix = models.CharField(max_length="10", blank=True, null=True)
@@ -592,8 +613,6 @@ class Statistic(models.Model):
         if self.stat_type == self.EVENT_LIST:
             self.traffic_light_scale = None
             self.trend = False
-        if not self.is_kvlist():
-            self.list_label_width=None
         if self.is_list():
             name_as_label=True
         else:
@@ -608,8 +627,6 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url()))
             elif self.num_precision < 0:
                 problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url()))
-        if self.is_kvlist() and self.list_label_width is None:
-            problems.append("Statistic %s of Widget %s is a key-value list but does not specify the list label width" % (self.url, self.tile.widget.url()))
         if self.is_eventlist() and self.tile.tile_type != self.tile.CALENDAR:
             problems.append("Event List statistic only allowed on a Calendar tile")
         return problems
@@ -719,7 +736,6 @@ class Statistic(models.Model):
             "stat_type": self.stat_type,
             "traffic_light_scale": traffic_light_scale_name,
             "icon_library": icon_library_name,
-            "list_label_width": self.list_label_width,
             "trend": self.trend,
             "hyperlinkable": self.hyperlinkable,
             "num_precision": self.num_precision,
@@ -741,7 +757,6 @@ class Statistic(models.Model):
         s.hyperlinkable = data.get("hyperlinkable", False)
         s.trend = data["trend"]
         s.num_precision = data["num_precision"]
-        s.list_label_width = data.get("list_label_width")
         s.unit_prefix = data["unit_prefix"]
         s.unit_suffix = data["unit_suffix"]
         s.unit_underfix = data["unit_underfix"]
@@ -788,8 +803,6 @@ class Statistic(models.Model):
                 state["icon_library"] = None
         if self.is_list():
             state["hyperlinkable"] = self.hyperlinkable
-        if self.is_kvlist():
-            state["list_label_width"] = self.list_label_width
         return state
     class Meta:
         unique_together = [("tile", "name"), ("tile", "url")]

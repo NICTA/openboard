@@ -10,7 +10,6 @@
             "sort_order": 800, 
             "tiles": [
                 {
-                    "url": "beach-nsw-main", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -21,8 +20,7 @@
                             "unit_signed": false, 
                             "unit_suffix": null, 
                             "icon_library": null, 
-                            "name": "Ocean Beaches", 
-                            "list_label_width": null, 
+                            "name": "", 
                             "hyperlinkable": false, 
                             "url": "all_ocean_beaches", 
                             "num_precision": null, 
@@ -39,7 +37,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "YTD", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_ocean_ytd", 
                             "num_precision": null, 
@@ -47,12 +44,13 @@
                             "stat_type": 1
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "beach-nsw-main", 
                     "tile_type": 1, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "beach-nsw-exp", 
                     "statistics": [
                         {
                             "unit_prefix": null, 
@@ -64,7 +62,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Sydney Ocean Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_SYDOC", 
                             "num_precision": null, 
@@ -81,7 +78,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Sydney Harbour Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_SYDHB", 
                             "num_precision": null, 
@@ -98,7 +94,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Southern Harbour Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_BOTNY", 
                             "num_precision": null, 
@@ -115,7 +110,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Pittwater Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_PIWAT", 
                             "num_precision": null, 
@@ -132,7 +126,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Central Coast Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_CTRCT", 
                             "num_precision": null, 
@@ -149,7 +142,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Illawarra Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_ILLAW", 
                             "num_precision": null, 
@@ -166,7 +158,6 @@
                             "unit_suffix": null, 
                             "icon_library": null, 
                             "name": "Hunter Beaches", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "region_HUNTR", 
                             "num_precision": null, 
@@ -174,9 +165,11 @@
                             "stat_type": 1
                         }
                     ], 
+                    "list_label_width": 60, 
+                    "url": "beach-nsw-exp", 
                     "tile_type": 3, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [

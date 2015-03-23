@@ -10,7 +10,6 @@
             "sort_order": 300, 
             "tiles": [
                 {
-                    "url": "train_arrivals_main", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -22,7 +21,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_on_time", 
                             "num_precision": 0, 
@@ -39,7 +37,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "YTD", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_on_time_ytd", 
                             "num_precision": 0, 
@@ -56,7 +53,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Target", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_on_time_target", 
                             "num_precision": 0, 
@@ -64,12 +60,13 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "train_arrivals_main", 
                     "tile_type": 1, 
-                    "sort_order": 10, 
-                    "expansion": false
+                    "expansion": false, 
+                    "sort_order": 10
                 }, 
                 {
-                    "url": "train_arrivals_expansion", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -81,7 +78,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T1 North Shore, Northern & Western", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t1_ontime", 
                             "num_precision": 0, 
@@ -98,7 +94,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T2 Inner West & South", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t2_ontime", 
                             "num_precision": 0, 
@@ -115,7 +110,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T3 Bankstown", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t3_ontime", 
                             "num_precision": 0, 
@@ -132,7 +126,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T4 Eastern Suburbs & Illawarra", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t4_ontime", 
                             "num_precision": 0, 
@@ -149,7 +142,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T5 Cumberland", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t5_ontime", 
                             "num_precision": 0, 
@@ -166,7 +158,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T6 Carlingford", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t6_ontime", 
                             "num_precision": 0, 
@@ -183,7 +174,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "T7 Olympic Park", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "t7_online", 
                             "num_precision": 0, 
@@ -191,9 +181,11 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": 70, 
+                    "url": "train_arrivals_expansion", 
                     "tile_type": 3, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [

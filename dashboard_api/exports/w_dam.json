@@ -21,7 +21,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "SCA Levels", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_dams_avg", 
                             "num_precision": 1, 
@@ -38,7 +37,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Last week", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "all_dams_last_week", 
                             "num_precision": 1, 
@@ -46,6 +44,7 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": null, 
                     "url": "dam-day-main", 
                     "tile_type": 9, 
                     "expansion": false, 
@@ -66,7 +65,6 @@
                                         "unit_suffix": "%", 
                                         "icon_library": null, 
                                         "name": "SCA Levels", 
-                                        "list_label_width": null, 
                                         "hyperlinkable": false, 
                                         "url": "all_dams_avg", 
                                         "num_precision": 1, 
@@ -89,7 +87,6 @@
                                         "unit_suffix": "%", 
                                         "icon_library": null, 
                                         "name": "Last week", 
-                                        "list_label_width": null, 
                                         "hyperlinkable": false, 
                                         "url": "all_dams_last_week", 
                                         "num_precision": 1, 
@@ -111,7 +108,6 @@
                     }
                 }, 
                 {
-                    "url": "dam-day-expansion", 
                     "statistics": [
                         {
                             "unit_prefix": "", 
@@ -123,7 +119,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Warragamba", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "warragamba", 
                             "num_precision": 1, 
@@ -140,7 +135,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Avon", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "avon", 
                             "num_precision": 1, 
@@ -157,7 +151,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Cataract", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "cataract", 
                             "num_precision": 1, 
@@ -174,7 +167,6 @@
                             "unit_suffix": "%", 
                             "icon_library": null, 
                             "name": "Cordeaux", 
-                            "list_label_width": null, 
                             "hyperlinkable": false, 
                             "url": "cordeaux", 
                             "num_precision": 1, 
@@ -182,9 +174,11 @@
                             "stat_type": 2
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "dam-day-expansion", 
                     "tile_type": 3, 
-                    "sort_order": 20, 
-                    "expansion": true
+                    "expansion": true, 
+                    "sort_order": 20
                 }
             ], 
             "declarations": [
