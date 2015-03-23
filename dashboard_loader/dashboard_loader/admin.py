@@ -6,11 +6,11 @@ from dashboard_loader.loader_utils import LoaderException
 
 @admin.register(Loader)
 class LoaderAdmin(admin.ModelAdmin):
-    list_display=("app", "refresh_rate", "suspended", "last_run", "last_loaded")
+    list_display=("app", "refresh_rate", "suspended", "last_locked", "last_run", "last_loaded")
     list_editable=("refresh_rate", "suspended")
-    fields = ('app', 'refresh_rate', 'suspended', 'last_loaded', 'last_run')
+    fields = ('app', 'refresh_rate', 'suspended', 'last_loaded', 'last_run', "last_locked", "locked_by_process", "locked_by_thread")
     list_filter=("suspended",)
-    readonly_fields=("app", "last_loaded", "last_run")
+    readonly_fields=("app", "last_loaded", "last_run", "locked_by_process", "locked_by_thread")
     actions = [ 'update_data' ]
     def update_data(self, request, queryset):
         infos = []

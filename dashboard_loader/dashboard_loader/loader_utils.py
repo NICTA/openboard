@@ -20,9 +20,9 @@ def lock_update(app):
         loader = Loader.objects.get(app=app)
     except Loader.DoesNotExist:
         return None
-    if loader.locked_by:
+    if loader.locked_by_process:
         try:
-            os.getpgid(loader.locked_by)
+            os.getpgid(loader.locked_by_process)
             return loader
         except OSError:
             pass
@@ -31,7 +31,8 @@ def lock_update(app):
     return loader
 
 def unlock_loader(loader):
-    loader.locked_by = None
+    loader.locked_by_process = None
+    loader.locked_by_thread = None
     loader.save()
 
 def update_loader(loader, success=True):
@@ -39,8 +40,7 @@ def update_loader(loader, success=True):
     loader.last_run = datetime.datetime.now(tz)
     if success:
         loader.last_loaded = loader.last_run
-    loader.locked_by = None
-    loader.save()
+    unlock_loader(loader)
 
 def get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url):
     try:
@@ -198,7 +198,7 @@ def do_update(app, verbosity=0, force=False):
             unlock_loader(loader)
             return [ reason ]
     elif verbosity > 0:
-        return [ "Data update for %s is locked by another update process/thread" % app]
+        return [ "Data update for %s is locked by another update process/thread since %s" % (app, loader.last_locked.strftime("%d/%m/%Y %H:%M:%D"))]
 
 @transaction.atomic
 def call_in_transaction(func, *args, **kwargs):

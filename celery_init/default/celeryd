@@ -39,3 +39,6 @@ CELERYD_GROUP="phaesler"
 # and owned by the userid/group configured.
 CELERY_CREATE_DIRS=1
 
+# Allow tasks to run for up to 12 hours.  Is there a smarter way
+# to load the GTFS static data?
+CELERYD_TASK_TIME_LIMIT = 43200
