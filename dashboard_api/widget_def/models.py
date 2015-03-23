@@ -763,7 +763,7 @@ class Statistic(models.Model):
             "type": self.stat_types[self.stat_type],
         }
         if self.tile.tile_type != TileDefinition.GRID:
-            state["name"] = self.name,
+            state["name"] = self.name
             state["name_as_label"] = self.name_as_label
         if self.is_numeric():
             state["precision"] = self.num_precision
