@@ -15,11 +15,11 @@
                         {
                             "unit_prefix": "", 
                             "trend": true, 
-                            "unit_underfix": "", 
+                            "unit_underfix": "per minute", 
                             "name_as_label": true, 
                             "sort_order": 100, 
                             "unit_signed": false, 
-                            "unit_suffix": "per minute", 
+                            "unit_suffix": "", 
                             "icon_library": null, 
                             "name": "Callers", 
                             "list_label_width": null, 
