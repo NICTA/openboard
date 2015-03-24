@@ -78,7 +78,10 @@ class WidgetFamily(models.Model):
     source_url = models.URLField(max_length=400)
     source_url_text = models.CharField(max_length=60)
     def __unicode__(self):
-        return self.name
+        if self.subtitle:
+            return "%s (%s)" % (self.name, self.subtitle)
+        else:
+            return self.name
     def export(self):
         return {
             "category": self.subcategory.category.name,
