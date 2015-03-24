@@ -14,7 +14,7 @@
                         {
                             "unit_prefix": "", 
                             "trend": true, 
-                            "unit_underfix": "last 12 months", 
+                            "unit_underfix": "last 12 mths", 
                             "name_as_label": true, 
                             "sort_order": 10, 
                             "unit_signed": false, 
