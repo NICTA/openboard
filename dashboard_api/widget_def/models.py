@@ -351,7 +351,7 @@ class TileDefinition(models.Model):
         problems = []
         # Number of statistics
         min_stat_count = 0
-        max_stat_count = 20
+        max_stat_count = 40
         if self.tile_type in (self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.CALENDAR):
             min_stat_count = 1
             if self.tile_type == self.SINGLE_LIST_STAT:
@@ -1098,10 +1098,10 @@ class GridDefinition(models.Model):
             problems.append("Number of GridColumns must be at least one and at most 3 (not %d)" % ncols)
         if nrows < 1:
             problems.append("Number of GridRows must be at least one (not %d)" % nrows)
-        if self.tile.widget.family.subtitle and nrows > 2:
-            problems.append("Number of GridRows cannot be more than 2 if a widget subtitle is defined (not %d)" % nrows)
-        if not self.tile.widget.family.subtitle and nrows > 3:
-            problems.append("Number of GridRows cannot be more than 3 if a widget subtitle is not defined (not %d)" % nrows)
+        if not self.tile.expansion and self.tile.widget.family.subtitle and nrows > 2:
+            problems.append("Number of GridRows in a main tile cannot be more than 2 if a widget subtitle is defined (not %d)" % nrows)
+        if not self.tile.expansion and not self.tile.widget.family.subtitle and nrows > 3:
+            problems.append("Number of GridRows in a main tile cannot be more than 3 if a widget subtitle is not defined (not %d)" % nrows)
         required_stat_count = ncols * nrows
         stat_count = self.tile.statistic_set.count()
         gridstat_count = self.gridstatistic_set.count()
