@@ -1,0 +1,132 @@
+{
+    "category": "Service Delivery", 
+    "source_url_text": "Ausgrid past outages", 
+    "subtitle": "Customer outages", 
+    "subcategory": "Electricity", 
+    "url": "electricity_outages", 
+    "definitions": [
+        {
+            "about": "<p>Dummy data from Dashboard Manual.</p>", 
+            "sort_order": 370, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "mins", 
+                            "name_as_label": true, 
+                            "sort_order": 10, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Average Time", 
+                            "hyperlinkable": false, 
+                            "url": "avg_time", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Quarterly outages", 
+                            "hyperlinkable": false, 
+                            "url": "qtr_outages", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "outages_main", 
+                    "tile_type": 2, 
+                    "expansion": false, 
+                    "sort_order": 10
+                }, 
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 10, 
+                            "unit_signed": false, 
+                            "unit_suffix": "mins", 
+                            "icon_library": null, 
+                            "name": "Sydney", 
+                            "hyperlinkable": false, 
+                            "url": "sydney_duration", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": "mins", 
+                            "icon_library": null, 
+                            "name": "Central Coast", 
+                            "hyperlinkable": false, 
+                            "url": "central_coast_duration", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 30, 
+                            "unit_signed": false, 
+                            "unit_suffix": "mins", 
+                            "icon_library": null, 
+                            "name": "Hunter New England", 
+                            "hyperlinkable": false, 
+                            "url": "hunter_duration", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "list_label_width": 50, 
+                    "url": "outages_exp", 
+                    "tile_type": 3, 
+                    "expansion": true, 
+                    "sort_order": 20
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 3600, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "dummy", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "source_url": "http://www.ausgrid.com.au/Common/About-us/Corporate-information/Data-to-share/Data-to-share/Past-outages.aspx", 
+    "name": "Electricity Supply"
+}
+
