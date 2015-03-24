@@ -29,7 +29,7 @@
                         }, 
                         {
                             "unit_prefix": "", 
-                            "trend": false, 
+                            "trend": true, 
                             "unit_underfix": "", 
                             "name_as_label": true, 
                             "sort_order": 20, 
