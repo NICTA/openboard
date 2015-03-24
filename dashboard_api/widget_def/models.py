@@ -634,8 +634,8 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url()))
             elif self.num_precision < 0:
                 problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url()))
-        if self.is_eventlist() and self.tile.tile_type != self.tile.CALENDAR:
-            problems.append("Event List statistic only allowed on a Calendar tile")
+        if self.is_eventlist() and self.tile.tile_type not in (self.tile.CALENDAR, self.tile.SINGLE_LIST_STAT):
+            problems.append("Event List statistic only allowed on a Calendar or Single List Statistic tile")
         return problems
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)

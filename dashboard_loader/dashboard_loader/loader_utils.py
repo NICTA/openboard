@@ -120,8 +120,8 @@ def clear_statistic_list(widget_url, actual_location_url, actual_frequency_url,
 def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_url, 
                 statistic_url, 
                 value, sort_order, 
-                label=None, traffic_light_code=None, icon_code=None, 
-                trend=None, url=None):
+                datekey=None, label=None, 
+                traffic_light_code=None, icon_code=None, trend=None, url=None):
     stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
     if not stat.is_list():
         raise LoaderException("Not a list statistic %s" % statistic_url)
@@ -129,6 +129,10 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
         raise LoaderException("Must provide a label for list items for statistic %s" % statistic_url)
     elif not stat.is_kvlist() and label:
         raise LoaderException("Cannot provide a label for list items for statistic %s" % statistic_url)
+    if stat.is_eventlist() and not datekey:
+        raise LoaderException("Must provide a datekey for list items for statistic %s" % statistic_url)
+    elif datekey and not stat.is_eventlist():
+        raise LoaderException("Cannot provide a datekey for list items for statistic %s" % statistic_url)
     if stat.trend and trend is None:
         raise LoaderException("Must provide a trend for statistic %s" % statistic_url)
     if stat.hyperlinkable:
@@ -150,7 +154,7 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
     else:
         ic = None
     item = StatisticListItem(statistic=stat, keyval=label, trend=trend,
-            sort_order=sort_order, 
+            sort_order=sort_order, datekey=datekey,
             traffic_light_code=tlc, icon_code=ic)
     if stat.is_numeric():
         if stat.num_precision == 0:

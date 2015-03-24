@@ -20,12 +20,12 @@
                             "unit_signed": false, 
                             "unit_suffix": null, 
                             "icon_library": null, 
-                            "name": "Today", 
+                            "name": "Upcoming Events", 
                             "hyperlinkable": true, 
-                            "url": "today", 
+                            "url": "upcoming", 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
-                            "stat_type": 5
+                            "stat_type": 7
                         }
                     ], 
                     "list_label_width": 100, 
