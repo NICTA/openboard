@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
+    "source_url_text": "Service NSW Website", 
     "subtitle": "Call Centres", 
     "subcategory": "Service NSW", 
     "url": "service_nsw_svc_calls", 
-    "source_url": "http://www.service.nsw.gov.au/", 
     "definitions": [
         {
             "about": "<p>Average wait time and number of customer calls over most recent 15 minute interval.</p>\r\n<p>Data supplied by Service NSW. Currently static sample data only.</p>", 
@@ -101,6 +101,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.service.nsw.gov.au/", 
     "name": "Service NSW"
 }
 

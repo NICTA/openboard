@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
+    "source_url_text": "Sydney Buses website", 
     "subtitle": "On time at commencement", 
     "subcategory": "Public Transport", 
     "url": "buses_ontime", 
-    "source_url": "http://www.sydneybuses.info/", 
     "definitions": [
         {
             "about": "<p>Daily summary supplied manually by Transport NSW.</p>", 
@@ -222,6 +222,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.sydneybuses.info/", 
     "name": "Buses"
 }
 

@@ -1,9 +1,9 @@
 {
     "category": "Environment and Planning", 
+    "source_url_text": "Environment NSW Beachwatch", 
     "subtitle": "Water quality", 
     "subcategory": "Environment", 
     "url": "beaches", 
-    "source_url": "http://www.environment.nsw.gov.au/beach/", 
     "definitions": [
         {
             "about": "<p>Beach quality data taken from the NSW Environment Beachwatch RSS feeds.</p>", 
@@ -190,6 +190,7 @@
             "actual_location_url": "nsw"
         }
     ], 
+    "source_url": "http://www.environment.nsw.gov.au/beach/", 
     "name": "Beaches"
 }
 

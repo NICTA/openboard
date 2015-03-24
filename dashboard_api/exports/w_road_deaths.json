@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
+    "source_url_text": "Transport NSW interactive crash statistics", 
     "subtitle": "Road deaths per 100,000 pop.", 
     "subcategory": "Roads", 
     "url": "road_deaths", 
-    "source_url": "http://roadsafety.transport.nsw.gov.au/statistics/interactivecrashstats/index.html", 
     "definitions": [
         {
             "about": "<p>Dummy data</p>", 
@@ -110,6 +110,7 @@
             "actual_location_url": "nsw"
         }
     ], 
+    "source_url": "http://roadsafety.transport.nsw.gov.au/statistics/interactivecrashstats/index.html", 
     "name": "Road Safety"
 }
 

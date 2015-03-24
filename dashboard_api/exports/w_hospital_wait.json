@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
+    "source_url_text": "NSW Health emergency departments waiting times", 
     "subtitle": "Emergency Departments", 
     "subcategory": "Health", 
     "url": "hospital_wait", 
-    "source_url": "http://www.emergencywait.health.nsw.gov.au/hospitals/rted/index.asp", 
     "definitions": [
         {
             "about": "<p>Hospital Waiting times</p>", 
@@ -459,6 +459,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.emergencywait.health.nsw.gov.au/hospitals/rted/index.asp", 
     "name": "Hospital Waiting Times"
 }
 

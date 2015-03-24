@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
+    "source_url_text": "Service NSW Website", 
     "subtitle": "Website Visits", 
     "subcategory": "Service NSW", 
     "url": "service_nsw_svc_www", 
-    "source_url": "http://www.service.nsw.gov.au/", 
     "definitions": [
         {
             "about": "<p>Average number of website visits and average visit duration over most recent 1 hour interval.</p>\r\n<p>Data supplied by Service NSW. Currently static sample data only.</p>", 
@@ -101,6 +101,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.service.nsw.gov.au/", 
     "name": "Service NSW"
 }
 

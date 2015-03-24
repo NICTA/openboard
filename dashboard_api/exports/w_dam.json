@@ -1,9 +1,9 @@
 {
     "category": "Environment and Planning", 
+    "source_url_text": "Sydney Catchment Authority dam levels", 
     "subtitle": "All Reservoirs", 
     "subcategory": "Water", 
     "url": "dam", 
-    "source_url": "http://www.sca.nsw.gov.au/water/dam-levels", 
     "definitions": [
         {
             "about": "<p>Data taken from the Sydney Catchment Authority</p>\r\n<p>Key dams are the four largest dams serving Greater Sydney.</p>", 
@@ -199,6 +199,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.sca.nsw.gov.au/water/dam-levels", 
     "name": "Dam Levels"
 }
 

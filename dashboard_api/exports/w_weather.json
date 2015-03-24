@@ -1,9 +1,9 @@
 {
     "category": "General", 
-    "subtitle": null, 
+    "source_url_text": "Bureau of Meterology website", 
+    "subtitle": "", 
     "subcategory": "Baseline", 
     "url": "weather", 
-    "source_url": "http://www.bom.gov.au/", 
     "definitions": [
         {
             "about": "<p>All weather observations and forecast data are for the Sydney Observatory weather station and are sourced directly from the Bureau of Meteorology open data API.</p>\r\n<p>The seasonal average trend is obtained by comparing the current temperature to the long term (e.g. over all years since records begain) average temperature for the month.</p>", 
@@ -286,6 +286,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.bom.gov.au/", 
     "name": "Weather"
 }
 

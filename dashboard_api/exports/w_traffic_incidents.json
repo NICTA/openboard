@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
-    "subtitle": null, 
+    "source_url_text": "Live Traffic NSW", 
+    "subtitle": "", 
     "subcategory": "Roads", 
     "url": "traffic_incidents", 
-    "source_url": "https://www.livetraffic.com/", 
     "definitions": [
         {
             "about": "<p>Incident data obtained from the NSW Transport Data Exchange (TDX) API.</p>\r\n<p>Red = Major incidents impacting traffic network in region.  Amber = Minor incidents impacting traffic network and/or major incidents not impacting traffic network in region.  Green = Minor incidents not impacting traffic network in region.</p>", 
@@ -106,6 +106,7 @@
             "actual_location_url": "nsw"
         }
     ], 
+    "source_url": "https://www.livetraffic.com/", 
     "name": "Traffic Incidents"
 }
 

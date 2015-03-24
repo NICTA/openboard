@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
+    "source_url_text": "Sydney Trains service updates", 
     "subtitle": "Arrival at Central on time", 
     "subcategory": "Public Transport", 
     "url": "train_arrivals", 
-    "source_url": "http://www.sydneytrains.info/service_updates/", 
     "definitions": [
         {
             "about": "<p>Manually entered daily summary data supplied by Transport NSW</p>", 
@@ -206,6 +206,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.sydneytrains.info/service_updates/", 
     "name": "Trains"
 }
 

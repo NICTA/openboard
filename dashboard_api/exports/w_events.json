@@ -1,9 +1,9 @@
 {
     "category": "General", 
-    "subtitle": null, 
+    "source_url_text": "Events NSW", 
+    "subtitle": "", 
     "subcategory": "Baseline", 
     "url": "events", 
-    "source_url": "http://www.events.nsw.gov.au/", 
     "definitions": [
         {
             "about": "<p>The event calendar is manually maintained. Todays events are automatically updated daily from the manually maintained calendar.</p>", 
@@ -78,6 +78,7 @@
             "actual_location_url": "nsw"
         }
     ], 
+    "source_url": "http://www.events.nsw.gov.au/", 
     "name": "Upcoming Events"
 }
 

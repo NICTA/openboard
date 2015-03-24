@@ -1,9 +1,9 @@
 {
     "category": "Service Delivery", 
-    "subtitle": null, 
+    "source_url_text": "Sydney Trains RSS feeds", 
+    "subtitle": "", 
     "subcategory": "Public Transport", 
     "url": "train_service_interrupt", 
-    "source_url": "http://www.sydneytrains.info/rss/", 
     "definitions": [
         {
             "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes all Sydney suburban services regional inter-city services.</p>", 
@@ -236,6 +236,7 @@
             "actual_location_url": "syd"
         }
     ], 
+    "source_url": "http://www.sydneytrains.info/rss/", 
     "name": "Train Line Incidents"
 }
 

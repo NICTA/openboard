@@ -1,9 +1,9 @@
 {
     "category": "Public Safety", 
-    "subtitle": null, 
+    "source_url_text": "NSW Rural Fire Service fire danger ratings and fire bans", 
+    "subtitle": "", 
     "subcategory": "Warnings", 
     "url": "fire", 
-    "source_url": "http://www.rfs.nsw.gov.au/fire-information/fdr-and-tobans", 
     "definitions": [
         {
             "about": "<p>Data taken from NSW Rural Fire Services.</p>", 
@@ -78,6 +78,7 @@
             "actual_location_url": "nsw"
         }
     ], 
+    "source_url": "http://www.rfs.nsw.gov.au/fire-information/fdr-and-tobans", 
     "name": "Fire Danger Ratings"
 }
 

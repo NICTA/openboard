@@ -1,9 +1,9 @@
 {
     "category": "Environment and Planning", 
-    "subtitle": null, 
+    "source_url_text": "Environment NSW Air Quality Monitoring Service", 
+    "subtitle": "", 
     "subcategory": "Environment", 
     "url": "air_pollution", 
-    "source_url": "http://www.environment.nsw.gov.au/aqms/", 
     "definitions": [
         {
             "about": "<p>Data taken from NSW Environment Air Quality Monitoring Service website. AQ Index is current Sydney forecast. Regional Indexes are the current regional Air Quality Index.</p>\r\n<p>Current data has only undergone preliminary quality assurance checks and may be modified before finalisation as a result of calibration changes, power failures, instrument failures etc.</p>", 
@@ -140,6 +140,7 @@
             "actual_location_url": "nsw"
         }
     ], 
+    "source_url": "http://www.environment.nsw.gov.au/aqms/", 
     "name": "Air Pollution"
 }
 

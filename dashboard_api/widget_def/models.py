@@ -76,6 +76,7 @@ class WidgetFamily(models.Model):
     subtitle = models.CharField(max_length=60, null=True, blank=True)
     url  = models.SlugField(unique=True)
     source_url = models.URLField(max_length=400)
+    source_url_text = models.CharField(max_length=60)
     def __unicode__(self):
         return self.name
     def export(self):
@@ -86,6 +87,7 @@ class WidgetFamily(models.Model):
             "name": self.name,
             "url": self.url,
             "source_url": self.source_url,
+            "source_url_text": self.source_url_text,
             "definitions": [ wd.export() for wd in self.widgetdefinition_set.all() ]
         }
     @classmethod
@@ -101,6 +103,7 @@ class WidgetFamily(models.Model):
             fam.subtitle = None
         fam.name = data["name"]
         fam.source_url = data["source_url"]
+        fam.source_url_text = data["source_url_text"]
         fam.save()
         definitions = []
         for defn in data["definitions"]:
@@ -162,6 +165,7 @@ class WidgetDefinition(models.Model):
                 "tiles": [ tile.__getstate__() for tile in self.tiledefinition_set.all() ],
             },
             "source_url": self.source_url(),
+            "source_url_text": self.family.source_url_text,
             "actual_frequency": self.actual_frequency.actual_display,
             "refresh_rate": self.refresh_rate,
             "about": self.about,
