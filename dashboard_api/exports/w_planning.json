@@ -1,0 +1,531 @@
+{
+    "category": "Environment and Planning", 
+    "source_url_text": "ePlanning Data Reports web site", 
+    "subtitle": "Local Development Approvals", 
+    "subcategory": "Planning", 
+    "url": "planning", 
+    "definitions": [
+        {
+            "about": "<p>Dummy data for demo.</p>", 
+            "sort_order": 900, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "Avg net days", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "", 
+                            "hyperlinkable": false, 
+                            "url": "overall_avg", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "No.", 
+                            "hyperlinkable": false, 
+                            "url": "number", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "$", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 300, 
+                            "unit_signed": false, 
+                            "unit_suffix": "b", 
+                            "icon_library": null, 
+                            "name": "Value", 
+                            "hyperlinkable": false, 
+                            "url": "value", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "planning-main", 
+                    "tile_type": 1, 
+                    "expansion": false, 
+                    "sort_order": 100
+                }, 
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Sydney", 
+                            "hyperlinkable": false, 
+                            "url": "sydney", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Central Coast", 
+                            "hyperlinkable": false, 
+                            "url": "central_coast", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 300, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Illawarra", 
+                            "hyperlinkable": false, 
+                            "url": "illawarra", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 400, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Hunter", 
+                            "hyperlinkable": false, 
+                            "url": "hunter", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 500, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "New England & North West", 
+                            "hyperlinkable": false, 
+                            "url": "new_england", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 600, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Central West & Orana", 
+                            "hyperlinkable": false, 
+                            "url": "orana", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 700, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Far West", 
+                            "hyperlinkable": false, 
+                            "url": "far_west", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 800, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Mid North Coast", 
+                            "hyperlinkable": false, 
+                            "url": "mid_north", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 900, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Murray/Murrumbidgee", 
+                            "hyperlinkable": false, 
+                            "url": "murrumbidgee", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 1000, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Northern Rivers", 
+                            "hyperlinkable": false, 
+                            "url": "northern_rivers", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 1100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "South East & Tableland", 
+                            "hyperlinkable": false, 
+                            "url": "tableland", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "planning-exp", 
+                    "tile_type": 9, 
+                    "expansion": true, 
+                    "sort_order": 200, 
+                    "grid": {
+                        "corner_label": "LGAs by Region", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 100, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Sydney", 
+                                        "hyperlinkable": false, 
+                                        "url": "sydney", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 10, 
+                                "label": "Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 200, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Central Coast", 
+                                        "hyperlinkable": false, 
+                                        "url": "central_coast", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 20, 
+                                "label": "Central Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 300, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Illawarra", 
+                                        "hyperlinkable": false, 
+                                        "url": "illawarra", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 30, 
+                                "label": "Illawarra"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 400, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Hunter", 
+                                        "hyperlinkable": false, 
+                                        "url": "hunter", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 40, 
+                                "label": "Hunter"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 500, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "New England & North West", 
+                                        "hyperlinkable": false, 
+                                        "url": "new_england", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 50, 
+                                "label": "New England & NW"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 600, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Central West & Orana", 
+                                        "hyperlinkable": false, 
+                                        "url": "orana", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 60, 
+                                "label": "Central West & Orana"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 700, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Far West", 
+                                        "hyperlinkable": false, 
+                                        "url": "far_west", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 70, 
+                                "label": "Far West"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 800, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Mid North Coast", 
+                                        "hyperlinkable": false, 
+                                        "url": "mid_north", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 80, 
+                                "label": "Mid North Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 900, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Murray/Murrumbidgee", 
+                                        "hyperlinkable": false, 
+                                        "url": "murrumbidgee", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 90, 
+                                "label": "Murray/Murrumbidgee"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 1000, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Northern Rivers", 
+                                        "hyperlinkable": false, 
+                                        "url": "northern_rivers", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Northern Rivers"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 1100, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "South East & Tableland", 
+                                        "hyperlinkable": false, 
+                                        "url": "tableland", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 110, 
+                                "label": "South East & Tableland"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Avg Net Days"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 5000, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "dummy", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "source_url": "http://datareporting.planning.nsw.gov.au/", 
+    "name": "Planning"
+}
+
