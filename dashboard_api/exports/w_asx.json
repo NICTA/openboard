@@ -1,0 +1,148 @@
+{
+    "category": "Economic", 
+    "source_url_text": "ASX web site", 
+    "subtitle": "Australian Securities Exchange", 
+    "subcategory": "Market", 
+    "url": "asx", 
+    "definitions": [
+        {
+            "about": "<p>20 minute old data scraped from Yahoo! Finance.</p>", 
+            "sort_order": 1200, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": true, 
+                            "unit_suffix": "%", 
+                            "icon_library": null, 
+                            "name": "", 
+                            "hyperlinkable": false, 
+                            "url": "movement", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Index", 
+                            "hyperlinkable": false, 
+                            "url": "index", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 300, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Today's max", 
+                            "hyperlinkable": false, 
+                            "url": "today_max", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "asx_main", 
+                    "tile_type": 1, 
+                    "expansion": false, 
+                    "sort_order": 10
+                }, 
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Today's Min", 
+                            "hyperlinkable": false, 
+                            "url": "today_min", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "52wk Min", 
+                            "hyperlinkable": false, 
+                            "url": "yr_min", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 300, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "52wk Max", 
+                            "hyperlinkable": false, 
+                            "url": "yr_max", 
+                            "num_precision": 2, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }
+                    ], 
+                    "list_label_width": 50, 
+                    "url": "asx_exp", 
+                    "tile_type": 3, 
+                    "expansion": true, 
+                    "sort_order": 20
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 60, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "rt", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "source_url": "http://www.asx.com.au/", 
+    "name": "ASX200"
+}
+

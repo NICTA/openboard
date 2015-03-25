@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'transport_static_loader',
     'train_interruptions_loader',
     'air_pollution_loader',
+    'asx_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
