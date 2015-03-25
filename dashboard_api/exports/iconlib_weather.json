@@ -13,8 +13,8 @@
         }, 
         {
             "sort_order": 3, 
-            "description": "Partly Cloudy", 
-            "value": "partly_cloudy"
+            "description": "Partly cloudy", 
+            "value": "partly-cloudy"
         }, 
         {
             "sort_order": 4, 
@@ -29,7 +29,7 @@
         {
             "sort_order": 8, 
             "description": "Light Rain", 
-            "value": "light_rain"
+            "value": "light-rain"
         }, 
         {
             "sort_order": 9, 
@@ -43,8 +43,8 @@
         }, 
         {
             "sort_order": 11, 
-            "description": "Showers", 
-            "value": "shower"
+            "description": "Shower", 
+            "value": "showers"
         }, 
         {
             "sort_order": 12, 
@@ -68,23 +68,23 @@
         }, 
         {
             "sort_order": 16, 
-            "description": "Storms", 
+            "description": "Storm", 
             "value": "storm"
         }, 
         {
             "sort_order": 17, 
-            "description": "Light Showers", 
-            "value": "light_shower"
+            "description": "Light Shower", 
+            "value": "light-showers"
         }, 
         {
             "sort_order": 18, 
-            "description": "Heavy Showers", 
-            "value": "heavy_shower"
+            "description": "Heavy Shower", 
+            "value": "heavy-showers"
         }, 
         {
             "sort_order": 19, 
             "description": "Cyclone", 
-            "value": "Cyclone"
+            "value": "tropicalcyclone"
         }
     ]
 }
