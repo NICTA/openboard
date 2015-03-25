@@ -1109,10 +1109,23 @@ class GridDefinition(models.Model):
             problems.append("Number of GridColumns must be at least one and at most 3 (not %d)" % ncols)
         if nrows < 1:
             problems.append("Number of GridRows must be at least one (not %d)" % nrows)
-        if not self.tile.expansion and self.tile.widget.family.subtitle and nrows > 2:
-            problems.append("Number of GridRows in a main tile cannot be more than 2 if a widget subtitle is defined (not %d)" % nrows)
-        if not self.tile.expansion and not self.tile.widget.family.subtitle and nrows > 3:
-            problems.append("Number of GridRows in a main tile cannot be more than 3 if a widget subtitle is not defined (not %d)" % nrows)
+        if not self.tile.expansion:
+            if self.tile.widget.family.subtitle:
+                if self.show_column_headers:
+                    max_rows = 2
+                    situation = "a main tile with a subtitle and column headers"
+                else:
+                    max_rows = 3
+                    situation = "a main tile with a subtitle and no column headers"
+            else:
+                if self.show_column_headers:
+                    max_rows = 3
+                    situation = "a main tile with no subtitle and column headers"
+                else:
+                    max_rows = 4
+                    situation = "a main tile with no subtitle and no column headers"
+            if nrows > max_rows:
+                problems.append("Number of GridRows in %s cannot be more than %d (not %d)" % (situation, max_rows, nrows))
         required_stat_count = ncols * nrows
         stat_count = self.tile.statistic_set.count()
         gridstat_count = self.gridstatistic_set.count()

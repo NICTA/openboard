@@ -12,33 +12,27 @@ refresh_rate = 60 * 60 * 2
 
 def update_data(loader, verbosity=0):
     today = datetime.date.today()
-    existing_upcoming_items = get_statistic("events", "nsw", "day", "upcoming").get_data()
-    all_upcoming_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey__gte=today).order_by("datekey")
-    correct_upcoming_items = []
-    for item in all_upcoming_items:
-        correct_upcoming_items.append(item)
-        if len(correct_upcoming_items) >= 4:
-            break
-    return call_in_transaction(update_calendar,existing_upcoming_items, correct_upcoming_items)
+    existing_today_items = get_statistic("events", "nsw", "day", "today").get_data()
+    correct_today_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey=today)
+    return call_in_transaction(update_calendar,existing_upcoming_items, correct_today_items)
 
-def update_calendar(existing_upcoming_items, correct_upcoming_items):
+def update_calendar(existing_today_items, correct_today_items):
     messages = []
-    for item in existing_upcoming_items:
+    for item in existing_today_items:
         found = False
-        for correct_item in correct_upcoming_items:
+        for correct_item in correct_today_items:
             if item.strval == correct_item.strval and item.url == correct_item.url and item.sort_order == correct_item.sort_order:
                 found = True
         if not found:
             item.delete()
             messages.append("Deleted %s" % item.strval)
-    for correct_item in correct_upcoming_items:
+    for correct_item in correct_today_items:
         found = False
-        for item in existing_upcoming_items:
+        for item in existing_today_items:
             if item.strval == correct_item.strval and item.url == correct_item.url and item.sort_order == correct_item.sort_order:
                 found = True
         if not found:
             add_statistic_list_item("events", "nsw", "day", "upcoming", correct_item.value(), correct_item.sort_order,
-                        datekey=correct_item.datekey,
                         url=correct_item.url)
             messages.append("Added %s" % correct_item.strval)
     return messages

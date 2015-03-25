@@ -62,9 +62,88 @@
                     ], 
                     "list_label_width": null, 
                     "url": "housing_main", 
-                    "tile_type": 1, 
+                    "tile_type": 9, 
                     "expansion": false, 
-                    "sort_order": 10
+                    "sort_order": 10, 
+                    "grid": {
+                        "corner_label": "", 
+                        "show_column_headers": false, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": true, 
+                                        "unit_underfix": "Applicants", 
+                                        "name_as_label": true, 
+                                        "sort_order": 10, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "", 
+                                        "hyperlinkable": false, 
+                                        "url": "all", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 100, 
+                                "label": "All applicants"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": false, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 20, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "", 
+                                        "icon_library": null, 
+                                        "name": "Priority Applicants", 
+                                        "hyperlinkable": false, 
+                                        "url": "priority", 
+                                        "num_precision": 0, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Priority applicants"
+                            }, 
+                            {
+                                "statistics": [
+                                    {
+                                        "unit_prefix": "", 
+                                        "trend": true, 
+                                        "unit_underfix": "", 
+                                        "name_as_label": true, 
+                                        "sort_order": 30, 
+                                        "unit_signed": false, 
+                                        "unit_suffix": "months", 
+                                        "icon_library": null, 
+                                        "name": "Median waiting time", 
+                                        "hyperlinkable": false, 
+                                        "url": "median_wait", 
+                                        "num_precision": 1, 
+                                        "traffic_light_scale": null, 
+                                        "stat_type": 2
+                                    }
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Median waiting time"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "values"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }, 
                 {
                     "statistics": [
