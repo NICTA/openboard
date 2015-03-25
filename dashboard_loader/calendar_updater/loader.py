@@ -14,7 +14,7 @@ def update_data(loader, verbosity=0):
     today = datetime.date.today()
     existing_today_items = get_statistic("events", "nsw", "day", "today").get_data()
     correct_today_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey=today)
-    return call_in_transaction(update_calendar,existing_upcoming_items, correct_today_items)
+    return call_in_transaction(update_calendar,existing_today_items, correct_today_items)
 
 def update_calendar(existing_today_items, correct_today_items):
     messages = []
@@ -32,7 +32,7 @@ def update_calendar(existing_today_items, correct_today_items):
             if item.strval == correct_item.strval and item.url == correct_item.url and item.sort_order == correct_item.sort_order:
                 found = True
         if not found:
-            add_statistic_list_item("events", "nsw", "day", "upcoming", correct_item.value(), correct_item.sort_order,
+            add_statistic_list_item("events", "nsw", "day", "today", correct_item.value(), correct_item.sort_order,
                         url=correct_item.url)
             messages.append("Added %s" % correct_item.strval)
     return messages
