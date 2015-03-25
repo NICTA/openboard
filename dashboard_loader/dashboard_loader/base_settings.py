@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'train_interruptions_loader',
     'air_pollution_loader',
     'asx_loader',
+    'twitter_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -113,4 +114,11 @@ STATIC_URL = '/static/'
 
 TDX_USERNAME="paul.haesler@nicta.com.au"
 TDX_PASSWORD="N1ct@da$hdb"
+# Just so I don't forget
+# TWITTER_USERNAME="nicta_govt_dash"
+# TWITER_PASSWORD="N1ct@da$hdb"
+TWITTER_API_KEY="bsDvIC1OWl2fg7j92oWpxVyAv"
+TWITTER_API_SECRET="XmgXw730PkDXSdTUtjOfIxkZErBxkuNjP4ajQdW0ENMmXPVsS2"
+TWITTER_ACCESS_TOKEN="3112821286-dOQhXSmVxlOZPEevZLmXZvQpLamP9dkf1fsILvI"
+TWITTER_ACCESS_TOKEN_SECRET="ioybYa53DoW8Y4Mrz1gLaeZPbiwm8VL18i66iO0AzL4P8"
 

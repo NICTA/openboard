@@ -276,11 +276,13 @@ class TileDefinition(models.Model):
     CALENDAR = 8
     GRID = 9
     SINGLE_LIST_STAT = 10
-    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar", "grid", "single_list_stat" ]
+    NEWSFEED = 11
+    tile_types = [ "-", "single_main_stat", "double_main_stat", "priority_list", "urgency_list", "list_overflow", "graph", "map", "calendar", "grid", "single_list_stat", "newsfeed"]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
                     (DOUBLE_MAIN_STAT, tile_types[DOUBLE_MAIN_STAT]),
+                    (SINGLE_LIST_STAT, tile_types[SINGLE_LIST_STAT]),
                     (PRIORITY_LIST, tile_types[PRIORITY_LIST]),
                     (URGENCY_LIST, tile_types[URGENCY_LIST]),
                     (LIST_OVERFLOW, tile_types[LIST_OVERFLOW]),
@@ -288,7 +290,7 @@ class TileDefinition(models.Model):
                     (CALENDAR, tile_types[CALENDAR]),
                     # (MAP, tile_types[MAP]),
                     (GRID, tile_types[GRID]),
-                    (SINGLE_LIST_STAT, tile_types[SINGLE_LIST_STAT]),
+                    (NEWSFEED, tile_types[NEWSFEED]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(50), MaxValueValidator(100)])
@@ -300,7 +302,7 @@ class TileDefinition(models.Model):
             "type": self.tile_types[self.tile_type],
             "expansion": self.expansion,
         }
-        if self.tile_type in (self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR):
+        if self.tile_type in (self.NEWSFEED, self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
         if self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             state["list_label_width"] = self.list_label_width
@@ -355,9 +357,9 @@ class TileDefinition(models.Model):
         # Number of statistics
         min_stat_count = 0
         max_stat_count = 40
-        if self.tile_type in (self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.CALENDAR):
+        if self.tile_type in (self.NEWSFEED, self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.CALENDAR):
             min_stat_count = 1
-            if self.tile_type == self.SINGLE_LIST_STAT:
+            if self.tile_type in (self.NEWSFEED, self.SINGLE_LIST_STAT):
                 max_stat_count = 1
         elif self.tile_type in (self.DOUBLE_MAIN_STAT,
                             self.PRIORITY_LIST, self.URGENCY_LIST):
@@ -382,6 +384,8 @@ class TileDefinition(models.Model):
                         pass # OK
                     elif default_tile.tile_type == self.SINGLE_LIST_STAT:
                         pass #OK
+                    elif default_tile.tile_type == self.NEWSFEED:
+                        pass #OK
                     else:
                         problems.append("Tile %s of Widget %s is of type List Overflow, but the default tile is not a list tile" % (self.url, self.widget.url()))
                 except (TileDefinition.DoesNotExist, 
@@ -389,7 +393,7 @@ class TileDefinition(models.Model):
                     # Should already have been reported as an error higher up
                     pass
         # only single_list_Stat tile should have list statistics
-        if self.tile_type not in (self.SINGLE_LIST_STAT, self.CALENDAR):
+        if self.tile_type not in (self.SINGLE_LIST_STAT, self.NEWSFEED, self.CALENDAR):
             for stat in self.statistic_set.all():
                 if stat.is_list():
                     problems.append("Tile %s of Widget %s is not a single_list_stat tile or a calendar tile and contains statistic %s, which is a list statistic. (Lists can only appear in single_list_stat and calendar tiles)." % (self.url, self.widget.url(), stat.url))
@@ -410,6 +414,10 @@ class TileDefinition(models.Model):
         else:
             self.list_label_width = None
             self.save()
+        if self.tile_type == self.NEWSFEED:
+            for stat in self.statistic_set.all():
+                if stat.stat_type != stat.STRING_KVL:
+                    problems.append("Tile %s of Widget %s is a Newsfeed tile but has a non string kv list statistic" % (self.url, self.widget.url()))
         # Must gave a graph if and only if a graph tile
         if self.tile_type == self.GRAPH:
             try:

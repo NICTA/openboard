@@ -1,0 +1,67 @@
+{
+    "category": "Social Media", 
+    "source_url_text": "Twitter", 
+    "subtitle": "Agency tweets outbound", 
+    "subcategory": "Twitter", 
+    "url": "tweets", 
+    "definitions": [
+        {
+            "about": "<p>Live Tweets from selected NSW agency Twitter streams:</p>\r\n<ul>\r\n<li>Business NSW</li>\r\n<li>NSW Planning</li>\r\n<li>NSW Board of Studies</li>\r\n<li>Service NSW</li>\r\n<li>Urban Growth NSW</li>\r\n<li>NSW Police</li>\r\n<li>Data NSW</li>\r\n<li>Teach NSW</li>\r\n<li> Visit NSW</li>\r\n</ul>", 
+            "sort_order": 1150, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "unit_prefix": null, 
+                            "trend": false, 
+                            "unit_underfix": null, 
+                            "name_as_label": true, 
+                            "sort_order": 100, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "hyperlinkable": false, 
+                            "url": "tweets", 
+                            "num_precision": null, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 3
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "tweets_main", 
+                    "tile_type": 11, 
+                    "expansion": false, 
+                    "sort_order": 10
+                }, 
+                {
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "tweets_exp", 
+                    "tile_type": 5, 
+                    "expansion": true, 
+                    "sort_order": 20
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 15, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "rt", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "source_url": "http://twitter.com/", 
+    "name": "Social Media"
+}
+
