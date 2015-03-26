@@ -26,6 +26,22 @@
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": true, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "Per 100,000 people", 
+                            "hyperlinkable": false, 
+                            "url": "per_100k", 
+                            "num_precision": 1, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
                         }
                     ], 
                     "list_label_width": null, 
