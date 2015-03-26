@@ -19,9 +19,9 @@ TF_HOUR = 1
 def update_data(loader, verbosity=0):
     messages = []
     wb = get_xls_workbook(messages)
-    graph_counters=get_graph("service_nsw_svc_counters", "syd", "rt", "service_nsw_svc_counters_graph")
-    graph_calls=get_graph("service_nsw_svc_calls", "syd", "rt", "service_nsw_svc_calls_graph")
-    graph_www=get_graph("service_nsw_svc_www", "syd", "hour", "service_nsw_svc_www_graph")
+    graph_counters=get_graph("service_nsw_svc_counters", "syd", "day", "service_nsw_svc_counters_graph")
+    graph_calls=get_graph("service_nsw_svc_calls", "syd", "day", "service_nsw_svc_calls_graph")
+    graph_www=get_graph("service_nsw_svc_www", "syd", "day", "service_nsw_svc_www_graph")
     call_in_transaction(load_data, wb.sheets()[0], TF_QUARTER_HOUR_RANGE, 
             "customers", "wait",
             graph_counters, messages, True)
