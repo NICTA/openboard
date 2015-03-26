@@ -42,7 +42,16 @@
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
-                        }, 
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "asx_main", 
+                    "tile_type": 1, 
+                    "expansion": false, 
+                    "sort_order": 10
+                }, 
+                {
+                    "statistics": [
                         {
                             "unit_prefix": "", 
                             "trend": false, 
@@ -58,16 +67,7 @@
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
-                        }
-                    ], 
-                    "list_label_width": null, 
-                    "url": "asx_main", 
-                    "tile_type": 1, 
-                    "expansion": false, 
-                    "sort_order": 10
-                }, 
-                {
-                    "statistics": [
+                        },
                         {
                             "unit_prefix": "", 
                             "trend": false, 
