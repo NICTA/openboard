@@ -20,7 +20,7 @@
                             "unit_signed": false, 
                             "unit_suffix": "", 
                             "icon_library": null, 
-                            "name": "total", 
+                            "name": "Total incidents", 
                             "hyperlinkable": false, 
                             "url": "total", 
                             "num_precision": 0, 
@@ -36,7 +36,7 @@
                             "unit_signed": false, 
                             "unit_suffix": "", 
                             "icon_library": null, 
-                            "name": "per_100k", 
+                            "name": "Per 100,000 people", 
                             "hyperlinkable": false, 
                             "url": "per_100k", 
                             "num_precision": 1, 
@@ -46,36 +46,9 @@
                     ], 
                     "list_label_width": null, 
                     "url": "domestic_violence_main", 
-                    "tile_type": 9, 
+                    "tile_type": 2, 
                     "expansion": false, 
-                    "sort_order": 10, 
-                    "grid": {
-                        "corner_label": "", 
-                        "show_column_headers": false, 
-                        "rows": [
-                            {
-                                "statistics": [
-                                    "total"
-                                ], 
-                                "sort_order": 10, 
-                                "label": "Total incidents"
-                            }, 
-                            {
-                                "statistics": [
-                                    "per_100k"
-                                ], 
-                                "sort_order": 20, 
-                                "label": "Per 100,000 people"
-                            }
-                        ], 
-                        "columns": [
-                            {
-                                "sort_order": 100, 
-                                "label": "incidents"
-                            }
-                        ], 
-                        "show_row_headers": true
-                    }
+                    "sort_order": 10
                 }, 
                 {
                     "statistics": [
