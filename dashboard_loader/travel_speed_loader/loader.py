@@ -25,6 +25,8 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
         if verbosity > 0:
             messages.append("Road %s not defined" % name)
         return
+    road_dist = 0
+    road_travel_time = 0
     for f in features:
         fid = f["id"]
         if fid[1:] != "TOTAL":
@@ -40,8 +42,10 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
         if (fid[0] in road.am_direction and am) or (fid[0] in road.pm_direction and not am):
             stats["total_travel_time"]  += travel_time
             stats["total_distance"]  += distance
+            road_dist += distance
+            road_travel_time += travel_time
     speed_stat = get_statistic("road_speeds", "syd", "rt", name)
-    speed = float(distance) / (float(travel_time) / 60.0)
+    speed = float(road_distance) / (float(road_travel_time) / 60.0)
     if speed < target:
         tlc = get_traffic_light_code(speed_stat, "poor")
     else:
