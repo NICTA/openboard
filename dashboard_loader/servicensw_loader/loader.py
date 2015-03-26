@@ -75,7 +75,8 @@ def update_widget(graph, count_dataset, duration_dataset,
         trend = 1
     else:
         trend = -1
-    tlc = get_traffic_light_code(count_stat, "good")
+    # tlc = get_traffic_light_code(count_stat, "good")
+    tlc = None
     if not oldval or trend != 0:
         set_statistic_data(graph.tile.widget.url, 
                         graph.tile.widget.actual_location.url,
@@ -96,12 +97,13 @@ def update_widget(graph, count_dataset, duration_dataset,
         trend = 1
     else:
         trend = -1
-    if newval > bad_duration:
-        tlc = get_traffic_light_code(count_stat, "bad")
-    elif newval > poor_duration:
-        tlc = get_traffic_light_code(count_stat, "poor")
-    else:
-        tlc = get_traffic_light_code(count_stat, "good")
+# if newval > bad_duration:
+#    tlc = get_traffic_light_code(count_stat, "bad")
+# elif newval > poor_duration:
+#    tlc = get_traffic_light_code(count_stat, "poor")
+# else:
+#    tlc = get_traffic_light_code(count_stat, "good")
+    tlc = None
     if not oldval or trend != 0:
         set_statistic_data(graph.tile.widget.url, 
                         graph.tile.widget.actual_location.url,
