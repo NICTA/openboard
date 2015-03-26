@@ -6,7 +6,7 @@
     "url": "road_deaths", 
     "definitions": [
         {
-            "about": "<p>Dummy data</p>", 
+            "about": "<p>Data from 10/3/2015</p>", 
             "sort_order": 260, 
             "tiles": [
                 {
@@ -14,55 +14,39 @@
                         {
                             "unit_prefix": "", 
                             "trend": true, 
-                            "unit_underfix": "last 12 mths", 
+                            "unit_underfix": "so far", 
                             "name_as_label": true, 
-                            "sort_order": 10, 
+                            "sort_order": 15, 
                             "unit_signed": false, 
                             "unit_suffix": "", 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "This year", 
                             "hyperlinkable": false, 
-                            "url": "12month_rolling_rate", 
-                            "num_precision": 1, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 2
-                        }, 
-                        {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
-                            "name_as_label": true, 
-                            "sort_order": 20, 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "icon_library": null, 
-                            "name": "Last year", 
-                            "hyperlinkable": false, 
-                            "url": "last_year_rate", 
-                            "num_precision": 1, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 2
-                        }, 
-                        {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
-                            "name_as_label": true, 
-                            "sort_order": 30, 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "icon_library": null, 
-                            "name": "Fatalities", 
-                            "hyperlinkable": false, 
-                            "url": "12month_rolling_fatalities", 
+                            "url": "deaths_this_year", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": "", 
+                            "trend": false, 
+                            "unit_underfix": "", 
+                            "name_as_label": true, 
+                            "sort_order": 25, 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "icon_library": null, 
+                            "name": "This time last year", 
+                            "hyperlinkable": false, 
+                            "url": "deaths_last_year", 
+                            "num_precision": 0, 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }
                     ], 
                     "list_label_width": null, 
                     "url": "road_deaths_main", 
-                    "tile_type": 1, 
+                    "tile_type": 2, 
                     "expansion": false, 
                     "sort_order": 10
                 }, 
@@ -106,7 +90,7 @@
             ], 
             "refresh_rate": 3600, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "dummy", 
+            "actual_frequency_url": "day", 
             "actual_location_url": "nsw"
         }
     ], 
