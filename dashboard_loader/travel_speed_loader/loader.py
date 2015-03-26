@@ -45,7 +45,7 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
             road_dist += distance
             road_travel_time += travel_time
     speed_stat = get_statistic("road_speeds", "syd", "rt", name)
-    speed = float(road_distance) / (float(road_travel_time) / 60.0)
+    speed = float(road_dist) / (float(road_travel_time) / 60.0)
     if speed < target:
         tlc = get_traffic_light_code(speed_stat, "poor")
     else:
