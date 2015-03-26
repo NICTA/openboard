@@ -805,7 +805,7 @@ class Statistic(models.Model):
             if self.unit_underfix:
                 state["unit"]["underfix"] = self.unit_underfix 
             if self.unit_signed:
-                state["unit"]["signed"] = "true"
+                state["unit"]["signed"] = True
         if self.stat_type != self.STRING_LIST:
             state["trend"] = self.trend
             if self.traffic_light_scale:

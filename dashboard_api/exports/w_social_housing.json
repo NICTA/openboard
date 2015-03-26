@@ -364,7 +364,7 @@
             ], 
             "refresh_rate": 84200, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "quarter", 
+            "actual_frequency_url": "year", 
             "actual_location_url": "nsw"
         }
     ], 
