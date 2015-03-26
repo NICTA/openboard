@@ -65,7 +65,7 @@
                             "hyperlinkable": false, 
                             "url": "regional_fatalities", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 4
                         }
                     ], 
