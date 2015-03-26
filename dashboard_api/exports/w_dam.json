@@ -55,44 +55,14 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": true, 
-                                        "unit_underfix": "all dams average", 
-                                        "name_as_label": true, 
-                                        "sort_order": 100, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "SCA Levels", 
-                                        "hyperlinkable": false, 
-                                        "url": "all_dams_avg", 
-                                        "num_precision": 1, 
-                                        "traffic_light_scale": "std 3 code", 
-                                        "stat_type": 2
-                                    }
+                                    "all_dams_avg"
                                 ], 
                                 "sort_order": 100, 
                                 "label": "SCA Levels"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 200, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "Last week", 
-                                        "hyperlinkable": false, 
-                                        "url": "all_dams_last_week", 
-                                        "num_precision": 1, 
-                                        "traffic_light_scale": "std 3 code", 
-                                        "stat_type": 2
-                                    }
+                                    "all_dams_last_week"
                                 ], 
                                 "sort_order": 200, 
                                 "label": "Last week"

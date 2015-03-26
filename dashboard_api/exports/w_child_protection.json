@@ -576,608 +576,128 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 5, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "central_coast_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "central_coast_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 10, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "central_coast_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "central_coast_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "central_coast_vacancies", 
+                                    "central_coast_f2f"
                                 ], 
                                 "sort_order": 10, 
                                 "label": "Central Coast"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 15, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "far_west_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "far_west_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 20, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "far_west_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "far_west_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "far_west_vacancies", 
+                                    "far_west_f2f"
                                 ], 
                                 "sort_order": 20, 
                                 "label": "Far West"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 25, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "hunter_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "hunter_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 30, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "hunter_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "hunter_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "hunter_vacancies", 
+                                    "hunter_f2f"
                                 ], 
                                 "sort_order": 30, 
                                 "label": "Hunter New England"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 35, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "illawarra_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "illawarra_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 40, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "illawarra_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "illawarra_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "illawarra_vacancies", 
+                                    "illawarra_f2f"
                                 ], 
                                 "sort_order": 40, 
                                 "label": "Illawarra Shoalhaven"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 45, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "mid_north_coast_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "mid_north_coast_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 50, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "mid_north_coast_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "mid_north_coast_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "mid_north_coast_vacancies", 
+                                    "mid_north_coast_f2f"
                                 ], 
                                 "sort_order": 50, 
                                 "label": "Mid North Coast"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 55, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "murrumbidgee_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "murrumbidgee_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 60, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "murrumbidgee_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "murrumbidgee_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "murrumbidgee_vacancies", 
+                                    "murrumbidgee_f2f"
                                 ], 
                                 "sort_order": 60, 
                                 "label": "Murrumbidgee"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 65, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "nepean_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "nepean_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 70, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "nepean_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "nepean_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "nepean_vacancies", 
+                                    "nepean_f2f"
                                 ], 
                                 "sort_order": 70, 
                                 "label": "Nepean Blue Mountains"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 75, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "northern_nsw_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "northern_nsw_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 80, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "northern_nsw_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "northern_nsw_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "northern_nsw_vacancies", 
+                                    "northern_nsw_f2f"
                                 ], 
                                 "sort_order": 80, 
                                 "label": "Northern NSW"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 85, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "n_sydney_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "n_sydney_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 90, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "n_sydney_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "n_sydney_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "n_sydney_vacancies", 
+                                    "n_sydney_f2f"
                                 ], 
                                 "sort_order": 90, 
                                 "label": "Northern Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 95, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "se_sydney_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "se_sydney_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 100, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "se_sydney_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "se_sydney_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "se_sydney_vacancies", 
+                                    "se_sydney_f2f"
                                 ], 
                                 "sort_order": 100, 
                                 "label": "South Eastern Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 105, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "sw_sydney_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "sw_sydney_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 110, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "sw_sydney_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "sw_sydney_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "sw_sydney_vacancies", 
+                                    "sw_sydney_f2f"
                                 ], 
                                 "sort_order": 110, 
                                 "label": "South Western Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 115, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "southern_nsw_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "southern_nsw_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 120, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "southern_nsw_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "southern_nsw_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "southern_nsw_vacancies", 
+                                    "southern_nsw_f2f"
                                 ], 
                                 "sort_order": 120, 
                                 "label": "Southern NSW"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 125, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "sydney_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "sydney_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 130, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "sydney_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "sydney_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "sydney_vacancies", 
+                                    "sydney_f2f"
                                 ], 
                                 "sort_order": 130, 
                                 "label": "Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 135, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "western_nsw_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "western_nsw_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 140, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "western_nsw_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "western_nsw_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "western_nsw_vacancies", 
+                                    "western_nsw_f2f"
                                 ], 
                                 "sort_order": 140, 
                                 "label": "Western NSW"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 145, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "w_sydney_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "w_sydney_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 150, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "w_sydney_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "w_sydney_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "w_sydney_vacancies", 
+                                    "w_sydney_f2f"
                                 ], 
                                 "sort_order": 150, 
                                 "label": "Western Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 155, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "statewide_vacancies", 
-                                        "hyperlinkable": false, 
-                                        "url": "statewide_vacancies", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": null, 
-                                        "trend": false, 
-                                        "unit_underfix": null, 
-                                        "name_as_label": true, 
-                                        "sort_order": 160, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "statewide_f2f", 
-                                        "hyperlinkable": false, 
-                                        "url": "statewide_f2f", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "statewide_vacancies", 
+                                    "statewide_f2f"
                                 ], 
                                 "sort_order": 160, 
                                 "label": "Statewide Services"

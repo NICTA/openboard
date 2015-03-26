@@ -119,114 +119,24 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 5, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "cat1_ontime", 
-                                        "hyperlinkable": false, 
-                                        "url": "cat1_ontime", 
-                                        "num_precision": 1, 
-                                        "traffic_light_scale": "std 3 code", 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 10, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "cat1_admissions", 
-                                        "hyperlinkable": false, 
-                                        "url": "cat1_admissions", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "cat1_ontime", 
+                                    "cat1_admissions"
                                 ], 
                                 "sort_order": 1, 
                                 "label": "1"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 15, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "cat2_ontime", 
-                                        "hyperlinkable": false, 
-                                        "url": "cat2_ontime", 
-                                        "num_precision": 1, 
-                                        "traffic_light_scale": "std 3 code", 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 20, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "cat2_admissions", 
-                                        "hyperlinkable": false, 
-                                        "url": "cat2_admissions", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "cat2_ontime", 
+                                    "cat2_admissions"
                                 ], 
                                 "sort_order": 2, 
                                 "label": "2"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 25, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "%", 
-                                        "icon_library": null, 
-                                        "name": "cat3_ontime", 
-                                        "hyperlinkable": false, 
-                                        "url": "cat3_ontime", 
-                                        "num_precision": 1, 
-                                        "traffic_light_scale": "std 3 code", 
-                                        "stat_type": 2
-                                    }, 
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 30, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "cat3_admissions", 
-                                        "hyperlinkable": false, 
-                                        "url": "cat3_admissions", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "cat3_ontime", 
+                                    "cat3_admissions"
                                 ], 
                                 "sort_order": 3, 
                                 "label": "3"

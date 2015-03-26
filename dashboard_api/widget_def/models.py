@@ -1208,7 +1208,7 @@ class GridRow(models.Model):
         return {
             "label": self.label,
             "sort_order": self.sort_order,
-            "statistics": [ s.export() for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
+            "statistics": [ s.statistic.url for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
         }
     def __getstate__(self):
         return {
@@ -1225,7 +1225,7 @@ class GridRow(models.Model):
         gr.save()
         grid.gridstatistic_set.filter(row=gr).delete()
         for (col, sdata) in zip(grid.gridcolumn_set.all(), data["statistics"]):
-            stat = Statistic.import_data(grid.tile, sdata)
+            stat = Statistic.objects.get(tile=grid.tile, url = sdata)
             try:
                 gs = GridStatistic.objects.get(grid=grid, row=gr, column=col, statistic=stat)
             except GridStatistic.DoesNotExist:

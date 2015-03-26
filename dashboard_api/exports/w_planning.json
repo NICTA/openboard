@@ -256,242 +256,77 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 100, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Sydney", 
-                                        "hyperlinkable": false, 
-                                        "url": "sydney", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "sydney"
                                 ], 
                                 "sort_order": 10, 
                                 "label": "Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 200, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Central Coast", 
-                                        "hyperlinkable": false, 
-                                        "url": "central_coast", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "central_coast"
                                 ], 
                                 "sort_order": 20, 
                                 "label": "Central Coast"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 300, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Illawarra", 
-                                        "hyperlinkable": false, 
-                                        "url": "illawarra", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "illawarra"
                                 ], 
                                 "sort_order": 30, 
                                 "label": "Illawarra"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 400, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Hunter", 
-                                        "hyperlinkable": false, 
-                                        "url": "hunter", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "hunter"
                                 ], 
                                 "sort_order": 40, 
                                 "label": "Hunter"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 500, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "New England & North West", 
-                                        "hyperlinkable": false, 
-                                        "url": "new_england", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "new_england"
                                 ], 
                                 "sort_order": 50, 
                                 "label": "New England & NW"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 600, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Central West & Orana", 
-                                        "hyperlinkable": false, 
-                                        "url": "orana", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "orana"
                                 ], 
                                 "sort_order": 60, 
                                 "label": "Central West & Orana"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 700, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Far West", 
-                                        "hyperlinkable": false, 
-                                        "url": "far_west", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "far_west"
                                 ], 
                                 "sort_order": 70, 
                                 "label": "Far West"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 800, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Mid North Coast", 
-                                        "hyperlinkable": false, 
-                                        "url": "mid_north", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "mid_north"
                                 ], 
                                 "sort_order": 80, 
                                 "label": "Mid North Coast"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 900, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Murray/Murrumbidgee", 
-                                        "hyperlinkable": false, 
-                                        "url": "murrumbidgee", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "murrumbidgee"
                                 ], 
                                 "sort_order": 90, 
                                 "label": "Murray/Murrumbidgee"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 1000, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "Northern Rivers", 
-                                        "hyperlinkable": false, 
-                                        "url": "northern_rivers", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "northern_rivers"
                                 ], 
                                 "sort_order": 100, 
                                 "label": "Northern Rivers"
                             }, 
                             {
                                 "statistics": [
-                                    {
-                                        "unit_prefix": "", 
-                                        "trend": false, 
-                                        "unit_underfix": "", 
-                                        "name_as_label": true, 
-                                        "sort_order": 1100, 
-                                        "unit_signed": false, 
-                                        "unit_suffix": "", 
-                                        "icon_library": null, 
-                                        "name": "South East & Tableland", 
-                                        "hyperlinkable": false, 
-                                        "url": "tableland", 
-                                        "num_precision": 0, 
-                                        "traffic_light_scale": null, 
-                                        "stat_type": 2
-                                    }
+                                    "tableland"
                                 ], 
                                 "sort_order": 110, 
                                 "label": "South East & Tableland"
