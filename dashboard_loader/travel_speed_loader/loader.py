@@ -37,18 +37,19 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
             return
         distance = section.length
         travel_time = f["properties"]["travelTimeMinutes"]
-        stats["total_travel_time"]  += travel_time
-        stats["total_distance"]  += distance
         if (fid[0] in road.am_direction and am) or (fid[0] in road.pm_direction and not am):
-            speed_stat = get_statistic("road_speeds", "syd", "rt", name)
-            speed = float(distance) / (float(travel_time) / 60.0)
-            if speed < target:
-                tlc = get_traffic_light_code(speed_stat, "bad")
-            elif speed < target * 1.15:
-                tlc = get_traffic_light_code(speed_stat, "poor")
-            else:
-                tlc = get_traffic_light_code(speed_stat, "good")
-            set_statistic_data("road_speeds", "syd", "rt", name, speed, traffic_light_code=tlc)
+            stats["total_travel_time"]  += travel_time
+            stats["total_distance"]  += distance
+    speed_stat = get_statistic("road_speeds", "syd", "rt", name)
+    speed = float(distance) / (float(travel_time) / 60.0)
+    if speed < target:
+        tlc = get_traffic_light_code(speed_stat, "poor")
+    else:
+        tlc = get_traffic_light_code(speed_stat, "good")
+    if verbosity >=2:
+        messages.append("Saving road speed for %s" % name)
+    set_statistic_data("road_speeds", "syd", "rt", name, speed, traffic_light_code=tlc)
+        
 
 def update_data(loader, verbosity=0):
     messages = []
@@ -87,11 +88,11 @@ def update_data(loader, verbosity=0):
     else:
         trend = 1
     if new_speed < target:
-        tlc = get_traffic_light_code(speed_stat, "bad")
-    elif new_speed < target * 1.15:
         tlc = get_traffic_light_code(speed_stat, "poor")
     else:
         tlc = get_traffic_light_code(speed_stat, "good")
+    if verbosity > 2:
+        messages.append("Writing new road_speed: %f"  % new_speed)
     set_statistic_data("road_speeds", "syd", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
     return messages
 
