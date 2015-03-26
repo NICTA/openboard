@@ -27,6 +27,8 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
         return
     road_dist = 0
     road_travel_time = 0
+    if name == "M7" and verbosity >=5:
+        print json.dumps(features, indent=4)
     for f in features:
         fid = f["id"]
         if fid[1:] != "TOTAL":
@@ -39,6 +41,8 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
             return
         distance = section.length
         travel_time = f["properties"]["travelTimeMinutes"]
+        if name == "M7" and verbosity >= 3:
+            messages.append("M7 segment %s distance %d travelTime %d" % (fid, distance, travel_time))
         if (fid[0] in road.am_direction and am) or (fid[0] in road.pm_direction and not am):
             stats["total_travel_time"]  += travel_time
             stats["total_distance"]  += distance
@@ -46,6 +50,8 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
             road_travel_time += travel_time
     speed_stat = get_statistic("road_speeds", "syd", "rt", name)
     speed = float(road_dist) / (float(road_travel_time) / 60.0)
+    if verbosity >= 3:
+        messages.append("%s road dist=%d travel_time=%d speed=%f" % (name, road_dist, road_travel_time, speed))
     if speed < target:
         tlc = get_traffic_light_code(speed_stat, "poor")
     else:
@@ -84,7 +90,9 @@ def update_data(loader, verbosity=0):
     load_speeds(m7_features, "M7", am, target,total_stats, messages, verbosity)
     speed_stat = get_statistic("road_speeds", "syd", "rt", "average_speed")
     last_speed = speed_stat.get_data().intval
-    new_speed = float(total_stats["total_travel_time"])/(float(total_stats["total_distance"])/60.0)
+    new_speed = float(total_stats["total_distance"])/(float(total_stats["total_travel_time"])/60.0)
+    if verbosity >= 3:
+        messages.append("TOTAL road dist=%d travel_time=%d speed=%f" % (total_stats["total_distance"], total_stats["total_travel_time"], new_speed))
     if abs(last_speed - new_speed) < 0.1:
         trend = 0
     elif last_speed > new_speed:
