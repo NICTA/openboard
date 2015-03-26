@@ -1,7 +1,7 @@
 {
     "category": "Economic", 
     "source_url_text": "ASX web site", 
-    "subtitle": "Australian Securities Exchange", 
+    "subtitle": "ASX200", 
     "subcategory": "Market", 
     "url": "asx", 
     "definitions": [
@@ -143,6 +143,6 @@
         }
     ], 
     "source_url": "http://www.asx.com.au/", 
-    "name": "ASX200"
+    "name": "ASX"
 }
 
