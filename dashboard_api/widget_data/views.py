@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseForbidden
 
 from widget_def.models import WidgetDeclaration, Statistic, GraphDefinition
 from widget_def.view_utils import json_list
@@ -10,6 +10,8 @@ from widget_def.view_utils import get_location_from_request, get_frequency_from_
 # views.
 
 def get_widget_data(request, widget_url):
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
     try:
@@ -20,13 +22,20 @@ def get_widget_data(request, widget_url):
     stats_json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget.definition):
         stats_json[statistic.url] = statistic.get_data_json()
+    last_updated = widget.definition.data_last_updated()
+    if last_updated:
+        last_updated_str = last_updated.strftime("%Y-%m-%dT%H:%M:%S%z")
+    else:
+        last_updated_str = None
     json = {
-        "widget_last_updated": widget.definition.data_last_updated().strftime("%Y-%m-%dT%H:%M:%S%z"),
+        "widget_last_updated": last_updated_str,
         "statistics": stats_json,
     }
     return json_list(request, json)
 
 def get_graph_data(request, widget_url):
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
     try:
