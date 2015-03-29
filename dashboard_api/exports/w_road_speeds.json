@@ -1,7 +1,7 @@
 {
     "category": "Service Delivery", 
     "source_url_text": "Live Traffic NSW", 
-    "subtitle": "Avg. travel speeds key roads", 
+    "subtitle": "M1, M2, M4 & M7", 
     "subcategory": "Roads", 
     "url": "road_speeds", 
     "definitions": [

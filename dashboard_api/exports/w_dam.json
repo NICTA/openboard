@@ -1,7 +1,7 @@
 {
     "category": "Environment and Planning", 
     "source_url_text": "Sydney Catchment Authority dam levels", 
-    "subtitle": "All Reservoirs", 
+    "subtitle": "Sydney Catchments", 
     "subcategory": "Water", 
     "url": "dam", 
     "definitions": [
@@ -20,7 +20,7 @@
                             "unit_signed": false, 
                             "unit_suffix": "%", 
                             "icon_library": null, 
-                            "name": "SCA Dams", 
+                            "name": "All reservoirs", 
                             "hyperlinkable": false, 
                             "url": "all_dams_avg", 
                             "num_precision": 1, 

@@ -24,7 +24,7 @@
                             "hyperlinkable": false, 
                             "url": "all_on_time", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -40,7 +40,7 @@
                             "hyperlinkable": false, 
                             "url": "all_on_time_ytd", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -81,7 +81,7 @@
                             "hyperlinkable": false, 
                             "url": "t1_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -97,7 +97,7 @@
                             "hyperlinkable": false, 
                             "url": "t2_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -113,7 +113,7 @@
                             "hyperlinkable": false, 
                             "url": "t3_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -129,7 +129,7 @@
                             "hyperlinkable": false, 
                             "url": "t4_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -145,7 +145,7 @@
                             "hyperlinkable": false, 
                             "url": "t5_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -161,7 +161,7 @@
                             "hyperlinkable": false, 
                             "url": "t6_ontime", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }, 
                         {
@@ -177,7 +177,7 @@
                             "hyperlinkable": false, 
                             "url": "t7_online", 
                             "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
+                            "traffic_light_scale": null, 
                             "stat_type": 2
                         }
                     ], 

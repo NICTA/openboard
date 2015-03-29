@@ -59,8 +59,8 @@ class ASXHtmlParser(HTMLParser):
         data = data.strip()
         if data:
             if self.read_index:
-                value = decimal.Decimal("".join(data.split(",")))
-                set_statistic_data("asx", "nsw", "rt", "index", value)  
+                self.index_value = decimal.Decimal("".join(data.split(",")))
+# set_statistic_data("asx", "nsw", "rt", "index", value)  
                 if self.verbosity > 5:
                     print "Index: %s" % data
             if self.read_rt_percent:
@@ -68,7 +68,14 @@ class ASXHtmlParser(HTMLParser):
                 value = decimal.Decimal(strval)
                 set_statistic_data("asx", "nsw", "rt", "movement", value)  
                 if self.verbosity > 5:
-                    print "RT percent move: %s" % data
+                    print "RT percent move: %s" % dat
+                if self.index_value.is_zero():
+                    trend = 0
+                elif self.index_value.is_signed():
+                    trend = -1
+                else:
+                    trend = 1
+                set_statistic_data("asx", "nsw", "rt", "index", self.index_value, trend=trend)  
             if self.read_day_min:
                 value = decimal.Decimal("".join(data.split(",")))
                 set_statistic_data("asx", "nsw", "rt", "today_min", value)  
