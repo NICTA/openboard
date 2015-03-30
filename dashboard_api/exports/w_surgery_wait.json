@@ -23,6 +23,7 @@
                             "name": "cat1_ontime", 
                             "hyperlinkable": false, 
                             "url": "cat1_ontime", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "cat1_admissions", 
                             "hyperlinkable": false, 
                             "url": "cat1_admissions", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "cat2_ontime", 
                             "hyperlinkable": false, 
                             "url": "cat2_ontime", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -71,6 +74,7 @@
                             "name": "cat2_admissions", 
                             "hyperlinkable": false, 
                             "url": "cat2_admissions", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -87,6 +91,7 @@
                             "name": "cat3_ontime", 
                             "hyperlinkable": false, 
                             "url": "cat3_ontime", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -103,6 +108,7 @@
                             "name": "cat3_admissions", 
                             "hyperlinkable": false, 
                             "url": "cat3_admissions", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -169,6 +175,7 @@
                             "name": "Central Coast", 
                             "hyperlinkable": false, 
                             "url": "central_coast", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -185,6 +192,7 @@
                             "name": "Far West", 
                             "hyperlinkable": false, 
                             "url": "far_west", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -201,6 +209,7 @@
                             "name": "Hunter New England", 
                             "hyperlinkable": false, 
                             "url": "hunter", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -217,6 +226,7 @@
                             "name": "Illawarra Shoalhaven", 
                             "hyperlinkable": false, 
                             "url": "illawarra", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -233,6 +243,7 @@
                             "name": "Mid North Coast", 
                             "hyperlinkable": false, 
                             "url": "mid_north_coast", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -249,6 +260,7 @@
                             "name": "Murrumbidgee", 
                             "hyperlinkable": false, 
                             "url": "murrumbidgee", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -265,6 +277,7 @@
                             "name": "Nepean Blue Mountains", 
                             "hyperlinkable": false, 
                             "url": "nepean", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -281,6 +294,7 @@
                             "name": "Northern NSW", 
                             "hyperlinkable": false, 
                             "url": "northern", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -297,6 +311,7 @@
                             "name": "Northern Sydney", 
                             "hyperlinkable": false, 
                             "url": "n_sydney", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -313,6 +328,7 @@
                             "name": "South-Eastern Sydney", 
                             "hyperlinkable": false, 
                             "url": "se_sydney", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -329,6 +345,7 @@
                             "name": "South-Western Sydney", 
                             "hyperlinkable": false, 
                             "url": "sw_sydney", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -345,6 +362,7 @@
                             "name": "Southern NSW", 
                             "hyperlinkable": false, 
                             "url": "southern", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -361,6 +379,7 @@
                             "name": "Sydney Children's", 
                             "hyperlinkable": false, 
                             "url": "sydney_children", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -377,6 +396,7 @@
                             "name": "Sydney Local", 
                             "hyperlinkable": false, 
                             "url": "sydney_local", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -393,6 +413,7 @@
                             "name": "Western NSW", 
                             "hyperlinkable": false, 
                             "url": "western", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -409,6 +430,7 @@
                             "name": "Western Sydney", 
                             "hyperlinkable": false, 
                             "url": "w_sydney", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2

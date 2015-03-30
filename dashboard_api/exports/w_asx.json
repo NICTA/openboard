@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "index", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Since open", 
                             "hyperlinkable": false, 
                             "url": "movement", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -64,6 +66,7 @@
                             "name": "Today's Min", 
                             "hyperlinkable": false, 
                             "url": "today_min", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "52wk Min", 
                             "hyperlinkable": false, 
                             "url": "yr_min", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "52wk Max", 
                             "hyperlinkable": false, 
                             "url": "yr_max", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "Today's max", 
                             "hyperlinkable": false, 
                             "url": "today_max", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

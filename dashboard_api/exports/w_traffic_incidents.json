@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "incidents", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 4
@@ -73,6 +74,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "incidents", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 4

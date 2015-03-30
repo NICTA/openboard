@@ -23,6 +23,7 @@
                             "name": "This year", 
                             "hyperlinkable": false, 
                             "url": "deaths_this_year", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "This time last year", 
                             "hyperlinkable": false, 
                             "url": "deaths_last_year", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -64,6 +66,7 @@
                             "name": "Fatalities by region", 
                             "hyperlinkable": false, 
                             "url": "regional_fatalities", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 4

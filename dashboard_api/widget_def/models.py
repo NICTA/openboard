@@ -591,13 +591,15 @@ class Statistic(models.Model):
     STRING_LIST = 5
     AM_PM = 6
     EVENT_LIST = 7
-    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" , "event_list" ]
+    LONG_STRING = 8
+    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" , "event_list" , "long_string" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.CharField(max_length=80, blank=True)
     url = models.SlugField()
     name_as_label=models.BooleanField(default=True)
     stat_type = models.SmallIntegerField(choices=(
                     (STRING, stat_types[STRING]),
+                    (LONG_STRING, stat_types[LONG_STRING]),
                     (NUMERIC, stat_types[NUMERIC]),
                     (STRING_KVL, stat_types[STRING_KVL]),
                     (NUMERIC_KVL, stat_types[NUMERIC_KVL]),
@@ -615,6 +617,7 @@ class Statistic(models.Model):
     unit_signed = models.BooleanField(default=False)
     sort_order = models.IntegerField()
     hyperlinkable = models.BooleanField(default=False)
+    footer = models.BooleanField(default=False)
     def clean(self):
         if not self.is_numeric():
             self.num_precision = None
@@ -753,6 +756,7 @@ class Statistic(models.Model):
             "icon_library": icon_library_name,
             "trend": self.trend,
             "hyperlinkable": self.hyperlinkable,
+            "footer": self.footer,
             "num_precision": self.num_precision,
             "unit_prefix": self.unit_prefix,
             "unit_suffix": self.unit_suffix,
@@ -770,6 +774,7 @@ class Statistic(models.Model):
         s.name_as_label = data["name_as_label"]
         s.stat_type = data["stat_type"]
         s.hyperlinkable = data.get("hyperlinkable", False)
+        s.footer = data.get("footer", False)
         s.trend = data["trend"]
         s.num_precision = data["num_precision"]
         s.unit_prefix = data["unit_prefix"]
@@ -818,6 +823,7 @@ class Statistic(models.Model):
                 state["icon_library"] = None
         if self.is_list():
             state["hyperlinkable"] = self.hyperlinkable
+        state["footer"] = self.footer
         return state
     class Meta:
         unique_together = [("tile", "name"), ("tile", "url")]

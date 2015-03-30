@@ -23,6 +23,7 @@
                             "name": "Delays on", 
                             "hyperlinkable": false, 
                             "url": "delays", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Cancellations", 
                             "hyperlinkable": false, 
                             "url": "cancellations", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "Trackwork on", 
                             "hyperlinkable": false, 
                             "url": "current_trackwork", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -71,6 +74,7 @@
                             "name": "Overnight work on", 
                             "hyperlinkable": false, 
                             "url": "sched_overnight_trackwork", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "", 
                             "hyperlinkable": true, 
                             "url": "interruptions", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 5
@@ -138,6 +143,7 @@
                             "name": "Delays on", 
                             "hyperlinkable": false, 
                             "url": "delays", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -154,6 +160,7 @@
                             "name": "Cancellations", 
                             "hyperlinkable": false, 
                             "url": "cancellations", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -170,6 +177,7 @@
                             "name": "Trackwork on", 
                             "hyperlinkable": false, 
                             "url": "current_trackwork", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -186,6 +194,7 @@
                             "name": "Overnight work on", 
                             "hyperlinkable": false, 
                             "url": "sched_overnight_trackwork", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -211,6 +220,7 @@
                             "name": "", 
                             "hyperlinkable": true, 
                             "url": "interruptions", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 5

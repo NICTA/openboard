@@ -1,18 +1,48 @@
 import time
 import datetime
+import pytz
 import decimal
 import re
 import httplib
 import xml.etree.ElementTree as ET
+
+from django.conf import settings
 
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data,get_icon, get_statistic, clear_statistic_list, add_statistic_list_item, call_in_transaction
 
 from beach_quality_loader.models import BeachSummaryHistory, CurrentBeachRating
 
 # Refresh data every 3 hours
-refresh_rate = 60*60*3
+refresh_rate = 7
+api_refresh_rate = 60*60*3
 
 def update_data(loader, verbosity=0):
+    messages = []
+    if loader.last_api_access and datetime.datetime.now(pytz.timezone(settings.TIME_ZONE)) - loader.last_api_access < datetime.timedelta(seconds=api_refresh_rate):
+        messages = rotate_data(verbosity)
+    else:
+        messages = refresh_data(loader, verbosity)
+    return messages
+
+def rotate_data(verbosity=0):
+    messages = []
+    next_beach = CurrentBeachRating.objects.all().order_by("last_featured")[0]
+    if next_beach.rating == next_beach.GOOD:
+        vals = ("Good", "good")
+    elif next_beach.rating == next_beach.GOOD:
+        vals = ("Fair", "fair")
+    else:
+        vals = ("Poor", "poor")
+    set_statistic_data("beaches", "nsw", "day", "highlight_beach",
+                        vals[0],
+                        label=next_beach.beach_name,
+                        traffic_light_code=vals[1])
+    next_beach.last_featured = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
+    next_beach.save()
+    messages.append("Highlight beach rotated")
+    return messages
+
+def refresh_data(loader, verbosity=0):
     messages = []
     http = httplib.HTTPConnection("www.environment.nsw.gov.au")
     try:
@@ -62,6 +92,9 @@ def update_data(loader, verbosity=0):
         messages.extend(call_in_transaction(update_stats))
     except LoaderException, e:
         messages.append("Error updating widget stats: %s" % unicode(e))
+    loader.last_api_access = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
+    loader.save()
+    messages.extend(rotate_data(verbosity))
     return messages
 
 def update_stats():

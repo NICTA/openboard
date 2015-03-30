@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "all_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "YTD", 
                             "hyperlinkable": false, 
                             "url": "ytd_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "Target", 
                             "hyperlinkable": false, 
                             "url": "target_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "M10", 
                             "hyperlinkable": false, 
                             "url": "m10_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "M20", 
                             "hyperlinkable": false, 
                             "url": "m20_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "M30", 
                             "hyperlinkable": false, 
                             "url": "m30_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -128,6 +134,7 @@
                             "name": "M40", 
                             "hyperlinkable": false, 
                             "url": "m40_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -144,6 +151,7 @@
                             "name": "M41", 
                             "hyperlinkable": false, 
                             "url": "m41_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -160,6 +168,7 @@
                             "name": "M50", 
                             "hyperlinkable": false, 
                             "url": "m50_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -176,6 +185,7 @@
                             "name": "M52", 
                             "hyperlinkable": false, 
                             "url": "m52_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -192,6 +202,7 @@
                             "name": "M54", 
                             "hyperlinkable": false, 
                             "url": "m54_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

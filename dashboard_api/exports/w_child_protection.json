@@ -23,6 +23,7 @@
                             "name": "Caseworker vacancies", 
                             "hyperlinkable": false, 
                             "url": "all_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Face to face assessments", 
                             "hyperlinkable": false, 
                             "url": "all_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -64,6 +66,7 @@
                             "name": "central_coast_vacancies", 
                             "hyperlinkable": false, 
                             "url": "central_coast_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "central_coast_f2f", 
                             "hyperlinkable": false, 
                             "url": "central_coast_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "far_west_vacancies", 
                             "hyperlinkable": false, 
                             "url": "far_west_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "far_west_f2f", 
                             "hyperlinkable": false, 
                             "url": "far_west_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -128,6 +134,7 @@
                             "name": "hunter_vacancies", 
                             "hyperlinkable": false, 
                             "url": "hunter_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -144,6 +151,7 @@
                             "name": "hunter_f2f", 
                             "hyperlinkable": false, 
                             "url": "hunter_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -160,6 +168,7 @@
                             "name": "illawarra_vacancies", 
                             "hyperlinkable": false, 
                             "url": "illawarra_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -176,6 +185,7 @@
                             "name": "illawarra_f2f", 
                             "hyperlinkable": false, 
                             "url": "illawarra_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -192,6 +202,7 @@
                             "name": "mid_north_coast_vacancies", 
                             "hyperlinkable": false, 
                             "url": "mid_north_coast_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -208,6 +219,7 @@
                             "name": "mid_north_coast_f2f", 
                             "hyperlinkable": false, 
                             "url": "mid_north_coast_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -224,6 +236,7 @@
                             "name": "murrumbidgee_vacancies", 
                             "hyperlinkable": false, 
                             "url": "murrumbidgee_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -240,6 +253,7 @@
                             "name": "murrumbidgee_f2f", 
                             "hyperlinkable": false, 
                             "url": "murrumbidgee_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -256,6 +270,7 @@
                             "name": "nepean_vacancies", 
                             "hyperlinkable": false, 
                             "url": "nepean_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -272,6 +287,7 @@
                             "name": "nepean_f2f", 
                             "hyperlinkable": false, 
                             "url": "nepean_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -288,6 +304,7 @@
                             "name": "northern_nsw_vacancies", 
                             "hyperlinkable": false, 
                             "url": "northern_nsw_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -304,6 +321,7 @@
                             "name": "northern_nsw_f2f", 
                             "hyperlinkable": false, 
                             "url": "northern_nsw_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -320,6 +338,7 @@
                             "name": "n_sydney_vacancies", 
                             "hyperlinkable": false, 
                             "url": "n_sydney_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -336,6 +355,7 @@
                             "name": "n_sydney_f2f", 
                             "hyperlinkable": false, 
                             "url": "n_sydney_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -352,6 +372,7 @@
                             "name": "se_sydney_vacancies", 
                             "hyperlinkable": false, 
                             "url": "se_sydney_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -368,6 +389,7 @@
                             "name": "se_sydney_f2f", 
                             "hyperlinkable": false, 
                             "url": "se_sydney_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -384,6 +406,7 @@
                             "name": "sw_sydney_vacancies", 
                             "hyperlinkable": false, 
                             "url": "sw_sydney_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -400,6 +423,7 @@
                             "name": "sw_sydney_f2f", 
                             "hyperlinkable": false, 
                             "url": "sw_sydney_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -416,6 +440,7 @@
                             "name": "southern_nsw_vacancies", 
                             "hyperlinkable": false, 
                             "url": "southern_nsw_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -432,6 +457,7 @@
                             "name": "southern_nsw_f2f", 
                             "hyperlinkable": false, 
                             "url": "southern_nsw_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -448,6 +474,7 @@
                             "name": "sydney_vacancies", 
                             "hyperlinkable": false, 
                             "url": "sydney_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -464,6 +491,7 @@
                             "name": "sydney_f2f", 
                             "hyperlinkable": false, 
                             "url": "sydney_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -480,6 +508,7 @@
                             "name": "western_nsw_vacancies", 
                             "hyperlinkable": false, 
                             "url": "western_nsw_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -496,6 +525,7 @@
                             "name": "western_nsw_f2f", 
                             "hyperlinkable": false, 
                             "url": "western_nsw_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -512,6 +542,7 @@
                             "name": "w_sydney_vacancies", 
                             "hyperlinkable": false, 
                             "url": "w_sydney_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -528,6 +559,7 @@
                             "name": "w_sydney_f2f", 
                             "hyperlinkable": false, 
                             "url": "w_sydney_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -544,6 +576,7 @@
                             "name": "statewide_vacancies", 
                             "hyperlinkable": false, 
                             "url": "statewide_vacancies", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -560,6 +593,7 @@
                             "name": "statewide_f2f", 
                             "hyperlinkable": false, 
                             "url": "statewide_f2f", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

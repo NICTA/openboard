@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 1
@@ -39,6 +40,7 @@
                             "name": "region 1", 
                             "hyperlinkable": false, 
                             "url": "region_1", 
+                            "footer": true, 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 1
@@ -64,6 +66,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "regions", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 3
@@ -106,6 +109,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 1
@@ -122,6 +126,7 @@
                             "name": "Region 1", 
                             "hyperlinkable": false, 
                             "url": "region_1", 
+                            "footer": true, 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 1
@@ -147,6 +152,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "regions", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 3

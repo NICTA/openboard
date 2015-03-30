@@ -23,6 +23,7 @@
                             "name": "Today", 
                             "hyperlinkable": true, 
                             "url": "today", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 5
@@ -48,6 +49,7 @@
                             "name": "Event Calendar", 
                             "hyperlinkable": true, 
                             "url": "calendar", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 7

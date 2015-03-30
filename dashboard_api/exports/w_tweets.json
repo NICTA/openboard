@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "tweets", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 3

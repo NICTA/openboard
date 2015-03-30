@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "all", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Priority Applicants", 
                             "hyperlinkable": false, 
                             "url": "priority", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "Median waiting time", 
                             "hyperlinkable": false, 
                             "url": "median_wait", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -114,6 +117,7 @@
                             "name": "Sydney", 
                             "hyperlinkable": false, 
                             "url": "sydney", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -130,6 +134,7 @@
                             "name": "SE Sydney", 
                             "hyperlinkable": false, 
                             "url": "se_sydney", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -146,6 +151,7 @@
                             "name": "N Sydney", 
                             "hyperlinkable": false, 
                             "url": "n_sydney", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -162,6 +168,7 @@
                             "name": "SW Sydney", 
                             "hyperlinkable": false, 
                             "url": "sw_sydney", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -178,6 +185,7 @@
                             "name": "W Sydney", 
                             "hyperlinkable": false, 
                             "url": "w_sydney", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -194,6 +202,7 @@
                             "name": "Nepean B Mts", 
                             "hyperlinkable": false, 
                             "url": "nepean", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -210,6 +219,7 @@
                             "name": "Central Coast", 
                             "hyperlinkable": false, 
                             "url": "central_coast", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -226,6 +236,7 @@
                             "name": "Hunter N E", 
                             "hyperlinkable": false, 
                             "url": "hunter", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -242,6 +253,7 @@
                             "name": "Mid N Coast", 
                             "hyperlinkable": false, 
                             "url": "mid_north_coast", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -258,6 +270,7 @@
                             "name": "Northern NSW", 
                             "hyperlinkable": false, 
                             "url": "northern", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -274,6 +287,7 @@
                             "name": "Illawarra Shlhvn", 
                             "hyperlinkable": false, 
                             "url": "illawarra", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -290,6 +304,7 @@
                             "name": "Southern NSW", 
                             "hyperlinkable": false, 
                             "url": "southern", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -306,6 +321,7 @@
                             "name": "Murrumbidgee", 
                             "hyperlinkable": false, 
                             "url": "murrumbidgee", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -322,6 +338,7 @@
                             "name": "Western NSW", 
                             "hyperlinkable": false, 
                             "url": "western", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -338,6 +355,7 @@
                             "name": "Far West", 
                             "hyperlinkable": false, 
                             "url": "far_west", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

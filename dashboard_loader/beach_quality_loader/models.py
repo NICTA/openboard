@@ -73,6 +73,7 @@ class CurrentBeachRating(models.Model):
                     (POOR, ratings[POOR]),
                 ))
     day_updated=models.DateField(auto_now=True)
+    last_featured = models.DateTimeField()
     def region_display(self):
         return BeachSummaryHistory.regions[self.region]
     def rating_display(self):

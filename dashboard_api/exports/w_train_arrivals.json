@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "all_on_time", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "YTD", 
                             "hyperlinkable": false, 
                             "url": "all_on_time_ytd", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "Target", 
                             "hyperlinkable": false, 
                             "url": "all_on_time_target", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "T1 North Shore, Northern & Western", 
                             "hyperlinkable": false, 
                             "url": "t1_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "T2 Inner West & South", 
                             "hyperlinkable": false, 
                             "url": "t2_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "T3 Bankstown", 
                             "hyperlinkable": false, 
                             "url": "t3_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -128,6 +134,7 @@
                             "name": "T4 Eastern Suburbs & Illawarra", 
                             "hyperlinkable": false, 
                             "url": "t4_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -144,6 +151,7 @@
                             "name": "T5 Cumberland", 
                             "hyperlinkable": false, 
                             "url": "t5_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -160,6 +168,7 @@
                             "name": "T6 Carlingford", 
                             "hyperlinkable": false, 
                             "url": "t6_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -176,6 +185,7 @@
                             "name": "T7 Olympic Park", 
                             "hyperlinkable": false, 
                             "url": "t7_online", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

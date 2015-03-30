@@ -23,6 +23,7 @@
                             "name": "Average Time", 
                             "hyperlinkable": false, 
                             "url": "avg_time", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Quarterly outages", 
                             "hyperlinkable": false, 
                             "url": "qtr_outages", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -64,6 +66,7 @@
                             "name": "Sydney", 
                             "hyperlinkable": false, 
                             "url": "sydney_duration", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "Central Coast", 
                             "hyperlinkable": false, 
                             "url": "central_coast_duration", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "Hunter New England", 
                             "hyperlinkable": false, 
                             "url": "hunter_duration", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

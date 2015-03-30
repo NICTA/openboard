@@ -23,6 +23,7 @@
                             "name": "Customers", 
                             "hyperlinkable": false, 
                             "url": "visits", 
+                            "footer": false, 
                             "num_precision": 2, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Wait Time", 
                             "hyperlinkable": false, 
                             "url": "wait", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 1

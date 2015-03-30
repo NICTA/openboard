@@ -23,6 +23,7 @@
                             "name": "Total incidents", 
                             "hyperlinkable": false, 
                             "url": "total", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Per 100,000 people", 
                             "hyperlinkable": false, 
                             "url": "per_100k", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -64,6 +66,7 @@
                             "name": "Sydney", 
                             "hyperlinkable": false, 
                             "url": "sydney", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "Central Coast", 
                             "hyperlinkable": false, 
                             "url": "central_coast", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "Illawarra", 
                             "hyperlinkable": false, 
                             "url": "illawarra", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "Hunter", 
                             "hyperlinkable": false, 
                             "url": "hunter", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -128,6 +134,7 @@
                             "name": "New England & NW", 
                             "hyperlinkable": false, 
                             "url": "new_england", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -144,6 +151,7 @@
                             "name": "Central West & Orana", 
                             "hyperlinkable": false, 
                             "url": "orana", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -160,6 +168,7 @@
                             "name": "Far West", 
                             "hyperlinkable": false, 
                             "url": "far_west", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -176,6 +185,7 @@
                             "name": "Mid North Coast", 
                             "hyperlinkable": false, 
                             "url": "mid_north_coast", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -192,6 +202,7 @@
                             "name": "Murray/Murrumbidgee", 
                             "hyperlinkable": false, 
                             "url": "murrumbidgee", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -208,6 +219,7 @@
                             "name": "Northern Rivers", 
                             "hyperlinkable": false, 
                             "url": "northern_rivers", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -224,6 +236,7 @@
                             "name": "South East & Tableland", 
                             "hyperlinkable": false, 
                             "url": "tableland", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

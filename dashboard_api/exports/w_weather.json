@@ -23,6 +23,7 @@
                             "name": "Now", 
                             "hyperlinkable": false, 
                             "url": "current_temp", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Seasonal average", 
                             "hyperlinkable": false, 
                             "url": "seasonal_average", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "Today", 
                             "hyperlinkable": false, 
                             "url": "today_short_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 1
@@ -71,6 +74,7 @@
                             "name": "Max", 
                             "hyperlinkable": false, 
                             "url": "today_max", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -87,6 +91,7 @@
                             "name": "Min", 
                             "hyperlinkable": false, 
                             "url": "today_min", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "Today", 
                             "hyperlinkable": false, 
                             "url": "today_long_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 1
@@ -128,6 +134,7 @@
                             "name": "Day 1 Forecast", 
                             "hyperlinkable": false, 
                             "url": "day_1_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 1
@@ -144,6 +151,7 @@
                             "name": "Day 1 Max", 
                             "hyperlinkable": false, 
                             "url": "day_1_max", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -160,6 +168,7 @@
                             "name": "Day 1 Min", 
                             "hyperlinkable": false, 
                             "url": "day_1_min", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -176,6 +185,7 @@
                             "name": "Day 2 Forecast", 
                             "hyperlinkable": false, 
                             "url": "day_2_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 1
@@ -192,6 +202,7 @@
                             "name": "Day 2 Max", 
                             "hyperlinkable": false, 
                             "url": "day_2_max", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -208,6 +219,7 @@
                             "name": "Day 2 Min", 
                             "hyperlinkable": false, 
                             "url": "day_2_min", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -224,6 +236,7 @@
                             "name": "Day 3 Forecast", 
                             "hyperlinkable": false, 
                             "url": "day_3_forecast", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 1
@@ -240,6 +253,7 @@
                             "name": "Day 3 Max", 
                             "hyperlinkable": false, 
                             "url": "day_3_max", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -256,6 +270,7 @@
                             "name": "Day 3 Min", 
                             "hyperlinkable": false, 
                             "url": "day_3_min", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

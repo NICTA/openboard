@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "rating_list_main", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "fire_danger_ratings", 
                             "stat_type": 3
@@ -48,6 +49,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "rating_list_expansion", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": "fire_danger_ratings", 
                             "stat_type": 3

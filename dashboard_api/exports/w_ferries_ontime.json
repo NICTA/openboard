@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "all_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "YTD", 
                             "hyperlinkable": false, 
                             "url": "all_on_time_ytd", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -55,6 +57,7 @@
                             "name": "Target", 
                             "hyperlinkable": false, 
                             "url": "all_target", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -80,6 +83,7 @@
                             "name": "F1 Manly", 
                             "hyperlinkable": false, 
                             "url": "f1_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "F2 Taronga Zoo", 
                             "hyperlinkable": false, 
                             "url": "f2_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "F3 Parramatta River", 
                             "hyperlinkable": false, 
                             "url": "f3_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -128,6 +134,7 @@
                             "name": "F4 Darling Harbour", 
                             "hyperlinkable": false, 
                             "url": "f4_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -144,6 +151,7 @@
                             "name": "F5 Neutral Bay", 
                             "hyperlinkable": false, 
                             "url": "f5_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -160,6 +168,7 @@
                             "name": "F6 Mosman Bay", 
                             "hyperlinkable": false, 
                             "url": "f6_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -176,6 +185,7 @@
                             "name": "F7 Eastern Suburbs", 
                             "hyperlinkable": false, 
                             "url": "f7_ontime", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2

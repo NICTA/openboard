@@ -23,6 +23,7 @@
                             "name": "All reservoirs", 
                             "hyperlinkable": false, 
                             "url": "all_dams_avg", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "Last week", 
                             "hyperlinkable": false, 
                             "url": "all_dams_last_week", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -91,6 +93,7 @@
                             "name": "Warragamba", 
                             "hyperlinkable": false, 
                             "url": "warragamba", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -107,6 +110,7 @@
                             "name": "Avon", 
                             "hyperlinkable": false, 
                             "url": "avon", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -123,6 +127,7 @@
                             "name": "Cataract", 
                             "hyperlinkable": false, 
                             "url": "cataract", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -139,6 +144,7 @@
                             "name": "Cordeaux", 
                             "hyperlinkable": false, 
                             "url": "cordeaux", 
+                            "footer": false, 
                             "num_precision": 1, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2

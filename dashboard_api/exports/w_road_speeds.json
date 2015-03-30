@@ -23,6 +23,7 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "average_speed", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -39,6 +40,7 @@
                             "name": "am/pm", 
                             "hyperlinkable": false, 
                             "url": "am_pm", 
+                            "footer": false, 
                             "num_precision": null, 
                             "traffic_light_scale": null, 
                             "stat_type": 6
@@ -55,6 +57,7 @@
                             "name": "YTD", 
                             "hyperlinkable": false, 
                             "url": "ytd", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -71,6 +74,7 @@
                             "name": "Target", 
                             "hyperlinkable": false, 
                             "url": "target", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": null, 
                             "stat_type": 2
@@ -96,6 +100,7 @@
                             "name": "M1", 
                             "hyperlinkable": false, 
                             "url": "M1", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -112,6 +117,7 @@
                             "name": "M2", 
                             "hyperlinkable": false, 
                             "url": "M2", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -128,6 +134,7 @@
                             "name": "M4", 
                             "hyperlinkable": false, 
                             "url": "M4", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
@@ -144,6 +151,7 @@
                             "name": "M7", 
                             "hyperlinkable": false, 
                             "url": "M7", 
+                            "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
                             "stat_type": 2
