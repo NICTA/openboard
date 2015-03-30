@@ -9,32 +9,32 @@ from widget_def.view_utils import get_theme_from_request, get_location_from_requ
 # Views
 
 def get_themes(request):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+#     if not request.user.is_authenticated():
+#        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     data = [ t.__getstate__() for t in Theme.objects.all() ]
     return json_list(request, data)
 
 def get_locations(request):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+#     if not request.user.is_authenticated():
+#         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     data = [ l.__getstate__() for l in Location.objects.all() ]
     return json_list(request, data)
 
 def get_frequencies(request):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+#     if not request.user.is_authenticated():
+#         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     data = [ f.__getstate__() for f in Frequency.objects.filter(display_mode=True) ]
     return json_list(request, data)
 
 def get_icon_libraries(request):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+#     if not request.user.is_authenticated():
+#         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     data = { l.name : l.__getstate__() for l in IconLibrary.objects.all() }
     return json_list(request, data)
 
 def get_widgets(request):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+#     if not request.user.is_authenticated():
+#         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     theme = get_theme_from_request(request)
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)

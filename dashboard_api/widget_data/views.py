@@ -10,8 +10,8 @@ from widget_def.view_utils import get_location_from_request, get_frequency_from_
 # views.
 
 def get_widget_data(request, widget_url):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+# if not request.user.is_authenticated():
+#        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
     try:
@@ -34,8 +34,8 @@ def get_widget_data(request, widget_url):
     return json_list(request, json)
 
 def get_graph_data(request, widget_url):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+#    if not request.user.is_authenticated():
+#        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
     try:
