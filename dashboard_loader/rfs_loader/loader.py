@@ -113,7 +113,7 @@ def update_fire_danger(loader, verbosity=0):
             cr.rating = fd._rating
         except CurrentRating.DoesNotExist:
             cr = CurrentRating(region=region, rating=fd._rating)
-            cr.last_featured = now - datetime.time_delta(seconds = 10)
+            cr.last_featured = now - datetime.timedelta(seconds = 10)
         if region in ("Greater Sydney", "Illawarra", "Greater Hunter"):
             main_ratings.append(fd)
             cr.last_featured = now
