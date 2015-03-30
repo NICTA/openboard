@@ -62,7 +62,7 @@ def rotate_fire_danger(verbosity=0):
     now = datetime.datetime.now()
     clear_statistic_list("fire", "nsw", "day", "rating_list_main")
     sort_order = 10
-    for cr in CurrentRating.objects.all().order_by("-last_featured"):
+    for cr in CurrentRating.objects.all().order_by("last_featured"):
         rating = FireDanger.ratings[cr.rating]["rating"]
         tlc = FireDanger.ratings[cr.rating]["tlc"]
         add_statistic_list_item("fire", "nsw", "day", "rating_list_main", rating, sort_order,
