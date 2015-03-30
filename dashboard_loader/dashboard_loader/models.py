@@ -16,6 +16,7 @@ class Loader(models.Model):
     last_locked=models.DateTimeField(null=True, blank=True)
     locked_by_process=models.IntegerField(null=True, blank=True)
     locked_by_thread=models.DecimalField(max_digits=19, decimal_places=0,null=True, blank=True)
+    last_api_access=models.DateTimeField(null=True, blank=True)
     def reason_to_not_run(self):
         tz = pytz.timezone(settings.TIME_ZONE)
         if self.suspended:
