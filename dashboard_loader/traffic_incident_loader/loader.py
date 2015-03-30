@@ -35,6 +35,8 @@ def update_data(loader, verbosity=0):
         "nsw": {},
     }
     for hazard in hazards:
+        if verbosity >= 5:
+            print hazard["properties"]["headline"]
         for road in hazard["properties"]["roads"]:
             region = road["region"]
             if region.startswith("SYD_"):

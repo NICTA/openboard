@@ -26,6 +26,22 @@
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 1
+                        }, 
+                        {
+                            "unit_prefix": null, 
+                            "trend": false, 
+                            "unit_underfix": null, 
+                            "name_as_label": false, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "icon_library": null, 
+                            "name": "region 1", 
+                            "hyperlinkable": false, 
+                            "url": "region_1", 
+                            "num_precision": null, 
+                            "traffic_light_scale": "air_pollution_scale", 
+                            "stat_type": 1
                         }
                     ], 
                     "list_label_width": null, 
@@ -67,7 +83,7 @@
                     "location": "syd"
                 }
             ], 
-            "refresh_rate": 600, 
+            "refresh_rate": 6, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "syd"
@@ -90,6 +106,22 @@
                             "name": "", 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
+                            "num_precision": null, 
+                            "traffic_light_scale": "air_pollution_scale", 
+                            "stat_type": 1
+                        }, 
+                        {
+                            "unit_prefix": null, 
+                            "trend": false, 
+                            "unit_underfix": null, 
+                            "name_as_label": false, 
+                            "sort_order": 20, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "icon_library": null, 
+                            "name": "Region 1", 
+                            "hyperlinkable": false, 
+                            "url": "region_1", 
                             "num_precision": null, 
                             "traffic_light_scale": "air_pollution_scale", 
                             "stat_type": 1
@@ -134,7 +166,7 @@
                     "location": "nsw"
                 }
             ], 
-            "refresh_rate": 600, 
+            "refresh_rate": 6, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "nsw"
