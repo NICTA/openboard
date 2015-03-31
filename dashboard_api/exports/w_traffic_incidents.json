@@ -65,6 +65,11 @@
                 {
                     "theme": "all", 
                     "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
                     "location": "nsw"
                 }
             ], 
