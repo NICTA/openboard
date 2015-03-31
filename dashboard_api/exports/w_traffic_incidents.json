@@ -7,57 +7,6 @@
     "definitions": [
         {
             "about": "<p>Incident data obtained from the NSW Transport Data Exchange (TDX) API.</p>\r\n<p>Red = Major incidents impacting traffic network in region.  Amber = Minor incidents impacting traffic network and/or major incidents not impacting traffic network in region.  Green = Minor incidents not impacting traffic network in region.</p>", 
-            "sort_order": 220, 
-            "tiles": [
-                {
-                    "statistics": [
-                        {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
-                            "name_as_label": true, 
-                            "sort_order": 100, 
-                            "unit_signed": false, 
-                            "unit_suffix": "Incidents", 
-                            "icon_library": null, 
-                            "name": "", 
-                            "hyperlinkable": false, 
-                            "url": "incidents", 
-                            "footer": false, 
-                            "num_precision": 0, 
-                            "traffic_light_scale": "std 3 code", 
-                            "stat_type": 4
-                        }
-                    ], 
-                    "list_label_width": 50, 
-                    "url": "traffic_incidents_syd_rt_main", 
-                    "tile_type": 10, 
-                    "expansion": false, 
-                    "sort_order": 10
-                }, 
-                {
-                    "statistics": [], 
-                    "list_label_width": null, 
-                    "url": "traffic_incidents_syd_rt_expansion", 
-                    "tile_type": 5, 
-                    "expansion": true, 
-                    "sort_order": 20
-                }
-            ], 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "syd"
-                }
-            ], 
-            "refresh_rate": 30, 
-            "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "syd"
-        }, 
-        {
-            "about": "<p>Incident data obtained from the NSW Transport Data Exchange (TDX) API.</p>\r\n<p>Red = Major incidents impacting traffic network in region.  Amber = Minor incidents impacting traffic network and/or major incidents not impacting traffic network in region.  Green = Minor incidents not impacting traffic network in region.</p>", 
             "sort_order": 240, 
             "tiles": [
                 {
@@ -69,20 +18,37 @@
                             "name_as_label": true, 
                             "sort_order": 100, 
                             "unit_signed": false, 
-                            "unit_suffix": "Incidents", 
+                            "unit_suffix": "", 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "All incidents", 
                             "hyperlinkable": false, 
                             "url": "incidents", 
                             "footer": false, 
                             "num_precision": 0, 
                             "traffic_light_scale": "std 3 code", 
-                            "stat_type": 4
+                            "stat_type": 2
+                        }, 
+                        {
+                            "unit_prefix": null, 
+                            "trend": false, 
+                            "unit_underfix": null, 
+                            "name_as_label": true, 
+                            "sort_order": 200, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "icon_library": null, 
+                            "name": "Major Incidents", 
+                            "hyperlinkable": false, 
+                            "url": "highlight", 
+                            "footer": false, 
+                            "num_precision": null, 
+                            "traffic_light_scale": null, 
+                            "stat_type": 8
                         }
                     ], 
                     "list_label_width": 50, 
                     "url": "traffic_incidents_nsw_rt_main", 
-                    "tile_type": 10, 
+                    "tile_type": 3, 
                     "expansion": false, 
                     "sort_order": 10
                 }, 
@@ -102,7 +68,7 @@
                     "location": "nsw"
                 }
             ], 
-            "refresh_rate": 30, 
+            "refresh_rate": 10, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "nsw"
