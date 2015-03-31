@@ -6,14 +6,20 @@ import json
 
 from django.conf import settings
 
-from dashboard_loader.loader_utils import clear_statistic_list, add_statistic_list_item, call_in_transaction
+from dashboard_loader.loader_utils import clear_statistic_list, add_statistic_list_item, call_in_transaction, LoaderException
 
 # Refresh every 40 seconds
 refresh_rate = 40
 
 def update_data(loader, verbosity=0):
     messages = []
-    messages = call_in_transaction(get_tweets,messages, verbosity)
+    try:
+        messages = call_in_transaction(get_tweets,messages, verbosity)
+    except LoaderException, e:
+        raise e
+    except Exception, e:
+        print unicode(e)
+        raise LoaderException(unicode(e))
     return messages
 
 def get_tweets(messages, verbosity):
