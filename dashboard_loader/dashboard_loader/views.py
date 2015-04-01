@@ -106,7 +106,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
         return HttpResponseNotFound("This Statistic does not exist")
 
     form_class = get_form_class_for_statistic(s)
-    if s.is_list():
+    if s.is_list() or s.rotates:
         form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
     if request.method == 'POST':
         if request.POST.get("submit") or request.POST.get("submit_stay"):

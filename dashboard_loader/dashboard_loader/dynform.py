@@ -61,7 +61,7 @@ def get_form_class_for_statistic(stat):
                             ("-1", "Downwards"),
                         ))
         field_count += 1
-    if stat.is_list():
+    if stat.is_list() or stat.rotates:
         if stat.hyperlinkable:
             form_fields["url"] = forms.URLField(required=False)
         form_fields["sort_order"] = forms.IntegerField(required=True)

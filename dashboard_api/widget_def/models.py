@@ -610,6 +610,7 @@ class Statistic(models.Model):
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
     trend = models.BooleanField(default=False)
+    rotates = models.BooleanField(default=False)
     num_precision = models.SmallIntegerField(blank=True, null=True)
     unit_prefix = models.CharField(max_length="10", blank=True, null=True)
     unit_suffix = models.CharField(max_length="10", blank=True, null=True)
@@ -633,7 +634,7 @@ class Statistic(models.Model):
             self.trend = False
         if self.is_list():
             name_as_label=True
-        else:
+        if not self.is_list() and not self.rotates:
             self.hyperlinkable = False
     def validate(self):
         """Validate Statistic Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
@@ -686,7 +687,7 @@ class Statistic(models.Model):
             result["label"] = sd.label
         return result
     def get_data(self):
-        if self.is_list():
+        if self.is_list() or self.rotates:
             return StatisticListItem.objects.filter(statistic=self)
         else:
             try:
@@ -695,7 +696,7 @@ class Statistic(models.Model):
                 return None
     def get_data_json(self):
         data = self.get_data()
-        if self.is_list():
+        if self.is_list() or self.rotates:
             return [ self.jsonise(datum) for datum in data ]
         else:
             return self.jsonise(data)
@@ -719,7 +720,7 @@ class Statistic(models.Model):
                 json["trend"]=datum.trend
         return json
     def initial_form_data(self):
-        if self.is_list():
+        if self.is_list() or self.rotates:
             return [ self.initial_form_datum(sd) for sd in self.get_data() ]
         else:
             sd = self.get_data()
@@ -730,7 +731,7 @@ class Statistic(models.Model):
     def data_last_updated(self, update=False):
         if self._lud_cache and not update:
             return self._lud_cache
-        if self.is_list():
+        if self.is_list() or self.rotates:
             self._lud_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
         else:
             try:
@@ -757,6 +758,7 @@ class Statistic(models.Model):
             "trend": self.trend,
             "hyperlinkable": self.hyperlinkable,
             "footer": self.footer,
+            "rotates": self.rotates,
             "num_precision": self.num_precision,
             "unit_prefix": self.unit_prefix,
             "unit_suffix": self.unit_suffix,
@@ -775,6 +777,7 @@ class Statistic(models.Model):
         s.stat_type = data["stat_type"]
         s.hyperlinkable = data.get("hyperlinkable", False)
         s.footer = data.get("footer", False)
+        s.rotates = data.get("rotates", False)
         s.trend = data["trend"]
         s.num_precision = data["num_precision"]
         s.unit_prefix = data["unit_prefix"]
@@ -821,7 +824,9 @@ class Statistic(models.Model):
                 state["icon_library"] = self.icon_library.name
             else:
                 state["icon_library"] = None
-        if self.is_list():
+        if self.rotates:
+            state["rotates"] = self.rotates
+        if self.is_list() or self.rotates:
             state["hyperlinkable"] = self.hyperlinkable
         state["footer"] = self.footer
         return state

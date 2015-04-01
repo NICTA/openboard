@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'air_pollution_loader',
     'asx_loader',
     'twitter_loader',
+    'abc_news_loader',
 #    'travel_speed_randomiser',
     'django.contrib.admin',
     'django.contrib.auth',
