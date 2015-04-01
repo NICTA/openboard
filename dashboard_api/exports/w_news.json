@@ -1,0 +1,61 @@
+{
+    "category": "General", 
+    "source_url_text": "ABC News", 
+    "subtitle": "", 
+    "subcategory": "Baseline", 
+    "url": "news", 
+    "definitions": [
+        {
+            "about": "<p>News Headlines from ABC news RSS feed for New South Wales.</p>", 
+            "sort_order": 50, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "unit_prefix": null, 
+                            "hyperlinkable": true, 
+                            "url": "headlines", 
+                            "footer": false, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": true, 
+                            "stat_type": 5, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "news", 
+                    "tile_type": 10, 
+                    "expansion": false, 
+                    "sort_order": 10
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 150, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "rt", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "source_url": "http://www.abc.net.au/news/nsw", 
+    "name": "News Headlines"
+}
+
