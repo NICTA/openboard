@@ -135,8 +135,8 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
         raise LoaderException("Cannot provide a datekey for list items for statistic %s" % statistic_url)
     if stat.trend and trend is None:
         raise LoaderException("Must provide a trend for statistic %s" % statistic_url)
-    if stat.hyperlinkable:
-        stat.url = url 
+    if not stat.hyperlinkable and url is not None:
+        raise LoaderException("Cannnot provide a url for statistic %s (not hyperlinkable)" % statistic_url)
     if stat.traffic_light_scale and not traffic_light_code:
         raise LoaderException("Must provide a traffic light code for statistic %s" % statistic_url)
     if stat.icon_library and not icon_code:
@@ -155,7 +155,7 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
         ic = None
     item = StatisticListItem(statistic=stat, keyval=label, trend=trend,
             sort_order=sort_order, datekey=datekey,
-            traffic_light_code=tlc, icon_code=ic)
+            traffic_light_code=tlc, icon_code=ic, url=url)
     if stat.is_numeric():
         if stat.num_precision == 0:
             item.intval = value

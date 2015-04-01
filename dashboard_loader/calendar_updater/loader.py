@@ -14,25 +14,17 @@ def update_data(loader, verbosity=0):
     today = datetime.date.today()
     existing_today_items = get_statistic("events", "nsw", "day", "today").get_data()
     correct_today_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey=today)
-    return call_in_transaction(update_calendar,existing_today_items, correct_today_items)
+    return call_in_transaction(update_calendar,existing_today_items, correct_today_items, verbosity)
 
-def update_calendar(existing_today_items, correct_today_items):
+def update_calendar(existing_today_items, correct_today_items, verbosity=0):
     messages = []
     for item in existing_today_items:
-        found = False
-        for correct_item in correct_today_items:
-            if item.strval == correct_item.strval and item.url == correct_item.url and item.sort_order == correct_item.sort_order:
-                found = True
-        if not found:
-            item.delete()
+        item.delete()
+        if verbosity >= 3:
             messages.append("Deleted %s" % item.strval)
     for correct_item in correct_today_items:
-        found = False
-        for item in existing_today_items:
-            if item.strval == correct_item.strval and item.url == correct_item.url and item.sort_order == correct_item.sort_order:
-                found = True
-        if not found:
-            add_statistic_list_item("events", "nsw", "day", "today", correct_item.value(), correct_item.sort_order,
-                        url=correct_item.url)
+        add_statistic_list_item("events", "nsw", "day", "today", correct_item.value(), correct_item.sort_order,
+                    url=correct_item.url)
+        if verbosity >= 3:
             messages.append("Added %s" % correct_item.strval)
     return messages
