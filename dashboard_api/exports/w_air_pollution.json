@@ -12,38 +12,40 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
                             "footer": false, 
-                            "num_precision": null, 
-                            "traffic_light_scale": "air_pollution_scale", 
-                            "stat_type": 1
-                        }, 
-                        {
-                            "unit_prefix": null, 
+                            "name_as_label": true, 
                             "trend": false, 
+                            "traffic_light_scale": "air_pollution_scale", 
                             "unit_underfix": null, 
-                            "name_as_label": false, 
-                            "sort_order": 20, 
                             "unit_signed": false, 
                             "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "sort_order": 10
+                        }, 
+                        {
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "region 1", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "region_1", 
                             "footer": true, 
-                            "num_precision": null, 
+                            "name_as_label": false, 
+                            "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
-                            "stat_type": 1
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "sort_order": 20
                         }
                     ], 
                     "list_label_width": null, 
@@ -55,21 +57,22 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 20, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "regions", 
                             "footer": false, 
-                            "num_precision": null, 
+                            "name_as_label": true, 
+                            "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
-                            "stat_type": 3
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 3, 
+                            "sort_order": 20
                         }
                     ], 
                     "list_label_width": 50, 
@@ -98,38 +101,40 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
                             "footer": false, 
-                            "num_precision": null, 
-                            "traffic_light_scale": "air_pollution_scale", 
-                            "stat_type": 1
-                        }, 
-                        {
-                            "unit_prefix": null, 
+                            "name_as_label": true, 
                             "trend": false, 
+                            "traffic_light_scale": "air_pollution_scale", 
                             "unit_underfix": null, 
-                            "name_as_label": false, 
-                            "sort_order": 20, 
                             "unit_signed": false, 
                             "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "sort_order": 10
+                        }, 
+                        {
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "Region 1", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "region_1", 
                             "footer": true, 
-                            "num_precision": null, 
+                            "name_as_label": false, 
+                            "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
-                            "stat_type": 1
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "sort_order": 20
                         }
                     ], 
                     "list_label_width": null, 
@@ -141,21 +146,22 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 20, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "regions", 
                             "footer": false, 
-                            "num_precision": null, 
+                            "name_as_label": true, 
+                            "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
-                            "stat_type": 3
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 3, 
+                            "sort_order": 20
                         }
                     ], 
                     "list_label_width": 50, 

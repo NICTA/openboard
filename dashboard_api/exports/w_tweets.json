@@ -12,21 +12,22 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": null, 
-                            "trend": false, 
-                            "unit_underfix": null, 
-                            "name_as_label": true, 
-                            "sort_order": 100, 
-                            "unit_signed": false, 
-                            "unit_suffix": null, 
+                            "num_precision": null, 
                             "icon_library": null, 
                             "name": "", 
+                            "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "tweets", 
                             "footer": false, 
-                            "num_precision": null, 
+                            "name_as_label": true, 
+                            "trend": false, 
                             "traffic_light_scale": null, 
-                            "stat_type": 3
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 3, 
+                            "sort_order": 100
                         }
                     ], 
                     "list_label_width": null, 

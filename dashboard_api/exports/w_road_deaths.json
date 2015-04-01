@@ -12,38 +12,40 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": "", 
-                            "trend": true, 
-                            "unit_underfix": "so far", 
-                            "name_as_label": true, 
-                            "sort_order": 15, 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "This year", 
+                            "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "deaths_this_year", 
                             "footer": false, 
-                            "num_precision": 0, 
-                            "traffic_light_scale": null, 
-                            "stat_type": 2
-                        }, 
-                        {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
                             "name_as_label": true, 
-                            "sort_order": 25, 
+                            "trend": true, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "so far", 
                             "unit_signed": false, 
                             "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 15
+                        }, 
+                        {
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "This time last year", 
+                            "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "deaths_last_year", 
                             "footer": false, 
-                            "num_precision": 0, 
+                            "name_as_label": true, 
+                            "trend": false, 
                             "traffic_light_scale": null, 
-                            "stat_type": 2
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 25
                         }
                     ], 
                     "list_label_width": null, 
@@ -55,21 +57,22 @@
                 {
                     "statistics": [
                         {
-                            "unit_prefix": "", 
-                            "trend": false, 
-                            "unit_underfix": "", 
-                            "name_as_label": true, 
-                            "sort_order": 10, 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Fatalities by region", 
+                            "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "regional_fatalities", 
                             "footer": false, 
-                            "num_precision": 0, 
+                            "name_as_label": true, 
+                            "trend": false, 
                             "traffic_light_scale": null, 
-                            "stat_type": 4
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 4, 
+                            "sort_order": 10
                         }
                     ], 
                     "list_label_width": 50, 
