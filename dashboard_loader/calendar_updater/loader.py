@@ -11,9 +11,13 @@ from dashboard_loader.loader_utils import clear_statistic_list, add_statistic_li
 refresh_rate = 60 * 60 * 2
 
 def update_data(loader, verbosity=0):
+    messages = []
     today = datetime.date.today()
     correct_today_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey=today)
-    return call_in_transaction(update_calendar, correct_today_items, verbosity)
+    messages.extend(call_in_transaction(update_calendar, correct_today_items, verbosity))
+    old_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey__lt=today)
+    messages.extend(call_in_transaction(clean_calendar, old_items, verbosity))
+    return messages
 
 def update_calendar(correct_today_items, verbosity=0):
     messages = []
@@ -24,3 +28,11 @@ def update_calendar(correct_today_items, verbosity=0):
         if verbosity >= 3:
             messages.append("Added %s" % correct_item.strval)
     return messages
+
+def clean_calendar(old_items, verbosity=0):
+    messages = []
+    if verbosity > 1:
+        messages.append("Deleting %d old events" % old_items.count())
+    old_items.delete()
+    return messages
+   
