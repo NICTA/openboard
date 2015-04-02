@@ -1,7 +1,7 @@
 {
     "category": "Service Delivery", 
     "source_url_text": "NSW Health emergency departments waiting times", 
-    "subtitle": "Emergency Departments", 
+    "subtitle": "Patients treated within 4 hours", 
     "subcategory": "Health", 
     "url": "hospital_wait", 
     "definitions": [
@@ -22,7 +22,7 @@
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "std 3 code", 
-                            "unit_underfix": "within 4 hours", 
+                            "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_suffix": "%", 
                             "rotates": false, 
@@ -147,7 +147,7 @@
                             "sort_order": 40
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Mid North Coast", 
                             "unit_prefix": "", 
@@ -165,7 +165,7 @@
                             "sort_order": 50
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Murrumbidgee", 
                             "unit_prefix": "", 
@@ -183,7 +183,7 @@
                             "sort_order": 60
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Nepean Blue Mountains", 
                             "unit_prefix": "", 
@@ -201,7 +201,7 @@
                             "sort_order": 70
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Northern NSW", 
                             "unit_prefix": "", 
@@ -219,7 +219,7 @@
                             "sort_order": 80
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Northern Sydney", 
                             "unit_prefix": "", 
@@ -237,7 +237,7 @@
                             "sort_order": 90
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "South Eastern Sydney", 
                             "unit_prefix": "", 
@@ -255,7 +255,7 @@
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "South Western Sydney", 
                             "unit_prefix": "", 
@@ -273,7 +273,7 @@
                             "sort_order": 110
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Southern NSW", 
                             "unit_prefix": "", 
@@ -291,7 +291,7 @@
                             "sort_order": 120
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Sydney Children", 
                             "unit_prefix": "", 
@@ -309,7 +309,7 @@
                             "sort_order": 130
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Sydney Local", 
                             "unit_prefix": "", 
@@ -327,7 +327,7 @@
                             "sort_order": 140
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Western NSW", 
                             "unit_prefix": "", 
@@ -345,7 +345,7 @@
                             "sort_order": 150
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Western Sydney", 
                             "unit_prefix": "", 
@@ -389,6 +389,6 @@
         }
     ], 
     "source_url": "http://www.emergencywait.health.nsw.gov.au/hospitals/rted/index.asp", 
-    "name": "Hospital Waiting Times"
+    "name": "Emergency Departments"
 }
 
