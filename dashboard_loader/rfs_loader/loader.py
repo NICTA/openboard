@@ -6,18 +6,13 @@ import xml.etree.ElementTree as ET
 from django.conf import settings
 
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data,get_icon, get_statistic, clear_statistic_list, add_statistic_list_item, call_in_transaction
-from rfs_loader.models import CurrentRating
 
 # Refresh hourly
-refresh_rate = 4
-rss_refresh_rate = 60*60
+refresh_rate = 60*60
 
 def update_data(loader, verbosity=0):
     messages = []
-    if loader.last_api_access and datetime.datetime.now(pytz.timezone(settings.TIME_ZONE)) - loader.last_api_access < datetime.timedelta(seconds=rss_refresh_rate):
-        messages.extend(call_in_transaction(rotate_fire_danger, verbosity))
-    else:
-        messages.extend(call_in_transaction(update_fire_danger, loader, verbosity))
+    messages.extend(call_in_transaction(update_fire_danger, loader, verbosity))
     messages.append("Fire danger updated")
     return messages
 
@@ -57,25 +52,6 @@ class FireDanger(object):
         else:
             return 0
 
-def rotate_fire_danger(verbosity=0):
-    messages = []
-    now = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
-    clear_statistic_list("fire", "nsw", "day", "rating_list_main")
-    sort_order = 10
-    for cr in CurrentRating.objects.all().order_by("last_featured", "-rating"):
-        rating = cr.rating_text
-        tlc = cr.tlc
-        add_statistic_list_item("fire", "nsw", "day", "rating_list_main", rating, sort_order,
-                    label=cr.region, traffic_light_code=tlc)
-        sort_order += 10
-        cr.last_featured = now
-        cr.save()
-        if sort_order > 40:
-            break
-    if verbosity >= 3:
-        messages.append("Rotated fire danger ratings")
-    return messages
-
 def update_fire_danger(loader, verbosity=0):
     messages = []
     now = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
@@ -113,25 +89,11 @@ def update_fire_danger(loader, verbosity=0):
     clear_statistic_list("fire", "nsw", "day", "rating_list_main")
     clear_statistic_list("fire", "nsw", "day", "rating_list_expansion")
     for fd in expand_ratings:
-        if sort_order <= 40:
-            add_statistic_list_item("fire", "nsw", "day", "rating_list_main", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw", "day", "rating_list_main", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         add_statistic_list_item("fire", "nsw", "day", "rating_list_expansion", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
-        try:
-            cr = CurrentRating.objects.get(region=fd.region)
-        except CurrentRating.DoesNotExist:
-            cr = CurrentRating(region=fd.region)
-        cr.rating = fd._rating
-        cr.rating_text = fd.rating()
-        cr.tlc = fd.tlc()
-        if sort_order <= 40:
-            cr.last_featured = now
-        else:
-            cr.last_featured = now - datetime.timedelta(seconds = 10)
-        cr.save()
         sort_order += 10
-    loader.last_api_access = now
     loader.save()
     return messages
 
