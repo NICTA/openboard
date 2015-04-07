@@ -77,12 +77,12 @@
                 }
             ], 
             "refresh_rate": 7200, 
-            "expansion_hint": "See all events", 
+            "expansion_hint": "See all", 
             "actual_frequency_url": "day", 
             "actual_location_url": "nsw"
         }
     ], 
     "source_url": "http://www.events.nsw.gov.au/", 
-    "name": "Upcoming Events"
+    "name": "Today's Events"
 }
 

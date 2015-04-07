@@ -13,88 +13,64 @@ from dashboard_loader.loader_utils import LoaderException, set_statistic_data, c
 from beach_quality_loader.models import BeachSummaryHistory, CurrentBeachRating
 
 # Refresh data every 3 hours
-refresh_rate = 7
-api_refresh_rate = 60*60*3
+refresh_rate = 60*60*3
 
 def update_data(loader, verbosity=0):
     messages = []
-    if loader.last_api_access and datetime.datetime.now(pytz.timezone(settings.TIME_ZONE)) - loader.last_api_access < datetime.timedelta(seconds=api_refresh_rate):
-        messages = rotate_data(verbosity)
-    else:
-        messages = refresh_data(loader, verbosity)
-    return messages
-
-def rotate_data(verbosity=0):
-    messages = []
-    next_beach = CurrentBeachRating.objects.all().order_by("last_featured")[0]
-    if next_beach.rating == next_beach.GOOD:
-        vals = ("Good", "good")
-    elif next_beach.rating == next_beach.GOOD:
-        vals = ("Fair", "fair")
-    else:
-        vals = ("Poor", "poor")
-    set_statistic_data("beaches", "nsw", "day", "highlight_beach",
-                        vals[0],
-                        label=next_beach.beach_name,
-                        traffic_light_code=vals[1])
-    next_beach.last_featured = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
-    next_beach.save()
-    messages.append("Highlight beach rotated")
+    messages = call_in_transaction(refresh_data,loader, verbosity)
     return messages
 
 def refresh_data(loader, verbosity=0):
     messages = []
+    clear_statistic_list("beaches", "nsw", "day", "highlight_beach")
     http = httplib.HTTPConnection("www.environment.nsw.gov.au")
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/OceanBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.SYDNEY_OCEAN, resp))
+        messages.extend(process_xml(BeachSummaryHistory.SYDNEY_OCEAN, resp))
     except LoaderException, e:
         messages.append("Error updating Sydney Ocean beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/SydneyBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.SYDNEY_HARBOUR, resp))
+        messages.extend(process_xml(BeachSummaryHistory.SYDNEY_HARBOUR, resp))
     except LoaderException, e:
         messages.append("Error updating Sydney Ocean beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/BotanyBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.BOTANY_BAY, resp))
+        messages.extend(process_xml(BeachSummaryHistory.BOTANY_BAY, resp))
     except LoaderException, e:
         messages.append("Error updating Botany Bay beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/PittwaterBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.PITTWATER, resp))
+        messages.extend(process_xml(BeachSummaryHistory.PITTWATER, resp))
     except LoaderException, e:
         messages.append("Error updating Pittwater beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/CentralCoastBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.CENTRAL_COAST, resp))
+        messages.extend(process_xml(BeachSummaryHistory.CENTRAL_COAST, resp))
     except LoaderException, e:
         messages.append("Error updating Central Coast beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/IllawarraBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.ILLAWARRA, resp))
+        messages.extend(process_xml(BeachSummaryHistory.ILLAWARRA, resp))
     except LoaderException, e:
         messages.append("Error updating Illawarra beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/HunterBulletin.xml")
         resp = http.getresponse()
-        messages.extend(call_in_transaction(process_xml,BeachSummaryHistory.HUNTER, resp))
+        messages.extend(process_xml(BeachSummaryHistory.HUNTER, resp))
     except LoaderException, e:
         messages.append("Error updating Hunter beach data: %s" % unicode(e))
     http.close()
     try:
-        messages.extend(call_in_transaction(update_stats))
+        messages.extend(update_stats())
     except LoaderException, e:
         messages.append("Error updating widget stats: %s" % unicode(e))
-    loader.last_api_access = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
-    loader.save()
-    messages.extend(rotate_data(verbosity))
     return messages
 
 def update_stats():
@@ -194,6 +170,7 @@ def process_xml(region, resp):
     num_unlikely = 0
     num_possible = 0
     num_likely = 0
+    sort_order = BeachSummaryHistory.sort_orders[region]
     for elem in xml.getroot()[0]:
         if elem.tag == 'item':
             beach_name = None
@@ -218,11 +195,22 @@ def process_xml(region, resp):
             beach.rating = beach.parse_advice(advice)
             beach.save()
             if beach.rating == beach.GOOD:
+                val = "Good"
+                tlc = "good"
                 num_unlikely += 1
             elif beach.rating == beach.FAIR:
+                val = "Fair"
+                tlc = "poor"
                 num_possible += 1
             else:
                 num_likely += 1
+                val = "Poor"
+                tlc = "bad"
+            add_statistic_list_item("beaches", "nsw", "day", "highlight_beach",
+                        val, sort_order,
+                        label=beach.beach_name,
+                        traffic_light_code=tlc)
+        sort_order += 10
     try:
         summary = BeachSummaryHistory.objects.get(region=region, day=datetime.date.today())
     except BeachSummaryHistory.DoesNotExist:

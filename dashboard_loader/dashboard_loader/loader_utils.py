@@ -123,11 +123,13 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
                 datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
     stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
-    if not stat.is_list():
+    if not stat.is_list() and not stat.rotates:
         raise LoaderException("Not a list statistic %s" % statistic_url)
     if stat.is_kvlist() and not label:
         raise LoaderException("Must provide a label for list items for statistic %s" % statistic_url)
-    elif not stat.is_kvlist() and label:
+    elif not stat.is_list() and not stat.name_as_label and not label:
+        raise LoaderException("Must provide a label for list items for statistic %s" % statistic_url)
+    elif stat.is_list() and not stat.is_kvlist() and label:
         raise LoaderException("Cannot provide a label for list items for statistic %s" % statistic_url)
     if stat.is_eventlist() and not datekey:
         raise LoaderException("Must provide a datekey for list items for statistic %s" % statistic_url)

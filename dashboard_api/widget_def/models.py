@@ -677,8 +677,8 @@ class Statistic(models.Model):
             result["trend"] = unicode(sd.trend)
         if self.hyperlinkable:
             result["url"] = sd.url
-        if self.is_list():
-            if self.is_kvlist():
+        if self.is_list() or self.rotates:
+            if self.is_kvlist() or not self.name_as_label:
                 result["label"] = sd.keyval
             elif self.is_eventlist():
                 result["date"] = sd.datekey

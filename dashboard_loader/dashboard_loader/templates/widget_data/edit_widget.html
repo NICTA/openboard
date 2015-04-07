@@ -3,8 +3,9 @@
 <h1>Widget: {{ widget.name }} ({{ widget.actual_location.name }}, {{ widget.actual_frequency.name }})</h1>
 <h2>Tile: {{ statistic.tile.url }}</h2>
 <h3>Statistic: {{ statistic.name }}</h3>
+<h3>url: {{ statistic.url }}</h3>
 <form action="{% url "edit_stat" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url stat_url=statistic.url %}" method="post">{% csrf_token %}
-{% if statistic.is_list %}
+{% if statistic.is_list or statistic.rotates %}
     {{ form.management_form }}
     <table border="0">
     {% for subform in form %}

@@ -9,11 +9,9 @@ from django.conf import settings
 
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code, clear_statistic_list, add_statistic_list_item, call_in_transaction
 
-from air_pollution_loader.models import PollutionRotation
 from widget_def.models import Location
 # Refresh every quarter hour
-refresh_rate = 5
-api_refresh_rate = 60 * 15
+refresh_rate = 60 * 15
 
 
 class PollutionRating(object):
@@ -105,33 +103,21 @@ class AirPollutionHtmlParser(HTMLParser):
                     if "Sydney" in region:
                         add_statistic_list_item("air_pollution", "syd", "rt", "regions", rating.display(), self.sort_order,
                                     label=region, traffic_light_code=rating.tlc())
-                        try:
-                            pr = PollutionRotation.objects.get(location__url="syd", region=region)
-                        except PollutionRotation.DoesNotExist:
-                            pr = PollutionRotation(location=Location.objects.get(url="syd"), region=region,
-                                            last_featured = self.now)
-                            pr.save()
+                        add_statistic_list_item("air_pollution", "syd", "rt", "region_1", rating.display(), self.sort_order,
+                                    label=region, traffic_light_code=rating.tlc())
                         if rating > self.sydney_worst:
                             self.sydney_worst = rating
                     else:
                         add_statistic_list_item("air_pollution", "nsw", "rt", "regions", rating.display(), self.sort_order,
                                     label=region, traffic_light_code=rating.tlc())
-                        try:
-                            pr = PollutionRotation.objects.get(location__url="nsw", region=region)
-                        except PollutionRotation.DoesNotExist:
-                            pr = PollutionRotation(location=Location.objects.get(url="nsw"), region=region,
-                                            last_featured = self.now)
-                            pr.save()
+                        add_statistic_list_item("air_pollution", "nsw", "rt", "region_1", rating.display(), self.sort_order,
+                                    label=region, traffic_light_code=rating.tlc())
                     self.sort_order += 10
         elif tag == "table" and self.tables_instack() == 1 and self.level_2_table_number == 1:
             add_statistic_list_item("air_pollution", "nsw", "rt", "regions", self.sydney_worst.display(), 10,
                         label="Sydney", traffic_light_code=self.sydney_worst.tlc())
-            try:
-                pr = PollutionRotation.objects.get(location__url="nsw", region="Sydney")
-            except PollutionRotation.DoesNotExist:
-                pr = PollutionRotation(location=Location.objects.get(url="nsw"), region="Sydney",
-                                last_featured = self.now)
-                pr.save()
+            add_statistic_list_item("air_pollution", "nsw", "rt", "region_1", self.sydney_worst.display(), 10,
+                        label="Sydney", traffic_light_code=self.sydney_worst.tlc())
         elif tag == "table" and self.tables_instack() == 1 and self.level_2_table_number == 2:
             self.in_syd_forecast_table = False
         elif tag == "td" and self.in_syd_forecast_table:
@@ -168,54 +154,22 @@ def get_airdata(loader, messages, verbosity=0):
     resp = http.getresponse()
     clear_statistic_list("air_pollution", "syd", "rt", "regions")
     clear_statistic_list("air_pollution", "nsw", "rt", "regions")
+    clear_statistic_list("air_pollution", "syd", "rt", "region_1")
+    clear_statistic_list("air_pollution", "nsw", "rt", "region_1")
     parser = AirPollutionHtmlParser(messages, verbosity)
     parser.feed(resp.read())
     http.close()
     loader.last_api_access = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
     loader.save()
-    rotate_airdata(parser.messages, verbosity)
     if verbosity >= 3:
         messages.append("Updated air pollution ratings from website")
     return parser.messages
 
 def update_data(loader, verbosity=0):
     messages = []
-    if loader.last_api_access and datetime.datetime.now(pytz.timezone(settings.TIME_ZONE)) - loader.last_api_access < datetime.timedelta(seconds=api_refresh_rate):
-        messages = call_in_transaction(rotate_airdata, messages, verbosity)
-    else:
-        try:
-            messages = call_in_transaction(get_airdata,loader, messages, verbosity)
-        except HTMLParseError, e:
-            raise LoaderException("Error parsing air pollution website: %s" % unicode(e))
-    return messages
-
-def rotate_airdata(messages, verbosity=0):
-    now = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
-    nsw_exp_data = get_statistic("air_pollution", "nsw", "rt", "regions").get_data()
-    syd_exp_data = get_statistic("air_pollution", "syd", "rt", "regions").get_data()
-    for pr in PollutionRotation.objects.filter(location__url="nsw").order_by("last_featured"):
-        for d in nsw_exp_data:
-            if d.keyval == pr.region:
-                # Write data to rotating stat!
-                set_statistic_data("air_pollution", "nsw", "rt", "region_1",
-                                        d.strval,
-                                        label=d.keyval,
-                                        traffic_light_code=d.traffic_light_code)
-                pr.last_featured = now
-                pr.save()
-                break
-    for pr in PollutionRotation.objects.filter(location__url="syd").order_by("last_featured"):
-        for d in syd_exp_data:
-            if d.keyval == pr.region:
-                # Write data to rotating stat!
-                set_statistic_data("air_pollution", "syd", "rt", "region_1",
-                                        d.strval,
-                                        label=d.keyval,
-                                        traffic_light_code=d.traffic_light_code)
-                pr.last_featured = now
-                pr.save()
-                break
-    if verbosity >= 3:
-        messages.append("Rotated air pollution ratings")
+    try:
+        messages = call_in_transaction(get_airdata,loader, messages, verbosity)
+    except HTMLParseError, e:
+        raise LoaderException("Error parsing air pollution website: %s" % unicode(e))
     return messages
 

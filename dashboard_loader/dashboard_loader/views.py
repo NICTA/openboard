@@ -112,7 +112,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
         if request.POST.get("submit") or request.POST.get("submit_stay"):
             form = form_class(request.POST)
             if form.is_valid():
-                if s.is_list():
+                if s.is_list() or s.rotates:
                     StatisticListItem.objects.filter(statistic=s).delete()
                     for subform in form:
                         fd = subform.cleaned_data

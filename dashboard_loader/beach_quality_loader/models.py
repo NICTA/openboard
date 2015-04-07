@@ -19,6 +19,15 @@ class BeachSummaryHistory(models.Model):
         ILLAWARRA: 'Illawarra',
         HUNTER: 'Hunter',
     }
+    sort_orders = {
+        SYDNEY_OCEAN: 1000,
+        SYDNEY_HARBOUR: 2000,
+        BOTANY_BAY: 3000,
+        PITTWATER: 4000,
+        CENTRAL_COAST: 5000,
+        ILLAWARRA: 6000,
+        HUNTER: 7000,
+    }
     day=models.DateField(auto_now=True)
     region=models.CharField(max_length=5, choices=regions.items())
     num_pollution_unlikely=models.IntegerField()
@@ -73,7 +82,6 @@ class CurrentBeachRating(models.Model):
                     (POOR, ratings[POOR]),
                 ))
     day_updated=models.DateField(auto_now=True)
-    last_featured = models.DateTimeField()
     def region_display(self):
         return BeachSummaryHistory.regions[self.region]
     def rating_display(self):
