@@ -709,7 +709,10 @@ class Statistic(models.Model):
             elif self.is_eventlist():
                 json["date"]=datum.datekey.strftime("%Y-%m-%d")
             elif not self.name_as_label:
-                json["label"]=datum.label
+                if self.rotates:
+                    json["label"]=datum.keyval
+                else:
+                    json["label"]=datum.label
             if self.hyperlinkable:
                 json["url"]=datum.url
             if self.traffic_light_scale:
