@@ -89,7 +89,7 @@
                     "location": "syd"
                 }
             ], 
-            "refresh_rate": 6, 
+            "refresh_rate": 300, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "syd"
@@ -178,7 +178,7 @@
                     "location": "nsw"
                 }
             ], 
-            "refresh_rate": 6, 
+            "refresh_rate": 300, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "nsw"
