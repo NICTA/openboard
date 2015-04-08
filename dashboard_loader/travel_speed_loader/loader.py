@@ -7,7 +7,7 @@ import json
 
 from django.conf import settings
 
-from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code
+from dashboard_loader.loader_utils import LoaderException, call_in_transaction, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code
 from travel_speed_loader.models import Road, RoadSection
 
 # Refresh every 2 minutes
@@ -27,11 +27,14 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
         return
     road_dist = 0
     road_travel_time = 0
-    if name == "M7" and verbosity >=5:
+    if verbosity >=5:
+        print "Road %s:" % name
         print json.dumps(features, indent=4)
+    backup_total_dist = 0
+    backup_total_time = 0
     for f in features:
         fid = f["id"]
-        if fid[1:] != "TOTAL":
+        if not (fid[0] in road.am_direction and am) and not (fid[0] in road.pm_direction and not am):
             continue
         try:
             section = RoadSection.objects.get(road=road, label=fid)
@@ -40,14 +43,25 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
                 messages.append("Road section %s(%s) not defined" % (fid,name))
             return
         distance = section.length
-        travel_time = f["properties"]["travelTimeMinutes"]
-        if name == "M7" and verbosity >= 3:
-            messages.append("M7 segment %s distance %d travelTime %d" % (fid, distance, travel_time))
-        if (fid[0] in road.am_direction and am) or (fid[0] in road.pm_direction and not am):
+        if "travelTimeMinutes" in f["properties"]:
+            travel_time = f["properties"]["travelTimeMinutes"]
+        else:
+            continue
+        if fid[1:] == "TOTAL":
             stats["total_travel_time"]  += travel_time
             stats["total_distance"]  += distance
             road_dist += distance
             road_travel_time += travel_time
+        else:
+            backup_total_dist += distance
+            backup_total_time += travel_time
+    if road_travel_time == 0:
+        if verbosity > 2:
+            messages.append("%s road, using sum of segments" % name)
+        road_travel_time = backup_total_time
+        road_dist = backup_total_dist 
+    elif verbosity > 2:
+        messages.append("%s road, using TOTAL segment(s)" % name)
     speed_stat = get_statistic("road_speeds", "syd", "rt", name)
     speed = float(road_dist) / (float(road_travel_time) / 60.0)
     if verbosity >= 3:
@@ -59,9 +73,15 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
     if verbosity >=2:
         messages.append("Saving road speed for %s" % name)
     set_statistic_data("road_speeds", "syd", "rt", name, speed, traffic_light_code=tlc)
-        
+
 
 def update_data(loader, verbosity=0):
+    try:
+        return call_in_transaction(update_travel_data, verbosity)
+    except Exception, e:
+        return [ "Error loading travel speeds: %s" % unicode(e) ]
+
+def update_travel_data(verbosity=0):
     messages = []
     tz = pytz.timezone(settings.TIME_ZONE)
     now = datetime.datetime.now(tz)
