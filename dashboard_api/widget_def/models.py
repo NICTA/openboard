@@ -607,7 +607,10 @@ class TrafficLightScale(models.Model):
                 code.delete()
         return l
     def __getstate__(self):
-        return [ c.__getstate__() for c in self.trafficlightscalecode_set.all() ]
+        return {
+            "scale": self.name,
+            "codes": [ c.__getstate__() for c in self.trafficlightscalecode_set.all() ]
+        }
     def choices(self, allow_null=False):
         if allow_null:
             choices = [ ("", "--"), ]
