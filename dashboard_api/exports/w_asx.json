@@ -1,12 +1,12 @@
 {
     "category": "Economic", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "ASX web site", 
     "subtitle": "ASX200", 
     "subcategory": "Market", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "asx", 
     "definitions": [
         {

@@ -1,12 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Ausgrid past outages", 
     "subtitle": "Customer outages", 
     "subcategory": "Electricity", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "electricity_outages", 
     "definitions": [
         {

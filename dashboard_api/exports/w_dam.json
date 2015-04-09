@@ -1,12 +1,12 @@
 {
     "category": "Environment and Planning", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Sydney Catchment Authority dam levels", 
     "subtitle": "Sydney Catchments", 
     "subcategory": "Water", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "dam", 
     "definitions": [
         {

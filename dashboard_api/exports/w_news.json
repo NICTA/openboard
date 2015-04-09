@@ -1,12 +1,12 @@
 {
     "category": "General", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "ABC News", 
     "subtitle": null, 
     "subcategory": "Baseline", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "news", 
     "definitions": [
         {

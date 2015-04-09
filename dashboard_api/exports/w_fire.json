@@ -1,12 +1,12 @@
 {
     "category": "Public Safety", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "NSW Rural Fire Service fire danger ratings and fire bans", 
     "subtitle": null, 
     "subcategory": "Warnings", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "fire", 
     "definitions": [
         {

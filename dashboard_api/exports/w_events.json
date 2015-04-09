@@ -1,11 +1,12 @@
 {
     "category": "General", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Events NSW", 
     "subtitle": null, 
     "subcategory": "Baseline", 
     "groups": [
-        "Edit Everything", 
         "Edit events only", 
         "Edit All Manual Widgets"
     ], 
@@ -25,7 +26,7 @@
                             "hyperlinkable": true, 
                             "url": "today", 
                             "footer": false, 
-                            "editable": true, 
+                            "editable": false, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 

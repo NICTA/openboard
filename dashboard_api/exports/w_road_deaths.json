@@ -1,12 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Transport NSW interactive crash statistics", 
     "subtitle": "Fatalities", 
     "subcategory": "Roads", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "road_deaths", 
     "definitions": [
         {

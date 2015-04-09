@@ -1,11 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Housing NSW website", 
     "subtitle": "Waiting Lists", 
     "subcategory": "Social Services", 
     "groups": [
-        "Edit Everything", 
         "Edit All Manual Widgets"
     ], 
     "url": "social_housing", 

@@ -1,11 +1,12 @@
 {
     "category": "Environment and Planning", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "ePlanning Data Reports web site", 
     "subtitle": "Local Development Approvals", 
     "subcategory": "Planning", 
     "groups": [
-        "Edit Everything", 
         "Edit All Manual Widgets"
     ], 
     "url": "planning", 

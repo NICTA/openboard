@@ -1,11 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Transport NSW Sydney Ferries ontime running", 
     "subtitle": "On time at commencement", 
     "subcategory": "Public Transport", 
     "groups": [
-        "Edit Everything", 
         "Edit All Manual Widgets"
     ], 
     "url": "ferries_ontime", 

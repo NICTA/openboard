@@ -1,11 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Live Traffic NSW", 
     "subtitle": "M1, M2, M4 & M7", 
     "subcategory": "Roads", 
     "groups": [
-        "Edit Everything", 
         "Edit All Manual Widgets"
     ], 
     "url": "road_speeds", 

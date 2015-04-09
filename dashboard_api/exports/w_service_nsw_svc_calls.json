@@ -1,12 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Service NSW Website", 
     "subtitle": "Call Centres", 
     "subcategory": "Service NSW", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "service_nsw_svc_calls", 
     "definitions": [
         {

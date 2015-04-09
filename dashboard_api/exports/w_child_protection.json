@@ -1,11 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Community Services caseworker dashboard", 
     "subtitle": null, 
     "subcategory": "Social Services", 
     "groups": [
-        "Edit Everything", 
         "Edit All Manual Widgets"
     ], 
     "url": "child_protection", 

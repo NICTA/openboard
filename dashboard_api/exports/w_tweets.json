@@ -1,12 +1,12 @@
 {
     "category": "Social Media", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Twitter", 
     "subtitle": "Agency tweets outbound", 
     "subcategory": "Twitter", 
-    "groups": [
-        "Edit Everything"
-    ], 
+    "groups": [], 
     "url": "tweets", 
     "definitions": [
         {

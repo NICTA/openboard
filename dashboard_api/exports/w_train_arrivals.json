@@ -1,11 +1,12 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "Sydney Trains service updates", 
     "subtitle": "Arrival at Central on time", 
     "subcategory": "Public Transport", 
     "groups": [
-        "Edit Everything", 
         "Edit All Manual Widgets"
     ], 
     "url": "train_arrivals", 
