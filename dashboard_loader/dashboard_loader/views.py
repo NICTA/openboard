@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition
 from widget_data.models import StatisticData, StatisticListItem, GraphData
-from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission
+from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission
 from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
 
 # View methods
@@ -50,6 +50,8 @@ def logout_view(request):
 @login_required
 def list_widgets(request):
     editable_widgets = get_editable_widgets_for_user(request.user)
+    if not editable_widgets:
+        return HttpResponseForbidden("You do not have permission to edit any widget data")
     return render(request, "widget_data/list_widgets.html", {
             "widgets": editable_widgets
             })
@@ -64,7 +66,11 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    statistics = Statistic.objects.filter(tile__widget=w)
+    edit_all = user_has_edit_all_permission(request.user, w)
+    if edit_all:
+        statistics = Statistic.objects.filter(tile__widget=w)
+    else:
+        statistics = Statistic.objects.filter(editable=True,tile__widget=w)
     stats = []
     for s in statistics:
         try:
@@ -104,7 +110,8 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
         s = Statistic.objects.get(tile__widget=w, url=stat_url)
     except Statistic.DoesNotExist:
         return HttpResponseNotFound("This Statistic does not exist")
-
+    if not s.editable and not user_has_edit_all_permission(request.user, w):
+        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
     form_class = get_form_class_for_statistic(s)
     if s.is_list() or s.rotates:
         form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)

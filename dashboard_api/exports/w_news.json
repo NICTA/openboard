@@ -1,8 +1,12 @@
 {
     "category": "General", 
+    "edit_all_groups": [], 
     "source_url_text": "ABC News", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "Baseline", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "news", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": true, 
                             "url": "headlines", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 

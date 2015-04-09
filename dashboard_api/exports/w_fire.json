@@ -1,8 +1,12 @@
 {
     "category": "Public Safety", 
+    "edit_all_groups": [], 
     "source_url_text": "NSW Rural Fire Service fire danger ratings and fire bans", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "Warnings", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "fire", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "rating_list_main", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "fire_danger_ratings", 
@@ -46,6 +51,7 @@
                             "hyperlinkable": false, 
                             "url": "rating_list_expansion", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "fire_danger_ratings", 

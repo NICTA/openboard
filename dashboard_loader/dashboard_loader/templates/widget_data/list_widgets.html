@@ -11,7 +11,7 @@
     </tr>
     {% for w in widgets %}
         <tr>
-            <td>{{ w.name }}</td>
+            <td>{{ w.name }}{% if w.subtitle %} ({{ w.subtitle }}){% endif %}</td>
             <td>{{ w.actual_location.name }}</td>
             <td>{{ w.actual_frequency.actual_display }}</td>
             <td>

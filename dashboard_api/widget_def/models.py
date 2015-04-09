@@ -1,5 +1,9 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import Permission, Group
+
 from widget_data.models import StatisticData, StatisticListItem, GraphData
 
 # Create your models here.
@@ -77,6 +81,38 @@ class WidgetFamily(models.Model):
     url  = models.SlugField(unique=True)
     source_url = models.URLField(max_length=400)
     source_url_text = models.CharField(max_length=60)
+    def edit_permission_name(self):
+        return "w_%s" % self.url
+    def edit_permission_label(self):
+        p = self.edit_permission()
+        return "%s.%s" % (p.content_type.app_label, p.codename) 
+    def edit_permission(self, log=None):
+        ct = ContentType.objects.get_for_model(self)
+        try:
+            p = Permission.objects.get(content_type=ct, codename=self.edit_permission_name())
+        except Permission.DoesNotExist:
+            p = Permission(content_type=ct, codename=self.edit_permission_name(),
+                            name="Edit data for widget %s" % self.name)
+            p.save()
+            if log is not None:
+                print >> log, "Created permission for widget %s" % self.name
+        return p
+    def edit_all_permission_name(self):
+        return "wa_%s" % self.url
+    def edit_all_permission_label(self):
+        p = self.edit_all_permission()
+        return "%s.%s" % (p.content_type.app_label, p.codename) 
+    def edit_all_permission(self, log=None):
+        ct = ContentType.objects.get_for_model(self)
+        try:
+            p = Permission.objects.get(content_type=ct, codename=self.edit_all_permission_name())
+        except Permission.DoesNotExist:
+            p = Permission(content_type=ct, codename=self.edit_all_permission_name(),
+                            name="Edit all data for widget %s" % self.name)
+            p.save()
+            if log is not None:
+                print >> log, "Created edit all permission for widget %s" % self.name
+        return p
     def __unicode__(self):
         if self.subtitle:
             return "%s (%s)" % (self.name, self.subtitle)
@@ -91,7 +127,9 @@ class WidgetFamily(models.Model):
             "url": self.url,
             "source_url": self.source_url,
             "source_url_text": self.source_url_text,
-            "definitions": [ wd.export() for wd in self.widgetdefinition_set.all() ]
+            "definitions": [ wd.export() for wd in self.widgetdefinition_set.all() ],
+            "groups": [ g.name for g in self.edit_permission().group_set.all() ],
+            "edit_all_groups": [ g.name for g in self.edit_all_permission().group_set.all() ],
         }
     @classmethod
     def import_data(cls, data):
@@ -115,6 +153,34 @@ class WidgetFamily(models.Model):
         for defn in fam.widgetdefinition_set.all():
             if (defn.actual_location.url, defn.actual_frequency.url) not in definitions:
                 defn.delete()
+        p = fam.edit_permission()
+        grps = []
+        for g in data.get("groups", []):
+            try:
+                grp = Group.objects.get(name=g)
+            except Group.DoesNotExist:
+                grp = Group(name=g)
+                grp.save()
+            grp.permissions.add(p)
+            grps.append(grp)
+        for g in Group.objects.all():
+            if g in grps:
+                continue
+            g.permissions.remove(p) 
+        p = fam.edit_all_permission()
+        grps = []
+        for g in data.get("edit_all_groups", []):
+            try:
+                grp = Group.objects.get(name=g)
+            except Group.DoesNotExist:
+                grp = Group(name=g)
+                grp.save()
+            grp.permissions.add(p)
+            grps.append(grp)
+        for g in Group.objects.all():
+            if g in grps:
+                continue
+            g.permissions.remove(p) 
         return fam
 
 class WidgetDefinition(models.Model):
@@ -619,6 +685,7 @@ class Statistic(models.Model):
     sort_order = models.IntegerField()
     hyperlinkable = models.BooleanField(default=False)
     footer = models.BooleanField(default=False)
+    editable = models.BooleanField(default=True)
     def clean(self):
         if not self.is_numeric():
             self.num_precision = None
@@ -762,6 +829,7 @@ class Statistic(models.Model):
             "hyperlinkable": self.hyperlinkable,
             "footer": self.footer,
             "rotates": self.rotates,
+            "editable": self.editable,
             "num_precision": self.num_precision,
             "unit_prefix": self.unit_prefix,
             "unit_suffix": self.unit_suffix,
@@ -781,6 +849,7 @@ class Statistic(models.Model):
         s.hyperlinkable = data.get("hyperlinkable", False)
         s.footer = data.get("footer", False)
         s.rotates = data.get("rotates", False)
+        s.editable = data.get("editable", True)
         s.trend = data["trend"]
         s.num_precision = data["num_precision"]
         s.unit_prefix = data["unit_prefix"]

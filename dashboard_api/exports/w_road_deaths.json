@@ -1,8 +1,12 @@
 {
     "category": "Service Delivery", 
+    "edit_all_groups": [], 
     "source_url_text": "Transport NSW interactive crash statistics", 
     "subtitle": "Fatalities", 
     "subcategory": "Roads", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "road_deaths", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "deaths_this_year", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": null, 
@@ -37,6 +42,7 @@
                             "hyperlinkable": false, 
                             "url": "deaths_last_year", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 
@@ -64,6 +70,7 @@
                             "hyperlinkable": false, 
                             "url": "regional_fatalities", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 

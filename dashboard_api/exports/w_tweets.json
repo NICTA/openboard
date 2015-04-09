@@ -1,8 +1,12 @@
 {
     "category": "Social Media", 
+    "edit_all_groups": [], 
     "source_url_text": "Twitter", 
     "subtitle": "Agency tweets outbound", 
     "subcategory": "Twitter", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "tweets", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "tweets", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 

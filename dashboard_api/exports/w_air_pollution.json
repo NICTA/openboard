@@ -1,8 +1,12 @@
 {
     "category": "Environment and Planning", 
+    "edit_all_groups": [], 
     "source_url_text": "Environment NSW Air Quality Monitoring Service", 
     "subtitle": "Sydney forecast", 
     "subcategory": "Environment", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "air_pollution", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
@@ -37,6 +42,7 @@
                             "hyperlinkable": false, 
                             "url": "region_1", 
                             "footer": true, 
+                            "editable": true, 
                             "name_as_label": false, 
                             "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
@@ -64,6 +70,7 @@
                             "hyperlinkable": false, 
                             "url": "regions", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
@@ -108,6 +115,7 @@
                             "hyperlinkable": false, 
                             "url": "sydney_forecast", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
@@ -126,6 +134,7 @@
                             "hyperlinkable": false, 
                             "url": "region_1", 
                             "footer": true, 
+                            "editable": true, 
                             "name_as_label": false, 
                             "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 
@@ -153,6 +162,7 @@
                             "hyperlinkable": false, 
                             "url": "regions", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "air_pollution_scale", 

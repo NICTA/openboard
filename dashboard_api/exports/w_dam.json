@@ -1,8 +1,12 @@
 {
     "category": "Environment and Planning", 
+    "edit_all_groups": [], 
     "source_url_text": "Sydney Catchment Authority dam levels", 
     "subtitle": "Sydney Catchments", 
     "subcategory": "Water", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "dam", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "all_dams_avg", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "std 3 code", 
@@ -37,6 +42,7 @@
                             "hyperlinkable": false, 
                             "url": "all_dams_last_week", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "std 3 code", 
@@ -91,6 +97,7 @@
                             "hyperlinkable": false, 
                             "url": "warragamba", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "std 3 code", 
@@ -109,6 +116,7 @@
                             "hyperlinkable": false, 
                             "url": "avon", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "std 3 code", 
@@ -127,6 +135,7 @@
                             "hyperlinkable": false, 
                             "url": "cataract", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "std 3 code", 
@@ -145,6 +154,7 @@
                             "hyperlinkable": false, 
                             "url": "cordeaux", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "std 3 code", 

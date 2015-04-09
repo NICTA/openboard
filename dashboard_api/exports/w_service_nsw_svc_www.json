@@ -1,8 +1,12 @@
 {
     "category": "Service Delivery", 
+    "edit_all_groups": [], 
     "source_url_text": "Service NSW Website", 
     "subtitle": "Website Visits", 
     "subcategory": "Service NSW", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "service_nsw_svc_www", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "visits", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": null, 
@@ -37,6 +42,7 @@
                             "hyperlinkable": false, 
                             "url": "duration", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": null, 

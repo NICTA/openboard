@@ -1,8 +1,12 @@
 {
     "category": "Service Delivery", 
+    "edit_all_groups": [], 
     "source_url_text": "Live Traffic NSW", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "Roads", 
+    "groups": [
+        "Edit Everything"
+    ], 
     "url": "traffic_incidents", 
     "definitions": [
         {
@@ -19,6 +23,7 @@
                             "hyperlinkable": false, 
                             "url": "incidents", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": "std 3 code", 
@@ -37,6 +42,7 @@
                             "hyperlinkable": false, 
                             "url": "highlight", 
                             "footer": false, 
+                            "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 
