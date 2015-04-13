@@ -19,14 +19,26 @@ def clean_icon_code(self):
         raise forms.ValidationError("Must set the icon code")
     return data
 
+def clean(self):
+    data = self.cleaned_data
+    for check in self.clean_checks:
+        data = check(self, data)
+    return data
+    
 def get_form_class_for_statistic(stat):
     form_fields = OrderedDict()
     field_count = 0
+    clean_checks = []
     if stat.is_kvlist():
         form_fields["label"] = forms.CharField(required=True, max_length=120)
         field_count += 1
     elif stat.is_eventlist():
-        form_fields["date"] = forms.DateField(required=True, widget=SelectDateWidget)
+        form_fields["date"] = forms.DateField(required=False, widget=SelectDateWidget)
+        def clean_check_date(self, data):
+            if not data["date"]:
+                self.add_error("date", "This field is required")
+            return data
+        clean_checks.append(clean_check_date)
     elif not stat.name_as_label:
         form_fields["label"] = forms.CharField(required=True, max_length=80)
         field_count += 1
@@ -67,6 +79,8 @@ def get_form_class_for_statistic(stat):
         form_fields["sort_order"] = forms.IntegerField(required=True)
         field_count += 1
     form_fields["field_count"] = field_count
+    form_fields["clean"] = clean
+    form_fields["clean_checks"] = clean_checks
     return type(str("Stat_%s_Form" % stat.name), (forms.Form,), form_fields)
 
 def get_form_class_for_graph(graph):
