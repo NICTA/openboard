@@ -56,6 +56,9 @@ def list_widgets(request):
             "widgets": editable_widgets
             })
 
+class WidgetDataForm(forms.Form):
+    actual_frequency_display_text=forms.CharField(max_length=60)
+
 @login_required
 def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
     try:
@@ -89,11 +92,24 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
         graphs.append({
                 "graph": graph,
                 "data": data
-                }) 
+                })
+    if request.method == "POST":
+        form = WidgetDataForm(request.POST)
+        if form.is_valid():
+            wdata = w.widget_data()
+            if not wdata:
+                wdata = WidgetData(widget=w)
+            wdata.actual_frequency_text = w.cleaned_data["actual_frequency_display_text"]
+            wdata.save()
+    else:
+        form = WidgetDataForm(initial={
+                "actual_frequency_display_text": w.actual_frequency_display(),
+                })
     return render(request, "widget_data/view_widget.html", {
             "widget": w,
             "stats": stats,
             "graphs": graphs,
+            "form": form,
             })
 
 @login_required

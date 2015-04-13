@@ -229,8 +229,8 @@ class WidgetDefinition(models.Model):
             return None
     def actual_frequency_display(self):
         wd = self.widget_data()
-        if wd and wd.real_frequency_text:
-            return wd.real_frequency_text
+        if wd and wd.actual_frequency_text:
+            return wd.actual_frequency_text
         else:
             return self.actual_frequency.actual_display
     def __getstate__(self):

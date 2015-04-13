@@ -65,5 +65,19 @@
     {% endfor %}
 </table>
 {% endif %}
+
+<form action="{% url "view_widget_data" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url %}" method="post">{% csrf_token %}
+    <table border="0">
+        <tr>
+    {% for field in form %}
+            <td><b>{{ field.label_tag }}</b></td>
+            <td>{{ field }}</td>
+            <td>{{ field.errors }}</td>
+    {% endfor %}
+        <td><input name="save" type="submit" value="Save" class="button"/></td>
+        </tr>
+    </table>
+</form>
+
 <p><a href="{% url "list_widget_data" %}">Return to List of Available Widgets</a></p>
 {% endblock %}

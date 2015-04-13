@@ -8,8 +8,8 @@ from django.conf import settings
 from django.db import transaction
 
 from dashboard_loader.models import Loader
-from widget_def.models import Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster
-from widget_data.models import StatisticData, StatisticListItem, GraphData
+from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster
+from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
 class LoaderException(Exception):
     pass
@@ -166,6 +166,20 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
     else:
         item.strval = value
     item.save()
+
+def set_actual_frequency_display_text(widget_url, actual_location_url,
+                    actual_frequency_url, display_text):
+    try:
+        wdef = WidgetDefinition.objects(family__url=widget_url,
+                                actual_location__url=actual_location_url,
+                                actual_frequency__url=actual_frequency_url)
+    except WidgetDefintion.DoesNotExist:
+        raise LoaderException("Widget %s(%s,%s) does not exist" % (widget_url, actual_location_url, actual_frequency_url))
+    wdata = wd.widget_data()
+    if not wdata:
+        wdata = WidgetData(widget=wd)
+    wdata.actual_frequency_text = display_text
+    wdata.save()
              
 def get_icon(library, lookup):
     try: 
