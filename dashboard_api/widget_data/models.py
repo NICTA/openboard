@@ -7,6 +7,10 @@ from django.db import models
 
 # Create your models here.
 
+class WidgetData(models.Model):
+    widget = models.ForeignKey("widget_def.WidgetDefinition", unique=True)
+    real_frequency_text = models.CharField(max_length=60, blank=True, null=True)
+
 class StatisticData(models.Model):
     statistic = models.ForeignKey("widget_def.Statistic", unique=True)
     label=models.CharField(max_length=80, blank=True, null=True)

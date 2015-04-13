@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Permission, Group
 
-from widget_data.models import StatisticData, StatisticListItem, GraphData
+from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
 # Create your models here.
 
@@ -222,6 +222,17 @@ class WidgetDefinition(models.Model):
         return self.family.subtitle
     def source_url(self):
         return self.family.source_url
+    def widget_data(self):
+        try:
+            return WidgetData.objects.get(widget=self)
+        except WidgetData.DoesNotExist:
+            return None
+    def actual_frequency_display(self):
+        wd = self.widget_data()
+        if wd and wd.real_frequency_text:
+            return wd.real_frequency_text
+        else:
+            return self.actual_frequency.actual_display
     def __getstate__(self):
         return {
             "category": self.subcategory().category.name,
@@ -235,7 +246,7 @@ class WidgetDefinition(models.Model):
             },
             "source_url": self.source_url(),
             "source_url_text": self.family.source_url_text,
-            "actual_frequency": self.actual_frequency.actual_display,
+            "actual_frequency": self.actual_frequency_display(),
             "refresh_rate": self.refresh_rate,
             "about": self.about,
         }

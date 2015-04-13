@@ -29,6 +29,7 @@ def get_widget_data(request, widget_url):
         last_updated_str = None
     json = {
         "widget_last_updated": last_updated_str,
+        "actual_frequency": widget.definition.actual_frequency_display(),
         "statistics": stats_json,
     }
     return json_list(request, json)
