@@ -16,7 +16,7 @@
                 {
                     "statistics": [
                         {
-                            "num_precision": 2, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Visits", 
                             "unit_prefix": "", 
@@ -27,7 +27,7 @@
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": null, 
-                            "unit_underfix": "per minute", 
+                            "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_suffix": "", 
                             "rotates": false, 
@@ -59,37 +59,37 @@
                     "tile_type": 2, 
                     "expansion": false, 
                     "sort_order": 100
-                },
-		{
-                    "statistics": [],
-                    "list_label_width": null,
-                    "url": "service_nsw_svc_www_graph",
+                }, 
+                {
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "service_nsw_svc_www_graph", 
                     "graph": {
-                        "numeric_axis_always_show_zero": true,
-                        "secondary_numeric_axis_label": "Minutes",
-                        "secondary_numeric_axis_always_show_zero": true,
-                        "horiz_axis_label": "",
-                        "use_secondary_numeric_axis": true,
-                        "graph_type": 1,
-                        "horiz_axis_type": 3,
+                        "numeric_axis_always_show_zero": true, 
+                        "secondary_numeric_axis_label": "Minutes", 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "graph_type": 1, 
+                        "horiz_axis_type": 3, 
                         "datasets": {
                             "duration": {
-                                "use_secondary_numeric_axis": false,
-                                "colour": "red",
+                                "use_secondary_numeric_axis": false, 
+                                "colour": "red", 
                                 "label": "Avg Visit Duration"
-                            },
+                            }, 
                             "visits": {
-                                "use_secondary_numeric_axis": false,
-                                "colour": "blue",
+                                "use_secondary_numeric_axis": false, 
+                                "colour": "blue", 
                                 "label": "Visits"
                             }
-                        },
-                        "numeric_axis_label": "Visits",
-                        "clusters": {},
+                        }, 
+                        "numeric_axis_label": "Visits", 
+                        "clusters": {}, 
                         "heading": ""
-                    },
-                    "tile_type": 6,
-                    "expansion": true,
+                    }, 
+                    "tile_type": 6, 
+                    "expansion": true, 
                     "sort_order": 201
                 }
             ], 
