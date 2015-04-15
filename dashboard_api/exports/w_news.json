@@ -30,14 +30,14 @@
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_suffix": null, 
-                            "rotates": true, 
+                            "rotates": false, 
                             "stat_type": 5, 
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": 100, 
+                    "list_label_width": null, 
                     "url": "news", 
-                    "tile_type": 10, 
+                    "tile_type": 12, 
                     "expansion": false, 
                     "sort_order": 10
                 }
