@@ -15,7 +15,7 @@ urlpatterns = patterns('',
                         'dashboard_loader.views.edit_stat', name="edit_stat"),
     url(r'^graphs/(?P<widget_url>[^/]+)/(?P<actual_location_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<tile_url>[^/]+)$', 
                         'dashboard_loader.views.edit_graph', name="edit_graph"),
-
+    url(r'^upload/(?P<uploader_app>[^/]+)$', 'dashboard_loader.views.upload', name="upload_data"),
     # Admin views (For modifying widget definitions, adding new widgets, etc.)
     url(r'^admin/', include(admin.site.urls)),
 )

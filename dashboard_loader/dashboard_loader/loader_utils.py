@@ -7,7 +7,7 @@ import thread
 from django.conf import settings
 from django.db import transaction
 
-from dashboard_loader.models import Loader
+from dashboard_loader.models import Loader, Uploader
 from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
@@ -170,14 +170,14 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
 def set_actual_frequency_display_text(widget_url, actual_location_url,
                     actual_frequency_url, display_text):
     try:
-        wdef = WidgetDefinition.objects(family__url=widget_url,
+        wdef = WidgetDefinition.objects.get(family__url=widget_url,
                                 actual_location__url=actual_location_url,
                                 actual_frequency__url=actual_frequency_url)
-    except WidgetDefintion.DoesNotExist:
+    except WidgetDefinition.DoesNotExist:
         raise LoaderException("Widget %s(%s,%s) does not exist" % (widget_url, actual_location_url, actual_frequency_url))
-    wdata = wd.widget_data()
+    wdata = wdef.widget_data()
     if not wdata:
-        wdata = WidgetData(widget=wd)
+        wdata = WidgetData(widget=wdef)
     wdata.actual_frequency_text = display_text
     wdata.save()
              
@@ -219,6 +219,30 @@ def do_update(app, verbosity=0, force=False):
             return [ reason ]
     elif verbosity > 0:
         return [ "Data update for %s is locked by another update process/thread since %s" % (app, loader.last_locked.strftime("%d/%m/%Y %H:%M:%D"))]
+
+def get_update_format(app):
+    _tmp = __import__(app + ".uploader", globals(), locals(), ["file_format",], -1)
+    return _tmp.file_format
+
+def do_upload(app, fh, actual_freq_display=None, verbosity=0):
+    if isinstance(app, Uploader):
+        uploader = app
+        app = uploader.app
+    else:
+        uploader = Uploader.objects.get(app=app)
+    _tmp = __import__(app + ".uploader", globals(), locals(), 
+                        ["upload_file", ], -1)
+    upload_file = _tmp.upload_file
+    try:
+        messages = upload_file(uploader, fh, actual_freq_display, verbosity)
+    except LoaderException, e:
+        return [ "Data upload for %s failed: %s" % (app, unicode(e)) ]
+    tz = pytz.timezone(settings.TIME_ZONE)
+    uploader.last_uploaded = datetime.datetime.now(tz)
+    uploader.save()
+    if verbosity > 0:
+        messages.append("Data uploaded for %s" % app)
+    return messages
 
 @transaction.atomic
 def call_in_transaction(func, *args, **kwargs):

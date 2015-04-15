@@ -6,8 +6,10 @@ from django.contrib.auth.decorators import login_required
 
 from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition
 from widget_data.models import StatisticData, StatisticListItem, GraphData
-from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission
+from dashboard_loader.models import Uploader
+from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission, get_uploaders_for_user, user_has_uploader_permission
 from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
+from dashboard_loader.loader_utils import LoaderException, get_update_format, do_upload
 
 # View methods
 
@@ -50,10 +52,12 @@ def logout_view(request):
 @login_required
 def list_widgets(request):
     editable_widgets = get_editable_widgets_for_user(request.user)
-    if not editable_widgets:
-        return HttpResponseForbidden("You do not have permission to edit any widget data")
+    uploaders = get_uploaders_for_user(request.user)
+    if not editable_widgets and not uploaders:
+        return HttpResponseForbidden("You do not have permission to edit or upload any dashboard data")
     return render(request, "widget_data/list_widgets.html", {
-            "widgets": editable_widgets
+            "widgets": editable_widgets,
+            "uploaders": uploaders
             })
 
 class WidgetDataForm(forms.Form):
@@ -99,7 +103,7 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
             wdata = w.widget_data()
             if not wdata:
                 wdata = WidgetData(widget=w)
-            wdata.actual_frequency_text = w.cleaned_data["actual_frequency_display_text"]
+            wdata.actual_frequency_text = form.cleaned_data["actual_frequency_display_text"]
             wdata.save()
     else:
         form = WidgetDataForm(initial={
@@ -295,4 +299,39 @@ def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, t
                 "form": form
                 })
 
+class UploadForm(forms.Form):
+    new_actual_frequency_display_value=forms.CharField(max_length=60, required=False)
+    file=forms.FileField()
+
+@login_required
+def upload(request, uploader_app):
+    try:
+        uploader = Uploader.objects.get(app=uploader_app)
+    except Uploader.DoesNotExist:
+        return HttpResponseNotFound("This uploader does not exist")
+    if not user_has_uploader_permission(request.user, uploader):
+        return HttpResponseForbidden("You do not have permission to upload data for this uploader")
+    fmt = get_update_format(uploader_app)
+    messages = []
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            messages = handle_uploaded_file(uploader, request.FILES["file"], 
+                    form.cleaned_data["new_actual_frequency_display_value"])
+            form = UploadForm()
+    else:
+        form = UploadForm()
+    return render(request, "widget_data/upload_data.html", {
+            "uploader": uploader,
+            "format": fmt,
+            "messages": messages,
+            "form": form,
+            })
+
+def handle_uploaded_file(uploader, uploaded_file, freq_display=None):
+    try:
+        return do_upload(uploader, uploaded_file, 
+                    actual_freq_display=freq_display, verbosity=3)
+    except LoaderException, e:
+        return [ "Upload Error: %s" % unicode(e) ]
 

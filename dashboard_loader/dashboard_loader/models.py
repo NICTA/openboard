@@ -6,6 +6,8 @@ import thread
 
 from django.db import models
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import Permission, Group
 
 class Loader(models.Model):
     app = models.CharField(max_length=80, unique=True)
@@ -47,4 +49,30 @@ class Loader(models.Model):
             return "%s last loaded %s" % (self.app, self.last_loaded.strftime("%d/%m/%Y %H:%M:%S"))
         else:
             return "%s (no data loaded)" % self.app
+
+class Uploader(models.Model):
+    app = models.CharField(max_length=80, unique=True)
+    last_uploaded = models.DateTimeField(null=True, blank=True)
+    def permission_name(self):
+        return "upload_%s" % self.app
+    def permission_label(self):
+        p = self.permission()
+        return "%s.%s" % (p.content_type.app_label, p.codename)
+    def permission(self, log=None):
+        ct = ContentType.objects.get_for_model(self)
+        try:
+            p = Permission.objects.get(content_type=ct, 
+                            codename=self.permission_name())
+        except Permission.DoesNotExist:
+            p = Permission(content_type=ct, codename=self.permission_name(),
+                    name="upload data files for %s" % self.app)
+            p.save()
+            if log:
+                    print >> log, "Created uploader permission for %s" % self.app
+        return p
+    def __unicode__(self):
+        if self.last_uploaded:
+            return "%s last uploaded %s" % (self.app, self.last_loaded.strftime("%d/%m/%Y %H:%M:%S"))
+        else:
+            return "%s (no data uploaded)" % self.app
 

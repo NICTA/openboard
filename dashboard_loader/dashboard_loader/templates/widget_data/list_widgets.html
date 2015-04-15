@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+{% if widgets %}
 <h1>Widgets</h1>
 <table class="simple_table">
     <tr>
         <th>Widget Name</th>
         <th>Location</th>
         <th>Freq</th>
+        <th>Actual Freq Display</th>
         <th>Last Updated</th>
         <th>Actions</th>
     </tr>
@@ -14,6 +16,7 @@
             <td>{{ w.name }}{% if w.subtitle %} ({{ w.subtitle }}){% endif %}</td>
             <td>{{ w.actual_location.name }}</td>
             <td>{{ w.actual_frequency.actual_display }}</td>
+            <td>{{ w.actual_frequency_display }}</td>
             <td>
                 {% if w.data_last_updated %}
                     {{ w.data_last_updated|date:"d/m/Y h:i:sa" }}
@@ -27,4 +30,24 @@
         </tr>
     {% endfor %}
 </table>
+{% endif %}
+{% if uploaders %}
+<h1>Uploaders</h2>
+<table class="simple_table">
+    <tr>
+        <th>Uploader</th>
+        <th>Last Uploaded</th>
+    </tr>
+    {% for upl in uploaders %}
+        <tr>
+            <td><a href="{% url "upload_data" uploader_app=upl.app %}">{{ upl.app }}</a></td>
+            <td>
+                {% if upl.last_uploaded %}
+                    {{ upl.last_uploaded|date:"d/m/Y h:t:sa" }}
+                {% else %}<i>Never uploaded</i>{% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
 {% endblock %}
