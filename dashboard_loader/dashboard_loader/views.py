@@ -324,6 +324,7 @@ def upload(request, uploader_app):
     return render(request, "widget_data/upload_data.html", {
             "uploader": uploader,
             "format": fmt,
+            "num_sheets": len(fmt["sheets"]),
             "messages": messages,
             "form": form,
             })

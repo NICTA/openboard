@@ -4,7 +4,41 @@
 <p>{% if uploader.last_uploaded %}
 Last Uploaded: {{ uploader.last_uploaded|date:"d/m/Y h:t:sa" }}
 {% else %}<i>Never uploaded</i>{% endif %}
-</p>
+<div class="instructions">
+<h2>File Format Specification for {{ uploader.app }}</h2>
+<p><b>Format:</b> {{ format.format }}</p>
+{% for sheet in format.sheets %}
+    {% if num_sheets > 1 %}
+    <h3>Sheet {{ sheet.name }}</h3>
+    {% endif %}
+    <h4>Columns</h4>
+    <table class="simple_table">
+        {% for col in sheet.cols %}
+            <tr>
+                {% for elem in col %}
+                    <td>{{ elem }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>Rows</h4>
+    <table class="simple_table">
+        {% for row in sheet.rows %}
+            <tr>
+                {% for elem in row %}
+                    <td>{{ elem }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>Notes</h4>
+    <ul>
+        {% for note in notes %}
+            <li>{{ note }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+</div>
 {% if messages %}
 <ul>
     {% for msg in messages %}
