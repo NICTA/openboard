@@ -13,7 +13,7 @@
         }, 
         {
             "sort_order": 3, 
-            "description": "Partly cloudy", 
+            "description": "Mostly sunny", 
             "value": "partly-cloudy"
         }, 
         {
@@ -28,7 +28,7 @@
         }, 
         {
             "sort_order": 8, 
-            "description": "Light Rain", 
+            "description": "Light rain", 
             "value": "light-rain"
         }, 
         {
@@ -73,12 +73,12 @@
         }, 
         {
             "sort_order": 17, 
-            "description": "Light Shower", 
+            "description": "Light shower", 
             "value": "light-showers"
         }, 
         {
             "sort_order": 18, 
-            "description": "Heavy Shower", 
+            "description": "Heavy shower", 
             "value": "heavy-showers"
         }, 
         {
