@@ -680,7 +680,8 @@ class Statistic(models.Model):
     AM_PM = 6
     EVENT_LIST = 7
     LONG_STRING = 8
-    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" , "event_list" , "long_string" ]
+    LONG_STRING_LIST = 9
+    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" , "event_list" , "long_string", "long_string_list" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.CharField(max_length=80, blank=True)
     url = models.SlugField()
@@ -692,6 +693,7 @@ class Statistic(models.Model):
                     (STRING_KVL, stat_types[STRING_KVL]),
                     (NUMERIC_KVL, stat_types[NUMERIC_KVL]),
                     (STRING_LIST, stat_types[STRING_LIST]),
+                    (LONG_STRING_LIST, stat_types[LONG_STRING_LIST]),
                     (AM_PM, stat_types[AM_PM]),
                     (EVENT_LIST, stat_types[EVENT_LIST]),
                 ))
@@ -744,7 +746,8 @@ class Statistic(models.Model):
         return self.stat_type in (self.NUMERIC, self.NUMERIC_KVL)
     def is_list(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL,
-                                self.STRING_LIST, self.EVENT_LIST)
+                                self.STRING_LIST, self.LONG_STRING_LIST,
+                                self.EVENT_LIST)
     def is_eventlist(self):
         return self.stat_type == (self.EVENT_LIST)
     def is_kvlist(self):
@@ -908,12 +911,12 @@ class Statistic(models.Model):
                 state["unit"]["underfix"] = self.unit_underfix 
             if self.unit_signed:
                 state["unit"]["signed"] = True
+        if self.traffic_light_scale:
+            state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
+        else:
+            state["traffic_light_scale"] = None
         if self.stat_type != self.STRING_LIST:
             state["trend"] = self.trend
-            if self.traffic_light_scale:
-                state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
-            else:
-                state["traffic_light_scale"] = None
             if self.icon_library:
                 state["icon_library"] = self.icon_library.name
             else:
