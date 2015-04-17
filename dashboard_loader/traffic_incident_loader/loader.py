@@ -68,13 +68,11 @@ def reload_data(loader, tz, verbosity=0):
                     incidents["severity_tlc"] = 1
     if verbosity >= 5:
         print "%d major incidents" % len(majors)
-# call_in_transaction(load_incidents, incidents, majors, now)
-    load_incidents( incidents, majors, now)
+    call_in_transaction(load_incidents, incidents, majors, now)
     http.close()
     loader.last_api_access = now
     loader.save()
     messages.append("Data reloaded")
-    # set_statistic_data("road_speeds", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
     return messages
 
 def load_incidents(incidents, majors, now):
