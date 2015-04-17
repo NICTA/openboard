@@ -61,10 +61,30 @@
                     "sort_order": 10
                 }, 
                 {
-                    "statistics": [], 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "Major Incidents", 
+                            "unit_prefix": null, 
+                            "hyperlinkable": false, 
+                            "url": "major_incidents", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 9, 
+                            "sort_order": 100
+                        }
+                    ], 
                     "list_label_width": null, 
                     "url": "traffic_incidents_nsw_rt_expansion", 
-                    "tile_type": 5, 
+                    "tile_type": 10, 
                     "expansion": true, 
                     "sort_order": 20
                 }

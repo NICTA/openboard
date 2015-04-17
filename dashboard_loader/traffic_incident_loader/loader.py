@@ -8,11 +8,9 @@ import json
 from django.conf import settings
 
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code, call_in_transaction, clear_statistic_list, add_statistic_list_item
-from traffic_incident_loader.models import MajorIncident
 
 # Refresh every 5 minute
-refresh_rate = 9
-api_refresh_rate = 60 * 5
+refresh_rate = 60 * 5
 
 def epoch_convert(ms, tz):
     s = ms / 1000.0
@@ -27,19 +25,7 @@ severity_tlc = [ "bad", "poor", "good" ]
 
 def update_data(loader, verbosity=0):
     tz = pytz.timezone(settings.TIME_ZONE)
-    if loader.last_api_access and datetime.datetime.now(pytz.timezone(settings.TIME_ZONE)) - loader.last_api_access < datetime.timedelta(seconds=api_refresh_rate):
-        messages = rotate_data(tz, verbosity)
-    else:
-        messages = reload_data(loader, tz, verbosity)
-    return messages
-
-def rotate_data(tz, verbosity=0):
-    messages = []
-    mi = MajorIncident.objects.all().order_by("last_featured")[0]
-    set_statistic_data("traffic_incidents", "nsw", "rt", "highlight", mi.text)
-    mi.last_featured = datetime.datetime.now(tz)
-    mi.save()
-    messages.append("Highlight rotated")
+    messages = reload_data(loader, tz, verbosity)
     return messages
 
 def reload_data(loader, tz, verbosity=0):
@@ -80,7 +66,10 @@ def reload_data(loader, tz, verbosity=0):
             elif hazard["properties"]["impactingNetwork"] or hazard["properties"]["isMajor"]:
                 if incidents["severity_tlc"] > 1:
                     incidents["severity_tlc"] = 1
-    call_in_transaction(load_incidents, incidents, majors, now)
+    if verbosity >= 5:
+        print "%d major incidents" % len(majors)
+# call_in_transaction(load_incidents, incidents, majors, now)
+    load_incidents( incidents, majors, now)
     http.close()
     loader.last_api_access = now
     loader.save()
@@ -89,18 +78,20 @@ def reload_data(loader, tz, verbosity=0):
     return messages
 
 def load_incidents(incidents, majors, now):
-    MajorIncident.objects.all().delete()
     set_statistic_data("traffic_incidents", "nsw", "rt", "incidents", incidents["count"],
                             traffic_light_code=severity_tlc[incidents["severity_tlc"]])
     set_highlight = False
     then = now - datetime.timedelta(seconds=10)
+    clear_statistic_list("traffic_incidents", "nsw", "rt", "highlight")
+    clear_statistic_list("traffic_incidents", "nsw", "rt", "major_incidents")
+    sort_order = 10
+    if len(majors) == 0:
+        add_statistic_list_item("traffic_incidents", "nsw", "rt", "highlight", "No current major incidents", sort_order)
+        add_statistic_list_item("traffic_incidents", "nsw", "rt", "major_incidents", "No current major incidents", sort_order)
     for major in majors:
-        m = MajorIncident(text=major)
-        if not set_highlight:
-            set_statistic_data("traffic_incidents", "nsw", "rt", "highlight", major)
-            set_highlight = True
-            m.last_featured = now
-        else:
-            m.last_featured = then
-        m.save()
+        add_statistic_list_item("traffic_incidents", "nsw", "rt", "highlight", major, sort_order)
+        add_statistic_list_item("traffic_incidents", "nsw", "rt", "major_incidents", major, sort_order)
+        if sort_order >= 100:
+            break
+        sort_order += 10
 
