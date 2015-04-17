@@ -18,7 +18,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Visits", 
+                            "name": "Customers", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "visits", 
@@ -37,7 +37,7 @@
                         {
                             "num_precision": null, 
                             "icon_library": null, 
-                            "name": "Average Duration", 
+                            "name": "Avg vist time", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
                             "url": "duration", 

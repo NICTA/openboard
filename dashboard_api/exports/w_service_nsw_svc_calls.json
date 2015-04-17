@@ -18,7 +18,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Callers", 
+                            "name": "Customers", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "callers", 
@@ -37,21 +37,21 @@
                         {
                             "num_precision": null, 
                             "icon_library": null, 
-                            "name": "Wait Time", 
-                            "unit_prefix": null, 
+                            "name": "Satisfaction", 
+                            "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "wait", 
+                            "url": "satisfaction", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": null, 
-                            "unit_underfix": null, 
+                            "unit_underfix": "", 
                             "unit_signed": false, 
-                            "unit_suffix": null, 
+                            "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
-                            "sort_order": 200
+                            "stat_type": 2, 
+                            "sort_order": 201
                         }
                     ], 
                     "list_label_width": null, 
