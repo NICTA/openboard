@@ -49,7 +49,7 @@
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_suffix": null, 
-                            "rotates": false, 
+                            "rotates": true, 
                             "stat_type": 8, 
                             "sort_order": 200
                         }
