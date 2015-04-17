@@ -35,7 +35,7 @@
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": null, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Satisfaction", 
                             "unit_prefix": "", 
