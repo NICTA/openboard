@@ -160,7 +160,7 @@
                             "sort_order": 40
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Mid North Coast", 
                             "unit_prefix": "", 
@@ -179,7 +179,7 @@
                             "sort_order": 50
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Murrumbidgee", 
                             "unit_prefix": "", 
@@ -198,7 +198,7 @@
                             "sort_order": 60
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Nepean Blue Mountains", 
                             "unit_prefix": "", 
@@ -217,7 +217,7 @@
                             "sort_order": 70
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Northern NSW", 
                             "unit_prefix": "", 
@@ -236,7 +236,7 @@
                             "sort_order": 80
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Northern Sydney", 
                             "unit_prefix": "", 
@@ -255,7 +255,7 @@
                             "sort_order": 90
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "South Eastern Sydney", 
                             "unit_prefix": "", 
@@ -274,7 +274,7 @@
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "South Western Sydney", 
                             "unit_prefix": "", 
@@ -293,7 +293,7 @@
                             "sort_order": 110
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Southern NSW", 
                             "unit_prefix": "", 
@@ -312,7 +312,7 @@
                             "sort_order": 120
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Sydney Children", 
                             "unit_prefix": "", 
@@ -331,7 +331,7 @@
                             "sort_order": 130
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Sydney Local", 
                             "unit_prefix": "", 
@@ -350,7 +350,7 @@
                             "sort_order": 140
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Western NSW", 
                             "unit_prefix": "", 
@@ -369,7 +369,7 @@
                             "sort_order": 150
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "Western Sydney", 
                             "unit_prefix": "", 
