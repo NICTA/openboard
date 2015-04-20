@@ -70,7 +70,7 @@
                             "name": "Sydney", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "sydney_duration", 
+                            "url": "sydney_outages", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -81,7 +81,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 10
+                            "sort_order": 5
                         }, 
                         {
                             "num_precision": 0, 
@@ -89,7 +89,7 @@
                             "name": "Central Coast", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "central_coast_duration", 
+                            "url": "central_coast_outages", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -100,7 +100,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 20
+                            "sort_order": 15
                         }, 
                         {
                             "num_precision": 0, 
@@ -108,7 +108,7 @@
                             "name": "Hunter", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "hunter_duration", 
+                            "url": "hunter_outages", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -119,7 +119,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 30
+                            "sort_order": 25
                         }
                     ], 
                     "list_label_width": null, 
@@ -133,21 +133,21 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "sydney_duration"
+                                    "sydney_outages"
                                 ], 
                                 "sort_order": 100, 
                                 "label": "Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "central_coast_duration"
+                                    "central_coast_outages"
                                 ], 
                                 "sort_order": 200, 
                                 "label": "Central Coast"
                             }, 
                             {
                                 "statistics": [
-                                    "hunter_duration"
+                                    "hunter_outages"
                                 ], 
                                 "sort_order": 300, 
                                 "label": "Hunter"
