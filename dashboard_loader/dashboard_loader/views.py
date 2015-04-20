@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition
-from widget_data.models import StatisticData, StatisticListItem, GraphData
+from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 from dashboard_loader.models import Uploader
 from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission, get_uploaders_for_user, user_has_uploader_permission
 from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
