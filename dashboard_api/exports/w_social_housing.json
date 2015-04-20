@@ -403,11 +403,129 @@
                             "sort_order": 150
                         }
                     ], 
-                    "list_label_width": 50, 
+                    "list_label_width": null, 
                     "url": "housing_exp", 
-                    "tile_type": 3, 
+                    "tile_type": 9, 
                     "expansion": true, 
-                    "sort_order": 20
+                    "sort_order": 20, 
+                    "grid": {
+                        "corner_label": "District", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "sydney"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "se_sydney"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "SE Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "n_sydney"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "N Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "sw_sydney"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "SW Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "w_sydney"
+                                ], 
+                                "sort_order": 500, 
+                                "label": "W Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "nepean"
+                                ], 
+                                "sort_order": 600, 
+                                "label": "Nepean B Mts"
+                            }, 
+                            {
+                                "statistics": [
+                                    "central_coast"
+                                ], 
+                                "sort_order": 700, 
+                                "label": "Central Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "hunter"
+                                ], 
+                                "sort_order": 800, 
+                                "label": "Hunter N E"
+                            }, 
+                            {
+                                "statistics": [
+                                    "mid_north_coast"
+                                ], 
+                                "sort_order": 900, 
+                                "label": "Mid N Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "northern"
+                                ], 
+                                "sort_order": 1000, 
+                                "label": "Northern NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "illawarra"
+                                ], 
+                                "sort_order": 1100, 
+                                "label": "Illawarra Shlhvn"
+                            }, 
+                            {
+                                "statistics": [
+                                    "southern"
+                                ], 
+                                "sort_order": 1200, 
+                                "label": "Southern NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "murrumbidgee"
+                                ], 
+                                "sort_order": 1300, 
+                                "label": "Murrumbidgee"
+                            }, 
+                            {
+                                "statistics": [
+                                    "western"
+                                ], 
+                                "sort_order": 1400, 
+                                "label": "Western NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "far_west"
+                                ], 
+                                "sort_order": 1500, 
+                                "label": "Far West"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "All Applicants"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }
             ], 
             "declarations": [

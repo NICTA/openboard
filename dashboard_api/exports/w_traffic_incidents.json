@@ -82,7 +82,7 @@
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": null, 
+                    "list_label_width": 100, 
                     "url": "traffic_incidents_nsw_rt_expansion", 
                     "tile_type": 10, 
                     "expansion": true, 

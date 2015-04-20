@@ -66,7 +66,7 @@
                     "url": "service_nsw_svc_www_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": true, 
-                        "secondary_numeric_axis_label": "Minutes", 
+                        "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
                         "horiz_axis_label": "", 
                         "use_secondary_numeric_axis": false, 
