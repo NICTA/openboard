@@ -66,13 +66,15 @@ def load_speeds(features, name, am, target, stats, messages, verbosity=0):
     speed = float(road_dist) / (float(road_travel_time) / 60.0)
     if verbosity >= 3:
         messages.append("%s road dist=%d travel_time=%d speed=%f" % (name, road_dist, road_travel_time, speed))
-    if speed < target:
-        tlc = get_traffic_light_code(speed_stat, "poor")
-    else:
-        tlc = get_traffic_light_code(speed_stat, "good")
+#    if speed < target:
+#        tlc = get_traffic_light_code(speed_stat, "poor")
+#    else:
+#        tlc = get_traffic_light_code(speed_stat, "good")
     if verbosity >=2:
         messages.append("Saving road speed for %s" % name)
-    set_statistic_data("road_speeds", "syd", "rt", name, speed, traffic_light_code=tlc)
+    set_statistic_data("road_speeds", "syd", "rt", name, speed, 
+# traffic_light_code=tlc
+            )
 
 
 def update_data(loader, verbosity=0):
@@ -93,7 +95,7 @@ def update_travel_data(verbosity=0):
         am = False
         set_statistic_data("road_speeds", "syd", "rt", "am_pm", "pm")
         target = 79
-    set_statistic_data("road_speeds", "syd", "rt", "target", target)
+    # set_statistic_data("road_speeds", "syd", "rt", "target", target)
     http = httplib.HTTPConnection("livetraffic.rta.nsw.gov.au")
     m1_features = get_livetrafficdata(http, "f3.json", "M1", messages, verbosity)
     m2_features = get_livetrafficdata(http, "m2.json", "M2", messages, verbosity)
@@ -119,12 +121,14 @@ def update_travel_data(verbosity=0):
         trend = -1
     else:
         trend = 1
-    if new_speed < target:
-        tlc = get_traffic_light_code(speed_stat, "poor")
-    else:
-        tlc = get_traffic_light_code(speed_stat, "good")
+# if new_speed < target:
+#        tlc = get_traffic_light_code(speed_stat, "poor")
+#    else:
+#        tlc = get_traffic_light_code(speed_stat, "good")
     if verbosity > 2:
         messages.append("Writing new road_speed: %f"  % new_speed)
-    set_statistic_data("road_speeds", "syd", "rt", "average_speed", new_speed, trend=trend, traffic_light_code=tlc)
+    set_statistic_data("road_speeds", "syd", "rt", "average_speed", new_speed, trend=trend
+        #, traffic_light_code=tlc
+        )
     return messages
 
