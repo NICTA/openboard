@@ -65,7 +65,7 @@
                 {
                     "statistics": [
                         {
-                            "num_precision": 2, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Sydney", 
                             "unit_prefix": "", 
@@ -78,13 +78,13 @@
                             "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
-                            "unit_suffix": "mins", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "sort_order": 10
                         }, 
                         {
-                            "num_precision": 2, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Central Coast", 
                             "unit_prefix": "", 
@@ -97,15 +97,15 @@
                             "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
-                            "unit_suffix": "mins", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "sort_order": 20
                         }, 
                         {
-                            "num_precision": 2, 
+                            "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Hunter New England", 
+                            "name": "Hunter", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "hunter_duration", 
@@ -116,7 +116,7 @@
                             "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
-                            "unit_suffix": "mins", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "sort_order": 30
@@ -155,8 +155,8 @@
                         ], 
                         "columns": [
                             {
-                                "sort_order": 100, 
-                                "label": "Avg time"
+                                "sort_order": 101, 
+                                "label": "Outages"
                             }
                         ], 
                         "show_row_headers": true
