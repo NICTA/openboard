@@ -6,7 +6,9 @@
     "source_url_text": "Ausgrid past outages", 
     "subtitle": "Customer outages", 
     "subcategory": "Electricity", 
-    "groups": [], 
+    "groups": [
+        "Edit All Manual Widgets"
+    ], 
     "url": "electricity_outages", 
     "definitions": [
         {
@@ -148,7 +150,7 @@
                                     "hunter_duration"
                                 ], 
                                 "sort_order": 300, 
-                                "label": "Hunter N E"
+                                "label": "Hunter"
                             }
                         ], 
                         "columns": [
