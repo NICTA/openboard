@@ -27,7 +27,7 @@
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": null, 
-                            "unit_underfix": "", 
+                            "unit_underfix": "ASX-200", 
                             "unit_signed": false, 
                             "unit_suffix": "", 
                             "rotates": false, 
