@@ -120,11 +120,45 @@
                             "sort_order": 30
                         }
                     ], 
-                    "list_label_width": 50, 
+                    "list_label_width": null, 
                     "url": "outages_exp", 
-                    "tile_type": 3, 
+                    "tile_type": 9, 
                     "expansion": true, 
-                    "sort_order": 20
+                    "sort_order": 20, 
+                    "grid": {
+                        "corner_label": "Region", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "sydney_duration"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "central_coast_duration"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Central Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "hunter_duration"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Hunter N E"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Avg time"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }
             ], 
             "declarations": [
