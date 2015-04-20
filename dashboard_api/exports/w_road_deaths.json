@@ -66,10 +66,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Fatalities by region", 
+                            "name": "Sydney", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "regional_fatalities", 
+                            "url": "sydney_fatalities", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -79,15 +79,165 @@
                             "unit_signed": false, 
                             "unit_suffix": "", 
                             "rotates": false, 
-                            "stat_type": 4, 
-                            "sort_order": 10
+                            "stat_type": 2, 
+                            "sort_order": 15
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Northern", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "northern_fatalities", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 20
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Hunter", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "hunter_fatalities", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 30
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Southern", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "southern_fatalities", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 40
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "South West", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "south_west_fatalities", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 50
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Western", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "western_fatalities", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 60
                         }
                     ], 
-                    "list_label_width": 50, 
+                    "list_label_width": null, 
                     "url": "road_deaths_exp", 
-                    "tile_type": 10, 
+                    "tile_type": 9, 
                     "expansion": true, 
-                    "sort_order": 20
+                    "sort_order": 20, 
+                    "grid": {
+                        "corner_label": "Region", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "sydney_fatalities"
+                                ], 
+                                "sort_order": 10, 
+                                "label": "Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "northern_fatalities"
+                                ], 
+                                "sort_order": 20, 
+                                "label": "Northern"
+                            }, 
+                            {
+                                "statistics": [
+                                    "hunter_fatalities"
+                                ], 
+                                "sort_order": 30, 
+                                "label": "Hunter"
+                            }, 
+                            {
+                                "statistics": [
+                                    "southern_fatalities"
+                                ], 
+                                "sort_order": 40, 
+                                "label": "Southern"
+                            }, 
+                            {
+                                "statistics": [
+                                    "south_west_fatalities"
+                                ], 
+                                "sort_order": 50, 
+                                "label": "South West"
+                            }, 
+                            {
+                                "statistics": [
+                                    "western_fatalities"
+                                ], 
+                                "sort_order": 60, 
+                                "label": "Western"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "YTD last month"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }
             ], 
             "declarations": [
