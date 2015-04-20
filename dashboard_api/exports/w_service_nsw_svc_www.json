@@ -6,7 +6,9 @@
     "source_url_text": "Service NSW Website", 
     "subtitle": "Digital Service", 
     "subcategory": "Service NSW", 
-    "groups": [], 
+    "groups": [
+        "Edit All Manual Widgets"
+    ], 
     "url": "service_nsw_svc_www", 
     "definitions": [
         {

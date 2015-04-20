@@ -1,7 +1,8 @@
 {
     "category": "Service Delivery", 
     "edit_all_groups": [
-        "Edit Everything"
+        "Edit Everything", 
+        "Edit All Manual Widgets"
     ], 
     "source_url_text": "Transport NSW interactive crash statistics", 
     "subtitle": "Fatalities", 
