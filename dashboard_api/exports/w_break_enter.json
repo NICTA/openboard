@@ -4,7 +4,9 @@
     "source_url_text": "NSW Bureau of Crime Statistics and Research", 
     "subtitle": "Break and enter (dwelling)", 
     "subcategory": "Crime", 
-    "groups": [], 
+    "groups": [
+        "Edit All Manual Widgets"
+    ], 
     "url": "break_enter", 
     "definitions": [
         {

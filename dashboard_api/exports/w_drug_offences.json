@@ -4,7 +4,9 @@
     "source_url_text": "NSW Bureau of Crime Statistics and Research", 
     "subtitle": "Drug offences", 
     "subcategory": "Crime", 
-    "groups": [], 
+    "groups": [
+        "Edit All Manual Widgets"
+    ], 
     "url": "drug_offences", 
     "definitions": [
         {
@@ -39,7 +41,7 @@
                     "expansion": false, 
                     "sort_order": 10
                 }, 
-		{
+                {
                     "statistics": [
                         {
                             "num_precision": 0, 
