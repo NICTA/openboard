@@ -293,7 +293,7 @@ class WidgetDefinition(models.Model):
                 wd.delete()
         return w
     def __unicode__(self):
-        return "%s (%s, %s)" % (self.family.name, self.actual_location.name, self.actual_frequency.name)
+        return "%s (%s, %s)" % (unicode(self.family), self.actual_location.name, self.actual_frequency.name)
     def data_last_updated(self, update=False):
         if self._lud_cache and not update:
             return self._lud_cache

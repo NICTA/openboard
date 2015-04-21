@@ -6,7 +6,7 @@ from dashboard_loader.models import Uploader
 def get_editable_widgets_for_user(user):
     widgets = []
     for w in WidgetDefinition.objects.all():
-        if user.has_perm(w.family.edit_permission_label()) or user.has_perm(w.family.edit_permission_label()):
+        if user.has_perm(w.family.edit_permission_label()) or user.has_perm(w.family.edit_all_permission_label()):
             widgets.append(w)
     return widgets
 

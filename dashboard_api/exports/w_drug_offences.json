@@ -1,26 +1,22 @@
 {
     "category": "Public Safety", 
-    "edit_all_groups": [
-        "Edit Everything"
-    ], 
+    "edit_all_groups": [], 
     "source_url_text": "NSW Bureau of Crime Statistics and Research", 
-    "subtitle": "Domestic violence", 
+    "subtitle": "Drug offences", 
     "subcategory": "Crime", 
-    "groups": [
-        "Edit All Manual Widgets"
-    ], 
-    "url": "domestic_violence", 
+    "groups": [], 
+    "url": "drug_offences", 
     "definitions": [
         {
-            "about": "<p>Domestic Violence stats, October 2013 to September 2014.</p>", 
-            "sort_order": 1120, 
+            "about": "<p>Drug offence quarterly stats.</p>", 
+            "sort_order": 1130, 
             "tiles": [
                 {
                     "statistics": [
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Total incidents", 
+                            "name": "", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "total", 
@@ -35,42 +31,23 @@
                             "rotates": false, 
                             "stat_type": 2, 
                             "sort_order": 100
-                        }, 
-                        {
-                            "num_precision": 1, 
-                            "icon_library": null, 
-                            "name": "Per 100,000 people", 
-                            "unit_prefix": "", 
-                            "hyperlinkable": false, 
-                            "url": "per_100k", 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": true, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "sort_order": 200
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "domestic_violence_main", 
-                    "tile_type": 2, 
+                    "url": "drug_offences_main", 
+                    "tile_type": 1, 
                     "expansion": false, 
                     "sort_order": 10
                 }, 
-                {
+		{
                     "statistics": [
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Sydney", 
+                            "name": "Greater Sydney", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "sydney", 
+                            "url": "gr_sydney", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -81,15 +58,15 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 100
+                            "sort_order": 101
                         }, 
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Central Coast", 
+                            "name": "Capital Region", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "central_coast", 
+                            "url": "capital_reg", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -100,7 +77,83 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 200
+                            "sort_order": 201
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Central West", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "centra_w", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 301
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Coffs Harbour - Grafton", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "coffs_harbour", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 401
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Far West & Orana", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "far_w_orana", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 501
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Hunter Valley", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "hunter_val", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 601
                         }, 
                         {
                             "num_precision": 0, 
@@ -119,83 +172,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 300
-                        }, 
-                        {
-                            "num_precision": 0, 
-                            "icon_library": null, 
-                            "name": "Hunter", 
-                            "unit_prefix": "", 
-                            "hyperlinkable": false, 
-                            "url": "hunter", 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "sort_order": 400
-                        }, 
-                        {
-                            "num_precision": 0, 
-                            "icon_library": null, 
-                            "name": "New England & NW", 
-                            "unit_prefix": "", 
-                            "hyperlinkable": false, 
-                            "url": "new_england", 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "sort_order": 500
-                        }, 
-                        {
-                            "num_precision": 0, 
-                            "icon_library": null, 
-                            "name": "Central West & Orana", 
-                            "unit_prefix": "", 
-                            "hyperlinkable": false, 
-                            "url": "orana", 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "sort_order": 600
-                        }, 
-                        {
-                            "num_precision": 0, 
-                            "icon_library": null, 
-                            "name": "Far West", 
-                            "unit_prefix": "", 
-                            "hyperlinkable": false, 
-                            "url": "far_west", 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "sort_order": 700
+                            "sort_order": 701
                         }, 
                         {
                             "num_precision": 0, 
@@ -219,10 +196,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Murray/Murrumbidgee", 
+                            "name": "Murray", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "murrumbidgee", 
+                            "url": "murray", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -233,15 +210,15 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 900
+                            "sort_order": 901
                         }, 
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Northern Rivers", 
+                            "name": "New England & NW", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "northern_rivers", 
+                            "url": "new_england_nw", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -252,15 +229,15 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 1000
+                            "sort_order": 1001
                         }, 
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "South East & Tableland", 
+                            "name": "Newcastle & Lake Macquarie", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
-                            "url": "tableland", 
+                            "url": "newcastle_macquarie", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -271,11 +248,68 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "sort_order": 1100
+                            "sort_order": 1101
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Richmond - Tweed", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "richmond_tweed", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 1200
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Riverina", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "riverina", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 1300
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "S Highlands & Shlhvn", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "s_highlands_shoalhaven", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 1400
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "domestic_violence_exp", 
+                    "url": "drug_offences_exp", 
                     "tile_type": 9, 
                     "expansion": true, 
                     "sort_order": 20, 
@@ -285,52 +319,52 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "sydney"
+                                    "gr_sydney"
                                 ], 
                                 "sort_order": 100, 
-                                "label": "Sydney"
+                                "label": "Greater Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "central_coast"
+                                    "capital_reg"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "Central Coast"
+                                "label": "Capital Region"
+                            }, 
+                            {
+                                "statistics": [
+                                    "centra_w"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Central West"
+                            }, 
+                            {
+                                "statistics": [
+                                    "coffs_harbour"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "Coffs Harbour - Grafton"
+                            }, 
+                            {
+                                "statistics": [
+                                    "far_w_orana"
+                                ], 
+                                "sort_order": 500, 
+                                "label": "Far West & Orana"
+                            }, 
+                            {
+                                "statistics": [
+                                    "hunter_val"
+                                ], 
+                                "sort_order": 600, 
+                                "label": "Hunter Valley"
                             }, 
                             {
                                 "statistics": [
                                     "illawarra"
                                 ], 
-                                "sort_order": 300, 
-                                "label": "Illawarra"
-                            }, 
-                            {
-                                "statistics": [
-                                    "hunter"
-                                ], 
-                                "sort_order": 400, 
-                                "label": "Hunter"
-                            }, 
-                            {
-                                "statistics": [
-                                    "new_england"
-                                ], 
-                                "sort_order": 500, 
-                                "label": "New England & NW"
-                            }, 
-                            {
-                                "statistics": [
-                                    "orana"
-                                ], 
-                                "sort_order": 600, 
-                                "label": "Central West and Orana"
-                            }, 
-                            {
-                                "statistics": [
-                                    "far_west"
-                                ], 
                                 "sort_order": 700, 
-                                "label": "Far West"
+                                "label": "Illawarra"
                             }, 
                             {
                                 "statistics": [
@@ -341,24 +375,45 @@
                             }, 
                             {
                                 "statistics": [
-                                    "murrumbidgee"
+                                    "murray"
                                 ], 
                                 "sort_order": 900, 
-                                "label": "Murray/Murrumbidgee"
+                                "label": "Murray"
                             }, 
                             {
                                 "statistics": [
-                                    "northern_rivers"
+                                    "new_england_nw"
                                 ], 
                                 "sort_order": 1000, 
-                                "label": "Northern Rivers"
+                                "label": "New England & NW"
                             }, 
                             {
                                 "statistics": [
-                                    "tableland"
+                                    "newcastle_macquarie"
                                 ], 
                                 "sort_order": 1100, 
-                                "label": "South East & Tableland"
+                                "label": "Newcastle & Lake Macquarie"
+                            }, 
+                            {
+                                "statistics": [
+                                    "richmond_tweed"
+                                ], 
+                                "sort_order": 1200, 
+                                "label": "Richmond - Tweed"
+                            }, 
+                            {
+                                "statistics": [
+                                    "riverina"
+                                ], 
+                                "sort_order": 1300, 
+                                "label": "Riverina"
+                            }, 
+                            {
+                                "statistics": [
+                                    "s_highlands_shoalhaven"
+                                ], 
+                                "sort_order": 1400, 
+                                "label": "S Highlands & Shoalhaven"
                             }
                         ], 
                         "columns": [
