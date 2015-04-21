@@ -388,11 +388,136 @@
                             "sort_order": 160
                         }
                     ], 
-                    "list_label_width": 70, 
+                    "list_label_width": null, 
                     "url": "hospital-wait-exp", 
-                    "tile_type": 3, 
+                    "tile_type": 9, 
                     "expansion": true, 
-                    "sort_order": 200
+                    "sort_order": 200, 
+                    "grid": {
+                        "corner_label": "LHD", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "wait_central_coast"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Central Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_far_west"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Far West"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_hunter"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Hunter N E"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_illawarra"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "Illawarra Shlhvn"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_mid_north_coast"
+                                ], 
+                                "sort_order": 500, 
+                                "label": "Mid North Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_murrumbidgee"
+                                ], 
+                                "sort_order": 600, 
+                                "label": "Murrumbidgee"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_nepean"
+                                ], 
+                                "sort_order": 700, 
+                                "label": "Nepean Bl Mts"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_northern"
+                                ], 
+                                "sort_order": 800, 
+                                "label": "Northern NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_north_sydney"
+                                ], 
+                                "sort_order": 900, 
+                                "label": "Northern Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_se_sydney"
+                                ], 
+                                "sort_order": 1000, 
+                                "label": "SE Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_sw_sydney"
+                                ], 
+                                "sort_order": 1100, 
+                                "label": "SW Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_southern"
+                                ], 
+                                "sort_order": 1200, 
+                                "label": "Southern NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_sydney_children"
+                                ], 
+                                "sort_order": 1300, 
+                                "label": "Sydney Children"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_sydney_local"
+                                ], 
+                                "sort_order": 1400, 
+                                "label": "Sydney Local"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_western"
+                                ], 
+                                "sort_order": 1500, 
+                                "label": "Western NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "wait_w_sydney"
+                                ], 
+                                "sort_order": 1600, 
+                                "label": "Western Sydney"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Patients < 4 hrs"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }
             ], 
             "declarations": [

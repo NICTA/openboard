@@ -486,11 +486,136 @@
                             "sort_order": 150
                         }
                     ], 
-                    "list_label_width": 70, 
+                    "list_label_width": null, 
                     "url": "surgery_exp", 
-                    "tile_type": 3, 
+                    "tile_type": 9, 
                     "expansion": true, 
-                    "sort_order": 20
+                    "sort_order": 20, 
+                    "grid": {
+                        "corner_label": "LHD", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "central_coast"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Central Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "far_west"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Far West"
+                            }, 
+                            {
+                                "statistics": [
+                                    "hunter"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Hunter N E"
+                            }, 
+                            {
+                                "statistics": [
+                                    "illawarra"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "Illawarra Shlhvn"
+                            }, 
+                            {
+                                "statistics": [
+                                    "mid_north_coast"
+                                ], 
+                                "sort_order": 500, 
+                                "label": "Mid North Coast"
+                            }, 
+                            {
+                                "statistics": [
+                                    "murrumbidgee"
+                                ], 
+                                "sort_order": 600, 
+                                "label": "Murrumbidgee"
+                            }, 
+                            {
+                                "statistics": [
+                                    "nepean"
+                                ], 
+                                "sort_order": 700, 
+                                "label": "Nepean Bl Mts"
+                            }, 
+                            {
+                                "statistics": [
+                                    "northern"
+                                ], 
+                                "sort_order": 800, 
+                                "label": "Northern NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "n_sydney"
+                                ], 
+                                "sort_order": 900, 
+                                "label": "Northern Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "se_sydney"
+                                ], 
+                                "sort_order": 1000, 
+                                "label": "SE Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "sw_sydney"
+                                ], 
+                                "sort_order": 1100, 
+                                "label": "SW Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "southern"
+                                ], 
+                                "sort_order": 1200, 
+                                "label": "Southern NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "sydney_children"
+                                ], 
+                                "sort_order": 1300, 
+                                "label": "Sydney Children"
+                            }, 
+                            {
+                                "statistics": [
+                                    "sydney_local"
+                                ], 
+                                "sort_order": 1400, 
+                                "label": "Sydney Local"
+                            }, 
+                            {
+                                "statistics": [
+                                    "western"
+                                ], 
+                                "sort_order": 1500, 
+                                "label": "Western NSW"
+                            }, 
+                            {
+                                "statistics": [
+                                    "w_sydney"
+                                ], 
+                                "sort_order": 1600, 
+                                "label": "Western Sydney"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Cat 1 On-time"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }
                 }
             ], 
             "declarations": [
