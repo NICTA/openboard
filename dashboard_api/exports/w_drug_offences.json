@@ -345,7 +345,7 @@
                                     "coffs_harbour"
                                 ], 
                                 "sort_order": 400, 
-                                "label": "Coffs Harbour - Grafton"
+                                "label": "Coffs Harbour"
                             }, 
                             {
                                 "statistics": [
@@ -387,21 +387,21 @@
                                     "new_england_nw"
                                 ], 
                                 "sort_order": 1000, 
-                                "label": "New England & NW"
+                                "label": "N England & NW"
                             }, 
                             {
                                 "statistics": [
                                     "newcastle_macquarie"
                                 ], 
                                 "sort_order": 1100, 
-                                "label": "Newcastle & Lake Macquarie"
+                                "label": "Newcastle"
                             }, 
                             {
                                 "statistics": [
                                     "richmond_tweed"
                                 ], 
                                 "sort_order": 1200, 
-                                "label": "Richmond - Tweed"
+                                "label": "Richmond Tweed"
                             }, 
                             {
                                 "statistics": [
@@ -415,7 +415,7 @@
                                     "s_highlands_shoalhaven"
                                 ], 
                                 "sort_order": 1400, 
-                                "label": "S Highlands & Shoalhaven"
+                                "label": "S Highlds & Shoalhaven"
                             }
                         ], 
                         "columns": [
