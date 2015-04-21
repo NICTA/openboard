@@ -103,7 +103,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Coffs Harbour - Grafton", 
+                            "name": "Coffs Harbour", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "coffs_harbour", 
@@ -217,7 +217,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "New England & NW", 
+                            "name": "N England & NW", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "new_england_nw", 
@@ -236,7 +236,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Newcastle & Lake Macquarie", 
+                            "name": "Newcastle", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "newcastle_macquarie", 
@@ -255,7 +255,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "Richmond - Tweed", 
+                            "name": "Richmond Tweed", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "richmond_tweed", 
@@ -293,7 +293,7 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "S Highlands & Shlhvn", 
+                            "name": "S Highlds & Shlhvn", 
                             "unit_prefix": "", 
                             "hyperlinkable": false, 
                             "url": "s_highlands_shoalhaven", 
