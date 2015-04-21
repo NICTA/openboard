@@ -192,6 +192,7 @@ def process_xml(region, resp):
                 beach = CurrentBeachRating.objects.get(region=region, beach_name = beach_name)
             except CurrentBeachRating.DoesNotExist:
                 beach = CurrentBeachRating(region=region, beach_name=beach_name)
+# print "Beach %s Advice: %s" % (beach_name, advice)
             beach.rating = beach.parse_advice(advice)
             beach.save()
             if beach.rating == beach.GOOD:
