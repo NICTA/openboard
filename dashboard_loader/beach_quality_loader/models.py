@@ -95,7 +95,7 @@ class CurrentBeachRating(models.Model):
         elif "possible" in advice:
             return self.FAIR
         else:
-            return self.GOOD
+            return self.POOR
     class Meta:
         unique_together=(("region", "beach_name"),)
         ordering=("region", "beach_name", "-rating")
