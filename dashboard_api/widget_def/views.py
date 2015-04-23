@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http.response import HttpResponseForbidden
 
 
@@ -56,8 +56,32 @@ def api_login(request):
                 login(request, user)
                 return json_list(request, [])
             else:
-                return HttpForbidden("User is inactive")
+                return HttpResponseForbidden("User is inactive")
         else:
-            return HttpForbidden("Bad username or password")
+            return HttpResponseForbidden("Bad username or password")
     else:
-        return HttpForbidden("Username and password not supplied")
+        return HttpResponseForbidden("Username and password not supplied")
+
+def api_logout(request):
+    if request.user.is_authenticated():
+        logout(request)
+    return json_list(request, [])
+
+def api_change_password(request):
+    if not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    old_password = request.POST.get('old_password')
+    if not old_password:
+        old_password = request.GET.get('old_password')
+    new_password = request.POST.get('new_password')
+    if not new_password:
+        new_password = request.GET.get('new_password')
+    user = authenticate(username=request.user.username, password=old_password)
+    if user:
+        user.set_password(new_password)
+        user.save()
+        login(request, user)
+        return json_list(request, [])
+    else:
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+

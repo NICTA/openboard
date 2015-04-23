@@ -5,8 +5,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'dashboard_api.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     
-    # Simple list API views
+    # Authentication API views
     url(r'^login/$', 'widget_def.views.api_login', name='login'),
+    url(r'^logout/$', 'widget_def.views.api_logout', name='logout'),
+    url(r'^change_password/$', 'widget_def.views.api_change_password', name='change_password'),
 
     # Simple list API views
     url(r'^themes/$', 'widget_def.views.get_themes', name='get_themes'),
