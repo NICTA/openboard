@@ -67,10 +67,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "central_coast_rereports", 
+                            "name": "central_coast_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "central_coast_rereports", 
+                            "url": "central_coast_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -105,10 +105,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "far_west_rereports", 
+                            "name": "far_west_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "far_west_rereports", 
+                            "url": "far_west_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -143,10 +143,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "hunter_rereports", 
+                            "name": "hunter_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "hunter_rereports", 
+                            "url": "hunter_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -181,10 +181,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "illawarra_rereports", 
+                            "name": "illawarra_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "illawarra_rereports", 
+                            "url": "illawarra_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -219,10 +219,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "mid_north_coast_rereports", 
+                            "name": "mid_north_coast_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "mid_north_coast_rereports", 
+                            "url": "mid_north_coast_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -257,10 +257,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "murrumbidgee_rereports", 
+                            "name": "murrumbidgee_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "murrumbidgee_rereports", 
+                            "url": "murrumbidgee_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -295,10 +295,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "nepean_rereports", 
+                            "name": "nepean_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "nepean_rereports", 
+                            "url": "nepean_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -333,10 +333,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "northern_nsw_rereports", 
+                            "name": "northern_nsw_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "northern_nsw_rereports", 
+                            "url": "northern_nsw_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -371,10 +371,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "n_sydney_rereports", 
+                            "name": "n_sydney_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "n_sydney_rereports", 
+                            "url": "n_sydney_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -409,10 +409,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "se_sydney_rereports", 
+                            "name": "se_sydney_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "se_sydney_rereports", 
+                            "url": "se_sydney_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -447,10 +447,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "sw_sydney_rereports", 
+                            "name": "sw_sydney_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "sw_sydney_rereports", 
+                            "url": "sw_sydney_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -485,10 +485,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "southern_nsw_rereports", 
+                            "name": "southern_nsw_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "southern_nsw_rereports", 
+                            "url": "southern_nsw_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -523,10 +523,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "sydney_rereports", 
+                            "name": "sydney_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "sydney_rereports", 
+                            "url": "sydney_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -561,10 +561,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "western_nsw_rereports", 
+                            "name": "western_nsw_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "western_nsw_rereports", 
+                            "url": "western_nsw_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -599,10 +599,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "w_sydney_rereports", 
+                            "name": "w_sydney_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "w_sydney_rereports", 
+                            "url": "w_sydney_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -637,10 +637,10 @@
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
-                            "name": "statewide_rereports", 
+                            "name": "statewide_vacancies", 
                             "unit_prefix": null, 
                             "hyperlinkable": false, 
-                            "url": "statewide_rereports", 
+                            "url": "statewide_vacancies", 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
@@ -684,128 +684,128 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "central_coast_f2f",
-                                    "central_coast_rereports"
+                                    "central_coast_vacancies", 
+                                    "central_coast_f2f"
                                 ], 
                                 "sort_order": 10, 
                                 "label": "Central Coast"
                             }, 
                             {
                                 "statistics": [
-                                    "far_west_f2f",
-                                    "far_west_rereports"
+                                    "far_west_vacancies", 
+                                    "far_west_f2f"
                                 ], 
                                 "sort_order": 20, 
                                 "label": "Far West"
                             }, 
                             {
                                 "statistics": [
-                                    "hunter_f2f",
-                                    "hunter_rereports"
+                                    "hunter_vacancies", 
+                                    "hunter_f2f"
                                 ], 
                                 "sort_order": 30, 
                                 "label": "Hunter New England"
                             }, 
                             {
                                 "statistics": [
-                                    "illawarra_f2f",
-                                    "illawarra_rereports"
+                                    "illawarra_vacancies", 
+                                    "illawarra_f2f"
                                 ], 
                                 "sort_order": 40, 
                                 "label": "Illawarra Shoalhaven"
                             }, 
                             {
                                 "statistics": [
-                                    "mid_north_coast_f2f",
-                                    "mid_north_coast_rereports"
+                                    "mid_north_coast_vacancies", 
+                                    "mid_north_coast_f2f"
                                 ], 
                                 "sort_order": 50, 
                                 "label": "Mid North Coast"
                             }, 
                             {
                                 "statistics": [
-                                    "murrumbidgee_f2f",
-                                    "murrumbidgee_rereports"
+                                    "murrumbidgee_vacancies", 
+                                    "murrumbidgee_f2f"
                                 ], 
                                 "sort_order": 60, 
                                 "label": "Murrumbidgee"
                             }, 
                             {
                                 "statistics": [
-                                    "nepean_f2f",
-                                    "nepean_rereports"
+                                    "nepean_vacancies", 
+                                    "nepean_f2f"
                                 ], 
                                 "sort_order": 70, 
                                 "label": "Nepean Blue Mountains"
                             }, 
                             {
                                 "statistics": [
-                                    "northern_nsw_f2f",
-                                    "northern_nsw_rereports"
+                                    "northern_nsw_vacancies", 
+                                    "northern_nsw_f2f"
                                 ], 
                                 "sort_order": 80, 
                                 "label": "Northern NSW"
                             }, 
                             {
                                 "statistics": [
-                                    "n_sydney_f2f",
-                                    "n_sydney_rereports"
+                                    "n_sydney_vacancies", 
+                                    "n_sydney_f2f"
                                 ], 
                                 "sort_order": 90, 
                                 "label": "Northern Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "se_sydney_f2f",
-                                    "se_sydney_rereports"
+                                    "se_sydney_vacancies", 
+                                    "se_sydney_f2f"
                                 ], 
                                 "sort_order": 100, 
                                 "label": "South Eastern Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "sw_sydney_f2f",
-                                    "sw_sydney_rereports"
+                                    "sw_sydney_vacancies", 
+                                    "sw_sydney_f2f"
                                 ], 
                                 "sort_order": 110, 
                                 "label": "South Western Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "southern_nsw_f2f",
-                                    "southern_nsw_rereports"
+                                    "southern_nsw_vacancies", 
+                                    "southern_nsw_f2f"
                                 ], 
                                 "sort_order": 120, 
                                 "label": "Southern NSW"
                             }, 
                             {
                                 "statistics": [
-                                    "sydney_f2f",
-                                    "sydney_rereports"
+                                    "sydney_vacancies", 
+                                    "sydney_f2f"
                                 ], 
                                 "sort_order": 130, 
                                 "label": "Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "western_nsw_f2f",
-                                    "western_nsw_rereports"
+                                    "western_nsw_vacancies", 
+                                    "western_nsw_f2f"
                                 ], 
                                 "sort_order": 140, 
                                 "label": "Western NSW"
                             }, 
                             {
                                 "statistics": [
-                                    "w_sydney_f2f",
-                                    "w_sydney_rereports" 
+                                    "w_sydney_vacancies", 
+                                    "w_sydney_f2f"
                                 ], 
                                 "sort_order": 150, 
                                 "label": "Western Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "statewide_f2f",
-                                    "statewide_rereports"
+                                    "statewide_vacancies", 
+                                    "statewide_f2f"
                                 ], 
                                 "sort_order": 160, 
                                 "label": "Statewide Services"
@@ -814,11 +814,11 @@
                         "columns": [
                             {
                                 "sort_order": 10, 
-                                "label": "Face to face"
+                                "label": "Vacancies"
                             }, 
                             {
                                 "sort_order": 20, 
-                                "label": "Re-reports"
+                                "label": "Face-to-face assessments"
                             }
                         ], 
                         "show_row_headers": true
