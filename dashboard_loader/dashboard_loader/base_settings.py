@@ -113,6 +113,10 @@ STATICFILES_FINDERS = (
         )
 STATIC_URL = '/static/'
 
+SESSION_COOKIE_PATH = '/'
+
+ADMIN_SITE_URL = "/"
+
 TDX_USERNAME="paul.haesler@nicta.com.au"
 TDX_PASSWORD="N1ct@da$hdb"
 # Just so I don't forget

@@ -33,3 +33,11 @@ DATABASES = {
     }
 }
 
+# LOGIN_URL = "/data/login"
+# LOGOUT_URL = "/data/logout"
+# STATIC_URL = "/static/"
+
+# SESSION_COOKIE_PATH = '/data/'
+
+# ADMIN_SITE_URL = '/data/'
+
