@@ -16,6 +16,12 @@ urlpatterns = patterns('',
     url(r'^graphs/(?P<widget_url>[^/]+)/(?P<actual_location_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<tile_url>[^/]+)$', 
                         'dashboard_loader.views.edit_graph', name="edit_graph"),
     url(r'^upload/(?P<uploader_app>[^/]+)$', 'dashboard_loader.views.upload', name="upload_data"),
+
+    # Views for maintaining users
+    url(r'^users/$', 'dashboard_loader.views.maintain_users', name="maintain_users"),
+    url(r'^users/add_new$', 'dashboard_loader.views.add_user', name="add_user"),
+    url(r'^users/(?P<username>[^/]+)$', 'dashboard_loader.views.edit_user', name="edit_user"),
+    url(r'^users/(?P<username>[^/]+)/(?P<action>[^/]+)$', 'dashboard_loader.views.user_action', name="user_action"),
     # Admin views (For modifying widget definitions, adding new widgets, etc.)
     url(r'^admin/', include(admin.site.urls)),
 )

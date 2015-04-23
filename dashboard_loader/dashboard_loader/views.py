@@ -2,6 +2,7 @@ from django import forms
 from django.http import HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 
 from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition
@@ -53,11 +54,21 @@ def logout_view(request):
 def list_widgets(request):
     editable_widgets = get_editable_widgets_for_user(request.user)
     uploaders = get_uploaders_for_user(request.user)
-    if not editable_widgets and not uploaders:
+    if request.user.has_perm("auth.add_user"):
+        can_edit_users = True
+    else:
+        can_edit_users = False
+    if request.user.is_staff:
+        can_use_admin = True
+    else:
+        can_use_admin = False
+    if not editable_widgets and not uploaders and not can_edit_users:
         return HttpResponseForbidden("You do not have permission to edit or upload any dashboard data")
     return render(request, "widget_data/list_widgets.html", {
             "widgets": editable_widgets,
-            "uploaders": uploaders
+            "uploaders": uploaders,
+            "can_edit_users": can_edit_users,
+            "can_use_admin": can_use_admin,
             })
 
 class WidgetDataForm(forms.Form):
@@ -336,3 +347,199 @@ def handle_uploaded_file(uploader, uploaded_file, freq_display=None):
     except LoaderException, e:
         return [ "Upload Error: %s" % unicode(e) ]
 
+@login_required
+def maintain_users(request):
+    print "Maintain users!"
+    if not request.user.has_perm("auth.add_user"):
+        return HttpResponseForbidden("You do not have permission to maintain users")
+    users = User.objects.all()
+    return render(request, "users/list_users.html", {
+            "users": users,
+            })
+
+class AddUserForm(forms.Form):
+    PASSWD_AUTO = "2"
+    PASSWD_MANUAL = "3"
+    username=forms.CharField(max_length=30, required=True)
+    first_name=forms.CharField(max_length=30, required=False)
+    last_name=forms.CharField(max_length=30, required=False)
+    email = forms.EmailField(required=False)
+    is_active = forms.BooleanField(required=False, initial=True)
+    groups = forms.ModelMultipleChoiceField(required=False, 
+                        queryset=Group.objects.all(),
+                        widget=forms.CheckboxSelectMultiple())
+    mode_password = forms.ChoiceField(
+            required=True,
+            choices=[
+                    ( PASSWD_AUTO, "Generate password automatically and email" ),
+                    ( PASSWD_MANUAL, "Manually set password" ),
+            ],
+            initial = PASSWD_AUTO,
+            widget=forms.RadioSelect(attrs={
+                    'onclick': "showHidePasswordFieldsFromRadioButton('mode_password')",
+                })
+            )
+    password1 = forms.CharField(max_length=64, required=False, 
+            label="Password",
+            widget=forms.widgets.PasswordInput)
+    password2 = forms.CharField(max_length=64, required=False, 
+            label="Confirm Password",
+            widget=forms.widgets.PasswordInput)
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        try:
+            user = User.objects.get(username=username)
+            raise forms.ValidationError("This username is already in use")
+        except User.DoesNotExist:
+            return username
+    def clean(self):
+        data = super(AddUserForm, self).clean()
+        if self.data["mode_password"] == self.PASSWD_AUTO:
+            self.add_error("mode_password", "Automatic password generation not supported yet")
+        elif self.data["mode_password"] == self.PASSWD_MANUAL:
+            if not self.data["password1"]:
+                self.add_error("password1", "Please enter new password")
+            elif not self.data["password2"]:
+                self.add_error("password2", "Please confirm new password")
+            elif self.data["password1"] != self.data["password2"]:
+                self.add_error("password2", "Passwords do not match")
+        return data
+
+
+@login_required
+def add_user(request):
+    if not request.user.has_perm("auth.add_user"):
+        return HttpResponseForbidden("You do not have permission to maintain users")
+    if request.method == "POST":
+        form = AddUserForm(request.POST)
+        if request.POST.get("cancel"):
+            return redirect("maintain_users")
+        if form.is_valid():
+            data = form.cleaned_data
+            user = User()
+            user.username = data["username"]
+            user.first_name = data["first_name"]
+            user.last_name = data["last_name"]
+            user.email = data["email"]
+            user.is_active = bool(data.get("is_active"))
+            if data["mode_password"] == EditUserForm.PASSWD_MANUAL_RESET:
+                user.set_password(data["password1"])
+            user.save()
+            for grp in data["groups"]:
+                user.groups.add(grp)
+            return redirect("maintain_users")
+    else:
+        form = AddUserForm()
+    return render(request, "users/add_user.html", {
+            'form': form,
+            })
+
+class EditUserForm(forms.Form):
+    PASSWD_UNCHANGED = "1"
+    PASSWD_AUTO_RESET = "2"
+    PASSWD_MANUAL_RESET = "3"
+    first_name=forms.CharField(max_length=30, required=False)
+    last_name=forms.CharField(max_length=30, required=False)
+    email = forms.EmailField(required=False)
+    is_active = forms.BooleanField(required=False)
+    groups = forms.ModelMultipleChoiceField(required=False,
+                        queryset=Group.objects.all(),
+                        widget=forms.CheckboxSelectMultiple())
+    mode_password = forms.ChoiceField(
+            required=True,
+            choices=[
+                    ( PASSWD_UNCHANGED, "Leave password unchanged" ),
+                    ( PASSWD_AUTO_RESET, "Reset password and email" ),
+                    ( PASSWD_MANUAL_RESET, "Manually set password" ),
+            ],
+            initial = PASSWD_UNCHANGED,
+            widget=forms.RadioSelect(attrs={
+                    'onclick': "showHidePasswordFieldsFromRadioButton('mode_password')",
+                })
+            )
+    password1 = forms.CharField(max_length=64, required=False, 
+            label="Password",
+            widget=forms.widgets.PasswordInput)
+    password2 = forms.CharField(max_length=64, required=False, 
+            label="Confirm Password",
+            widget=forms.widgets.PasswordInput)
+    def __init__(self, *args, **kwargs):
+        init = kwargs.get("initial")
+        if isinstance(init, User):
+           initial = {
+               'first_name': init.first_name,
+               'last_name': init.last_name,
+               'email': init.email,
+               'is_active': init.is_active,
+               'groups': [ g.id for g in init.groups.all() ],
+           }
+           kwargs["initial"] = initial
+        super(EditUserForm,self).__init__(*args, **kwargs)
+    def clean(self):
+        data = super(EditUserForm, self).clean()
+        if self.data["mode_password"] == self.PASSWD_AUTO_RESET:
+            self.add_error("mode_password", "Automatic password reset not supported yet")
+        elif self.data["mode_password"] == self.PASSWD_MANUAL_RESET:
+            if not self.data["password1"]:
+                self.add_error("password1", "Please enter new password")
+            elif not self.data["password2"]:
+                self.add_error("password2", "Please confirm new password")
+            elif self.data["password1"] != self.data["password2"]:
+                self.add_error("password2", "Passwords do not match")
+        return data
+
+@login_required
+def edit_user(request, username):
+    if not request.user.has_perm("auth.add_user"):
+        return HttpResponseForbidden("You do not have permission to maintain users")
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return HttpResponseForbidden("User does not exist")
+    if request.method == "POST":
+        form = EditUserForm(request.POST)
+        if request.POST.get("cancel"):
+            return redirect("maintain_users")
+        if form.is_valid():
+            data = form.cleaned_data
+            user.first_name = data["first_name"]
+            user.last_name = data["last_name"]
+            user.email = data["email"]
+            user.is_active = bool(data.get("is_active"))
+            user.save()
+            user.groups.clear()
+            for grp in data["groups"]:
+                user.groups.add(grp)
+            if data["mode_password"] == EditUserForm.PASSWD_MANUAL_RESET:
+                user.set_password(data["password1"])
+                user.save()
+            return redirect("maintain_users")
+    else:
+        form = EditUserForm(initial=user)
+    return render(request, "users/edit_user.html", {
+            'u': user,
+            'form': form,
+            })
+        
+@login_required
+def user_action(request, username, action):
+    if not request.user.has_perm("auth.add_user"):
+        return HttpResponseForbidden("You do not have permission to maintain users")
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return HttpResponseForbidden("User does not exist")
+    if action == "deactivate":
+        print "Deactivating..."
+        user.is_active = False
+        user.save()
+    elif action == "activate":
+        user.is_active = True
+        user.save()
+    elif action == "delete":
+        if user.is_active:
+            return HttpResponseForbidden("Cannot delete an active user")
+        user.delete()
+    else:
+        return HttpResponseForbidden("Action %s not supported" % action)
+    return redirect("maintain_users")

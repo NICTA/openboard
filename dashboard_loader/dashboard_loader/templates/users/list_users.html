@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Maintain Users</h1>
+<p>
+<a href="{% url "add_user" %}">Add New User</a><br/>
+<a href="{% url "list_widget_data" %}">Back to Maintenance Home</a><br/>
+</p>
+<table class="simple_table">
+    <tr>
+        <th>login</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Actions</th>
+    <tr>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.username }}</td>
+        <td>{{ u.get_full_name|default:"<i>Not set</i>" }}</td>
+        <td>{{ u.email|default:"<i>Not set</i>" }}</td>
+        <td>{% if u.is_active %}Active{% else %}Inactive{% endif %}</td>
+        <td>
+            <a href="{% url "edit_user" username=u.username %}">Edit</a><br/>
+            {% if u.is_active %}
+            <a href="{% url "user_action" username=u.username action="deactivate" %}">Deactivate</a><br/>
+            {% else %}
+            <a href="{% url "user_action" username=u.username action="activate" %}">Activate</a><br/>
+            <a href="{% url "user_action" username=u.username action="delete" %}">Delete</a><br/>
+            {% endif %}
+        </td>
+    <tr>
+    {% endfor %}
+</table>
+<p>
+<a href="{% url "add_user" %}">Add New User</a><br/>
+<a href="{% url "list_widget_data" %}">Back to Maintenance Home</a><br/>
+</p>
+{% endblock %}

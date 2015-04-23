@@ -50,4 +50,10 @@
     {% endfor %}
 </table>
 {% endif %}
+{% if can_edit_users %}
+    <p><a href="{% url "maintain_users" %}">Edit users</a></p>
+{% endif %}
+{% if can_use_admin %}
+    <p><a href="{% url "admin:index" %}">Django admin app</a></p>
+{% endif %}
 {% endblock %}
