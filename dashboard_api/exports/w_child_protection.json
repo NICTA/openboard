@@ -4,7 +4,7 @@
         "Edit Everything"
     ], 
     "source_url_text": "Community Services caseworker dashboard", 
-    "subtitle": "Additional face-to-face assessments", 
+    "subtitle": "Extra face-to-face assessments to same quarter prior year", 
     "subcategory": "Social Services", 
     "groups": [
         "Edit All Manual Widgets"
@@ -27,7 +27,7 @@
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
+                            "trend": true, 
                             "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
