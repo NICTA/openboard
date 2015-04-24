@@ -61,38 +61,6 @@
                     "tile_type": 2, 
                     "expansion": false, 
                     "sort_order": 100
-                }, 
-                {
-                    "statistics": [], 
-                    "list_label_width": null, 
-                    "url": "service_nsw_svc_counters_graph", 
-                    "graph": {
-                        "numeric_axis_always_show_zero": true, 
-                        "secondary_numeric_axis_label": null, 
-                        "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
-                        "use_secondary_numeric_axis": false, 
-                        "graph_type": 1, 
-                        "horiz_axis_type": 3, 
-                        "datasets": {
-                            "customers": {
-                                "use_secondary_numeric_axis": false, 
-                                "colour": "blue", 
-                                "label": "Customers Served"
-                            }, 
-                            "wait": {
-                                "use_secondary_numeric_axis": false, 
-                                "colour": "red", 
-                                "label": "Avg Wait Time"
-                            }
-                        }, 
-                        "numeric_axis_label": "Customers", 
-                        "clusters": {}, 
-                        "heading": ""
-                    }, 
-                    "tile_type": 6, 
-                    "expansion": true, 
-                    "sort_order": 201
                 }
             ], 
             "declarations": [

@@ -56,19 +56,11 @@
                             "sort_order": 25
                         }
                     ], 
-                    "list_label_width": 75, 
+                    "list_label_width": 50, 
                     "url": "housing_main", 
                     "tile_type": 3, 
                     "expansion": false, 
                     "sort_order": 10
-                }, 
-                {
-                    "statistics": [], 
-                    "list_label_width": null, 
-                    "url": "housing_exp", 
-                    "tile_type": 5, 
-                    "expansion": true, 
-                    "sort_order": 25
                 }
             ], 
             "declarations": [
