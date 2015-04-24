@@ -684,7 +684,7 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "central_coast_f2f",
+                                    "central_coast_f2f", 
                                     "central_coast_rereports"
                                 ], 
                                 "sort_order": 10, 
@@ -692,7 +692,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "far_west_f2f",
+                                    "far_west_f2f", 
                                     "far_west_rereports"
                                 ], 
                                 "sort_order": 20, 
@@ -700,7 +700,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "hunter_f2f",
+                                    "hunter_f2f", 
                                     "hunter_rereports"
                                 ], 
                                 "sort_order": 30, 
@@ -708,7 +708,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "illawarra_f2f",
+                                    "illawarra_f2f", 
                                     "illawarra_rereports"
                                 ], 
                                 "sort_order": 40, 
@@ -716,7 +716,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "mid_north_coast_f2f",
+                                    "mid_north_coast_f2f", 
                                     "mid_north_coast_rereports"
                                 ], 
                                 "sort_order": 50, 
@@ -724,7 +724,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "murrumbidgee_f2f",
+                                    "murrumbidgee_f2f", 
                                     "murrumbidgee_rereports"
                                 ], 
                                 "sort_order": 60, 
@@ -732,7 +732,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "nepean_f2f",
+                                    "nepean_f2f", 
                                     "nepean_rereports"
                                 ], 
                                 "sort_order": 70, 
@@ -740,7 +740,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "northern_nsw_f2f",
+                                    "northern_nsw_f2f", 
                                     "northern_nsw_rereports"
                                 ], 
                                 "sort_order": 80, 
@@ -748,7 +748,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "n_sydney_f2f",
+                                    "n_sydney_f2f", 
                                     "n_sydney_rereports"
                                 ], 
                                 "sort_order": 90, 
@@ -756,7 +756,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "se_sydney_f2f",
+                                    "se_sydney_f2f", 
                                     "se_sydney_rereports"
                                 ], 
                                 "sort_order": 100, 
@@ -764,7 +764,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "sw_sydney_f2f",
+                                    "sw_sydney_f2f", 
                                     "sw_sydney_rereports"
                                 ], 
                                 "sort_order": 110, 
@@ -772,7 +772,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "southern_nsw_f2f",
+                                    "southern_nsw_f2f", 
                                     "southern_nsw_rereports"
                                 ], 
                                 "sort_order": 120, 
@@ -780,7 +780,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "sydney_f2f",
+                                    "sydney_f2f", 
                                     "sydney_rereports"
                                 ], 
                                 "sort_order": 130, 
@@ -788,7 +788,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "western_nsw_f2f",
+                                    "western_nsw_f2f", 
                                     "western_nsw_rereports"
                                 ], 
                                 "sort_order": 140, 
@@ -796,15 +796,15 @@
                             }, 
                             {
                                 "statistics": [
-                                    "w_sydney_f2f",
-                                    "w_sydney_rereports" 
+                                    "w_sydney_f2f", 
+                                    "w_sydney_rereports"
                                 ], 
                                 "sort_order": 150, 
                                 "label": "Western Sydney"
                             }, 
                             {
                                 "statistics": [
-                                    "statewide_f2f",
+                                    "statewide_f2f", 
                                     "statewide_rereports"
                                 ], 
                                 "sort_order": 160, 

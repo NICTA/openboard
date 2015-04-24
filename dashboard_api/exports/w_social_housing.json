@@ -4,7 +4,7 @@
         "Edit Everything"
     ], 
     "source_url_text": "Housing NSW website", 
-    "subtitle": "New tenancies & assistance", 
+    "subtitle": "New tenancies & households assisted private market", 
     "subcategory": "Social Services", 
     "groups": [
         "Edit All Manual Widgets"
@@ -12,7 +12,7 @@
     "url": "social_housing", 
     "definitions": [
         {
-            "about": "<p>6-monthly data supplied manually by FACS.</p>", 
+            "about": "<p>Monthly data supplied manually by FACS.</p>", 
             "sort_order": 620, 
             "tiles": [
                 {
@@ -27,7 +27,7 @@
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": true, 
+                            "trend": false, 
                             "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
@@ -56,7 +56,7 @@
                             "sort_order": 25
                         }
                     ], 
-                    "list_label_width": 50, 
+                    "list_label_width": 75, 
                     "url": "housing_main", 
                     "tile_type": 3, 
                     "expansion": false, 
@@ -85,7 +85,7 @@
             ], 
             "refresh_rate": 84200, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "year", 
+            "actual_frequency_url": "month", 
             "actual_location_url": "nsw"
         }
     ], 
