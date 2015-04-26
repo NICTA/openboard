@@ -8,11 +8,11 @@ from django.db import models
 # Create your models here.
 
 class WidgetData(models.Model):
-    widget = models.ForeignKey("widget_def.WidgetDefinition", unique=True)
+    widget = models.OneToOneField("widget_def.WidgetDefinition")
     actual_frequency_text = models.CharField(max_length=60, blank=True, null=True)
 
 class StatisticData(models.Model):
-    statistic = models.ForeignKey("widget_def.Statistic", unique=True)
+    statistic = models.OneToOneField("widget_def.Statistic")
     label=models.CharField(max_length=80, blank=True, null=True)
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,

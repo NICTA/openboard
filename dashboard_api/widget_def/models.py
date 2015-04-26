@@ -942,9 +942,9 @@ class GraphDefinition(models.Model):
         DATE = 2
         TIME = 3
         axis_types = [ "-", "numeric", "date", "time" ]
-        tile = models.ForeignKey(TileDefinition, limit_choices_to={
+        tile = models.OneToOneField(TileDefinition, limit_choices_to={
                                 'tile_type': TileDefinition.GRAPH
-                                }, unique=True)
+                                })
         heading = models.CharField(max_length=120, blank=True, null=True)
         graph_type = models.SmallIntegerField(choices=(
                         (LINE, graph_types[LINE]),
@@ -1183,9 +1183,9 @@ class GraphDataset(models.Model):
         return state
 
 class GridDefinition(models.Model):
-    tile = models.ForeignKey(TileDefinition, limit_choices_to={
+    tile = models.OneToOneField(TileDefinition, limit_choices_to={
                                 'tile_type': TileDefinition.GRID,
-                                }, unique=True)
+                                })
     corner_label = models.CharField(max_length=50, null=True, blank=True)
     show_column_headers = models.BooleanField(default=True)
     show_row_headers = models.BooleanField(default=True)
