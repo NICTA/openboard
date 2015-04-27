@@ -1,4 +1,17 @@
 {% extends "base.html" %}
+{% load dashboard_tags %}
+{% block extrahead %}
+    <script type="text/javascript" src="{% settings STATIC_URL %}admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{% settings STATIC_URL %}admin/js/jquery.init.js"></script>
+    <script>
+        function addAnotherRow() {
+            $ = django.jQuery;
+            var form_idx = $("#id_form-TOTAL_FORMS").val();
+            $('#listform_table').append("<tr>" + $('#empty_form_template').html().replace(/__prefix__/g, form_idx) + "</tr>");
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        };
+    </script>
+{% endblock %}
 {% block content %}
 <h1>Widget: {{ widget.name }} ({{ widget.actual_location.name }}, {{ widget.actual_frequency.name }})</h1>
 <h2>Tile: {{ statistic.tile.url }}</h2>
@@ -7,7 +20,12 @@
 <form action="{% url "edit_stat" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url stat_url=statistic.url %}" method="post">{% csrf_token %}
 {% if statistic.is_list or statistic.rotates %}
     {{ form.management_form }}
-    <table border="0">
+    <table border="0" id="listform_table">
+    <tr class="hidden" id="empty_form_template">
+        {% for field in form.empty_form %}
+            <td><b>{{ field.label_tag }}</b> {{ field }} <br/>{{ field.errors }}</td>
+        {% endfor %}
+    </tr>
     {% for subform in form %}
         <tr>
             {% for field in subform %}
@@ -16,6 +34,7 @@
         </tr>
     {% endfor %}
     </table>
+    <p><a href="#" onclick="addAnotherRow(); return false;">Add another list item</a></p>
 {% else %}
     <table border="0">
     {% for field in form %}
