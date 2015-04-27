@@ -19,7 +19,9 @@ def epoch_convert(ms, tz):
 def get_livehazarddata(http, filename, messages, verbosity=0):
     http.request("GET", "http://livetraffic.rta.nsw.gov.au/traffic/hazards/%s" % filename)
     resp = http.getresponse()
-    return json.load(resp)["features"]
+    text = resp.read()
+    utf = unicode(text, 'iso-8859-1')
+    return json.loads(utf)["features"]
 
 severity_tlc = [ "bad", "poor", "good" ]
 
