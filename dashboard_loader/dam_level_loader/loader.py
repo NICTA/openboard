@@ -50,7 +50,7 @@ class WaterLevelHtmlParser(HTMLParser):
             if not self.main_stats_written and self.pc is not None and self.net_change is not None:
                 if self.pc is None:
                     raise HTMLParseError("All dams average not found")
-                last_week = self.pc + self.net_change
+                last_week = self.pc - self.net_change
                 if abs(self.net_change) < 0.00001:
                     trend = 0
                 elif self.net_change > 0.0:
