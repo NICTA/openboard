@@ -12,13 +12,16 @@ class DecimalAwareEncoder(json.JSONEncoder):
             return float(o)
         return super(DecimalAwareEncoder, self).default(o)
 
-def json_list(request, data):
+def json_list(request, data, set_p3p=False):
     fmt = request.GET.get("format", "json")
     if fmt == "html":
         dump = json.dumps(data, indent=4, cls=DecimalAwareEncoder)
         return render(request, "json_api.html", { 'data': dump })
     dump = json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
-    return HttpResponse(dump, content_type='application/json')
+    response = HttpResponse(dump, content_type='application/json')
+    if set_p3p:
+        response["p3p"] = 'CP="This is not a P3P policy!"'
+    return response
 
 def get_theme_from_request(request, use_default=False):
     theme_url = request.GET.get("theme", "")
