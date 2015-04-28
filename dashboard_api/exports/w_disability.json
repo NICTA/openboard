@@ -1,0 +1,64 @@
+{
+    "category": "Service Delivery", 
+    "edit_all_groups": [], 
+    "source_url_text": "FACS NDIS page", 
+    "subtitle": "People with disability participating for NDIS at trial sites", 
+    "subcategory": "Social Services", 
+    "groups": [], 
+    "url": "disability", 
+    "definitions": [
+        {
+            "about": "<p>Data supplied by FACS monthly.</p>", 
+            "sort_order": 630, 
+            "tiles": [
+                {
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "participants", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": true, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "disability-main", 
+                    "tile_type": 1, 
+                    "expansion": false, 
+                    "sort_order": 100
+                }
+            ], 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 7200, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "month", 
+            "actual_location_url": "nsw"
+        }
+    ], 
+    "source_url": "http://www.adhc.nsw.gov.au/about_us/strategies/national_disability_insurance_scheme", 
+    "name": "Disability"
+}
+

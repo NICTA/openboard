@@ -35,7 +35,7 @@ INSTALLED_APPS = (
     'widget_def',
     'widget_data',
     'bom_loader',
-    'dam_level_loader',
+#     'dam_level_loader',
     'travel_speed_loader',
     'traffic_incident_loader',
     'calendar_updater',
