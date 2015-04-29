@@ -1,10 +1,14 @@
 {
     "category": "Service Delivery", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "FACS NDIS page", 
     "subtitle": "People with disability participating for NDIS at trial sites", 
     "subcategory": "Social Services", 
-    "groups": [], 
+    "groups": [
+        "Edit All Manual Widgets"
+    ], 
     "url": "disability", 
     "definitions": [
         {

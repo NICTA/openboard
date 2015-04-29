@@ -1,6 +1,8 @@
 {
     "category": "Public Safety", 
-    "edit_all_groups": [], 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
     "source_url_text": "NSW Bureau of Crime Statistics and Research", 
     "subtitle": "Drug offences", 
     "subcategory": "Crime", 

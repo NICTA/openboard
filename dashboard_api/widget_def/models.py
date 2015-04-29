@@ -403,10 +403,10 @@ class TileDefinition(models.Model):
             "statistics": [ s.export() for s in self.statistic_set.all() ],
         }
         if self.tile_type == self.GRAPH:
-            g = self.graphdefinition_set.get()
+            g = self.graphdefinition
             exp["graph"] = g.export()
         if self.tile_type == self.GRID:
-            g = self.griddefinition_set.get()
+            g = self.griddefinition
             exp["grid"] = g.export()
         return exp
     @classmethod
@@ -506,21 +506,27 @@ class TileDefinition(models.Model):
         # Must gave a graph if and only if a graph tile
         if self.tile_type == self.GRAPH:
             try:
-                g = GraphDefinition.objects.get(tile=self)
+                g = self.graphdefinition
                 problems.extend(g.validate())
             except GraphDefinition.DoesNotExist:
                 problems.append("Tile %s of Widget %s is a graph tile but does not have a graph defined" % (self.url, self.widget.url()))
         else:
-            self.graphdefinition_set.all().delete()
+            try:
+                self.graphdefinition.delete()
+            except GraphDefinition.DoesNotExist:
+                pass
         # Must have a grid if and only if a grid tile
         if self.tile_type == self.GRID:
             try:
-                g = GridDefinition.objects.get(tile=self)
+                g = self.griddefinition
                 problems.extend(g.validate())
             except GridDefinition.DoesNotExist:
                 problems.append("Tile %s of Widget %s is a grid tile but does not have a grid defined" % (self.url, self.widget.url()))
         else:
-            self.griddefinition_set.all().delete()
+            try:
+                self.griddefinition.delete()
+            except GridDefinition.DoesNotExist:
+                pass
         # Validate all stats.
         for stat in self.statistic_set.all():
             problems.extend(stat.validate())

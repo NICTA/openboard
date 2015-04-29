@@ -4,7 +4,7 @@
         "Edit Everything"
     ], 
     "source_url_text": "Housing NSW website", 
-    "subtitle": "New tenancies & households assisted in the private market", 
+    "subtitle": "New tenancies & households assisted private market", 
     "subcategory": "Social Services", 
     "groups": [
         "Edit All Manual Widgets"
@@ -56,7 +56,7 @@
                             "sort_order": 25
                         }
                     ], 
-                    "list_label_width": null, 
+                    "list_label_width": 50, 
                     "url": "housing_main", 
                     "tile_type": 3, 
                     "expansion": false, 
