@@ -388,7 +388,7 @@
                             "sort_order": 160
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "St Vincents Network", 
                             "unit_prefix": "", 
