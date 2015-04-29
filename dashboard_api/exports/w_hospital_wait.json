@@ -386,6 +386,25 @@
                             "rotates": false, 
                             "stat_type": 2, 
                             "sort_order": 160
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "St Vincents Network", 
+                            "unit_prefix": "", 
+                            "hyperlinkable": false, 
+                            "url": "st_vincents", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "std 3 code", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "sort_order": 170
                         }
                     ], 
                     "list_label_width": null, 
@@ -508,12 +527,19 @@
                                 ], 
                                 "sort_order": 1600, 
                                 "label": "Western Sydney"
+                            }, 
+                            {
+                                "statistics": [
+                                    "st_vincents"
+                                ], 
+                                "sort_order": 1700, 
+                                "label": "St Vincents Network"
                             }
                         ], 
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": "Patients < 4 hrs"
+                                "label": "Patients treated within 4 hours"
                             }
                         ], 
                         "show_row_headers": true
