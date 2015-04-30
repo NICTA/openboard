@@ -476,7 +476,7 @@ class TileDefinition(models.Model):
         # only single_list_Stat tile should have list statistics
         if self.tile_type not in (self.SINGLE_LIST_STAT, self.NEWSTICKER, self.NEWSFEED, self.CALENDAR):
             for stat in self.statistic_set.all():
-                if stat.is_list():
+                if stat.is_display_list():
                     problems.append("Tile %s of Widget %s is not a single_list_stat tile or a calendar tile and contains statistic %s, which is a list statistic. (Lists can only appear in single_list_stat and calendar tiles)." % (self.url, self.widget.url(), stat.url))
         # Validate list_label_width:
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
@@ -729,9 +729,9 @@ class Statistic(models.Model):
         if self.stat_type == self.EVENT_LIST:
             self.traffic_light_scale = None
             self.trend = False
-        if self.is_list():
+        if self.is_display_list():
             name_as_label=True
-        if not self.is_list() and not self.rotates:
+        if not self.is_data_list():
             self.hyperlinkable = False
     def validate(self):
         """Validate Statistic Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
@@ -750,10 +750,12 @@ class Statistic(models.Model):
         return "%s[%s]" % (self.tile,self.name)
     def is_numeric(self):
         return self.stat_type in (self.NUMERIC, self.NUMERIC_KVL)
-    def is_list(self):
+    def is_display_list(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL,
                                 self.STRING_LIST, self.LONG_STRING_LIST,
                                 self.EVENT_LIST)
+    def is_data_list(self):
+        return self.is_display_list() or self.rotates
     def is_eventlist(self):
         return self.stat_type == (self.EVENT_LIST)
     def is_kvlist(self):
@@ -775,7 +777,7 @@ class Statistic(models.Model):
             result["trend"] = unicode(sd.trend)
         if self.hyperlinkable:
             result["url"] = sd.url
-        if self.is_list() or self.rotates:
+        if self.is_data_list():
             if self.is_kvlist() or not self.name_as_label:
                 result["label"] = sd.keyval
             elif self.is_eventlist():
@@ -785,7 +787,7 @@ class Statistic(models.Model):
             result["label"] = sd.label
         return result
     def get_data(self):
-        if self.is_list() or self.rotates:
+        if self.is_data_list():
             return StatisticListItem.objects.filter(statistic=self)
         else:
             try:
@@ -794,7 +796,7 @@ class Statistic(models.Model):
                 return None
     def get_data_json(self):
         data = self.get_data()
-        if self.is_list() or self.rotates:
+        if self.is_data_list():
             return [ self.jsonise(datum) for datum in data ]
         else:
             return self.jsonise(data)
@@ -821,7 +823,7 @@ class Statistic(models.Model):
                 json["trend"]=datum.trend
         return json
     def initial_form_data(self):
-        if self.is_list() or self.rotates:
+        if self.is_data_list():
             return [ self.initial_form_datum(sd) for sd in self.get_data() ]
         else:
             sd = self.get_data()
@@ -832,7 +834,7 @@ class Statistic(models.Model):
     def data_last_updated(self, update=False):
         if self._lud_cache and not update:
             return self._lud_cache
-        if self.is_list() or self.rotates:
+        if self.is_data_list():
             self._lud_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
         else:
             try:
@@ -929,7 +931,7 @@ class Statistic(models.Model):
                 state["icon_library"] = None
         if self.rotates:
             state["rotates"] = self.rotates
-        if self.is_list() or self.rotates:
+        if self.is_data_list():
             state["hyperlinkable"] = self.hyperlinkable
         state["footer"] = self.footer
         return state

@@ -144,13 +144,13 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
     if not s.editable and not user_has_edit_all_permission(request.user, w):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
     form_class = get_form_class_for_statistic(s)
-    if s.is_list() or s.rotates:
+    if s.is_data_list():
         form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
     if request.method == 'POST':
         if request.POST.get("submit") or request.POST.get("submit_stay"):
             form = form_class(request.POST)
             if form.is_valid():
-                if s.is_list() or s.rotates:
+                if s.is_data_list():
                     StatisticListItem.objects.filter(statistic=s).delete()
                     for subform in form:
                         fd = subform.cleaned_data
@@ -228,7 +228,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                         widget_url=w.family.url, 
                         actual_location_url=w.actual_location.url,
                         actual_frequency_url=w.actual_frequency.url)
-        elif not s.is_list() and request.POST.get("delete"):
+        elif not s.is_data_list() and request.POST.get("delete"):
             sd = s.get_data()
             if sd:
                 sd.delete()

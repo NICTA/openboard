@@ -18,9 +18,9 @@
             </td>
             <td>
                 {% if stat.statistic.data_last_updated %}
-                    {% if stat.statistic.is_list %}
+                    {% if stat.statistic.is_display_list %}
                         {{ stat.listdata.count }} list items
-                    {% elif stat.statistic.rotates %}
+                    {% elif stat.statistic.is_data_list %}
                         {{ stat.listdata.count }} rotating items
                     {% else %}
                         {{ stat.data.display_val }}

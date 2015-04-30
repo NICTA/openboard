@@ -18,7 +18,7 @@
 <h3>Statistic: {{ statistic.name }}</h3>
 <h3>url: {{ statistic.url }}</h3>
 <form action="{% url "edit_stat" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url stat_url=statistic.url %}" method="post">{% csrf_token %}
-{% if statistic.is_list or statistic.rotates %}
+{% if statistic.is_data_list %}
     {{ form.management_form }}
     <table border="0" id="listform_table">
     <tr class="hidden" id="empty_form_template">
@@ -47,11 +47,11 @@
     </table>
 {% endif %}
 <input name="submit" type="submit" value="Save" class="button"/>
-{% if statistic.is_list %}
+{% if statistic.is_data_list %}
     <input name="submit_stay" type="submit" value="Save and Continue" class="button"/>
 {% endif %}
 <input name="cancel" type="submit" value="Cancel" class="button"/>
-    {% if not statistic.is_list and statistic.get_data %}
+    {% if not statistic.is_data_list and statistic.get_data %}
         <input name="delete" type="submit" value="Delete" class="button"
             onclick="return confirm('Are you sure you want to delete the data for this statistic?');"
     />
