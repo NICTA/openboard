@@ -2,7 +2,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http.response import HttpResponseForbidden
 
 
-from widget_def.models import *
+from widget_def.models import Theme, Location, Frequency
+from widget_def.api import *
 from widget_def.view_utils import json_list
 from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request
 
@@ -11,26 +12,22 @@ from widget_def.view_utils import get_theme_from_request, get_location_from_requ
 def get_themes(request):
     if not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    data = [ t.__getstate__() for t in Theme.objects.all() ]
-    return json_list(request, data)
+    return json_list(request, api_get_themes())
 
 def get_locations(request):
     if not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    data = [ l.__getstate__() for l in Location.objects.all() ]
-    return json_list(request, data)
+    return json_list(request, api_get_locations())
 
 def get_frequencies(request):
     if not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    data = [ f.__getstate__() for f in Frequency.objects.filter(display_mode=True) ]
-    return json_list(request, data)
+    return json_list(request, api_get_frequencies())
 
 def get_icon_libraries(request):
     if not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    data = { l.name : l.__getstate__() for l in IconLibrary.objects.all() }
-    return json_list(request, data)
+    return json_list(request, api_get_icon_libraries())
 
 def get_widgets(request):
     if not request.user.is_authenticated():
@@ -38,9 +35,7 @@ def get_widgets(request):
     theme = get_theme_from_request(request)
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
-    widgets = WidgetDeclaration.objects.filter(theme=theme, location=location, frequency=frequency)
-    data = [ w.__getstate__() for w in widgets ]
-    return json_list(request, data)
+    return json_list(request, api_get_widgets(theme, location, frequency))
 
 def api_login(request):
     username = request.POST.get('username')
