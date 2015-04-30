@@ -70,18 +70,7 @@
                     "sort_order": 200
                 }
             ], 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "syd"
-                }, 
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "nsw"
-                }
-            ], 
+            "declarations": [], 
             "refresh_rate": 1000, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "day", 
