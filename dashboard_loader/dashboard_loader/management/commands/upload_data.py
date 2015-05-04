@@ -6,21 +6,22 @@ from dashboard_loader.models import Uploader
 from dashboard_loader.loader_utils import LoaderException, do_upload, get_update_format
 
 class Command(BaseCommand):
-    args = "<app> [<filename> [<actual_frequency_display>]]"
+    def add_arguments(self, parser):
+        parser.add_argument("uploader", type=unicode)
+        parser.add_argument("filename", nargs="?", type=unicode, default=None)
+        parser.add_argument("actual_frequency_display", nargs="?", type=unicode, default=None)
+        
+# args = "<app> [<filename> [<actual_frequency_display>]]"
     help = "Upload a file for the selected uploader. If no filename supplied, print the expected file format for the selected uploader. If supplied, the actual frequency display is updated (use quotes if new value contains white space)."
     def handle(self, *args, **options):
         verbosity = int(options["verbosity"])
-        if len(args) > 3:
-            raise CommandError("Maxmimum of three arguments expected")
-        elif len(args) == 0:
-            raise CommandError("Must select an uploader app")
 
-        appname = args[0]
+        appname = options["uploader"]
         try:
             uploader = Uploader.objects.get(app=appname)
         except Uploader.DoesNotExist:
             raise CommandError("%s is not a registered uploader app" % appname)
-        if len(args) == 1:
+        if not options["filename"]:
             # print format
             fmt = get_update_format(appname)
             output = []
@@ -47,11 +48,8 @@ class Command(BaseCommand):
                         output.append("\t* %s" % note)
             print >> self.stdout, "\n".join(output)
         else:
-            fh = open(args[1], "r")
-            if len(args) == 3:
-                actual_freq_display = args[2]
-            else:
-                actual_freq_display = None
+            fh = open(options["filename"], "r")
+            actual_freq_display = options["actual_frequency_display"]
             messages = do_upload(uploader, fh, actual_freq_display, verbosity)
             for m in messages:
                 print >> self.stdout, m
