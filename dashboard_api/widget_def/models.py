@@ -762,13 +762,7 @@ class Statistic(models.Model):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL)
     def initial_form_datum(self, sd):
         result = {}
-        if self.is_numeric():
-            if self.num_precision == 0:
-                result["value"] = sd.intval
-            else:
-                result["value"] = sd.decval
-        else:
-            result["value"] = sd.strval
+        result["value"] = sd.value()
         if self.traffic_light_scale:
             result["traffic_light_code"] = sd.traffic_light_code.value
         if self.icon_library:

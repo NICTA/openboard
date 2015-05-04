@@ -405,7 +405,6 @@ class AddUserForm(forms.Form):
                 self.add_error("password2", "Passwords do not match")
         return data
 
-
 @login_required
 def add_user(request):
     if not request.user.has_perm("auth.add_user"):
