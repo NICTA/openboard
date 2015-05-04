@@ -366,7 +366,7 @@ class AddUserForm(forms.Form):
     email = forms.EmailField(required=False)
     is_active = forms.BooleanField(required=False, initial=True)
     groups = forms.ModelMultipleChoiceField(required=False, 
-                        queryset=Group.objects.all(),
+                        queryset=Group.objects.all().order_by("name"),
                         widget=forms.CheckboxSelectMultiple())
     mode_password = forms.ChoiceField(
             required=True,
@@ -443,7 +443,7 @@ class EditUserForm(forms.Form):
     email = forms.EmailField(required=False)
     is_active = forms.BooleanField(required=False)
     groups = forms.ModelMultipleChoiceField(required=False,
-                        queryset=Group.objects.all(),
+                        queryset=Group.objects.all().order_by("name"),
                         widget=forms.CheckboxSelectMultiple())
     mode_password = forms.ChoiceField(
             required=True,

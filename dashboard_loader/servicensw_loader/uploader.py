@@ -2,7 +2,7 @@ import csv
 import decimal
 from dashboard_loader.loader_utils import LoaderException, get_statistic, set_statistic_data, set_actual_frequency_display_text
 
-groups = [ "upload_all", ]
+groups = [ "upload_all", "upload_servicensw" ]
 
 file_format = {
     "format": "csv",
