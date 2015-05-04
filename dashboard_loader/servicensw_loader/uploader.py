@@ -1,4 +1,5 @@
 import csv
+import decimal
 from dashboard_loader.loader_utils import LoaderException, get_statistic, set_statistic_data, set_actual_frequency_display_text
 
 groups = [ "upload_all", ]
@@ -11,21 +12,21 @@ file_format = {
             "cols": [
                     ('A', 'Service Delivery Channel (identifies row)'),
                     ('B', 'Number of visits'),
-                    ('C', 'Average wait time (hh:mm:ss)'),
+                    ('C', 'CSAT (Customer satisfaction %) - Service centres and phone service only'),
+                    ('D', 'Average visit time (hh:mm:ss) - Digital service only'),
             ],
             "rows": [
                     ('1', 'Column headers'),
-                    ('Service Centre', 'Data for service centre counters'), 
-                    ('Contact Centre', 'Data for call centres'), 
-                    ('Digital', 'Data for web site'), 
+                    ('Service Centres', 'Data for service centre counters'), 
+                    ('Phone Service', 'Data for call centres'), 
+                    ('Digital Service', 'Data for web site'), 
+# ('Service Centre', 'Data for service centre counters'), 
+#                    ('Contact Centre', 'Data for call centres'), 
+#                    ('Digital', 'Data for web site'), 
             ],
-            "notes": [
-                '"Average wait time" for Digital is actually average site visit duration.',
-            ]
         }
     ],
 }
-
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -36,23 +37,30 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             if not heading_read:
                 heading_read = True
                 continue
-            if len(row) != 3:
-                raise LoaderException("Row in Service NSW upload file does not have 3 columns")
+            if len(row) != 4:
+                raise LoaderException("Row in Service NSW upload file does not have 4 columns")
             sdc = row[0]
             visits = int(row[1])
-            wait_time = row[2]
-            if sdc == "Service Centre":
+            if row[2]:
+                csat = decimal.Decimal(row[2])
+            else:
+                csat = None
+            visit_time = row[3]
+            if "Centre" in sdc:
                 visit_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "visits") 
-                wait_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "wait") 
-            elif sdc == "Contact Centre":
+                other_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "satisfaction") 
+                other_val = csat
+            elif "Phone" in sdc or "Contact" in sdc:
                 visit_stat = get_statistic("service_nsw_svc_calls", "syd", "day", "callers") 
-                wait_stat = get_statistic("service_nsw_svc_calls", "syd", "day", "wait") 
-            elif sdc == "Digital":
+                other_stat = get_statistic("service_nsw_svc_calls", "syd", "day", "satisfaction")
+                other_val = csat
+            elif "Digital" in sdc:
                 visit_stat = get_statistic("service_nsw_svc_www", "syd", "day", "visits") 
-                wait_stat = get_statistic("service_nsw_svc_www", "syd", "day", "duration") 
+                other_stat = get_statistic("service_nsw_svc_www", "syd", "day", "duration") 
+                other_val = normalise_time(visit_time)
             else:
                 raise LoaderException("Unrecognised Service Delivery Channel in Service NSW upload: %s" % sdc)
-            update_stats(visit_stat, visits, wait_stat, wait_time, actual_freq_display)
+            update_stats(visit_stat, visits, other_stat, other_val, actual_freq_display)
             if verbosity > 1:
                 messages.append("Updated stats for %s" % sdc)
         return messages
@@ -61,33 +69,28 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     except Exception, e:
         raise LoaderException("Invalid file: %s" % unicode(e))
 
-def update_stats(visit_stat, visits, wait_stat, wait_time, actual_freq_display):
+def update_stats(visit_stat, visits, other_stat, other_val, actual_freq_display):
     old_visits = visit_stat.get_data()
     if old_visits:
         old_visits = old_visits.value()
-    if old_visits < visits:
-        trend = 1
-    elif old_visits == visits:
-        trend = 0
-    else:
-        trend = -1
+# if old_visits < visits:
+#        trend = 1
+#    elif old_visits == visits:
+#        trend = 0
+#    else:
+#        trend = -1
     set_statistic_data(visit_stat.tile.widget.family.url, visit_stat.tile.widget.actual_location.url,
                     visit_stat.tile.widget.actual_frequency.url, visit_stat.url,
-                    visits, trend=trend)
-    if wait_stat.get_data():
-        old_wait = normalise_time(wait_stat.get_data().value())
-    else:
-        old_wait = normalise_time(wait_stat.get_data())
-    new_wait = normalise_time(wait_time)
-    if old_wait < new_wait:
-        trend = 1
-    elif old_wait == new_wait:
-        trend = 0
-    else:
-        trend = -1
-    set_statistic_data(wait_stat.tile.widget.family.url, wait_stat.tile.widget.actual_location.url,
-                    wait_stat.tile.widget.actual_frequency.url, wait_stat.url,
-                    new_wait, trend=trend)
+                    visits) #, trend=trend)
+#    if old_wait < new_wait:
+#        trend = 1
+#    elif old_wait == new_wait:
+#        trend = 0
+#    else:
+#        trend = -1
+    set_statistic_data(other_stat.tile.widget.family.url, other_stat.tile.widget.actual_location.url,
+                    other_stat.tile.widget.actual_frequency.url, other_stat.url,
+                    other_val) # , trend=trend)
     if actual_freq_display:
         set_actual_frequency_display_text(visit_stat.tile.widget.family.url, 
                     visit_stat.tile.widget.actual_location.url, visit_stat.tile.widget.actual_frequency.url, 

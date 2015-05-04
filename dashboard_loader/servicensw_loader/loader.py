@@ -11,7 +11,7 @@ from dashboard_loader.loader_utils import set_statistic_data, get_statistic, cal
 from widget_def.models import GraphDefinition
 
 # Refresh every 5 minutes
-refresh_rate = 60 * 5
+# refresh_rate = 60 * 5
 
 TF_QUARTER_HOUR_RANGE = 0
 TF_HOUR = 1

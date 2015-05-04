@@ -6,7 +6,7 @@ from dashboard_loader.models import Uploader
 from dashboard_loader.loader_utils import LoaderException, do_upload, get_update_format
 
 class Command(BaseCommand):
-    args = ["<app> [<filename> [<actual_frequency_display>]]"]
+    args = "<app> [<filename> [<actual_frequency_display>]]"
     help = "Upload a file for the selected uploader. If no filename supplied, print the expected file format for the selected uploader. If supplied, the actual frequency display is updated (use quotes if new value contains white space)."
     def handle(self, *args, **options):
         verbosity = int(options["verbosity"])
@@ -41,9 +41,10 @@ class Command(BaseCommand):
                 output.append("Rows:")
                 for row in sheet["rows"]:
                     output.append("\t%s: %s" % (row[0], row[1]))
-                output.append("Notes:")
-                for note in sheet["notes"]:
-                    output.append("\t* %s" % note)
+                if sheet.get("notes"):
+                    output.append("Notes:")
+                    for note in sheet["notes"]:
+                        output.append("\t* %s" % note)
             print >> self.stdout, "\n".join(output)
         else:
             fh = open(args[1], "r")

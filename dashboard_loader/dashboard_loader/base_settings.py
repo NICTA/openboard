@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'traffic_incident_loader',
     'calendar_updater',
     'beach_quality_loader',
-#    'servicensw_loader',
+    'servicensw_loader',
     'rfs_loader',
 #    'transport_static_loader',
     'train_interruptions_loader',
