@@ -13,15 +13,15 @@ class Command(BaseCommand):
         
 # args = "<app> [<filename> [<actual_frequency_display>]]"
     help = "Upload a file for the selected uploader. If no filename supplied, print the expected file format for the selected uploader. If supplied, the actual frequency display is updated (use quotes if new value contains white space)."
-    def handle(self, *args, **options):
+    def handle(self, uploader, filename, actual_frequency_display, **options):
         verbosity = int(options["verbosity"])
 
-        appname = options["uploader"]
+        appname = uploader
         try:
             uploader = Uploader.objects.get(app=appname)
         except Uploader.DoesNotExist:
             raise CommandError("%s is not a registered uploader app" % appname)
-        if not options["filename"]:
+        if not filename:
             # print format
             fmt = get_update_format(appname)
             output = []
@@ -48,9 +48,8 @@ class Command(BaseCommand):
                         output.append("\t* %s" % note)
             print >> self.stdout, "\n".join(output)
         else:
-            fh = open(options["filename"], "r")
-            actual_freq_display = options["actual_frequency_display"]
-            messages = do_upload(uploader, fh, actual_freq_display, verbosity)
+            fh = open(filename, "r")
+            messages = do_upload(uploader, fh, actual_frequency_display, verbosity)
             for m in messages:
                 print >> self.stdout, m
 
