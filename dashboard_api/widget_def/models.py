@@ -917,7 +917,7 @@ class Statistic(models.Model):
             state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
         else:
             state["traffic_light_scale"] = None
-        if self.stat_type != self.STRING_LIST:
+        if self.stat_type not in (self.STRING_LIST, self.LONG_STRING_LIST):
             state["trend"] = self.trend
             if self.icon_library:
                 state["icon_library"] = self.icon_library.name
