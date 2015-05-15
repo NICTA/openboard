@@ -10,4 +10,4 @@ then
 else
 	python manage.py update_data --verbosity=0
 fi
-	
+
