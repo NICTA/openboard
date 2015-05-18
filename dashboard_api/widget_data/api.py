@@ -3,22 +3,22 @@ from widget_def.view_utils import update_maxmin
 
 def api_get_widget_data(widget):
     stats_json = {}
-    for statistic in Statistic.objects.filter(tile__widget=widget.definition):
+    for statistic in Statistic.objects.filter(tile__widget=widget):
         stats_json[statistic.url] = statistic.get_data_json()
-    last_updated = widget.definition.data_last_updated()
+    last_updated = widget.data_last_updated()
     if last_updated:
         last_updated_str = last_updated.strftime("%Y-%m-%dT%H:%M:%S%z")
     else:
         last_updated_str = None
     return {
         "widget_last_updated": last_updated_str,
-        "actual_frequency": widget.definition.actual_frequency_display(),
+        "actual_frequency": widget.actual_frequency_display(),
         "statistics": stats_json,
     }
 
 def api_get_graph_data(widget):
     graph_json = {}
-    for graph in GraphDefinition.objects.filter(tile__widget=widget.definition):
+    for graph in GraphDefinition.objects.filter(tile__widget=widget):
         graph_json[graph.tile.url] = { "data": {} }
         if graph.use_clusters():
             for cluster in graph.graphcluster_set.all():

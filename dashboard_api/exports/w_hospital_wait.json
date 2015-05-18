@@ -539,7 +539,7 @@
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": "Patients treated within 4 hours"
+                                "label": "Patients \u2264 4 hrs"
                             }
                         ], 
                         "show_row_headers": true
