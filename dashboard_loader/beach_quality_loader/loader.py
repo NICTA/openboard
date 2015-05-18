@@ -24,46 +24,48 @@ def refresh_data(loader, verbosity=0):
     messages = []
     clear_statistic_list("beaches", "nsw", "day", "highlight_beach")
     http = httplib.HTTPConnection("www.environment.nsw.gov.au")
+    if verbosity > 5:
+        csv_headings()
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/OceanBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.SYDNEY_OCEAN, resp))
+        messages.extend(process_xml(BeachSummaryHistory.SYDNEY_OCEAN, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Sydney Ocean beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/SydneyBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.SYDNEY_HARBOUR, resp))
+        messages.extend(process_xml(BeachSummaryHistory.SYDNEY_HARBOUR, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Sydney Ocean beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/BotanyBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.BOTANY_BAY, resp))
+        messages.extend(process_xml(BeachSummaryHistory.BOTANY_BAY, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Botany Bay beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/PittwaterBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.PITTWATER, resp))
+        messages.extend(process_xml(BeachSummaryHistory.PITTWATER, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Pittwater beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/CentralCoastBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.CENTRAL_COAST, resp))
+        messages.extend(process_xml(BeachSummaryHistory.CENTRAL_COAST, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Central Coast beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/IllawarraBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.ILLAWARRA, resp))
+        messages.extend(process_xml(BeachSummaryHistory.ILLAWARRA, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Illawarra beach data: %s" % unicode(e))
     try:
         http.request("GET", "http://www.environment.nsw.gov.au/beachapp/HunterBulletin.xml")
         resp = http.getresponse()
-        messages.extend(process_xml(BeachSummaryHistory.HUNTER, resp))
+        messages.extend(process_xml(BeachSummaryHistory.HUNTER, resp, verbosity=verbosity))
     except LoaderException, e:
         messages.append("Error updating Hunter beach data: %s" % unicode(e))
     http.close()
@@ -80,16 +82,16 @@ def update_stats():
     messages.extend(update_summary_stat(
             "beaches", "nsw", "day", "all_ocean_beaches",
             BeachSummaryHistory.objects.filter(
-                region__in=BeachSummaryHistory.ocean_beaches,
+                region__in=BeachSummaryHistory.ocean_beaches(),
                 day=today),
             BeachSummaryHistory.objects.filter(
-                region__in=BeachSummaryHistory.ocean_beaches,
+                region__in=BeachSummaryHistory.ocean_beaches(),
                 day=day_before(today))
             ))
     messages.extend(update_summary_stat(
             "beaches", "nsw", "day", "all_ocean_ytd",
             BeachSummaryHistory.objects.filter(
-                region__in=BeachSummaryHistory.ocean_beaches,
+                region__in=BeachSummaryHistory.ocean_beaches(),
                 day__gte=start_of_year,
                 day__lte=today
                 )
@@ -108,7 +110,7 @@ def update_stats():
 def day_before(d):
     dt = datetime.datetime.combine(d, datetime.time(0,0,0))
     dt -= datetime.timedelta(days=1)
-    return dt.date
+    return dt.date()
 
 def update_summary_stat(widget_url, widget_location_url, widget_freq_url, statistic_url,
         beachsummary_set, trend_cmp_set=None):
@@ -163,10 +165,12 @@ def summarise_quality(total_likely, total_possible, total_unlikely):
     else:
         return ("Good", "good")
 
-def process_xml(region, resp):
+def process_xml(region, resp, verbosity=0):
     xml = ET.parse(resp)
     title = BeachSummaryHistory.regions[region]
     # dump_xml(region, xml)
+    if verbosity > 5:
+        dump_as_csv(region, xml)
     num_unlikely = 0
     num_possible = 0
     num_likely = 0
@@ -268,4 +272,72 @@ def dump_xml(region, xml):
                             print "long: %s" % d.text  
             print "-------------------------"
     print "======================================" 
+
+def csv_headings():
+    print "Advice Rank,Region,Weather,Winds,Rainfall,Air Temp(degC),Ocean Temp(degC),Swell,High Tide,Low Tide,Beach,Latitude,Longitude,BSG,Advice,Star Rating"
+
+def dump_as_csv(region, xml):
+    region = csv_escape(BeachSummaryHistory.regions[region])
+    for elem in xml.getroot()[0]:
+        if elem.tag.endswith( '}data'):
+            data = elem
+            for d in data:
+                if d.tag.endswith('}weather'):
+                    weather = csv_escape(d.text)
+                elif d.tag.endswith('}winds'):
+                    winds = csv_escape(d.text)
+                elif d.tag.endswith('}rainfall'):
+                    rainfall = csv_escape(d.text)
+                elif d.tag.endswith('}airTemp'):
+                    airtemp = csv_escape(d.text)
+                elif d.tag.endswith('}oceanTemp'):
+                    oceantemp = csv_escape(d.text)
+                elif d.tag.endswith('}swell'):
+                    swell = csv_escape(d.text)
+                elif d.tag.endswith('}highTide'):
+                    hitide = csv_escape(d.text)
+                elif d.tag.endswith('}lowTide'):
+                    lotide = csv_escape(d.text)
+            continue
+        elif elem.tag == 'item':
+            item = elem
+            for i in item:
+                if i.tag == 'title':
+                    beach = csv_escape(i.text)
+                elif i.tag.endswith('}data'):
+                    data = i
+                    for d in data:
+                        if d.tag.endswith('}advice'):
+                            advice = csv_escape(d.text)
+                        elif d.tag.endswith('}bsg'):
+                            bsg = csv_escape(d.text)
+                        elif d.tag.endswith('}starRating'):
+                            star_rating = csv_escape(len(d.text.strip()))
+                        elif d.tag.endswith('}latitude'):
+                            lat = csv_escape(d.text)
+                        elif d.tag.endswith('}longitude'):
+                            lng = csv_escape(d.text)
+            if "unlikely" in advice:
+                advice_rank = "3"
+            elif "possible" in advice:
+                advice_rank = "2"
+            else:
+                advice_rank = "1"
+            print "%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (
+                advice_rank, region,weather,winds,rainfall,airtemp,oceantemp,
+                swell,hitide,lotide,
+                beach,lat,lng,bsg,advice,star_rating
+            )
+
+def csv_escape(input):
+    uin = unicode(input).strip()
+    uout = None
+    if '"' in uin:
+        uout = re.sub(r'"', '""', uin)
+    if ',' in uin and not uout:
+        uout = uin
+    if uout:
+        return '"' + uout + '"'
+    else:
+        return uin
 
