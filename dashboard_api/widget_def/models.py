@@ -966,8 +966,11 @@ class GraphDefinition(models.Model):
                         (DATE, axis_types[DATE]),
                         (TIME, axis_types[TIME]),
                     ), default=0)
+        stacked=models.BooleanField(default=False)
         def widget(self):
             return self.tile.widget
+        def is_histogram(self):
+            return self.graph_type in (self.BAR, self.HISTOGRAM)
         def use_numeric_axes(self):
             return self.graph_type in (self.LINE, self.HISTOGRAM, self.BAR)
         def use_clusters(self):
@@ -1019,6 +1022,7 @@ class GraphDefinition(models.Model):
                 "secondary_numeric_axis_always_show_zero": self.secondary_numeric_axis_always_show_zero,
                 "horiz_axis_label": self.horiz_axis_label,
                 "horiz_axis_type": self.horiz_axis_type,
+                "stacked": self.stacked,
                 "clusters": { c.url: c.label for c in self.graphcluster_set.all() },
                 "datasets": { d.url: d.export() for d in self.graphdataset_set.all() },
             }
@@ -1041,6 +1045,7 @@ class GraphDefinition(models.Model):
             g.user_secondary_numeric_axis = data["use_secondary_numeric_axis"]
             g.secondary_numeric_axis_label = data["secondary_numeric_axis_label"]
             g.secondary_numeric_axis_always_show_zero = data["secondary_numeric_axis_always_show_zero"]
+            g.stacked = data.get("stacked", False)
             g.horiz_axis_label = data["horiz_axis_label"]
             g.horiz_axis_type = data["horiz_axis_type"]
             g.save()
@@ -1090,6 +1095,7 @@ class GraphDefinition(models.Model):
                     }
                 state["clusters"] = { c.url: c.label for c in self.graphcluster_set.all() }
                 state["bars"] = { d.url: d.__getstate__() for d in self.graphdataset_set.all()}
+                state["stacked"] = self.stacked
             elif self.graph_type == self.PIE:
                 state["pies"] = { c.url: c.label for c in self.graphcluster_set.all() }
                 state["sectors"] = { d.url: d.__getstate__() for d in self.graphdataset_set.all()}
@@ -1120,6 +1126,8 @@ class GraphDefinition(models.Model):
                     problems.append("Graph for tile %s of widget %s is a line graph but does not specify horizontal axis type" % (self.tile.url, self.tile.widget.url()))
             if self.graphdataset_set.count() == 0:
                 problems.append("Graph for tile %s of widget %s has no datasets defined" % (self.tile.url, self.widget.url()))
+            if self.stacked and not self.is_histogram():
+                problems.append("Only Histogram or Bar graphs can be stacked")
             return problems
 
 class GraphCluster(models.Model):
