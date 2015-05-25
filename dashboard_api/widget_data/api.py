@@ -51,12 +51,12 @@ def api_get_graph_data(widget):
                                     gd.value
                                 ])
         if graph.use_numeric_axes():
-            graph_json[graph.tile.url]["vertical_axis_scale"] = {
+            graph_json[graph.tile.url]["%s_scale" % graph.numeric_axis_name()] = {
                     "min": numeric_min,
                     "max": numeric_max
             }
             if graph.use_secondary_numeric_axis:
-                graph_json[graph.tile.url]["vertical_axis_scale"] = {
+                graph_json[graph.tile.url]["%s_2_scale" % graph.numeric_axis_name()] = {
                         "min": numeric2_min,
                         "max": numeric2_max
                 }

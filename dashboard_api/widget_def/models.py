@@ -969,6 +969,11 @@ class GraphDefinition(models.Model):
         stacked=models.BooleanField(default=False)
         def widget(self):
             return self.tile.widget
+        def numeric_axis_name(self):
+            if self.graph_type == self.LINE:
+                return "vertical_axis"
+            else:
+                return "numeric_axis"
         def is_histogram(self):
             return self.graph_type in (self.BAR, self.HISTOGRAM)
         def use_numeric_axes(self):
@@ -1067,6 +1072,7 @@ class GraphDefinition(models.Model):
             state = {
                 "heading": self.heading,
                 "graph_type": self.graph_types[self.graph_type],
+                "url": self.tile.url,
             }
             if self.graph_type == self.LINE:
                 state["vertical_axis"] = {
