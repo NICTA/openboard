@@ -46,6 +46,7 @@ class Statistic(models.Model):
     hyperlinkable = models.BooleanField(default=False)
     footer = models.BooleanField(default=False)
     editable = models.BooleanField(default=True)
+    numbered_list = models.BooleanField(default=False)
     def clean(self):
         if not self.is_numeric():
             self.num_precision = None
@@ -61,6 +62,8 @@ class Statistic(models.Model):
             self.trend = False
         if self.is_display_list():
             name_as_label=True
+        else:
+            numbered_list=False
         if not self.is_data_list():
             self.hyperlinkable = False
     def validate(self):
@@ -184,6 +187,7 @@ class Statistic(models.Model):
             "icon_library": icon_library_name,
             "trend": self.trend,
             "hyperlinkable": self.hyperlinkable,
+            "numbered_list": self.numbered_list,
             "footer": self.footer,
             "rotates": self.rotates,
             "editable": self.editable,
@@ -204,6 +208,7 @@ class Statistic(models.Model):
         s.name_as_label = data["name_as_label"]
         s.stat_type = data["stat_type"]
         s.hyperlinkable = data.get("hyperlinkable", False)
+        s.numbered_list = data.get("numbered_list", False)
         s.footer = data.get("footer", False)
         s.rotates = data.get("rotates", False)
         s.editable = data.get("editable", True)
@@ -255,6 +260,8 @@ class Statistic(models.Model):
                 state["icon_library"] = None
         if self.rotates:
             state["rotates"] = self.rotates
+        if self.is_display_list():
+            state["numbered_list"] = self.numbered_list
         if self.is_data_list():
             state["hyperlinkable"] = self.hyperlinkable
         state["footer"] = self.footer
