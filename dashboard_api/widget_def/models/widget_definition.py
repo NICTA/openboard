@@ -1,4 +1,5 @@
 from django.db import models
+from django.apps import apps
 
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
@@ -39,6 +40,7 @@ class WidgetDefinition(models.Model):
             problems.append("Widget %s has %d default (non-expansion) tiles - must have one and only one" % (self.url, default_tiles))
         tiles = self.tiledefinition_set.all()
         stat_urls = {}
+        Statistic = apps.get_app_config("widget_def").get_model("Statistic")
         for stat in Statistic.objects.filter(tile__widget=self):
             if stat.url in stat_urls:
                 problems.append("Widget %s has two statistics with url '%s' (in tiles %s and %s)" % (self.url, stat.url, stat.tile.url, stat_urls[stat.url]))

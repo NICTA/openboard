@@ -60,9 +60,18 @@ class GridDefinition(models.Model):
         required_stat_count = ncols * nrows
         stat_count = self.tile.statistic_set.count()
         gridstat_count = self.gridstatistic_set.count()
-        if stat_count > gridstat_count:
-            problems.append("Not all tile statistics have been defined in the grid")
-        if stat_count > required_stat_count:
+        nongrid_stat_count = stat_count - gridstat_count
+        if self.tile.tile_type == self.tile.GRID_SINGLE_STAT:
+            if nongrid_stat_count != 1:
+                problems.append("Tiles of type grid_single_stat must have a single non-grid stat")
+            else:
+                first_stat = self.tile.statistic_set.all()[0]
+                if first_stat.gridstatistic_set.count() != 0:
+                    problems.append("Tiles of type grid_single_stat must have a single non-grid stat which is the statistic with the lowest sort order")
+        else:
+            if nongrid_stat_count != 0:
+                problems.append("Not all tile statistics have been defined in the grid")
+        if gridstat_count < required_stat_count:
             problems.append("Not enough tile statistics to fill the grid")
         for gs in self.gridstatistic_set.all():
             if gs.row.grid != self:
