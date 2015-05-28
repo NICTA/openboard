@@ -153,7 +153,7 @@ class TileDefinition(models.Model):
         if self.tile_type == self.GRAPH_SINGLE_STAT:
             max_scalar_stat_count = 1
         if self.tile_type == self.MULTI_LIST_STAT:
-            min_list_stat_count = 2
+            min_list_stat_count = 1
             max_list_stat_count = 4
             min_scalar_stat_count = 0
             max_scalar_stat_count = 1
