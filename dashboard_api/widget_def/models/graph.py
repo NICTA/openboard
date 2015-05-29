@@ -100,7 +100,7 @@ class GraphDefinition(models.Model):
                 "horiz_axis_label": self.horiz_axis_label,
                 "horiz_axis_type": self.horiz_axis_type,
                 "stacked": self.stacked,
-                "clusters": { c.url: c.label for c in self.graphcluster_set.all() },
+                "clusters": { c.url: c.export() for c in self.graphcluster_set.all() },
                 "datasets": { d.url: d.export() for d in self.graphdataset_set.all() },
             }
         @classmethod
@@ -127,8 +127,8 @@ class GraphDefinition(models.Model):
             g.horiz_axis_type = data["horiz_axis_type"]
             g.save()
             cluster_urls = []
-            for (c_url, c_label) in data["clusters"].items():
-                GraphCluster.import_data(g, c_url, c_label)
+            for (c_url, c_data) in data["clusters"].items():
+                GraphCluster.import_data(g, c_url, c_data)
                 cluster_urls.append(c_url)
             for cluster in g.graphcluster_set.all():
                 if cluster.url not in cluster_urls:
@@ -171,7 +171,7 @@ class GraphDefinition(models.Model):
                         "label": self.secondary_numeric_axis_label,
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
-                state["clusters"] = { c.url: c.label for c in self.graphcluster_set.all() }
+                state["clusters"] = { c.url: c.__getstate__() for c in self.graphcluster_set.all() }
                 state["bars"] = { d.url: d.__getstate__() for d in self.graphdataset_set.all()}
                 state["stacked"] = self.stacked
             elif self.graph_type == self.PIE:
@@ -213,18 +213,30 @@ class GraphCluster(models.Model):
     graph=models.ForeignKey(GraphDefinition)
     url=models.SlugField()
     label=models.CharField(max_length=80)
+    hyperlink=models.URLField(blank=True, null=True)
     def __unicode__(self):
         return self.url
     class Meta:
         unique_together = [("graph", "url"), ("graph", "label")]
         ordering = [ "graph", "url" ]
+    def export(self):
+        return {
+            "label": self.label,
+            "hyperlink": self.hyperlink,
+        }
+    def __getstate__(self):
+        return {
+            "label": self.label,
+            "hyperlink": self.hyperlink,
+        }
     @classmethod
-    def import_data(cls, g, url, label):
+    def import_data(cls, g, url, data):
         try:
             c = GraphCluster.objects.get(graph=g, url=url)
         except GraphCluster.DoesNotExist:
             c = GraphCluster(graph=g, url=url)
-        c.label = label
+        c.label = data["label"]
+        c.hyperlink = data["hyperlink"]
         c.save()
 
 class GraphDataset(models.Model):
@@ -234,6 +246,7 @@ class GraphDataset(models.Model):
     label=models.CharField(max_length=80)
     colour = models.CharField(max_length=50)
     use_secondary_numeric_axis = models.BooleanField(default=False)
+    hyperlink=models.URLField(blank=True, null=True)
     class Meta:
         unique_together = [("graph", "url"), ("graph", "label")]
         ordering = [ "graph", "url" ]
@@ -244,6 +257,7 @@ class GraphDataset(models.Model):
         return {
             "label": self.label,
             "colour": self.colour,
+            "hyperlink": self.hyperlink,
             "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
         }
     def __unicode__(self):
@@ -256,12 +270,14 @@ class GraphDataset(models.Model):
             d = GraphDataset(graph=g, url=url)
         d.label = data["label"]
         d.colour = data["colour"]
+        d.hyperlink = data["hyperlink"]
         d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
         d.save()
     def __getstate__(self):
         state = {
             "label": self.label,
             "colour": self.colour,
+            "hyperlink": self.hyperlink,
         }
         if self.graph.use_secondary_numeric_axis:
             if self.graph.graph_type == self.graph.LINE:
