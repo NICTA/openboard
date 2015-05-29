@@ -112,12 +112,14 @@ class WidgetDefinition(models.Model):
         w.about = data["about"]
         w.save()
         tile_urls = []
+        TileDefinition = apps.get_app_config("widget_def").get_model("TileDefinition")
         for t in data["tiles"]:
             TileDefinition.import_data(w, t)
             tile_urls.append(t["url"])
         for tile in w.tiledefinition_set.all():
             if tile.url not in tile_urls:
                 tile.delete()
+        WidgetDeclaration = apps.get_app_config("widget_def").get_model("WidgetDeclaration")
         for d in data["declarations"]:
             wd=WidgetDeclaration.import_data(w, d)
         for wd in w.widgetdeclaration_set.all():
