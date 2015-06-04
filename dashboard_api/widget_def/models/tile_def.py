@@ -52,7 +52,7 @@ class TileDefinition(models.Model):
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
-    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(50), MaxValueValidator(100)])
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(80)])
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
     # graph_def, map_def
