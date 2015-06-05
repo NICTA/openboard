@@ -139,6 +139,15 @@ class TileDefinition(models.Model):
                 self.columns = 1
         else:
             self.columns = None
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+            if not self.list_label_width:
+                self.list_label_width = 50
+        elif self.tile_type in (self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
+            for stat in self.statistic_set.all():
+                if stat.stat_type == stat.STRING_LIST:
+                    self.list_label_width = 100
+        else:
+            self.list_label_width = None
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         self.clean()
@@ -237,9 +246,6 @@ class TileDefinition(models.Model):
                     if stat.stat_type == stat.STRING_LIST:
                         if self.list_label_width != 100:
                             problems.append("Tile %s of Widget %s has a string list stat but does not have the list label width set to 100%%" % (self.url, self.widget.url()))
-        else:
-            self.list_label_width = None
-            self.save()
         if self.tile_type == self.NEWSFEED:
             for stat in self.statistic_set.all():
                 if stat.stat_type != stat.STRING_KVL:
