@@ -52,7 +52,8 @@ class TileDefinition(models.Model):
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
                 ))
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
-    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(80)])
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(100)])
+    columns = models.SmallIntegerField(blank=True, null=True)
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
     # graph_def, map_def
@@ -67,13 +68,18 @@ class TileDefinition(models.Model):
                                 self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, 
                                 self.TAG_CLOUD):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
-        if self.tile_type == self.SINGLE_GRID_STAT:
+        if self.tile_type == self.GRID_SINGLE_STAT:
             state["statistics"] = []
             for s in self.statistic_set.all():
                 if s.gridstatistic_set.count() == 0:
                     stats["statistics"].append(s.__getstate__())
         if self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
-            state["list_label_width"] = self.list_label_width
+            if self.list_label_width:
+                state["list_label_width"] = self.list_label_width
+            else:
+                state["list_label_width"] = 50
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+            state["columns"] = self.columns
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
             g = GraphDefinition.objects.get(tile=self)
@@ -90,6 +96,7 @@ class TileDefinition(models.Model):
             "expansion": self.expansion,
             "url": self.url,
             "sort_order": self.sort_order,
+            "columns": self.columns,
             "list_label_width": self.list_label_width,
             "statistics": [ s.export() for s in self.statistic_set.all() ],
         }
@@ -109,7 +116,9 @@ class TileDefinition(models.Model):
         t.tile_type = data["tile_type"]
         t.expansion = data["expansion"]
         t.list_label_widh = data.get("list_label_width")
+        t.columns = data.get("columns")
         t.sort_order = data["sort_order"]
+        t.clean()
         t.save()
         stat_urls = []
         Statistic = apps.get_app_config("widget_def").get_model("Statistic")
@@ -124,8 +133,16 @@ class TileDefinition(models.Model):
         GraphDefinition.import_data(t, data.get("graph"))
         GridDefinition.import_data(t, data.get("grid"))
         return t
+    def clean(self):
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+            if self.columns is None:
+                self.columns = 1
+        else:
+            self.columns = None
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
+        self.clean()
+        self.save()
         problems = []
         # Number of statistics
         min_list_stat_count = 0
