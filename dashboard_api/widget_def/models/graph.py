@@ -233,7 +233,7 @@ class PointColourMap(models.Model):
         except PointColourMap.DoesNotExist:
             m = PointColourMap(label=data["label"], decimal_places=data["decimal_places"])
         m.save()
-        m.pointcolourrange_set.delete()
+        m.pointcolourrange_set.all().delete()
         for r in data["map"]:
             PointColourRange.import_data(m, r)
         return m
