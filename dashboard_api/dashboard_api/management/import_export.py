@@ -1,4 +1,4 @@
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap
 
 class ImportExportException(Exception):
     pass
@@ -27,6 +27,14 @@ def export_iconlibrary(library):
             raise ImportExportException("IconLibrary %s does not exist" % library)
     return library.export()
 
+def export_pointcolourmap(pcm):
+    if not isinstance(pcm, PointColourMap):
+        try:
+            pcm = PointColourMap.objects.get(label=pcm)
+        except PointColourMap.DoesNotExist:
+            raise ImportExportException("PointColourMap %s does not exist" % pcm)
+    return pcm.export()
+
 def import_class(data):
     if data.get("category"):
         return WidgetFamily
@@ -34,6 +42,8 @@ def import_class(data):
         return IconLibrary
     elif data.get("scale_name"):
         return TrafficLightScale
+    elif data.get("map"):
+        return PointColourMap
     else:
         raise ImportExportException("Unrecognised import class")
 
