@@ -22,7 +22,7 @@ def max_with_nulls(*args):
 class WidgetDefinition(models.Model):
     _lud_cache = None
     family = models.ForeignKey("WidgetFamily")
-    expansion_hint = models.CharField(max_length=80)
+    expansion_hint = models.CharField(max_length=80, blank=True, null=True)
     actual_location = models.ForeignKey(Location)
     actual_frequency = models.ForeignKey(Frequency)
     refresh_rate = models.IntegerField(help_text="in seconds")
@@ -39,6 +39,12 @@ class WidgetDefinition(models.Model):
         if default_tiles != 1:
             problems.append("Widget %s has %d default (non-expansion) tiles - must have one and only one" % (self.url, default_tiles))
         tiles = self.tiledefinition_set.all()
+        if tiles.count() == default_tiles:
+            if self.expansion_hint:
+                problems.append("widget %s has no expansion tiles but expansion hint is set" % (self.url))
+        else:
+            if not self.expansion_hint:
+                problems.append("widget %s has expansion tiles but expansion hint is not set" % (self.url))
         stat_urls = {}
         Statistic = apps.get_app_config("widget_def").get_model("Statistic")
         for stat in Statistic.objects.filter(tile__widget=self):

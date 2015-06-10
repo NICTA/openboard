@@ -6,9 +6,10 @@ from widget_def.models.statistic import Statistic
 # Create your models here.
 
 class GridDefinition(models.Model):
-    tile = models.OneToOneField(TileDefinition, limit_choices_to={
-                                'tile_type': TileDefinition.GRID,
-                                })
+    tile = models.OneToOneField(TileDefinition, limit_choices_to=models.Q(
+                                tile_type__in=(TileDefinition.GRID,
+                                            TileDefinition.GRID_SINGLE_STAT)
+                                ))
     corner_label = models.CharField(max_length=50, null=True, blank=True)
     show_column_headers = models.BooleanField(default=True)
     show_row_headers = models.BooleanField(default=True)

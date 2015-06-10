@@ -241,7 +241,7 @@ class TileDefinition(models.Model):
                     if first_stat:
                         first_stat = False
                     else:
-                        if self.tile_type == MULTI_LIST_STAT and stat.is_display_list():
+                        if self.tile_type == self.MULTI_LIST_STAT and not stat.is_display_list():
                             problems.append("Tile %s of Widget %s is a multi_list_stat tile and has a scalar (non-list) stat that isn't the first stat for the tile." % (self.url, self.widget.url()))
                     if stat.stat_type == stat.STRING_LIST:
                         if self.list_label_width != 100:

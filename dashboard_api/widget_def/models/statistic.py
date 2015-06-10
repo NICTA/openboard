@@ -39,7 +39,7 @@ class Statistic(models.Model):
     rotates = models.BooleanField(default=False)
     num_precision = models.SmallIntegerField(blank=True, null=True)
     unit_prefix = models.CharField(max_length="10", blank=True, null=True)
-    unit_suffix = models.CharField(max_length="10", blank=True, null=True)
+    unit_suffix = models.CharField(max_length="40", blank=True, null=True)
     unit_underfix = models.CharField(max_length="40", blank=True, null=True)
     unit_signed = models.BooleanField(default=False)
     sort_order = models.IntegerField()

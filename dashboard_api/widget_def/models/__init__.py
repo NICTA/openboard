@@ -5,5 +5,5 @@ from widget_decl import WidgetDeclaration
 from tile_def import TileDefinition
 from eyecandy import IconLibrary, IconCode, TrafficLightScale, TrafficLightScaleCode
 from statistic import Statistic
-from graph import GraphDefinition, GraphCluster, GraphDataset
+from graph import PointColourMap, PointColourRange, GraphDisplayOptions, GraphDefinition, GraphCluster, GraphDataset
 from grid import GridDefinition, GridColumn, GridRow, GridStatistic 

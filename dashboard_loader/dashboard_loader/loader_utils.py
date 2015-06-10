@@ -268,7 +268,7 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
             dataset = GraphDataset.objects.get(graph=graph, url=dataset)
         except GraphDataset.DoesNotExist:
             raise LoaderException("Dataset %s for graph %s does not exist" % (str(dataset), graph.tile.url))
-    value = decimal.Decimal(value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_EVEN)
+    value = decimal.Decimal(value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)
     gd = GraphData(graph=graph, dataset=dataset,value=value)
     if graph.use_clusters():
         if not cluster:
@@ -281,7 +281,7 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
         gd.cluster = cluster
     else:
         if graph.horiz_axis_type == graph.NUMERIC:
-            gd.horiz_numericval = decimal.Decimal(horiz_value).quantize(decimal.Decimal("0.0001", rounding=decimal.ROUND_HALF_EVEN))
+            gd.horiz_numericval = decimal.Decimal(horiz_value).quantize(decimal.Decimal("0.0001", rounding=decimal.ROUND_HALF_UP))
         elif graph.horiz_axis_type == graph.DATE:
             gd.horiz_dateval = horiz_value
         elif graph.horiz_axis_type == graph.TIME:

@@ -73,7 +73,7 @@ class StatisticInline(admin.StackedInline):
     extra = 2
     fieldsets = (
             (None, {
-                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'icon_library', 'trend', 'rotates', 'hyperlinkable', 'footer', 'editable', 'sort_order'),
+                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'icon_library', 'trend', 'rotates', 'hyperlinkable', 'numbered_list', 'footer', 'editable', 'sort_order'),
             }),
             ('Numeric', {
                 'fields': ('num_precision', 'unit_prefix', 'unit_suffix', 'unit_underfix', 'unit_signed'),
@@ -88,6 +88,15 @@ class TileAdmin(admin.ModelAdmin):
     list_display = ('url', 'widget', 'expansion', 'sort_order')
     list_filter = ('widget',)
 
+class PointColourRangeInline(admin.StackedInline):
+    model = PointColourRange
+    extra = 2
+
+@admin.register(PointColourMap)
+class PointColourMapAdmin(admin.ModelAdmin):
+    inlines = [PointColourRangeInline]
+    list_display = ('label',)
+
 class GraphClusterInline(admin.StackedInline):
     model = GraphCluster
     extra = 2
@@ -96,13 +105,17 @@ class GraphDatasetInline(admin.StackedInline):
     model = GraphDataset
     extra = 2
 
+class GraphOptionInline(admin.StackedInline):
+    model = GraphDisplayOptions
+    extra = 2
+
 @admin.register(GraphDefinition)
 class GraphAdmin(admin.ModelAdmin):
-    inlines = [ GraphClusterInline, GraphDatasetInline ]
+    inlines = [ GraphOptionInline, GraphClusterInline, GraphDatasetInline ]
     list_display = ('widget', 'tile')
     fieldsets = (
         (None, {
-            'fields': ('tile', 'heading', 'graph_type', 'stacked'),
+            'fields': ('tile', 'heading', 'graph_type',),
          }),
         ('Numeric Axes', {
             'fields': ('numeric_axis_label', 'numeric_axis_always_show_zero',
