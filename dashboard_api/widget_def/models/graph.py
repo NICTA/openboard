@@ -228,7 +228,7 @@ class PointColourMap(models.Model):
     @classmethod
     def import_data(cls, data):
         try:
-            m = PointColourMap.objects.get(name=data["label"])
+            m = PointColourMap.objects.get(label=data["label"])
             m.decimal_places = data["decimal_places"]
         except PointColourMap.DoesNotExist:
             m = PointColourMap(label=data["label"], decimal_places=data["decimal_places"])
