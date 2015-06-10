@@ -128,14 +128,14 @@ class GraphDefinition(models.Model):
             g.save()
             GraphDisplayOptions.import_data(g, data.get("display_options"))
             cluster_urls = []
-            for c_data in data["clusters"].items():
+            for c_data in data["clusters"]:
                 GraphCluster.import_data(g, c_data)
                 cluster_urls.append(c_data["url"])
             for cluster in g.graphcluster_set.all():
                 if cluster.url not in cluster_urls:
                     cluster.delete()
             dataset_urls = []
-            for dataset in data["datasets"].items():
+            for dataset in data["datasets"]:
                 GraphDataset.import_data(g, dataset)
                 dataset_urls.append(dataset["url"])
             for dataset in g.graphdataset_set.all():
