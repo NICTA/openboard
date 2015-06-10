@@ -331,8 +331,9 @@ class GraphDisplayOptions(models.Model):
     graph=models.OneToOneField(GraphDefinition)
     @classmethod
     def create_default(cls, g):
-        do = g.graphdisplayoptions
-        if not do:
+        try:
+            do = g.graphdisplayoptions
+        except GraphDisplayOptions.DoesNotExist:
             do = GraphDisplayOptions(graph=g)
         if g.graph_type == g.LINE:
             do.lines = cls.LINE_STRAIGHT
@@ -347,8 +348,9 @@ class GraphDisplayOptions(models.Model):
         return do
     @classmethod
     def import_data(cls, g, data):
-        do = g.graphdisplayoptions
-        if not do:
+        try:
+            do = g.graphdisplayoptions
+        except GraphDisplayOptions.DoesNotExist:
             do = GraphDisplayOptions(graph=g)
         do.lines = data["lines"]
         do.points = data["points"]
