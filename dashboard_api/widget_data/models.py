@@ -107,9 +107,9 @@ class GraphData(models.Model):
     graph = models.ForeignKey("widget_def.GraphDefinition")
     cluster = models.ForeignKey("widget_def.GraphCluster", blank=True, null=True)
     dataset = models.ForeignKey("widget_def.GraphDataset", blank=True, null=True)
-    value = models.DecimalField(max_digits=10, decimal_places=4,
+    value = models.DecimalField(max_digits=14, decimal_places=4,
                         blank=True, null=True)
-    horiz_numericval = models.DecimalField(max_digits=10, decimal_places=4,
+    horiz_numericval = models.DecimalField(max_digits=14, decimal_places=4,
                         blank=True, null=True)
     horiz_dateval = models.DateField(blank=True, null=True)
     horiz_timeval = models.TimeField(blank=True, null=True)
