@@ -294,9 +294,9 @@ class PointColourRange(models.Model):
     def import_data(cls, pcm, data):
         pcr = PointColourRange(colour_map=pcm, colour=data["colour"])
         if pcm.decimal_places == 0:
-            pcm.min_value_int = data["min_value"]
+            pcr.min_value_int = data["min_value"]
         elif data["min_value"]:
-            pcm.min_value_dec = Decimal(data["min_value"]).quantize(Decimal(10)**(-1*self.colour_map.decimal_places), rounding=decimal.ROUND_HALF_UP)
+            pcr.min_value_dec = Decimal(data["min_value"]).quantize(Decimal(10)**(-1*self.colour_map.decimal_places), rounding=decimal.ROUND_HALF_UP)
         pcr.save()
         return pcr
 
