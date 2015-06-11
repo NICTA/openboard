@@ -243,9 +243,9 @@ class PointColourMap(models.Model):
             "map": [ self.pointcolourrange_set.get(min_value_dec__isnull=True, min_value_int__isnull=True).__getstate__() ],
         }
         if self.decimal_places == 0:
-            data["map"].extend([ r.__get_state__() for r in self.pointcolourrange_set.filter(min_value_int__isnull=False)])
+            data["map"].extend([ r.__getstate__() for r in self.pointcolourrange_set.filter(min_value_int__isnull=False)])
         else:
-            data["map"].extend([ r.__get_state__() for r in self.pointcolourrange_set.filter(min_value_dec__isnull=False)])
+            data["map"].extend([ r.__getstate__() for r in self.pointcolourrange_set.filter(min_value_dec__isnull=False)])
         return data
     def validate(self):
         problems = []
