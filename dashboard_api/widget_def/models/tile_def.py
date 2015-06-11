@@ -100,10 +100,10 @@ class TileDefinition(models.Model):
             "list_label_width": self.list_label_width,
             "statistics": [ s.export() for s in self.statistic_set.all() ],
         }
-        if self.tile_type == self.GRAPH:
+        if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             g = self.graphdefinition
             exp["graph"] = g.export()
-        if self.tile_type == self.GRID:
+        if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             g = self.griddefinition
             exp["grid"] = g.export()
         return exp
