@@ -246,7 +246,7 @@ class PointColourMap(models.Model):
             data["map"].extend(self.pointcolourrange_set.filter(min_value_int__isnull=False))
         else:
             data["map"].extend(self.pointcolourrange_set.filter(min_value_dec__isnull=False))
-        return map
+        return data
     def validate(self):
         problems = []
         ranges = self.pointcolourrange_set.all()
