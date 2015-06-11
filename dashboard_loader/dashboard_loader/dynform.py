@@ -33,7 +33,7 @@ def get_form_class_for_statistic(stat):
         form_fields["label"] = forms.CharField(required=True, max_length=120)
         field_count += 1
     elif stat.is_eventlist():
-        form_fields["date"] = forms.DateField(required=False, widget=SelectDateWidget)
+        form_fields["date"] = forms.DateField(required=False, widget=SelectDateWidget(year=range(2000, datetime.date.today().year+5)))
         def clean_check_date(self, data):
             if not data["date"]:
                 self.add_error("date", "This field is required")
@@ -97,7 +97,7 @@ def get_form_class_for_graph(graph):
         if graph.horiz_axis_type == graph.NUMERIC:
             form_fields["horiz_value"] = forms.DecimalField(required=True, decimal_places=4)
         elif graph.horiz_axis_type == graph.DATE:
-            form_fields["horiz_value"] = forms.DateField(required=True, widget=SelectDateWidget)
+            form_fields["horiz_value"] = forms.DateField(required=True, widget=SelectDateWidget(years=range(2000,datetime.date.today().year+5)))
         elif graph.horiz_axis_type == graph.TIME:
             form_fields["horiz_value"] = forms.TimeField(required=True, widget=SelectTimeWidget)
         field_count += 1
