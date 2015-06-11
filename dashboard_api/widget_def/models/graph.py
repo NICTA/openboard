@@ -242,10 +242,11 @@ class PointColourMap(models.Model):
             "label": self.label,
             "map": [ self.pointcolourrange_set.get(min_value_dec__isnull=True, min_value_int__isnull=True) ],
         }
-        if m.decimal_places == 0:
+        if self.decimal_places == 0:
             data["map"].extend(self.pointcolourrange_set.get(min_value_int__isnull=False))
         else:
             data["map"].extend(self.pointcolourrange_set.get(min_value_dec__isnull=False))
+        return map
     def validate(self):
         problems = []
         ranges = self.pointcolourrange_set.all()
