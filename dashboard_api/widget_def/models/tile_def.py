@@ -72,7 +72,7 @@ class TileDefinition(models.Model):
             state["statistics"] = []
             for s in self.statistic_set.all():
                 if s.gridstatistic_set.count() == 0:
-                    stats["statistics"].append(s.__getstate__())
+                    state["statistics"].append(s.__getstate__())
         if self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             if self.list_label_width:
                 state["list_label_width"] = self.list_label_width
