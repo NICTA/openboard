@@ -83,7 +83,7 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
             g = GraphDefinition.objects.get(tile=self)
-            state["graph"] = g.__get__state()
+            state["graph"] = g.__getstate__()
         if self.tile_type == self.MAP:
             pass # TODO
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
