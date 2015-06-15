@@ -1,3 +1,6 @@
+import pytz
+
+from django.conf import settings
 from django.db import models
 
 from widget_data.models import StatisticData, StatisticListItem
@@ -5,6 +8,8 @@ from widget_def.models.tile_def import TileDefinition
 from widget_def.models.eyecandy import IconLibrary, TrafficLightScale
 
 # Create your models here.
+
+tz = pytz.timezone(settings.TIME_ZONE)
 
 class Statistic(models.Model):
     _lud_cache = None
@@ -117,7 +122,7 @@ class Statistic(models.Model):
             if self.is_kvlist() or not self.name_as_label:
                 result["label"] = sd.keyval
             elif self.use_datekey():
-                result["date"] = sd.datetime_key.date()
+                result["date"] = sd.datetime_key.astimezone(tz).date()
             elif self.use_datetimekey():
                 result["datetime"] = sd.datetime_key
                 if self.use_datetimekey_level():

@@ -86,7 +86,7 @@ def get_form_class_for_statistic(stat):
                 if not data["date"]:
                     self.add_error("datetime", "This field is required")
             return data
-        clean_checks.append(clean_check_datetime)
+        clean_checks.append(clean_check_date)
     elif stat.use_datetimekey():
         form_fields["datetime"] = forms.DateTimeField(required=False, widget=SelectDateTimeWidget)
         field_count += 1

@@ -94,7 +94,7 @@ class StatisticListItem(models.Model):
             return self.strval
     def set_datetime_key(self, key, level=None):
         if self.statistic.use_datekey():
-            self.datetime_key = datetime.datetime.combine(key, datetime.time())
+            self.datetime_key = tz.localize(datetime.datetime.combine(key, datetime.time()))
         elif self.statistic.use_datetimekey():
             if level is None or level == self.SECOND:
                 self.datetime_key = key

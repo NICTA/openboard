@@ -10,12 +10,13 @@ from dashboard_loader.loader_utils import clear_statistic_list, add_statistic_li
 # Refresh every 2 hours
 refresh_rate = 60 * 60 * 2
 
+tz = pytz.timezone(settings.TIME_ZONE)
 def update_data(loader, verbosity=0):
     messages = []
     today = datetime.date.today()
-    correct_today_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey=today)
+    correct_today_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datetime_key=today)
     messages.extend(call_in_transaction(update_calendar, correct_today_items, verbosity))
-    old_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datekey__lt=today)
+    old_items = get_statistic("events", "nsw", "day", "calendar").get_data().filter(datetime_key__lt=today)
     messages.extend(call_in_transaction(clean_calendar, old_items, verbosity))
     return messages
 
