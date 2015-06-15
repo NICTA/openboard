@@ -1,10 +1,55 @@
 import datetime
+import pytz
 from collections import OrderedDict
 
 from django import forms
+from django.conf import settings
 from django.forms.extras import SelectDateWidget
 
+from widget_data.models import StatisticListItem
 from dashboard_loader.time_widget import SelectTimeWidget
+
+tz = pytz.timezone(settings.TIME_ZONE)
+
+class SelectDateTimeWidget(forms.MultiWidget):
+    """
+    MultiWidget = A widget that is composed of multiple widgets.
+
+    This class combines SelectTimeWidget and SelectDateWidget so we have something 
+    like SplitDateTimeWidget (in django.forms.widgets), but with Select elements.
+    """
+    def __init__(self, attrs=None, hour_step=None, minute_step=None, second_step=None, twelve_hr=False, years=range(2000, datetime.datetime.today().year + 5)):
+        """ pass all these parameters to their respective widget constructors..."""
+        widgets = (SelectDateWidget(attrs=attrs, years=years), SelectTimeWidget(attrs=attrs, hour_step=hour_step, minute_step=minute_step, second_step=second_step, twelve_hr=twelve_hr))
+        super(SelectDateTimeWidget, self).__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if value:
+            if value.tzinfo:
+                value = value.astimezone(tz)
+            return [value.date(), value.time().replace(microsecond=0)]
+        return [None, None]
+
+    def compress(self, datalist):
+        if not datalist[0] or not datalist[1]:
+            return None
+        return tz.localize(datetime.datetime.strptime(datalist[0] + "T" + datalist[1],"%Y-%m-%dT%H:%M:%S"))
+
+    def format_output(self, rendered_widgets):
+        """
+        Given a list of rendered widgets (as strings), it inserts an HTML
+        linebreak between them.
+        
+        Returns a Unicode string representing the HTML for the whole lot.
+        """
+        return u"""<span><table borders="0">
+            <tr><td>%s</td></tr>
+            <tr><td>%s</td></tr>
+        </table></span>
+        """ % (rendered_widgets[0], rendered_widgets[1])
+
+    def value_from_datadict(self, data, files, name):
+        return self.compress(super(SelectDateTimeWidget, self).value_from_datadict(data, files, name))
 
 # Dynamic data form methods
 
@@ -33,13 +78,27 @@ def get_form_class_for_statistic(stat):
     if stat.is_kvlist():
         form_fields["label"] = forms.CharField(required=True, max_length=120)
         field_count += 1
-    elif stat.is_eventlist():
+    elif stat.use_datekey():
         form_fields["date"] = forms.DateField(required=False, widget=SelectDateWidget(years=range(2000, datetime.date.today().year+5)))
+        field_count += 1
         def clean_check_date(self, data):
-            if not data["date"]:
-                self.add_error("date", "This field is required")
+            if not data["DELETE"]:
+                if not data["date"]:
+                    self.add_error("datetime", "This field is required")
             return data
-        clean_checks.append(clean_check_date)
+        clean_checks.append(clean_check_datetime)
+    elif stat.use_datetimekey():
+        form_fields["datetime"] = forms.DateTimeField(required=False, widget=SelectDateTimeWidget)
+        field_count += 1
+        if stat.use_datetimekey_level():
+            form_fields["level"] = forms.ChoiceField(required=True, choices=StatisticListItem.level_choices)
+            field_count += 1
+        def clean_check_datetime(self, data):
+            if not data["DELETE"]:
+                if not data["datetime"]:
+                    self.add_error("datetime", "This field is required")
+            return data
+        clean_checks.append(clean_check_datetime)
     elif not stat.name_as_label:
         form_fields["label"] = forms.CharField(required=True, max_length=80)
         field_count += 1

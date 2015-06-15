@@ -174,8 +174,13 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                                 sli.trend = int(fd["trend"])
                             if s.is_kvlist():
                                 sli.keyval = fd["label"]
-                            if s.is_eventlist():
-                                sli.datekey = fd["date"]
+                            if s.use_datekey():
+                                sli.set_datetime_key(fd["date"])
+                            if s.use_datetimekey():
+                                if s.use_datetimekey_level():
+                                    sli.set_datetime_key(fd["datetime"], int(fd["level"]))
+                                else:
+                                    sli.set_datetime_key(fd["datetime"])
                             if s.hyperlinkable:
                                 sli.url = fd["url"]
                             sli.sort_order = fd["sort_order"]
@@ -349,7 +354,6 @@ def handle_uploaded_file(uploader, uploaded_file, freq_display=None):
 
 @login_required
 def maintain_users(request):
-    print "Maintain users!"
     if not request.user.has_perm("auth.add_user"):
         return HttpResponseForbidden("You do not have permission to maintain users")
     users = User.objects.all()
@@ -529,7 +533,6 @@ def user_action(request, username, action):
     except User.DoesNotExist:
         return HttpResponseForbidden("User does not exist")
     if action == "deactivate":
-        print "Deactivating..."
         user.is_active = False
         user.save()
     elif action == "activate":

@@ -23,6 +23,7 @@ class TileDefinition(models.Model):
     GRID_SINGLE_STAT = 14
     MULTI_LIST_STAT = 15
     TAG_CLOUD = 16
+    TIME_LINE = 17
     tile_types = [ "-", 
                 "single_main_stat", "double_main_stat", 
                 "priority_list", "urgency_list", "list_overflow", 
@@ -31,7 +32,8 @@ class TileDefinition(models.Model):
                 "single_list_stat", 
                 "newsfeed", "news_ticker",
                 "graph_single_stat", "grid_single_stat",
-                "multi_list_stat", "tag_cloud" ]
+                "multi_list_stat", "tag_cloud",
+                "time_line", ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
@@ -47,6 +49,7 @@ class TileDefinition(models.Model):
                     (GRID, tile_types[GRID]),
                     (GRID_SINGLE_STAT, tile_types[GRID_SINGLE_STAT]),
                     (CALENDAR, tile_types[CALENDAR]),
+                    (TIME_LINE, tile_types[TIME_LINE]),
                     (NEWSFEED, tile_types[NEWSFEED]),
                     (NEWSTICKER, tile_types[NEWSTICKER]),
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
@@ -64,7 +67,7 @@ class TileDefinition(models.Model):
         }
         if self.tile_type in (self.NEWSFEED, self.NEWSTICKER, 
                                 self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, 
-                                self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR,
+                                self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR, self.TIME_LINE,
                                 self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, 
                                 self.TAG_CLOUD):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
@@ -171,7 +174,7 @@ class TileDefinition(models.Model):
         if self.tile_type == self.MAP:
             problems.append("Tile %s of Widget %s is of type 'map' which is not yet supported")
         if self.tile_type in (self.CALENDAR, self.SINGLE_LIST_STAT, 
-                            self.NEWSFEED, self.NEWSTICKER, self.TAG_CLOUD):
+                            self.NEWSFEED, self.NEWSTICKER, self.TAG_CLOUD, self.TIME_LINE):
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
             min_list_stat_count = 1
@@ -222,10 +225,10 @@ class TileDefinition(models.Model):
                     # Should already have been reported as an error higher up
                     pass
         # only single_list_Stat tile should have list statistics
-        if self.tile_type not in (self.MULTI_LIST_STAT, self.TAG_CLOUD, self.SINGLE_LIST_STAT, self.NEWSTICKER, self.NEWSFEED, self.CALENDAR):
+        if self.tile_type not in (self.MULTI_LIST_STAT, self.TAG_CLOUD, self.SINGLE_LIST_STAT, self.NEWSTICKER, self.NEWSFEED, self.CALENDAR, self.TIME_LINE):
             for stat in self.statistic_set.all():
                 if stat.is_display_list():
-                    problems.append("Tile %s of Widget %s is not a single_list_stat tile or a calendar tile and contains statistic %s, which is a list statistic. (Lists can only appear in single_list_stat and calendar tiles)." % (self.url, self.widget.url(), stat.url))
+                    problems.append("Tile %s of Widget %s is not a list stat tile, a calendar, tag cloud, news or time line tile and contains statistic %s, which is a list statistic. (Lists can only appear in tiles of the types listed)." % (self.url, self.widget.url(), stat.url))
         # Validate list_label_width:
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
             if not self.list_label_width:

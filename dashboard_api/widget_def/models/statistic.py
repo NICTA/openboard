@@ -17,7 +17,9 @@ class Statistic(models.Model):
     EVENT_LIST = 7
     LONG_STRING = 8
     LONG_STRING_LIST = 9
-    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", "am_pm" , "event_list" , "long_string", "long_string_list" ]
+    HIERARCHICAL_EVENT_LIST = 10
+    stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", 
+                    "am_pm" , "event_list" , "long_string", "long_string_list", "hierarchical_event_list" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.CharField(max_length=80, blank=True)
     url = models.SlugField()
@@ -32,6 +34,7 @@ class Statistic(models.Model):
                     (LONG_STRING_LIST, stat_types[LONG_STRING_LIST]),
                     (AM_PM, stat_types[AM_PM]),
                     (EVENT_LIST, stat_types[EVENT_LIST]),
+                    (HIERARCHICAL_EVENT_LIST, stat_types[HIERARCHICAL_EVENT_LIST]),
                 ))
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
@@ -57,7 +60,7 @@ class Statistic(models.Model):
         if self.stat_type == self.AM_PM:
             self.traffic_light_scale = None
             self.icon_library = None
-        if self.stat_type == self.EVENT_LIST:
+        if self.stat_type in (self.EVENT_LIST, self.HIERARCHICAL_EVENT_LIST):
             self.traffic_light_scale = None
             self.trend = False
         if self.is_display_list():
@@ -76,8 +79,8 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url()))
             elif self.num_precision < 0:
                 problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url()))
-        if self.is_eventlist() and self.tile.tile_type not in (self.tile.CALENDAR, self.tile.SINGLE_LIST_STAT):
-            problems.append("Event List statistic only allowed on a Calendar or Single List Statistic tile")
+        if self.is_eventlist() and self.tile.tile_type not in (self.tile.TIME_LINE, self.tile.CALENDAR, self.tile.SINGLE_LIST_STAT):
+            problems.append("Event List statistic only allowed on a Time Line, Calendar or Single List Statistic tile")
         return problems
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
@@ -86,11 +89,17 @@ class Statistic(models.Model):
     def is_display_list(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL,
                                 self.STRING_LIST, self.LONG_STRING_LIST,
-                                self.EVENT_LIST)
+                                self.EVENT_LIST, self.HIERARCHICAL_EVENT_LIST)
     def is_data_list(self):
         return self.is_display_list() or self.rotates
     def is_eventlist(self):
-        return self.stat_type == (self.EVENT_LIST)
+        return self.stat_type in (self.EVENT_LIST, self.HIERARCHICAL_EVENT_LIST)
+    def use_datekey(self):
+        return self.stat_type == self.EVENT_LIST
+    def use_datetimekey(self):
+        return self.stat_type == self.HIERARCHICAL_EVENT_LIST
+    def use_datetimekey_level(self):
+        return self.stat_type == self.HIERARCHICAL_EVENT_LIST
     def is_kvlist(self):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL)
     def initial_form_datum(self, sd):
@@ -107,8 +116,12 @@ class Statistic(models.Model):
         if self.is_data_list():
             if self.is_kvlist() or not self.name_as_label:
                 result["label"] = sd.keyval
-            elif self.is_eventlist():
-                result["date"] = sd.datekey
+            elif self.use_datekey():
+                result["date"] = sd.datetime_key.date()
+            elif self.use_datetimekey():
+                result["datetime"] = sd.datetime_key
+                if self.use_datetimekey_level():
+                    result["level"] = sd.datetime_keylevel
             result["sort_order"] = sd.sort_order
         elif not self.name_as_label:
             result["label"] = sd.label
@@ -133,8 +146,12 @@ class Statistic(models.Model):
             json["value"] = datum.value()
             if self.is_kvlist():
                 json["label"]=datum.keyval
-            elif self.is_eventlist():
-                json["date"]=datum.datekey.strftime("%Y-%m-%d")
+            elif self.use_datekey():
+                json["date"]=datum.display_datetime_key()
+            elif self.use_datetimekey():
+                json["datetime"]=datum.display_datetime_key()
+                if self.use_datetimekey_level():
+                    json["datetime_level"] = datum.levels[datum.datetime_keylevel]
             elif not self.name_as_label:
                 if self.rotates:
                     json["label"]=datum.keyval

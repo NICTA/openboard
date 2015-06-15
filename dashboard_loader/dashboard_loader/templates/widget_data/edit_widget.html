@@ -23,13 +23,13 @@
     <table border="0" id="listform_table">
     <tr class="hidden" id="empty_form_template">
         {% for field in form.empty_form %}
-            <td><b>{{ field.label_tag }}</b> {{ field }} <br/>{{ field.errors }}</td>
+            <td style="vertical-align: top;"><b>{{ field.label_tag }}</b></td><td style="vertical-align: top;"> {{ field }} <br/>{{ field.errors }}</td>
         {% endfor %}
     </tr>
     {% for subform in form %}
         <tr>
             {% for field in subform %}
-                <td><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</td>
+                <td style="vertical-align: top;"><b>{{ field.label_tag }}</b></td><td style="vertical-align: top;"> {{field}} <br/>{{ field.errors }}</td>
             {% endfor %}
         </tr>
     {% endfor %}
