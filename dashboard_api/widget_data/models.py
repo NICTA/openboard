@@ -121,7 +121,7 @@ class StatisticListItem(models.Model):
                 key = key.replace(minute=0)
                 key = key.replace(hour=0)
                 key = key.replace(day=1)
-                key = key.replace(month=(key.month / 4) + 1)
+                key = key.replace(month=(key.month / 4 * 3) + 1)
                 self.datetime_key = key
             elif level == self.YEAR:
                 key = key.replace(second=0)
