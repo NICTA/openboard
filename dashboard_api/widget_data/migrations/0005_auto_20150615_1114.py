@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import datetime
 import pytz
 
 from django.conf import settings
@@ -9,7 +10,7 @@ def migrate_datekeys(apps, schema_editor):
     tz = pytz.timezone(settings.TIME_ZONE)
     StatisticListItem = apps.get_model("widget_data", "StatisticListItem")
     for si in StatisticListItem.objects.filter(datekey__isnull=False):
-        si.datetime_key = tz.localize(si.datekey)
+        si.datetime_key = tz.localize(datetime.datetime.combine(si.datekey, datetime.time()))
         si.save()
 
 class Migration(migrations.Migration):
