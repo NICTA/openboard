@@ -146,7 +146,7 @@ class GraphDefinition(models.Model):
                 "heading": self.heading,
                 "graph_type": self.graph_types[self.graph_type],
                 "url": self.tile.url,
-                "display-options": self.graphdisplayoptions.__getstate__(self.graph_type),
+                "display_options": self.graphdisplayoptions.__getstate__(self.graph_type),
             }
             if self.graph_type == self.LINE:
                 state["vertical_axis"] = {
@@ -304,7 +304,7 @@ class GraphDisplayOptions(models.Model):
     LINE_NONE = 0
     LINE_STRAIGHT = 1
     LINE_BEZIER = 2
-    line_options = [ "none", "straight lines", "smooth curves" ]
+    line_options = [ "none", "straight", "bezier" ]
     line_option_choices = [
             (LINE_NONE, line_options[LINE_NONE]),
             (LINE_STRAIGHT, line_options[LINE_STRAIGHT]),
@@ -387,9 +387,9 @@ class GraphDisplayOptions(models.Model):
             }
             if self.points:
                 if self.point_colour_map:
-                    data["point-colour-map"] = self.point_colour_map.__getstate__()
+                    data["point_colour_map"] = self.point_colour_map.__getstate__()
                 else:
-                    data["point-colour-map"] = None
+                    data["point_colour_map"] = None
         elif graph_type in (GraphDefinition.HISTOGRAM, GraphDefinition.BAR):
             data = {
                 "stacked": self.stacked,
