@@ -1,15 +1,35 @@
 from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap
+from widget_data.api import *
 
 class ImportExportException(Exception):
     pass
 
-def export_widget(widget):
+def sanitise_widget_arg(widget):
     if not isinstance(widget, WidgetFamily):
         try:
-            widget = WidgetFamily.objects.get(url=widget) 
+            return WidgetFamily.objects.get(url=widget) 
         except WidgetDefinition.DoesNotExist:
             raise ImportExportException("Widget Family %s does not exist" % (widget))
+    return widget
+
+def export_widget(widget):
+    widget = sanitise_widget_arg(widget)
     return widget.export()
+
+def export_widget_data(widget):
+    widget = sanitise_widget_arg(widget)
+    defs = WidgetDefinition.objects.filter(family=widget)
+    data = { "family": widget.url, "widgets": [] }
+    for wd in defs:
+        if wd.widgetdeclaration_set.all().count() > 0:
+            wdata = {
+                "actual_location": wd.actual_location.url,
+                "actual_frequency": wd.actual_frequency.url,
+                "data": api_get_widget_data(wd),
+                "graph_data": api_get_graph_data(wd),
+            }
+            data["widgets"].append(wdata)
+    return data
 
 def export_trafficlightscale(scale):
     if not isinstance(scale, TrafficLightScale):
