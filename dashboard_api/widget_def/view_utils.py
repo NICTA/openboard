@@ -15,13 +15,20 @@ class DecimalAwareEncoder(json.JSONEncoder):
 def json_list(request, data, set_p3p=False):
     fmt = request.GET.get("format", "json")
     if fmt == "html":
-        dump = json.dumps(data, indent=4, cls=DecimalAwareEncoder)
+        dump = jsonize(data, True)
         return render(request, "json_api.html", { 'data': dump })
-    dump = json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
-    response = HttpResponse(dump, content_type='application/json')
-    if set_p3p:
-        response["p3p"] = 'CP="This is not a P3P policy!"'
-    return response
+    else:
+        dump = jsonize(data)
+        response = HttpResponse(dump, content_type='application/json')
+        if set_p3p:
+            response["p3p"] = 'CP="This is not a P3P policy!"'
+        return response
+
+def jsonize(data, html=False):
+    if html:
+        return json.dumps(data, indent=4, cls=DecimalAwareEncoder)
+    else:
+        return json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
 
 def get_theme_from_request(request, use_default=False):
     theme_url = request.GET.get("theme", "")

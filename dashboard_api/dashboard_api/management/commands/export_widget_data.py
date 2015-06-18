@@ -2,6 +2,7 @@ import json
 from django.core.management.base import BaseCommand, CommandError
 
 from dashboard_api.management.import_export import ImportExportException, export_widget_data
+from widget_def.view_utils import jsonize
 
 class Command(BaseCommand):
     args="<url>"
@@ -14,5 +15,5 @@ class Command(BaseCommand):
             data = export_widget_data(args[0])
         except ImportExportException, e:
             raise CommandError(unicode(e))
-        print >> self.stdout, json.dumps(data, indent=4)
+        print >> self.stdout, jsonize(data, True)
 
