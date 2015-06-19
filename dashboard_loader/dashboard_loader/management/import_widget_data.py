@@ -61,28 +61,28 @@ def import_widget_data(data):
                                 icon_code=s.get("icon"),
                                 trend = s.get("trend"),
                                 label = s.get("label"))
-    for gurl, g in w["graph_data"].items():
-        try:
-            graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl)
-        except GraphDefinition.DoesNotExist:
-            raise ImportExportException("Graph %s for widget %s(%s,%s) does not exist" % (
-                                gurl,
-                                data["family"], 
-                                w["actual_location"],
-                                w["actual_frequency"]))
-        clear_graph_data(graph)
-        if graph.use_clusters():
-            for curl, c in g["data"].items():
-                for dsurl, ds in c.items():
-                    add_graph_data(graph, dsurl, ds, cluster=curl)
-        else:
-            for dsurl, ds in g["data"].items():
-                for d in ds:
-                    hval = d[0]
-                    val = d[1]
-                    if graph.horiz_axis_type == graph.DATE:
-                        hval = parse_date(hval)
-                    elif graph.horiz_axis_type == graph.TIME:
-                        hval = parse_time(hval)
-                    add_graph_data(graph, dsurl, val, horiz_value=hval)
+        for gurl, g in w["graph_data"].items():
+            try:
+                graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl)
+            except GraphDefinition.DoesNotExist:
+                raise ImportExportException("Graph %s for widget %s(%s,%s) does not exist" % (
+                                    gurl,
+                                    data["family"], 
+                                    w["actual_location"],
+                                    w["actual_frequency"]))
+            clear_graph_data(graph)
+            if graph.use_clusters():
+                for curl, c in g["data"].items():
+                    for dsurl, ds in c.items():
+                        add_graph_data(graph, dsurl, ds, cluster=curl)
+            else:
+                for dsurl, ds in g["data"].items():
+                    for d in ds:
+                        hval = d[0]
+                        val = d[1]
+                        if graph.horiz_axis_type == graph.DATE:
+                            hval = parse_date(hval)
+                        elif graph.horiz_axis_type == graph.TIME:
+                            hval = parse_time(hval)
+                        add_graph_data(graph, dsurl, val, horiz_value=hval)
     return family
