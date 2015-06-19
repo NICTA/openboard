@@ -36,8 +36,8 @@ class WidgetDefinition(models.Model):
         if self.widgetdeclaration_set.all().count() == 0:
             problems.append("Widget %s has no declarations" % self.url)
         default_tiles = self.tiledefinition_set.filter(expansion=False).count()
-        if default_tiles != 1:
-            problems.append("Widget %s has %d default (non-expansion) tiles - must have one and only one" % (self.url, default_tiles))
+        if default_tiles < 1:
+            problems.append("Widget %s has no default (non-expansion) tiles - must have at least one" % self.url)
         tiles = self.tiledefinition_set.all()
         if tiles.count() == default_tiles:
             if self.expansion_hint:

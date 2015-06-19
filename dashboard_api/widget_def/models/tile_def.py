@@ -297,7 +297,7 @@ class TileDefinition(models.Model):
         if self.expansion:
             return "%s (expansion tile %d)" % (unicode(self.widget), self.sort_order)
         else:
-            return "%s (default tile)" % (unicode(self.widget))
+            return "%s (default tile %d)" % (unicode(self.widget), self.sort_order)
     class Meta:
         unique_together=[("widget", "sort_order"), ("widget", "url")]
         ordering=["widget", "expansion", "sort_order"]
