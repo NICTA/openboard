@@ -11,6 +11,8 @@ from dashboard_loader.models import Loader, Uploader
 from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
+tz = pytz.timezone(settings.TIME_ZONE)
+
 class LoaderException(Exception):
     pass
 
@@ -36,7 +38,6 @@ def unlock_loader(loader):
     loader.save()
 
 def update_loader(loader, success=True):
-    tz = pytz.timezone(settings.TIME_ZONE)
     loader.last_run = datetime.datetime.now(tz)
     if success:
         loader.last_loaded = loader.last_run
@@ -167,6 +168,12 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
         ic = None
     if datekey:
         datetimekey = datekey
+    if datetimekey_level:
+        if not isinstance(datetimekey_level, int):
+            for lc in StatisticListItem.level_choices:
+                if lc[1] == datetimekey_level:
+                    datetimekey_level = lc[0]
+                    break
     item = StatisticListItem(statistic=stat, keyval=label, trend=trend,
             sort_order=sort_order, datetime_key=datetimekey, datetime_keylevel=datetimekey_level,
             traffic_light_code=tlc, icon_code=ic, url=url)
@@ -249,7 +256,6 @@ def do_upload(app, fh, actual_freq_display=None, verbosity=0):
         messages = upload_file(uploader, fh, actual_freq_display, verbosity)
     except LoaderException, e:
         return [ "Data upload for %s failed: %s" % (app, unicode(e)) ]
-    tz = pytz.timezone(settings.TIME_ZONE)
     uploader.last_uploaded = datetime.datetime.now(tz)
     uploader.save()
     if verbosity > 0:
@@ -298,4 +304,55 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
             gd.horiz_timeval = horiz_value
     gd.save()
     return gd
+
+def parse_date(d):
+    if d is None:
+        return None
+    elif isinstance(d, datetime.date):
+        return d
+    elif isinstance(d, datetime.date):
+        return d.date()
+    try:
+        dt = datetime.datetime.strptime(d, "%Y-%m-%d")
+        return dt.date()
+    except ValueError:
+        raise LoaderException("Not a valid date string: %s" % repr(d))
+
+def parse_time(t):
+    if t is None:
+        return None
+    elif isinstance(t, datetime.time):
+        return t
+    elif isinstance(t, datetime.datetime):
+        return t.time()
+    try:
+        dt = datetime.datetime.strptime(t, "%H-%M-%S")
+        return dt.time()
+    except ValueError:
+        raise LoaderException("Not a valid time string: %s" % repr(t))
+    except TypeError:
+        raise LoaderException("Cannot parse t as a time: %s" % repr(t))
+
+def parse_datetime(dt):
+    if dt is None:
+        return None
+    elif isinstance(dt, datetime.date):
+        return tz.localize(dt)
+    elif isinstance(dt, datetime.date):
+        return tz.localize(datetime.datetime.combine(dt, datetime.time()))
+    for fmt in ("%Y-%m-%dT%H:%M:%S",
+                "%Y-%m-%d",
+                "%Y"
+            ):
+        try:
+            dt = datetime.datetime.strptime(dt, fmt)
+            return tz.localize(dt)
+        except ValueError:
+            pass
+    try:    
+        dt = datetime.datetime.strptime(dt, "%YQ%m")
+        dt.replace(month=(dt.month/4*3) + 1)
+        return tz.localize(dt)
+    except ValueError:
+        raise LoaderException("Not a valid date string: %s" % repr(dt))
 

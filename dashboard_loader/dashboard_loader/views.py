@@ -10,7 +10,7 @@ from widget_data.models import WidgetData, StatisticData, StatisticListItem, Gra
 from dashboard_loader.models import Uploader
 from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission, get_uploaders_for_user, user_has_uploader_permission
 from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
-from dashboard_loader.loader_utils import LoaderException, get_update_format, do_upload
+from dashboard_loader.loader_utils import LoaderException, get_update_format, do_upload, set_actual_frequency_display_text
 
 # View methods
 
@@ -111,11 +111,8 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
     if request.method == "POST":
         form = WidgetDataForm(request.POST)
         if form.is_valid():
-            wdata = w.widget_data()
-            if not wdata:
-                wdata = WidgetData(widget=w)
-            wdata.actual_frequency_text = form.cleaned_data["actual_frequency_display_text"]
-            wdata.save()
+            set_actual_frequency_display_text(w.url(), w.actual_location.url, w.actual_frequency.url, 
+                        form.cleaned_data["actual_frequency_display_text"])
     else:
         form = WidgetDataForm(initial={
                 "actual_frequency_display_text": w.actual_frequency_display(),
