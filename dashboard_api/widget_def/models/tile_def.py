@@ -54,6 +54,7 @@ class TileDefinition(models.Model):
                     (NEWSTICKER, tile_types[NEWSTICKER]),
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
                 ))
+    aspect = models.IntegerField(default=1)
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(100)])
     columns = models.SmallIntegerField(blank=True, null=True)
@@ -64,6 +65,7 @@ class TileDefinition(models.Model):
         state = {
             "type": self.tile_types[self.tile_type],
             "expansion": self.expansion,
+            "aspect": self.aspect,
         }
         if self.tile_type in (self.NEWSFEED, self.NEWSTICKER, 
                                 self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, 
@@ -97,6 +99,7 @@ class TileDefinition(models.Model):
         exp = {
             "tile_type": self.tile_type,
             "expansion": self.expansion,
+            "aspect": self.aspect,
             "url": self.url,
             "sort_order": self.sort_order,
             "columns": self.columns,
@@ -118,6 +121,7 @@ class TileDefinition(models.Model):
             t = TileDefinition(widget=widget, url=data["url"])
         t.tile_type = data["tile_type"]
         t.expansion = data["expansion"]
+        t.aspect = data.get("expansion", 1)
         t.list_label_widh = data.get("list_label_width")
         t.columns = data.get("columns")
         t.sort_order = data["sort_order"]
