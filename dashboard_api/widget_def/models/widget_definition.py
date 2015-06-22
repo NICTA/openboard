@@ -23,6 +23,7 @@ class WidgetDefinition(models.Model):
     _lud_cache = None
     family = models.ForeignKey("WidgetFamily")
     expansion_hint = models.CharField(max_length=80, blank=True, null=True)
+    deexpansion_hint = models.CharField(max_length=80, blank=True, null=True)
     actual_location = models.ForeignKey(Location)
     actual_frequency = models.ForeignKey(Frequency)
     refresh_rate = models.IntegerField(help_text="in seconds")
@@ -40,10 +41,10 @@ class WidgetDefinition(models.Model):
             problems.append("Widget %s has no default (non-expansion) tiles - must have at least one" % self.url)
         tiles = self.tiledefinition_set.all()
         if tiles.count() == default_tiles:
-            if self.expansion_hint:
-                problems.append("widget %s has no expansion tiles but expansion hint is set" % (self.url))
+            if self.expansion_hint or self.deexpansion_hint:
+                problems.append("widget %s has no expansion tiles but expansion hint or deexpansion hint is set" % (self.url))
         else:
-            if not self.expansion_hint:
+            if not self.expansion_hint or not self.deexpansion_hint:
                 problems.append("widget %s has expansion tiles but expansion hint is not set" % (self.url))
         stat_urls = {}
         Statistic = apps.get_app_config("widget_def").get_model("Statistic")
@@ -85,6 +86,7 @@ class WidgetDefinition(models.Model):
             "url": self.url(),
             "display": {
                 "expansion_hint": self.expansion_hint,
+                "deexpansion_hint": self.deexpansion_hint,
                 "tiles": [ tile.__getstate__() for tile in self.tiledefinition_set.all() ],
             },
             "source_url": self.source_url(),
@@ -96,6 +98,7 @@ class WidgetDefinition(models.Model):
     def export(self):
         return {
             "expansion_hint": self.expansion_hint,
+            "deexpansion_hint": self.deexpansion_hint,
             "actual_frequency_url": self.actual_frequency.url,
             "actual_location_url": self.actual_location.url,
             "refresh_rate": self.refresh_rate,
@@ -113,6 +116,7 @@ class WidgetDefinition(models.Model):
                             actual_frequency=Frequency.objects.get(url=data["actual_frequency_url"]),
                             actual_location=Location.objects.get(url=data["actual_location_url"]))
         w.expansion_hint = data["expansion_hint"]
+        w.deexpansion_hint = data.get("deexpansion_hint")
         w.refresh_rate = data["refresh_rate"]
         w.sort_order = data["sort_order"]
         w.about = data["about"]
