@@ -15,6 +15,8 @@ class WidgetFamily(models.Model):
     url  = models.SlugField(unique=True)
     source_url = models.URLField(max_length=400)
     source_url_text = models.CharField(max_length=60)
+    class Meta:
+        ordering=("subcategory",)
     def edit_permission_name(self):
         return "w_%s" % self.url
     def edit_permission_label(self):
