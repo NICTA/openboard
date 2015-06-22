@@ -80,6 +80,7 @@ class WidgetDefinition(models.Model):
     def __getstate__(self):
         return {
             "category": self.subcategory().category.name,
+            "category_aspect": self.subcategory().category.category_aspect,
             "subcategory": self.subcategory().name,
             "name": self.name(),
             "subtitle": self.family.subtitle,

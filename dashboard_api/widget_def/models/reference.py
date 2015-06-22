@@ -40,6 +40,7 @@ class Frequency(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=60, unique=True)
+    category_aspect = models.IntegerField()
     sort_order = models.IntegerField()
     def __unicode__(self):
         return self.name
