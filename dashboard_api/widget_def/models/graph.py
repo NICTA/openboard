@@ -326,6 +326,7 @@ class GraphDisplayOptions(models.Model):
     lines = models.SmallIntegerField(choices=line_option_choices, default=LINE_NONE)
     points = models.SmallIntegerField(choices=point_option_choices, default=POINT_NONE)
     single_graph = models.BooleanField(default=True)
+    rotates = models.BooleanField(default=False)
     shaded = models.BooleanField(default=False)
     stacked = models.BooleanField(default=False)
     point_colour_map = models.ForeignKey(PointColourMap, blank=True, null=True)
@@ -358,6 +359,7 @@ class GraphDisplayOptions(models.Model):
         do.stacked = data["stacked"]
         do.shaded = data["shaded"]
         do.single_graph = data["single_graph"]
+        do.rotates = data.get("single_graph", False)
         if data["point_colour_map"]:
             do.point_colour_map = PointColourMap.objects.get(label=data["point_colour_map"])
         else:
@@ -369,6 +371,7 @@ class GraphDisplayOptions(models.Model):
             "lines": self.lines,    
             "points": self.points,    
             "single_graph": self.single_graph,    
+            "rotates": self.rotates,    
             "stacked": self.stacked,    
             "shaded": self.shaded,    
         }
@@ -385,6 +388,8 @@ class GraphDisplayOptions(models.Model):
                 "single_graph": self.single_graph,
                 "shaded": self.shaded,
             }
+            if not self.single_graph:
+                data["rotates"] = self.rotates
             if self.points:
                 if self.point_colour_map:
                     data["point_colour_map"] = self.point_colour_map.__getstate__()
@@ -395,6 +400,8 @@ class GraphDisplayOptions(models.Model):
                 "stacked": self.stacked,
                 "single_graph": self.single_graph,
             }
+            if not self.single_graph:
+                data["rotates"] = self.rotates
         else:
             data = {}
         return data
@@ -403,17 +410,22 @@ class GraphDisplayOptions(models.Model):
             self.stacked = False
             if self.points == self.POINT_NONE:
                 self.point_colour_map = None
+            if self.single_graph:
+                self.rotates = False
         elif self.graph.graph_type in (GraphDefinition.HISTOGRAM, GraphDefinition.BAR):
             self.lines = self.LINE_NONE
             self.points = self.POINT_NONE
             self.shaded = False
             self.point_colour_map = None
+            if self.single_graph:
+                self.rotates = False
         else:
             self.lines = self.LINE_NONE
             self.points = self.POINT_NONE
             self.shaded = False
             self.stacked = False
             self.single_graph = True
+            self.rotates = False
             self.point_colour_map = None
         self.save()
     def validate(self):
