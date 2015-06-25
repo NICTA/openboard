@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.apps import apps
@@ -24,6 +26,7 @@ class TileDefinition(models.Model):
     MULTI_LIST_STAT = 15
     TAG_CLOUD = 16
     TIME_LINE = 17
+    TEXT_TEMPLATE = 18
     tile_types = [ "-", 
                 "single_main_stat", "double_main_stat", 
                 "priority_list", "urgency_list", "list_overflow", 
@@ -33,11 +36,12 @@ class TileDefinition(models.Model):
                 "newsfeed", "news_ticker",
                 "graph_single_stat", "grid_single_stat",
                 "multi_list_stat", "tag_cloud",
-                "time_line", ]
+                "time_line", "text_template", ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
                     (DOUBLE_MAIN_STAT, tile_types[DOUBLE_MAIN_STAT]),
+                    (TEXT_TEMPLATE, tile_types[TEXT_TEMPLATE]),
                     (SINGLE_LIST_STAT, tile_types[SINGLE_LIST_STAT]),
                     (MULTI_LIST_STAT, tile_types[MULTI_LIST_STAT]),
                     (PRIORITY_LIST, tile_types[PRIORITY_LIST]),
@@ -58,6 +62,7 @@ class TileDefinition(models.Model):
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
     list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(100)])
     columns = models.SmallIntegerField(blank=True, null=True)
+    template = models.CharField(max_length=512, blank=True, null=True, help_text="Reference statistics with '%{statistic_url}")
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
     # graph_def, map_def
@@ -83,6 +88,8 @@ class TileDefinition(models.Model):
                 state["list_label_width"] = self.list_label_width
             else:
                 state["list_label_width"] = 50
+        if self.tile_type == self.TEXT_TEMPLATE:
+            state["template"] = self.template
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
             state["columns"] = self.columns
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
@@ -101,6 +108,7 @@ class TileDefinition(models.Model):
             "expansion": self.expansion,
             "aspect": self.aspect,
             "url": self.url,
+            "template": self.template,
             "sort_order": self.sort_order,
             "columns": self.columns,
             "list_label_width": self.list_label_width,
@@ -123,6 +131,7 @@ class TileDefinition(models.Model):
         t.expansion = data["expansion"]
         t.aspect = data.get("expansion", 1)
         t.list_label_widh = data.get("list_label_width")
+        t.template = data.get("template")
         t.columns = data.get("columns")
         t.sort_order = data["sort_order"]
         t.clean()
@@ -155,6 +164,8 @@ class TileDefinition(models.Model):
                     self.list_label_width = 100
         else:
             self.list_label_width = None
+        if self.tile_type != self.TEXT_TEMPLATE:
+            self.template = None
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         self.clean()
@@ -173,7 +184,7 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.LIST_OVERFLOW, self.GRAPH):
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
-        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.TEXT_TEMPLATE):
             pass # Defaults all correct
         if self.tile_type == self.MAP:
             problems.append("Tile %s of Widget %s is of type 'map' which is not yet supported")
@@ -289,6 +300,30 @@ class TileDefinition(models.Model):
                 self.griddefinition.delete()
             except models.ObjectDoesNotExist:
                 pass
+        # Validate template
+        if self.tile_type == self.TEXT_TEMPLATE:
+            if not self.template:
+                problems.append("Tile %s of Widget %s is a text template tile but does not have a template defined" % (self.url, self.widget.url()))
+            else:
+                referenced_urls = []
+                references = re.findall(r'%\{\w+\}', self.template)
+                start_refs = re.findall(r'%\{', self.template)
+                if len(start_refs) > len(references):
+                    problems.append("Tile %s of Widget %s has an invalid text template: %s" % (self.url, self.widget.url(), self.template))
+                if len(references) == 0:
+                    problems.append("Tile %s of Widget %s has a text template that references no statistics" % (self.url, self.widget.url()))
+                Statistic = apps.get_app_config("widget_def").get_model("Statistic")
+                for reference in references:
+                    m = re.match(r'%\{(?P<ref>\w+)\}', reference)
+                    ref = m.group("ref")
+                    try:
+                        Statistic.objects.get(tile=self, url=ref)
+                        referenced_urls.append(ref)
+                    except Statistic.DoesNotExist:
+                        problems.append("Text template of tile %s of Widget %s references statistic %s which is not defined" % (self.url, self.widget.url(), ref))
+                for stat in self.statistic_set.all():
+                    if stat.url not in referenced_urls:
+                        problems.append("Text template of tile %s of Widget %s does not reference defined statistic %s" % (self.url, self.widget.url(), stat.url))
         # Validate all stats.
         for stat in self.statistic_set.all():
             problems.extend(stat.validate())

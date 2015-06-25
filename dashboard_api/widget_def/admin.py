@@ -45,6 +45,7 @@ class WidgetFamilyAdmin(admin.ModelAdmin):
     list_display = ('name', 'subtitle', 'url', 'subcategory')
 
 class TileInline(admin.TabularInline):
+    exclude = ( "template", )
     model = TileDefinition
     extra = 2
 
