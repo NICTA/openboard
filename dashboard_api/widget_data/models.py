@@ -144,7 +144,8 @@ class StatisticListItem(models.Model):
             elif self.datetime_keylevel in (self.DAY, self.MONTH):
                 return self.datetime_key.astimezone(tz).strftime("%Y-%m-%d")
             elif self.datetime_keylevel == self.QUARTER:
-                return "%dQ%d" % (self.datetime_key.astimezone(tz).year, (self.datetime_key.astimezone(tz).month/4)+1)
+                qtr = (self.datetime_key.astimezone(tz).month - 1)/3 + 1
+                return "%dQ%d" % (self.datetime_key.astimezone(tz).year, qtr)
             else: # self.datetime_keylevel == self.YEAR:
                 return self.datetime_key.astimezone(tz).strftime("%Y")
         else:
