@@ -75,7 +75,7 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.NEWSFEED, self.NEWSTICKER, 
                                 self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, 
                                 self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR, self.TIME_LINE,
-                                self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, 
+                                self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, self.TEXT_TEMPLATE, 
                                 self.TAG_CLOUD):
             state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
         if self.tile_type == self.GRID_SINGLE_STAT:
