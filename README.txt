@@ -38,11 +38,15 @@ celery (http://www.celeryproject.org/)
 	Open source python distributed task queue system, with django
 	integration.
 
+	NB: Install via easy_install, not apt
+
 rabbitmq  (https://www.rabbitmq.com/)
 
 	Open source message queue system.  Acts as a message broker
 	for celery.  N.B. Any other message broker system supported
 	by celery could be used instead of RabbitMQ.
+
+	NB: Install librabbitmq1.  Do NOT install  python-librabbitmq !!
 
 Quick Tour of the Source Code
 =============================
