@@ -160,6 +160,8 @@ def get_form_class_for_graph(graph):
             form_fields["horiz_value"] = forms.DateField(required=True, widget=SelectDateWidget(years=range(2000,datetime.date.today().year+5)))
         elif graph.horiz_axis_type == graph.TIME:
             form_fields["horiz_value"] = forms.TimeField(required=True, widget=SelectTimeWidget)
+        elif graph.horiz_axis_type == graph.DATETIME:
+            form_fields["horiz_value"] = forms.DateTimeField(required=True, widget=SelectDateTimeWidget)
         field_count += 1
     form_fields["field_count"] = field_count
     return type(str("Graph_%s_Form" % graph.tile.url), (forms.Form,), 

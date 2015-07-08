@@ -288,6 +288,9 @@ def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, t
                                 gd.horiz_dateval = fd["horiz_value"]
                             elif g.horiz_axis_type == g.TIME:
                                 gd.horiz_timeval = fd["horiz_value"]
+                            elif g.horiz_axis_type == g.TIME:
+                                gd.horiz_dateval = fd["horiz_value"].date()
+                                gd.horiz_timeval = fd["horiz_value"].time()
                         gd.save()
                 if request.POST.get("submit"):
                     return redirect("view_widget_data", 

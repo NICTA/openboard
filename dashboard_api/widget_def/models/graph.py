@@ -17,7 +17,8 @@ class GraphDefinition(models.Model):
         NUMERIC = 1
         DATE = 2
         TIME = 3
-        axis_types = [ "-", "numeric", "date", "time" ]
+        DATETIME = 4
+        axis_types = [ "-", "numeric", "date", "time", "datetime" ]
         tile = models.OneToOneField(TileDefinition, limit_choices_to=models.Q(
                                 tile_type__in=(TileDefinition.GRAPH, TileDefinition.GRAPH_SINGLE_STAT)
                                 ))
@@ -39,6 +40,7 @@ class GraphDefinition(models.Model):
                         (NUMERIC, axis_types[NUMERIC]),
                         (DATE, axis_types[DATE]),
                         (TIME, axis_types[TIME]),
+                        (DATETIME, axis_types[DATETIME]),
                     ), default=0)
         def widget(self):
             return self.tile.widget
@@ -82,7 +84,9 @@ class GraphDefinition(models.Model):
             elif self.horiz_axis_type == self.DATE:
                 return value.strftime("%Y-%m-%d")
             elif self.horiz_axis_type == self.TIME:
-                return value.strftime("%H-%M-%S")
+                return value.strftime("%H:%M:%S")
+            elif self.horiz_axis_type == self.DATETIME:
+                return value.strftime("%Y-%m-%dT%H:%M:%S")
             else:
                 return None
         class Meta:

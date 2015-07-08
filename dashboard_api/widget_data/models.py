@@ -201,6 +201,8 @@ class GraphData(models.Model):
             return self.horiz_dateval
         elif self.graph.horiz_axis_type == self.graph.TIME:
             return self.horiz_timeval
+        elif self.graph.horiz_axis_type == self.graph.DATETIME:
+            return tz.localize(datetime.datetime.combine(self.horiz_dateval,self.horiz_timeval))
         else:
             return None
     def horiz_json_value(self):

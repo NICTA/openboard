@@ -302,6 +302,9 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
             gd.horiz_dateval = horiz_value
         elif graph.horiz_axis_type == graph.TIME:
             gd.horiz_timeval = horiz_value
+        elif graph.horiz_axis_type == graph.DATETIME:
+            gd.horiz_dateval = horiz_value.date()
+            gd.horiz_timeval = horiz_value.time()
     gd.save()
     return gd
 
