@@ -177,6 +177,9 @@ class GraphDataQuerySet(models.QuerySet):
             args.append("horiz_dateval")
         elif graph.horiz_axis_type == graph.TIME:
             args.append("horiz_timeval")
+        elif graph.horiz_axis_type == graph.DATETIME:
+            args.append("horiz_dateval")
+            args.append("horiz_timeval")
         if graph.use_numeric_axes:
             args.append("value")
         return self.order_by(*args)
@@ -208,4 +211,4 @@ class GraphData(models.Model):
     def horiz_json_value(self):
         return self.graph.jsonise_horiz_value(self.horiz_value())
     class Meta:
-        ordering = ("graph", "cluster", "dataset")
+        ordering = ("graph", "cluster", "dataset", "horiz_numericval", "horiz_dateval", "horiz_timeval")
