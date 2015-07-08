@@ -84,5 +84,7 @@ def import_widget_data(data):
                             hval = parse_date(hval)
                         elif graph.horiz_axis_type == graph.TIME:
                             hval = parse_time(hval)
+                        elif graph.horiz_axis_type == graph.DATETIME:
+                            hval = parse_datetime(hval)
                         add_graph_data(graph, dsurl, val, horiz_value=hval)
     return family

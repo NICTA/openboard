@@ -328,13 +328,15 @@ def parse_time(t):
         return t
     elif isinstance(t, datetime.datetime):
         return t.time()
-    try:
-        dt = datetime.datetime.strptime(t, "%H-%M-%S")
-        return dt.time()
-    except ValueError:
-        raise LoaderException("Not a valid time string: %s" % repr(t))
-    except TypeError:
-        raise LoaderException("Cannot parse t as a time: %s" % repr(t))
+    for fmt in ("%H:%M:%S", "%H-%M-%S", "%H:%M", "%H-%M"):
+        try:
+            dt = datetime.datetime.strptime(t, "%H:%M:%S")
+            return dt.time()
+        except ValueError:
+            pass
+        except TypeError:
+            raise LoaderException("Cannot parse t as a time: %s" % repr(t))
+    raise LoaderException("Not a valid time string: %s" % repr(t))
 
 def parse_datetime(dt):
     if dt is None:
@@ -354,7 +356,7 @@ def parse_datetime(dt):
             pass
     try:    
         dt = datetime.datetime.strptime(dt, "%YQ%m")
-        dt.replace(month=(dt.month/4*3) + 1)
+        dt.replace(month=(dt.month-1)*3+1)
         return tz.localize(dt)
     except ValueError:
         raise LoaderException("Not a valid date string: %s" % repr(dt))
