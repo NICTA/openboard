@@ -356,7 +356,7 @@ def parse_datetime(dt):
             pass
     try:    
         dt = datetime.datetime.strptime(dt, "%YQ%m")
-        dt.replace(month=(dt.month-1)*3+1)
+        dt = dt.replace(month=(dt.month-1)*3+1)
         return tz.localize(dt)
     except ValueError:
         raise LoaderException("Not a valid date string: %s" % repr(dt))
