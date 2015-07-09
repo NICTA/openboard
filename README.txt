@@ -33,6 +33,10 @@ xlrd  (http://www.python-excel.org)
 
 	Python package for reading xls spreadsheets (open source)
 
+openpyxl  (http://www.python-excel.org)
+
+	Python package for reading xlsx spreadsheets (open source)
+
 celery (http://www.celeryproject.org/)
 
 	Open source python distributed task queue system, with django
