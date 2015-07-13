@@ -1,8 +1,13 @@
 from widget_def.models import *
 
-def api_get_themes():
-    return [ t.__getstate__() for t in Theme.objects.all() ]
-
+def api_get_themes(user):
+    if user.is_authenticated():
+        # TODO Theme based permissions
+        themes = Theme.objects.all()
+    else:
+        themes = Theme.objects.filter(requires_authentication=False)
+    return [ t.__getstate__() for t in themes ]
+re
 def api_get_locations():
     return [ l.__getstate__() for l in Location.objects.all() ]
 

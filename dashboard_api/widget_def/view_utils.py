@@ -39,7 +39,14 @@ def get_theme_from_request(request, use_default=False):
             theme = Theme.objects.all()[0]
         else:
             raise Http404("Theme %s does not exist" % theme_url)
-    return theme
+    if request.user.is_authenticated():
+        # Theme based authentication!
+        return theme
+    else:
+        if theme.requires_authentication:
+            return None
+        else:
+            return theme
 
 def get_location_from_request(request, use_default=False):
     location_url = request.GET.get("location", "")

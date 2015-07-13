@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http.response import HttpResponseForbidden
+from django.conf import settings
 
 
 from widget_def.models import Theme, Location, Frequency
@@ -10,29 +11,31 @@ from widget_def.view_utils import get_theme_from_request, get_location_from_requ
 # Views
 
 def get_themes(request):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    return json_list(request, api_get_themes())
+    return json_list(request, api_get_themes(request.user))
 
 def get_locations(request):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     return json_list(request, api_get_locations())
 
 def get_frequencies(request):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     return json_list(request, api_get_frequencies())
 
 def get_icon_libraries(request):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     return json_list(request, api_get_icon_libraries())
 
 def get_widgets(request):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     theme = get_theme_from_request(request)
+    if theme is None:
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
     return json_list(request, api_get_widgets(theme, location, frequency))

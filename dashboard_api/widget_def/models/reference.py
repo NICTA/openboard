@@ -5,6 +5,7 @@ from django.db import models
 class Theme(models.Model):
     name = models.CharField(max_length=60, unique=True)
     url  = models.SlugField(unique=True)
+    requires_authentication = models.BooleanField(default=True)
     sort_order = models.IntegerField()
     def __unicode__(self):
         return self.url

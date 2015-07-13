@@ -96,3 +96,7 @@ SESSION_COOKE_AGE = 1*60*60
 
 SESSION_COOKIE_HTTPONLY = False
 
+# Allow public api access (for themes where require_authentication is False)
+
+PUBLIC_API_ACCESS = False
+
