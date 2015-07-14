@@ -49,8 +49,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ALLOW_METHODS= ('GET', )
 
 # CORS_ALLOW_CREDENTIALS: specify whether or not cookies are allowed to be included in cross-site HTTP requests (CORS).  Default: False
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 # See https://github.com/ottoyiu/django-cors-headers/blob/master/README.md
 # for other CORS options.
 
+# Allow Public access to API (for themes that are marked as not requiring auth
+PUBLIC_API_ACCESS = False

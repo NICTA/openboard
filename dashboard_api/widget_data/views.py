@@ -1,6 +1,7 @@
 from decimal import Decimal
 
 from django.http import HttpResponseNotFound, HttpResponseForbidden
+from django.conf import settings
 
 from widget_def.models import WidgetDeclaration
 from widget_def.view_utils import json_list, get_location_from_request, get_frequency_from_request, get_theme_from_request
@@ -9,7 +10,7 @@ from widget_data.api import *
 # views.
 
 def get_widget_data(request, widget_url):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     theme = get_theme_from_request(request, use_default=True)
     if theme is None:
@@ -26,7 +27,7 @@ def get_widget_data(request, widget_url):
     return json_list(request, api_get_widget_data(widget.definition))
 
 def get_graph_data(request, widget_url):
-    if not request.user.is_authenticated():
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     theme = get_theme_from_request(request, use_default=True)
     if theme is None:
