@@ -7,7 +7,7 @@ def api_get_themes(user):
     else:
         themes = Theme.objects.filter(requires_authentication=False)
     return [ t.__getstate__() for t in themes ]
-re
+
 def api_get_locations():
     return [ l.__getstate__() for l in Location.objects.all() ]
 
