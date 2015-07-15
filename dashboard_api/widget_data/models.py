@@ -40,7 +40,10 @@ class StatisticData(models.Model):
             if self.statistic.num_precision == 0:
                 return self.intval
             else:
-                return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP)
+                if self.decval is None:
+                    return None
+                else:
+                    return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP)
         else:
             return self.strval
     def __unicode__(self):
