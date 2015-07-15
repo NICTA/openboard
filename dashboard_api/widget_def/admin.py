@@ -77,7 +77,7 @@ class StatisticInline(admin.StackedInline):
                 'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'icon_library', 'trend', 'rotates', 'hyperlinkable', 'numbered_list', 'footer', 'editable', 'sort_order'),
             }),
             ('Numeric', {
-                'fields': ('num_precision', 'unit_prefix', 'unit_suffix', 'unit_underfix', 'unit_signed'),
+                'fields': ('num_precision', 'unit_prefix', 'unit_si_prefix_rounding', 'unit_suffix', 'unit_underfix', 'unit_signed'),
                 'description': "For numeric type statistics only",
                 'classes': ('collapse',),
             }),

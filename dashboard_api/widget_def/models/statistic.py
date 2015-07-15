@@ -50,6 +50,7 @@ class Statistic(models.Model):
     unit_suffix = models.CharField(max_length="40", blank=True, null=True)
     unit_underfix = models.CharField(max_length="40", blank=True, null=True)
     unit_signed = models.BooleanField(default=False)
+    unit_si_prefix_rounding = models.IntegerField(default=0)
     sort_order = models.IntegerField()
     hyperlinkable = models.BooleanField(default=False)
     footer = models.BooleanField(default=False)
@@ -62,6 +63,7 @@ class Statistic(models.Model):
             self.unit_suffix = None
             self.unit_underfix = None
             self.unit_signed = False
+            self.unit_si_prefix_rounding = 0
         if self.stat_type == self.AM_PM:
             self.traffic_light_scale = None
             self.icon_library = None
@@ -84,6 +86,8 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s is numeric, but has no precision set" % (self.url, self.tile.widget.url()))
             elif self.num_precision < 0:
                 problems.append("Statistic %s of Widget %s has negative precision" % (self.url, self.tile.widget.url()))
+            if self.unit_si_prefix_rounding < 0:
+                problems.append("Statistic %s of Widget %s has negative si_prefix_rounding" % (self.url, self.tile.widget.url()))
         if self.is_eventlist() and self.tile.tile_type not in (self.tile.TIME_LINE, self.tile.CALENDAR, self.tile.SINGLE_LIST_STAT):
             problems.append("Event List statistic only allowed on a Time Line, Calendar or Single List Statistic tile")
         return problems
@@ -217,6 +221,7 @@ class Statistic(models.Model):
             "unit_prefix": self.unit_prefix,
             "unit_suffix": self.unit_suffix,
             "unit_underfix": self.unit_underfix,
+            "unit_si_prefix_rounding": self.unit_si_prefix_rounding,
             "unit_signed": self.unit_signed,
             "sort_order": self.sort_order,
         }
@@ -240,6 +245,7 @@ class Statistic(models.Model):
         s.unit_suffix = data["unit_suffix"]
         s.unit_underfix = data["unit_underfix"]
         s.unit_signed = data["unit_signed"]
+        s.unit_si_prefix_rounding = data.get("unit_si_prefix_rounding", 0)
         s.sort_order = data["sort_order"]
         if data["traffic_light_scale"]:
             s.traffic_light_scale = TrafficLightScale.objects.get(name=data["traffic_light_scale"])
@@ -270,6 +276,8 @@ class Statistic(models.Model):
                 state["unit"]["underfix"] = self.unit_underfix 
             if self.unit_signed:
                 state["unit"]["signed"] = True
+            if self.unit_si_prefix_rounding > 0:
+                state["unit"]["si_prefix_rounding"] = self.unit_si_prefix_rounding
         if self.traffic_light_scale:
             state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
         else:
