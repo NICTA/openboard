@@ -275,8 +275,30 @@ def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
     except GraphDefinition.DoesNotExist:
         raise LoaderException("Graph for tile %s of widget %s:(%s,%s) does not exist"%(tile_url, widget_url, actual_location_url, actual_frequency_url))
 
-def clear_graph_data(graph):
-    graph.get_data().delete()
+def clear_graph_data(graph, cluster=None, dataset=None):
+    data = graph.get_data()
+    if graph.use_clusters() 
+        if cluster:
+            if not isinstance(cluster, GraphCluster):
+                try:
+                    cluster = GraphCluster.objects.get(graph=graph, url=cluster)
+                except GraphCluster.DoesNotExist:
+                    raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+            data = data.filter(cluster=cluster)
+        elif cluster:
+            raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
+        if dataset:
+            raise LoaderException("Graph %s uses clusters - cannot delete by dataset" % graph.tile.url)
+    elif dataset:
+        if not isinstance(dataset, GraphDataset):
+            try:
+                dataset = GraphCluster.objects.get(graph=graph, url=dataset)
+            except GraphDataset.DoesNotExist:
+                raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+        data = data.filter(dataset=dataset)
+        if cluster:
+            raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
+    data.delete()
 
 def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
     if not isinstance(dataset, GraphDataset):
