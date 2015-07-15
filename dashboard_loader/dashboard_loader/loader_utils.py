@@ -277,7 +277,7 @@ def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
 
 def clear_graph_data(graph, cluster=None, dataset=None):
     data = graph.get_data()
-    if graph.use_clusters() 
+    if graph.use_clusters():
         if cluster:
             if not isinstance(cluster, GraphCluster):
                 try:
