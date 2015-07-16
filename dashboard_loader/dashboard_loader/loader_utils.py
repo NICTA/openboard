@@ -319,7 +319,7 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
         gd.cluster = cluster
     else:
         if graph.horiz_axis_type == graph.NUMERIC:
-            gd.horiz_numericval = decimal.Decimal(horiz_value).quantize(decimal.Decimal("0.0001", rounding=decimal.ROUND_HALF_UP))
+            gd.horiz_numericval = decimal.Decimal(horiz_value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)
         elif graph.horiz_axis_type == graph.DATE:
             gd.horiz_dateval = horiz_value
         elif graph.horiz_axis_type == graph.TIME:
