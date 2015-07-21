@@ -17,16 +17,16 @@ class RawDataSet(models.Model):
     @classmethod
     def import_data(cls, widget, data):
         try:
-            raw = RawDataSet.objects.get(widget=widget, url=data["url"])
+            rds = RawDataSet.objects.get(widget=widget, url=data["url"])
         except RawDataSet.DoesNotExist:
-            raw = RawDataSet(widget=widget, url=data["url"])
-        raw.filename = data["filename"]
-        raw.save()
+            rds = RawDataSet(widget=widget, url=data["url"])
+        rds.filename = data["filename"]
+        rds.save()
         cols = []
         for c in data["columns"]:
-            col = RawDataSetColumn.import_data(raw, c)
+            col = RawDataSetColumn.import_data(rds, c)
             cols.append(col.sort_order)
-        for col in self.rawdatasetcolumn_set.all():
+        for col in rds.rawdatasetcolumn_set.all():
             if col.sort_order not in cols:
                 col.delete()
         return raw
