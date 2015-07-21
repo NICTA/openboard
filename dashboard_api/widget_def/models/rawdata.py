@@ -29,7 +29,7 @@ class RawDataSet(models.Model):
         for col in rds.rawdatasetcolumn_set.all():
             if col.sort_order not in cols:
                 col.delete()
-        return raw
+        return rds
     def __getstate__(self):
         return {
             "url": self.url,
