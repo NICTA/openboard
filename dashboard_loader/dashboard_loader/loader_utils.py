@@ -8,8 +8,8 @@ from django.conf import settings
 from django.db import transaction
 
 from dashboard_loader.models import Loader, Uploader
-from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster
-from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
+from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster, RawDataSet
+from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData, RawDataRecord, RawData
 
 tz = pytz.timezone(settings.TIME_ZONE)
 
@@ -329,6 +329,29 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
             gd.horiz_timeval = horiz_value.time()
     gd.save()
     return gd
+
+def get_rawdataset(widget_url, actual_location_url, actual_frequency_url, rds_url):
+    try:
+        return RawDataSet.objects.get(widget__family__url=widget_url,
+                                actual_location__url=widget__actual_location_url,
+                                actual_frequency__url=widget__actual_frequency_url,
+                                url=rds_url)
+    except RawDataSet.DoesNotExist:
+        raise LoaderException("Raw Dataset %s of widget %s(%s,%s) does not exist" % (rds_url, widget_url, actual_location_url, actual_frequency_url))
+
+def clear_rawdataset(rds):
+    rds.rawdatarecord_set.all().delete()
+
+def add_rawdatarecord(rds, sort_order, *args, **kwargs):
+    record = RawDataRecord(rds=rds, sort_order=sort_order)
+    record.save()
+    (colarray, coldict ) = rds.col_array_dict()
+    for i in range(len(args)):
+        cell = RawData(record=record, column=colarray[i], value=unicode(args[i]))
+        cell.save()
+    for k,v in kwargs.items():
+        cell = RawData(record=record, column=coldict[k], value=unicode(v))
+        cell.save()
 
 def parse_date(d):
     if d is None:

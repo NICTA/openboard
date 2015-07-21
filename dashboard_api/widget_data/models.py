@@ -218,3 +218,39 @@ class GraphData(models.Model):
         return self.graph.jsonise_horiz_value(self.horiz_value())
     class Meta:
         ordering = ("graph", "cluster", "dataset", "horiz_numericval", "horiz_dateval", "horiz_timeval")
+
+class RawDataRecord(models.Model):
+    rds = models.ForeignKey("widget_def.RawDataSet")
+    sort_order = models.IntegerField()
+    def csv(self):
+        out = ""
+        first_cell = True
+        for col in rds.rawdatacolumn_set.all():
+            if not first_cell:
+                out += ","
+            try:
+                rd = self.rawdata_set.get(column=col)
+                out += rd.csv()
+            except RawData.DoesNotExist:
+                pass
+            first_cell = False
+        out += "\n"
+        return out 
+    class Meta:
+        unique_together=("rds", "sort_order")
+        ordering = ("rds", "sort_order")
+
+class RawData(models.Model):
+    record = models.ForeignKey(RawDataRecord)
+    column = models.ForeignKey("widget_def.RawDataSetColumn")
+    value = models.CharField(max_length=1024, blank=True)
+    def csv(self):
+        out = self.value.replace('"', '""')
+        if '"' in out or ',' in out:
+            return '"%s"' % out
+        else:
+            return out
+    class Meta:
+        unique_together=("record", "column")
+        ordering = ("record", "column")
+

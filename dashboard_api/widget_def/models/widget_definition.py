@@ -78,7 +78,7 @@ class WidgetDefinition(models.Model):
         else:
             return self.actual_frequency.actual_display
     def __getstate__(self):
-        return {
+        data = {
             "category": self.subcategory().category.name,
             "category_aspect": self.subcategory().category.category_aspect,
             "subcategory": self.subcategory().name,
@@ -96,6 +96,9 @@ class WidgetDefinition(models.Model):
             "refresh_rate": self.refresh_rate,
             "about": self.about,
         }
+        if self.rawdataset_set.all().count() > 0:
+            data["raw_data_sets"] = [ rds.__getstate__() for rds in self.rawdataset_set.all() ]
+        return data
     def export(self):
         return {
             "expansion_hint": self.expansion_hint,
@@ -107,6 +110,7 @@ class WidgetDefinition(models.Model):
             "about": self.about,
             "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
             "declarations": [ wd.export() for wd in self.widgetdeclaration_set.all() ],
+            "raw_data_sets": [ rds.export() for rds in self.rawdataset_set.all() ],
         }
     @classmethod
     def import_data(cls, family, data):
@@ -141,6 +145,14 @@ class WidgetDefinition(models.Model):
                     break
             if not found:
                 wd.delete()
+        rds_urls = []
+        RawDataSet = apps.get_app_config("widget_def").get_model("RawDataSet")
+        for ds in data.get("raw_data_sets", []):
+            rds = RawDataSet.import_data(w, ds)
+            rds_urls.append(rds.url)
+        for rds in RawDataSet.objects.filter(widget=w):
+            if rds.url not in rds_urls:
+                rds.delete()
         return w
     def __unicode__(self):
         return "%s (%s, %s)" % (unicode(self.family), self.actual_location.name, self.actual_frequency.name)

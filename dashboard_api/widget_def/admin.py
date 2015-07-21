@@ -132,6 +132,15 @@ class GraphAdmin(admin.ModelAdmin):
          }),
     )
 
+class RawDataSetColumnInline(admin.StackedInline):
+    model = RawDataSetColumn
+    extra = 2
+
+@admin.register(RawDataSet)
+class RawDataSetAdmin(admin.ModelAdmin):
+    inlines = [ RawDataSetColumnInline ]
+    list_display = ("widget", "url")
+
 class GridColumnInline(admin.StackedInline):
     model = GridColumn
     extra = 2
