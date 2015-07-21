@@ -43,7 +43,8 @@ class RawDataSet(models.Model):
         return (arr, d)
     def csv_header(self):
         first_col = True
-        for col in rds.rawdatacolumn_set.all():
+        out = ""
+        for col in self.rawdatasetcolumn_set.all():
             if not first_col:
                 out += ","
             out += col.csv()

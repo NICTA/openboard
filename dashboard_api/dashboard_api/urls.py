@@ -23,4 +23,6 @@ urlpatterns = patterns('',
     url(r'^widgets/(?P<widget_url>[^/]+)$', 'widget_data.views.get_widget_data', name='get_widget_data'),
     # API Graph Data view
     url(r'^widgets/(?P<widget_url>[^/]+)/graph$', 'widget_data.views.get_graph_data', name='get_graph_data'),
+    # API Raw Data Set view
+    url(r'^widgets/(?P<widget_url>[^/]+)/rawdata/(?P<rds_url>[^/]+)$', 'widget_data.views.get_raw_data', name='get_raw_data'),
 )

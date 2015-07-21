@@ -225,7 +225,7 @@ class RawDataRecord(models.Model):
     def csv(self):
         out = ""
         first_cell = True
-        for col in rds.rawdatacolumn_set.all():
+        for col in self.rds.rawdatasetcolumn_set.all():
             if not first_cell:
                 out += ","
             try:
