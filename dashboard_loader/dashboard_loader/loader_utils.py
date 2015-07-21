@@ -333,8 +333,8 @@ def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
 def get_rawdataset(widget_url, actual_location_url, actual_frequency_url, rds_url):
     try:
         return RawDataSet.objects.get(widget__family__url=widget_url,
-                                actual_location__url=widget__actual_location_url,
-                                actual_frequency__url=widget__actual_frequency_url,
+                                widget__actual_location__url=actual_location_url,
+                                widget__actual_frequency__url=actual_frequency_url,
                                 url=rds_url)
     except RawDataSet.DoesNotExist:
         raise LoaderException("Raw Dataset %s of widget %s(%s,%s) does not exist" % (rds_url, widget_url, actual_location_url, actual_frequency_url))
