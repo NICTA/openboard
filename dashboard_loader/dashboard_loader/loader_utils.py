@@ -352,6 +352,7 @@ def add_rawdatarecord(rds, sort_order, *args, **kwargs):
     for k,v in kwargs.items():
         cell = RawData(record=record, column=coldict[k], value=unicode(v))
         cell.save()
+    record.update_csv()
 
 def parse_date(d):
     if d is None:

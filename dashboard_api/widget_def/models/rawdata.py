@@ -33,6 +33,7 @@ class RawDataSet(models.Model):
     def __getstate__(self):
         return {
             "url": self.url,
+            "columns": [ c.__getstate__() for c in self.rawdatasetcolumn_set.all() ],
         }
     def col_array_dict(self):
         arr = []
@@ -51,11 +52,10 @@ class RawDataSet(models.Model):
             first_col = False
         out += "\n"
         return out
-    def csv(self):
-        out = self.csv_header()
+    def csv(self, writer):
+        writer.write(self.csv_header())
         for rec in self.rawdatarecord_set.all():
-            out += rec.csv()
-        return out
+            writer.write(rec.csv)
     class Meta: 
         unique_together = ('widget', 'url') 
 
@@ -79,6 +79,11 @@ class RawDataSetColumn(models.Model):
             "heading": self.heading,
             "description": self.description
         }
+    def __getstate__(self):
+        data = { "heading": self.heading }
+        if self.description:
+            data["description"] = self.description
+        return data
     @classmethod
     def import_data(cls, rds, data):
         try:

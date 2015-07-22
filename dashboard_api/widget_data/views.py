@@ -65,6 +65,6 @@ def get_raw_data(request, widget_url, rds_url):
     response = HttpResponse()    
     response['content-type'] = 'application/csv'
     response['content-disposition'] = 'attachment; filename=%s' % rds.filename
-    response.write(rds.csv())
+    rds.csv(response)
     return response
 

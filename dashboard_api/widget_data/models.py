@@ -222,7 +222,8 @@ class GraphData(models.Model):
 class RawDataRecord(models.Model):
     rds = models.ForeignKey("widget_def.RawDataSet")
     sort_order = models.IntegerField()
-    def csv(self):
+    csv = models.TextField(null=True)
+    def update_csv(self):
         out = ""
         first_cell = True
         for col in self.rds.rawdatasetcolumn_set.all():
@@ -235,7 +236,8 @@ class RawDataRecord(models.Model):
                 pass
             first_cell = False
         out += "\n"
-        return out 
+        self.csv = out
+        self.save()
     class Meta:
         unique_together=("rds", "sort_order")
         ordering = ("rds", "sort_order")
