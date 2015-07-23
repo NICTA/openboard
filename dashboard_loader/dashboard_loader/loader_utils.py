@@ -292,7 +292,7 @@ def clear_graph_data(graph, cluster=None, dataset=None):
     elif dataset:
         if not isinstance(dataset, GraphDataset):
             try:
-                dataset = GraphCluster.objects.get(graph=graph, url=dataset)
+                dataset = GraphDataset.objects.get(graph=graph, url=dataset)
             except GraphDataset.DoesNotExist:
                 raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
         data = data.filter(dataset=dataset)
