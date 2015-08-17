@@ -20,11 +20,14 @@ SECRET_KEY = 'k_&ywy8shj9!_zsyvlr1+z25z_8e9_t1m1c+qi9lp3tqn^a-fo'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'TEST': {
+            'NAME': 'dashboard_test',
+        },
         'NAME': 'dashboard',
         'USER': 'dashboard',
         'PASSWORD': 'passwd',
         'HOST': '127.0.0.1',
-    }
+    },
 }
 
 
