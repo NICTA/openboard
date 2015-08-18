@@ -17,6 +17,7 @@ class Command(BaseCommand):
         if len(args) == 0:
             raise CommandError("Must supply at least one json file to import")
         test = options["test"]
+        verbosity = options["verbosity"]
         try:
             for jf in args:
                 f = open(jf)
@@ -25,10 +26,11 @@ class Command(BaseCommand):
                 f.close()
                 if test:
                     if obj.export() == data:
-                        print >> self.stdout, "Correctly imported %s: %s" % (
-                            obj.__class__.__name__,
-                            unicode(obj)
-                            )
+                        if verbosity > 0:
+                            print >> self.stdout, "Correctly imported %s: %s" % (
+                                obj.__class__.__name__,
+                                unicode(obj)
+                                )
                     else:
                         raise CommandError("Incorrect import of %s: %s  Re-export and compare to file %s" % (
                             jf,
@@ -36,10 +38,11 @@ class Command(BaseCommand):
                             unicode(obj)
                             ))
                 else:
-                    print >> self.stdout, "Successfully imported %s: %s" % (
-                            obj.__class__.__name__,
-                            unicode(obj)
-                            )
+                    if verbosity > 0:
+                        print >> self.stdout, "Successfully imported %s: %s" % (
+                                obj.__class__.__name__,
+                                unicode(obj)
+                                )
         except ImportExportException, e:
             raise CommandError(unicode(e))
 

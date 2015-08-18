@@ -1,0 +1,28 @@
+[
+    {"fields": {"sort_order": 100, "category_aspect": 2, "name": "Leadership"}, "model": "widget_def.category", "pk": 1}, 
+    {"fields": {"sort_order": 200, "category_aspect": 2, "name": "Magic"}, "model": "widget_def.category", "pk": 2}, 
+    {"fields": {"sort_order": 300, "category_aspect": 2, "name": "Treasure"}, "model": "widget_def.category", "pk": 3}, 
+
+    {"fields": {"category": 1, "sort_order": 100, "name": "Kings"}, "model": "widget_def.subcategory", "pk": 1}, 
+    {"fields": {"category": 1, "sort_order": 200, "name": "Other"}, "model": "widget_def.subcategory", "pk": 2}, 
+    {"fields": {"category": 2, "sort_order": 300, "name": "Rings"}, "model": "widget_def.subcategory", "pk": 3}, 
+    {"fields": {"category": 2, "sort_order": 400, "name": "Wizards"}, "model": "widget_def.subcategory", "pk": 4}, 
+    {"fields": {"category": 2, "sort_order": 500, "name": "Other"}, "model": "widget_def.subcategory", "pk": 5}, 
+    {"fields": {"category": 3, "sort_order": 600, "name": "Gold"}, "model": "widget_def.subcategory", "pk": 6}, 
+    {"fields": {"category": 3, "sort_order": 700, "name": "Mithril"}, "model": "widget_def.subcategory", "pk": 7}, 
+    {"fields": {"category": 3, "sort_order": 800, "name": "Jewels"}, "model": "widget_def.subcategory", "pk": 8}, 
+
+    {"fields": {"url": "all", "sort_order": 100, "name": "All", "requires_authentication": false}, "model": "widget_def.theme", "pk": 1}, 
+    {"fields": {"url": "elves", "sort_order": 200, "name": "Elves"}, "model": "widget_def.theme", "pk": 2}, 
+    {"fields": {"url": "men", "sort_order": 300, "name": "Men", "requires_authentication": false}, "model": "widget_def.theme", "pk": 3}, 
+    {"fields": {"url": "dwarves", "sort_order": 400, "name": "Dwarves"}, "model": "widget_def.theme", "pk": 4}, 
+
+    {"fields": {"url": "all", "sort_order": 100, "name": "Middle Earth"}, "model": "widget_def.location", "pk": 1}, 
+    {"fields": {"url": "gondor", "sort_order": 200, "name": "Gondor"}, "model": "widget_def.location", "pk": 2}, 
+    {"fields": {"url": "rhovanion", "sort_order": 300, "name": "Rhovanion"}, "model": "widget_def.location", "pk": 3}, 
+    {"fields": {"url": "arnor", "sort_order": 400, "name": "Arnor"}, "model": "widget_def.location", "pk": 4}, 
+
+    {"fields": {"url": "rt", "display_mode": true, "sort_order": 100, "name": "Latest", "actual_display": "Latest"}, "model": "widget_def.frequency", "pk": 1},
+    {"fields": {"url": "year", "display_mode": true, "sort_order": 200, "name": "Annual", "actual_display": "Last Year"}, "model": "widget_def.frequency", "pk": 2},
+    {"fields": {"url": "age", "display_mode": true, "sort_order": 300, "name": "Age", "actual_display": "This Age to Date"}, "model": "widget_def.frequency", "pk": 3}
+]
