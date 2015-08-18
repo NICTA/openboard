@@ -42,6 +42,11 @@ class RawDataSet(models.Model):
             arr.append(col)
             d[col.url] = col
         return (arr, d)
+    def json(self):
+        result = []
+        for rec in self.rawdatarecord_set.all():
+            result.append(rec.json())
+        return result
     def csv_header(self):
         first_col = True
         out = ""

@@ -238,6 +238,15 @@ class RawDataRecord(models.Model):
         out += "\n"
         self.csv = out
         self.save()
+    def json(self):
+        result = {}
+        for col in self.rds.rawdatasetcolumn_set.all():
+            try:
+                rd = self.rawdata_set.get(column=col)
+                result[col.url] = rd.json_val()
+            except RawData.DoesNotExist:
+                result[col.url] = None
+        return result
     class Meta:
         unique_together=("rds", "sort_order")
         ordering = ("rds", "sort_order")
@@ -252,6 +261,16 @@ class RawData(models.Model):
             return '"%s"' % out
         else:
             return out
+    def json_val(self):
+        try:
+            return int(self.value)
+        except Exception, e:
+            pass
+        try:
+            return float(self.value)
+        except Exception, e:
+            pass
+        return self.value
     class Meta:
         unique_together=("record", "column")
         ordering = ("record", "column")

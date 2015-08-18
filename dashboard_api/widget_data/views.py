@@ -62,6 +62,8 @@ def get_raw_data(request, widget_url, rds_url):
         rds = RawDataSet.objects.get(widget=widget.definition, url=rds_url)
     except RawDataSet.DoesNotExist:
         return HttpResponseNotFound("This Raw Data Set does not exist")
+    if "format" in request.GET and request.GET["format"] != "csv":
+        return json_list(request, rds.json())
     response = HttpResponse()    
     response['content-type'] = 'application/csv'
     response['content-disposition'] = 'attachment; filename=%s' % rds.filename
