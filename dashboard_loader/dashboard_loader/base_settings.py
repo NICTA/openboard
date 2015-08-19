@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'dashboard_loader',
+    'dashboard_api',
     'widget_def',
     'widget_data',
 #    'bom_loader',

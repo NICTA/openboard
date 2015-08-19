@@ -1,7 +1,7 @@
 from widget_def.api import *
 
 from django.contrib.auth.models import User, AnonymousUser
-from dashboard_api.test_util import DashboardTransactionTestCase
+from dashboard_loader.test_util import DashboardTransactionTestCase
 
 # Create your tests here.
 

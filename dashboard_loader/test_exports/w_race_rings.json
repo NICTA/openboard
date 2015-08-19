@@ -1,0 +1,125 @@
+{
+    "category": "Magic", 
+    "edit_all_groups": [], 
+    "source_url_text": "LotR Wikia", 
+    "subtitle": "", 
+    "subcategory": "Rings", 
+    "groups": [], 
+    "url": "race_rings", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "sort_order": 100, 
+                    "template": null, 
+                    "aspect": 1, 
+                    "url": "rings-all-year-main", 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Rings to Rule Them All", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "ruling_rings", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Lords of the Rings", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "ring_lords", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "tile_type": 1, 
+                    "columns": null, 
+                    "expansion": false, 
+                    "list_label_width": null
+                }, 
+                {
+                    "sort_order": 200, 
+                    "template": null, 
+                    "aspect": 1, 
+                    "url": "rings-all-year-exp", 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": "race", 
+                            "name": "Rings by Race", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "race_rings", 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 4, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "tile_type": 10, 
+                    "columns": null, 
+                    "expansion": true, 
+                    "list_label_width": null
+                }
+            ], 
+            "about": "<p>a Test Widget</p>", 
+            "sort_order": 200, 
+            "deexpansion_hint": "Show less", 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "all"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "year", 
+                    "location": "all"
+                }
+            ], 
+            "refresh_rate": 3456, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "year", 
+            "actual_location_url": "all", 
+            "raw_data_sets": []
+        }
+    ], 
+    "source_url": "http://lotr.wikia.com/wiki/Main_Page", 
+    "name": "Rings by Race"
+}
+

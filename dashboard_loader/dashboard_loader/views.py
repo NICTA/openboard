@@ -167,6 +167,13 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                                     # TODO: handle error - transactions??
                                     tlc = None
                                 sli.traffic_light_code = tlc
+                            if s.icon_library:
+                                try:
+                                    icon = IconCode.objects.get(scale=s.icon_library, value=fd["icon_code"])
+                                except IconCode.DoesNotExist:
+                                    # TODO: handle error
+                                    icon = None
+                                sli.icon_code = icon
                             if s.trend:
                                 sli.trend = int(fd["trend"])
                             if s.is_kvlist():
