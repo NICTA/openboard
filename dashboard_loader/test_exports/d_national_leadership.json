@@ -1,0 +1,130 @@
+{
+    "widgets": [
+        {
+            "actual_frequency": "year", 
+            "actual_location": "all", 
+            "data": {
+                "widget_last_updated": "2015-08-18T23:30:11+0000", 
+                "actual_frequency": "Last Year", 
+                "statistics": {
+                    "moria": {
+                        "icon": {
+                            "alt_text": "Orcs", 
+                            "value": "orc", 
+                            "library": "race"
+                        }, 
+                        "value": "Azog", 
+                        "traffic_light": "prince"
+                    }, 
+                    "lorien": {
+                        "icon": {
+                            "alt_text": "Elves", 
+                            "value": "elf", 
+                            "library": "race"
+                        }, 
+                        "value": "Galadriel", 
+                        "traffic_light": "king"
+                    }, 
+                    "rohan": {
+                        "icon": {
+                            "alt_text": "Men", 
+                            "value": "man", 
+                            "library": "race"
+                        }, 
+                        "value": "Theoden", 
+                        "traffic_light": "king"
+                    }, 
+                    "shire": {
+                        "icon": {
+                            "alt_text": "Hobbits", 
+                            "value": "hobbit", 
+                            "library": "race"
+                        }, 
+                        "value": "Paladin", 
+                        "traffic_light": "thane"
+                    }, 
+                    "lonely_mountain": {
+                        "icon": {
+                            "alt_text": "Dwarves", 
+                            "value": "dwarf", 
+                            "library": "race"
+                        }, 
+                        "value": "Dain", 
+                        "traffic_light": "king"
+                    }, 
+                    "mordor": {
+                        "icon": {
+                            "alt_text": "Maia", 
+                            "value": "maia", 
+                            "library": "race"
+                        }, 
+                        "value": "Sauron", 
+                        "traffic_light": "dark_lord"
+                    }, 
+                    "gondor": {
+                        "icon": {
+                            "alt_text": "Men", 
+                            "value": "man", 
+                            "library": "race"
+                        }, 
+                        "value": "Denethor", 
+                        "traffic_light": "steward"
+                    }, 
+                    "arnor": {
+                        "icon": {
+                            "alt_text": "Men", 
+                            "value": "man", 
+                            "library": "race"
+                        }, 
+                        "value": "Aragorn", 
+                        "traffic_light": "chieftan"
+                    }
+                }
+            }, 
+            "graph_data": {}
+        }, 
+        {
+            "actual_frequency": "year", 
+            "actual_location": "gondor", 
+            "data": {
+                "widget_last_updated": "2015-08-19T00:20:29+0000", 
+                "actual_frequency": "Last Year", 
+                "statistics": {
+                    "dol_amroth": {
+                        "value": "Imrahil", 
+                        "traffic_light": "prince"
+                    }, 
+                    "gondor": {
+                        "value": "Denthor II", 
+                        "traffic_light": "steward"
+                    }, 
+                    "recent_rulers": [
+                        {
+                            "value": "Ecthelion II", 
+                            "traffic_light": "steward"
+                        }, 
+                        {
+                            "value": "Turgon", 
+                            "traffic_light": "steward"
+                        }, 
+                        {
+                            "value": "Turin II", 
+                            "traffic_light": "steward"
+                        }, 
+                        {
+                            "value": "Thorondir", 
+                            "traffic_light": "steward"
+                        }, 
+                        {
+                            "value": "Belecthor II", 
+                            "traffic_light": "steward"
+                        }
+                    ]
+                }
+            }, 
+            "graph_data": {}
+        }
+    ], 
+    "family": "national_leadership"
+}
+

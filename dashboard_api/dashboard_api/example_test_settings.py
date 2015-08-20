@@ -58,4 +58,4 @@ CORS_ALLOW_CREDENTIALS = True
 # for other CORS options.
 
 # Allow Public access to API (for themes that are marked as not requiring auth)
-PUBLIC_API_ACCESS = False
+PUBLIC_API_ACCESS = True

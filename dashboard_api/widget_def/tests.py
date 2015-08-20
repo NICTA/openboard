@@ -1,4 +1,5 @@
 from widget_def.api import *
+from widget_def.models import *
 
 from django.contrib.auth.models import User, AnonymousUser
 from dashboard_loader.test_util import DashboardTransactionTestCase
@@ -52,4 +53,36 @@ class APIReferenceTests(DashboardTransactionTestCase):
                         { "library": "race", "value": "dragon", "alt_text": "Dragons" },
                 ]
         })
+
+class APIWidgetTests(DashboardTransactionTestCase):
+    fixtures = ['test_exports/reference.json', 'test_exports/users.json']
+    imports =  [
+        'test_exports/icon_race.json', 
+        'test_exports/tlc_leadership.json', 
+        'test_exports/tlc_std-3-code.json', 
+        'test_exports/w_national_leadership.json', 
+        'test_exports/w_race_rings.json',
+    ]
+
+    def test_get_widgets_1(self):
+        widgets_1 = self.call_get_widgets("all", "all", "rt")
+        self.assertEqual(len(widgets_1), 2)
+        widgets_2 = self.call_get_widgets("all", "all", "year")
+        self.assertEqual(len(widgets_2), 2)
+        widgets_3 = self.call_get_widgets("all", "gondor", "rt")
+        self.assertEqual(len(widgets_3), 1)
+        widgets_4 = self.call_get_widgets("all", "gondor", "year")
+        self.assertEqual(len(widgets_4), 1)
+        widgets_5 = self.call_get_widgets("men", "gondor", "rt")
+        self.assertEqual(len(widgets_5), 1)
+        widgets_6 = self.call_get_widgets("men", "gondor", "year")
+        self.assertEqual(len(widgets_6), 1)
+        widgets_7 = self.call_get_widgets("elves", "gondor", "year")
+        self.assertEqual(len(widgets_7), 0)
+
+    def call_get_widgets(self, theme_url, location_url, frequency_url):
+        return api_get_widgets(
+                    Theme.objects.get(url=theme_url),
+                    Location.objects.get(url=location_url),
+                    Frequency.objects.get(url=frequency_url))
 

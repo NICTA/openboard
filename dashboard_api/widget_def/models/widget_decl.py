@@ -27,7 +27,8 @@ class WidgetDeclaration(models.Model):
         try:
             decl = WidgetDeclaration.objects.get(definition=definition, 
                             location__url=data["location"],
-                            frequency__url=data["frequency"])
+                            frequency__url=data["frequency"],
+                            theme__url=data["theme"])
         except WidgetDeclaration.DoesNotExist:
             decl = WidgetDeclaration(definition=definition)
             decl.location = Location.objects.get(url=data["location"])
