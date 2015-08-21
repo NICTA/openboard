@@ -17,14 +17,11 @@ def get_widget_data(request, widget_url):
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
-    try:
-        widget = WidgetDeclaration.objects.get(frequency=frequency, 
-                    theme=theme,
-                    location=location, 
-                    definition__family__url=widget_url)
-    except WidgetDeclaration.DoesNotExist:
+    widget = get_declared_widget(widget_url, theme, location, frequency)
+    if widget:
+        return json_list(request, api_get_widget_data(widget))
+    else:
         return HttpResponseNotFound("This Widget does not exist")
-    return json_list(request, api_get_widget_data(widget.definition))
 
 def get_graph_data(request, widget_url):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
@@ -34,14 +31,11 @@ def get_graph_data(request, widget_url):
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
-    try:
-        widget = WidgetDeclaration.objects.get(frequency=frequency,
-                    theme=theme,
-                    location=location, 
-                    definition__family__url=widget_url)
-    except WidgetDeclaration.DoesNotExist:
+    widget = get_declared_widget(widget_url, theme, location, frequency)
+    if widget:
+        return json_list(request, api_get_graph_data(widget))
+    else:
         return HttpResponseNotFound("This Widget does not exist")
-    return json_list(request, api_get_graph_data(widget.definition))
 
 def get_raw_data(request, widget_url, rds_url):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
@@ -51,22 +45,8 @@ def get_raw_data(request, widget_url, rds_url):
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
-    try:
-        widget = WidgetDeclaration.objects.get(frequency=frequency,
-                    theme=theme,
-                    location=location, 
-                    definition__family__url=widget_url)
-    except WidgetDeclaration.DoesNotExist:
+    widget = get_declared_widget(widget_url, theme, location, frequency)
+    if not widget:
         return HttpResponseNotFound("This Widget does not exist")
-    try:
-        rds = RawDataSet.objects.get(widget=widget.definition, url=rds_url)
-    except RawDataSet.DoesNotExist:
-        return HttpResponseNotFound("This Raw Data Set does not exist")
-    if "format" in request.GET and request.GET["format"] != "csv":
-        return json_list(request, rds.json())
-    response = HttpResponse()    
-    response['content-type'] = 'application/csv'
-    response['content-disposition'] = 'attachment; filename=%s' % rds.filename
-    rds.csv(response)
-    return response
+    return api_get_raw_data(widget, request, rds_url)
 

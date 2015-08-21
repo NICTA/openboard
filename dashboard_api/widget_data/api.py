@@ -1,5 +1,16 @@
+from django.http import HttpResponse, HttpResponseNotFound
 from widget_def.models import *
 from widget_def.view_utils import update_maxmin
+
+def get_declared_widget(widget_url, theme, location, frequency):
+    try:
+        decl = WidgetDeclaration.objects.get(frequency=frequency,
+                                theme=theme,
+                                location=location,
+                                definition__family__url=widget_url)
+        return decl.definition
+    except WidgetDeclaration.DoesNotExist:
+        return None
 
 def api_get_widget_data(widget):
     stats_json = {}
@@ -67,3 +78,17 @@ def api_get_graph_data(widget):
             }
 
     return graph_json
+
+def api_get_raw_data(widget, request, rds_url):
+    try:
+        rds = RawDataSet.objects.get(widget=widget, url=rds_url)
+    except RawDataSet.DoesNotExist:
+        return HttpResponseNotFound("This Raw Data Set does not exist")
+    if "format" in request.GET and request.GET["format"] != "csv":
+        return json_list(request, rds.json())
+    response = HttpResponse()    
+    response['content-type'] = 'application/csv'
+    response['content-disposition'] = 'attachment; filename=%s' % rds.filename
+    rds.csv(response)
+    return response
+

@@ -36,6 +36,11 @@ def import_widget_data(data):
                                 surl)
                 sort_order = 10
                 for item in s:
+                    icon = item.get("icon")
+                    if icon:
+                        icon_code = icon["value"]
+                    else:
+                        icon_code = None
                     add_statistic_list_item(data["family"],
                                 w["actual_location"],
                                 w["actual_frequency"],
@@ -46,19 +51,24 @@ def import_widget_data(data):
                                 datetimekey_level=item.get("datetime_level"),
                                 datekey=parse_date(item.get("date")),
                                 traffic_light_code=item.get("traffic_light"),
-                                icon_code=item.get("icon"),
+                                icon_code=icon_code,
                                 trend = item.get("trend"),
                                 label = item.get("label"),
                                 url = item.get("url"))
                     sort_order += 10
             else:
+                icon = s.get("icon")
+                if icon:
+                    icon_code = icon["value"]
+                else:
+                    icon_code = None
                 set_statistic_data(data["family"],
                                 w["actual_location"],
                                 w["actual_frequency"],
                                 surl,
                                 s["value"],
                                 traffic_light_code=s.get("traffic_light"),
-                                icon_code=s.get("icon"),
+                                icon_code=icon_code,
                                 trend = s.get("trend"),
                                 label = s.get("label"))
         for gurl, g in w["graph_data"].items():

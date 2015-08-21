@@ -17,6 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if len(args) == 0:
             raise CommandError("Must supply at least one json file to import")
+        verbosity = options["verbosity"]
     #   test = options["test"]
         test = False
         try:
@@ -29,12 +30,14 @@ class Command(BaseCommand):
                     # Will always fail because of last_updated date
                     data1 = export_widget_data(fam)
                     if export_widget_data(fam) == data:
-                        print >> self.stdout, "Correctly imported data for %s" % fam.url
+                        if verbosity > 0:
+                            print >> self.stdout, "Correctly imported data for %s" % fam.url
                             
                     else:
                         raise CommandError("Incorrect import of %s  Re-export and compare to file %s" % (fam.url, jf))
                 else:
-                    print >> self.stdout, "Successfully imported data for %s" % fam.url
+                    if verbosity > 0:
+                        print >> self.stdout, "Successfully imported data for %s" % fam.url
         except ImportExportException, e:
             raise CommandError(unicode(e))
 
