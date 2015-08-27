@@ -8,3 +8,5 @@ from statistic import Statistic
 from graph import PointColourMap, PointColourRange, GraphDisplayOptions, GraphDefinition, GraphCluster, GraphDataset
 from grid import GridDefinition, GridColumn, GridRow, GridStatistic 
 from rawdata import RawDataSet, RawDataSetColumn
+from geo import GeoDataset, GeoDatasetDeclaration,GeoPropertyDefinition
+
