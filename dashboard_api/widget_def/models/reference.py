@@ -17,6 +17,7 @@ class Theme(models.Model):
 class Location(models.Model):
     name = models.CharField(max_length=60, unique=True)
     url  = models.SlugField(unique=True)
+    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
     sort_order = models.IntegerField()
     def __unicode__(self):
         return self.url

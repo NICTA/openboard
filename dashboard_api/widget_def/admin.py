@@ -1,48 +1,62 @@
-from django.contrib import admin
+from django.contrib.gis import admin
 from django.contrib import messages
 from widget_def.models import *
 
 # Register your models here.
 
-@admin.register(Theme)
+# @admin.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'sort_order')
+    list_display = ('name', 'url', 'requires_authentication', 'sort_order')
 
-@admin.register(Location)
+admin.site.register(Theme, ThemeAdmin)
+
+# @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'sort_order')
 
-@admin.register(Frequency)
+admin.site.register(Location, LocationAdmin)
+
+# @admin.register(Frequency)
 class FrequencyAdmin(admin.ModelAdmin):
     list_display = ('name', 'actual_display', 'url', 'display_mode', 'sort_order')
+
+admin.site.register(Frequency, FrequencyAdmin)
 
 class SubcategoryAdminInline(admin.TabularInline):
     model = Subcategory
 
-@admin.register(Category)
+# @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'sort_order')
     inlines = [ SubcategoryAdminInline ]
 
+admin.site.register(Category, CategoryAdmin)
+    
 class TrafficLightScaleCodeAdminInline(admin.TabularInline):
     model = TrafficLightScaleCode
 
-@admin.register(TrafficLightScale)
+# @admin.register(TrafficLightScale)
 class TrafficLightScaleAdmin(admin.ModelAdmin):
     list_display = ('name',)
     inlines = [ TrafficLightScaleCodeAdminInline ]
 
+admin.site.register(TrafficLightScale, TrafficLightScaleAdmin)
+
 class IconCodeAdminInline(admin.TabularInline):
     model = IconCode
 
-@admin.register(IconLibrary)
+# @admin.register(IconLibrary)
 class IconLibraryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     inlines = [ IconCodeAdminInline ]
 
-@admin.register(WidgetFamily)
+admin.site.register(IconLibrary, IconLibraryAdmin)
+
+# @admin.register(WidgetFamily)
 class WidgetFamilyAdmin(admin.ModelAdmin):
     list_display = ('name', 'subtitle', 'url', 'subcategory')
+
+admin.site.register(WidgetFamily, WidgetFamilyAdmin)
 
 class TileInline(admin.TabularInline):
     exclude = ( "template", )
@@ -53,7 +67,7 @@ class DeclarationInline(admin.TabularInline):
     model = WidgetDeclaration
     extra = 2
 
-@admin.register(WidgetDefinition)
+# @admin.register(WidgetDefinition)
 class WidgetAdmin(admin.ModelAdmin):
     inlines = [DeclarationInline, TileInline]
     list_display = ('family', 'subtitle', 'actual_location', 'actual_frequency', 'subcategory', 'sort_order')
@@ -69,6 +83,8 @@ class WidgetAdmin(admin.ModelAdmin):
             self.message_user(request, problem, level=messages.ERROR)
     validate.short_description = "Check Widget Definitions for errors"
 
+admin.site.register(WidgetDefinition, WidgetAdmin)
+
 class StatisticInline(admin.StackedInline):
     model = Statistic
     extra = 2
@@ -83,20 +99,24 @@ class StatisticInline(admin.StackedInline):
             }),
     )
 
-@admin.register(TileDefinition)
+# @admin.register(TileDefinition)
 class TileAdmin(admin.ModelAdmin):
     inlines = [StatisticInline]
     list_display = ('url', 'widget', 'expansion', 'sort_order')
     list_filter = ('widget',)
 
+admin.site.register(TileDefinition, TileAdmin)
+
 class PointColourRangeInline(admin.StackedInline):
     model = PointColourRange
     extra = 2
 
-@admin.register(PointColourMap)
+# @admin.register(PointColourMap)
 class PointColourMapAdmin(admin.ModelAdmin):
     inlines = [PointColourRangeInline]
     list_display = ('label',)
+
+admin.site.register(PointColourMap, PointColourMapAdmin)
 
 class GraphClusterInline(admin.StackedInline):
     model = GraphCluster
@@ -110,7 +130,7 @@ class GraphOptionInline(admin.StackedInline):
     model = GraphDisplayOptions
     extra = 2
 
-@admin.register(GraphDefinition)
+# @admin.register(GraphDefinition)
 class GraphAdmin(admin.ModelAdmin):
     inlines = [ GraphOptionInline, GraphClusterInline, GraphDatasetInline ]
     list_display = ('widget', 'tile')
@@ -132,14 +152,18 @@ class GraphAdmin(admin.ModelAdmin):
          }),
     )
 
+admin.site.register(GraphDefinition, GraphAdmin)
+
 class RawDataSetColumnInline(admin.StackedInline):
     model = RawDataSetColumn
     extra = 2
 
-@admin.register(RawDataSet)
+# @admin.register(RawDataSet)
 class RawDataSetAdmin(admin.ModelAdmin):
     inlines = [ RawDataSetColumnInline ]
     list_display = ("widget", "url")
+
+admin.site.register(RawDataSet, RawDataSetAdmin)
 
 class GridColumnInline(admin.StackedInline):
     model = GridColumn
@@ -164,8 +188,32 @@ class GridStatisticInline(admin.StackedInline):
         return super(GridStatisticInline, self).formfield_for_foreignkey(db_field,
                         request, **kwargs)
 
-@admin.register(GridDefinition)
+# @admin.register(GridDefinition)
 class GridAdmin(admin.ModelAdmin):
     inlines = [ GridColumnInline, GridRowInline, GridStatisticInline ]
     list_display = ("widget", "tile")
+
+admin.site.register(GridDefinition, GridAdmin)
+
+# @admin.register(GeoWindow)
+class GeoWindowAdmin(admin.GeoModelAdmin):
+    default_lon=134.435
+    default_lat=-26.237
+
+admin.site.register(GeoWindow, GeoWindowAdmin)
+
+class GeoPropertyInline(admin.StackedInline):
+    model=GeoPropertyDefinition
+    extra=2
+
+class GeoDatasetDeclarationInline(admin.StackedInline):
+    model=GeoDatasetDeclaration
+    extra=2
+
+# @admin.register(GeoDataset)
+class GeoDatasetAdmin(admin.ModelAdmin):
+    inlines = [GeoPropertyInline, GeoDatasetDeclarationInline]
+    list_display = ['url', 'label', 'geom_type']
+
+admin.site.register(GeoDataset, GeoDatasetAdmin)
 

@@ -1,6 +1,12 @@
 from widget_def.models import TileDefinition, Location, Theme, Frequency
 
-from django.db import models
+from django.contrib.gis.db import models
+
+class GeoWindow(models.Model):
+    name=models.CharField(max_length=128, 
+                    unique=True, help_text="For internal reference only")
+    north_east = models.PointField()
+    south_west = models.PointField()
 
 class GeoDataset(models.Model):
     POINT = 1
@@ -11,8 +17,9 @@ class GeoDataset(models.Model):
     MULTI_POLYGON = 6
     geom_types = ("-", "point", "line", "polygon",
                     "multi-point", "multi-line", "multi-polygon")
-    tiles = models.ManyToManyField(TileDefinition)
     url = models.SlugField(unique=True)
+    label = models.CharField(max_length=128)
+    subcategory = models.ForeignKey("Subcategory")
     geom_type = models.SmallIntegerField(choices=(
                     (POINT, geom_types[POINT]),
                     (LINE, geom_types[LINE]),
@@ -21,6 +28,10 @@ class GeoDataset(models.Model):
                     (MULTI_LINE, geom_types[MULTI_LINE]),
                     (MULTI_POLYGON, geom_types[MULTI_POLYGON]),
                 ))
+    sort_order = models.IntegerField()
+    class Meta:
+        unique_together=("subcategory", "sort_order")
+        ordering = ("subcategory", "sort_order")
 
 class GeoDatasetDeclaration(models.Model):
     dataset = models.ForeignKey(GeoDataset)
@@ -29,6 +40,7 @@ class GeoDatasetDeclaration(models.Model):
     frequency = models.ForeignKey(Frequency)
     class Meta:
         unique_together=('dataset', 'theme', 'location', 'frequency')
+        ordering = ('dataset', 'theme', 'location', 'frequency')
 
 class GeoPropertyDefinition(models.Model):
     STRING = 1

@@ -49,7 +49,7 @@ class TileDefinition(models.Model):
                     (LIST_OVERFLOW, tile_types[LIST_OVERFLOW]),
                     (GRAPH, tile_types[GRAPH]),
                     (GRAPH_SINGLE_STAT, tile_types[GRAPH_SINGLE_STAT]),
-                    # (MAP, tile_types[MAP]),
+                    (MAP, tile_types[MAP]),
                     (GRID, tile_types[GRID]),
                     (GRID_SINGLE_STAT, tile_types[GRID_SINGLE_STAT]),
                     (CALENDAR, tile_types[CALENDAR]),
@@ -65,6 +65,7 @@ class TileDefinition(models.Model):
     template = models.CharField(max_length=512, blank=True, null=True, help_text="Reference statistics with '%{statistic_url}")
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
+    geo_datasets = models.ManyToManyField("GeoDataset")
     # graph_def, map_def
     def __getstate__(self):
         state = {
