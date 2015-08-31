@@ -1,12 +1,40 @@
 from widget_def.models import TileDefinition, Location, Theme, Frequency
 
 from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 
 class GeoWindow(models.Model):
     name=models.CharField(max_length=128, 
                     unique=True, help_text="For internal reference only")
     north_east = models.PointField()
     south_west = models.PointField()
+    def __getstate__(self):
+        return {
+            "north": self.north_east.y,
+            "south": self.south_west.y,
+            "east": self.north_east.x,
+            "west": self.south_west.x,
+        }
+    def export(self):
+        return {
+            "name": self.name,
+            "north": self.north_east.y,
+            "south": self.south_west.y,
+            "east": self.north_east.x,
+            "west": self.south_west.x,
+        }
+    def __unicode__(self):
+        return self.name
+    @classmethod
+    def import_data(cls, data):
+        try:
+            win = cls.objects.get(name=data["name"])
+        except cls.DoesNotExist:
+            win = cls(name=data["name"])
+        win.north_east = Point(data["east"], data["north"])
+        win.south_west = Point(data["west"], data["south"])
+        win.save()
+        return win
 
 class GeoDataset(models.Model):
     POINT = 1

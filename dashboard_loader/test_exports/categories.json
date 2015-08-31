@@ -1,0 +1,58 @@
+{
+    "categories": [
+        {
+            "sort_order": 100, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "Kings"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "Other"
+                }
+            ], 
+            "name": "Leadership", 
+            "aspect": 2
+        }, 
+        {
+            "sort_order": 200, 
+            "subcategories": [
+                {
+                    "sort_order": 300, 
+                    "name": "Rings"
+                }, 
+                {
+                    "sort_order": 400, 
+                    "name": "Wizards"
+                }, 
+                {
+                    "sort_order": 500, 
+                    "name": "Other"
+                }
+            ], 
+            "name": "Magic", 
+            "aspect": 2
+        }, 
+        {
+            "sort_order": 300, 
+            "subcategories": [
+                {
+                    "sort_order": 600, 
+                    "name": "Gold"
+                }, 
+                {
+                    "sort_order": 700, 
+                    "name": "Mithril"
+                }, 
+                {
+                    "sort_order": 800, 
+                    "name": "Jewels"
+                }
+            ], 
+            "name": "Treasure", 
+            "aspect": 2
+        }
+    ]
+}
+

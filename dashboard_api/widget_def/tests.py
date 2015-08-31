@@ -7,8 +7,12 @@ from dashboard_loader.test_util import DashboardTransactionTestCase
 # Create your tests here.
 
 class APIReferenceTests(DashboardTransactionTestCase):
-    fixtures = ['test_exports/reference.json', 'test_exports/users.json']
-    imports =  ['test_exports/icon_race.json']
+    fixtures = ['test_exports/users.json']
+    imports = [
+        'test_exports/categories.json', 
+        'test_exports/gw_Greater_Sydney.json', 
+        'test_exports/views.json', 
+        'test_exports/icon_race.json']
 
     def test_get_locations(self):
         self.assertEqual(api_get_locations(), [
@@ -55,8 +59,11 @@ class APIReferenceTests(DashboardTransactionTestCase):
         })
 
 class APIWidgetTests(DashboardTransactionTestCase):
-    fixtures = ['test_exports/reference.json', 'test_exports/users.json']
-    imports =  [
+    fixtures = ['test_exports/users.json']
+    imports = [
+        'test_exports/categories.json', 
+        'test_exports/gw_Greater_Sydney.json', 
+        'test_exports/views.json', 
         'test_exports/icon_race.json', 
         'test_exports/tlc_leadership.json', 
         'test_exports/tlc_std-3-code.json', 

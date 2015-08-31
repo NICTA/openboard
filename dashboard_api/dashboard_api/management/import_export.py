@@ -1,4 +1,5 @@
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow
+from widget_def.models.reference import WidgetViews, AllCategories
 from widget_data.api import *
 
 class ImportExportException(Exception):
@@ -55,6 +56,20 @@ def export_pointcolourmap(pcm):
             raise ImportExportException("PointColourMap %s does not exist" % pcm)
     return pcm.export()
 
+def export_geowindow(win):
+    if not isinstance(win, GeoWindow):
+        try:
+            win = GeoWindow.objects.get(name=win)
+        except GeoWindow.DoesNotExist:
+            raise ImportExportException('GeoWindow "%s" does not exist' % pcm)
+    return win.export()
+
+def export_views():
+    return WidgetViews().export()
+            
+def export_categories():
+    return Category().export_all()
+            
 def import_class(data):
     if data.get("category"):
         return WidgetFamily
@@ -64,10 +79,19 @@ def import_class(data):
         return TrafficLightScale
     elif data.get("map"):
         return PointColourMap
+    elif data.get("themes"):
+        return WidgetViews
+    elif data.get("categories"):
+        return AllCategories
+    elif data.get("north"):
+        return GeoWindow
     else:
         raise ImportExportException("Unrecognised import class")
 
 def import_data(data):
     cls = import_class(data)
-    return cls.import_data(data)
+    try:
+        return cls.import_data(data)
+    except Exception, e:
+        raise ImportExportException("Import error: %s" % repr(e))
 

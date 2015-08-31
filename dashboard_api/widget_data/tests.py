@@ -7,8 +7,11 @@ from widget_data.api import *
 # Create your tests here.
 
 class WidgetDataTests(DashboardTransactionTestCase):
-    fixtures = ['test_exports/reference.json', 'test_exports/users.json']
+    fixtures = ['test_exports/users.json']
     imports = [
+        'test_exports/categories.json', 
+        'test_exports/gw_Greater_Sydney.json', 
+        'test_exports/views.json', 
         'test_exports/icon_race.json', 
         'test_exports/tlc_leadership.json', 
         'test_exports/tlc_std-3-code.json', 

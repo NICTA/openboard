@@ -25,6 +25,10 @@ django-cors-headers  (https://github.com/ottoyiu/django-cors-headers)
 	An open source Django middleware app providing 
 	Cross Origin Resource Scripting (CORS) support.
 
+postgresql (and postGIS) (http://postgresql.org and http://postgis.net)
+
+	For Database access and Geospatial support.
+
 pytz  (https://pypi.python.org/pypi/pytz/)
 
 	Python Timezone definitions. (open source)
@@ -79,6 +83,10 @@ manage.py commands:
 		Ensures correct widget permissions exist for all defined 
 		widget families.
 
+	export_views
+	export_geowindow
+	export_categories
+	export_colourmap
 	export_trafficlight_scale
 	export_iconlibrary
 	export_widget
@@ -127,6 +135,12 @@ An loader.py file must define:
 
 		def update_data(loader, verbosity=0):
 			return []
+	
+	testall:
+		Run Django tests on all dashboard apps. Note that to create
+		a postgis enabled test database the test user will need
+		superuser database access.  Therefore tests should never be
+		run in a production environment for security reasons.
 
 An uploader.py file must define:
 
@@ -193,7 +207,8 @@ It is probably incomplete.
 
 1. Install dependencies and install source code.
 
-2. Create a postgresql database.
+2. Create a postgresql database.  Enable postgis extensions with:
+	"create extension postgis"
 
 3. Copy example_settings.py to settings.py and customise for your local 
 	environment.  (for both dashboard_api and dashboard_loader)
