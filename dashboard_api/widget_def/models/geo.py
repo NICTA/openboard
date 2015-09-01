@@ -1,7 +1,9 @@
-from widget_def.models import TileDefinition, Location, Theme, Frequency
+from django.apps import apps
 
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
+
+from widget_def.models import TileDefinition, Location, Theme, Frequency
 
 class GeoWindow(models.Model):
     name=models.CharField(max_length=128, 
@@ -57,6 +59,40 @@ class GeoDataset(models.Model):
                     (MULTI_POLYGON, geom_types[MULTI_POLYGON]),
                 ))
     sort_order = models.IntegerField()
+    def export(self):
+        return {
+            "url": self.url,
+            "label": self.label,
+            "category": self.subcategory.category.name,
+            "subcategory": self.subcategory.name,
+            "geom_type": self.geom_type,
+            "sort_order": self.sort_order,
+            "declarations": [ d.export() for d in self.geodatasetdeclaration_set.all() ],
+            "properties":   [ p.export() for p in self.geopropertydefinition_set.all() ],
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            ds = cls.objects.get(url=data["url"])
+        except cls.DoesNotExist:
+            ds = cls(url=data["url"])
+        ds.label = data["label"]
+        ds.geom_type = data["geom_type"]
+        ds.sort_order = data["sort_order"]
+        Subcategory = apps.get_app_config("widget_def").get_model("Subcategory")
+        ds.subcategory = Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
+        for decl in ds.geodatasetdeclaration_set.all():
+            decl.delete()
+        for d in data["declarations"]:
+            GeoDatasetDeclaration.import_data(ds, d)    
+        props = []
+        for p in data["properties"]:
+            prop = GeoPropertyDefinition.import_data(ds, p)
+            props.append(prop.url)
+        for prop in ds.geopropertydefinition_set.all():
+            if prop.url not in props:
+                prop.delete()
+        return ds
     class Meta:
         unique_together=("subcategory", "sort_order")
         ordering = ("subcategory", "sort_order")
@@ -66,6 +102,20 @@ class GeoDatasetDeclaration(models.Model):
     theme = models.ForeignKey(Theme)
     location = models.ForeignKey(Location)
     frequency = models.ForeignKey(Frequency)
+    def export(self):
+        return {
+            "theme": self.theme.url,
+            "location": self.location.url,
+            "frequency": self.frequency.url,
+        }
+    @classmethod
+    def import_data(cls, dataset, data):
+        decl = cls(dataset=dataset)
+        decl.theme = Theme.objects.get(url=data["theme"])
+        decl.location = Location.objects.get(url=data["location"])
+        decl.frequency = Frequency.objects.get(url=data["frequency"])
+        decl.save()
+        return decl
     class Meta:
         unique_together=('dataset', 'theme', 'location', 'frequency')
         ordering = ('dataset', 'theme', 'location', 'frequency')
@@ -88,6 +138,27 @@ class GeoPropertyDefinition(models.Model):
                     (DATETIME, property_types[DATETIME]),
                 ))
     num_precision=models.SmallIntegerField(blank=True, null=True)
+    sort_order = models.IntegerField()
+    def export(self):
+        return {
+            "type": self.property_type,
+            "url": self.url,
+            "label": self.label,
+            "num_precision": self.num_precision,
+            "sort_order": self.sort_order,
+        }
+    @classmethod
+    def import_data(cls, dataset, data):
+        try:
+            prop = cls.objects.get(dataset=dataset, url=data["url"])
+        except cls.DoesNotExist:
+            prop = cls(dataset=dataset, url=data["url"])
+        prop.label = data["label"]
+        prop.property_type = data["type"]
+        prop.num_precision = data["num_precision"]
+        prop.sort_order = data["sort_order"]
+        prop.save()
+        return prop
     class Meta:
-        unique_together=(('dataset', 'url'), ('dataset', 'label'))
-
+        unique_together=(('dataset', 'url'), ('dataset', 'label'), ('dataset', 'sort_order'))
+        ordering = ('dataset', 'sort_order')

@@ -1,4 +1,4 @@
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset
 from widget_def.models.reference import WidgetViews, AllCategories
 from widget_data.api import *
 
@@ -64,6 +64,14 @@ def export_geowindow(win):
             raise ImportExportException('GeoWindow "%s" does not exist' % pcm)
     return win.export()
 
+def export_geodataset(ds):
+    if not isinstance(ds, GeoDataset):
+        try:
+            ds = GeoDataset.objects.get(url=ds)
+        except GeoDataset.DoesNotExist:
+            raise ImportExportException('GeoDataset "%s" does not exist' % ds)
+    return ds.export()
+
 def export_views():
     return WidgetViews().export()
             
@@ -71,7 +79,9 @@ def export_categories():
     return Category().export_all()
             
 def import_class(data):
-    if data.get("category"):
+    if data.get("geom_type"):
+        return GeoDataset
+    elif data.get("category"):
         return WidgetFamily
     elif data.get("library_name"):
         return IconLibrary

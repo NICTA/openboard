@@ -1,0 +1,58 @@
+{
+    "category": "Leadership", 
+    "sort_order": 200, 
+    "subcategory": "Other", 
+    "url": "gsgc_precinct", 
+    "declarations": [
+        {
+            "theme": "all", 
+            "frequency": "rt", 
+            "location": "all"
+        }, 
+        {
+            "theme": "elves", 
+            "frequency": "rt", 
+            "location": "all"
+        }
+    ], 
+    "properties": [
+        {
+            "url": "objectid", 
+            "num_precision": 0, 
+            "sort_order": 100, 
+            "type": 2, 
+            "label": "Object Id"
+        }, 
+        {
+            "url": "status", 
+            "num_precision": null, 
+            "sort_order": 200, 
+            "type": 1, 
+            "label": "Status"
+        }, 
+        {
+            "url": "growth_cen", 
+            "num_precision": null, 
+            "sort_order": 300, 
+            "type": 1, 
+            "label": "Growth Center"
+        }, 
+        {
+            "url": "precinct", 
+            "num_precision": null, 
+            "sort_order": 400, 
+            "type": 1, 
+            "label": "Precinct"
+        }, 
+        {
+            "url": "sepp_name", 
+            "num_precision": null, 
+            "sort_order": 500, 
+            "type": 1, 
+            "label": "SEPP Name"
+        }
+    ], 
+    "geom_type": 3, 
+    "label": "GSGC Precincts"
+}
+
