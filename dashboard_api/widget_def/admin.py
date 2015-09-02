@@ -214,6 +214,16 @@ class GeoDatasetDeclarationInline(admin.StackedInline):
 class GeoDatasetAdmin(admin.ModelAdmin):
     inlines = [GeoPropertyInline, GeoDatasetDeclarationInline]
     list_display = ['url', 'label', 'geom_type']
+    actions = ["validate"]
+    def validate(self, request, queryset):
+        problems = []
+        for ds in queryset:
+            problems.extend(ds.validate())
+        if not problems:
+            self.message_user(request, "Widget Definitions validated OK")
+        for problem in problems:
+            self.message_user(request, problem, level=messages.ERROR)
+    validate.short_description = "Check Geo-Dataset for errors"
 
 admin.site.register(GeoDataset, GeoDatasetAdmin)
 

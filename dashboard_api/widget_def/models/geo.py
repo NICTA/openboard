@@ -61,6 +61,16 @@ class GeoDataset(models.Model):
     sort_order = models.IntegerField()
     def __unicode__(self):
         return self.url
+    def validate(self):
+        problems = []
+        for prop in self.geopropertydefinition_set.all():
+            problems.extend(prop.validate())
+        refs = 0
+        refs += self.geodatasetdeclaration_set.count()
+        refs += self.tiledefinition_set.count()
+        if refs == 0:
+            problems.append("Geodataset %s is not referenced - no declarations and not used in any map tiles" % self.url)
+        return problems
     def __getstate__(self):
         return {
             "category": self.subcategory.category.name,
@@ -105,7 +115,7 @@ class GeoDataset(models.Model):
                 prop.delete()
         return ds
     class Meta:
-        unique_together=("subcategory", "sort_order")
+        unique_together=(("subcategory", "sort_order"), ("subcategory", "label"))
         ordering = ("subcategory", "sort_order")
 
 class GeoDatasetDeclaration(models.Model):
@@ -152,6 +162,16 @@ class GeoPropertyDefinition(models.Model):
                 ))
     num_precision=models.SmallIntegerField(blank=True, null=True)
     sort_order = models.IntegerField()
+    def clean(self):
+        if self.property_type != self.NUMERIC:
+            self.num_precision = None
+    def validate(self):
+        problems = []
+        self.clean()
+        self.save()
+        if self.property_type == self.NUMERIC and self.num_precision is None:
+            problems.append("Numeric property %s of geo-dataset %s does not have a numeric precision defined" % (self.url, self.dataset.url))
+        return problems
     def __getstate__(self):
         data = {
             "url": self.url,

@@ -351,6 +351,8 @@ class TileDefinition(models.Model):
                 problems.append("No Geo-Window defined for map type tile %s of Widget %s" % (self.url, self.widget.url()))
             if self.geo_datasets.count() == 0:
                 problems.append("No Geo-Datasets defined for map type tile %s of Widget %s" % (self.url, self.widget.url()))
+            for ds in self.geo_datasets.all():
+                problems.extend(ds.validate())
         # Validate all stats.
         for stat in self.statistic_set.all():
             problems.extend(stat.validate())
