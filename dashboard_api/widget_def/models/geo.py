@@ -59,6 +59,15 @@ class GeoDataset(models.Model):
                     (MULTI_POLYGON, geom_types[MULTI_POLYGON]),
                 ))
     sort_order = models.IntegerField()
+    def __getstate__(self):
+        return {
+            "category": self.subcategory.category.name,
+            "subcategory": self.subcategory.name,
+            "url": self.url,
+            "label": self.label,
+            "geom_type": self.geom_types[self.geom_type],
+            "properties": [ p.__getstate__() for p in self.geopropertydefinition_set.all() ],
+        }
     def export(self):
         return {
             "url": self.url,
@@ -102,6 +111,8 @@ class GeoDatasetDeclaration(models.Model):
     theme = models.ForeignKey(Theme)
     location = models.ForeignKey(Location)
     frequency = models.ForeignKey(Frequency)
+    def __getstate__(self):
+        return self.dataset.__getstate__()
     def export(self):
         return {
             "theme": self.theme.url,
@@ -139,6 +150,15 @@ class GeoPropertyDefinition(models.Model):
                 ))
     num_precision=models.SmallIntegerField(blank=True, null=True)
     sort_order = models.IntegerField()
+    def __getstate__(self):
+        data = {
+            "url": self.url,
+            "label": self.label,
+            "type": self.property_types[self.property_type],
+        }
+        if self.property_type == self.NUMERIC:
+            data["num_precision"] = self.num_precision
+        return data
     def export(self):
         return {
             "type": self.property_type,

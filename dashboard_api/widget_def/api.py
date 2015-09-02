@@ -23,4 +23,39 @@ def api_get_widgets(theme, location, frequency):
                     frequency=frequency)
     return [ w.__getstate__() for w in widgets ]
 
+def api_get_map_layers(theme, location, frequency, hierarchical=False):
+    menu = []
+    if hierarchical:
+        for cat in Category.objects.all():
+            cm = {
+                "menu_label" : cat.name,
+                "content" : [],
+            }
+            for sub in cat.subcategory_set.all():
+                sm = {
+                    "menu_label" : sub.name,
+                    "content" : [],
+                }
+                decls = GeoDatasetDeclaration.objects.filter(theme=theme,
+                                                location=location,
+                                                frequency=frequency,
+                                                dataset__subcategory=sub)
+                for decl in decls:
+                    sm["content"].append(decl.__getstate__())
+                if len(sm["content"]) > 0:
+                    cm["content"].append(sm)
+            cm_len = len(cm["content"])
+            if cm_len > 0:
+                if cm_len == 1:
+                    cm["content"] = cm["content"][0]["content"]
+                menu.append(cm)
+        if len(menu) == 1:
+            menu = menu[0]["content"]
+    else:
+        decls = GeoDatasetDeclaration.objects.filter(theme=theme,
+                                    location=location,
+                                    frequency=frequency)
+        for decl in decls:
+            menu.append(decl.__getstate__())
+    return menu
 

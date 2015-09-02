@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     # Main API view for obtaining widget definitions
     url(r'^widgets/$', 'widget_def.views.get_widgets', name='get_frequencies'),
 
+    # Get Map Layers API view
+    url(r'^map_layers/$', 'widget_def.views.get_map_layers', name='get_map_layers'),
+
     # Main Data API view
     url(r'^widgets/(?P<widget_url>[^/]+)$', 'widget_data.views.get_widget_data', name='get_widget_data'),
     # API Graph Data view

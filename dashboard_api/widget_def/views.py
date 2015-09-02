@@ -40,6 +40,23 @@ def get_widgets(request):
     frequency = get_frequency_from_request(request)
     return json_list(request, api_get_widgets(theme, location, frequency))
 
+def get_map_layers(request):
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    theme = get_theme_from_request(request)
+    if theme is None:
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    location = get_location_from_request(request)
+    frequency = get_frequency_from_request(request)
+    hierarchical = request.GET.get("hierarchical")
+    if hierarchical in ("", None, "0"):
+        hierarchical = False
+    else:
+        hierarchical = True
+    return json_list(request, api_get_map_layers(theme, location, frequency, hierarchical))
+
+# Authentication views
+
 def api_login(request):
     username = request.POST.get('username')
     if not username:
