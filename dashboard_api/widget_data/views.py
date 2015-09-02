@@ -79,6 +79,8 @@ def get_map_data(request, geo_dataset_url):
     location = get_location_from_request(request)
     frequency = get_frequency_from_request(request)
     ds = get_declared_geodataset(geo_dataset_url, theme, location, frequency)
+    if ds is None:
+        return HttpResponseNotFound("This map layer does not exist")
     window = location.geo_window
     return api_geo_dataset(request, ds, window)
 

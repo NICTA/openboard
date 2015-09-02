@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 import django.contrib.gis.gdal.geometries as geoms
 
+from widget_def.view_utils import csv_escape
 from widget_def.models import TileDefinition, Location, Theme, Frequency
 
 class GeoWindow(models.Model):
@@ -131,6 +132,20 @@ class GeoDataset(models.Model):
             if prop.url not in props:
                 prop.delete()
         return ds
+    def csv_header_row(self, use_urls=False):
+        out = "lat,lon"
+        for prop in self.geopropertydefinition_set.all():
+            out += ","
+            if use_urls:
+                out += prop.url
+            else:
+                out += csv_escape(prop.label)
+        out += "\n"
+        return out
+    def csv(self, writer, use_urls=False):
+        writer.write(self.csv_header_row(use_urls))
+        for f in self.geofeature_set.all():
+            writer.write(f.csv())
     class Meta:
         unique_together=(("subcategory", "sort_order"), ("subcategory", "label"))
         ordering = ("subcategory", "sort_order")

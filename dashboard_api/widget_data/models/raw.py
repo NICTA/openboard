@@ -1,4 +1,5 @@
 from django.db import models
+from widget_def.view_utils import csv_escape
 
 # Create your models here.
 
@@ -39,11 +40,7 @@ class RawData(models.Model):
     column = models.ForeignKey("widget_def.RawDataSetColumn")
     value = models.CharField(max_length=1024, blank=True)
     def csv(self):
-        out = self.value.replace('"', '""')
-        if '"' in out or ',' in out:
-            return '"%s"' % out
-        else:
-            return out
+        return csv_escape(self.value)
     def json_val(self):
         try:
             return int(self.value)

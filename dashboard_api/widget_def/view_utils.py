@@ -78,3 +78,11 @@ def update_maxmin(value, _min, _max):
         _min = min(value, _min)
         _max = max(value, _max)
     return (_min, _max)
+
+def csv_escape(s):
+    out = s.replace('"', '""')
+    if '"' in out or ',' in out:
+        return '"%s"' % out
+    else:
+        return out
+

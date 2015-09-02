@@ -376,7 +376,12 @@ def new_geofeature(ds, geom):
 def set_geoproperty(feature, prop_def, value):
     try:
         prop = feature.geoproperty_set.get(prop=prop_def)
+        if value is None:
+            prop.delete()
+            return
     except GeoProperty.DoesNotExist:
+        if value is None:
+            return
         prop = GeoProperty(feature=feature, prop=prop_def)
     prop.setval(value)
     prop.save()

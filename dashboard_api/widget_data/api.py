@@ -1,6 +1,8 @@
+import json
+
 from django.http import HttpResponse, HttpResponseNotFound
 from widget_def.models import *
-from widget_def.view_utils import update_maxmin
+from widget_def.view_utils import update_maxmin, json_list
 
 def get_declared_widget(widget_url, theme, location, frequency):
     try:
@@ -17,7 +19,7 @@ def get_declared_geodataset(url, theme, location, frequency):
         decl = GeoDatasetDeclaration.objects.get(frequency=frequency,
                                 theme=theme,
                                 location=location,
-                                dataset__url=_url)
+                                dataset__url=url)
         return decl.dataset
     except GeoDatasetDeclaration.DoesNotExist:
         return None
@@ -103,6 +105,34 @@ def api_get_raw_data(widget, request, rds_url):
     return response
 
 def api_geo_dataset(request, dataset, window):
-    # TODO
-    pass
-
+    fmt = request.GET.get("format", "json")
+    if fmt not in ("json", "html", "csv"):
+        return ResponseNotFound("Unrecognised format: %s" % fmt)
+    if fmt == "csv":
+        if dataset.geom_type != dataset.POINT:
+            return HttpResponseNotFound("CSV format not supported for %s type datasets" % dataset.geom_types[dataset.geom_type])
+        headings=request.GET.get("headings", "label")
+    else:
+        headings=request.GET.get("headings", "url")
+    if headings not in ("url", "label"):
+        return HttpResponseNotFound("Unrecognised headings parameter: %s" % headings)
+    if fmt == "csv":
+        response = HttpResponse()    
+        response['content-type'] = 'application/csv'
+        response['content-disposition'] = 'attachment; filename=%s.csv' % dataset.url
+        dataset.csv(response, use_urls=(headings=="url"))
+        return response
+    out = {
+        "type": "FeatureCollection",
+        "features": []
+    }
+    for f in dataset.geofeature_set.all():
+        jf = {
+            "type": "Feature",
+            "geometry": json.loads(f.geometry.geojson),
+            "properties": { prop.heading(headings=="url") : prop.json_value() 
+                                        for prop in f.geoproperty_set.all() }
+        }
+        out["features"].append(jf)
+    return json_list(request, out)
+        

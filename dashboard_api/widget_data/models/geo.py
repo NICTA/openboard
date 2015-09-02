@@ -4,9 +4,22 @@ import decimal
 from django.apps import apps
 from django.contrib.gis.db import models
 
+from widget_def.view_utils import csv_escape
+
 class GeoFeature(models.Model):
     dataset = models.ForeignKey("widget_def.GeoDataset")
     geometry = models.GeometryField()
+    def csv(self):
+        # Assume geom type is point - only supported type
+        out = "%.12f,%.12f" % (self.geometry.y, self.geometry.x)
+        for pd in self.dataset.geopropertydefinition_set.all():
+            out += ","
+            try:
+                prop = self.geoproperty_set.get(prop=pd)
+                out += csv_escape(prop.json_value())
+            except GeoProperty.DoesNotExist:
+                pass
+        return out
 
 class GeoProperty(models.Model):
     feature = models.ForeignKey(GeoFeature)
@@ -18,6 +31,36 @@ class GeoProperty(models.Model):
     dateval = models.DateField(null=True, blank=True)
     timeval = models.TimeField(null=True, blank=True)
     datetimeval = models.DateTimeField(null=True, blank=True)
+    def heading(self, use_urls=True):
+        if use_urls:
+            return self.prop.url
+        else:
+            return self.prop.label
+    def value(self):
+        GeoPropertyDefinition = apps.get_app_config("widget_def").get_model("GeoPropertyDefinition")
+        if self.prop.property_type == GeoPropertyDefinition.STRING:
+            return self.strval
+        elif self.prop.property_type == GeoPropertyDefinition.NUMERIC:
+            if self.prop.num_precision == 0:
+                return self.intval
+            else:
+                return self.decval.quantize(decimal.Decimal(10)**(-1 * self.prop.num_precision), decimal.ROUND_HALF_UP)
+        elif self.prop.property_type == GeoPropertyDefinition.DATE:
+            return self.dateval
+        elif self.prop.property_type == GeoPropertyDefinition.TIME:
+            return self.timeval
+        else:
+            return self.datetimeval
+    def json_value(self):
+        GeoPropertyDefinition = apps.get_app_config("widget_def").get_model("GeoPropertyDefinition")
+        if self.prop.property_type == GeoPropertyDefinition.DATE:
+            return self.value().strftime("%Y-%m-%d")
+        elif self.prop.property_type == GeoPropertyDefinition.TIME:
+            return self.value().strftime("%H:%M:%S")
+        elif self.prop.property_type == GeoPropertyDefinition.DATETIME:
+            return self.value().strftime("%Y-%m-%dT%H:%M:%S")
+        else:
+            return unicode(self.value())
     def setval(self, value):
         GeoPropertyDefinition = apps.get_app_config("widget_def").get_model("GeoPropertyDefinition")
         if self.prop.property_type == GeoPropertyDefinition.STRING:
