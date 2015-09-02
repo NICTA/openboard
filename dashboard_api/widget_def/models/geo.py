@@ -59,6 +59,8 @@ class GeoDataset(models.Model):
                     (MULTI_POLYGON, geom_types[MULTI_POLYGON]),
                 ))
     sort_order = models.IntegerField()
+    def __unicode__(self):
+        return self.url
     def __getstate__(self):
         return {
             "category": self.subcategory.category.name,

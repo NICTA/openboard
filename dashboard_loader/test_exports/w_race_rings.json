@@ -2,7 +2,7 @@
     "category": "Magic", 
     "edit_all_groups": [], 
     "source_url_text": "LotR Wikia", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "Rings", 
     "groups": [], 
     "url": "race_rings", 
@@ -10,10 +10,9 @@
         {
             "tiles": [
                 {
+                    "expansion": false, 
                     "sort_order": 100, 
-                    "template": null, 
-                    "aspect": 1, 
-                    "url": "rings-all-year-main", 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 0, 
@@ -58,16 +57,18 @@
                             "sort_order": 200
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "rings-all-year-main", 
                     "tile_type": 1, 
-                    "columns": null, 
-                    "expansion": false, 
-                    "list_label_width": null
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
                 }, 
                 {
+                    "expansion": true, 
                     "sort_order": 200, 
-                    "template": null, 
                     "aspect": 1, 
-                    "url": "rings-all-year-exp", 
                     "statistics": [
                         {
                             "num_precision": 0, 
@@ -91,10 +92,13 @@
                             "sort_order": 100
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "rings-all-year-exp", 
                     "tile_type": 10, 
-                    "columns": null, 
-                    "expansion": true, 
-                    "list_label_width": null
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
                 }
             ], 
             "about": "<p>a Test Widget</p>", 

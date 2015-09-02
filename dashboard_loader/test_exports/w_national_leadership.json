@@ -10,10 +10,9 @@
         {
             "tiles": [
                 {
+                    "expansion": false, 
                     "sort_order": 10, 
-                    "template": null, 
-                    "aspect": 1, 
-                    "url": "leader-all-year-main", 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -184,21 +183,26 @@
                             "sort_order": 800
                         }
                     ], 
+                    "list_label_width": 50, 
+                    "url": "leader-all-year-main", 
                     "tile_type": 3, 
-                    "columns": 1, 
-                    "expansion": false, 
-                    "list_label_width": 50
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": 1
                 }, 
                 {
-                    "sort_order": 20, 
-                    "template": null, 
-                    "aspect": 1, 
-                    "url": "leader-all-year-exp", 
-                    "statistics": [], 
-                    "tile_type": 5, 
-                    "columns": null, 
                     "expansion": true, 
-                    "list_label_width": null
+                    "sort_order": 20, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "leader-all-year-exp", 
+                    "tile_type": 5, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
                 }
             ], 
             "about": "<p>A Test Widget</p>", 
@@ -225,10 +229,9 @@
         {
             "tiles": [
                 {
+                    "expansion": false, 
                     "sort_order": 100, 
-                    "template": null, 
-                    "aspect": 1, 
-                    "url": "leadership-gondor-year-main", 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -273,16 +276,18 @@
                             "sort_order": 200
                         }
                     ], 
+                    "list_label_width": null, 
+                    "url": "leadership-gondor-year-main", 
                     "tile_type": 1, 
-                    "columns": null, 
-                    "expansion": false, 
-                    "list_label_width": null
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
                 }, 
                 {
+                    "expansion": true, 
                     "sort_order": 200, 
-                    "template": null, 
                     "aspect": 1, 
-                    "url": "leadership-gondor-year-exp", 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -306,10 +311,13 @@
                             "sort_order": 100
                         }
                     ], 
+                    "list_label_width": 100, 
+                    "url": "leadership-gondor-year-exp", 
                     "tile_type": 10, 
-                    "columns": null, 
-                    "expansion": true, 
-                    "list_label_width": null
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
                 }
             ], 
             "about": "<p>A Test Widget</p>", 

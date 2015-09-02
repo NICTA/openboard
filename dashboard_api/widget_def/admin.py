@@ -59,7 +59,7 @@ class WidgetFamilyAdmin(admin.ModelAdmin):
 admin.site.register(WidgetFamily, WidgetFamilyAdmin)
 
 class TileInline(admin.TabularInline):
-    exclude = ( "template", )
+    exclude = ( "template", "geo_window", "geo_datasets")
     model = TileDefinition
     extra = 2
 

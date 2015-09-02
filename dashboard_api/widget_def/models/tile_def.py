@@ -65,7 +65,8 @@ class TileDefinition(models.Model):
     template = models.CharField(max_length=512, blank=True, null=True, help_text="Reference statistics with '%{statistic_url}")
     url = models.SlugField()
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
-    geo_datasets = models.ManyToManyField("GeoDataset")
+    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
+    geo_datasets = models.ManyToManyField("GeoDataset", blank=True)
     # graph_def, map_def
     def __getstate__(self):
         state = {
@@ -98,7 +99,8 @@ class TileDefinition(models.Model):
             g = GraphDefinition.objects.get(tile=self)
             state["graph"] = g.__getstate__()
         if self.tile_type == self.MAP:
-            pass # TODO
+            state["window"] = self.geo_window.__getstate__()
+            state["geo_datasets"] = [ ds.__getstate__() for ds in self.geo_datasets.all() ]
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
             state["grid"] = GridDefinition.objects.get(tile=self).__getstate__()
@@ -114,7 +116,11 @@ class TileDefinition(models.Model):
             "columns": self.columns,
             "list_label_width": self.list_label_width,
             "statistics": [ s.export() for s in self.statistic_set.all() ],
+            "geo_window": None,
+            "geo_datasets": [ ds.url for ds in self.geo_datasets.all() ],
         }
+        if self.geo_window:
+            exp["geo_window"] = self.geo_window.name
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             g = self.graphdefinition
             exp["graph"] = g.export()
@@ -135,8 +141,18 @@ class TileDefinition(models.Model):
         t.template = data.get("template")
         t.columns = data.get("columns")
         t.sort_order = data["sort_order"]
+        GeoWindow = apps.get_app_config("widget_def").get_model("GeoWindow")
+        GeoDataset = apps.get_app_config("widget_def").get_model("GeoDataset")
+        if "geo_window" in data:
+            t.geo_window = GeoWindow.objects.get(name=data["geo_window"])
+        else:
+            t.geo_window = None
         t.clean()
         t.save()
+        t.geo_datasets.clear()
+        if "geo_datasets" in data:
+            for ds in data["geo_datasets"]:
+                t.geo_datasets.add(GeoDataset.objects.get(url=ds))
         stat_urls = []
         Statistic = apps.get_app_config("widget_def").get_model("Statistic")
         for s in data["statistics"]:
@@ -167,6 +183,9 @@ class TileDefinition(models.Model):
             self.list_label_width = None
         if self.tile_type != self.TEXT_TEMPLATE:
             self.template = None
+        if self.tile_type != self.MAP:
+            self.geo_window = None
+            self.geo_datasets.clear()
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         self.clean()
@@ -188,7 +207,8 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.TEXT_TEMPLATE):
             pass # Defaults all correct
         if self.tile_type == self.MAP:
-            problems.append("Tile %s of Widget %s is of type 'map' which is not yet supported")
+            min_scalar_stat_count = 0
+            max_scalar_stat_count = 0
         if self.tile_type in (self.CALENDAR, self.SINGLE_LIST_STAT, 
                             self.NEWSFEED, self.NEWSTICKER, self.TAG_CLOUD, self.TIME_LINE):
             min_scalar_stat_count = 0
@@ -325,6 +345,12 @@ class TileDefinition(models.Model):
                 for stat in self.statistic_set.all():
                     if stat.url not in referenced_urls:
                         problems.append("Text template of tile %s of Widget %s does not reference defined statistic %s" % (self.url, self.widget.url(), stat.url))
+        # Validate Map
+        if self.tile_type == self.MAP:
+            if not self.geo_window:
+                problems.append("No Geo-Window defined for map type tile %s of Widget %s" % (self.url, self.widget.url()))
+            if self.geo_datasets.count() == 0:
+                problems.append("No Geo-Datasets defined for map type tile %s of Widget %s" % (self.url, self.widget.url()))
         # Validate all stats.
         for stat in self.statistic_set.all():
             problems.extend(stat.validate())
