@@ -1,3 +1,7 @@
+import datetime
+import decimal
+
+from django.apps import apps
 from django.contrib.gis.db import models
 
 class GeoFeature(models.Model):
@@ -14,6 +18,21 @@ class GeoProperty(models.Model):
     dateval = models.DateField(null=True, blank=True)
     timeval = models.TimeField(null=True, blank=True)
     datetimeval = models.DateTimeField(null=True, blank=True)
+    def setval(self, value):
+        GeoPropertyDefinition = apps.get_app_config("widget_def").get_model("GeoPropertyDefinition")
+        if self.prop.property_type == GeoPropertyDefinition.STRING:
+            self.strval = unicode(value)
+        elif self.prop.property_type == GeoPropertyDefinition.NUMERIC:
+            if self.prop.num_precision == 0:
+                self.intval = unicode(value)
+            else:
+                self.decval = decimal.Decimal(value)
+        elif self.prop.property_type == GeoPropertyDefinition.DATE:
+            self.dateval = value
+        elif self.prop.property_type == GeoPropertyDefinition.TIME:
+            self.timeval = value
+        else:
+            self.datetimeval = value
     class Meta:
         unique_together=('feature', 'prop')
 

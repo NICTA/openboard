@@ -2,6 +2,7 @@ from django.apps import apps
 
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
+import django.contrib.gis.gdal.geometries as geoms
 
 from widget_def.models import TileDefinition, Location, Theme, Frequency
 
@@ -49,6 +50,13 @@ class GeoDataset(models.Model):
     MULTI_POLYGON = 6
     geom_types = ("-", "point", "line", "polygon",
                     "multi-point", "multi-line", "multi-polygon")
+    gdal_datatypes_map = ( None,
+                    (geoms.Point,),
+                    (geoms.LineString,),
+                    (geoms.Polygon,),
+                    (geoms.Point, geoms.MultiPoint),
+                    (geoms.LineString, geoms.MultiLineString),
+                    (geoms.Polygon, geoms.MultiPolygon))
     url = models.SlugField(unique=True)
     label = models.CharField(max_length=128)
     subcategory = models.ForeignKey("Subcategory")
@@ -61,6 +69,10 @@ class GeoDataset(models.Model):
                     (MULTI_POLYGON, geom_types[MULTI_POLYGON]),
                 ))
     sort_order = models.IntegerField()
+    def gdal_datatypes(self):
+        return self.gdal_datatypes_map[self.geom_type]
+    def datatype(self):
+        return self.geom_types[self.geom_type]
     def __unicode__(self):
         return self.url
     def validate(self):

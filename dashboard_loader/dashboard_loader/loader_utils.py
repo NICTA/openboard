@@ -8,8 +8,8 @@ from django.conf import settings
 from django.db import transaction
 
 from dashboard_loader.models import Loader, Uploader
-from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster, RawDataSet
-from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData, RawDataRecord, RawData
+from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode, GraphDefinition, GraphDataset, GraphCluster, RawDataSet, GeoDataset
+from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData, RawDataRecord, RawData, GeoFeature, GeoProperty
 
 tz = pytz.timezone(settings.TIME_ZONE)
 
@@ -339,9 +339,6 @@ def get_rawdataset(widget_url, actual_location_url, actual_frequency_url, rds_ur
     except RawDataSet.DoesNotExist:
         raise LoaderException("Raw Dataset %s of widget %s(%s,%s) does not exist" % (rds_url, widget_url, actual_location_url, actual_frequency_url))
 
-def clear_rawdataset(rds):
-    rds.rawdatarecord_set.all().delete()
-
 def add_rawdatarecord(rds, sort_order, *args, **kwargs):
     record = RawDataRecord(rds=rds, sort_order=sort_order)
     record.save()
@@ -353,6 +350,37 @@ def add_rawdatarecord(rds, sort_order, *args, **kwargs):
         cell = RawData(record=record, column=coldict[k], value=unicode(v))
         cell.save()
     record.update_csv()
+
+def get_geodataset(url):
+    try:
+        return GeoDataset.objects.get(url=url)
+    except GeoDataset.DoesNotExist:
+        raise LoaderException("GeoDataset %s does not exist" % url)
+
+def clear_geodataset(ds):
+    GeoFeature.objects.filter(dataset=ds).delete()
+
+def clear_rawdataset(rds):
+    rds.rawdatarecord_set.all().delete()
+
+def new_geofeature(ds, geom):
+    if geom.__class__ not in ds.gdal_datatypes():
+        raise LoaderException("Expected geometry type: %s Got %s" % (
+                    ds.datatype(),
+                    geom.__class__.__name__
+                    ))
+    feat = GeoFeature(dataset=ds, geometry=geom.wkt)
+    feat.save()
+    return feat
+
+def set_geoproperty(feature, prop_def, value):
+    try:
+        prop = feature.geoproperty_set.get(prop=prop_def)
+    except GeoProperty.DoesNotExist:
+        prop = GeoProperty(feature=feature, prop=prop_def)
+    prop.setval(value)
+    prop.save()
+    return prop
 
 def parse_date(d):
     if d is None:
@@ -406,4 +434,17 @@ def parse_datetime(dt):
         return tz.localize(dt)
     except ValueError:
         raise LoaderException("Not a valid date string: %s" % repr(dt))
+
+def geo_upload(uploader, filename, url, verbosity=0):
+    _tmp = __import__(uploader + ".geoloader", globals(), locals(), ["load_geodata",], -1)
+    load_geodata = _tmp.load_geodata
+    try:
+        messages = load_geodata(filename, url, verbosity)
+        if verbosity > 0:
+            messages.append("Geo-data loaded by %s" % uploader)
+        return messages
+    except LoaderException, e:
+        raise e
+    except Exception, e:
+        raise LoaderException(repr(e))
 
