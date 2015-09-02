@@ -28,4 +28,8 @@ urlpatterns = patterns('',
     url(r'^widgets/(?P<widget_url>[^/]+)/graph$', 'widget_data.views.get_graph_data', name='get_graph_data'),
     # API Raw Data Set view
     url(r'^widgets/(?P<widget_url>[^/]+)/rawdata/(?P<rds_url>[^/]+)$', 'widget_data.views.get_raw_data', name='get_raw_data'),
+    # API Widget Map data view
+    url(r'^widgets/(?P<widget_url>[^/]+)/map/(?P<tile_url>)/(?P<geo_dataset_url>[^/]+)/$', 'widget_data.views.get_widget_map_data', name='get_widget_map_data'),
+    # API Map data view
+    url(r'^map/(?P<geo_dataset_url>[^/]+)/$', 'widget_data.views.get_map_data', name='get_map_data'),
 )

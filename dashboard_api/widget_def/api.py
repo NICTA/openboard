@@ -57,5 +57,8 @@ def api_get_map_layers(theme, location, frequency, hierarchical=False):
                                     frequency=frequency)
         for decl in decls:
             menu.append(decl.__getstate__())
-    return menu
+    return {
+        "window": location.geo_window.__getstate__(),
+        "menu": menu,
+    }
 

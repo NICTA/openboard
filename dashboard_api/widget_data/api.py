@@ -12,6 +12,16 @@ def get_declared_widget(widget_url, theme, location, frequency):
     except WidgetDeclaration.DoesNotExist:
         return None
 
+def get_declared_geodataset(url, theme, location, frequency):
+    try:
+        decl = GeoDatasetDeclaration.objects.get(frequency=frequency,
+                                theme=theme,
+                                location=location,
+                                dataset__url=_url)
+        return decl.dataset
+    except GeoDatasetDeclaration.DoesNotExist:
+        return None
+
 def api_get_widget_data(widget):
     stats_json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget):
@@ -91,4 +101,8 @@ def api_get_raw_data(widget, request, rds_url):
     response['content-disposition'] = 'attachment; filename=%s' % rds.filename
     rds.csv(response)
     return response
+
+def api_geo_dataset(request, dataset, window):
+    # TODO
+    pass
 

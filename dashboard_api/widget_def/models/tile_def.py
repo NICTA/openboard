@@ -99,8 +99,11 @@ class TileDefinition(models.Model):
             g = GraphDefinition.objects.get(tile=self)
             state["graph"] = g.__getstate__()
         if self.tile_type == self.MAP:
-            state["window"] = self.geo_window.__getstate__()
-            state["geo_datasets"] = [ ds.__getstate__() for ds in self.geo_datasets.all() ]
+            state["map"] = {
+                "url": self.url,
+                "window": self.geo_window.__getstate__(),
+                "layers": [ ds.__getstate__() for ds in self.geo_datasets.all() ],
+            }
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
             state["grid"] = GridDefinition.objects.get(tile=self).__getstate__()

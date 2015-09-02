@@ -38,7 +38,9 @@ class GeoWindow(models.Model):
         win.save()
         return win
 
-class GeoDataset(models.Model):
+class GeoDataset(models.Model): 
+    # TODO:  geom_type = PREDEFINED
+    #        predefined_regions: lga, postcodes, etc as per csv-geo-au
     POINT = 1
     LINE = 2
     POLYGON = 3
@@ -70,6 +72,9 @@ class GeoDataset(models.Model):
         refs += self.tiledefinition_set.count()
         if refs == 0:
             problems.append("Geodataset %s is not referenced - no declarations and not used in any map tiles" % self.url)
+        for decl in self.geodatasetdeclaration_set.all():
+            if not decl.location.geo_window:
+                problems.append("Geodataset %s has a declaration for location %s which has no geo-window defined" % (self.url, decl.location.url))
         return problems
     def __getstate__(self):
         return {
