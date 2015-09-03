@@ -101,6 +101,7 @@ def api_get_terria_init(theme,location,frequency):
                                             dataset__subcategory=sub)
             for decl in decls:
                 sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency))
+                sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency, nofilter=True))
             if len(sm["items"]) > 0:
                 cm["items"].append(sm)
         cm_len = len(cm["items"])
@@ -114,12 +115,14 @@ def api_get_terria_init(theme,location,frequency):
         raise Http404("No map datasets defined for this view")
     return init
 
-def catalog_entry(ds, theme, location, frequency):
+def catalog_entry(ds, theme, location, frequency, nofilter=False):
     use_csv = ds.terria_prefer_csv()
     entry = {
         "name": ds.label,
         "opacity": settings.TERRIA_LAYER_OPACITY,
     }
+    if nofilter:
+        entry["name"] += " (all)"
     get_args = {
         "location": location.url,
         "theme": theme.url,
@@ -139,6 +142,8 @@ def catalog_entry(ds, theme, location, frequency):
         get_args["format"] = "json"
     base_url = reverse('get_map_data', args=(ds.url,))
     url = settings.TERRIA_API_BASE + base_url + "?" + "&".join([ "%s=%s" % (k,v) for (k,v) in get_args.items() ])
+    if nofilter:
+        url += "&all=true"
     entry["url"] = url
     return entry
 
