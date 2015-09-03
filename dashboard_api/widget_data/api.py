@@ -126,7 +126,7 @@ def api_geo_dataset(request, dataset, window):
         "type": "FeatureCollection",
         "features": []
     }
-    for f in dataset.geofeature_set.filter(geometry__bbcontains=window.polygon()):
+    for f in dataset.geofeature_set.filter(geometry__bboverlaps=window.polygon()):
         jf = {
             "type": "Feature",
             "geometry": json.loads(f.geometry.geojson),
