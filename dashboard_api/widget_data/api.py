@@ -129,7 +129,7 @@ def api_geo_dataset(request, dataset, window):
     if request.GET.get("all", None):
         feature_set = dataset.geofeature_set.all()
     else:
-        feature_set = dataset.geofeature_set.filter(geometry__bboverlaps=window.polygon())
+        feature_set = dataset.geofeature_set.filter(geometry__bboverlaps=window.padded_polygon())
     for f in feature_set:
         jf = {
             "type": "Feature",

@@ -12,12 +12,30 @@ class GeoWindow(models.Model):
                     unique=True, help_text="For internal reference only")
     north_east = models.PointField()
     south_west = models.PointField()
-    def polygon(self):
-        north_west = Point(self.south_west.x, self.north_east.y)
-        south_east = Point(self.north_east.x, self.south_west.y)
-        return Polygon([self.north_east, north_west, 
-                        self.south_west, south_east,
-                        self.north_east]) 
+    def padded_polygon(self):
+        n = self.north_east.y
+        e = self.north_east.x
+        s = self.south_west.y
+        w = self.south_west.x
+        nsdelta = (n-s)*0.2
+        wedelta = (e-w)*0.2
+        nn = n + nsdelta
+        ss = s - nsdelta
+        ee = e + wedelta
+        ww = w - wedelta
+        if nn > 89.0:
+            nn = 89.0
+        if ss > -89.0:
+            ss = -89.0
+        if ww < -180.0:
+            ww = -180.0
+        if ee > 180.0:
+            ee = 180.0
+        nnww = Point(ww, nn)
+        nnee = Point(ee, nn)
+        ssee = Point(ee, ss)
+        ssww = Point(ww, ss)
+        return Polygon([nnee, nnww, ssww, ssee, nnee])
     def __getstate__(self):
         return {
             "north": self.north_east.y,
