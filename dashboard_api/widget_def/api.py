@@ -101,7 +101,6 @@ def api_get_terria_init(theme,location,frequency):
                                             dataset__subcategory=sub)
             for decl in decls:
                 sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency))
-                sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency, nofilter=True))
             if len(sm["items"]) > 0:
                 cm["items"].append(sm)
         cm_len = len(cm["items"])
