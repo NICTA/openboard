@@ -17,8 +17,8 @@ class GeoWindow(models.Model):
         e = self.north_east.x
         s = self.south_west.y
         w = self.south_west.x
-        nsdelta = (n-s)*0.2
-        wedelta = (e-w)*0.2
+        nsdelta = (n-s)*0.1
+        wedelta = (e-w)*0.1
         nn = n + nsdelta
         ss = s - nsdelta
         ee = e + wedelta
