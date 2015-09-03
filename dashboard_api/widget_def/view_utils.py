@@ -64,7 +64,7 @@ def get_location_from_url(url, use_default=False):
     return location
 
 def get_frequency_from_request(request, use_default=False):
-    return (request.GET.get("frequency", ""))
+    return get_frequency_from_url(request.GET.get("frequency", ""))
 
 def get_frequency_from_url(url, use_default=False):
     try:
