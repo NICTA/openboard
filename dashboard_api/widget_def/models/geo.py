@@ -1,7 +1,7 @@
 from django.apps import apps
 
 from django.contrib.gis.db import models
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point, Polygon
 import django.contrib.gis.gdal.geometries as geoms
 
 from widget_def.view_utils import csv_escape
@@ -12,6 +12,12 @@ class GeoWindow(models.Model):
                     unique=True, help_text="For internal reference only")
     north_east = models.PointField()
     south_west = models.PointField()
+    def polygon(self):
+        north_west = Point(self.south_west.x, self.north_east.y)
+        south_east = Point(self.north_east.x, self.south_west.y)
+        return Polygon([self.north_east, north_west, 
+                        self.south_west, south_east,
+                        self.north_east]) 
     def __getstate__(self):
         return {
             "north": self.north_east.y,
