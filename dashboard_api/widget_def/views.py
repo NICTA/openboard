@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import HttpResponseForbidden
+from django.http.response import HttpResponseForbidden, HttpResponseNotFound
 from django.conf import settings
 
 
@@ -54,6 +54,18 @@ def get_map_layers(request):
     else:
         hierarchical = True
     return json_list(request, api_get_map_layers(theme, location, frequency, hierarchical))
+
+def get_terria_init(request, location_url, frequency_url, theme_url=""):
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    theme = get_theme_from_url(request, theme_url, use_default=True)
+    if not Theme:
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    location = get_location_from_url(location_url)
+    if not location.geo_window:
+        return HttpResponseNotFound("No Geo-window defined for location %s" % location_url)
+    frequency = get_frequency_from_url(frequency_url)
+    return json_list(request, api_get_terria_init(theme, location, frequency))
 
 # Authentication views
 

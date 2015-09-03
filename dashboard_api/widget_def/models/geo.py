@@ -70,6 +70,8 @@ class GeoDataset(models.Model):
                     (MULTI_POLYGON, geom_types[MULTI_POLYGON]),
                 ))
     sort_order = models.IntegerField()
+    def terria_prefer_csv(self):
+        return self.geom_type in (self.POINT,)
     def gdal_datatypes(self):
         return self.gdal_datatypes_map[self.geom_type]
     def datatype(self):
@@ -78,8 +80,13 @@ class GeoDataset(models.Model):
         return self.url
     def validate(self):
         problems = []
+        data_properties = []
         for prop in self.geopropertydefinition_set.all():
+            if prop.data_property:
+                data_properties.append(prop.url)
             problems.extend(prop.validate())
+        if len(data_properties) > 1:
+            problems.append("Geodataset %s has more than one data property: %s" % (self.url, ",".join(data_properties)))
         refs = 0
         refs += self.geodatasetdeclaration_set.count()
         refs += self.tiledefinition_set.count()
@@ -193,6 +200,7 @@ class GeoPropertyDefinition(models.Model):
                     (DATETIME, property_types[DATETIME]),
                 ))
     num_precision=models.SmallIntegerField(blank=True, null=True)
+    data_property=models.BooleanField(default=False)
     sort_order = models.IntegerField()
     def clean(self):
         if self.property_type != self.NUMERIC:
@@ -203,6 +211,8 @@ class GeoPropertyDefinition(models.Model):
         self.save()
         if self.property_type == self.NUMERIC and self.num_precision is None:
             problems.append("Numeric property %s of geo-dataset %s does not have a numeric precision defined" % (self.url, self.dataset.url))
+        if self.data_property and self.property_type != self.NUMERIC:
+            problems.append("Non-numeric property %s of geo-dataset %s is marked as a data property" % (self.url, self.dataset.url))
         return problems
     def __getstate__(self):
         data = {

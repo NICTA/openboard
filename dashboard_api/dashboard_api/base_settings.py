@@ -97,6 +97,13 @@ SESSION_COOKE_AGE = 1*60*60
 
 SESSION_COOKIE_HTTPONLY = False
 
+# Terria integration settings
+
+TERRIA_TOP_LEVEL_MENU = "Dashboard Datasets"
+TERRIA_LAYER_OPACITY = 0.9
+TERRIA_BASE_MAP_NAME = "Positron (Light)"
+TERRIA_CORS_DOMAINS = []
+
 # Allow public api access (for themes where require_authentication is False)
 
 PUBLIC_API_ACCESS = False

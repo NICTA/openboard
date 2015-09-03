@@ -31,14 +31,16 @@ def jsonize(data, html=False):
         return json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
 
 def get_theme_from_request(request, use_default=False):
-    theme_url = request.GET.get("theme", "")
+    return get_theme_from_url(request, request.GET.get("theme", ""))
+
+def get_theme_from_url(request, url, use_default=False):
     try:
-        theme = Theme.objects.get(url=theme_url)
+        theme = Theme.objects.get(url=url)
     except Theme.DoesNotExist:
-        if use_default:
+        if use_default and not url:
             theme = Theme.objects.all()[0]
         else:
-            raise Http404("Theme %s does not exist" % theme_url)
+            raise Http404("Theme %s does not exist" % url)
     if request.user.is_authenticated():
         # Theme based authentication!
         return theme
@@ -49,25 +51,29 @@ def get_theme_from_request(request, use_default=False):
             return theme
 
 def get_location_from_request(request, use_default=False):
-    location_url = request.GET.get("location", "")
+    return get_location_from_url(request.GET.get("location", ""))
+
+def get_location_from_url(url, use_default=False):
     try:
-        location = Location.objects.get(url=location_url)
+        location = Location.objects.get(url=url)
     except Location.DoesNotExist:
-        if use_default:
+        if use_default and not url:
             location = Location.objects.all()[0]
         else:
-            raise Http404("Location %s does not exist" % location_url)
+            raise Http404("Location %s does not exist" % url)
     return location
 
 def get_frequency_from_request(request, use_default=False):
-    frequency_url = request.GET.get("frequency", "")
+    return (request.GET.get("frequency", ""))
+
+def get_frequency_from_url(url, use_default=False):
     try:
-        frequency = Frequency.objects.get(url=frequency_url)
+        frequency = Frequency.objects.get(url=url)
     except Frequency.DoesNotExist:
-        if use_default:
+        if use_default and not url:
             frequency = Frequency.objects.all()[0]
         else:
-            raise Http404("Frequency %s does not exist" % frequency_url)
+            raise Http404("Frequency %s does not exist" % url)
     return frequency
 
 def update_maxmin(value, _min, _max):

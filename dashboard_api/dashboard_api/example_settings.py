@@ -57,5 +57,12 @@ CORS_ALLOW_CREDENTIALS = True
 # See https://github.com/ottoyiu/django-cors-headers/blob/master/README.md
 # for other CORS options.
 
+# Terria integration settings
+
+TERRIA_TOP_LEVEL_MENU = "My Dashboard Datasets"
+TERRIA_LAYER_OPACITY = 0.9
+TERRIA_BASE_MAP_NAME = "Positron (Light)"
+TERRIA_CORS_DOMAINS = [ "www.yourfrontend.website.url", ]
+
 # Allow Public access to API (for themes that are marked as not requiring auth
 PUBLIC_API_ACCESS = False

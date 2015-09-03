@@ -1,4 +1,9 @@
+from django.http import Http404
+from django.conf import settings
+from django.core.urlresolvers import reverse
+
 from widget_def.models import *
+from widget_def.view_utils import *
 
 def api_get_themes(user):
     if user.is_authenticated():
@@ -51,6 +56,8 @@ def api_get_map_layers(theme, location, frequency, hierarchical=False):
                 menu.append(cm)
         if len(menu) == 1:
             menu = menu[0]["content"]
+        elif len(menu) == 0:
+            raise Http404("No map datasets defined for this view")
     else:
         decls = GeoDatasetDeclaration.objects.filter(theme=theme,
                                     location=location,
@@ -61,4 +68,77 @@ def api_get_map_layers(theme, location, frequency, hierarchical=False):
         "window": location.geo_window.__getstate__(),
         "menu": menu,
     }
+
+def api_get_terria_init(theme,location,frequency):
+    init =  {
+        "catalog": [{
+                    "name": settings.TERRIA_TOP_LEVEL_MENU,
+                    "type": "group",
+                    "isOpen": "true",
+                    "items": []
+                   }],
+        "homeCamera": location.geo_window.__getstate__(),
+        "baseMapName": settings.TERRIA_BASE_MAP_NAME,
+        "corsDomains": settings.TERRIA_CORS_DOMAINS,
+    }
+    for cat in Category.objects.all():
+        cm = {
+            "name" : cat.name,
+            "type": "group",
+            "isOpen": "true",
+            "items" : [],
+        }
+        for sub in cat.subcategory_set.all():
+            sm = {
+                "name" : sub.name,
+                "type": "group",
+                "isOpen": "true",
+                "items" : [],
+            }
+            decls = GeoDatasetDeclaration.objects.filter(theme=theme,
+                                            location=location,
+                                            frequency=frequency,
+                                            dataset__subcategory=sub)
+            for decl in decls:
+                sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency))
+            if len(sm["items"]) > 0:
+                cm["items"].append(sm)
+        cm_len = len(cm["items"])
+        if cm_len > 0:
+            if cm_len == 1:
+                cm["items"] = cm["items"][0]["items"]
+            init["catalog"][0]["items"].append(cm)
+    if len(init["catalog"][0]["items"]) == 1:
+        init["catalog"][0]["items"] = init["catalog"][0]["items"][0]["items"]
+    elif len(init["catalog"][0]["items"]) == 0:
+        raise Http404("No map datasets defined for this view")
+    return init
+
+def catalog_entry(ds, theme, location, frequency):
+    use_csv = ds.terria_prefer_csv()
+    entry = {
+        "name": ds.label,
+        "opacity": settings.TERRIA_LAYER_OPACITY,
+    }
+    get_args = {
+        "location": location.url,
+        "theme": theme.url,
+        "frequency": frequency.url,
+        "headings": "label",
+    }
+    if use_csv:
+        entry["type"] = "csv"
+        get_args["format"] = "csv"
+        try:
+            dataprop = ds.geopropertydefinition_set.get(data_property=True)
+            entry["table_style"] = { "dataVariable": dataprop.label }
+        except GeoPropertyDefinition.DoesNotExist:
+            pass
+    else:
+        entry["type"] = "geojson"
+        get_args["format"] = "json"
+    base_url = reverse('get_map_data', args=(ds.url,))
+    url = base_url + "?" + "&".join([ "%s=%s" % (k,v) for (k,v) in get_args.items() ])
+    entry["url"] = url
+    return entry
 

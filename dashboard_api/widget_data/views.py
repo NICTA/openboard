@@ -81,6 +81,8 @@ def get_map_data(request, geo_dataset_url):
     ds = get_declared_geodataset(geo_dataset_url, theme, location, frequency)
     if ds is None:
         return HttpResponseNotFound("This map layer does not exist")
+    if not location.geo_window:
+        return HttpResponseNotFound("No Geo Window defined for location %s" % location.url)
     window = location.geo_window
     return api_geo_dataset(request, ds, window)
 
