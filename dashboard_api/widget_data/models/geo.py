@@ -9,6 +9,7 @@ from widget_def.view_utils import csv_escape
 class GeoFeature(models.Model):
     dataset = models.ForeignKey("widget_def.GeoDataset")
     geometry = models.GeometryField()
+    objects = models.GeoManager()
     def csv(self):
         # Assume geom type is point - only supported type
         out = "%.12f,%.12f" % (self.geometry.y, self.geometry.x)
