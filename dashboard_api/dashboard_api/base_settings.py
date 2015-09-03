@@ -103,6 +103,7 @@ TERRIA_TOP_LEVEL_MENU = "Dashboard Datasets"
 TERRIA_LAYER_OPACITY = 0.9
 TERRIA_BASE_MAP_NAME = "Positron (Light)"
 TERRIA_CORS_DOMAINS = []
+TERRIA_API_BASE = "http://localhost:8000"
 
 # Allow public api access (for themes where require_authentication is False)
 
