@@ -4,8 +4,9 @@ from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point, Polygon
 import django.contrib.gis.gdal.geometries as geoms
 
-from widget_def.view_utils import csv_escape
+from widget_def.view_utils import csv_escape, max_with_nulls
 from widget_def.models import TileDefinition, Location, Theme, Frequency
+from widget_data.models import GeoFeature, GeoProperty
 
 class GeoWindow(models.Model):
     name=models.CharField(max_length=128, 
@@ -65,6 +66,7 @@ class GeoWindow(models.Model):
         return win
 
 class GeoDataset(models.Model): 
+    _lud_cache = None
     # TODO:  geom_type = PREDEFINED
     #        predefined_regions: lga, postcodes, etc as per csv-geo-au
     POINT = 1
@@ -120,6 +122,12 @@ class GeoDataset(models.Model):
             if not decl.location.geo_window:
                 problems.append("Geodataset %s has a declaration for location %s which has no geo-window defined" % (self.url, decl.location.url))
         return problems
+    def data_last_updated(self, update=False):
+        if update or not self._lud_cache:
+            lud_feature = GeoFeature.objects.filter(dataset=self).aggregate(lud=models.Max('last_updated'))['lud']
+            lud_property = GeoProperty.objects.filter(feature__dataset=self).aggregate(lud=models.Max('last_updated'))['lud']
+            self._lud_cache = max_with_nulls(lud_feature, lud_property)
+        return self._lud_cache
     def __getstate__(self):
         return {
             "category": self.subcategory.category.name,

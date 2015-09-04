@@ -92,3 +92,17 @@ def csv_escape(s):
     else:
         return out
 
+    
+def max_with_nulls(*args):
+    maxargs = []
+    for arg in args:
+        if arg is not None:
+            maxargs.append(arg)
+    if len(maxargs) == 0:
+        return None
+    elif len(maxargs) == 1:
+        return maxargs[0]
+    else:
+        return max(*maxargs)
+
+

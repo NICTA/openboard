@@ -11,6 +11,7 @@ dashboard_loader/dashboard_loader/settings_*.py
 dashboard_api/dashboard_api/wsgi_*.py
 dashboard_loader/dashboard_loader/wsgi_*.py
 dashboard_loader/static/**
+dashboard_api/geo_cache/**
 *~*#
 *.pyc
 *.pyo

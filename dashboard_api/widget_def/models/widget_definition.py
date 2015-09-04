@@ -4,20 +4,9 @@ from django.apps import apps
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
 from widget_def.models.reference import Location, Frequency
+from widget_def.view_utils import max_with_nulls
 
 # Create your models here.
-
-def max_with_nulls(*args):
-    maxargs = []
-    for arg in args:
-        if arg is not None:
-            maxargs.append(arg)
-    if len(maxargs) == 0:
-        return None
-    elif len(maxargs) == 1:
-        return maxargs[0]
-    else:
-        return max(*maxargs)
 
 class WidgetDefinition(models.Model):
     _lud_cache = None
@@ -162,7 +151,11 @@ class WidgetDefinition(models.Model):
         lud_statdata = StatisticData.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
         lud_listdata = StatisticListItem.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
         lud_graphdata = GraphData.objects.filter(graph__tile__widget=self).aggregate(lud=models.Max("last_updated"))["lud"]
-        self._lud_cache = max_with_nulls(lud_statdata, lud_listdata, lud_graphdata)
+        luds_mapdata = [None]
+        for t in self.tiledefinition_set.all():
+            for ds in t.geo_datasets.all():
+                luds_mapdata.append(ds.data_last_updated(update))
+        self._lud_cache = max_with_nulls(lud_statdata, lud_listdata, lud_graphdata, *luds_mapdata)
         return self._lud_cache
     class Meta:
         unique_together = (

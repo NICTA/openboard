@@ -139,4 +139,4 @@ def api_geo_dataset(request, dataset, window):
         }
         out["features"].append(jf)
     return json_list(request, out)
-        
+

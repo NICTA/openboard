@@ -10,6 +10,7 @@ class GeoFeature(models.Model):
     dataset = models.ForeignKey("widget_def.GeoDataset")
     geometry = models.GeometryField()
     objects = models.GeoManager()
+    last_updated = models.DateTimeField(auto_now=True)
     def csv(self):
         # Assume geom type is point - only supported type
         out = "%.12f,%.12f" % (self.geometry.y, self.geometry.x)
@@ -32,6 +33,7 @@ class GeoProperty(models.Model):
     dateval = models.DateField(null=True, blank=True)
     timeval = models.TimeField(null=True, blank=True)
     datetimeval = models.DateTimeField(null=True, blank=True)
+    last_updated = models.DateTimeField(auto_now=True)
     def heading(self, use_urls=True):
         if use_urls:
             return self.prop.url
