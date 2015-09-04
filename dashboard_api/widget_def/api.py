@@ -114,14 +114,18 @@ def api_get_terria_init(theme,location,frequency):
         raise Http404("No map datasets defined for this view")
     return init
 
-def catalog_entry(ds, theme, location, frequency, nofilter=False):
+def catalog_entry(ds, theme, location, frequency):
     use_csv = ds.terria_prefer_csv()
     entry = {
         "name": ds.label,
         "opacity": settings.TERRIA_LAYER_OPACITY,
     }
-    if nofilter:
-        entry["name"] += " (all)"
+    if ds.is_external():
+        entry["url"] = ds.ext_url
+        entry["type"] = ds.ext_type
+        if ds.ext_extra:
+            entry.update(entry)
+        return entry 
     get_args = {
         "location": location.url,
         "theme": theme.url,

@@ -12,10 +12,21 @@ class GeoFeature(models.Model):
     objects = models.GeoManager()
     last_updated = models.DateTimeField(auto_now=True)
     def csv(self):
-        # Assume geom type is point - only supported type
-        out = "%.12f,%.12f" % (self.geometry.y, self.geometry.x)
+        if self.dataset.geom_type == self.dataset.POINT:
+            out = "%.12f,%.12f" % (self.geometry.y, self.geometry.x)
+            skip_comma = False
+        elif self.dataset.geom_type == self.dataset.PREDEFINED:
+            out = ""
+            skip_comma = True
+        else:
+            # Unsupported geometry type?
+            out="ERROR"
+            skip_comma = False
         for pd in self.dataset.geopropertydefinition_set.all():
-            out += ","
+            if skip_comma:
+                skip_comma = False
+            else:
+                out += ","
             try:
                 prop = self.geoproperty_set.get(prop=pd)
                 out += csv_escape(prop.json_value())

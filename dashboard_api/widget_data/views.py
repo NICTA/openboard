@@ -62,11 +62,11 @@ def get_widget_map_data(request, widget_url, tile_url, geo_dataset_url):
     try:
         tile = TileDefinition.objects.get(widget=widget, url=tile_url, tile_type=TileDefinition.MAP)
     except TileDefinition.DoesNotExist:
-        return HttpResponseNotFound("This map tile does not exist")
+        return HttpResponseNotFound("Map tile %s does not exist" % tile_url)
     try:
         ds = tile.geo_datasets.get(url=geo_dataset_url)
     except GeoDataset.DoesNotExist:
-        return HttpResponseNotFound("This map layer does not exist")
+        return HttpResponseNotFound("Map layer %s does not exist" % geo_dataset_url)
     window = tile.geo_window
     return api_geo_dataset(request, ds, window)
 
@@ -80,7 +80,7 @@ def get_map_data(request, geo_dataset_url):
     frequency = get_frequency_from_request(request)
     ds = get_declared_geodataset(geo_dataset_url, theme, location, frequency)
     if ds is None:
-        return HttpResponseNotFound("This map layer does not exist")
+        return HttpResponseNotFound("Map layer %s does not exist" % geo_dataset_url)
     if not location.geo_window:
         return HttpResponseNotFound("No Geo Window defined for location %s" % location.url)
     window = location.geo_window

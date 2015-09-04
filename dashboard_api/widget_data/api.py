@@ -105,7 +105,13 @@ def api_get_raw_data(widget, request, rds_url):
     return response
 
 def api_geo_dataset(request, dataset, window):
-    fmt = request.GET.get("format", "json")
+    if dataset.is_external():
+        raise HttpResponseNotFound("Map layer %s is an external dataset")
+    if dataset.geom_type == dataset.PREDEFINED:
+        default_fmt = "csv"
+    else:
+        default_fmt = "json"
+    fmt = request.GET.get("format", default_fmt)
     if fmt not in ("json", "html", "csv"):
         return ResponseNotFound("Unrecognised format: %s" % fmt)
     if fmt == "csv":
@@ -113,6 +119,8 @@ def api_geo_dataset(request, dataset, window):
             return HttpResponseNotFound("CSV format not supported for %s type datasets" % dataset.geom_types[dataset.geom_type])
         headings=request.GET.get("headings", "label")
     else:
+        if dataset.geom_type == dataset.PREDEFINED:
+            return HttpResponseNotFound("Only CSV format supported for Predefined Geometry datasets")
         headings=request.GET.get("headings", "url")
     if headings not in ("url", "label"):
         return HttpResponseNotFound("Unrecognised headings parameter: %s" % headings)
@@ -126,10 +134,7 @@ def api_geo_dataset(request, dataset, window):
         "type": "FeatureCollection",
         "features": []
     }
-    if request.GET.get("all", None):
-        feature_set = dataset.geofeature_set.all()
-    else:
-        feature_set = dataset.geofeature_set.filter(geometry__bboverlaps=window.padded_polygon())
+    feature_set = dataset.geofeature_set.filter(geometry__bboverlaps=window.padded_polygon())
     for f in feature_set:
         jf = {
             "type": "Feature",
