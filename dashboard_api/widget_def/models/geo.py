@@ -212,6 +212,7 @@ class GeoDataset(models.Model):
         ds.sort_order = data["sort_order"]
         Subcategory = apps.get_app_config("widget_def").get_model("Subcategory")
         ds.subcategory = Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
+        ds.save()
         for decl in ds.geodatasetdeclaration_set.all():
             decl.delete()
         for d in data["declarations"]:
