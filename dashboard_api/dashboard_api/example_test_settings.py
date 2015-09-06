@@ -65,9 +65,5 @@ TERRIA_BASE_MAP_NAME = "Positron (Light)"
 TERRIA_CORS_DOMAINS = [ "localhost", ]
 TERRIA_API_BASE = "http://localhost:8000"
 
-# Directory for Geospatial datafile cache
-GEO_CACHE_DIR = "/home/user/src/dashboard/dashboard_api/geo_cache"
-
-
 # Allow Public access to API (for themes that are marked as not requiring auth)
 PUBLIC_API_ACCESS = True
