@@ -38,7 +38,7 @@ class GeoProperty(models.Model):
     feature = models.ForeignKey(GeoFeature)
     prop = models.ForeignKey("widget_def.GeoPropertyDefinition")
     intval = models.IntegerField(blank=True, null=True)
-    decval = models.DecimalField(max_digits=10, decimal_places=4,
+    decval = models.DecimalField(max_digits=15, decimal_places=4,
                         blank=True, null=True)
     strval = models.CharField(max_length=400, null=True, blank=True)
     dateval = models.DateField(null=True, blank=True)
@@ -55,7 +55,7 @@ class GeoProperty(models.Model):
         if self.prop.property_type == GeoPropertyDefinition.STRING:
             return self.strval
         elif self.prop.property_type == GeoPropertyDefinition.NUMERIC:
-            if self.prop.num_precision == 0:
+            if self.prop.num_precision == 0 and self.intval is not None:
                 return self.intval
             else:
                 return self.decval.quantize(decimal.Decimal(10)**(-1 * self.prop.num_precision), decimal.ROUND_HALF_UP)
@@ -80,8 +80,10 @@ class GeoProperty(models.Model):
         if self.prop.property_type == GeoPropertyDefinition.STRING:
             self.strval = unicode(value)
         elif self.prop.property_type == GeoPropertyDefinition.NUMERIC:
-            if self.prop.num_precision == 0:
-                self.intval = unicode(value)
+            self.intval = None
+            self.decval = None
+            if self.prop.num_precision == 0 and abs(value) <= 2147483647:
+                self.intval = int(value)
             else:
                 self.decval = decimal.Decimal(value)
         elif self.prop.property_type == GeoPropertyDefinition.DATE:

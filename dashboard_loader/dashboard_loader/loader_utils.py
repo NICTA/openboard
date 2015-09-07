@@ -363,14 +363,21 @@ def clear_geodataset(ds):
 def clear_rawdataset(rds):
     rds.rawdatarecord_set.all().delete()
 
-def new_geofeature(ds, geom):
+def new_geofeature(ds, geom, *args, **kwargs):
     if geom.__class__ not in ds.gdal_datatypes():
         raise LoaderException("Expected geometry type: %s Got %s" % (
                     ds.datatype(),
                     geom.__class__.__name__
                     ))
-    feat = GeoFeature(dataset=ds, geometry=geom.wkt)
+    feat = GeoFeature(dataset=ds)
+    if geom:
+        feat.geometry = geom.wkt
     feat.save()
+    (proparray, propdict) = ds.prop_array_dict()
+    for i in range(len(args)):
+        set_geoproperty(feat, proparray[i], args[i])
+    for k,v in kwargs.items():
+        set_geoproperty(feat, propdict[k], v)
     return feat
 
 def set_geoproperty(feature, prop_def, value):
@@ -383,8 +390,12 @@ def set_geoproperty(feature, prop_def, value):
         if value is None:
             return
         prop = GeoProperty(feature=feature, prop=prop_def)
-    prop.setval(value)
-    prop.save()
+    try:
+        prop.setval(value)
+        prop.save()
+    except Exception:
+        print "property: %s type: %s value: <%s>" % (prop_def.url, prop_def.property_types[prop_def.property_type], repr(value))
+        raise
     return prop
 
 def parse_date(d):

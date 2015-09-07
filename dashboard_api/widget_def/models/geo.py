@@ -87,7 +87,7 @@ class GeoDataset(models.Model):
                     (geoms.Point, geoms.MultiPoint),
                     (geoms.LineString, geoms.MultiLineString),
                     (geoms.Polygon, geoms.MultiPolygon),
-                    [], [])
+                    [None.__class__], [])
     url = models.SlugField(unique=True)
     label = models.CharField(max_length=128)
     subcategory = models.ForeignKey("Subcategory")
@@ -113,6 +113,13 @@ class GeoDataset(models.Model):
         return self.gdal_datatypes_map[self.geom_type]
     def datatype(self):
         return self.geom_types[self.geom_type]
+    def prop_array_dict(self):
+        arr = []
+        d = {}
+        for prop in self.geopropertydefinition_set.all():
+            arr.append(prop)
+            d[prop.url] = prop
+        return (arr, d)
     def __unicode__(self):
         return self.url
     def clean(self):
@@ -195,6 +202,7 @@ class GeoDataset(models.Model):
             "geom_type": self.geom_type,
             "ext_url": self.ext_url,
             "ext_type": self.ext_type,
+            "ext_extra": self.ext_extra,
             "sort_order": self.sort_order,
             "declarations": [ d.export() for d in self.geodatasetdeclaration_set.all() ],
             "properties":   [ p.export() for p in self.geopropertydefinition_set.all() ],
@@ -209,6 +217,7 @@ class GeoDataset(models.Model):
         ds.geom_type = data["geom_type"]
         ds.ext_url = data.get("ext_url")
         ds.ext_type = data.get("ext_type")
+        ds.ext_extra = data.get("ext_extra")
         ds.sort_order = data["sort_order"]
         Subcategory = apps.get_app_config("widget_def").get_model("Subcategory")
         ds.subcategory = Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
