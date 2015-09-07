@@ -82,7 +82,7 @@ class GeoProperty(models.Model):
         elif self.prop.property_type == GeoPropertyDefinition.NUMERIC:
             self.intval = None
             self.decval = None
-            if self.prop.num_precision == 0 and abs(value) <= 2147483647:
+            if self.prop.num_precision == 0 and abs(int(value)) <= 2147483647:
                 self.intval = int(value)
             else:
                 self.decval = decimal.Decimal(value)
