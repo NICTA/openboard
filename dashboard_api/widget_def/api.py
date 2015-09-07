@@ -137,7 +137,7 @@ def catalog_entry(ds, theme, location, frequency):
         get_args["format"] = "csv"
         try:
             dataprop = ds.geopropertydefinition_set.get(data_property=True)
-            entry["table_style"] = { "dataVariable": dataprop.label }
+            entry["tableStyle"] = { "dataVariable": dataprop.label }
         except GeoPropertyDefinition.DoesNotExist:
             pass
     else:
