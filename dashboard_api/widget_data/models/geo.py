@@ -32,6 +32,7 @@ class GeoFeature(models.Model):
                 out += csv_escape(prop.json_value())
             except GeoProperty.DoesNotExist:
                 pass
+        out += "\n"
         return out
 
 class GeoProperty(models.Model):
