@@ -145,8 +145,6 @@ def catalog_entry(ds, theme, location, frequency):
         get_args["format"] = "json"
     base_url = reverse('get_map_data', args=(ds.url,))
     url = settings.TERRIA_API_BASE + base_url + "?" + "&".join([ "%s=%s" % (k,v) for (k,v) in get_args.items() ])
-    if nofilter:
-        url += "&all=true"
     entry["url"] = url
     return entry
 
