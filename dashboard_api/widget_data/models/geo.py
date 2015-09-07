@@ -8,7 +8,7 @@ from widget_def.view_utils import csv_escape
 
 class GeoFeature(models.Model):
     dataset = models.ForeignKey("widget_def.GeoDataset")
-    geometry = models.GeometryField()
+    geometry = models.GeometryField(null=True, blank=True)
     objects = models.GeoManager()
     last_updated = models.DateTimeField(auto_now=True)
     def csv(self):
