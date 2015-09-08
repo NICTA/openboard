@@ -81,7 +81,7 @@ def api_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return json_list(request, [], set_p3p=True)
+                return json_list(request, request.session.session_key, set_p3p=True)
             else:
                 return HttpResponseForbidden("User is inactive")
         else:
