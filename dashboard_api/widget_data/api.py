@@ -1,8 +1,10 @@
 import json
 import decimal
 
+from django.conf import settings
 from django.db.models import Max, Min
 from django.http import HttpResponse, HttpResponseNotFound
+
 from widget_data.models import GeoProperty
 from widget_def.models import *
 from widget_def.view_utils import update_maxmin, json_list
@@ -175,6 +177,9 @@ def api_geo_dataset(request, dataset, window):
             try:
                 prop = f.geoproperty_set.get(prop=data_prop)
                 jf["properties"]["fill"] = "#" + colour_tab.rgb_html(decimal.Decimal(prop.value()))
+                jf["properties"]["stroke"] = "#101010"
+                jf["properties"]["stroke-width"] = 2
+                jf["properties"]["fill-opacity"] = settings.TERRIA_LAYER_OPACITY
             except GeoProperty.DoesNotExist:
                 pass
         out["features"].append(jf)
