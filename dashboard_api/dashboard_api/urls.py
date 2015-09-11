@@ -33,10 +33,13 @@ urlpatterns = patterns('',
     # API Map data view
     url(r'^map/(?P<geo_dataset_url>[^/]+)/$', 'widget_data.views.get_map_data', name='get_map_data'),
     # Terria/National Map initialisation json
-    url(r'^terria_init/(?P<theme_url>[^/]+)/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/init.json',
+    url(r'^terria_init/(?P<theme_url>[^/]+)/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/(?P<shown_urls>.+)/init.json$',
                         'widget_def.views.get_terria_init',
                         name='get_terria_init'),
-    url(r'^terria_init/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/init.json',
+    url(r'^terria_init/(?P<theme_url>[^/]+)/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/init.json$',
+                        'widget_def.views.get_terria_init',
+                        name='get_terria_init'),
+    url(r'^terria_init/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/init.json$',
                         'widget_def.views.get_terria_init',
                         name='get_terria_init'),
 )

@@ -1,6 +1,9 @@
 import json
+import decimal
 
+from django.db.models import Max, Min
 from django.http import HttpResponse, HttpResponseNotFound
+from widget_data.models import GeoProperty
 from widget_def.models import *
 from widget_def.view_utils import update_maxmin, json_list
 
@@ -135,6 +138,32 @@ def api_geo_dataset(request, dataset, window):
         "features": []
     }
     feature_set = dataset.geofeature_set.filter(geometry__bboverlaps=window.padded_polygon())
+    if dataset.colour_map:
+        try:
+            data_prop = dataset.geopropertydefinition_set.get(data_property=True)
+            aggs = GeoProperty.objects.filter(feature__dataset=dataset, prop=data_prop).aggregate(Min("intval"), Max("intval"), Min("decval"), Max("decval"))
+            intmin = aggs["intval__min"]
+            intmax = aggs["intval__max"]
+            decmin = aggs["decval__min"]
+            decmax = aggs["decval__max"]
+            if intmin is not None:
+                if decmin is None:
+                    decmin = decimal.Decimal(intmin)
+                elif decmin > decimal.Decimal(intmin): 
+                    decmin = decimal.Decimal(intmin)
+            if intmax is not None:
+                if decmax is None:
+                    decmax = decimal.Decimal(intmax)
+                elif decmax < decimal.Decimal(intmax):
+                    decmax = decimal.Decimal(intmax)
+            if decmin is None:
+                data_prop = None
+            else:
+                colour_tab = dataset.colour_map.table(decmin, decmax)
+        except GeoPropertyDefinition.DoesNotExist:
+            data_prop = None
+    else:
+        data_prop = None
     for f in feature_set:
         jf = {
             "type": "Feature",
@@ -142,6 +171,12 @@ def api_geo_dataset(request, dataset, window):
             "properties": { prop.heading(headings=="url") : prop.json_value() 
                                         for prop in f.geoproperty_set.all() }
         }
+        if data_prop:
+            try:
+                prop = f.geoproperty_set.get(prop=data_prop)
+                jf["properties"]["fill"] = "#" + colour_tab.rgb_html(decimal.Decimal(prop.value()))
+            except GeoProperty.DoesNotExist:
+                pass
         out["features"].append(jf)
     return json_list(request, out)
 

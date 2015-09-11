@@ -1,4 +1,5 @@
 import json
+import decimal
 
 from django.apps import apps
 
@@ -6,6 +7,7 @@ from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point, Polygon
 import django.contrib.gis.gdal.geometries as geoms
 
+from dashboard_api.validators import validate_html_colour
 from widget_def.view_utils import csv_escape, max_with_nulls
 from widget_def.models import TileDefinition, Location, Theme, Frequency
 from widget_data.models import GeoFeature, GeoProperty
@@ -67,6 +69,135 @@ class GeoWindow(models.Model):
         win.save()
         return win
 
+class ColourScaleTable(object):
+    class Entry(object):
+        def __init__(self, mini, maxi, min_rgber, max_rgber):
+            self.min = mini
+            self.max = maxi
+            (self.min_r, self.min_g, self.min_b) = min_rgber.rgb()
+            (self.max_r, self.max_g, self.max_b) = max_rgber.rgb()
+    def __init__(self, gcs, mini=None, maxi=None):
+        self._table = []
+        if gcs.autoscale:
+            if mini is None or maxi is None:
+                raise Exception("Must provide min and max values for autoscaling table")
+            first_p = gcs.geocolourpoint_set.all()[0]
+            last_p  = gcs.geocolourpoint_set.order_by('-value')[0]
+            if mini == maxi:
+                # Degenerate case
+                self.add_entry(mini, mini, first_p, first_p)
+                return
+            prev_p = None
+            for p in gcs.geocolourpoint_set.all():
+                if prev_p is not None:
+                    self.add_entry(
+                            (prev_p.value - first_p.value)/(last_p.value - first_p.value)*(maxi-mini) + mini,
+                            (p.value - first_p.value)/(last_p.value - first_p.value)*(maxi-mini) + mini,
+                            prev_p, p)
+                prev_p = p
+        else:
+            # Manual scaling: ignore mini and maxi
+            prev_p = None
+            for p in gcs.geocolourpoint_set.all():
+                if prev_p is None:
+                    # Less than manual range
+                    self.add_entry(None, p.value, p, p)
+                else:
+                    self.add_entry(prev_p.value, p.value, prev_p, p)
+                prev_p = p
+            if prev_p:
+                # Greater than manual range
+                    self.add_entry(prev_p.value, None, prev_p, prev_p)
+    def add_entry(self, mini, maxi, min_rgber, max_rgber):
+        self._table.append(self.Entry(mini, maxi, min_rgber, max_rgber))
+    def find_range(self, value):
+        for e in self._table:
+            if e.min is None:
+                if value <= e.max:
+                    return e
+            elif e.max is None:
+                if value >= e.min:
+                    return e
+            elif value >= e.min and value <= e.max:
+                return e
+        raise Exception("Colour scale out of range error: %s" % unicode(value))
+    def rgb(self, value):
+        r = self.find_range(value)
+        if r.min is None or r.max is None:
+            return (r.min_r, r.min_g, r.min_b)
+        return (
+                int((value - r.min)/(r.max-r.min)*(r.max_r-r.min_r) + r.min_r),
+                int((value - r.min)/(r.max-r.min)*(r.max_g-r.min_g) + r.min_g),
+                int((value - r.min)/(r.max-r.min)*(r.max_b-r.min_b) + r.min_b),
+        )
+    def rgb_html(self, value):
+        rgb = self.rgb(value)
+        return "%02X%02X%02X" % rgb
+
+class GeoColourScale(models.Model):
+    url=models.SlugField(unique=True)
+    autoscale=models.BooleanField(default=True)
+    def table(self, mini=None, maxi=None):
+        return ColourScaleTable(self, mini, maxi)
+    def export(self):
+        return {
+            "url": self.url,
+            "autoscale": self.autoscale,
+            "points": [ p.export() for p in self.geocolourpoint_set.all() ]
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            scale = cls.objects.get(url=data["url"])
+        except cls.DoesNotExist:
+            scale = cls(url=data["url"])
+        scale.autoscale = data["autoscale"]
+        scale.save()
+        scale.geocolourpoint_set.delete()
+        for p in data["points"]:
+            GeoColourPoint.import_data(scale, p)
+        return scale
+    def __unicode__(self):
+        return self.url
+
+class GeoColourPoint(models.Model):
+    scale=models.ForeignKey(GeoColourScale)
+    value=models.DecimalField(max_digits=15, decimal_places=4)
+    colour=models.CharField(max_length=6, validators=[validate_html_colour])
+    def rgb(self):
+        if len(self.colour) == 3:
+            return (int(self.colour[0], base=16),
+                    int(self.colour[1], base=16),
+                    int(self.colour[2], base=16),
+            )
+        else:
+            return (int(self.colour[0:2], base=16),
+                    int(self.colour[2:4], base=16),
+                    int(self.colour[4:6], base=16),
+            )
+    def red(self):
+        return self.rgb()[0]
+    def green(self):
+        return self.rgb()[1]
+    def blue(self):
+        return self.rgb()[2]
+    def export(self):
+        data = { "colour": self.colour }
+        if self.value == self.value.to_integral_value():
+            data["value"] = int(self.value)
+        else:
+            data["value"] = float(self.value)
+        return data
+    @classmethod
+    def import_data(cls, scale, data):
+        p = cls(scale=scale, colour=data["colour"])
+        p.value = decimal.Decimal(data["value"]).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)
+        p.save()
+        return p
+    class Meta:
+        unique_together=[('scale', 'value')]
+        ordering=('scale', 'value')
+
 class GeoDataset(models.Model): 
     _lud_cache = None
     POINT = 1
@@ -104,6 +235,7 @@ class GeoDataset(models.Model):
     ext_url = models.URLField(null=True, blank=True, help_text="For External GeoDatasets only")
     ext_type = models.CharField(max_length=80, blank=True, null=True, help_text="For External GeoDatasets only - used as 'type' field in Terria catalog.")
     ext_extra = models.CharField(max_length=256, blank=True, null=True, help_text="For External Datasets only - optional extra json for the Terria catalog.  Should be a valid json object if set")
+    colour_map = models.ForeignKey(GeoColourScale, null=True, blank=True)
     sort_order = models.IntegerField()
     def is_external(self):
         return self.geom_type == self.EXTERNAL

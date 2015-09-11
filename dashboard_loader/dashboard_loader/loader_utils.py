@@ -451,11 +451,11 @@ def parse_datetime(dt):
     except ValueError:
         raise LoaderException("Not a valid date string: %s" % repr(dt))
 
-def geo_upload(uploader, filename, url, verbosity=0):
+def geo_upload(uploader, filename, url, verbosity=0, **kwargs):
     _tmp = __import__(uploader + ".geoloader", globals(), locals(), ["load_geodata",], -1)
     load_geodata = _tmp.load_geodata
     try:
-        messages = load_geodata(filename, url, verbosity)
+        messages = load_geodata(filename, url, verbosity, **kwargs)
         if verbosity > 0:
             messages.append("Geo-data loaded by %s" % uploader)
         return messages

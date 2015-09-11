@@ -69,7 +69,7 @@ def api_get_map_layers(theme, location, frequency, hierarchical=False):
         "menu": menu,
     }
 
-def api_get_terria_init(theme,location,frequency):
+def api_get_terria_init(theme,location,frequency, shown=[]):
     init =  {
         "catalog": [{
                     "name": settings.TERRIA_TOP_LEVEL_MENU,
@@ -100,7 +100,7 @@ def api_get_terria_init(theme,location,frequency):
                                             frequency=frequency,
                                             dataset__subcategory=sub)
             for decl in decls:
-                sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency))
+                sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency, shown))
             if len(sm["items"]) > 0:
                 cm["items"].append(sm)
         cm_len = len(cm["items"])
@@ -114,12 +114,14 @@ def api_get_terria_init(theme,location,frequency):
         raise Http404("No map datasets defined for this view")
     return init
 
-def catalog_entry(ds, theme, location, frequency):
+def catalog_entry(ds, theme, location, frequency, shown=[]):
     use_csv = ds.terria_prefer_csv()
     entry = {
         "name": ds.label,
         "opacity": settings.TERRIA_LAYER_OPACITY,
     }
+    if ds.url in shown:
+        entry["isShown"] = True
     if ds.is_external():
         entry["url"] = ds.ext_url
         entry["type"] = ds.ext_type

@@ -55,7 +55,7 @@ def get_map_layers(request):
         hierarchical = True
     return json_list(request, api_get_map_layers(theme, location, frequency, hierarchical))
 
-def get_terria_init(request, location_url, frequency_url, theme_url=""):
+def get_terria_init(request, location_url, frequency_url, theme_url="", shown_urls=""):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     theme = get_theme_from_url(request, theme_url, use_default=True)
@@ -65,7 +65,11 @@ def get_terria_init(request, location_url, frequency_url, theme_url=""):
     if not location.geo_window:
         return HttpResponseNotFound("No Geo-window defined for location %s" % location_url)
     frequency = get_frequency_from_url(frequency_url)
-    return json_list(request, api_get_terria_init(theme, location, frequency))
+    if shown_urls:
+        shown = shown_urls.split("/")
+    else:
+        shown = []
+    return json_list(request, api_get_terria_init(theme, location, frequency, shown))
 
 # Authentication views
 

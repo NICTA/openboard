@@ -202,6 +202,17 @@ class GeoWindowAdmin(admin.GeoModelAdmin):
 
 admin.site.register(GeoWindow, GeoWindowAdmin)
 
+class GeoColourPointInline(admin.StackedInline):
+    model = GeoColourPoint
+    extra = 2
+
+# @admin.register(GeoColourScale)
+class GeoColourScaleAdmin(admin.ModelAdmin):
+    inlines = [GeoColourPointInline,]
+    list_display = ('url',)
+
+admin.site.register(GeoColourScale, GeoColourScaleAdmin)
+
 class GeoPropertyInline(admin.StackedInline):
     model=GeoPropertyDefinition
     extra=2
