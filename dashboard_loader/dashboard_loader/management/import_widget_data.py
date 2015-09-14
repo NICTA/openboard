@@ -23,7 +23,7 @@ def import_widget_data(data):
                 stat = Statistic.objects.get(tile__widget=wd,
                                 url=surl)
             except Statistic.DoesNotExist:
-                raise ImportExportException("Statistic %d for widget %s (%s,%s) does not exist" % (
+                raise ImportExportException("Statistic %s for widget %s (%s,%s) does not exist" % (
                                 surl,
                                 data["family"], 
                                 w["actual_location"],
