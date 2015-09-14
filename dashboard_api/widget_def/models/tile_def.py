@@ -146,7 +146,7 @@ class TileDefinition(models.Model):
         t.sort_order = data["sort_order"]
         GeoWindow = apps.get_app_config("widget_def").get_model("GeoWindow")
         GeoDataset = apps.get_app_config("widget_def").get_model("GeoDataset")
-        if "geo_window" in data:
+        if data.get("geo_window"):
             t.geo_window = GeoWindow.objects.get(name=data["geo_window"])
         else:
             t.geo_window = None
