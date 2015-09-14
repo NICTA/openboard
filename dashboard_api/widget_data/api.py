@@ -176,10 +176,17 @@ def api_geo_dataset(request, dataset, window):
         if data_prop:
             try:
                 prop = f.geoproperty_set.get(prop=data_prop)
-                jf["properties"]["fill"] = "#" + colour_tab.rgb_html(decimal.Decimal(prop.value()))
-                jf["properties"]["stroke"] = "#101010"
-                jf["properties"]["stroke-width"] = 2
-                jf["properties"]["fill-opacity"] = settings.TERRIA_LAYER_OPACITY
+                if dataset.geom_type in (dataset.POLYGON, dataset.MULTIPOLYGON):
+                    jf["properties"]["stroke"] = "#101010"
+                    jf["properties"]["fill"] = "#" + colour_tab.rgb_html(decimal.Decimal(prop.value()))
+                    jf["properties"]["stroke-width"] = 2
+                    jf["properties"]["fill-opacity"] = settings.TERRIA_LAYER_OPACITY
+                elif dataset.geom_type in (dataset.LINE, dataset.MULTILINE):
+                    jf["properties"]["stroke"] = "#" + colour_tab.rgb_html(decimal.Decimal(prop.value()))
+                    jf["properties"]["stroke-width"] = 2
+                    jf["properties"]["stroke-opacity"] = settings.TERRIA_LAYER_OPACITY
+                elif dataset.geom_type in (dataset.POINT, dataset.MULTIPOINT):
+                    jf["properties"]["marker-color"] = "#" + colour_tab.rgb_html(decimal.Decimal(prop.value()))
             except GeoProperty.DoesNotExist:
                 pass
         out["features"].append(jf)
