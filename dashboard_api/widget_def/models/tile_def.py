@@ -188,7 +188,8 @@ class TileDefinition(models.Model):
             self.template = None
         if self.tile_type != self.MAP:
             self.geo_window = None
-            self.geo_datasets.clear()
+            if self.id:
+                self.geo_datasets.clear()
     def validate(self):
         """Validate Tile Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         self.clean()
