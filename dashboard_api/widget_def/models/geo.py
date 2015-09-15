@@ -265,7 +265,7 @@ class GeoDataset(models.Model):
     def colour_table(self):
         if self.colour_map:
             try:
-                data_prop = self.geopropertydefinition_set..get(data_property=True)
+                data_prop = self.geopropertydefinition_set.get(data_property=True)
                 aggs = GeoProperty.objects.filter(feature__dataset=dataset, prop=data_prop).aggregate(Min("intval"), Max("intval"), Min("decval"), Max("decval"))
                 intmin = aggs["intval__min"]
                 intmax = aggs["intval__max"]
