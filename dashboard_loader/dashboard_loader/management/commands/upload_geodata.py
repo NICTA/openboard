@@ -13,6 +13,10 @@ class Command(BaseCommand):
                     action="store", type=float, metavar="TOLERANCE",
                     default=None, dest="simplify",
                     help="Simplify geometries to the specified tolerance. Not supported by all uploaders.")
+        parser.add_argument("-i", "--srid",
+                    action="store", type=int, metavar="SRID",
+                    default=None, dest="srid",
+                    help="Convert all coordinates from the specified SRID to SRID 4283 (GDA94).  Not supported by all uploaders.")
         parser.add_argument("uploader", type=unicode)
         parser.add_argument("url", type=unicode)
         parser.add_argument("filename", nargs="?", type=unicode, default=None)
