@@ -103,7 +103,7 @@ def set_statistic_data(widget_url,
     data.icon_code = ic
     if stat.is_numeric():
         if stat.num_precision == 0:
-            data.intval = value
+            data.intval = value + 0.5
         else:
             data.decval = value
     else:
@@ -437,7 +437,8 @@ def parse_datetime(dt):
         return tz.localize(datetime.datetime.combine(dt, datetime.time()))
     for fmt in ("%Y-%m-%dT%H:%M:%S",
                 "%Y-%m-%d",
-                "%Y"
+                "%Y",
+                "%d %b %Y %H:%M:%S",
             ):
         try:
             dt = datetime.datetime.strptime(dt, fmt)
