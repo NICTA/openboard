@@ -1,9 +1,11 @@
 from django.http import Http404
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.db.models import Min, Max
 
 from widget_def.models import *
 from widget_def.view_utils import *
+from widget_data.models import GeoProperty
 
 def api_get_themes(user):
     if user.is_authenticated():
@@ -140,6 +142,13 @@ def catalog_entry(ds, theme, location, frequency, shown=[]):
         try:
             dataprop = ds.geopropertydefinition_set.get(data_property=True)
             entry["tableStyle"] = { "dataVariable": dataprop.label }
+            tab = ds.colour_table()
+            if tab:
+                entry["tableStyle"]["minDisplayValue"] = tab.min
+                entry["tableStyle"]["maxDisplayValue"] = tab.max
+                tcm = []
+                for GROKGROK
+                entry["tableStyle"]["colorMap"] = tab.max
         except GeoPropertyDefinition.DoesNotExist:
             pass
     else:

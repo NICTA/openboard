@@ -78,6 +78,8 @@ class ColourScaleTable(object):
             (self.max_r, self.max_g, self.max_b) = max_rgber.rgb()
     def __init__(self, gcs, mini=None, maxi=None):
         self._table = []
+        self.min = None
+        self.max = None
         if gcs.autoscale:
             if mini is None or maxi is None:
                 raise Exception("Must provide min and max values for autoscaling table")
@@ -95,6 +97,8 @@ class ColourScaleTable(object):
                             (p.value - first_p.value)/(last_p.value - first_p.value)*(maxi-mini) + mini,
                             prev_p, p)
                 prev_p = p
+            self.min = mini
+            self.max = maxi
         else:
             # Manual scaling: ignore mini and maxi
             prev_p = None
@@ -108,6 +112,27 @@ class ColourScaleTable(object):
             if prev_p:
                 # Greater than manual range
                     self.add_entry(prev_p.value, None, prev_p, prev_p)
+    def terria_map(self):
+        tab = []
+        done = False
+        for e in self._table:
+            if e.min and e.max:
+                tab.append({
+                        "offset": e.min,
+                        "color": "rgba(%d,%d,%d,1.00)" %  (e.min_r, e.min_g, e.min_b),
+                        })
+            elif not e.max:
+                tab.append({
+                        "offset": e.min,
+                        "color": "rgba(%d,%d,%d,1.00)" %  (e.min_r, e.min_g, e.min_b),
+                        })
+                done = True
+        if not done:
+            tab.append({
+                    "offset": e.max,
+                    "color": "rgba(%d,%d,%d,1.00)" %  (e.max_r, e.max_g, e.max_b),
+                    })
+        return tab
     def add_entry(self, mini, maxi, min_rgber, max_rgber):
         self._table.append(self.Entry(mini, maxi, min_rgber, max_rgber))
     def find_range(self, value):
@@ -237,6 +262,33 @@ class GeoDataset(models.Model):
     ext_extra = models.CharField(max_length=256, blank=True, null=True, help_text="For External Datasets only - optional extra json for the Terria catalog.  Should be a valid json object if set")
     colour_map = models.ForeignKey(GeoColourScale, null=True, blank=True)
     sort_order = models.IntegerField()
+    def colour_table(self):
+        if self.colour_map:
+            try:
+                data_prop = self.geopropertydefinition_set..get(data_property=True)
+                aggs = GeoProperty.objects.filter(feature__dataset=dataset, prop=data_prop).aggregate(Min("intval"), Max("intval"), Min("decval"), Max("decval"))
+                intmin = aggs["intval__min"]
+                intmax = aggs["intval__max"]
+                decmin = aggs["decval__min"]
+                decmax = aggs["decval__max"]
+                if intmin is not None:
+                    if decmin is None:
+                        decmin = decimal.Decimal(intmin)
+                    elif decmin > decimal.Decimal(intmin): 
+                        decmin = decimal.Decimal(intmin)
+                if intmax is not None:
+                    if decmax is None:
+                        decmax = decimal.Decimal(intmax)
+                    elif decmax < decimal.Decimal(intmax):
+                        decmax = decimal.Decimal(intmax)
+                if decmin is None:
+                    data_prop = None
+                else:
+                    return dataset.colour_map.table(decmin, decmax)
+            except models.ObjectNotFoundException:
+                return None
+        else:
+            return None
     def is_external(self):
         return self.geom_type == self.EXTERNAL
     def terria_prefer_csv(self):
