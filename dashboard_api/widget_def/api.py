@@ -146,7 +146,7 @@ def catalog_entry(ds, theme, location, frequency, shown=[]):
             if tab:
                 entry["tableStyle"]["minDisplayValue"] = tab.min
                 entry["tableStyle"]["maxDisplayValue"] = tab.max
-                entry["tableStyle"]["colorMap"] = ds.terria_map()
+                entry["tableStyle"]["colorMap"] = ds.colour_table().terria_map()
         except GeoPropertyDefinition.DoesNotExist:
             pass
     else:

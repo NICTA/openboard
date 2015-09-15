@@ -76,6 +76,14 @@ class ColourScaleTable(object):
             self.max = maxi
             (self.min_r, self.min_g, self.min_b) = min_rgber.rgb()
             (self.max_r, self.max_g, self.max_b) = max_rgber.rgb()
+        def __unicode__(self):
+            return "(%s, %s): (%d, %d, %d)->(%d, %d, %d)" % (
+                        unicode(self.min),
+                        unicode(self.max),
+                        self.min_r, self.min_g, self.min_b,
+                        self.max_r, self.max_g, self.max_b)
+        def __repr__(self):
+            return "Entry %s" % unicode(self)
     def __init__(self, gcs, mini=None, maxi=None):
         self._table = []
         self.min = None
@@ -116,12 +124,12 @@ class ColourScaleTable(object):
         tab = []
         done = False
         for e in self._table:
-            if e.min and e.max:
+            if e.min is not None and e.max is not None :
                 tab.append({
                         "offset": e.min,
                         "color": "rgba(%d,%d,%d,1.00)" %  (e.min_r, e.min_g, e.min_b),
                         })
-            elif not e.max:
+            elif e.max is None:
                 tab.append({
                         "offset": e.min,
                         "color": "rgba(%d,%d,%d,1.00)" %  (e.min_r, e.min_g, e.min_b),
@@ -266,7 +274,7 @@ class GeoDataset(models.Model):
         if self.colour_map:
             try:
                 data_prop = self.geopropertydefinition_set.get(data_property=True)
-                aggs = GeoProperty.objects.filter(feature__dataset=dataset, prop=data_prop).aggregate(Min("intval"), Max("intval"), Min("decval"), Max("decval"))
+                aggs = GeoProperty.objects.filter(feature__dataset=self, prop=data_prop).aggregate(models.Min("intval"), models.Max("intval"), models.Min("decval"), models.Max("decval"))
                 intmin = aggs["intval__min"]
                 intmax = aggs["intval__max"]
                 decmin = aggs["decval__min"]
@@ -284,8 +292,8 @@ class GeoDataset(models.Model):
                 if decmin is None:
                     data_prop = None
                 else:
-                    return dataset.colour_map.table(decmin, decmax)
-            except models.ObjectNotFoundException:
+                    return self.colour_map.table(decmin, decmax)
+            except models.ObjectDoesNotExist:
                 return None
         else:
             return None
