@@ -452,6 +452,7 @@ def parse_datetime(dt):
     except ValueError:
         raise LoaderException("Not a valid date string: %s" % repr(dt))
 
+# Not used - only one geo-uploader is required and it is accessed directly.
 def geo_upload(uploader, filename, url, verbosity=0, **kwargs):
     _tmp = __import__(uploader + ".geoloader", globals(), locals(), ["load_geodata",], -1)
     load_geodata = _tmp.load_geodata

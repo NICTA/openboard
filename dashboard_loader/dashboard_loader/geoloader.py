@@ -5,22 +5,32 @@ from django.contrib.gis.geos import GEOSGeometry
 from dashboard_loader.loader_utils import *
 from widget_def.models import GeoDataset
 
+
 gda94_srid = 4283
 gda94 = SpatialReference(gda94_srid)
 
-def load_geodata(filename, url, verbosity=0, **kwargs):
-    return call_in_transaction(load_geodata_impl, filename, url, verbosity, **kwargs)
+def load_geodata(filename, url, **kwargs):
+    return call_in_transaction(load_geodata_impl, filename, url, **kwargs)
 
-def load_geodata_impl(filename, url, verbosity=0, simplify=None, 
-                        dummy_data=None, **kwargs):
+def load_geodata_impl(filename, url, verbosity=0, 
+            simplify=None, dummy_data=None, srid=None, layer_num=0,
+            capitalise_properties=False,
+            **kwargs):
     messages = []
     ds = get_geodataset(url)
     gdal_ds = DataSource(filename)
-    layer = gdal_ds[0]
-    if layer.srs.srid != gda94_srid:
-        xform = CoordTransform(layer.srs, gda94)
+    layer = gdal_ds[layer_num]
+    if srid:
+        if srid != gda94_srid:
+            source_ref = SpatialReference(srid)
+            xform = CoordTransform(source_ref, gda94)
+        else:
+            xform = None
     else:
-        xform = None
+        if layer.srs.srid != gda94_srid:
+            xform = CoordTransform(layer.srs, gda94)
+        else:
+            xform = None
     clear_geodataset(ds)
     features = 0
     total_raw_coords = 0
@@ -46,15 +56,16 @@ def load_geodata_impl(filename, url, verbosity=0, simplify=None,
         for prop in ds.geopropertydefinition_set.all():
             if prop.url == dummy_data:
                 set_geoproperty(f, prop, random.randrange(0,101))
-            else:    
+            elif capitalise_properties:    
                 set_geoproperty(f, prop, feature.get(prop.url.upper()))
-        features +=1
+            else:    
+                set_geoproperty(f, prop, feature.get(prop.url))
+        features += 1
     if verbosity > 0:
         messages.append("%d features loaded" % features)
     if verbosity > 1 and simplify is not None:
         messages.append("%d coordinates simplified to %d coordinates" % (
                                     total_raw_coords,
                                     total_simp_coords))
-
     return messages
 
