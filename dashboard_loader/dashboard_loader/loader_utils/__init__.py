@@ -4,4 +4,5 @@ from graph import get_graph, clear_graph_data, add_graph_data
 from raw import get_rawdataset, clear_rawdataset, add_rawdatarecord
 from geo import get_geodataset, clear_geodataset, new_geofeature, set_geoproperty
 from datetime_parsers import parse_date, parse_time, parse_datetime
+from rss import load_rss
 
