@@ -224,7 +224,7 @@ class GeoColourPoint(models.Model):
     @classmethod
     def import_data(cls, scale, data):
         p = cls(scale=scale, colour=data["colour"])
-        p.value = decimal.Decimal(data["value"]).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)
+        p.value = decimal.Decimal("%.4f" % data["value"])
         p.save()
         return p
     class Meta:

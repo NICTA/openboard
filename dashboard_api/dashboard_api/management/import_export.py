@@ -40,6 +40,14 @@ def export_trafficlightscale(scale):
             raise ImportExportException("TrafficLightScale %s does not exist" % scale)
     return scale.export()
 
+def export_trafficlightstrategy(strategy):
+    if not isinstance(strategy, TrafficLightAutoStrategy):
+        try:
+            scale = TrafficLightAutoStrategy.objects.get(url=strategy)
+        except TrafficLightAutoStrategy.DoesNotExist:
+            raise ImportExportException("TrafficLightAutoStrategy %s does not exist" % strategy)
+    return strategy.export()
+
 def export_iconlibrary(library):
     if not isinstance(library, IconLibrary):
         try:
@@ -87,6 +95,8 @@ def export_categories():
     return Category().export_all()
             
 def import_class(data):
+    if data.get("rules"):
+        return TrafficLightAutoStrategy
     if data.get("autoscale"):
         return GeoColourScale
     elif data.get("geom_type"):

@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from dashboard_api.management.import_export import ImportExportException, export_trafficlightscale
 
 class Command(BaseCommand):
-    args="<library_name>"
+    args="<scale_name>"
     help = "Export named Traffic Light Scale to stdout"
 
     def handle(self, *args, **options):

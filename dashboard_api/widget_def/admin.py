@@ -42,6 +42,32 @@ class TrafficLightScaleAdmin(admin.ModelAdmin):
 
 admin.site.register(TrafficLightScale, TrafficLightScaleAdmin)
 
+class TrafficLightAutoRuleAdminInline(admin.TabularInline):
+    model = TrafficLightAutoRule
+    extra = 2
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if len(request.resolver_match.args) == 1:
+            strategy = TrafficLightAutoStrategy.objects.get(id=int(request.resolver_match.args[0]))
+            if db_field.name == "code":
+                kwargs["queryset"] = strategy.scale.trafficlightscalecode_set.all()
+        return super(TrafficLightAutoRuleAdminInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+class TrafficLightAutoStrategyAdmin(admin.ModelAdmin):
+    list_display = ("label", "url", "scale")
+    inlines = [ TrafficLightAutoRuleAdminInline ]
+    actions = ['validate']
+    def validate(self, request, queryset):
+        problems = []
+        for s in queryset:
+            problems.extend(s.validate())
+        if not problems:
+            self.message_user(request, "Traffic Light Strategies validated OK")
+        for problem in problems:
+            self.message_user(request, problem, level=messages.ERROR)
+    validate.short_description = "Check Traffic Light Auto Strategies for errors"
+
+admin.site.register(TrafficLightAutoStrategy, TrafficLightAutoStrategyAdmin)
+
 class IconCodeAdminInline(admin.TabularInline):
     model = IconCode
 
