@@ -53,7 +53,7 @@ class TrafficLightAutoRuleAdminInline(admin.TabularInline):
         return super(TrafficLightAutoRuleAdminInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class TrafficLightAutoStrategyAdmin(admin.ModelAdmin):
-    list_display = ("label", "url", "scale")
+    list_display = ("url", "scale")
     inlines = [ TrafficLightAutoRuleAdminInline ]
     actions = ['validate']
     def validate(self, request, queryset):
@@ -67,6 +67,21 @@ class TrafficLightAutoStrategyAdmin(admin.ModelAdmin):
     validate.short_description = "Check Traffic Light Auto Strategies for errors"
 
 admin.site.register(TrafficLightAutoStrategy, TrafficLightAutoStrategyAdmin)
+
+class TrafficLightAutomationAdmin(admin.ModelAdmin):
+    list_display = ("url", "strategy")
+    actions = ["validate"]
+    def validate(self, request, queryset):
+        problems = []
+        for s in queryset:
+            problems.extend(s.validate())
+        if not problems:
+            self.message_user(request, "Traffic Light Automations validated OK")
+        for problem in problems:
+            self.message_user(request, problem, level=messages.ERROR)
+    validate.short_description = "Check Traffic Light Automations for errors"
+
+admin.site.register(TrafficLightAutomation, TrafficLightAutomationAdmin)
 
 class IconCodeAdminInline(admin.TabularInline):
     model = IconCode
@@ -116,7 +131,7 @@ class StatisticInline(admin.StackedInline):
     extra = 2
     fieldsets = (
             (None, {
-                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'icon_library', 'trend', 'rotates', 'hyperlinkable', 'numbered_list', 'footer', 'editable', 'sort_order'),
+                'fields': ('name', 'name_as_label', 'url', 'stat_type', 'traffic_light_scale', 'traffic_light_automation', 'icon_library', 'trend', 'rotates', 'hyperlinkable', 'numbered_list', 'footer', 'editable', 'sort_order'),
             }),
             ('Numeric', {
                 'fields': ('num_precision', 'unit_prefix', 'unit_si_prefix_rounding', 'unit_suffix', 'unit_underfix', 'unit_signed'),

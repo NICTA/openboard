@@ -1,4 +1,5 @@
 import decimal
+from django.apps import apps
 from django.db import models
 
 # Create your models here.
@@ -143,7 +144,6 @@ class TrafficLightAutoStrategy(models.Model):
     RELATIVE = 1
     ABSOLUTE = 2
     MAP = 3
-    label = models.CharField(max_length=128, unique=True)
     url = models.SlugField(unique=True)
     strategy_types = [ "-", "relative", "absolute", "map" ]
     scale = models.ForeignKey(TrafficLightScale)
@@ -155,10 +155,9 @@ class TrafficLightAutoStrategy(models.Model):
     def rules(self):
         return self.trafficlightautorule_set
     def __unicode__(self):
-        return self.label
+        return self.url
     def export(self):
         return {
-            "label": self.label,
             "url": self.url,
             "type": self.strategy_type,
             "scale": self.scale.name,
@@ -170,11 +169,10 @@ class TrafficLightAutoStrategy(models.Model):
             tlas = cls.objects.get(url=data["url"])
         except cls.DoesNotExist:
             tlas = cls(url=data["url"])
-        tlas.label = data["label"]
-        tlas.strategy_type = data["strategy_type"]
+        tlas.strategy_type = data["type"]
         tlas.scale = TrafficLightScale.objects.get(name=data["scale"])
         tlas.save()
-        tlas.traffic.rules().all().delete()
+        tlas.rules().all().delete()
         for r in data["rules"]:
             TrafficLightAutoRule.import_data(tlas, r)
         return tlas
@@ -185,16 +183,12 @@ class TrafficLightAutoStrategy(models.Model):
         try:
             d = self.rules().get(default_val=True)
         except TrafficLightAutoRule.DoesNotExist:
-            if self.strategy_type != self.MAP:
-                problems.append("Non-map Traffic Light Auto-Strategy %s does not have a default value" % self.url)
+            problems.append("Non-map Traffic Light Auto-Strategy %s does not have a default value" % self.url)
         except TrafficLightAutoRule.MultipleObjectsReturned:
             problems.append("Traffic Light Auto-Strategy %s has multiple default values" % self.url)
-        for code in self.scale.trafficlightscalecode_set.all():
-            if self.rules().filter(code=code).count() == 0:
-                problems.append("Traffic Light Auto-Strategy %s has no rule for code %s" % (self.url, code.value))
         return problems
     class Meta:
-        ordering=("label",)
+        ordering=("url",)
 
 class TrafficLightAutoRule(models.Model):
     strategy=models.ForeignKey(TrafficLightAutoStrategy)
@@ -222,7 +216,7 @@ class TrafficLightAutoRule(models.Model):
         r.default_val = data["is_default"]
         if data["min_val"] is not None:
             r.min_val = decimal.Decimal("%.4f" % data["min_val"])
-        r.code = TrafficLightScaleCode.get(scale=strategy.scale, value=data["code"])
+        r.code = TrafficLightScaleCode.objects.get(scale=strategy.scale, value=data["code"])
         r.save()
         return r
     def clean(self):
@@ -251,4 +245,75 @@ class TrafficLightAutoRule(models.Model):
     class Meta:
         unique_together=(("strategy", "default_val", "min_val", "map_val"))
         ordering=("strategy", "default_val", "min_val", "map_val")
+
+
+class TrafficLightAutomation(models.Model):
+    url = models.SlugField(unique=True)
+    # 2,4  ==>  Statistic.NUMERIC, Statistic.NUMERIC_KVL
+    # Can't reference directly because of circular dependencies.  Think on this.
+    target_statistic = models.ForeignKey("widget_def.Statistic", 
+                        null=True, blank=True, limit_choices_to={'stat_type__in': (2,4)})
+    target_value = models.DecimalField(max_digits=10, decimal_places=4,
+                        blank=True, null=True)
+    strategy = models.ForeignKey(TrafficLightAutoStrategy)
+    def __unicode__(self):
+        return self.url
+    def export(self):
+        data = {
+            "url": self.url,
+            "strategy": self.strategy.url
+        }
+        if self.target_statistic:
+            data["target_statistic"] = {
+                "widget": self.target_statistic.tile.widget.url(),
+                "location": self.target_statistic.tile.widget.actual_location.url,
+                "frequency": self.target_statistic.tile.widget.actual_frequency.url,
+                "url": self.target_statistic.url
+            }
+        else:
+            data["target_statistic"] = None
+        if self.target_value is None:
+            data["target_value"] = None
+        elif self.target_value == self.target_value.to_integral_value():
+            data["target_value"] = int(self.target_value)
+        else:
+            data["target_value"] = float(self.target_value)
+        return data
+    @classmethod
+    def import_data(cls, data):
+        try:
+            tla = cls.objects.get(url=data["url"])
+        except cls.DoesNotExist:
+            tla = cls(url=data["url"])
+        tla.strategy = TrafficLightAutoStrategy.objects.get(url=data["strategy"])
+        if data["target_statistic"] is None:
+            tla.target_statistic = None
+        else:
+            Statistic = apps.get_app_config("widget_def").get_model("Statistic")
+            try:
+                tla.target_statistic = Statistic.objects.get(tile__widget__family__url=data["target_statistic"]["widget"],
+                                tile__widget__actual_location__url=data["target_statistic"]["location"],
+                                tile__widget__actual_frequency__url=data["target_statistic"]["frequency"],
+                                url=data["target_statistic"]["url"])
+            except Statistic.DoesNotExist:
+                tla.target_statistic = None
+                tla.target_value = Decimal("100.0")
+                print "Warning: Incomplete import of TrafficLightAutomation %s target statistic doesn't exist. You will need to set\n\tthe target statistic or value manually, or reimport after importing the relevant widget." % tla.url
+        if data["target_value"] is None:
+            tla.target_value = None
+        else:
+            tla.target_value = Decimal(data["target_value"])
+        tla.save()
+        return tla
+    def validate(self):
+        problems = []
+        if self.target_statistic and self.target_value is not None:
+            problems.append("Cannot have both target statistic and target value")
+        if self.strategy.strategy_type == self.strategy.MAP:
+            if self.target_statistic or self.target_value is not None:
+                problems.append("MAP type strategies cannot have a target statistic or a target value")
+        else:
+            if not (self.target_statistic or self.target_value is not None):
+                problems.append("Non-MAP type strategies must set a target statistic or a target value")
+        return problems
 

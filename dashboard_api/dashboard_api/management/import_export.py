@@ -1,4 +1,4 @@
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation
 from widget_def.models.reference import WidgetViews, AllCategories
 from widget_data.api import *
 
@@ -43,10 +43,18 @@ def export_trafficlightscale(scale):
 def export_trafficlightstrategy(strategy):
     if not isinstance(strategy, TrafficLightAutoStrategy):
         try:
-            scale = TrafficLightAutoStrategy.objects.get(url=strategy)
+            strategy = TrafficLightAutoStrategy.objects.get(url=strategy)
         except TrafficLightAutoStrategy.DoesNotExist:
             raise ImportExportException("TrafficLightAutoStrategy %s does not exist" % strategy)
     return strategy.export()
+
+def export_trafficlightautomation(tla):
+    if not isinstance(tla, TrafficLightAutomation):
+        try:
+            tla = TrafficLightAutomation.objects.get(url=tla)
+        except TrafficLightAutomation.DoesNotExist:
+            raise ImportExportException("TrafficLightAutomation %s does not exist" % tla)
+    return tla.export()
 
 def export_iconlibrary(library):
     if not isinstance(library, IconLibrary):
@@ -95,9 +103,11 @@ def export_categories():
     return Category().export_all()
             
 def import_class(data):
-    if data.get("rules"):
+    if data.get("strategy"):
+        return TrafficLightAutomation
+    elif data.get("rules"):
         return TrafficLightAutoStrategy
-    if data.get("autoscale"):
+    elif data.get("autoscale"):
         return GeoColourScale
     elif data.get("geom_type"):
         return GeoDataset

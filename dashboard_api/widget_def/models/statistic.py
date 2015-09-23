@@ -1,3 +1,4 @@
+from decimal import Decimal
 import pytz
 
 from django.conf import settings
@@ -5,7 +6,7 @@ from django.db import models
 
 from widget_data.models import StatisticData, StatisticListItem
 from widget_def.models.tile_def import TileDefinition
-from widget_def.models.eyecandy import IconLibrary, TrafficLightScale
+from widget_def.models.eyecandy import IconLibrary, TrafficLightScale, TrafficLightAutoStrategy, TrafficLightAutomation
 
 # Create your models here.
 
@@ -42,6 +43,7 @@ class Statistic(models.Model):
                     (HIERARCHICAL_EVENT_LIST, stat_types[HIERARCHICAL_EVENT_LIST]),
                 ))
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
+    traffic_light_automation = models.ForeignKey(TrafficLightAutomation, blank=True, null=True)
     icon_library = models.ForeignKey(IconLibrary, blank=True, null=True)
     trend = models.BooleanField(default=False)
     rotates = models.BooleanField(default=False)
@@ -69,7 +71,10 @@ class Statistic(models.Model):
             self.icon_library = None
         if self.stat_type in (self.EVENT_LIST, self.HIERARCHICAL_EVENT_LIST):
             self.traffic_light_scale = None
+            self.traffic_light_automation = None
             self.trend = False
+        if self.traffic_light_automation:
+            self.traffic_light_scale = None
         if self.is_display_list():
             name_as_label=True
         else:
@@ -90,6 +95,14 @@ class Statistic(models.Model):
                 problems.append("Statistic %s of Widget %s has negative si_prefix_rounding" % (self.url, self.tile.widget.url()))
         if self.is_eventlist() and self.tile.tile_type not in (self.tile.TIME_LINE, self.tile.CALENDAR, self.tile.SINGLE_LIST_STAT):
             problems.append("Event List statistic only allowed on a Time Line, Calendar or Single List Statistic tile")
+        if self.traffic_light_automation:
+            if self.is_numeric():
+                if self.traffic_light_automation.strategy.strategy_type == self.traffic_light_automation.strategy.MAP:
+                    problems.append("Numeric statistics cannot use a MAP type traffic light strategy")
+            else:
+                if self.traffic_light_automation.strategy.strategy_type != self.traffic_light_automation.strategy.MAP:
+                    problems.append("Non-Numeric statistics must use a MAP type traffic light strategy")
+            problems.extend(self.traffic_light_automation.validate())
         return problems
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
@@ -204,12 +217,17 @@ class Statistic(models.Model):
             icon_library_name = self.icon_library.name
         else:
             icon_library_name = None
+        if self.traffic_light_automation:
+            automation = self.traffic_light_automation.url
+        else:
+            automation = None
         return {
             "name": self.name,
             "url": self.url,
             "name_as_label": self.name_as_label,
             "stat_type": self.stat_type,
             "traffic_light_scale": traffic_light_scale_name,
+            "traffic_light_automation": automation,
             "icon_library": icon_library_name,
             "trend": self.trend,
             "hyperlinkable": self.hyperlinkable,
@@ -256,6 +274,8 @@ class Statistic(models.Model):
         else:
             s.icon_library = None
         s.save()
+        if data.get("traffic_light_automation"):
+            self.traffic_light_automation = TrafficLightAutomation.objects.get(url=data["traffic_light_automation"])
         return s
     def __getstate__(self):
         state = {
@@ -280,8 +300,8 @@ class Statistic(models.Model):
                 state["unit"]["si_prefix_rounding"] = self.unit_si_prefix_rounding
         if self.traffic_light_scale:
             state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
-        else:
-            state["traffic_light_scale"] = None
+        elif self.traffic_light_automation:
+            state["traffic_light_scale"] = self.traffic_light_automation.strategy.scale.__getstate__()
         if self.stat_type not in (self.STRING_LIST, self.LONG_STRING_LIST):
             state["trend"] = self.trend
             if self.icon_library:
