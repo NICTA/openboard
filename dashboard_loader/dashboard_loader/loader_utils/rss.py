@@ -22,7 +22,8 @@ on error.
 """
     messages = []
     try:
-        response = urllib.urlopen(url) xml = ET.parse(response)
+        response = urllib.urlopen(url) 
+        xml = ET.parse(response)
         for elem in xml.getroot()[0]:
             if elem.tag == 'item':
                 messages.extend(process_item(elem, environment, verbosity))
