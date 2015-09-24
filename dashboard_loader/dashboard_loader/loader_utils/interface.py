@@ -8,9 +8,11 @@ from django.db import transaction
 
 from dashboard_loader.models import Loader, Uploader
 
+# Default Timezone for datetimes, as configured in settings
 tz = pytz.timezone(settings.TIME_ZONE)
 
 class LoaderException(Exception):
+    "Exception thrown by Loader API"
     pass
 
 @transaction.atomic
@@ -41,6 +43,34 @@ def update_loader(loader, success=True):
     unlock_loader(loader)
 
 def do_update(app, verbosity=0, force=False):
+    """Run a loader module, unless it is already locked by another thread.
+
+app: The name of the loader module to be run.
+verbosity: The verbosity level, 0-3.  Higher numbers = more verbosity.
+           (default=0)
+force: If False, only run the loader if it has not been run within it's
+       refresh window and it is not suspended.  If True, ignore these
+       checks and run anyway.
+       (default=False)
+
+Returns a list of messages (strings).
+
+A loader module is a python package containing a python module loader.py 
+that defines:
+
+    1) An integer variable "refresh_rate" containing the default time
+       to wait between loads for the loader module (in seconds).
+    2) A function update_data that performs the actual load, returns a 
+       list of messages (strings) and takes two arguments:
+       a) loader:  The dashboard_loader.models.Loader registration object 
+          for the loader module.
+       b) verbosity: The verbosity level, 0-3.  
+          Higher numbers = more verbosity. (default=0)
+
+Loader modules must be registered with dashboard_loader application. To
+register a loader module, add it to the "INCLUDED_APPS" setting and
+run the "register_loaders" django command.
+"""
     _tmp = __import__(app + ".loader", globals(), locals(), ["update_data",], -1)
     update_data = _tmp.update_data
     loader = lock_update(app)
@@ -63,10 +93,47 @@ def do_update(app, verbosity=0, force=False):
         return [ "Data update for %s is locked by another update process/thread since %s" % (app, loader.last_locked.strftime("%d/%m/%Y %H:%M:%D"))]
 
 def get_update_format(app):
+    """Return the format specification for the named uploader module."""
     _tmp = __import__(app + ".uploader", globals(), locals(), ["file_format",], -1)
     return _tmp.file_format
 
 def do_upload(app, fh, actual_freq_display=None, verbosity=0):
+    """Perform a data upload for the named module
+
+app: The name of the uploader module that will upload the file, or it's
+     registered dashboard_loader.models.Uploader object
+fh: A file-like object representing the the file to be uploaded.
+actual_freq_display: If not None, this is the "actual frequency display"
+        value to be passed to the uploader.
+verbosity: The verbosity level, 0-3.  Higher numbers = more verbosity.
+           (default=0)
+
+Returns a list of messages (strings).
+
+A uploader module is a python package containing a python module uploader.py 
+that defines:
+    1) groups: A list of names of Django auth groups that have permission to
+               run this uploader.  Groups will be created on registration if
+               necessary.
+    2) file_format: A dictionary describing the file format required by the
+               uploader.  This dictionary is not necessarily used by the
+               uploader and is intended for documentation purposes.
+    3) upload_file: A function that loads data from a provided file_handle.
+               Returns a list of logging messages (strings) and take the
+               following arguments:
+        a) uploader: The dashboard_loader.models.Uploader registration
+           object for the uploader module.
+        b) fh: A file-like object from which data is to be read.
+        c) actual_freq_display: An actual_freq_display value to be 
+           written to widgets this uploader is responsible for.  Not
+           required, and uploader modules may choose to ignore it.
+        d) verbosity: The verbosity level, 0-3.  
+           Higher numbers = more verbosity. (default=0)
+
+Uploader modules must be registered with dashboard_loader application. To
+register an uploader module, add it to the "INCLUDED_APPS" setting and
+run the "register_loaders" django command.
+"""
     if isinstance(app, Uploader):
         uploader = app
         app = uploader.app
@@ -87,6 +154,7 @@ def do_upload(app, fh, actual_freq_display=None, verbosity=0):
 
 @transaction.atomic
 def call_in_transaction(func, *args, **kwargs):
+    """Call a function with the supplied arguments, inside a database transaction."""
     return func(*args, **kwargs)
 
 # Not used - only one geo-uploader is currently required and it is accessed directly.

@@ -5,6 +5,19 @@ from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLigh
 from widget_data.models import WidgetData, StatisticData, StatisticListItem
 
 def get_statistic(widget_url_or_stat, actual_location_url=None, actual_frequency_url=None, statistic_url=None):
+    """If called with a Statistic object as the first argument, simply return the first
+argument.  Otherwise interpret the arguments as defined below, look up the indicated 
+Statistic object and return it.
+
+widget_url_or_stat: The url of the widget to which the requested Statistic belong.
+
+actual_location_url, actual_frequency_url: The urls for the actual location and frequency
+        of the widget definition to which the requested statistic belongs.
+
+statistic_url: The url of the requested statistic.
+
+Raises LoaderException if the requested Statistic does not exist.
+"""
     if isinstance(widget_url_or_stat, Statistic):
         return widget_url_or_stat
     try:
@@ -18,6 +31,12 @@ def get_statistic(widget_url_or_stat, actual_location_url=None, actual_frequency
 def clear_statistic_data(widget_url_or_stat, 
                 actual_location_url=None, actual_frequency_url=None, 
                 statistic_url=None):
+    """Clear data for the requested statistic (which must be scalar: non-list)
+
+Interprets arguments as for the get_statistic function.
+
+Raises LoaderException if the requested Statistic does not exist or is a list.
+"""
     stat = get_statistic(widget_url_or_stat, actual_location_url, actual_frequency_url,
                                     statistic_url)
     if stat.is_data_list():
@@ -32,6 +51,7 @@ def set_statistic_data(widget_url,
                     value, 
                     traffic_light_code=None, icon_code=None, 
                     trend=None, label=None):
+    """Equivalent to get_stat_data, but with a get_statistic lookup of the statistic"""
     stat = get_statistic(widget_url, actual_location_url, actual_frequency_url,
                                     statistic_url)
     set_stat_data(stat, value, traffic_light_code, icon_code, trend, label)
@@ -40,6 +60,18 @@ def set_stat_data(stat,
                     value, 
                     traffic_light_code=None, icon_code=None, 
                     trend=None, label=None):
+    """Set the data for a scalar statistic.
+
+stat: A non-list Statistic object
+value: The value to set the data to. Must be of the appropriate type for the statistic.
+traffic_light_code: The TrafficLightScaleCode object (or value string) to set the traffic light value to
+icon_code: The IconCode object (or value string, or numeric id) to set the icon value to
+trend: The trend indicator value (+1: up, -1: down, 0: steady)
+label: The dynamic label for the statistic.
+
+If any arguments are required according to the statistic meta-data and not supplied (or vice versa), a
+LoaderException is raised.
+"""
     if stat.is_data_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
     data = stat.get_data()
@@ -87,6 +119,12 @@ def set_stat_data(stat,
 def clear_statistic_list(widget_url_or_stat, 
                 actual_location_url=None, actual_frequency_url=None, 
                 statistic_url=None):
+    """Clear data for the requested statistic (which must be a list)
+
+Interprets arguments as for the get_statistic function.
+
+Raises LoaderException if the requested Statistic does not exist or is not a list.
+"""
     stat = get_statistic(widget_url_or_stat, 
                 actual_location_url, actual_frequency_url, statistic_url)
     stat.statisticlistitem_set.all().delete()
@@ -96,6 +134,7 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
                 value, sort_order, 
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
+    """Equivalent to add_stat_list_item, but with a get_statistic lookup of the statistic"""
     stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
     add_stat_list_item(stat, value, sort_order,
                 datetimekey, datetimekey_level, datekey, label,
@@ -105,6 +144,23 @@ def add_stat_list_item(stat,
                 value, sort_order, 
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
+    """Add an item for a list statistic.
+
+stat: A list Statistic object
+value: The value for the new item. Must be of the appropriate type for the statistic.
+datetimekey: The datetime key for the item
+datetimekey_level: The datetime "level" at which the datetimekey is to be interpreted.
+        (Must be one of the numeric values defined in widget_data.models.stat_list.StatisticListItem)
+datekey: The date key for the item
+traffic_light_code: The TrafficLightScaleCode object (or value string) for the new item
+icon_code: The IconCode object (or value string, or numeric id) for the new item
+trend: The trend indicator value (+1: up, -1: down, 0: steady) for the new item
+label: The label (string key) for the item.
+url: The hyperlink (url) for the item.
+
+If any arguments are required according to the statistic meta-data and not supplied (or vice versa), a
+LoaderException is raised.
+"""
     if not stat.is_data_list():
         raise LoaderException("Not a list statistic %s" % statistic_url)
     if stat.is_kvlist() and not label:
@@ -170,6 +226,7 @@ def add_stat_list_item(stat,
 
 def set_actual_frequency_display_text(widget_url, actual_location_url,
                     actual_frequency_url, display_text):
+    """Set the actual frequency display text of the indicated widget"""
     try:
         wdef = WidgetDefinition.objects.get(family__url=widget_url,
                                 actual_location__url=actual_location_url,
@@ -183,6 +240,7 @@ def set_actual_frequency_display_text(widget_url, actual_location_url,
     wdata.save()
              
 def get_icon(library, lookup):
+    """Lookup icon code by icon library name and icon name or sort_order"""
     try: 
         if isinstance(lookup, int):
             return IconCode.objects.get(scale__name=library, sort_order=lookup)
@@ -192,6 +250,7 @@ def get_icon(library, lookup):
         raise LoaderException("Icon code %s:%s does not exist" % (library, lookup))
 
 def get_traffic_light_code(stat, value):
+    """Lookup traffic light code for a statistic by value"""
     if not stat.traffic_light_scale:
         raise LoaderException("Statistic %s does not have a traffic light scale" % stat.url)
     try:
@@ -200,7 +259,6 @@ def get_traffic_light_code(stat, value):
         raise LoaderException("Traffic light code %s not found in scale %s for statistic %s" % (value,stat.traffic_light_scale.name, stat.url))
 
 def apply_traffic_light_automation(stat):
-    print "Apply Traffic Light Autom called"
     for auto in stat.trafficlightautomation_set.all():
         for autostat in auto.statistic_set.all():
             apply_traffic_light_automation(autostat)
@@ -223,7 +281,6 @@ def apply_traffic_light_automation(stat):
         if stat.is_numeric():
             metric_value = decimal.Decimal(metric_value)
         datum.traffic_light_code = auto.strategy.traffic_light_for(metric_value, target_value)
-        print "Updating traffic light code!"
         datum.save()
     return
 

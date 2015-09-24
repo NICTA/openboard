@@ -3,6 +3,10 @@ import datetime
 from interface import tz, LoaderException
 
 def parse_date(d):
+    """Parse a string into a datetime.date
+
+Supported formats:  YYYY-MM-DD
+"""
     if d is None:
         return None
     elif isinstance(d, datetime.date):
@@ -16,6 +20,13 @@ def parse_date(d):
         raise LoaderException("Not a valid date string: %s" % repr(d))
 
 def parse_time(t):
+    """Parse a string into a datetime.time
+
+Supported formats:  hh:mm:ss
+                    hh-mm-ss
+                    hh:mm
+                    hh-mm
+"""
     if t is None:
         return None
     elif isinstance(t, datetime.time):
@@ -24,7 +35,7 @@ def parse_time(t):
         return t.time()
     for fmt in ("%H:%M:%S", "%H-%M-%S", "%H:%M", "%H-%M"):
         try:
-            dt = datetime.datetime.strptime(t, "%H:%M:%S")
+            dt = datetime.datetime.strptime(t, fmt)
             return dt.time()
         except ValueError:
             pass
@@ -33,6 +44,15 @@ def parse_time(t):
     raise LoaderException("Not a valid time string: %s" % repr(t))
 
 def parse_datetime(dt):
+    """Parse a string into a datetime.datetime
+(Assume default timezone as per settings file)
+
+Supported formats:  YYYY-MM-DDThh:mm:ss
+                    YYYY-MM-DD
+                    YYYY
+                    DD mmm YYYY hh:mm:ss
+                    YYYYQq
+"""
     if dt is None:
         return None
     elif isinstance(dt, datetime.date):

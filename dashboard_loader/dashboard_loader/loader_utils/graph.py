@@ -6,6 +6,7 @@ from widget_data.models import GraphData
 from interface import LoaderException
 
 def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
+    """Look up a graph by urls."""
     try:
         return GraphDefinition.objects.get(tile__url=tile_url, 
                 tile__widget__family__url=widget_url, 
@@ -15,6 +16,7 @@ def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
         raise LoaderException("Graph for tile %s of widget %s:(%s,%s) does not exist"%(tile_url, widget_url, actual_location_url, actual_frequency_url))
 
 def clear_graph_data(graph, cluster=None, dataset=None):
+    """Clear all graph data, or partially by cluster or dataset"""
     data = graph.get_data()
     if graph.use_clusters():
         if cluster:
@@ -40,6 +42,12 @@ def clear_graph_data(graph, cluster=None, dataset=None):
     data.delete()
 
 def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
+    """Add a graph datapoint.
+
+Return the newly created GraphData object on success.
+
+Raise a LoaderException on error, or if the provided arguments are not valid for the graph.
+"""
     if not isinstance(dataset, GraphDataset):
         try:
             dataset = GraphDataset.objects.get(graph=graph, url=dataset)

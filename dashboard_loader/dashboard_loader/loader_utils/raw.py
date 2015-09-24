@@ -4,6 +4,7 @@ from widget_data.models import RawDataRecord, RawData
 from interface import LoaderException
 
 def get_rawdataset(widget_url, actual_location_url, actual_frequency_url, rds_url):
+    """Get a RawDataSet object by urls."""
     try:
         return RawDataSet.objects.get(widget__family__url=widget_url,
                                 widget__actual_location__url=actual_location_url,
@@ -13,9 +14,19 @@ def get_rawdataset(widget_url, actual_location_url, actual_frequency_url, rds_ur
         raise LoaderException("Raw Dataset %s of widget %s(%s,%s) does not exist" % (rds_url, widget_url, actual_location_url, actual_frequency_url))
 
 def clear_rawdataset(rds):
+    """Clear all data for a RawDataSet object"""
     rds.rawdatarecord_set.all().delete()
 
 def add_rawdatarecord(rds, sort_order, *args, **kwargs):
+    """Add a record to a RawDataSet.
+
+rds: The Raw Data Set object.
+sort_order: The order of the new record in the data set.
+
+The data may be supplied as either positional arguments (column
+order from left to right) or keyword arguments (keys are the defined
+column urls).
+"""
     record = RawDataRecord(rds=rds, sort_order=sort_order)
     record.save()
     (colarray, coldict ) = rds.col_array_dict()

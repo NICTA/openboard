@@ -4,15 +4,27 @@ from widget_data.models import GeoFeature, GeoProperty
 from interface import LoaderException
 
 def get_geodataset(url):
+    """Lookup a GeoDataset by url"""
     try:
         return GeoDataset.objects.get(url=url)
     except GeoDataset.DoesNotExist:
         raise LoaderException("GeoDataset %s does not exist" % url)
 
 def clear_geodataset(ds):
+    """Clear all data for a GeoDataset"""
     GeoFeature.objects.filter(dataset=ds).delete()
 
 def new_geofeature(ds, geom, *args, **kwargs):
+    """Add a new geospatial feature to a GeoDataset
+
+ds: The GeoDataset
+geom: A GDAL geometry of the correct type for the dataset.
+
+Properties may be set by either positional or keyword arguments,
+or individually by calling ther set_geoproperty method.
+
+Returns the newly created feature on success.
+"""
     if geom.__class__ not in ds.gdal_datatypes():
         raise LoaderException("Expected geometry type: %s Got %s" % (
                     ds.datatype(),
@@ -30,6 +42,12 @@ def new_geofeature(ds, geom, *args, **kwargs):
     return feat
 
 def set_geoproperty(feature, prop_def, value):
+    """Set a property on geospatial feature.
+
+feature: the GeoFeature object
+prop_def: the GeoProperty definition
+value: the (new) value for the property.
+"""
     try:
         prop = feature.geoproperty_set.get(prop=prop_def)
         if value is None:
