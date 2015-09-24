@@ -1,20 +1,24 @@
+import decimal
 from interface import LoaderException
 
 from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode
 from widget_data.models import WidgetData, StatisticData, StatisticListItem
 
-def get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url):
+def get_statistic(widget_url_or_stat, actual_location_url=None, actual_frequency_url=None, statistic_url=None):
+    if isinstance(widget_url_or_stat, Statistic):
+        return widget_url_or_stat
     try:
         return Statistic.objects.get(url=statistic_url, 
-                tile__widget__family__url=widget_url, 
+                tile__widget__family__url=widget_url_or_stat, 
                 tile__widget__actual_location__url=actual_location_url,
                 tile__widget__actual_frequency__url=actual_frequency_url)
     except Statistic.DoesNotExist:
-        raise LoaderException("Statistic %s for Widget %s(%s,%s) does not exist" % (statistic_url, widget_url, actual_location_url, actual_frequency_url))
+        raise LoaderException("Statistic %s for Widget %s(%s,%s) does not exist" % (statistic_url, widget_url_or_stat, actual_location_url, actual_frequency_url))
 
-def clear_statistic_data(widget_url, actual_location_url, actual_frequency_url, 
-                statistic_url):
-    stat = get_statistic(widget_url, actual_location_url, actual_frequency_url,
+def clear_statistic_data(widget_url_or_stat, 
+                actual_location_url=None, actual_frequency_url=None, 
+                statistic_url=None):
+    stat = get_statistic(widget_url_or_stat, actual_location_url, actual_frequency_url,
                                     statistic_url)
     if stat.is_data_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
@@ -30,6 +34,12 @@ def set_statistic_data(widget_url,
                     trend=None, label=None):
     stat = get_statistic(widget_url, actual_location_url, actual_frequency_url,
                                     statistic_url)
+    set_stat_data(stat, value, traffic_light_code, icon_code, trend, label)
+
+def set_stat_data(stat,
+                    value, 
+                    traffic_light_code=None, icon_code=None, 
+                    trend=None, label=None):
     if stat.is_data_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
     data = stat.get_data()
@@ -72,10 +82,13 @@ def set_statistic_data(widget_url,
         data.save()
     except Exception, e:
         raise LoaderException(str(e))
+    apply_traffic_light_automation(stat)
 
-def clear_statistic_list(widget_url, actual_location_url, actual_frequency_url, 
-                statistic_url):
-    stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
+def clear_statistic_list(widget_url_or_stat, 
+                actual_location_url=None, actual_frequency_url=None, 
+                statistic_url=None):
+    stat = get_statistic(widget_url_or_stat, 
+                actual_location_url, actual_frequency_url, statistic_url)
     stat.statisticlistitem_set.all().delete()
     
 def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_url, 
@@ -84,6 +97,14 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
     stat = get_statistic(widget_url, actual_location_url, actual_frequency_url, statistic_url)
+    add_stat_list_item(stat, value, sort_order,
+                datetimekey, datetimekey_level, datekey, label,
+                traffic_light_code, icon_code, trend, url)
+
+def add_stat_list_item(stat,
+                value, sort_order, 
+                datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
+                traffic_light_code=None, icon_code=None, trend=None, url=None):
     if not stat.is_data_list():
         raise LoaderException("Not a list statistic %s" % statistic_url)
     if stat.is_kvlist() and not label:
@@ -145,6 +166,7 @@ def add_statistic_list_item(widget_url, actual_location_url, actual_frequency_ur
     else:
         item.strval = value
     item.save()
+    apply_traffic_light_automation(stat)
 
 def set_actual_frequency_display_text(widget_url, actual_location_url,
                     actual_frequency_url, display_text):
@@ -176,4 +198,32 @@ def get_traffic_light_code(stat, value):
         return stat.traffic_light_scale.trafficlightscalecode_set.get(value=value)
     except TrafficLightScaleCode.DoesNotExist:
         raise LoaderException("Traffic light code %s not found in scale %s for statistic %s" % (value,stat.traffic_light_scale.name, stat.url))
+
+def apply_traffic_light_automation(stat):
+    print "Apply Traffic Light Autom called"
+    for auto in stat.trafficlightautomation_set.all():
+        for autostat in auto.statistic_set.all():
+            apply_traffic_light_automation(autostat)
+    auto = stat.traffic_light_automation
+    if not auto:
+        return
+    metric_data = stat.get_data()
+    if not metric_data:
+        return
+    if not stat.is_data_list():
+        metric_data = [ metric_data ]
+    if auto.target_statistic:
+        target_value = decimal.Decimal(auto.target_statistic.get_data().value())
+    elif auto.target_value:
+        target_value = auto.target_value
+    else:
+        target_value = None
+    for datum in metric_data:
+        metric_value = datum.value()
+        if stat.is_numeric():
+            metric_value = decimal.Decimal(metric_value)
+        datum.traffic_light_code = auto.strategy.traffic_light_for(metric_value, target_value)
+        print "Updating traffic light code!"
+        datum.save()
+    return
 

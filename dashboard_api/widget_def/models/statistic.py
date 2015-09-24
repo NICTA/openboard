@@ -181,7 +181,7 @@ class Statistic(models.Model):
                     json["label"]=datum.label
             if self.hyperlinkable:
                 json["url"]=datum.url
-            if self.traffic_light_scale:
+            if self.traffic_light_scale or self.traffic_light_automation:
                 json["traffic_light"]=datum.traffic_light_code.value
             if self.icon_library:
                 json["icon"]=datum.icon_code.__getstate__()

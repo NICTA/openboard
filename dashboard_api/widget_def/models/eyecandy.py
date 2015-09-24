@@ -187,6 +187,20 @@ class TrafficLightAutoStrategy(models.Model):
         except TrafficLightAutoRule.MultipleObjectsReturned:
             problems.append("Traffic Light Auto-Strategy %s has multiple default values" % self.url)
         return problems
+    def traffic_light_for(self, val, target_val=None):
+        rules = self.rules().filter(default_val=False)
+        default_rule = self.rules().get(default_val=True)
+        if self.strategy_type == self.RELATIVE and target_val:
+            # Scale val to target_val
+            val = val / target_val * decimal.Decimal("100.0")
+        for rule in rules:
+            if self.strategy_type == self.MAP:
+                if rule.map_val == val:
+                    return rule.code
+            else:
+                if val >= rule.min_val:
+                    return rule.code
+        return default_rule.code
     class Meta:
         ordering=("url",)
 
@@ -244,8 +258,7 @@ class TrafficLightAutoRule(models.Model):
         return problems
     class Meta:
         unique_together=(("strategy", "default_val", "min_val", "map_val"))
-        ordering=("strategy", "default_val", "min_val", "map_val")
-
+        ordering=("strategy", "default_val", "-min_val", "map_val")
 
 class TrafficLightAutomation(models.Model):
     url = models.SlugField(unique=True)
@@ -315,5 +328,12 @@ class TrafficLightAutomation(models.Model):
         else:
             if not (self.target_statistic or self.target_value is not None):
                 problems.append("Non-MAP type strategies must set a target statistic or a target value")
+        if self.target_statistic:
+            if not self.target_statistic.is_numeric():
+                problems.append("Target statistic must be a numeric statistic")
+            if self.target_statistic.is_data_list():
+                problems.append("Target statistic must be a scalar statistic (i.e. not a list or a rotating statistic)")
+            if self.target_statistic.traffic_light_automation:
+                problems.append("Target statistic cannot itself have a traffic light automation")
         return problems
 

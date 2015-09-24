@@ -10,7 +10,7 @@ from widget_data.models import WidgetData, StatisticData, StatisticListItem, Gra
 from dashboard_loader.models import Uploader
 from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission, get_uploaders_for_user, user_has_uploader_permission
 from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
-from dashboard_loader.loader_utils import LoaderException, get_update_format, do_upload, set_actual_frequency_display_text
+from dashboard_loader.loader_utils import *
 
 # View methods
 
@@ -127,18 +127,12 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
 @login_required
 def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, stat_url):
     try:
-        w = WidgetDefinition.objects.get(family__url=widget_url, 
-                    actual_location__url=actual_location_url,
-                    actual_frequency__url=actual_frequency_url)
-    except WidgetDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Widget Definition does not exist")
-    if not user_has_edit_permission(request.user, w):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    try:
-        s = Statistic.objects.get(tile__widget=w, url=stat_url)
-    except Statistic.DoesNotExist:
+        s = get_statistic(widget_url, actual_location_url, actual_frequency_url, stat_url)
+    except LoaderException:
         return HttpResponseNotFound("This Statistic does not exist")
-    if not s.editable and not user_has_edit_all_permission(request.user, w):
+    if not user_has_edit_permission(request.user, s.tile.widget):
+        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
+    if not s.editable and not user_has_edit_all_permission(request.user, s.tile.widget):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
     form_class = get_form_class_for_statistic(s)
     if s.is_data_list():
@@ -148,110 +142,49 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
             form = form_class(request.POST)
             if form.is_valid():
                 if s.is_data_list():
-                    StatisticListItem.objects.filter(statistic=s).delete()
+                    clear_statistic_list(s)
                     for subform in form:
                         fd = subform.cleaned_data
                         if fd and not fd.get("DELETE"):
-                            sli = StatisticListItem(statistic=s)
-                            if s.is_numeric():
-                                if s.num_precision == 0:
-                                    sli.intval = fd["value"]
-                                else:
-                                    sli.decval = fd["value"]
-                            else:
-                                sli.strval = fd["value"]
-                            if s.traffic_light_scale:
-                                try:
-                                    tlc = TrafficLightScaleCode.objects.get(scale=s.traffic_light_scale, value=fd["traffic_light_code"])
-                                except TrafficLightScaleCode.DoesNotExist:
-                                    # TODO: handle error - transactions??
-                                    tlc = None
-                                sli.traffic_light_code = tlc
-                            if s.icon_library:
-                                try:
-                                    icon = IconCode.objects.get(scale=s.icon_library, value=fd["icon_code"])
-                                except IconCode.DoesNotExist:
-                                    # TODO: handle error
-                                    icon = None
-                                sli.icon_code = icon
-                            if s.trend:
-                                sli.trend = int(fd["trend"])
-                            if s.is_kvlist():
-                                sli.keyval = fd["label"]
-                            if s.use_datekey():
-                                sli.set_datetime_key(fd["date"])
-                            if s.use_datetimekey():
-                                if s.use_datetimekey_level():
-                                    sli.set_datetime_key(fd["datetime"], int(fd["level"]))
-                                else:
-                                    sli.set_datetime_key(fd["datetime"])
-                            if s.hyperlinkable:
-                                sli.url = fd["url"]
-                            sli.sort_order = fd["sort_order"]
-                            sli.save()
+                            add_stat_list_item(s, fd["value"], fd["sort_order"],
+                                        fd.get("datetime"), fd.get("level"), fd.get("date"), fd.get("label"),
+                                        fd.get("traffic_light_code"), fd.get("icon_code"),
+                                        fd.get("trend"), fd.get("url"))
                     if request.POST.get("submit"):
                         return redirect("view_widget_data", 
-                                widget_url=w.family.url, 
-                                actual_location_url=w.actual_location.url,
-                                actual_frequency_url=w.actual_frequency.url)
+                                widget_url=s.tile.widget.family.url, 
+                                actual_location_url=s.tile.widget.actual_location.url,
+                                actual_frequency_url=s.tile.widget.actual_frequency.url)
                     else:
                         form = form_class(initial=s.initial_form_data())
                 else:
                     fd = form.cleaned_data
-                    sd = s.get_data()
-                    if not sd:
-                        sd = StatisticData(statistic=s)
-                    if s.is_numeric():
-                        if s.num_precision == 0:
-                            sd.intval = fd["value"]
-                        else:
-                            sd.decval = fd["value"]
-                    else:
-                        sd.strval = fd["value"]
-                    if not s.name_as_label:
-                        sd.label = fd["label"]
-                    if s.traffic_light_scale:
-                        try:
-                            tlc = TrafficLightScaleCode.objects.get(scale=s.traffic_light_scale, value=fd["traffic_light_code"])
-                        except TrafficLightScaleCode.DoesNotExist:
-                            # TODO: handle error
-                            tlc = None
-                        sd.traffic_light_code = tlc
-                    if s.icon_library:
-                        try:
-                            icon = IconCode.objects.get(scale=s.icon_library, value=fd["icon_code"])
-                        except IconCode.DoesNotExist:
-                            # TODO: handle error
-                            icon = None
-                        sd.icon_code = icon
-                    if s.trend:
-                        sd.trend = int(fd["trend"])
-                    sd.save()
+                    set_stat_data(s, fd["value"], 
+                                    fd.get("traffic_light_code"), fd.get("icon_code"), 
+                                    fd.get("trend"), fd.get("label"))
                     return redirect("view_widget_data", 
-                            widget_url=w.family.url, 
-                            actual_location_url=w.actual_location.url,
-                            actual_frequency_url=w.actual_frequency.url)
+                            widget_url=s.tile.widget.family.url, 
+                            actual_location_url=s.tile.widget.actual_location.url,
+                            actual_frequency_url=s.tile.widget.actual_frequency.url)
                     
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
-                        widget_url=w.family.url, 
-                        actual_location_url=w.actual_location.url,
-                        actual_frequency_url=w.actual_frequency.url)
+                        widget_url=s.tile.widget.family.url, 
+                        actual_location_url=s.tile.widget.actual_location.url,
+                        actual_frequency_url=s.tile.widget.actual_frequency.url)
         elif not s.is_data_list() and request.POST.get("delete"):
-            sd = s.get_data()
-            if sd:
-                sd.delete()
+            clear_statistic_data(s)
             return redirect("view_widget_data", 
-                        widget_url=w.family.url, 
-                        actual_location_url=w.actual_location.url,
-                        actual_frequency_url=w.actual_frequency.url)
+                        widget_url=s.tile.widget.family.url, 
+                        actual_location_url=s.tile.widget.actual_location.url,
+                        actual_frequency_url=s.tile.widget.actual_frequency.url)
         else:
             form = form_class(initial=s.initial_form_data())
     else:
         form = form_class(initial=s.initial_form_data())
 
     return render(request, "widget_data/edit_widget.html", {
-                "widget": w,
+                "widget": s.tile.widget,
                 "statistic": s,
                 "form": form
                 })

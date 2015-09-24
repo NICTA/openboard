@@ -55,6 +55,8 @@ class StatisticListItem(models.Model):
         else:
             return self.strval
     def set_datetime_key(self, key, level=None):
+        if level is not None:
+            level = int(level)
         if self.statistic.use_datekey():
             self.datetime_key = tz.localize(datetime.datetime.combine(key, datetime.time()))
         elif self.statistic.use_datetimekey():
