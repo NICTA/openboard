@@ -4,16 +4,16 @@ from dashboard_loader.loader_utils import *
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
-groups = [ "upload_all", "upload_servicensw" ]
+groups = [ "upload_all", "upload_frontlineservice" ]
 
 # This describes the file format.  It is used to describe the format by both
-# "python manage.py upload_data servicensw_loader" and by the uploader page
-# in the data admin GUI.
+# "python manage.py upload_data frontlineservice_uploader" and by the uploader 
+# page in the data admin GUI.
 file_format = {
     # format:  Either "csv", "xls", or "zip"
     "format": "csv",
-    # sheets: csv formats should only have one sheet.  For "zip", sheets are csv files within
-    #         the zip file
+    # sheets: csv formats should only have one sheet.  For "zip", sheets are 
+    #         csv files within the zip file
     "sheets": [
         {
             "name": "CSV Sheet",
@@ -46,7 +46,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 heading_read = True
                 continue
             if len(row) != 4:
-                raise LoaderException("Row in Service NSW upload file does not have 4 columns")
+                raise LoaderException("Row in Frontline Service upload file does not have 4 columns")
             sdc = row[0]
             visits = int(row[1])
             if row[2]:
@@ -56,19 +56,19 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             visit_time = row[3]
             # Determine the stats to write to for this row.
             if "Centre" in sdc:
-                visit_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "visits") 
-                other_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "satisfaction") 
+                visit_stat = get_statistic("svc_counters", "syd", "day", "visits") 
+                other_stat = get_statistic("svc_counters", "syd", "day", "satisfaction") 
                 other_val = csat
             elif "Phone" in sdc or "Contact" in sdc:
-                visit_stat = get_statistic("service_nsw_svc_calls", "syd", "day", "callers") 
-                other_stat = get_statistic("service_nsw_svc_calls", "syd", "day", "satisfaction")
+                visit_stat = get_statistic("svc_calls", "syd", "day", "callers") 
+                other_stat = get_statistic("svc_calls", "syd", "day", "satisfaction")
                 other_val = csat
             elif "Digital" in sdc:
-                visit_stat = get_statistic("service_nsw_svc_www", "syd", "day", "visits") 
-                other_stat = get_statistic("service_nsw_svc_www", "syd", "day", "duration") 
+                visit_stat = get_statistic("svc_www", "syd", "day", "visits") 
+                other_stat = get_statistic("svc_www", "syd", "day", "duration") 
                 other_val = normalise_time(visit_time)
             else:
-                raise LoaderException("Unrecognised Service Delivery Channel in Service NSW upload: %s" % sdc)
+                raise LoaderException("Unrecognised Service Delivery Channel in Frontline Service upload: %s" % sdc)
             update_stats(visit_stat, visits, other_stat, other_val, actual_freq_display)
             if verbosity > 1:
                 messages.append("Updated stats for %s" % sdc)
@@ -107,9 +107,9 @@ def normalise_time(t):
         hours = mins / 60
         mins = mins % 60 
     else:
-        raise LoaderException("Invalid wait time string in Service NSW upload: %s" % t)
+        raise LoaderException("Invalid wait time string in Frontline Service upload: %s" % t)
     if mins >= 60 or secs >= 60:
-        raise LoaderException("Invalid wait time string in Service NSW upload: %s" % t)
+        raise LoaderException("Invalid wait time string in Frontline Service upload: %s" % t)
     mins = 60 * hours + mins
     return "%02d:%02d" % (mins, secs)
 
