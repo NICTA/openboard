@@ -15,8 +15,9 @@ from widget_def.models import Location
 refresh_rate = 60 * 15
 
 # Wrapper class for pollution ratings.
-# N.B. Some of this functionality could be handled by the "MAP" type traffic light automation
-#      functionality that was not available when this code was written.
+# N.B. Some of this functionality could be handled by the "MAP" type 
+#      traffic light automation functionality that was not available when 
+#      this code was written.
 class PollutionRating(object):
     VERY_GOOD = 0
     GOOD = 1

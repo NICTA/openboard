@@ -1,0 +1,112 @@
+{
+    "category": "Public Safety", 
+    "edit_all_groups": [
+        "Edit Everything"
+    ], 
+    "source_url_text": "NSW Rural Fire Service fire danger ratings and fire bans", 
+    "subtitle": null, 
+    "subcategory": "Warnings", 
+    "groups": [], 
+    "url": "fire", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "sort_order": 1, 
+                    "aspect": 0, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "rating_list_main", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "fire_danger_ratings", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": true, 
+                            "stat_type": 3, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": 50, 
+                    "url": "fire-day-syd-main", 
+                    "tile_type": 10, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 200, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "rating_list_expansion", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "fire_danger_ratings", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 3, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": 50, 
+                    "url": "fire-day-syd-exp", 
+                    "tile_type": 10, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "about": "<p>Data taken from NSW Rural Fire Services.</p>", 
+            "sort_order": 1100, 
+            "deexpansion_hint": null, 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "syd"
+                }, 
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "nsw"
+                }
+            ], 
+            "refresh_rate": 1000, 
+            "expansion_hint": "Show more", 
+            "actual_frequency_url": "day", 
+            "actual_location_url": "nsw", 
+            "raw_data_sets": []
+        }
+    ], 
+    "source_url": "http://www.rfs.nsw.gov.au/fire-information/fdr-and-tobans", 
+    "name": "Fire Danger Ratings"
+}
+

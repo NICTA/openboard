@@ -10,12 +10,17 @@ from dashboard_loader.loader_utils import LoaderException, set_statistic_data, c
 # Refresh hourly
 refresh_rate = 60*60
 
+# Function called when the loader is run.
 def update_data(loader, verbosity=0):
     messages = []
     messages.extend(call_in_transaction(update_fire_danger, loader, verbosity))
     messages.append("Fire danger updated")
     return messages
 
+# Wrapper around fire danger levels.
+# N.B. Some of this functionality could be handled by the "MAP" type 
+#      traffic light automation functionality that was not available when 
+#      this code was written.
 class FireDanger(object):
     ratings = [
         { "level": "NONE", "rating": "None", "tlc": "none" },
@@ -52,6 +57,7 @@ class FireDanger(object):
         else:
             return 0
 
+# Worker function, called inside a database transaction from update_data above.
 def update_fire_danger(loader, verbosity=0):
     messages = []
     now = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
@@ -94,6 +100,5 @@ def update_fire_danger(loader, verbosity=0):
         add_statistic_list_item("fire", "nsw", "day", "rating_list_expansion", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         sort_order += 10
-    loader.save()
     return messages
 
