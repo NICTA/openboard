@@ -106,7 +106,7 @@ class Frequency(models.Model):
 class WidgetViews(object):
     _instance = None
     @classmethod
-    def import_data(cls, data):
+    def import_data(cls, data, merge=False):
         ld_fs = []
         ld_ls = []
         ld_ts = []
@@ -121,15 +121,16 @@ class WidgetViews(object):
             t = Theme.import_data(d)
             ld_ts.append(t.url)
         #
-        for f in Frequency.objects.all():
-            if f.url not in ld_fs:
-                f.delete()
-        for l in Location.objects.all():
-            if l.url not in ld_ls:
-                l.delete()
-        for t in Theme.objects.all():
-            if t.url not in ld_ts:
-                t.delete()
+        if not merge:
+            for f in Frequency.objects.all():
+                if f.url not in ld_fs:
+                    f.delete()
+            for l in Location.objects.all():
+                if l.url not in ld_ls:
+                    l.delete()
+            for t in Theme.objects.all():
+                if t.url not in ld_ts:
+                    t.delete()
         #
         if not cls._instance:
             cls._instance = cls() 
@@ -153,7 +154,7 @@ class Category(models.Model):
             "subcategories": [ s.export() for s in self.subcategory_set.all() ],
         }
     @classmethod
-    def import_data(cls, data):
+    def import_data(cls, data, merge=False):
         try:
             c = cls.objects.get(name=data["name"])
         except cls.DoesNotExist:
@@ -165,9 +166,10 @@ class Category(models.Model):
         for s in data["subcategories"]:
             sub = Subcategory.import_data(c, s)
             subcats.append(sub.name)
-        for sub in c.subcategory_set.all():
-            if sub.name not in subcats:
-                sub.delete()
+        if not merge:
+            for sub in c.subcategory_set.all():
+                if sub.name not in subcats:
+                    sub.delete()
         return c
     @classmethod
     def export_all(cls):
@@ -182,14 +184,15 @@ class AllCategories(object):
     def export(self):
         return Category.export_all()
     @classmethod
-    def import_data(cls, data):
+    def import_data(cls, data, merge=False):
         cats = []
         for c in data["categories"]:
-            cat = Category.import_data(c)
+            cat = Category.import_data(c, merge)
             cats.append(cat.name)
-        for cat in Category.objects.all():
-            if cat.name not in cats:
-                cat.delete()
+        if not merge:
+            for cat in Category.objects.all():
+                if cat.name not in cats:
+                    cat.delete()
         if not cls._instance:
             cls._instance = cls() 
         return cls._instance

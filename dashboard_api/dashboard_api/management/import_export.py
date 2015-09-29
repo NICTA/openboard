@@ -128,10 +128,13 @@ def import_class(data):
     else:
         raise ImportExportException("Unrecognised import class")
 
-def import_data(data):
+def import_data(data, merge=False):
     cls = import_class(data)
     try:
-        return cls.import_data(data)
+        if cls in (AllCategories, WidgetViews):
+            return cls.import_data(data, merge)
+        else:
+            return cls.import_data(data)
     except Exception, e:
         raise ImportExportException("Import error: %s" % repr(e))
 

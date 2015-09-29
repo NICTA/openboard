@@ -12,6 +12,9 @@ class Command(BaseCommand):
                 make_option("-t", "--test",
                         action="store_true", default=False, dest="test",
                         help="Test that data imported correctly"),
+                make_option("-m", "--merge",
+                        action="store_true", default=False, dest="merge",
+                        help="Do not delete objects not included in file (for categories and views import files only)"),
             )
     def handle(self, *args, **options):
         if len(args) == 0:
@@ -22,7 +25,7 @@ class Command(BaseCommand):
             for jf in args:
                 f = open(jf)
                 data = json.load(f)
-                obj = import_data(data)
+                obj = import_data(data, merge=options["merge"])
                 f.close()
                 if test:
                     if obj.export() == data:
