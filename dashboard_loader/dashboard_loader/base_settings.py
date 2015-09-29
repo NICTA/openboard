@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'widget_def',
     'widget_data',
 #    'traffic_incident_loader',
-#    'servicensw_loader',
+#    'frontlineservice_uploader',
 #    'rfs_loader',
 #    'train_interruptions_loader',
 #    'air_pollution_loader',
