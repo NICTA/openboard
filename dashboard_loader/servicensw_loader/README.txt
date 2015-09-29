@@ -10,7 +10,7 @@ To try out this uploader you will need to:
    directory (i.e. the parent directory to the directory containing this README
    file), run the following command:
 
-python manage.py import_data -m servicensw_loader/categories.json servicensw_loader/views.json servicensw_loader/w_service_nsw_svc_calls.json servicensw_loader/w_service_nsw_svc_counters.json servicensw_loader/w_service_nsw_svc_www.json
+python manage.py import_data -m servicensw_loader/categories.json servicensw_loader/views.json servicensw_loader/w_svc_calls.json servicensw_loader/w_svc_counters.json servicensw_loader/w_svc_www.json
 
 2) Uncomment servicensw_loader in the INSTALLED_APPS list in 
    ../dashboard_loader/base_settings.py

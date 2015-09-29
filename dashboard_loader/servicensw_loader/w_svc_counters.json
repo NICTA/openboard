@@ -3,13 +3,13 @@
     "edit_all_groups": [
         "Edit Everything"
     ], 
-    "source_url_text": "Service NSW Website", 
-    "subtitle": "Phone Service", 
-    "subcategory": "Service NSW", 
+    "source_url_text": "Frontline Service Website", 
+    "subtitle": "Service Centres", 
+    "subcategory": "Frontline Service", 
     "groups": [
         "Edit All Manual Widgets"
     ], 
-    "url": "service_nsw_svc_calls", 
+    "url": "svc_counters", 
     "definitions": [
         {
             "tiles": [
@@ -24,7 +24,7 @@
                             "name": "Daily Customers", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "callers", 
+                            "url": "visits", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -64,7 +64,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "service_nsw_svc_calls_main", 
+                    "url": "service_nsw_svc_counters_main", 
                     "tile_type": 2, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -72,8 +72,8 @@
                     "columns": null
                 }
             ], 
-            "about": "<p>Average wait time and number of customer calls for 24 hour interval.</p>\r\n<p>Data supplied by Service NSW. Currently static sample data only.</p>", 
-            "sort_order": 400, 
+            "about": "<p>Average wait time and number of customer visits for previous day.</p>", 
+            "sort_order": 440, 
             "deexpansion_hint": "Show less", 
             "declarations": [
                 {
@@ -94,7 +94,7 @@
             "raw_data_sets": []
         }
     ], 
-    "source_url": "http://www.service.nsw.gov.au/", 
-    "name": "Service NSW"
+    "source_url": "http://www.frontlineservice.xyz.gov.au/", 
+    "name": "Frontline Service"
 }
 
