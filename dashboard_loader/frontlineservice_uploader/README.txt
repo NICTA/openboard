@@ -1,4 +1,4 @@
-servicensw_loader
+frontlineservice_uploader
 
 An example dashboard uploader module.
 
@@ -10,9 +10,9 @@ To try out this uploader you will need to:
    directory (i.e. the parent directory to the directory containing this README
    file), run the following command:
 
-python manage.py import_data -m servicensw_loader/categories.json servicensw_loader/views.json servicensw_loader/w_svc_calls.json servicensw_loader/w_svc_counters.json servicensw_loader/w_svc_www.json
+python manage.py import_data -m frontlineservice_uploader/categories.json frontlineservice_uploader/views.json frontlineservice_uploader/w_svc_calls.json frontlineservice_uploader/w_svc_counters.json frontlineservice_uploader/w_svc_www.json
 
-2) Uncomment servicensw_loader in the INSTALLED_APPS list in 
+2) Uncomment frontlineservice_uploader in the INSTALLED_APPS list in 
    ../dashboard_loader/base_settings.py
 
 3) Register the uploader:
@@ -21,7 +21,7 @@ python manage.py import_data -m servicensw_loader/categories.json servicensw_loa
 
 4) You can now run the uploader with:
 
-   python manage.py upload_data -v3 servicensw_loader servicensw_loader/sample_data.csv "Friday"
+   python manage.py upload_data -v3 frontlineservice_uploader frontlineservice_uploader/sample_data.csv "Friday"
 
    ("Friday" is the actual frequency display text)
 
