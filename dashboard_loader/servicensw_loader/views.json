@@ -1,0 +1,39 @@
+{
+    "themes": [
+        {
+            "url": "all", 
+            "sort_order": 100, 
+            "requires_auth": true, 
+            "name": "All"
+        }
+    ], 
+    "frequencies": [
+        {
+            "url": "rt", 
+            "display_mode": true, 
+            "sort_order": 100, 
+            "name": "Current", 
+            "actual_display": "Real time"
+        },
+        {
+            "url": "day", 
+            "display_mode": false, 
+            "sort_order": 300, 
+            "name": "Daily", 
+            "actual_display": "Daily"
+        }
+    ], 
+    "locations": [
+        {
+            "url": "syd", 
+            "sort_order": 100, 
+            "name": "Sydney"
+        },
+        {
+            "url": "nsw", 
+            "sort_order": 200, 
+            "name": "New South Wales"
+        }
+    ]
+}
+

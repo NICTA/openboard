@@ -1,11 +1,19 @@
 import csv
 import decimal
-from dashboard_loader.loader_utils import LoaderException, get_statistic, set_statistic_data, set_actual_frequency_display_text
+from dashboard_loader.loader_utils import *
 
+# These are the names of the groups that have permission to upload data for this uploader.
+# If the groups do not exist they are created on registration.
 groups = [ "upload_all", "upload_servicensw" ]
 
+# This describes the file format.  It is used to describe the format by both
+# "python manage.py upload_data servicensw_loader" and by the uploader page
+# in the data admin GUI.
 file_format = {
+    # format:  Either "csv", "xls", or "zip"
     "format": "csv",
+    # sheets: csv formats should only have one sheet.  For "zip", sheets are csv files within
+    #         the zip file
     "sheets": [
         {
             "name": "CSV Sheet",
@@ -20,20 +28,20 @@ file_format = {
                     ('Service Centres', 'Data for service centre counters'), 
                     ('Phone Service', 'Data for call centres'), 
                     ('Digital Service', 'Data for web site'), 
-# ('Service Centre', 'Data for service centre counters'), 
-#                    ('Contact Centre', 'Data for call centres'), 
-#                    ('Digital', 'Data for web site'), 
             ],
         }
     ],
 }
 
+# The function called when uploading a file.
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
+        # Read the fh file handle as a CSV file.
         reader = csv.reader(fh)
         heading_read = False
         for row in reader:
+            # Skip the first row (the heading row)
             if not heading_read:
                 heading_read = True
                 continue
@@ -42,10 +50,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             sdc = row[0]
             visits = int(row[1])
             if row[2]:
-                csat = decimal.Decimal(row[2])
+                csat = int(row[2])
             else:
                 csat = None
             visit_time = row[3]
+            # Determine the stats to write to for this row.
             if "Centre" in sdc:
                 visit_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "visits") 
                 other_stat = get_statistic("service_nsw_svc_counters", "syd", "day", "satisfaction") 
@@ -70,33 +79,15 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise LoaderException("Invalid file: %s" % unicode(e))
 
 def update_stats(visit_stat, visits, other_stat, other_val, actual_freq_display):
-    old_visits = visit_stat.get_data()
-    if old_visits:
-        old_visits = old_visits.value()
-# if old_visits < visits:
-#        trend = 1
-#    elif old_visits == visits:
-#        trend = 0
-#    else:
-#        trend = -1
-    set_statistic_data(visit_stat.tile.widget.family.url, visit_stat.tile.widget.actual_location.url,
-                    visit_stat.tile.widget.actual_frequency.url, visit_stat.url,
-                    visits) #, trend=trend)
-#    if old_wait < new_wait:
-#        trend = 1
-#    elif old_wait == new_wait:
-#        trend = 0
-#    else:
-#        trend = -1
-    set_statistic_data(other_stat.tile.widget.family.url, other_stat.tile.widget.actual_location.url,
-                    other_stat.tile.widget.actual_frequency.url, other_stat.url,
-                    other_val) # , trend=trend)
+    # Set statistic data
+    set_stat_data(visit_stat, visits)
+    set_stat_data(other_stat, other_val)
+    # Set actual frequency display text
     if actual_freq_display:
-        set_actual_frequency_display_text(visit_stat.tile.widget.family.url, 
-                    visit_stat.tile.widget.actual_location.url, visit_stat.tile.widget.actual_frequency.url, 
-                    actual_freq_display)
+        set_widget_actual_frequency_display_text(visit_stat.tile.widget, actual_freq_display)
 
 def normalise_time(t):
+    # Convert hh:mm:ss to mm:ss (e.g. "01:10:10"  ->  "70:10")
     if t is None:
         return "00:00"
     bits = t.split(":")

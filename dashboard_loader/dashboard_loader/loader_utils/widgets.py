@@ -233,12 +233,15 @@ def set_actual_frequency_display_text(widget_url, actual_location_url,
                                 actual_frequency__url=actual_frequency_url)
     except WidgetDefinition.DoesNotExist:
         raise LoaderException("Widget %s(%s,%s) does not exist" % (widget_url, actual_location_url, actual_frequency_url))
-    wdata = wdef.widget_data()
+    set_widget_actual_frequency_display_text(wdef, display_text)
+
+def set_widget_actual_frequency_display_text(widget, display_text):
+    wdata = widget.widget_data()
     if not wdata:
-        wdata = WidgetData(widget=wdef)
+        wdata = WidgetData(widget=widget)
     wdata.actual_frequency_text = display_text
     wdata.save()
-             
+
 def get_icon(library, lookup):
     """Lookup icon code by icon library name and icon name or sort_order"""
     try: 
