@@ -1,0 +1,36 @@
+{
+    "codes": [
+        {
+            "colour": "cyan", 
+            "sort_order": 10, 
+            "value": "very_good"
+        }, 
+        {
+            "colour": "green", 
+            "sort_order": 20, 
+            "value": "good"
+        }, 
+        {
+            "colour": "yellow", 
+            "sort_order": 30, 
+            "value": "fair"
+        }, 
+        {
+            "colour": "orange", 
+            "sort_order": 40, 
+            "value": "poor"
+        }, 
+        {
+            "colour": "magenta", 
+            "sort_order": 50, 
+            "value": "very_poor"
+        }, 
+        {
+            "colour": "red", 
+            "sort_order": 60, 
+            "value": "hazardous"
+        }
+    ], 
+    "scale_name": "air_pollution_scale"
+}
+

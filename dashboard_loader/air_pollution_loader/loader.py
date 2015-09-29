@@ -10,10 +10,13 @@ from django.conf import settings
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code, clear_statistic_list, add_statistic_list_item, call_in_transaction
 
 from widget_def.models import Location
+
 # Refresh every quarter hour
 refresh_rate = 60 * 15
 
-
+# Wrapper class for pollution ratings.
+# N.B. Some of this functionality could be handled by the "MAP" type traffic light automation
+#      functionality that was not available when this code was written.
 class PollutionRating(object):
     VERY_GOOD = 0
     GOOD = 1
@@ -47,6 +50,8 @@ class PollutionRating(object):
     def __cmp__(self, other):
         return cmp(self.rating, other.rating)
 
+# HTML Parser.
+# Includes code which writes widget data to database
 class AirPollutionHtmlParser(HTMLParser):
     def __init__(self, messages, verbosity, *args, **kwargs):
         self.messages = messages
@@ -148,6 +153,7 @@ class AirPollutionHtmlParser(HTMLParser):
                 count += 1
         return count
 
+# Worker function, called inside a database transaction from update_data below.
 def get_airdata(loader, messages, verbosity=0):
     http = httplib.HTTPConnection("airquality.environment.nsw.gov.au")
     http.request("GET", "http://airquality.environment.nsw.gov.au/aquisnetnswphp/getPage.php?reportid=25")
@@ -165,6 +171,7 @@ def get_airdata(loader, messages, verbosity=0):
         messages.append("Updated air pollution ratings from website")
     return parser.messages
 
+# This is the interface function that is called when the loader is run.
 def update_data(loader, verbosity=0):
     messages = []
     try:
