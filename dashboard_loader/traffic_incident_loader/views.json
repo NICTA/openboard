@@ -3,7 +3,7 @@
         {
             "url": "all", 
             "sort_order": 100, 
-            "requires_auth": true, 
+            "requires_auth": false, 
             "name": "All"
         }
     ], 

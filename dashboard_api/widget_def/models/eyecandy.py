@@ -322,12 +322,12 @@ class TrafficLightAutomation(models.Model):
         problems = []
         if self.target_statistic and self.target_value is not None:
             problems.append("Cannot have both target statistic and target value")
-        if self.strategy.strategy_type == self.strategy.MAP:
-            if self.target_statistic or self.target_value is not None:
-                problems.append("MAP type strategies cannot have a target statistic or a target value")
-        else:
+        if self.strategy.strategy_type == self.strategy.RELATIVE:
             if not (self.target_statistic or self.target_value is not None):
-                problems.append("Non-MAP type strategies must set a target statistic or a target value")
+                problems.append("RELATIVE type strategies must set a target statistic or a target value")
+        else:
+            if self.target_statistic or self.target_value is not None:
+                problems.append("Non-RELATIVE type strategies cannot have a target statistic or a target value")
         if self.target_statistic:
             if not self.target_statistic.is_numeric():
                 problems.append("Target statistic must be a numeric statistic")

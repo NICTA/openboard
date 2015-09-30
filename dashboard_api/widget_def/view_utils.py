@@ -31,7 +31,7 @@ def jsonize(data, html=False):
         return json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
 
 def get_theme_from_request(request, use_default=False):
-    return get_theme_from_url(request, request.GET.get("theme", ""))
+    return get_theme_from_url(request, request.GET.get("theme", ""), use_default)
 
 def get_theme_from_url(request, url, use_default=False):
     try:

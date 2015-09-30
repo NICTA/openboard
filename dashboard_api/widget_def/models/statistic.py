@@ -273,9 +273,9 @@ class Statistic(models.Model):
             s.icon_library = IconLibrary.objects.get(name=data["icon_library"])
         else:
             s.icon_library = None
-        s.save()
         if data.get("traffic_light_automation"):
-            self.traffic_light_automation = TrafficLightAutomation.objects.get(url=data["traffic_light_automation"])
+            s.traffic_light_automation = TrafficLightAutomation.objects.get(url=data["traffic_light_automation"])
+        s.save()
         return s
     def __getstate__(self):
         state = {
