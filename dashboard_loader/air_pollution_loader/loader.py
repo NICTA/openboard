@@ -166,8 +166,6 @@ def get_airdata(loader, messages, verbosity=0):
     parser = AirPollutionHtmlParser(messages, verbosity)
     parser.feed(resp.read())
     http.close()
-    loader.last_api_access = datetime.datetime.now(pytz.timezone(settings.TIME_ZONE))
-    loader.save()
     if verbosity >= 3:
         messages.append("Updated air pollution ratings from website")
     return parser.messages
