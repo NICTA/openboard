@@ -11,6 +11,7 @@ from dashboard_loader.loader_utils import clear_statistic_list, add_statistic_li
 # Refresh every 40 seconds
 refresh_rate = 40
 
+# Function called when the loader is run.
 def update_data(loader, verbosity=0):
     messages = []
     try:
@@ -22,21 +23,23 @@ def update_data(loader, verbosity=0):
         raise LoaderException(unicode(e))
     return messages
 
+# Access Twitter API and dowload Tweets.
 def get_tweets(messages, verbosity):
-    url = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+    # Connect to Twitter API with OAuth2
     consumer = oauth.Consumer(key=settings.TWITTER_API_KEY, 
                     secret=settings.TWITTER_API_SECRET)
     token = oauth.Token(key=settings.TWITTER_ACCESS_TOKEN,
                     secret=settings.TWITTER_ACCESS_TOKEN_SECRET)
     client = oauth.Client(consumer, token)
+    # Get list of recent tweets
+    url = "https://api.twitter.com/1.1/statuses/home_timeline.json"
     resp, content = client.request(url, method="GET")
     data = json.loads(content)
     tweets = []
     for d in data:
         tweets.append({"user": d["user"]["name"], "tuser": "@" + d["user"]["screen_name"], "tweet": d["text"]})
+    # Load 5 random tweets into widget
     random.shuffle(tweets)
-    if verbosity > 5:
-        print json.dumps(tweets, indent=4)
     clear_statistic_list("tweets", "nsw", "rt", "tweets")
     sort_order = 1
     for t in tweets:

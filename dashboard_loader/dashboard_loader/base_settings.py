@@ -110,9 +110,6 @@ SESSION_COOKIE_PATH = '/'
 
 ADMIN_SITE_URL = "/"
 
-# TDX_USERNAME="paul.haesler@nicta.com.au"
-# TDX_PASSWORD="passwd"
-# Just so I don't forget
 # TWITTER_API_KEY="KEY..."
 # TWITTER_API_SECRET="SECRET..."
 # TWITTER_ACCESS_TOKEN="TOKEN..."
