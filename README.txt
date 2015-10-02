@@ -1,11 +1,10 @@
-dashboard_core
+dashboard
 ==============
 
-This is a stripped down version of the NSW dashboard source code
-(with configuration and widget definitions specific to the NSW
-government removed or redacted).  I have left in the "loader" code
-for the loaders accessing NSW APIs to serve as code examples (although
-admittedly these form the dirtiest and ugliest parts of the code-base.)
+The backend component of a flexible configuration-driven dashboard platform.
+
+The API used for communication between the front and back ends is documented in
+API Specification included in the root directory of this release.
 
 Dependencies
 ============
@@ -83,18 +82,28 @@ manage.py commands:
 		Ensures correct widget permissions exist for all defined 
 		widget families.
 
-	export_views
-	export_geowindow
 	export_categories
+	export_views
 	export_colourmap
-	export_trafficlight_scale
+	export_geowindow
+	export_geocolourscale
+	export_geodataset
+	export_trafficlightscale
+	export_trafficlightstrategy
+	export_trafficlightautomation
 	export_iconlibrary
 	export_widget
 		Export various metadata definitions as json files.
 
 	import_data
 		Import metadata definition json files, as exported by the
-		three export commands above.
+		export commands above.
+	
+	export_widget_data
+		Export the data for a widget as a json file.
+
+	migrate_raw_to_geo
+		Generates geo dataset metadata json based on raw dataset metadata json.
 
 	Use manage.py help for more information.	
 
@@ -102,7 +111,10 @@ dashboard_loader:
 -----------------
 
 This project consists of one core app (dashboard_loader) to which developers
-can add additional loader (or uploader) apps, as described below.
+can add additional loader (or uploader) apps, as described below. The loader
+and uploader apps make use of the dashboard loader API which is defined (and
+documented) in dashboard_loader.loader_utils.  Some example loader and uploader
+apps are provided.
 
 Django Admin pages are provided for maintaining widget definitions and
 associated metadata, as well as custom maintenance views for manually 
@@ -135,12 +147,6 @@ An loader.py file must define:
 
 		def update_data(loader, verbosity=0):
 			return []
-	
-	testall:
-		Run Django tests on all dashboard apps. Note that to create
-		a postgis enabled test database the test user will need
-		superuser database access.  Therefore tests should never be
-		run in a production environment for security reasons.
 
 An uploader.py file must define:
 
@@ -151,7 +157,7 @@ An uploader.py file must define:
 	file_format:
 		A structured dictionary outlining the file format for the
 		uploaded data file (csv or xls).  See 
-		servicensw_loader/uploader.py for an example.
+		frontlineservice_uploader/uploader.py for an example.
 
 	upload_file:
 		A function taking the following arguments:
@@ -187,6 +193,13 @@ manage.py commands:
 
 	upload_data
 		Manually run a particular uploader.
+	
+	testall:
+		Run Django tests on all dashboard apps. Note that to create
+		a postgis enabled test database the test user will need
+		superuser database access.  Therefore tests should never be
+		run in a production environment for security reasons.
+
 
 	Use manage.py help for more information.	
 
@@ -208,7 +221,7 @@ It is probably incomplete.
 1. Install dependencies and install source code.
 
 2. Create a postgresql database.  Enable postgis extensions with:
-	"create extension postgis"
+	"create extension postgis;"
 
 3. Copy example_settings.py to settings.py and customise for your local 
 	environment.  (for both dashboard_api and dashboard_loader)
@@ -232,9 +245,12 @@ It is probably incomplete.
 10. Create loader/uploader apps and add them to the INCLUDED_APPS for 
 	dashboard_loader.  (And reload apache if necessary).
 
-11. Run manage.py register_loaders to register the loaders and uploaders.  
+11. Run manage.py migrate to create any working storage database tables
+	used by the included loader and uploader modules.
+
+12. Run manage.py register_loaders to register the loaders and uploaders.  
 	Loaders are created in a suspended state.
 
-12. Got the Loader admin page, and manually run or unsuspend the new loaders.
+13. Got the Loader admin page, and manually run or unsuspend the new loaders.
 
 
