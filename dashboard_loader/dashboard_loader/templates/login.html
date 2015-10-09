@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Login</h1>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form action="{% url "login" %}{% if next %}?next={{ next }}{% endif %}" method="post">{% csrf_token %}
+        <table border="0">
+            {% for field in form %}
+                <tr>
+                    <td><b>{{ field.label_tag }}</b></td>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input name="submit" type="submit" value="Login"/>
+    </form>
+{% endblock %}

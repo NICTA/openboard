@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Uploader: {{ uploader.app }}</h1>
+<p>{% if uploader.last_uploaded %}
+Last Uploaded: {{ uploader.last_uploaded|date:"d/m/Y h:t:sa" }}
+{% else %}<i>Never uploaded</i>{% endif %}
+<div class="instructions">
+<h2>File Format Specification for {{ uploader.app }}</h2>
+<p><b>Format:</b> {{ format.format }}</p>
+{% for sheet in format.sheets %}
+    {% if num_sheets > 1 %}
+    <h3>Sheet {{ sheet.name }}</h3>
+    {% endif %}
+    <h4>Columns</h4>
+    <table class="simple_table">
+        {% for col in sheet.cols %}
+            <tr>
+                {% for elem in col %}
+                    <td>{{ elem }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>Rows</h4>
+    <table class="simple_table">
+        {% for row in sheet.rows %}
+            <tr>
+                {% for elem in row %}
+                    <td>{{ elem }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <h4>Notes</h4>
+    <ul>
+        {% for note in notes %}
+            <li>{{ note }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+</div>
+{% if messages %}
+<ul>
+    {% for msg in messages %}
+        <li>{{ msg }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form action="{% url "upload_data" uploader_app=uploader.app %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <table border="0">
+        {% for field in form %}
+            <tr>
+                <td><b>{{ field.label_tag }}</b></td>
+                <td>{{ field }}</td>
+                <td>{{ field.errors }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <input name="submit" type="submit" value="Upload" class="button"/>
+</form>
+<p><a href="{% url "list_widget_data" %}">Back to list of widgets and uploaders</a></p>
+{% endblock %}

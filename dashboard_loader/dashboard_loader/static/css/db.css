@@ -1,0 +1,181 @@
+body {
+	min-width: 550px;
+	margin: 2em;
+	padding: 1.5em 1.5em 1.5em 1.5em;
+	background: #002E5D;
+	font: 15px Arial, Helvetica, sans-serif;
+	color: #424242;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+input {
+	padding: 5px;
+	background: #FEFEFE;
+	border: 1px solid #626262;
+	font: normal 1em Arial, Helvetica, sans-serif;
+}
+
+.button {
+	border-radius=6px;
+	box-shadow: inset 0px 0px 2px 2px #909090;
+}
+
+h1, h1 a, h2, h2 a, h3, h3 a, h4, h4 a {
+        margin: 0;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #444444;
+}
+
+
+
+p {
+        margin: 15px 0px 15px 0px;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #444444;
+}
+
+p.emphasis {
+        margin: 15px 0px 15px 0px;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 1.3em;
+        color: #791F3F;
+}
+
+p.smallprint {
+        margin: 15px 0px 15px 0px;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 0.5em;
+        color: #444444;
+}
+
+h1 {
+        font-size: 1.5em;
+}
+
+h2 {
+        font-size: 1.1em;
+        font-weight: bold;
+        padding-top: 1em;
+        padding-bottom: 0.5em;
+}
+
+h3 {
+        font-size: 1em;
+}
+
+h4 {
+        padding-top: 0.2em;
+        font-size: 0.9em;
+}
+
+label {
+        text-align: left;
+}
+
+p.required {
+        color: #FF0000;
+        font-size: 0.7em;
+        padding: 0 0 0 0;
+        margin: 0 0 0 0;
+}
+
+ul.errorlist {
+        color: #FF0000;
+        font-weight: bold;
+        padding: 0 0 0 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 2em;
+}
+
+
+p.error {
+        color: #FF0000;
+        font-weight: bold;
+}
+
+p.success {
+        color: #50FF50;
+        font-weight: bold;
+}
+
+p.info {
+        font-style: italic;
+        font-size: 1.0em;
+}
+
+blockquote {
+        margin: 0 0 0 1.5em;
+        padding-left: 1em;
+        border-left: 5px solid #DDDDDD;
+}
+
+div.hidden {
+        display: None;
+}
+
+input.hidden {
+        display: None;
+}
+
+tr.hidden {
+        display: None;
+}
+
+div.padded {
+        padding: 1.0em 0em;
+}
+
+div.smallprint {
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8em;
+        color: #444444;
+}
+
+
+div.instructions, div.instructions p {
+        padding: 0.5em 1.5em 0.5em 1.5em;
+        margin: 0.5em 0em 0.5em 0em;
+        background: #C0C0C0;
+        color: #000000;
+}
+
+#maincontent {
+        background: #FFFFFF;
+        padding-top: 1.5em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+        padding-bottom: 1.5em;
+}
+
+#user {
+        background: #FFFFFF;
+	text-align: right;
+        padding-top: 0.5em;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+}
+
+table.simple_table, table.simple_table td {
+        border-collapse:collapse;
+        border: 1px solid black;
+}
+
+table.simple_table th {
+        background: #C0C9F0;
+        padding-top: 1.0em;
+        padding-bottom: 1.0em;
+        border: 1px solid black;
+}
+

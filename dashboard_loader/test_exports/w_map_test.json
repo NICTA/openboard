@@ -1,0 +1,54 @@
+{
+    "category": "Leadership", 
+    "edit_all_groups": [], 
+    "source_url_text": "Whatsit", 
+    "subtitle": "Foo Bar Baz", 
+    "subcategory": "Other", 
+    "groups": [], 
+    "url": "map_test", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "map-test-tile", 
+                    "tile_type": 7, 
+                    "geo_datasets": [
+                        "srlup", 
+                        "gsgc_precinct"
+                    ], 
+                    "geo_window": "Greater Sydney", 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "about": "<p>Testing map tiles</p>", 
+            "sort_order": 500, 
+            "deexpansion_hint": "", 
+            "declarations": [
+                {
+                    "theme": "all", 
+                    "frequency": "rt", 
+                    "location": "all"
+                }, 
+                {
+                    "theme": "men", 
+                    "frequency": "rt", 
+                    "location": "all"
+                }
+            ], 
+            "refresh_rate": 3456, 
+            "expansion_hint": "", 
+            "actual_frequency_url": "rt", 
+            "actual_location_url": "all", 
+            "raw_data_sets": []
+        }
+    ], 
+    "source_url": "http://lotr.wikia.com/wiki/Main_Page", 
+    "name": "Map Test Widget"
+}
+

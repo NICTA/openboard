@@ -1,0 +1,26 @@
+{
+    "url": "zero_green_3", 
+    "rules": [
+        {
+            "is_default": false, 
+            "map_val": null, 
+            "code": "bad", 
+            "min_val": 3
+        }, 
+        {
+            "is_default": false, 
+            "map_val": null, 
+            "code": "poor", 
+            "min_val": 1
+        }, 
+        {
+            "is_default": true, 
+            "map_val": null, 
+            "code": "good", 
+            "min_val": null
+        }
+    ], 
+    "scale": "std 3 code", 
+    "type": 2
+}
+

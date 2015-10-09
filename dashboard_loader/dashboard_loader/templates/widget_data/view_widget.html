@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Widget: {{ widget.name }} ({{ widget.actual_location.name }}, {{ widget.actual_frequency.name }})</h1>
+<table class="simple_table">
+    <tr>
+        <th>Statistic (url)</th>
+        <th>Last Updated</th>
+        <th>Value</th>
+        <th>Actions</th>
+    </tr>
+    {% for stat in stats %}
+        <tr>
+            <td>{{ stat.statistic.name }} ({{ stat.statistic.url }})</td>
+            <td>
+                {% if stat.statistic.data_last_updated %}
+                    {{ stat.statistic.data_last_updated|date:"d/m/Y h:i:sa" }}
+                {% else %}<i>no data</i>{% endif %}
+            </td>
+            <td>
+                {% if stat.statistic.data_last_updated %}
+                    {% if stat.statistic.is_display_list %}
+                        {{ stat.listdata.count }} list items
+                    {% elif stat.statistic.is_data_list %}
+                        {{ stat.listdata.count }} rotating items
+                    {% else %}
+                        {{ stat.data.display_val }}
+                    {% endif %}
+                {% else %}<i>no data</i>{% endif %}
+            </td>
+            <td>
+                <a href="{% url "edit_stat" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url stat_url=stat.statistic.url %}">
+                    {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% if graphs %}
+<table class="simple_table">
+    <tr>
+        <th>Graph</th>
+        <th>Last Updated</th>
+        <th>Datapoints</th>
+        <th>Actions</th>
+    </tr>
+    {% for g in graphs %}
+    <tr>
+        <td>{{ g.tile.url }}</td>
+        <td>
+            {% if g.graph.data_last_updated %}
+                {{ g.graph.data_last_updated|date:"d/m/Y h:i:sa" }}
+            {% else %}<i>no data</i>{% endif %}
+        </td>
+        <td>
+            {% if g.graph.data_last_updated %}
+                {{ g.data.count }}
+            {% else %}<i>no data</i>{% endif %}
+        </td>
+        <td>
+            <a href="{% url "edit_graph" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url tile_url=g.graph.tile.url %}">
+                {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+<form action="{% url "view_widget_data" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url %}" method="post">{% csrf_token %}
+    <table border="0">
+        <tr>
+    {% for field in form %}
+            <td><b>{{ field.label_tag }}</b></td>
+            <td>{{ field }}</td>
+            <td>{{ field.errors }}</td>
+    {% endfor %}
+        <td><input name="save" type="submit" value="Save" class="button"/></td>
+        </tr>
+    </table>
+</form>
+
+<p><a href="{% url "list_widget_data" %}">Return to List of Available Widgets</a></p>
+{% endblock %}

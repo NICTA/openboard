@@ -1,0 +1,72 @@
+{
+    "category": "Magic", 
+    "sort_order": 300, 
+    "subcategory": "Wizards", 
+    "url": "gsgc_ura", 
+    "declarations": [
+        {
+            "theme": "all", 
+            "frequency": "rt", 
+            "location": "all"
+        }, 
+        {
+            "theme": "men", 
+            "frequency": "rt", 
+            "location": "all"
+        }
+    ], 
+    "properties": [
+        {
+            "url": "objectid", 
+            "num_precision": 0, 
+            "sort_order": 100, 
+            "type": 2, 
+            "label": "Object Id"
+        }, 
+        {
+            "url": "lep_name", 
+            "num_precision": null, 
+            "sort_order": 200, 
+            "type": 1, 
+            "label": "LEP Name"
+        }, 
+        {
+            "url": "lga_code", 
+            "num_precision": 0, 
+            "sort_order": 300, 
+            "type": 2, 
+            "label": "LGA Code"
+        }, 
+        {
+            "url": "gazetted_d", 
+            "num_precision": null, 
+            "sort_order": 400, 
+            "type": 3, 
+            "label": "Gazetted Date"
+        }, 
+        {
+            "url": "amendment", 
+            "num_precision": null, 
+            "sort_order": 500, 
+            "type": 1, 
+            "label": "Amendment"
+        }, 
+        {
+            "url": "comments", 
+            "num_precision": null, 
+            "sort_order": 600, 
+            "type": 1, 
+            "label": "Comments"
+        }, 
+        {
+            "url": "ura", 
+            "num_precision": null, 
+            "sort_order": 700, 
+            "type": 1, 
+            "label": "URA"
+        }
+    ], 
+    "geom_type": 3, 
+    "label": "GSGC URA"
+}
+

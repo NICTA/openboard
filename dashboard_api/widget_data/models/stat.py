@@ -1,0 +1,46 @@
+from decimal import Decimal, ROUND_HALF_UP
+
+from django.db import models
+
+# Create your models here.
+
+class StatisticData(models.Model):
+    statistic = models.OneToOneField("widget_def.Statistic")
+    label=models.CharField(max_length=80, blank=True, null=True)
+    intval = models.IntegerField(blank=True, null=True)
+    decval = models.DecimalField(max_digits=10, decimal_places=4,
+                        blank=True, null=True)
+    strval = models.CharField(max_length=400, null=True, blank=True)
+    traffic_light_code = models.ForeignKey("widget_def.TrafficLightScaleCode", blank=True, null=True)
+    icon_code = models.ForeignKey("widget_def.IconCode", blank=True, null=True)
+    trend = models.SmallIntegerField(choices=(
+                    (1, "Upwards"),
+                    (0, "Steady"),
+                    (-1, "Downwards"),
+                ), blank=True, null=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    def display_val(self):
+        if self.statistic.is_numeric():
+            if self.statistic.num_precision == 0:
+                return unicode(self.intval)
+            else:
+                if self.decval is None:
+                    return None
+                else:
+                    return unicode(self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP))
+        else:
+            return self.strval
+    def value(self):
+        if self.statistic.is_numeric():
+            if self.statistic.num_precision == 0:
+                return self.intval
+            else:
+                if self.decval is None:
+                    return None
+                else:
+                    return self.decval.quantize(Decimal(10)**(-1 * self.statistic.num_precision), ROUND_HALF_UP)
+        else:
+            return self.strval
+    def __unicode__(self):
+        return "<Data for %s>" % unicode(self.statistic)
+

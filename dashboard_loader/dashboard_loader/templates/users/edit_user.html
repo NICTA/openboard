@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load dashboard_tags %}
+{% block extrahead %}
+<script type="text/javascript" src="{% settings STATIC_URL %}admin/js/jquery.min.js"></script>
+<script type="text/javascript" src="{% settings STATIC_URL %}admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="{% settings STATIC_URL %}js/show_hide_passwd.js"></script>
+{% endblock %}
+{% block content %}
+<h1>Edit user {{ u.username }}</h1>
+<form action="{% url "edit_user" username=u.username %}" method="post">
+{% csrf_token %}
+<table border="0">
+    {% for field in form %}
+        {% if field.name == "password1" or field.name == "password2" %}
+        <tr id="{{ field.name }}" {% if form.data.mode_password != "3" %}class="hidden"{% endif %}>
+            <td><b>{{ field.label_tag }}</b></td>
+            <td>{{ field }}</td>
+            <td>{{ field.errors }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td><b>{{ field.label_tag }}</b></td>
+            <td>{{ field }}</td>
+            <td>{{ field.errors }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    {% if u.is_staff or u.is_superuser %}
+        <tr>
+            <td><b>Notes:</b></td>
+            <td>
+                {% if u.is_staff %}has access to admin app<br/>{% endif %}
+                {% if u.is_superuser %}is superuser{% endif %}
+            </td>
+            <td></td>
+        </tr>
+    {% endif %}
+</table>
+<p>
+<input name="submit" type="submit" value="Save" class="button"/>
+<input name="cancel" type="submit" value="Cancel" class="button"/>
+</p>
+</form>
+{% endblock %}
