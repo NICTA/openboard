@@ -1,3 +1,8 @@
+# Based on SelectTimeWidget from https://djangosnippets.org/snippets/1202/
+# (Code on DjangoSnippets "grant(s) any third party who sees the code you 
+# post a royalty-free, non-exclusive license to copy and distribute that 
+# code and to make and distribute derivative works based on that code.")
+
 import re
 from django.forms.extras.widgets import SelectDateWidget
 from django.forms.widgets import Widget, Select, MultiWidget

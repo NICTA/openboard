@@ -6,6 +6,11 @@ The backend component of a flexible configuration-driven dashboard platform.
 The API used for communication between the front and back ends is documented in
 API Specification included in the root directory of this release.
 
+License
+=======
+
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html).  Openboard is free for both commercial and non-commercial use.
+
 Dependencies
 ============
 

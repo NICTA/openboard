@@ -1,6 +1,6 @@
 #/bin/bash
 
-cd /home/phaesler/src/dashboard/dashboard_loader
+cd /path/to/deployment/dashboard_loader
 
 . ./setpythonpath.sh
 
