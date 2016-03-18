@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^change_password/$', 'widget_def.views.api_change_password', name='change_password'),
 
     # Simple list API views
+    url(r'^top_level_views$', 'widget_def.views.get_top_level_views', name='get_top_level_views'),
     url(r'^themes/$', 'widget_def.views.get_themes', name='get_themes'),
     url(r'^locations/$', 'widget_def.views.get_locations', name='get_locations'),
     url(r'^frequencies/$', 'widget_def.views.get_frequencies', name='get_frequencies'),

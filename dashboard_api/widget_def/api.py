@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -20,6 +20,14 @@ from django.db.models import Min, Max
 from widget_def.models import *
 from widget_def.view_utils import *
 from widget_data.models import GeoProperty
+
+def api_get_top_level_views(user):
+    if user.is_authenticated():
+        # TODO View permissions
+        views = WidgetView.objects.filter(parent__isnull=True)
+    else:
+        views = WidgetView.objects.filter(parent__isnull=True,requires_authentication=False)
+    return [ v.desc() for v in views ]
 
 def api_get_themes(user):
     if user.is_authenticated():

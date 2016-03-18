@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -23,6 +23,11 @@ from widget_def.view_utils import json_list
 from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request
 
 # Views
+
+def get_top_level_views(request):
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    return json_list(request, api_get_top_level_views(request.user))
 
 def get_themes(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
