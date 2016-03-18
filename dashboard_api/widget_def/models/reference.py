@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,10 +12,188 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+import decimal
+
 from django.db import models
 from django.apps import apps
 
 # Create your models here.
+
+class ViewType(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    show_children = models.BooleanField(default=False)
+    def __unicode__(self):
+        return self.name
+    def export(self):
+        return {
+            "name": self.name,
+            "show_children": self.show_children
+        }
+    @classmethod
+    def import_data(cls, data):
+        try:
+            vt = cls.objects.get(name=data["name"])
+        except cls.DoesNotExist:
+            vt = cls(name=data["name"])
+        vt.show_children = data["show_children"]
+        vt.save()
+        return vt
+
+class WidgetView(models.Model):
+    name = models.CharField(max_length=120)
+    label = models.SlugField(unique=True)
+    parent = models.ForeignKey("self", null=True,blank=True, related_name="children")
+    view_type = models.ForeignKey(ViewType)
+    sort_order = models.IntegerField()
+    requires_authentication = models.BooleanField(default=False)
+    class Meta:
+        unique_together=[
+            ("parent", "name"),
+            ("parent", "sort_order"),
+        ]
+        ordering=["sort_order"]
+    def __unicode__(self):
+        return self.label
+    def desc(self):
+        return {
+            "name": self.name,
+            "label": self.label,
+        }
+    def crumbs(self):
+        c = []
+        v = self
+        while v:
+            c.append(v.desc())
+            v = v.parent
+        c.reverse() 
+        return c
+    def __getstate__(self):
+        return {
+            "crumbs": self.crumbs(),
+            "children": [ c.desc() for c in self.children.all() ],
+            "type": self.view_type.name,
+            "show_children": self.view_type.show_children,
+            "properties": { p.key: p.value() for p in self.viewproperty_set.all() },
+            "widgets": [], # TODO - down to widgets!
+        }
+    def export(self):
+        return {
+            "name": self.name,
+            "label": self.label,
+            "view_type": self.view_type.export(),
+            "sort_order": self.sort_order,
+            "requires_authentication": self.requires_authentication,
+            "properties": [ p.export() for p in self.viewproperty_set.all() ],
+            "children": [ c.export() for c in self.children.all() ],
+        }
+    @classmethod
+    def import_data(cls, data, parent=None):
+        try:
+            v = cls.objects.get(label=data["label"])
+        except cls.DoesNotExist:
+            v = cls(label=data["label"])
+        v.parent = parent
+        v.name = data["name"]
+        v.view_type = ViewType.import_data(data["view_type"])
+        v.sort_order = data["sort_order"]
+        v.requires_authentication = data["requires_authentication"]
+        v.save()
+        # properties
+        v.viewproperty_set.all().delete()
+        for p in data["properties"]:
+            ViewProperty.import_data(v, p)
+        # children
+        children_loaded = []
+        for c in data["children"]:
+            cl = cls.import_data(c, parent=v) 
+            children_loaded.append(cl.label)
+        for c in v.children.all():
+            if c.label not in children_loaded:
+                c.delete()
+        return v
+
+class ViewProperty(models.Model):
+    INT_PROPERTY=0
+    STR_PROPERTY=1
+    BOOL_PROPERTY=2
+    DEC_PROPERTY=3
+    property_types={
+        INT_PROPERTY: "integer",
+        STR_PROPERTY: "string",
+        BOOL_PROPERTY: "boolean",
+        DEC_PROPERTY: "decimal",
+    }
+    view=models.ForeignKey(WidgetView)
+    key=models.CharField(max_length=120)
+    property_type=models.SmallIntegerField(choices=property_types.items())
+    strval=models.CharField(max_length=255, blank=True, null=True)
+    intval=models.IntegerField(blank=True, null=True)
+    boolval=models.NullBooleanField()
+    decval=models.DecimalField(decimal_places=4, max_digits=14, blank=True, null=True)
+    def value(self):
+        if self.property_type == self.INT_PROPERTY:
+            return self.intval
+        elif self.property_type == self.DEC_PROPERTY:
+            return self.decval
+        elif self.property_type == self.BOOL_PROPERTY:
+            return self.boolval
+        else:
+            return self.strval
+    def save(self, *args, **kwargs):
+        if self.property_type == self.INT_PROPERTY:
+            if self.intval is None:
+                raise Exception("Must set integer value on an integer property")
+        else:
+            self.intval = None
+        if self.property_type == self.DEC_PROPERTY:
+            if self.decval is None:
+                raise Exception("Must set decimal value on an decimal property")
+        else:
+            self.decval = None
+        if self.property_type == self.BOOL_PROPERTY:
+            if self.boolval is None:
+                raise Exception("Must set boolean value on an boolean property")
+        else:
+            self.boolval = None
+        if self.property_type == self.STR_PROPERTY:
+            if self.strval is None:
+                raise Exception("Must set string value on an string property")
+        else:
+            self.strval = None
+        super(ViewProperty, self).save(*args, **kwargs)
+    def __unicode__(self):
+        return "%s: %s" % (self.key, unicode(self.value()))
+    class Meta:
+        unique_together=[ ("view", "key") ]
+    def export(self):
+        data = {
+            "key": self.key,
+            "type": self.property_type,
+        }
+        if self.property_type == self.INT_PROPERTY:
+            data["value"] = self.intval
+        elif self.property_type == self.BOOL_PROPERTY:
+            data["value"] = self.boolval
+        else:
+            data["value"] = unicode(self.value())
+        return data
+    @classmethod
+    def import_data(cls, view, data):
+        try:
+            vp = cls.objects.get(view=view, key=data["key"])
+        except cls.DoesNotExist:
+            vp = cls(view=view, key=data["key"])
+        vp.property_type = data["type"]
+        if vp.property_type == cls.INT_PROPERTY:
+            vp.intval = data["value"]
+        elif vp.property_type == cls.BOOL_PROPERTY:
+            vp.boolval = data["value"]
+        elif vp.property_type == cls.DEC_PROPERTY:
+            vp.decval = decimal.Decimal(data["value"])
+        else:
+            vp.strval = data["value"]
+        vp.save()
+        return vp
 
 class Theme(models.Model):
     name = models.CharField(max_length=60, unique=True)

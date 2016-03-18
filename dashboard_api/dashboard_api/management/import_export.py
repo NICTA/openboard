@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView
 from widget_def.models.reference import WidgetViews, AllCategories
 from widget_data.api import *
 
@@ -110,6 +110,16 @@ def export_geocolourscale(gcs):
             raise ImportExportException('GeoColourScale "%s" does not exist' % gcs)
     return gcs.export()
 
+def export_widget_view(v):
+    if not isinstance(v, WidgetView):
+        try:
+            v = WidgetView.objects.get(label=v)
+        except WidgetView.DoesNotExist:
+            raise ImportExportException('WidgetView "%s" does not exist' % v)
+    if v.parent is not None:
+        raise ImportExportException('Can only export top-level Widget Views')
+    return v.export()
+
 def export_views():
     return WidgetViews().export()
             
@@ -117,7 +127,9 @@ def export_categories():
     return Category().export_all()
             
 def import_class(data):
-    if data.get("strategy"):
+    if data.get("children") is not None:
+        return WidgetView
+    elif data.get("strategy"):
         return TrafficLightAutomation
     elif data.get("rules"):
         return TrafficLightAutoStrategy

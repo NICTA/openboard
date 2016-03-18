@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from reference import Theme, Location, Frequency, Category, Subcategory
+from reference import ViewType, WidgetView, ViewProperty, Theme, Location, Frequency, Category, Subcategory
 from widget_family import WidgetFamily
 from widget_definition import WidgetDefinition
 from widget_decl import WidgetDeclaration

@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,6 +17,22 @@ from django.contrib import messages
 from widget_def.models import *
 
 # Register your models here.
+
+# @admin.register(ViewType)
+class ViewTypeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+admin.site.register(ViewType, ViewTypeAdmin)
+
+class ViewPropertyInline(admin.TabularInline):
+    model=ViewProperty
+
+# @admin.register(WidgetView)
+class WidgetViewAdmin(admin.ModelAdmin):
+    list_display = ('parent', 'name', 'label')
+    inlines = [ ViewPropertyInline ]
+
+admin.site.register(WidgetView, WidgetViewAdmin)
 
 # @admin.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):
