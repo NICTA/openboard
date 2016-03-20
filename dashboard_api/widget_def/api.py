@@ -46,6 +46,9 @@ def api_get_frequencies():
 def api_get_icon_libraries():
     return { l.name : l.__getstate__() for l in IconLibrary.objects.all() }
 
+def api_get_view(view):
+    return view.__getstate__()
+
 def api_get_widgets(theme, location, frequency):
     widgets = WidgetDeclaration.objects.filter(theme=theme, 
                     location=location, 

@@ -17,10 +17,10 @@ from django.http.response import HttpResponseForbidden, HttpResponseNotFound
 from django.conf import settings
 
 
-from widget_def.models import Theme, Location, Frequency
+from widget_def.models import Theme, Location, Frequency, WidgetView
 from widget_def.api import *
 from widget_def.view_utils import json_list
-from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request
+from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request, get_view_from_label
 
 # Views
 
@@ -48,6 +48,14 @@ def get_icon_libraries(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     return json_list(request, api_get_icon_libraries())
+
+def get_view(request, view_label):
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    v = get_view_from_label(request, view_label)
+    if not v:
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    return json_list(request, api_get_view(v))
 
 def get_widgets(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():

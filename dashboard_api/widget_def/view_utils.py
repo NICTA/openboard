@@ -90,6 +90,15 @@ def get_frequency_from_url(url, use_default=False):
             raise Http404("Frequency %s does not exist" % url)
     return frequency
 
+def get_view_from_label(request, label):
+    try:
+        v = WidgetView.objects.get(label=label)
+        if v.requires_authentication and not request.user.is_authenticated():
+            return None
+        return v
+    except WidgetView.DoesNotExist:
+        raise Http404("View %s does not exist" % label)
+
 def update_maxmin(value, _min, _max):
     if _min is None:
         _min = value

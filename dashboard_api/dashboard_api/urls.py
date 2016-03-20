@@ -31,8 +31,11 @@ urlpatterns = patterns('',
     url(r'^frequencies/$', 'widget_def.views.get_frequencies', name='get_frequencies'),
     url(r'^icons/$', 'widget_def.views.get_icon_libraries', name='get_icon_libraries'),
 
+    # Main API view for obtaining view definition (including widgets)
+    url(r'^view/(?P<view_label>[^/]+)$', 'widget_def.views.get_view', name='get_view'),
+
     # Main API view for obtaining widget definitions
-    url(r'^widgets/$', 'widget_def.views.get_widgets', name='get_frequencies'),
+    url(r'^widgets/$', 'widget_def.views.get_widgets', name='get_widgets'),
 
     # Get Map Layers API view
     url(r'^map_layers/$', 'widget_def.views.get_map_layers', name='get_map_layers'),
