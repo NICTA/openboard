@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -113,6 +113,7 @@ class WidgetDefinition(models.Model):
             "about": self.about,
             "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
             "declarations": [ wd.export() for wd in self.widgetdeclaration_set.all() ],
+            "views": [ vwd.export() for vwd in self.viewwidgetdeclaration_set.all() ],
             "raw_data_sets": [ rds.export() for rds in self.rawdataset_set.all() ],
         }
     @classmethod
@@ -148,6 +149,17 @@ class WidgetDefinition(models.Model):
                     break
             if not found:
                 wd.delete()
+        ViewWidgetDeclaration = apps.get_app_config("widget_def").get_model("ViewWidgetDeclaration")
+        for v in data["views"]:
+            vwd = ViewWidgetDeclaration.import_data(w, v)
+        for vwd in w.viewwidgetdeclaration_set.all():
+            found = False
+            for v in data["views"]:
+                if v.view.label == v["view"]:
+                    found = True
+                    break
+            if not found:
+                vwd.delete()
         rds_urls = []
         RawDataSet = apps.get_app_config("widget_def").get_model("RawDataSet")
         for ds in data.get("raw_data_sets", []):

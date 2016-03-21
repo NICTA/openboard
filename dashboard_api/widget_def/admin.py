@@ -138,9 +138,13 @@ class DeclarationInline(admin.TabularInline):
     model = WidgetDeclaration
     extra = 2
 
+class ViewDeclarationInline(admin.TabularInline):
+    model = ViewWidgetDeclaration
+    extra = 2
+
 # @admin.register(WidgetDefinition)
 class WidgetAdmin(admin.ModelAdmin):
-    inlines = [DeclarationInline, TileInline]
+    inlines = [DeclarationInline, ViewDeclarationInline, TileInline]
     list_display = ('family', 'subtitle', 'actual_location', 'actual_frequency', 'subcategory', 'sort_order')
     actions = ['validate']
     readonly_fields=('data_last_updated',)

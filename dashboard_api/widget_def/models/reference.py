@@ -74,7 +74,7 @@ class WidgetView(models.Model):
             "type": self.view_type.name,
             "show_children": self.view_type.show_children,
             "properties": { p.key: p.value() for p in self.viewproperty_set.all() },
-            "widgets": [], # TODO - down to widgets!
+            "widgets": [ decl.__getstate__() for decl in self.widgets.all() ], 
         }
     def export(self):
         return {
