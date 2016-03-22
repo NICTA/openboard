@@ -24,7 +24,6 @@ class APISessionMiddleware(SessionMiddleware):
 
     def process_response(self, request, response):
         refreshed_response = super(APISessionMiddleware, self).process_response(request, response)
-        print "Cookies: %s" % repr(refreshed_response.cookies)
         if request.META.get("HTTP_X_DASHBOARD_SESSION_ID"):
             refreshed_response["X-Dashboard-Session-Id"] = refreshed_response.session.session_key
         return refreshed_response
