@@ -46,7 +46,7 @@ class RawDataSet(models.Model):
         return rds
     def __getstate__(self):
         return {
-            "url": self.url,
+            "label": self.url,
             "columns": [ c.__getstate__() for c in self.rawdatasetcolumn_set.all() ],
         }
     def col_array_dict(self):

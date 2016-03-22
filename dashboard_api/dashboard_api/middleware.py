@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,7 +24,8 @@ class APISessionMiddleware(SessionMiddleware):
 
     def process_response(self, request, response):
         refreshed_response = super(APISessionMiddleware, self).process_response(request, response)
+        print "Cookies: %s" % repr(refreshed_response.cookies)
         if request.META.get("HTTP_X_DASHBOARD_SESSION_ID"):
-            response["X-Dashboard-Session-Id"] = response.session.session_key
+            refreshed_response["X-Dashboard-Session-Id"] = refreshed_response.session.session_key
         return refreshed_response
 

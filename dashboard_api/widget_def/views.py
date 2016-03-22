@@ -51,9 +51,11 @@ def get_icon_libraries(request):
 
 def get_view(request, view_label):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
+        print "No public access permitted"
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     v = get_view_from_label(request, view_label)
     if not v:
+        print "No view found for label '%s'" % view_label
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     return json_list(request, api_get_view(v))
 

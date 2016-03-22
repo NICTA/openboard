@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ class GridDefinition(models.Model):
                                 tile_type__in=(TileDefinition.GRID,
                                             TileDefinition.GRID_SINGLE_STAT)
                                 ))
-    corner_label = models.CharField(max_length=50, null=True, blank=True)
+    corner_label = models.CharField(verbose_name="corner header", max_length=50, null=True, blank=True)
     show_column_headers = models.BooleanField(default=True)
     show_row_headers = models.BooleanField(default=True)
     def widget(self):
@@ -41,7 +41,7 @@ class GridDefinition(models.Model):
         }
     def __getstate__(self):
         return {
-            "corner_label": self.corner_label,
+            "corner_header": self.corner_label,
             "show_column_headers": self.show_column_headers,
             "show_row_headers": self.show_row_headers,
             "columns": [ c.__getstate__() for c in self.gridcolumn_set.all() ],
@@ -112,7 +112,7 @@ class GridDefinition(models.Model):
 
 class GridColumn(models.Model):
     grid = models.ForeignKey(GridDefinition)
-    label = models.CharField(max_length=50)
+    label = models.CharField(verbose_name="header", max_length=50)
     sort_order = models.IntegerField()
     def export(self):
         return {
@@ -121,7 +121,7 @@ class GridColumn(models.Model):
         }
     def __getstate__(self):
         return {
-            "label": self.label,
+            "header": self.label,
         }
     @classmethod
     def import_data(cls, grid, data):
@@ -140,7 +140,7 @@ class GridColumn(models.Model):
 
 class GridRow(models.Model):
     grid = models.ForeignKey(GridDefinition)
-    label = models.CharField(max_length=50)
+    label = models.CharField(verbose_name="header", max_length=50)
     sort_order = models.IntegerField()
     def export(self):
         return {
@@ -150,7 +150,7 @@ class GridRow(models.Model):
         }
     def __getstate__(self):
         return {
-            "label": self.label,
+            "header": self.label,
             "statistics": [ s.__getstate__() for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
         }
     @classmethod

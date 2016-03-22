@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -163,7 +163,7 @@ class GraphDefinition(models.Model):
             state = {
                 "heading": self.heading,
                 "graph_type": self.graph_types[self.graph_type],
-                "url": self.tile.url,
+                "label": self.tile.url,
                 "display_options": self.graphdisplayoptions.__getstate__(self.graph_type),
             }
             if self.graph_type == self.LINE:
@@ -231,7 +231,7 @@ class GraphDefinition(models.Model):
             return problems
 
 class PointColourMap(models.Model):
-    label=models.CharField(max_length=50, unique=True)
+    label=models.CharField(verbose_name="name", max_length=50, unique=True)
     decimal_places = models.SmallIntegerField(default=0)
     class Meta:
         ordering = ('label',)
@@ -257,7 +257,7 @@ class PointColourMap(models.Model):
         return m
     def __getstate__(self):
         data = {
-            "label": self.label,
+            "name": self.label,
             "map": [ self.pointcolourrange_set.get(min_value_dec__isnull=True, min_value_int__isnull=True).__getstate__() ],
         }
         if self.decimal_places == 0:
@@ -461,8 +461,8 @@ class GraphDisplayOptions(models.Model):
 class GraphCluster(models.Model):
     # Histo/bar clusters or Pies
     graph=models.ForeignKey(GraphDefinition)
-    url=models.SlugField()
-    label=models.CharField(max_length=80)
+    url=models.SlugField(verbose_name="label")
+    label=models.CharField(verbose_name="name", max_length=80)
     hyperlink=models.URLField(blank=True, null=True)
     sort_order=models.IntegerField()
     def __unicode__(self):
@@ -479,8 +479,8 @@ class GraphCluster(models.Model):
         }
     def __getstate__(self):
         return {
-            "url": self.url,
-            "label": self.label,
+            "label": self.url,
+            "name": self.label,
             "hyperlink": self.hyperlink,
         }
     @classmethod
@@ -497,8 +497,8 @@ class GraphCluster(models.Model):
 class GraphDataset(models.Model):
     # Lines, Bars, or Sectors
     graph=models.ForeignKey(GraphDefinition)
-    url=models.SlugField()
-    label=models.CharField(max_length=80)
+    url=models.SlugField(verbose_name="label")
+    label=models.CharField(verbose_name="name", max_length=80)
     colour = models.CharField(max_length=50)
     use_secondary_numeric_axis = models.BooleanField(default=False)
     hyperlink=models.URLField(blank=True, null=True)
@@ -534,8 +534,8 @@ class GraphDataset(models.Model):
         d.save()
     def __getstate__(self):
         state = {
-            "url": self.url,
-            "label": self.label,
+            "label": self.url,
+            "name": self.label,
             "colour": self.colour,
             "hyperlink": self.hyperlink,
         }

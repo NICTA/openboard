@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -93,7 +93,10 @@ def get_frequency_from_url(url, use_default=False):
 def get_view_from_label(request, label):
     try:
         v = WidgetView.objects.get(label=label)
+        print "Got a label!"
         if v.requires_authentication and not request.user.is_authenticated():
+            print "view requires auth: %s   User is auth: %s" % (v.requires_authentication,
+                                                request.user.is_authenticated())
             return None
         return v
     except WidgetView.DoesNotExist:

@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -42,8 +42,8 @@ class Statistic(models.Model):
                     "am_pm" , "event_list" , "long_string", "long_string_list", "hierarchical_event_list" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.CharField(max_length=80, blank=True)
-    url = models.SlugField()
-    name_as_label=models.BooleanField(default=True)
+    url = models.SlugField(verbose_name="label")
+    name_as_label=models.BooleanField(verbose_name="display_name", default=True)
     stat_type = models.SmallIntegerField(choices=(
                     (STRING, stat_types[STRING]),
                     (LONG_STRING, stat_types[LONG_STRING]),
@@ -293,12 +293,12 @@ class Statistic(models.Model):
         return s
     def __getstate__(self):
         state = {
-            "url": self.url,
+            "label": self.url,
             "type": self.stat_types[self.stat_type],
         }
         if self.tile.tile_type != TileDefinition.GRID:
             state["name"] = self.name
-            state["name_as_label"] = self.name_as_label
+            state["display_name"] = self.name_as_label
         if self.is_numeric():
             state["precision"] = self.num_precision
             state["unit"] = {}
