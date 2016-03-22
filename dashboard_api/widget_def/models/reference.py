@@ -46,6 +46,7 @@ class WidgetView(models.Model):
     view_type = models.ForeignKey(ViewType)
     sort_order = models.IntegerField()
     requires_authentication = models.BooleanField(default=False)
+    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
     class Meta:
         unique_together=[
             ("parent", "name"),
@@ -77,7 +78,7 @@ class WidgetView(models.Model):
             "widgets": [ decl.__getstate__() for decl in self.widgets.all() ], 
         }
     def export(self):
-        return {
+        data = {
             "name": self.name,
             "label": self.label,
             "view_type": self.view_type.export(),
@@ -86,6 +87,9 @@ class WidgetView(models.Model):
             "properties": [ p.export() for p in self.viewproperty_set.all() ],
             "children": [ c.export() for c in self.children.all() ],
         }
+        if self.geo_window:
+            data["geo_window"] = self.geo_window.name
+        return data
     @classmethod
     def import_data(cls, data, parent=None):
         try:
@@ -97,6 +101,11 @@ class WidgetView(models.Model):
         v.view_type = ViewType.import_data(data["view_type"])
         v.sort_order = data["sort_order"]
         v.requires_authentication = data["requires_authentication"]
+        if "geo_window" in data:
+            GeoWindow = apps.get_app_config("widget_def").get_model("GeoWindow")
+            v.geo_window = GeoWindow.objects.get(name=data["geo_window"])
+        else:
+            v.geo_window = None
         v.save()
         # properties
         v.viewproperty_set.all().delete()

@@ -27,10 +27,14 @@ admin.site.register(ViewType, ViewTypeAdmin)
 class ViewPropertyInline(admin.TabularInline):
     model=ViewProperty
 
+class ViewWidgetDeclInline(admin.TabularInline):
+    model=ViewWidgetDeclaration
+    fk_name = "view"
+
 # @admin.register(WidgetView)
 class WidgetViewAdmin(admin.ModelAdmin):
     list_display = ('parent', 'name', 'label')
-    inlines = [ ViewPropertyInline ]
+    inlines = [ ViewPropertyInline, ViewWidgetDeclInline ]
 
 admin.site.register(WidgetView, WidgetViewAdmin)
 
