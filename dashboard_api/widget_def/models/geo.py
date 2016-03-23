@@ -368,13 +368,13 @@ class GeoDataset(models.Model):
         elif self.geom_type == self.PREDEFINED and len(data_properties) != 1:
             problems.append("Predefined geometry geodataset %s does not have a data property set" % self.url)
         refs = 0
-        refs += self.geodatasetdeclaration_set.count()
+        refs += self.viewgeodatasetdeclaration_set.count()
         refs += self.tiledefinition_set.count()
         if refs == 0:
             problems.append("Geodataset %s is not referenced - no declarations and not used in any map tiles" % self.url)
-        for decl in self.geodatasetdeclaration_set.all():
-            if not decl.location.geo_window:
-                problems.append("Geodataset %s has a declaration for location %s which has no geo-window defined" % (self.url, decl.location.url))
+        for decl in self.viewgeodatasetdeclaration_set.all():
+            if not decl.view.geo_window:
+                problems.append("Geodataset %s has a declaration for view %s which has no geo-window defined" % (self.url, decl.view.label))
         return problems
     def data_last_updated(self, update=False):
         if update or not self._lud_cache:
@@ -410,7 +410,6 @@ class GeoDataset(models.Model):
             "ext_type": self.ext_type,
             "ext_extra": self.ext_extra,
             "sort_order": self.sort_order,
-            "declarations": [ d.export() for d in self.geodatasetdeclaration_set.all() ],
             "view_declarations": [ d.export() for d in self.viewgeodatasetdeclaration_set.all() ],
             "properties":   [ p.export() for p in self.geopropertydefinition_set.all() ],
         }
@@ -429,10 +428,8 @@ class GeoDataset(models.Model):
         Subcategory = apps.get_app_config("widget_def").get_model("Subcategory")
         ds.subcategory = Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
         ds.save()
-        for decl in ds.geodatasetdeclaration_set.all():
-            decl.delete()
-        for d in data["declarations"]:
-            GeoDatasetDeclaration.import_data(ds, d)    
+        if "declarations" in data:
+            print "WARNING: Old-style GeoDataset declarations ignored."
         props = []
         for p in data["properties"]:
             prop = GeoPropertyDefinition.import_data(ds, p)

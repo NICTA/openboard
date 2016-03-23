@@ -37,7 +37,7 @@ class WidgetDefinition(models.Model):
         problems = []
         if not self.about:
             problems.append("Widget %s has no 'about' information" % self.url)
-        if self.widgetdeclaration_set.all().count() == 0:
+        if self.viewwidgetdeclaration_set.all().count() == 0:
             problems.append("Widget %s has no declarations" % self.url)
         default_tiles = self.tiledefinition_set.filter(expansion=False).count()
         if default_tiles < 1:
@@ -112,7 +112,6 @@ class WidgetDefinition(models.Model):
             "sort_order": self.sort_order,
             "about": self.about,
             "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
-            "declarations": [ wd.export() for wd in self.widgetdeclaration_set.all() ],
             "views": [ vwd.export() for vwd in self.viewwidgetdeclaration_set.all() ],
             "raw_data_sets": [ rds.export() for rds in self.rawdataset_set.all() ],
         }
@@ -139,16 +138,8 @@ class WidgetDefinition(models.Model):
             if tile.url not in tile_urls:
                 tile.delete()
         WidgetDeclaration = apps.get_app_config("widget_def").get_model("WidgetDeclaration")
-        for d in data["declarations"]:
-            wd=WidgetDeclaration.import_data(w, d)
-        for wd in w.widgetdeclaration_set.all():
-            found = False
-            for decl in data["declarations"]:
-                if wd.location.url == decl["location"] and wd.frequency.url == decl["frequency"]:
-                    found = True
-                    break
-            if not found:
-                wd.delete()
+        if "declarations" in data:
+            print "WARNING: Old-style widget declarations ignored."
         ViewWidgetDeclaration = apps.get_app_config("widget_def").get_model("ViewWidgetDeclaration")
         for v in data["views"]:
             vwd = ViewWidgetDeclaration.import_data(w, v)
