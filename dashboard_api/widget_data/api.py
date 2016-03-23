@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -23,24 +23,20 @@ from widget_data.models import GeoProperty
 from widget_def.models import *
 from widget_def.view_utils import update_maxmin, json_list
 
-def get_declared_widget(widget_url, theme, location, frequency):
+def get_declared_widget(widget_url, view):
     try:
-        decl = WidgetDeclaration.objects.get(frequency=frequency,
-                                theme=theme,
-                                location=location,
+        decl = ViewWidgetDeclaration.objects.get(view=view,
                                 definition__family__url=widget_url)
         return decl.definition
-    except WidgetDeclaration.DoesNotExist:
+    except ViewWidgetDeclaration.DoesNotExist:
         return None
 
-def get_declared_geodataset(url, theme, location, frequency):
+def get_declared_geodataset(url, view):
     try:
-        decl = GeoDatasetDeclaration.objects.get(frequency=frequency,
-                                theme=theme,
-                                location=location,
+        decl = ViewGeoDatasetDeclaration.objects.get(view=view,
                                 dataset__url=url)
         return decl.dataset
-    except GeoDatasetDeclaration.DoesNotExist:
+    except ViewGeoDatasetDeclaration.DoesNotExist:
         return None
 
 def api_get_widget_data(widget):
