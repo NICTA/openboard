@@ -55,7 +55,7 @@ def api_get_widgets(theme, location, frequency):
                     frequency=frequency)
     return [ w.__getstate__() for w in widgets ]
 
-def api_get_map_layers(theme, location, frequency, hierarchical=False):
+def api_get_map_layers(view, hierarchical=False):
     menu = []
     if hierarchical:
         for cat in Category.objects.all():
@@ -68,9 +68,7 @@ def api_get_map_layers(theme, location, frequency, hierarchical=False):
                     "menu_label" : sub.name,
                     "content" : [],
                 }
-                decls = GeoDatasetDeclaration.objects.filter(theme=theme,
-                                                location=location,
-                                                frequency=frequency,
+                decls = ViewGeoDatasetDeclaration.objects.filter(view=view,
                                                 dataset__subcategory=sub)
                 for decl in decls:
                     sm["content"].append(decl.__getstate__())
@@ -86,9 +84,7 @@ def api_get_map_layers(theme, location, frequency, hierarchical=False):
         elif len(menu) == 0:
             raise Http404("No map datasets defined for this view")
     else:
-        decls = GeoDatasetDeclaration.objects.filter(theme=theme,
-                                    location=location,
-                                    frequency=frequency)
+        decls = GeoDatasetDeclaration.objects.filter(view=view)
         for decl in decls:
             menu.append(decl.__getstate__())
     return {

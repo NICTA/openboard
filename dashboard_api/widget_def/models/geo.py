@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import django.contrib.gis.gdal.geometries as geoms
 
 from dashboard_api.validators import validate_html_colour
 from widget_def.view_utils import csv_escape, max_with_nulls
-from widget_def.models import TileDefinition, Location, Theme, Frequency
+from widget_def.models import TileDefinition, Location, Theme, Frequency, WidgetView
 from widget_data.models import GeoFeature, GeoProperty
 
 class GeoWindow(models.Model):
@@ -266,8 +266,8 @@ class GeoDataset(models.Model):
                     (geoms.LineString, geoms.MultiLineString),
                     (geoms.Polygon, geoms.MultiPolygon),
                     [None.__class__], [])
-    url = models.SlugField(unique=True)
-    label = models.CharField(max_length=128)
+    url = models.SlugField(verbose_name="label", unique=True)
+    label = models.CharField(verbose_name="name", max_length=128)
     subcategory = models.ForeignKey("Subcategory")
     geom_type = models.SmallIntegerField(choices=(
                     (POINT, geom_types[POINT]),
@@ -386,8 +386,8 @@ class GeoDataset(models.Model):
         state =  {
             "category": self.subcategory.category.name,
             "subcategory": self.subcategory.name,
-            "url": self.url,
-            "label": self.label,
+            "label": self.url,
+            "name": self.label,
             "geom_type": self.geom_types[self.geom_type],
         }
         if self.is_external():
@@ -411,6 +411,7 @@ class GeoDataset(models.Model):
             "ext_extra": self.ext_extra,
             "sort_order": self.sort_order,
             "declarations": [ d.export() for d in self.geodatasetdeclaration_set.all() ],
+            "view_declarations": [ d.export() for d in self.viewgeodatasetdeclaration_set.all() ],
             "properties":   [ p.export() for p in self.geopropertydefinition_set.all() ],
         }
     @classmethod
@@ -466,6 +467,7 @@ class GeoDataset(models.Model):
         unique_together=(("subcategory", "sort_order"), ("subcategory", "label"))
         ordering = ("subcategory", "sort_order")
 
+# Old style Geodataset declaration
 class GeoDatasetDeclaration(models.Model):
     dataset = models.ForeignKey(GeoDataset)
     theme = models.ForeignKey(Theme)
@@ -491,6 +493,22 @@ class GeoDatasetDeclaration(models.Model):
         unique_together=('dataset', 'theme', 'location', 'frequency')
         ordering = ('dataset', 'theme', 'location', 'frequency')
 
+class ViewGeoDatasetDeclaration(models.Model):
+    dataset = models.ForeignKey(GeoDataset)
+    view = models.ForeignKey(WidgetView)
+    def __getstate__(self):
+        return self.dataset.__getstate__()
+    def export(self):
+        return self.view.label
+    @classmethod
+    def import_data(cls, dataset, data):
+        try:
+            return cls.objects.get(dataset=dataset, view__label=data)
+        except cls.DoesNotExist:
+            decl = cls(dataset=dataset, view=WidgetView.objects.get(label=data))
+            decl.save()
+            return decl
+
 class GeoPropertyDefinition(models.Model):
     STRING = 1
     NUMERIC = 2
@@ -499,8 +517,8 @@ class GeoPropertyDefinition(models.Model):
     DATETIME=5
     property_types=('-', 'string', 'numeric', 'date', 'time', 'datetime')
     dataset = models.ForeignKey(GeoDataset)
-    url = models.SlugField()
-    label = models.CharField(max_length=256)
+    url = models.SlugField(verbose_name="label")
+    label = models.CharField(verbose_name="name", max_length=256)
     property_type=models.SmallIntegerField(choices=(
                     (STRING, property_types[STRING]),
                     (NUMERIC, property_types[NUMERIC]),
@@ -530,8 +548,8 @@ class GeoPropertyDefinition(models.Model):
         return problems
     def __getstate__(self):
         data = {
-            "url": self.url,
-            "label": self.label,
+            "label": self.url,
+            "name": self.label,
             "type": self.property_types[self.property_type],
         }
         if self.data_property:

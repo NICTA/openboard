@@ -21,28 +21,28 @@ from django.db import migrations, models
 
 from dashboard_api.migration_utils import *
 
-def migrate_declaration(wd, apps):
-    ViewWidgetDeclaration=apps.get_model("widget_def", "ViewWidgetDeclaration")
+def migrate_declaration(gd, apps):
+    ViewGeoDatasetDeclaration=apps.get_model("widget_def", "ViewGeoDatasetDeclaration")
     view = migrate_view(apps, wd.theme, wd.frequency, wd.location)
     try:
-        vwd=ViewWidgetDeclaration.objects.get(view=view, definition=wd.definition)
-    except ViewWidgetDeclaration.DoesNotExist:
-        vwd=ViewWidgetDeclaration(definition=wd.definition,
+        vwd=ViewGeoDatasetDeclaration.objects.get(view=view, definition=wd.definition)
+    except ViewGeoDatasetDeclaration.DoesNotExist:
+        vwd=ViewGeodatasetDeclaration(definition=wd.definition,
                                 view=view,
-                                sort_order=get_sort_order(ViewWidgetDeclaration, view=view))
+                                sort_order=get_sort_order(ViewGeoDatasetDeclaration, view=view))
         vwd.save()
 
-def migrate_declarations(apps, schema_editor):
-    WidgetDeclaration=apps.get_model("widget_def", "WidgetDeclaration")
-    for wd in WidgetDeclaration.objects.all():
-        migrate_declaration(wd, apps)
+def migrate_geodeclarations(apps, schema_editor):
+    ViewGeoDatasetDeclaration=apps.get_model("widget_def", "ViewGeoDatasetDeclaration")
+    for gd in ViewGeoDatasetDeclaration.objects.all():
+        migrate_geodeclaration(gd, apps)
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('widget_def', '0043_auto_20160321_1531'),
+        ('widget_def', '0046_auto_20160323_1208'),
     ]
 
     operations = [
-        migrations.RunPython(migrate_declarations),
+          migrations.RunPython(migrate_geodeclarations),
     ]

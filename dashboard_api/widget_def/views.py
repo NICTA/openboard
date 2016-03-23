@@ -20,7 +20,7 @@ from django.conf import settings
 from widget_def.models import Theme, Location, Frequency, WidgetView
 from widget_def.api import *
 from widget_def.view_utils import json_list
-from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request, get_view_from_label
+from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request, get_view_from_label, get_view_from_request
 
 # Views
 
@@ -70,17 +70,15 @@ def get_widgets(request):
 def get_map_layers(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    theme = get_theme_from_request(request)
-    if theme is None:
+    view = get_view_from_request(request)
+    if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    location = get_location_from_request(request)
-    frequency = get_frequency_from_request(request)
     hierarchical = request.GET.get("hierarchical")
     if hierarchical in ("", None, "0"):
         hierarchical = False
     else:
         hierarchical = True
-    return json_list(request, api_get_map_layers(theme, location, frequency, hierarchical))
+    return json_list(request, api_get_map_layers(view, hierarchical))
 
 def get_terria_init(request, location_url, frequency_url, theme_url="", shown_urls=""):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():

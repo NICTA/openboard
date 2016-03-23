@@ -90,13 +90,13 @@ def get_frequency_from_url(url, use_default=False):
             raise Http404("Frequency %s does not exist" % url)
     return frequency
 
+def get_view_from_request(request):
+    return get_view_from_label(request.GET.get("view", ""))
+
 def get_view_from_label(request, label):
     try:
         v = WidgetView.objects.get(label=label)
-        print "Got a label!"
         if v.requires_authentication and not request.user.is_authenticated():
-            print "view requires auth: %s   User is auth: %s" % (v.requires_authentication,
-                                                request.user.is_authenticated())
             return None
         return v
     except WidgetView.DoesNotExist:
