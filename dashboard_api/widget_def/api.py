@@ -92,7 +92,7 @@ def api_get_map_layers(view, hierarchical=False):
         "menu": menu,
     }
 
-def api_get_terria_init(theme,location,frequency, shown=[]):
+def api_get_terria_init(view, shown=[]):
     init =  {
         "catalog": [{
                     "name": settings.TERRIA_TOP_LEVEL_MENU,
@@ -118,12 +118,10 @@ def api_get_terria_init(theme,location,frequency, shown=[]):
                 "isOpen": "true",
                 "items" : [],
             }
-            decls = GeoDatasetDeclaration.objects.filter(theme=theme,
-                                            location=location,
-                                            frequency=frequency,
+            decls = ViewGeoDatasetDeclaration.objects.filter(view=view,
                                             dataset__subcategory=sub)
             for decl in decls:
-                sm["items"].append(catalog_entry(decl.dataset, theme, location, frequency, shown))
+                sm["items"].append(catalog_entry(decl.dataset, view, shown))
             if len(sm["items"]) > 0:
                 cm["items"].append(sm)
         cm_len = len(cm["items"])
@@ -137,7 +135,7 @@ def api_get_terria_init(theme,location,frequency, shown=[]):
         raise Http404("No map datasets defined for this view")
     return init
 
-def catalog_entry(ds, theme, location, frequency, shown=[]):
+def catalog_entry(ds, view, shown=[]):
     use_csv = ds.terria_prefer_csv()
     entry = {
         "name": ds.label,
@@ -152,9 +150,7 @@ def catalog_entry(ds, theme, location, frequency, shown=[]):
             entry.update(entry)
         return entry 
     get_args = {
-        "location": location.url,
-        "theme": theme.url,
-        "frequency": frequency.url,
+        "view": view.label,
         "headings": "label",
     }
     if use_csv:

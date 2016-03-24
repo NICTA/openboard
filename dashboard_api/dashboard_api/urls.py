@@ -26,9 +26,9 @@ urlpatterns = patterns('',
 
     # Simple list API views
     url(r'^top_level_views$', 'widget_def.views.get_top_level_views', name='get_top_level_views'),
-    url(r'^themes/$', 'widget_def.views.get_themes', name='get_themes'),
-    url(r'^locations/$', 'widget_def.views.get_locations', name='get_locations'),
-    url(r'^frequencies/$', 'widget_def.views.get_frequencies', name='get_frequencies'),
+    # url(r'^themes/$', 'widget_def.views.get_themes', name='get_themes'),
+    # url(r'^locations/$', 'widget_def.views.get_locations', name='get_locations'),
+    # url(r'^frequencies/$', 'widget_def.views.get_frequencies', name='get_frequencies'),
     url(r'^icons/$', 'widget_def.views.get_icon_libraries', name='get_icon_libraries'),
 
     # Main API view for obtaining view definition (including widgets)
@@ -51,13 +51,10 @@ urlpatterns = patterns('',
     # API Map data view
     url(r'^map/(?P<geo_dataset_url>[^/]+)/$', 'widget_data.views.get_map_data', name='get_map_data'),
     # Terria/National Map initialisation json
-    url(r'^terria_init/(?P<theme_url>[^/]+)/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/(?P<shown_urls>.+)/init.json$',
+    url(r'^terria_init/(?P<view_label>[^/]+)/(?P<shown_urls>.+)/init.json$',
                         'widget_def.views.get_terria_init',
                         name='get_terria_init'),
-    url(r'^terria_init/(?P<theme_url>[^/]+)/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/init.json$',
-                        'widget_def.views.get_terria_init',
-                        name='get_terria_init'),
-    url(r'^terria_init/(?P<location_url>[^/]+)/(?P<frequency_url>[^/]+)/init.json$',
+    url(r'^terria_init/(?P<view_label>[^/]+)/init.json$',
                         'widget_def.views.get_terria_init',
                         name='get_terria_init'),
 )
