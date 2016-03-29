@@ -27,8 +27,8 @@ class WidgetDefinition(models.Model):
     family = models.ForeignKey("WidgetFamily")
     expansion_hint = models.CharField(max_length=80, blank=True, null=True)
     deexpansion_hint = models.CharField(max_length=80, blank=True, null=True)
-    actual_location = models.ForeignKey(Location)
-    actual_frequency = models.ForeignKey(Frequency)
+    label = models.CharField(max_length=128)
+    default_frequency_text = models.CharField(max_length=60)
     refresh_rate = models.IntegerField(help_text="in seconds")
     sort_order = models.IntegerField(unique=True)
     about = models.TextField(null=True, blank=True)
@@ -79,7 +79,7 @@ class WidgetDefinition(models.Model):
         if wd and wd.actual_frequency_text:
             return wd.actual_frequency_text
         else:
-            return self.actual_frequency.actual_display
+            return self.default_frequency_text
     def __getstate__(self):
         data = {
             "category": self.subcategory().category.name,
@@ -106,10 +106,10 @@ class WidgetDefinition(models.Model):
         return {
             "expansion_hint": self.expansion_hint,
             "deexpansion_hint": self.deexpansion_hint,
-            "actual_frequency_url": self.actual_frequency.url,
-            "actual_location_url": self.actual_location.url,
             "refresh_rate": self.refresh_rate,
             "sort_order": self.sort_order,
+            "label": self.label,
+            "default_frequency_text": self.default_frequency_text,
             "about": self.about,
             "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
             "views": [ vwd.export() for vwd in self.viewwidgetdeclaration_set.all() ],
@@ -118,13 +118,13 @@ class WidgetDefinition(models.Model):
     @classmethod
     def import_data(cls, family, data):
         try:
-            w = WidgetDefinition.objects.get(family=family, actual_frequency__url=data["actual_frequency_url"], actual_location__url=data["actual_location_url"])
+            w = WidgetDefinition.objects.get(family=family, label=data["label"])
         except WidgetDefinition.DoesNotExist:
-            w = WidgetDefinition(family=family,
-                            actual_frequency=Frequency.objects.get(url=data["actual_frequency_url"]),
-                            actual_location=Location.objects.get(url=data["actual_location_url"]))
+            w = WidgetDefinition(family=family, label=data["label"])
         w.expansion_hint = data["expansion_hint"]
         w.deexpansion_hint = data.get("deexpansion_hint")
+        w.label = data["label"]
+        w.default_frequency_text = data["default_frequency_text"]
         w.refresh_rate = data["refresh_rate"]
         w.sort_order = data["sort_order"]
         w.about = data["about"]
@@ -161,7 +161,7 @@ class WidgetDefinition(models.Model):
                 rds.delete()
         return w
     def __unicode__(self):
-        return "%s (%s, %s)" % (unicode(self.family), self.actual_location.name, self.actual_frequency.name)
+        return "%s (%s)" % (unicode(self.family), self.label)
     def data_last_updated(self, update=False):
         if self._lud_cache and not update:
             return self._lud_cache
@@ -176,7 +176,7 @@ class WidgetDefinition(models.Model):
         return self._lud_cache
     class Meta:
         unique_together = (
-            ("family", "actual_location", "actual_frequency"),
+            ("family", "label"),
         )
         ordering = ("family__subcategory", "sort_order")
 
