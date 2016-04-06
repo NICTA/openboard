@@ -149,7 +149,7 @@ class ViewDeclarationInline(admin.TabularInline):
 # @admin.register(WidgetDefinition)
 class WidgetAdmin(admin.ModelAdmin):
     inlines = [DeclarationInline, ViewDeclarationInline, TileInline]
-    list_display = ('family', 'subtitle', 'actual_location', 'actual_frequency', 'subcategory', 'sort_order')
+    list_display = ('family', 'subtitle', 'label', 'subcategory', 'sort_order')
     actions = ['validate']
     readonly_fields=('data_last_updated',)
     def validate(self, request, queryset):
