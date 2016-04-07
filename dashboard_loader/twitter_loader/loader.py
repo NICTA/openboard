@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -54,10 +54,10 @@ def get_tweets(messages, verbosity):
         tweets.append({"user": d["user"]["name"], "tuser": "@" + d["user"]["screen_name"], "tweet": d["text"]})
     # Load 5 random tweets into widget
     random.shuffle(tweets)
-    clear_statistic_list("tweets", "nsw", "rt", "tweets")
+    clear_statistic_list("tweets", "nsw:rt", "tweets")
     sort_order = 1
     for t in tweets:
-        add_statistic_list_item("tweets", "nsw", "rt", "tweets",
+        add_statistic_list_item("tweets", "nsw:rt", "tweets",
                         t["tweet"], sort_order=sort_order,
                         label=t["tuser"])
         if sort_order >= 5:

@@ -64,22 +64,10 @@
             "about": "<p>Live Tweets from selected Twitter streams</p>", 
             "sort_order": 1150, 
             "deexpansion_hint": "Show less", 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "syd"
-                }, 
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "nsw"
-                }
-            ], 
+            "views": [ "tall_frt_lsyd_migration", "tall_frt_lnsw_migration" ],
             "refresh_rate": 15, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "nsw", 
+            "label": "nsw:rt",
             "raw_data_sets": []
         }
     ], 
