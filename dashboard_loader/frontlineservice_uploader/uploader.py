@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -70,16 +70,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             visit_time = row[3]
             # Determine the stats to write to for this row.
             if "Centre" in sdc:
-                visit_stat = get_statistic("svc_counters", "syd", "day", "visits") 
-                other_stat = get_statistic("svc_counters", "syd", "day", "satisfaction") 
+                visit_stat = get_statistic("svc_counters", "syd:day", "visits") 
+                other_stat = get_statistic("svc_counters", "syd:day", "satisfaction") 
                 other_val = csat
             elif "Phone" in sdc or "Contact" in sdc:
-                visit_stat = get_statistic("svc_calls", "syd", "day", "callers") 
-                other_stat = get_statistic("svc_calls", "syd", "day", "satisfaction")
+                visit_stat = get_statistic("svc_calls", "syd:day", "callers") 
+                other_stat = get_statistic("svc_calls", "syd:day", "satisfaction")
                 other_val = csat
             elif "Digital" in sdc:
-                visit_stat = get_statistic("svc_www", "syd", "day", "visits") 
-                other_stat = get_statistic("svc_www", "syd", "day", "duration") 
+                visit_stat = get_statistic("svc_www", "syd:day", "visits") 
+                other_stat = get_statistic("svc_www", "syd:day", "duration") 
                 other_val = normalise_time(visit_time)
             else:
                 raise LoaderException("Unrecognised Service Delivery Channel in Frontline Service upload: %s" % sdc)
