@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% comment %}
 
-   Copyright 2015 NICTA
+   Copyright 2015,2016 NICTA
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -21,9 +21,8 @@
 <h1>Widgets</h1>
 <table class="simple_table">
     <tr>
-        <th>Widget Name</th>
-        <th>Location</th>
-        <th>Freq</th>
+        <th>Family</th>
+        <th>Widget</th>
         <th>Actual Freq Display</th>
         <th>Last Updated</th>
         <th>Actions</th>
@@ -31,8 +30,7 @@
     {% for w in widgets %}
         <tr>
             <td>{{ w.name }}{% if w.subtitle %} ({{ w.subtitle }}){% endif %}</td>
-            <td>{{ w.actual_location.name }}</td>
-            <td>{{ w.actual_frequency.actual_display }}</td>
+            <td>{{ w.label }}</td>
             <td>{{ w.actual_frequency_display }}</td>
             <td>
                 {% if w.data_last_updated %}
@@ -40,7 +38,7 @@
                 {% else %}<i>no data</i>{% endif %}
             </td>
             <td>
-                <a href="{% url "view_widget_data" widget_url=w.url actual_location_url=w.actual_location.url actual_frequency_url=w.actual_frequency.url %}">
+                <a href="{% url "view_widget_data" widget_url=w.url label=w.label %}">
                     {% if w.data_last_updated %}Edit Data{% else %}Enter Data{% endif %}
                 </a>
             </td>

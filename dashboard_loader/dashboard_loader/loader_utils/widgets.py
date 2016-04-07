@@ -36,7 +36,7 @@ Raises LoaderException if the requested Statistic does not exist.
     try:
         return Statistic.objects.get(url=statistic_url, 
                 tile__widget__family__url=widget_url_or_stat, 
-                label=label)
+                tile__widget__label=label)
     except Statistic.DoesNotExist:
         raise LoaderException("Statistic %s for Widget %s(%s) does not exist" % (statistic_url, widget_url_or_stat, label))
 
