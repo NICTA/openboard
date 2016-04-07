@@ -75,7 +75,7 @@
             "about": "<p>Average wait time and number of customer calls for 24 hour interval.</p>", 
             "sort_order": 400, 
             "deexpansion_hint": "Show less", 
-            "declarations": ["tall_frt_lsyd_migration", "tall_frt_lnsw_migration"],
+            "views": ["tall_frt_lsyd_migration", "tall_frt_lnsw_migration"],
             "refresh_rate": 300, 
             "expansion_hint": "Show more", 
             "label": "syd:day",

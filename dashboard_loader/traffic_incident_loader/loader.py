@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -87,19 +87,19 @@ def update_data(loader, verbosity=0):
 
 # Load data into widgets (called inside database transaction from update_data
 def load_incidents(incidents, majors, now):
-    set_statistic_data("traffic_incidents", "nsw", "rt", "incidents", incidents["count"],
+    set_statistic_data("traffic_incidents", "nsw:rt", "incidents", incidents["count"],
                             traffic_light_code=severity_tlc[incidents["severity_tlc"]])
     set_highlight = False
     then = now - datetime.timedelta(seconds=10)
-    clear_statistic_list("traffic_incidents", "nsw", "rt", "highlight")
-    clear_statistic_list("traffic_incidents", "nsw", "rt", "major_incidents")
+    clear_statistic_list("traffic_incidents", "nsw:rt", "highlight")
+    clear_statistic_list("traffic_incidents", "nsw:rt", "major_incidents")
     sort_order = 10
     if len(majors) == 0:
-        add_statistic_list_item("traffic_incidents", "nsw", "rt", "highlight", "No current major incidents", sort_order)
-        add_statistic_list_item("traffic_incidents", "nsw", "rt", "major_incidents", "No current major incidents", sort_order)
+        add_statistic_list_item("traffic_incidents", "nsw:rt", "highlight", "No current major incidents", sort_order)
+        add_statistic_list_item("traffic_incidents", "nsw:rt", "major_incidents", "No current major incidents", sort_order)
     for major in majors:
-        add_statistic_list_item("traffic_incidents", "nsw", "rt", "highlight", major, sort_order)
-        add_statistic_list_item("traffic_incidents", "nsw", "rt", "major_incidents", major, sort_order)
+        add_statistic_list_item("traffic_incidents", "nsw:rt", "highlight", major, sort_order)
+        add_statistic_list_item("traffic_incidents", "nsw:rt", "major_incidents", major, sort_order)
         if sort_order >= 100:
             break
         sort_order += 10
