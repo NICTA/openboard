@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,15 +19,14 @@ from widget_data.models import GraphData
 
 from interface import LoaderException
 
-def get_graph(widget_url, actual_location_url, actual_frequency_url, tile_url):
+def get_graph(widget_url, label, tile_url):
     """Look up a graph by urls."""
     try:
         return GraphDefinition.objects.get(tile__url=tile_url, 
                 tile__widget__family__url=widget_url, 
-                tile__widget__actual_location__url=actual_location_url,
-                tile__widget__actual_frequency__url=actual_frequency_url)
+                tile__widget__label=label)
     except GraphDefinition.DoesNotExist:
-        raise LoaderException("Graph for tile %s of widget %s:(%s,%s) does not exist"%(tile_url, widget_url, actual_location_url, actual_frequency_url))
+        raise LoaderException("Graph for tile %s of widget %s:(%s) does not exist"%(tile_url, widget_url, label))
 
 def clear_graph_data(graph, cluster=None, dataset=None):
     """Clear all graph data, or partially by cluster or dataset"""

@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,15 +17,14 @@ from widget_data.models import RawDataRecord, RawData
 
 from interface import LoaderException
 
-def get_rawdataset(widget_url, actual_location_url, actual_frequency_url, rds_url):
+def get_rawdataset(widget_url, label, rds_url):
     """Get a RawDataSet object by urls."""
     try:
         return RawDataSet.objects.get(widget__family__url=widget_url,
-                                widget__actual_location__url=actual_location_url,
-                                widget__actual_frequency__url=actual_frequency_url,
+                                widget__label=label,
                                 url=rds_url)
     except RawDataSet.DoesNotExist:
-        raise LoaderException("Raw Dataset %s of widget %s(%s,%s) does not exist" % (rds_url, widget_url, actual_location_url, actual_frequency_url))
+        raise LoaderException("Raw Dataset %s of widget %s(%s) does not exist" % (rds_url, widget_url, label))
 
 def clear_rawdataset(rds):
     """Clear all data for a RawDataSet object"""

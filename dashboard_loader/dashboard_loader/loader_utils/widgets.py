@@ -41,7 +41,7 @@ Raises LoaderException if the requested Statistic does not exist.
         raise LoaderException("Statistic %s for Widget %s(%s) does not exist" % (statistic_url, widget_url_or_stat, label))
 
 def clear_statistic_data(widget_url_or_stat, 
-                actual_location_url=None, actual_frequency_url=None, 
+                label=None,
                 statistic_url=None):
     """Clear data for the requested statistic (which must be scalar: non-list)
 
@@ -49,8 +49,7 @@ Interprets arguments as for the get_statistic function.
 
 Raises LoaderException if the requested Statistic does not exist or is a list.
 """
-    stat = get_statistic(widget_url_or_stat, actual_location_url, actual_frequency_url,
-                                    statistic_url)
+    stat = get_statistic(widget_url_or_stat, label, statistic_url)
     if stat.is_data_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
     data = stat.get_data()
