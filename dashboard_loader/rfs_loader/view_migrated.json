@@ -1,0 +1,100 @@
+{
+    "requires_authentication": true, 
+    "name": "All", 
+    "view_type": {
+        "show_children": true, 
+        "name": "Migrated Index View"
+    }, 
+    "children": [
+        {
+            "requires_authentication": true, 
+            "name": "Current", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Migrated Index View"
+            }, 
+            "children": [
+                {
+                    "requires_authentication": true, 
+                    "name": "Sydney", 
+                    "view_type": {
+                        "show_children": false, 
+                        "name": "Migrated View"
+                    }, 
+                    "children": [], 
+                    "label": "tall_frt_lsyd_migration", 
+                    "sort_order": 10, 
+                    "properties": [
+                        {
+                            "type": 1, 
+                            "value": "Sydney", 
+                            "key": "location"
+                        }, 
+                        {
+                            "type": 1, 
+                            "value": "Current", 
+                            "key": "frequency"
+                        }, 
+                        {
+                            "type": 1, 
+                            "value": "All", 
+                            "key": "theme"
+                        }
+                    ]
+                }, 
+                {
+                    "requires_authentication": true, 
+                    "name": "New South Wales", 
+                    "view_type": {
+                        "show_children": false, 
+                        "name": "Migrated View"
+                    }, 
+                    "children": [], 
+                    "label": "tall_frt_lnsw_migration", 
+                    "sort_order": 20, 
+                    "properties": [
+                        {
+                            "type": 1, 
+                            "value": "New South Wales", 
+                            "key": "location"
+                        }, 
+                        {
+                            "type": 1, 
+                            "value": "Current", 
+                            "key": "frequency"
+                        }, 
+                        {
+                            "type": 1, 
+                            "value": "All", 
+                            "key": "theme"
+                        }
+                    ]
+                }
+            ], 
+            "label": "tall_frt_migration", 
+            "sort_order": 10, 
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "Current", 
+                    "key": "frequency"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "All", 
+                    "key": "theme"
+                }
+            ]
+        }
+    ], 
+    "label": "tall_migration", 
+    "sort_order": 210, 
+    "properties": [
+        {
+            "type": 1, 
+            "value": "All", 
+            "key": "theme"
+        }
+    ]
+}
+

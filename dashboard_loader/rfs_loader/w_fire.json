@@ -87,22 +87,10 @@
             "about": "<p>Data taken from NSW Rural Fire Services.</p>", 
             "sort_order": 1100, 
             "deexpansion_hint": null, 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "syd"
-                }, 
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "nsw"
-                }
-            ], 
+            "declarations": [ "tall_frt_lsyd_migration", "tall_frt_lnsw_migration" ],
             "refresh_rate": 1000, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "day", 
-            "actual_location_url": "nsw", 
+            "label": "nsw:day",
             "raw_data_sets": []
         }
     ], 

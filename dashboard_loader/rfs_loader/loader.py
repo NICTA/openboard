@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -106,12 +106,12 @@ def update_fire_danger(loader, verbosity=0):
         expand_ratings.append(fd)
     expand_ratings.sort(reverse=True)
     sort_order = 10
-    clear_statistic_list("fire", "nsw", "day", "rating_list_main")
-    clear_statistic_list("fire", "nsw", "day", "rating_list_expansion")
+    clear_statistic_list("fire", "nsw:day", "rating_list_main")
+    clear_statistic_list("fire", "nsw:day", "rating_list_expansion")
     for fd in expand_ratings:
-        add_statistic_list_item("fire", "nsw", "day", "rating_list_main", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw:day", "rating_list_main", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
-        add_statistic_list_item("fire", "nsw", "day", "rating_list_expansion", fd.rating(), sort_order,
+        add_statistic_list_item("fire", "nsw:day", "rating_list_expansion", fd.rating(), sort_order,
                     label=fd.region, traffic_light_code=fd.tlc())
         sort_order += 10
     return messages
