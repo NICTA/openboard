@@ -38,15 +38,15 @@ def load_data(verbosity):
     interruptions["syd"].extend(trackwork["syd"])
     if verbosity >= 1:
         messages.append("Processed trackwork")
-    load_interruptions("train_service_interrupt", "syd", interruptions["syd"])
-    load_interruptions("train_service_interrupt", "nsw", interruptions["all"])
+    load_interruptions("train_service_interrupt", "syd:rt", interruptions["syd"])
+    load_interruptions("train_service_interrupt", "nsw:rt", interruptions["all"])
     return messages
 
-def load_interruptions(widget, location_url, interruptions):
-    clear_statistic_list(widget, location_url, "rt", "interruptions")
+def load_interruptions(widget, label, interruptions):
+    clear_statistic_list(widget, label, "interruptions")
     sort_order=10
     for i in interruptions:
-        add_statistic_list_item(widget, location_url, "rt", "interruptions",
+        add_statistic_list_item(widget, label, "interruptions",
                 i["text"], sort_order, traffic_light_code=i["tlc"], url=i["link"])
         sort_order += 10
 
@@ -63,13 +63,13 @@ def process_trackworks(messages, verbosity):
         }
     }
     messages.extend(load_rss(url, process_trackwork, env, verbosity))
-    set_statistic_data("train_service_interrupt", "syd", "rt", 
+    set_statistic_data("train_service_interrupt", "syd:rt", 
                     "current_trackwork", env["syd_current"])
-    set_statistic_data("train_service_interrupt", "nsw", "rt", 
+    set_statistic_data("train_service_interrupt", "nsw:rt", 
                     "current_trackwork", env["all_current"])
-    set_statistic_data("train_service_interrupt", "syd", "rt", 
+    set_statistic_data("train_service_interrupt", "syd:rt", 
                     "sched_overnight_trackwork", env["syd_scheduled"])
-    set_statistic_data("train_service_interrupt", "nsw", "rt", 
+    set_statistic_data("train_service_interrupt", "nsw:rt", 
                     "sched_overnight_trackwork", env["all_scheduled"])
     interruption = {
         "text": "No trackworks today",
@@ -167,13 +167,13 @@ def process_interruptions(messages, verbosity):
         }
     }
     messages.extend(load_rss(url, process_interruption, env, verbosity))
-    set_statistic_data("train_service_interrupt", "syd", "rt", 
+    set_statistic_data("train_service_interrupt", "syd:rt", 
                         "delays", env["syd_delays"])
-    set_statistic_data("train_service_interrupt", "syd", "rt", 
+    set_statistic_data("train_service_interrupt", "syd:rt", 
                         "cancellations", env["syd_cancellations"])
-    set_statistic_data("train_service_interrupt", "nsw", "rt", 
+    set_statistic_data("train_service_interrupt", "nsw:rt", 
                         "delays", env["all_delays"])
-    set_statistic_data("train_service_interrupt", "nsw", "rt", 
+    set_statistic_data("train_service_interrupt", "nsw:rt", 
                         "cancellations", env["all_cancellations"])
     interruption = {
         "text": "Good Service",
