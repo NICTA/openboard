@@ -38,8 +38,7 @@ def export_widget_data(widget):
     for wd in defs:
         if wd.widgetdeclaration_set.all().count() > 0:
             wdata = {
-                "actual_location": wd.actual_location.url,
-                "actual_frequency": wd.actual_frequency.url,
+                "label": wd.label,
                 "data": api_get_widget_data(wd),
                 "graph_data": api_get_graph_data(wd),
             }

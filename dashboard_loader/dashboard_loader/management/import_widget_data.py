@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -25,28 +25,25 @@ def import_widget_data(data):
         raise ImportExportException("Invalid import data %s" % repr(data))
     for w in data["widgets"]:
         try:
-            wd = WidgetDefinition.objects.get(family=family, actual_location__url=w["actual_location"], actual_frequency__url=w["actual_frequency"])
+            wd = WidgetDefinition.objects.get(family=family, label=w["label"])
         except WidgetDefinition.DoesNotExist:
-            raise ImportExportException("Widget definition %s (%s,%s) does not exist" % (family.url, w["actual_location"], w["actual_frequency"]))
+            raise ImportExportException("Widget definition %s (%s) does not exist" % (family.url, w["label"]))
         set_actual_frequency_display_text(data["family"],
-                                w["actual_location"],
-                                w["actual_frequency"],
+                                w["label"],
                                 w["data"]["actual_frequency"])
         for surl, s in w["data"]["statistics"].items():
             try:
                 stat = Statistic.objects.get(tile__widget=wd,
                                 url=surl)
             except Statistic.DoesNotExist:
-                raise ImportExportException("Statistic %s for widget %s (%s,%s) does not exist" % (
+                raise ImportExportException("Statistic %s for widget %s (%s) does not exist" % (
                                 surl,
                                 data["family"], 
-                                w["actual_location"],
-                                w["actual_frequency"]))
+                                w["label"]))
                              
             if stat.is_data_list():
                 clear_statistic_list(data["family"],
-                                w["actual_location"],
-                                w["actual_frequency"],
+                                w["label"],
                                 surl)
                 sort_order = 10
                 for item in s:
@@ -56,8 +53,7 @@ def import_widget_data(data):
                     else:
                         icon_code = None
                     add_statistic_list_item(data["family"],
-                                w["actual_location"],
-                                w["actual_frequency"],
+                                w["label"],
                                 surl,
                                 item["value"],
                                 sort_order,
@@ -77,8 +73,7 @@ def import_widget_data(data):
                 else:
                     icon_code = None
                 set_statistic_data(data["family"],
-                                w["actual_location"],
-                                w["actual_frequency"],
+                                w["label"],
                                 surl,
                                 s["value"],
                                 traffic_light_code=s.get("traffic_light"),
@@ -89,11 +84,10 @@ def import_widget_data(data):
             try:
                 graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl)
             except GraphDefinition.DoesNotExist:
-                raise ImportExportException("Graph %s for widget %s(%s,%s) does not exist" % (
+                raise ImportExportException("Graph %s for widget %s(%s) does not exist" % (
                                     gurl,
                                     data["family"], 
-                                    w["actual_location"],
-                                    w["actual_frequency"]))
+                                    w["label"]))
             clear_graph_data(graph)
             if graph.use_clusters():
                 for curl, c in g["data"].items():
