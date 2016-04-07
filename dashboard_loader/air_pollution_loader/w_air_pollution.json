@@ -109,17 +109,10 @@
             "about": "<p>Data taken from NSW Environment Air Quality Monitoring Service website. AQ Index is current Sydney forecast. Regional Indexes are the current regional Air Quality Index.</p>\r\n<p>Current data has only undergone preliminary quality assurance checks and may be modified before finalisation as a result of calibration changes, power failures, instrument failures etc.</p>", 
             "sort_order": 820, 
             "deexpansion_hint": "Show less", 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "syd"
-                }
-            ], 
+            "views": [ "tall_frt_lsyd_migration" ],
             "refresh_rate": 300, 
-            "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "syd", 
+            "expansion_hint": "Show more",
+            "label": "syd:rt", 
             "raw_data_sets": []
         }, 
         {
@@ -222,17 +215,12 @@
             "about": "<p>Data taken from NSW Environment Air Quality Monitoring Service website. AQ Index is current Sydney forecast. Regional Indexes are the current regional Air Quality Index.</p>\r\n<p>Current data has only undergone preliminary quality assurance checks and may be modified before finalisation as a result of calibration changes, power failures, instrument failures etc.</p>", 
             "sort_order": 840, 
             "deexpansion_hint": "Show less", 
-            "declarations": [
-                {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "nsw"
-                }
-            ], 
+            "views": [ "tall_frt_lnsw_migration" ],
             "refresh_rate": 300, 
             "expansion_hint": "Show more", 
             "actual_frequency_url": "rt", 
             "actual_location_url": "nsw", 
+            "label": "nsw:rt",
             "raw_data_sets": []
         }
     ], 
