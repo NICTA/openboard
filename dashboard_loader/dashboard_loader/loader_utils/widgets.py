@@ -57,13 +57,13 @@ Raises LoaderException if the requested Statistic does not exist or is a list.
         data.delete()
  
 def set_statistic_data(widget_url, 
-                    label,
+                    widget_label,
                     statistic_url, 
                     value, 
                     traffic_light_code=None, icon_code=None, 
                     trend=None, label=None):
     """Equivalent to get_stat_data, but with a get_statistic lookup of the statistic"""
-    stat = get_statistic(widget_url, label, statistic_url)
+    stat = get_statistic(widget_url, widget_label, statistic_url)
     set_stat_data(stat, value, traffic_light_code, icon_code, trend, label)
 
 def set_stat_data(stat,
@@ -138,13 +138,13 @@ Raises LoaderException if the requested Statistic does not exist or is not a lis
     stat = get_statistic(widget_url_or_stat, label, statistic_url)
     stat.statisticlistitem_set.all().delete()
     
-def add_statistic_list_item(widget_url, label,
+def add_statistic_list_item(widget_url, widget_label,
                 statistic_url, 
                 value, sort_order, 
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
     """Equivalent to add_stat_list_item, but with a get_statistic lookup of the statistic"""
-    stat = get_statistic(widget_url, label, statistic_url)
+    stat = get_statistic(widget_url, widget_label, statistic_url)
     add_stat_list_item(stat, value, sort_order,
                 datetimekey, datetimekey_level, datekey, label,
                 traffic_light_code, icon_code, trend, url)
