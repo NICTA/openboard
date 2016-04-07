@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -27,10 +27,10 @@ urlpatterns = patterns('',
     url(r'^login$', 'dashboard_loader.views.login_view', name='login'),
     url(r'^logout$', 'dashboard_loader.views.logout_view', name='logout'),
     url(r'^$', 'dashboard_loader.views.list_widgets', name='list_widget_data'),
-    url(r'^widgets/(?P<widget_url>[^/]+)/(?P<actual_location_url>[^/]+)/(?P<actual_frequency_url>[^/]+)$', 'dashboard_loader.views.view_widget', name="view_widget_data"),
-    url(r'^widgets/(?P<widget_url>[^/]+)/(?P<actual_location_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<stat_url>[^/]*)$', 
+    url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)$', 'dashboard_loader.views.view_widget', name="view_widget_data"),
+    url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<stat_url>[^/]*)$', 
                         'dashboard_loader.views.edit_stat', name="edit_stat"),
-    url(r'^graphs/(?P<widget_url>[^/]+)/(?P<actual_location_url>[^/]+)/(?P<actual_frequency_url>[^/]+)/(?P<tile_url>[^/]+)$', 
+    url(r'^graphs/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<tile_url>[^/]+)$', 
                         'dashboard_loader.views.edit_graph', name="edit_graph"),
     url(r'^upload/(?P<uploader_app>[^/]+)$', 'dashboard_loader.views.upload', name="upload_data"),
 

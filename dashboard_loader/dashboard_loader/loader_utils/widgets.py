@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,15 +18,14 @@ from interface import LoaderException
 from widget_def.models import WidgetDefinition, Statistic, IconCode, TrafficLightScaleCode
 from widget_data.models import WidgetData, StatisticData, StatisticListItem
 
-def get_statistic(widget_url_or_stat, actual_location_url=None, actual_frequency_url=None, statistic_url=None):
+def get_statistic(widget_url_or_stat, label=None, statistic_url=None):
     """If called with a Statistic object as the first argument, simply return the first
 argument.  Otherwise interpret the arguments as defined below, look up the indicated 
 Statistic object and return it.
 
 widget_url_or_stat: The url of the widget to which the requested Statistic belong.
 
-actual_location_url, actual_frequency_url: The urls for the actual location and frequency
-        of the widget definition to which the requested statistic belongs.
+label: The label for the widget definition to which the requested statistic belongs.
 
 statistic_url: The url of the requested statistic.
 
@@ -37,10 +36,9 @@ Raises LoaderException if the requested Statistic does not exist.
     try:
         return Statistic.objects.get(url=statistic_url, 
                 tile__widget__family__url=widget_url_or_stat, 
-                tile__widget__actual_location__url=actual_location_url,
-                tile__widget__actual_frequency__url=actual_frequency_url)
+                label=label)
     except Statistic.DoesNotExist:
-        raise LoaderException("Statistic %s for Widget %s(%s,%s) does not exist" % (statistic_url, widget_url_or_stat, actual_location_url, actual_frequency_url))
+        raise LoaderException("Statistic %s for Widget %s(%s) does not exist" % (statistic_url, widget_url_or_stat, label))
 
 def clear_statistic_data(widget_url_or_stat, 
                 actual_location_url=None, actual_frequency_url=None, 
@@ -238,15 +236,13 @@ LoaderException is raised.
     item.save()
     apply_traffic_light_automation(stat)
 
-def set_actual_frequency_display_text(widget_url, actual_location_url,
-                    actual_frequency_url, display_text):
+def set_actual_frequency_display_text(widget_url, label, display_text):
     """Set the actual frequency display text of the indicated widget"""
     try:
         wdef = WidgetDefinition.objects.get(family__url=widget_url,
-                                actual_location__url=actual_location_url,
-                                actual_frequency__url=actual_frequency_url)
+                                label=label)
     except WidgetDefinition.DoesNotExist:
-        raise LoaderException("Widget %s(%s,%s) does not exist" % (widget_url, actual_location_url, actual_frequency_url))
+        raise LoaderException("Widget %s(%s) does not exist" % (widget_url, label))
     set_widget_actual_frequency_display_text(wdef, display_text)
 
 def set_widget_actual_frequency_display_text(widget, display_text):

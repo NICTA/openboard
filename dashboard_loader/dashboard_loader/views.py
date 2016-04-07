@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -89,11 +89,10 @@ class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
 
 @login_required
-def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
+def view_widget(request, widget_url, label):
     try:
         w = WidgetDefinition.objects.get(family__url=widget_url, 
-                    actual_location__url=actual_location_url,
-                    actual_frequency__url=actual_frequency_url)
+                    label=label)
     except WidgetDefinition.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
@@ -125,7 +124,7 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
     if request.method == "POST":
         form = WidgetDataForm(request.POST)
         if form.is_valid():
-            set_actual_frequency_display_text(w.url(), w.actual_location.url, w.actual_frequency.url, 
+            set_actual_frequency_display_text(w.url(), w.label,
                         form.cleaned_data["actual_frequency_display_text"])
     else:
         form = WidgetDataForm(initial={
@@ -139,9 +138,9 @@ def view_widget(request, widget_url, actual_location_url, actual_frequency_url):
             })
 
 @login_required
-def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, stat_url):
+def edit_stat(request, widget_url, label, stat_url):
     try:
-        s = get_statistic(widget_url, actual_location_url, actual_frequency_url, stat_url)
+        s = get_statistic(widget_url, label, stat_url)
     except LoaderException:
         return HttpResponseNotFound("This Statistic does not exist")
     if not user_has_edit_permission(request.user, s.tile.widget):
@@ -167,8 +166,7 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                     if request.POST.get("submit"):
                         return redirect("view_widget_data", 
                                 widget_url=s.tile.widget.family.url, 
-                                actual_location_url=s.tile.widget.actual_location.url,
-                                actual_frequency_url=s.tile.widget.actual_frequency.url)
+                                label=s.tile.widget.label)
                     else:
                         form = form_class(initial=s.initial_form_data())
                 else:
@@ -178,20 +176,16 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                                     fd.get("trend"), fd.get("label"))
                     return redirect("view_widget_data", 
                             widget_url=s.tile.widget.family.url, 
-                            actual_location_url=s.tile.widget.actual_location.url,
-                            actual_frequency_url=s.tile.widget.actual_frequency.url)
-                    
+                            label=s.tile.widget.label)
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
                         widget_url=s.tile.widget.family.url, 
-                        actual_location_url=s.tile.widget.actual_location.url,
-                        actual_frequency_url=s.tile.widget.actual_frequency.url)
+                        label=s.tile.widget.label)
         elif not s.is_data_list() and request.POST.get("delete"):
             clear_statistic_data(s)
             return redirect("view_widget_data", 
                         widget_url=s.tile.widget.family.url, 
-                        actual_location_url=s.tile.widget.actual_location.url,
-                        actual_frequency_url=s.tile.widget.actual_frequency.url)
+                        label=s.tile.widget.label)
         else:
             form = form_class(initial=s.initial_form_data())
     else:
@@ -204,11 +198,10 @@ def edit_stat(request, widget_url, actual_location_url, actual_frequency_url, st
                 })
 
 @login_required
-def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, tile_url):
+def edit_graph(request, widget_url, label, tile_url):
     try:
         w = WidgetDefinition.objects.get(family__url=widget_url, 
-                        actual_location__url=actual_location_url,
-                        actual_frequency__url=actual_frequency_url)
+                        label=label)
     except WidgetDefinition.DoesNotExist:
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
@@ -249,15 +242,13 @@ def edit_graph(request, widget_url, actual_location_url, actual_frequency_url, t
                 if request.POST.get("submit"):
                     return redirect("view_widget_data", 
                             widget_url=w.family.url, 
-                            actual_location_url=w.actual_location.url,
-                            actual_frequency_url=w.actual_frequency.url)
+                            label=w.label)
                 else:
                     form = form_class(initial=g.initial_form_data())
         elif request.POST.get("cancel"):
             return redirect("view_widget_data", 
                         widget_url=w.family.url, 
-                        actual_location_url=w.actual_location.url,
-                        actual_frequency_url=w.actual_frequency.url)
+                        label=label)
         else:
             form = form_class(initial=g.initial_form_data())
     else:

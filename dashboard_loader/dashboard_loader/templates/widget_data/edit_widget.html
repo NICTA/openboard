@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% comment %}
 
-   Copyright 2015 NICTA
+   Copyright 2015,2016 NICTA
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -30,11 +30,11 @@
     </script>
 {% endblock %}
 {% block content %}
-<h1>Widget: {{ widget.name }} ({{ widget.actual_location.name }}, {{ widget.actual_frequency.name }})</h1>
+<h1>Widget: {{ widget.name }} ({{ widget.label }})</h1>
 <h2>Tile: {{ statistic.tile.url }}</h2>
 <h3>Statistic: {{ statistic.name }}</h3>
 <h3>url: {{ statistic.url }}</h3>
-<form action="{% url "edit_stat" widget_url=widget.url actual_location_url=widget.actual_location.url actual_frequency_url=widget.actual_frequency.url stat_url=statistic.url %}" method="post">{% csrf_token %}
+<form action="{% url "edit_stat" widget_url=widget.url label=widget.label stat_url=statistic.url %}" method="post">{% csrf_token %}
 {% if statistic.is_data_list %}
     {{ form.management_form }}
     <table border="0" id="listform_table">
