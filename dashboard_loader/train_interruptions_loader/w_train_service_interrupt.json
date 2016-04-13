@@ -153,7 +153,12 @@
             "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes all Sydney suburban services regional inter-city services.</p>", 
             "sort_order": 320, 
             "deexpansion_hint": "Show less", 
-            "views": [ "tall_frt_lnsw_migration" ],
+            "views": [ 
+                {
+                    "view": "tall_frt_lnsw_migration",
+                    "sort_order": 320
+                }
+            ],
             "refresh_rate": 100, 
             "expansion_hint": "Show more", 
             "label": "nsw:rt",
@@ -303,7 +308,12 @@
             "about": "<p>Train service delays, cancelations and trackwork, as reported by Sydney Trains RSS feed.</p>\r\n<p>Includes Sydney suburban services only (T1-T7 plus South West Rail Link).</p>", 
             "sort_order": 340, 
             "deexpansion_hint": "Show less", 
-            "views": [ "tall_frt_lsyd_migration" ],
+            "views": [ 
+                {
+                    "view": "tall_frt_lsyd_migration",
+                    "sort_order": 340
+                }
+            ],
             "refresh_rate": 100, 
             "expansion_hint": "Show more", 
             "label": "syd:rt", 

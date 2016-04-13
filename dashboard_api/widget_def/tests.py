@@ -25,38 +25,44 @@ class APIReferenceTests(DashboardTransactionTestCase):
     imports = [
         'test_exports/categories.json', 
         'test_exports/gw_Greater_Sydney.json', 
-        'test_exports/views.json', 
+        'test_exports/view_all.json', 
+        'test_exports/view_elves.json', 
+        'test_exports/view_men.json', 
+        'test_exports/view_dwarves.json', 
         'test_exports/icon_race.json']
 
-    def test_get_locations(self):
-        self.assertEqual(api_get_locations(), [
-                        { 'name': 'Middle Earth', 'url': 'all' },
-                        { 'name': 'Gondor', 'url': 'gondor' },
-                        { 'name': 'Rhovanion', 'url': 'rhovanion' },
-                        { 'name': 'Arnor', 'url': 'arnor' },
-        ])
-    def test_get_frequencies(self):
-        freqs = api_get_frequencies()
-        self.assertNotIn({'name': 'Sample Data', 'url': 'sample'}, freqs)
-        self.assertEqual(freqs, [
-                        { 'name': 'Latest', 'url': 'rt' },
-                        { 'name': 'Annual', 'url': 'year' },
-                        { 'name': 'Age', 'url': 'age' },
-        ])
-    def test_get_themes_unauth(self):
-        themes = api_get_themes(AnonymousUser())
-        self.assertEqual(themes, [
-                        { 'name': 'All', 'url': 'all' },
-                        { 'name': 'Men', 'url': 'men' },
-        ])
-    def test_get_themes_auth(self):
+    def test_top_level_views_auth(self):
         user = User.objects.all()[0]
-        themes = api_get_themes(user)
-        self.assertEqual(themes, [
-                        { 'name': 'All', 'url': 'all' },
-                        { 'name': 'Elves', 'url': 'elves' },
-                        { 'name': 'Men', 'url': 'men' },
-                        { 'name': 'Dwarves', 'url': 'dwarves' },
+        views = api_get_top_level_views(user)
+        self.assertEqual(api_get_top_level_views(user), [
+            {
+                'name': u'All', 
+                'label': u'tall_migration'
+            }, 
+            {
+                'name': u'Elves', 
+                'label': u'telves_migration'
+            }, 
+            {
+                'name': u'Men', 
+                'label': u'tmen_migration'
+            }, 
+            {
+                'name': u'Dwarves', 
+                'label': u'tdwarves_migration'
+            }
+        ])
+    
+    def test_top_level_views_unauth(self):
+        self.assertEqual(api_get_top_level_views(AnonymousUser()), [
+            {
+                'name': u'All', 
+                'label': u'tall_migration'
+            }, 
+            {
+                'name': u'Men', 
+                'label': u'tmen_migration'
+            },
         ])
     def test_get_icon_libs(self):
         self.assertEqual(api_get_icon_libraries(), {
@@ -77,7 +83,10 @@ class APIWidgetTests(DashboardTransactionTestCase):
     imports = [
         'test_exports/categories.json', 
         'test_exports/gw_Greater_Sydney.json', 
-        'test_exports/views.json', 
+        'test_exports/view_all.json', 
+        'test_exports/view_elves.json', 
+        'test_exports/view_men.json', 
+        'test_exports/view_dwarves.json', 
         'test_exports/icon_race.json', 
         'test_exports/tlc_leadership.json', 
         'test_exports/tlc_std-3-code.json', 
@@ -86,24 +95,22 @@ class APIWidgetTests(DashboardTransactionTestCase):
     ]
 
     def test_get_widgets_1(self):
-        widgets_1 = self.call_get_widgets("all", "all", "rt")
-        self.assertEqual(len(widgets_1), 2)
-        widgets_2 = self.call_get_widgets("all", "all", "year")
-        self.assertEqual(len(widgets_2), 2)
-        widgets_3 = self.call_get_widgets("all", "gondor", "rt")
-        self.assertEqual(len(widgets_3), 1)
-        widgets_4 = self.call_get_widgets("all", "gondor", "year")
-        self.assertEqual(len(widgets_4), 1)
-        widgets_5 = self.call_get_widgets("men", "gondor", "rt")
-        self.assertEqual(len(widgets_5), 1)
-        widgets_6 = self.call_get_widgets("men", "gondor", "year")
-        self.assertEqual(len(widgets_6), 1)
-        widgets_7 = self.call_get_widgets("elves", "gondor", "year")
-        self.assertEqual(len(widgets_7), 0)
+        widgets_1 = self.get_view_by_label("tall_frt_lall_migration")
+        self.assertEqual(len(widgets_1["widgets"]), 2)
+        widgets_2 = self.get_view_by_label("tall_fyear_lall_migration")
+        self.assertEqual(len(widgets_2["widgets"]), 2)
+        widgets_3 = self.get_view_by_label("tall_frt_lgondor_migration")
+        self.assertEqual(len(widgets_3["widgets"]), 1)
+        widgets_4 = self.get_view_by_label("tall_fyear_lgondor_migration")
+        self.assertEqual(len(widgets_4["widgets"]), 1)
+        widgets_5 = self.get_view_by_label("tmen_frt_lgondor_migration")
+        self.assertEqual(len(widgets_5["widgets"]), 1)
+        widgets_6 = self.get_view_by_label("tmen_fyear_lgondor_migration")
+        self.assertEqual(len(widgets_6["widgets"]), 1)
+        widgets_7 = self.get_view_by_label("telves_fyear_lgondor_migration")
+        self.assertEqual(len(widgets_7["widgets"]), 0)
 
-    def call_get_widgets(self, theme_url, location_url, frequency_url):
-        return api_get_widgets(
-                    Theme.objects.get(url=theme_url),
-                    Location.objects.get(url=location_url),
-                    Frequency.objects.get(url=frequency_url))
+    def get_view_by_label(self, lbl):
+        view = WidgetView.objects.get(label=lbl)
+        return api_get_view(view)
 

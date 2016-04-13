@@ -99,9 +99,9 @@ class WidgetFamily(models.Model):
         definitions = []
         for defn in data["definitions"]:
             WidgetDefinition.import_data(fam, defn)
-            definitions.append((defn["actual_location_url"], defn["actual_frequency_url"]))
+            definitions.append(defn["label"])
         for defn in fam.widgetdefinition_set.all():
-            if (defn.actual_location.url, defn.actual_frequency.url) not in definitions:
+            if defn.label not in definitions:
                 defn.delete()
         p = fam.edit_permission()
         grps = []

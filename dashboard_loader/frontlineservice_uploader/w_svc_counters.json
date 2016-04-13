@@ -75,7 +75,15 @@
             "about": "<p>Average wait time and number of customer visits for previous day.</p>", 
             "sort_order": 440, 
             "deexpansion_hint": "Show less", 
-            "views": [ "tall_frt_lsyd_migration", "tall_frt_lnsw_migration" ],
+            "views": [ 
+                {
+                    "view": "tall_frt_lsyd_migration", 
+                    "sort_order": 440
+                {
+                    "view": "tall_frt_lnsw_migration",
+                    "sort_order": 440
+                }
+            ],
             "refresh_rate": 300, 
             "expansion_hint": "Show more", 
             "label": "syd:day",

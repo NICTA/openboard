@@ -87,7 +87,16 @@
             "about": "<p>Data taken from NSW Rural Fire Services.</p>", 
             "sort_order": 1100, 
             "deexpansion_hint": null, 
-            "views": [ "tall_frt_lsyd_migration", "tall_frt_lnsw_migration" ],
+            "views": [ 
+                {
+                    "view": "tall_frt_lsyd_migration", 
+                    "sort_order": 1100
+                },
+                {
+                    "view": "tall_frt_lnsw_migration" ,
+                    "sort_order": 1100
+                }
+            ],
             "refresh_rate": 1000, 
             "expansion_hint": "Show more", 
             "label": "nsw:day",

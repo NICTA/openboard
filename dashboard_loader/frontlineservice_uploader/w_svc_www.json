@@ -75,7 +75,16 @@
             "about": "<p>Average number of website visits and average visit duration over 24 hour interval.</p>", 
             "sort_order": 420, 
             "deexpansion_hint": "Show less", 
-            "views": [ "tall_frt_lsyd_migration", "tall_frt_lnsw_migration" ],
+            "views": [
+                {
+                    "view": "tall_frt_lsyd_migration", 
+                    "sort_order": 420
+                },
+                {
+                    "view": "tall_frt_lnsw_migration",
+                    "sort_order": 420
+                }
+            ],
             "refresh_rate": 300, 
             "expansion_hint": "Show more", 
             "label": "syd:day",

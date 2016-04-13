@@ -104,26 +104,23 @@
             "about": "<p>a Test Widget</p>", 
             "sort_order": 200, 
             "deexpansion_hint": "Show less", 
-            "declarations": [
+            "default_frequency_text": "Annual",
+            "views": [
                 {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "all"
-                }, 
+                    "view": "tall_frt_lall_migration",
+                    "sort_order": 200
+                },
                 {
-                    "theme": "all", 
-                    "frequency": "year", 
-                    "location": "all"
+                    "view": "tall_fyear_lall_migration",
+                    "sort_order": 200
                 }
             ], 
             "refresh_rate": 3456, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "year", 
-            "actual_location_url": "all", 
+            "label": "all:year",
             "raw_data_sets": []
         }
     ], 
     "source_url": "http://lotr.wikia.com/wiki/Main_Page", 
     "name": "Rings by Race"
 }
-

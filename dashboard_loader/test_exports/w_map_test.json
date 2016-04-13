@@ -28,23 +28,21 @@
             ], 
             "about": "<p>Testing map tiles</p>", 
             "sort_order": 500, 
-            "deexpansion_hint": "", 
-            "declarations": [
+            "deexpansion_hint": "",
+            "default_frequency_text": "Latest", 
+            "views": [
                 {
-                    "theme": "all", 
-                    "frequency": "rt", 
-                    "location": "all"
-                }, 
+                    "view": "tall_frt_lall_migration",
+                    "sort_order": 500
+                },
                 {
-                    "theme": "men", 
-                    "frequency": "rt", 
-                    "location": "all"
+                    "view": "tmen_frt_lall_migration",
+                    "sort_order": 500
                 }
             ], 
             "refresh_rate": 3456, 
             "expansion_hint": "", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "all", 
+            "label": "all:rt",
             "raw_data_sets": []
         }
     ], 

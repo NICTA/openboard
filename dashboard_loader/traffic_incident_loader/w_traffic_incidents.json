@@ -109,7 +109,16 @@
             "about": "<p>Incident data obtained from the NSW Transport Data Exchange (TDX) API.</p>\r\n<p>Red = Major incidents impacting traffic network in region.  Amber = Minor incidents impacting traffic network and/or major incidents not impacting traffic network in region.  Green = Minor incidents not impacting traffic network in region.</p>", 
             "sort_order": 240, 
             "deexpansion_hint": "Show less", 
-            "views": [ "tall_frt_lsyd_migration", "tall_frt_lnsw_migration" ],
+            "views": [ 
+                {
+                    "view": "tall_frt_lsyd_migration", 
+                    "sort_order": 240
+                },
+                {
+                    "view": "tall_frt_lnsw_migration", 
+                    "sort_order": 240
+                }
+            ],
             "refresh_rate": 310, 
             "expansion_hint": "Show more", 
             "label": "nsw:rt",

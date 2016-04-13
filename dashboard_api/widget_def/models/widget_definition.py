@@ -146,7 +146,7 @@ class WidgetDefinition(models.Model):
         for vwd in w.viewwidgetdeclaration_set.all():
             found = False
             for v in data["views"]:
-                if v.view.label == v["view"]:
+                if vwd.view.label == v["view"]:
                     found = True
                     break
             if not found:
