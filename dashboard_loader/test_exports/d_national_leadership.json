@@ -1,8 +1,7 @@
 {
     "widgets": [
         {
-            "actual_frequency": "year", 
-            "actual_location": "all", 
+            "label": "all:year",
             "data": {
                 "widget_last_updated": "2015-08-18T23:30:11+0000", 
                 "actual_frequency": "Last Year", 
@@ -84,8 +83,7 @@
             "graph_data": {}
         }, 
         {
-            "actual_frequency": "year", 
-            "actual_location": "gondor", 
+            "label": "gondor:year",
             "data": {
                 "widget_last_updated": "2015-08-19T00:20:29+0000", 
                 "actual_frequency": "Last Year", 

@@ -37,7 +37,6 @@ class Command(BaseCommand):
         verbosity = options["verbosity"]
         try:
             for jf in args:
-                print "Loading ", jf
                 f = open(jf)
                 data = json.load(f)
                 obj = import_data(data, merge=options["merge"])

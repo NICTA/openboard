@@ -1,8 +1,7 @@
-{
+    {
     "widgets": [
         {
-            "actual_frequency": "year", 
-            "actual_location": "all", 
+            "label": "all:year",
             "data": {
                 "widget_last_updated": "2015-08-19T03:31:26+0000", 
                 "actual_frequency": "Last Year", 
