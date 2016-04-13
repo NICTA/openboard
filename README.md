@@ -87,7 +87,7 @@ as well as the project settings, urls.py, and other shared resources
   widget families.
 
 * export_categories
-* export_views
+* export_view
 * export_colourmap
 * export_geowindow
 * export_geocolourscale
