@@ -33,7 +33,7 @@ class ViewWidgetDeclInline(admin.TabularInline):
 
 # @admin.register(WidgetView)
 class WidgetViewAdmin(admin.ModelAdmin):
-    list_display = ('parent', 'name', 'label')
+    list_display = ('label', 'name', 'parent')
     inlines = [ ViewPropertyInline, ViewWidgetDeclInline ]
 
 admin.site.register(WidgetView, WidgetViewAdmin)

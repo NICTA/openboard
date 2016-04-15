@@ -87,7 +87,7 @@ class WidgetDefinition(models.Model):
             "subcategory": self.subcategory().name,
             "name": self.name(),
             "subtitle": self.family.subtitle,
-            "url": self.url(),
+            "label": self.url(),
             "display": {
                 "expansion_hint": self.expansion_hint,
                 "deexpansion_hint": self.deexpansion_hint,
