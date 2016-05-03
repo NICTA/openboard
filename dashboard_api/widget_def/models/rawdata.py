@@ -19,12 +19,14 @@ from widget_def.models.widget_definition import WidgetDefinition
 class RawDataSet(models.Model):
     widget = models.ForeignKey(WidgetDefinition)
     url = models.SlugField()
+    name = models.CharField(max_length=128)
     filename = models.CharField(max_length=128)
     def __unicode__(self):
         return "%s.%s (%s)" % (self.widget.family.url, self.url, self.filename)
     def export(self):
         return {
             "url": self.url,
+            "name": self.name,
             "filename": self.filename,
             "columns": [ c.export() for c in self.rawdatasetcolumn_set.all() ],
         }
@@ -34,6 +36,7 @@ class RawDataSet(models.Model):
             rds = RawDataSet.objects.get(widget=widget, url=data["url"])
         except RawDataSet.DoesNotExist:
             rds = RawDataSet(widget=widget, url=data["url"])
+        rds.name = data.get("name", rds.url)
         rds.filename = data["filename"]
         rds.save()
         cols = []
@@ -47,6 +50,7 @@ class RawDataSet(models.Model):
     def __getstate__(self):
         return {
             "label": self.url,
+            "name": self.name,
             "columns": [ c.__getstate__() for c in self.rawdatasetcolumn_set.all() ],
         }
     def col_array_dict(self):
@@ -76,7 +80,9 @@ class RawDataSet(models.Model):
         for rec in self.rawdatarecord_set.all():
             writer.write(rec.csv)
     class Meta: 
-        unique_together = ('widget', 'url') 
+        unique_together = [ ('widget', 'url') ,
+                            ('widget', 'name') ,
+        ]
 
 class RawDataSetColumn(models.Model):
     rds = models.ForeignKey(RawDataSet)

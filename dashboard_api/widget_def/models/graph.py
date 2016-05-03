@@ -168,27 +168,27 @@ class GraphDefinition(models.Model):
             }
             if self.graph_type == self.LINE:
                 state["vertical_axis"] = {
-                    "label": self.numeric_axis_label,
+                    "name": self.numeric_axis_label,
                     "always_show_zero": self.numeric_axis_always_show_zero,
                 }
                 if self.use_secondary_numeric_axis:
                     state["secondary_vertical_axis"] = {
-                        "label": self.secondary_numeric_axis_label,
+                        "name": self.secondary_numeric_axis_label,
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
                 state["horizontal_axis"] = {
-                    "label": self.horiz_axis_label,
+                    "name": self.horiz_axis_label,
                     "type": self.axis_types[self.horiz_axis_type]
                 }
                 state["lines"] = [ d.__getstate__() for d in self.graphdataset_set.all() ]
             elif self.graph_type in (self.HISTOGRAM, self.BAR):
                 state["numeric_axis"] = {
-                    "label": self.numeric_axis_label,
+                    "name": self.numeric_axis_label,
                     "always_show_zero": self.numeric_axis_always_show_zero,
                 }
                 if self.use_secondary_numeric_axis:
                     state["secondary_numeric_axis"] = {
-                        "label": self.secondary_numeric_axis_label,
+                        "name": self.secondary_numeric_axis_label,
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
                 state["clusters"] = [ c.__getstate__() for c in self.graphcluster_set.all() ]
