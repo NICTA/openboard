@@ -22,12 +22,14 @@ from django.apps import apps
 class ViewType(models.Model):
     name = models.CharField(max_length=120, unique=True)
     show_children = models.BooleanField(default=False)
+    show_siblings = models.BooleanField(default=False)
     def __unicode__(self):
         return self.name
     def export(self):
         return {
             "name": self.name,
-            "show_children": self.show_children
+            "show_children": self.show_children,
+            "show_siblings": self.show_siblings
         }
     @classmethod
     def import_data(cls, data):
@@ -36,6 +38,7 @@ class ViewType(models.Model):
         except cls.DoesNotExist:
             vt = cls(name=data["name"])
         vt.show_children = data["show_children"]
+        vt.show_siblings = data.get("show_siblings", False)
         vt.save()
         return vt
 
@@ -69,14 +72,22 @@ class WidgetView(models.Model):
         c.reverse() 
         return c
     def __getstate__(self):
-        return {
+        data = {
             "crumbs": self.crumbs(),
-            "children": [ c.desc() for c in self.children.all() ],
             "type": self.view_type.name,
             "show_children": self.view_type.show_children,
+            "show_siblings": self.view_type.show_siblings,
             "properties": { p.key: p.value() for p in self.viewproperty_set.all() },
             "widgets": [ decl.__getstate__() for decl in self.widgets.all() ], 
         }
+        if self.view_type.show_children:
+            data["children"] = [ c.desc() for c in self.children.all() ]
+        if self.view_type.show_siblings:
+            if self.parent:
+                data["siblings"] = [ c.desc() for c in self.parent.children.exclude(id=self.id) ]
+            else:
+                data["siblings"] = []
+        return data
     def export(self):
         data = {
             "name": self.name,
