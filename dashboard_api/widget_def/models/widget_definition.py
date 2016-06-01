@@ -17,7 +17,7 @@ from django.apps import apps
 
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
-from widget_def.models.reference import Location, Frequency
+from widget_def.models.parametisation import Parametisation
 from widget_def.view_utils import max_with_nulls
 
 # Create your models here.
@@ -25,6 +25,7 @@ from widget_def.view_utils import max_with_nulls
 class WidgetDefinition(models.Model):
     _lud_cache = None
     family = models.ForeignKey("WidgetFamily")
+    parametisation = models.ForeignKey(Parametisation, blank=True, null=True)
     expansion_hint = models.CharField(max_length=80, blank=True, null=True)
     deexpansion_hint = models.CharField(max_length=80, blank=True, null=True)
     label = models.CharField(max_length=128)
@@ -104,6 +105,7 @@ class WidgetDefinition(models.Model):
         return data
     def export(self):
         return {
+            "parametisation": self.parametisation.url,
             "expansion_hint": self.expansion_hint,
             "deexpansion_hint": self.deexpansion_hint,
             "refresh_rate": self.refresh_rate,
@@ -128,6 +130,10 @@ class WidgetDefinition(models.Model):
         w.refresh_rate = data["refresh_rate"]
         w.sort_order = data["sort_order"]
         w.about = data["about"]
+        if data.get("parametisation"):
+            w.parametisation = Parametisation.objects.get(url=data["parametisation"])
+        else:
+            w.parametisation = None
         w.save()
         tile_urls = []
         TileDefinition = apps.get_app_config("widget_def").get_model("TileDefinition")

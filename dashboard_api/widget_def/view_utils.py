@@ -91,7 +91,7 @@ def get_frequency_from_url(url, use_default=False):
     return frequency
 
 def get_view_from_request(request):
-    return get_view_from_label(request.GET.get("view", ""))
+    return get_view_from_label(request, request.GET.get("view", ""))
 
 def get_view_from_label(request, label):
     try:

@@ -51,7 +51,7 @@ def api_get_widget_data(widget):
     return {
         "widget_last_updated": last_updated_str,
         "actual_frequency": widget.actual_frequency_display(),
-        "statistics": stats_json,
+        "data": stats_json,
     }
 
 def api_get_graph_data(widget):

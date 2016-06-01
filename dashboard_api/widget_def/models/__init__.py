@@ -14,6 +14,7 @@
 
 from reference import ViewType, WidgetView, ViewProperty, Theme, Location, Frequency, Category, Subcategory
 from widget_family import WidgetFamily
+from parametisation import Parametisation, ParametisationKey
 from widget_definition import WidgetDefinition
 from widget_decl import WidgetDeclaration, ViewWidgetDeclaration
 from tile_def import TileDefinition
