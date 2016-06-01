@@ -37,8 +37,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -123,6 +121,21 @@ STATIC_URL = '/static/'
 SESSION_COOKIE_PATH = '/'
 
 ADMIN_SITE_URL = "/"
+
+TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'APP_DIRS': True,
+            'OPTIONS': {
+                "context_processors":  [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                ],
+            }
+        },
+]
 
 # TWITTER_API_KEY="KEY..."
 # TWITTER_API_SECRET="SECRET..."

@@ -30,8 +30,6 @@ SECRET_KEY = 'gsgj5#^65dfy%htgu7*(dfsdw42@dcalppg0)$4kfo0fgougs$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Database
