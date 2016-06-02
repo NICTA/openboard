@@ -88,6 +88,7 @@ class Parametisation(models.Model):
         for k in self.keys():
             if k not in data["keys"]:
                 p.delete_key(k)
+        p.update()
         return p
     class Meta:
         ordering = ("name",)
