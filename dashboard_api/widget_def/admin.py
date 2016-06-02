@@ -38,6 +38,21 @@ class WidgetViewAdmin(admin.ModelAdmin):
 
 admin.site.register(WidgetView, WidgetViewAdmin)
 
+class ParametisationKeyInline(admin.TabularInline):
+    model=ParametisationKey
+
+# @admin.register(Parametisation)
+class ParametisationAdmin(admin.ModelAdmin):
+    list_display = ['name', 'url']
+    inlines = [ ParametisationKeyInline ]
+    actions = ['update']
+    def update(self, request, queryset):
+        for param in queryset:
+            param.update()
+    update.short_description = "Update parametisation of views"
+
+admin.site.register(Parametisation, ParametisationAdmin)
+
 # @admin.register(Theme)
 class ThemeAdmin(admin.ModelAdmin):
     list_display = ('name', 'url', 'requires_authentication', 'sort_order')

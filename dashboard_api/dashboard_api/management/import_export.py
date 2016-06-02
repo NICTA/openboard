@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation
 from widget_def.models.reference import WidgetViews, AllCategories
 from widget_data.api import *
 
@@ -119,6 +119,16 @@ def export_widget_view(v):
         raise ImportExportException('Can only export top-level Widget Views')
     return v.export()
 
+def export_parametisation(p):
+    if not isinstance(p, Parametisation):
+        try:
+            p = Parametisation.objects.get(url=p)
+        except Parametisation.DoesNotExist:
+            raise ImportExportException('Parametisation "%s" does not exist' % p)
+    if not p.keys():
+        raise ImportExportException('Parametisation "%s" has no keys' % unicode(p))
+    return p.export()
+
 def export_views():
     return WidgetViews().export()
             
@@ -150,6 +160,8 @@ def import_class(data):
         return AllCategories
     elif data.get("north"):
         return GeoWindow
+    elif data.get("keys"):
+        return Parametisation
     else:
         raise ImportExportException("Unrecognised import class")
 

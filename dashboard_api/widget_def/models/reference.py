@@ -71,6 +71,8 @@ class WidgetView(models.Model):
             v = v.parent
         c.reverse() 
         return c
+    def properties(self):
+        return { vp.key: vp.value() for vp in self.viewproperty_set.all() }
     def __getstate__(self):
         data = {
             "crumbs": self.crumbs(),
