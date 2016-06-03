@@ -1,0 +1,5 @@
+{
+    "url": "location_theme",
+    "name": "Parametisation by Location and Theme",
+    "keys": [ "location", "theme" ]
+}

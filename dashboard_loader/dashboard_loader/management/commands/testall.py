@@ -13,6 +13,7 @@
 #   limitations under the License.
 
 from optparse import make_option
+from django.apps import apps
 from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
@@ -23,8 +24,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         testable_apps = []
-        for app in settings.INSTALLED_APPS:
-            if not app.startswith("django."):
-                testable_apps.append(app)
+        for app in apps.get_app_configs():
+            if not app.name.startswith("django."):
+                testable_apps.append(app.name)
         call_command('test', *testable_apps, **options)
         return

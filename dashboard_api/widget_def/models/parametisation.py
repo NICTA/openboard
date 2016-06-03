@@ -29,10 +29,10 @@ class Parametisation(models.Model):
         return {
             "url": self.url,
             "name": self.name,
-            "keys": [ pk.key for pk in self.parametisationkeys_set.all() ],
+            "keys": self.keys(),
         }
     def add_key(self, key):
-        return ParametisationKey.objects.get_or_create(param=self, key=key)
+        return ParametisationKey.objects.get_or_create(param=self, key=key)[0]
     def delete_key(self, key):
         try:
             ParametisationKey.objects.get(param=self, key=key).delete()
@@ -82,10 +82,10 @@ class Parametisation(models.Model):
             p.update(view)
     @classmethod
     def import_data(cls, data):
-        p = cls.objects.get_or_create(url=data["url"], name=data["name"])
+        p = cls.objects.get_or_create(url=data["url"], name=data["name"])[0]
         for k in data["keys"]:
             p.add_key(k)
-        for k in self.keys():
+        for k in p.keys():
             if k not in data["keys"]:
                 p.delete_key(k)
         p.update()

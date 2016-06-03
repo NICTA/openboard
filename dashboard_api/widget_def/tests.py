@@ -28,7 +28,9 @@ class APIReferenceTests(DashboardTransactionTestCase):
         'test_exports/view_all.json', 
         'test_exports/view_elves.json', 
         'test_exports/view_men.json', 
-        'test_exports/view_dwarves.json', 
+        'test_exports/view_dwarves.json',
+        'test_exports/param_location.json',
+        'test_exports/param_location_theme.json',
         'test_exports/icon_race.json']
 
     def test_top_level_views_auth(self):
@@ -87,6 +89,8 @@ class APIWidgetTests(DashboardTransactionTestCase):
         'test_exports/view_elves.json', 
         'test_exports/view_men.json', 
         'test_exports/view_dwarves.json', 
+        'test_exports/param_location.json',
+        'test_exports/param_location_theme.json',
         'test_exports/icon_race.json', 
         'test_exports/tlc_leadership.json', 
         'test_exports/tlc_std-3-code.json', 
