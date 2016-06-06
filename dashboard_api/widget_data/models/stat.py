@@ -19,7 +19,8 @@ from django.db import models
 # Create your models here.
 
 class StatisticData(models.Model):
-    statistic = models.OneToOneField("widget_def.Statistic")
+    statistic = models.ForeignKey("widget_def.Statistic")
+    param_value = models.ForeignKey("widget_def.ParameterValue", blank=True, null=True)
     label=models.CharField(max_length=80, blank=True, null=True)
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,
@@ -33,6 +34,10 @@ class StatisticData(models.Model):
                     (-1, "Downwards"),
                 ), blank=True, null=True)
     last_updated = models.DateTimeField(auto_now=True)
+    class Meta:
+        unique_together=[
+                    ("statistic", "param_value"),
+        ]
     def display_val(self):
         if self.statistic.is_numeric():
             if self.statistic.num_precision == 0:
@@ -56,5 +61,8 @@ class StatisticData(models.Model):
         else:
             return self.strval
     def __unicode__(self):
-        return "<Data for %s>" % unicode(self.statistic)
+        if self.param_value:
+            return "<Data for %s (%s)>" % unicode(self.statistic, repr(self.param_value.parameters()))
+        else:
+            return "<Data for %s>" % unicode(self.statistic)
 

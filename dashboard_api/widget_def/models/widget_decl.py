@@ -68,7 +68,7 @@ class ViewWidgetDeclaration(models.Model):
         unique_together=[("definition", "view"), ("view", "sort_order")]
         ordering = ("view", "sort_order")
     def __getstate__(self):
-        wstate = self.definition.__getstate__()
+        wstate = self.definition.__getstate__(self.view)
         if self.child_view:
             wstate["child_view"] = self.child_view.label
             if self.child_view_text:

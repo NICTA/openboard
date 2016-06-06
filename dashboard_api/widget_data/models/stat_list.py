@@ -42,6 +42,7 @@ class StatisticListItem(models.Model):
         ( YEAR, "year" ),
     ]
     statistic = models.ForeignKey("widget_def.Statistic")
+    param_value = models.ForeignKey("widget_def.ParameterValue", null=True, blank=True)
     keyval = models.CharField(max_length=120, null=True, blank=True)
     datetime_key = models.DateTimeField(null=True, blank=True)
     datetime_keylevel = models.SmallIntegerField(choices=level_choices, 
@@ -137,8 +138,11 @@ class StatisticListItem(models.Model):
         else:
             return self.strval
     def __unicode__(self):
-        return "<List for %s (%d)>" % (unicode(self.statistic), self.sort_order)
+        if self.param_value:
+            return "<List for %s (%s) (%d)>" % (unicode(self.statistic), repr(self.param_value.parameters()), self.sort_order)
+        else:
+            return "<List for %s (%d)>" % (unicode(self.statistic), self.sort_order)
     class Meta:
-        unique_together = ("statistic", "datetime_key", "datetime_keylevel", "sort_order")
-        ordering = ("statistic", "datetime_key", "-datetime_keylevel", "sort_order")
+        unique_together = ("statistic", "param_value", "datetime_key", "datetime_keylevel", "sort_order")
+        ordering = ("param_value", "statistic", "datetime_key", "-datetime_keylevel", "sort_order")
 

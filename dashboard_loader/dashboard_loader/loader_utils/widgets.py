@@ -233,19 +233,26 @@ LoaderException is raised.
     item.save()
     apply_traffic_light_automation(stat)
 
-def set_actual_frequency_display_text(widget_url, label, display_text):
+def set_actual_frequency_display_text(widget_url, label, display_text, view=None, pval=None, pval_id=None):
     """Set the actual frequency display text of the indicated widget"""
     try:
         wdef = WidgetDefinition.objects.get(family__url=widget_url,
                                 label=label)
     except WidgetDefinition.DoesNotExist:
         raise LoaderException("Widget %s(%s) does not exist" % (widget_url, label))
-    set_widget_actual_frequency_display_text(wdef, display_text)
+    set_widget_actual_frequency_display_text(wdef, display_text,view=view, pval=pval, pval_id=pval_id)
 
-def set_widget_actual_frequency_display_text(widget, display_text):
-    wdata = widget.widget_data()
+def set_widget_actual_frequency_display_text(widget, display_text, view=None, pval=None, pval_id=None):
+    if widget.parametisation:
+        if view:
+            pval = view.parameter_value_set(param=widget.parametisation)
+        elif pval_id:
+            pval = ParameterValue.objects.get(pk=pval_id)
+    else:
+        pval = None
+    wdata = widget.widget_data(pval=pval)
     if not wdata:
-        wdata = WidgetData(widget=widget)
+        wdata = WidgetData(widget=widget,param_value=pval)
     wdata.actual_frequency_text = display_text
     wdata.save()
 

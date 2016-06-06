@@ -53,5 +53,5 @@ class WidgetDataTests(DashboardTransactionTestCase):
         view = WidgetView.objects.get(label=view_label)
         widget = get_declared_widget(widget_url, view)
         self.assertIsNotNone(widget)
-        return api_get_widget_data(widget)
+        return api_get_widget_data(widget, view)
 

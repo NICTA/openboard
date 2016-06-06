@@ -77,18 +77,27 @@ class WidgetDefinition(models.Model):
         return self.family.subtitle
     def source_url(self):
         return self.family.source_url
-    def widget_data(self):
+    def widget_data(self, view=None, pval=None):
+        if self.parametisation:
+            if view:
+                pval = view.parametisation_value_set.get(param=self.parametisation)
+            try:
+                return WidgetData.objects.get(widget=self, param_value=pval)
+            except WidgetData.DoesNotExist:
+                pass
         try:
-            return WidgetData.objects.get(widget=self)
+            return WidgetData.objects.get(widget=self, param_value__isnull=True)
         except WidgetData.DoesNotExist:
             return None
-    def actual_frequency_display(self):
-        wd = self.widget_data()
+    def actual_frequency_display(self, view=None):
+        wd = self.widget_data(view)
         if wd and wd.actual_frequency_text:
             return wd.actual_frequency_text
         else:
             return self.default_frequency_text
     def __getstate__(self, view=None):
+        if not self.parametisation:
+            view = None
         data = {
             "category": self.subcategory().category.name,
             "category_aspect": self.subcategory().category.category_aspect,
@@ -105,7 +114,7 @@ class WidgetDefinition(models.Model):
             "source_url_text": parametise_label(self, view, self.family.source_url_text),
             "actual_frequency": parametise_label(self, view, self.actual_frequency_display()),
             "refresh_rate": self.refresh_rate,
-            "about": paremetise_label(self, view, self.about),
+            "about": parametise_label(self, view, self.about),
         }
         if self.rawdataset_set.all().count() > 0:
             data["raw_data_sets"] = [ rds.__getstate__() for rds in self.rawdataset_set.all() ]

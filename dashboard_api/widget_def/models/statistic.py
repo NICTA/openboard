@@ -163,16 +163,28 @@ class Statistic(models.Model):
         elif not self.name_as_label:
             result["label"] = sd.label
         return result
-    def get_data(self):
+    def get_data(self, view=None, pval=None):
+        if self.tile.widget.parametisation:
+            if view: 
+                pval = view.parametervalue_set.objects.get(param=self.tile.widget.parametisation)
+        else:
+            pval = None
         if self.is_data_list():
-            return StatisticListItem.objects.filter(statistic=self)
+            data = StatisticListItem.objects.filter(statistic=self)
+            if pval:
+                return data.filter(param_value=pval)
+            else:
+                return data.filter(param_value__isnull=True)
         else:
             try:
-                return StatisticData.objects.get(statistic=self)
+                if pval:
+                    return StatisticData.objects.get(statistic=self, param_value=pval)
+                else:
+                    return StatisticData.objects.get(statistic=self, param_value__isnull=True)
             except StatisticData.DoesNotExist:
                 return None
-    def get_data_json(self):
-        data = self.get_data()
+    def get_data_json(self, view=None):
+        data = self.get_data(view)
         if self.is_data_list():
             return [ self.jsonise(datum) for datum in data ]
         else:
@@ -203,26 +215,42 @@ class Statistic(models.Model):
             if self.trend:
                 json["trend"]=datum.trend
         return json
-    def initial_form_data(self):
+    def initial_form_data(self, pval=None):
         if self.is_data_list():
-            return [ self.initial_form_datum(sd) for sd in self.get_data() ]
+            return [ self.initial_form_datum(sd) for sd in self.get_data(pval=pval) ]
         else:
-            sd = self.get_data()
+            sd = self.get_data(pval=pval)
             if sd:
                 return self.initial_form_datum(sd)
             else:
                 return {}
-    def data_last_updated(self, update=False):
-        if self._lud_cache and not update:
-            return self._lud_cache
-        if self.is_data_list():
-            self._lud_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
+    def data_last_updated(self, update=False, view=None, pval=None):
+        if self.tile.widget.parametisation:
+            if view: 
+                pval = view.parametervalue_set.objects.get(param=self.tile.widget.parametisation)
+            if self._lud_cache and self._lud_cache[pval.id] and not update:
+                return self._lud_cache[pval.id]
+            if not self._lud_cache:
+                self._lud_cache = {}
+            if self.is_data_list():
+                self._lud_cache[pval.id] = StatisticListItem.objects.filter(statistic=self,param_value=pval).aggregate(lud=models.Max('last_updated'))['lud']
+            else:
+                try:
+                    self._lud_cache[pval.id] = StatisticData.objects.get(statistic=self,param_value=pval).last_updated
+                except StatisticData.DoesNotExist:
+                    self._lud_cache[pval.id] = None
+            return self._lud_cache[pval.id]
         else:
-            try:
-                self._lud_cache = StatisticData.objects.get(statistic=self).last_updated
-            except StatisticData.DoesNotExist:
-                self._lud_cache = None
-        return self._lud_cache
+            if self._lud_cache and not update:
+                return self._lud_cache
+            if self.is_data_list():
+                self._lud_cache = StatisticListItem.objects.filter(statistic=self).aggregate(lud=models.Max('last_updated'))['lud']
+            else:
+                try:
+                    self._lud_cache = StatisticData.objects.get(statistic=self).last_updated
+                except StatisticData.DoesNotExist:
+                    self._lud_cache = None
+            return self._lud_cache
     def export(self):
         if self.traffic_light_scale:
             traffic_light_scale_name = self.traffic_light_scale.name
