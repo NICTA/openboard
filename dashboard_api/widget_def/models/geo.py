@@ -25,12 +25,14 @@ from dashboard_api.validators import validate_html_colour
 from widget_def.view_utils import csv_escape, max_with_nulls
 from widget_def.models import TileDefinition, Location, Theme, Frequency, WidgetView
 from widget_data.models import GeoFeature, GeoProperty
+from widget_def.parametisation import parametise_label
 
 class GeoWindow(models.Model):
     name=models.CharField(max_length=128, 
                     unique=True, help_text="For internal reference only")
     north_east = models.PointField()
     south_west = models.PointField()
+    view_override = models.BooleanField(default=False)
     def padded_polygon(self):
         n = self.north_east.y
         e = self.north_east.x
@@ -55,13 +57,16 @@ class GeoWindow(models.Model):
         ssee = Point(ee, ss)
         ssww = Point(ww, ss)
         return Polygon([nnee, nnww, ssww, ssee, nnee])
-    def __getstate__(self):
-        return {
-            "north": self.north_east.y,
-            "south": self.south_west.y,
-            "east": self.north_east.x,
-            "west": self.south_west.x,
-        }
+    def __getstate__(self,view=None):
+        if self.view_override and view and view.geo_window:
+            return view.geo_window.__getstate__()
+        else:
+            return {
+                "north": self.north_east.y,
+                "south": self.south_west.y,
+                "east": self.north_east.x,
+                "west": self.south_west.x,
+            }
     def export(self):
         return {
             "name": self.name,
@@ -69,6 +74,7 @@ class GeoWindow(models.Model):
             "south": self.south_west.y,
             "east": self.north_east.x,
             "west": self.south_west.x,
+            "view_override": self.view_override,
         }
     def __unicode__(self):
         return self.name
@@ -80,6 +86,7 @@ class GeoWindow(models.Model):
             win = cls(name=data["name"])
         win.north_east = Point(data["east"], data["north"])
         win.south_west = Point(data["west"], data["south"])
+        win.view_override = data.get("view_override", False)
         win.save()
         return win
 
@@ -382,16 +389,16 @@ class GeoDataset(models.Model):
             lud_property = GeoProperty.objects.filter(feature__dataset=self).aggregate(lud=models.Max('last_updated'))['lud']
             self._lud_cache = max_with_nulls(lud_feature, lud_property)
         return self._lud_cache
-    def __getstate__(self):
+    def __getstate__(self, view=None, parametisation=None):
         state =  {
             "category": self.subcategory.category.name,
             "subcategory": self.subcategory.name,
             "label": self.url,
-            "name": self.label,
+            "name": parametise_label(parametisation, view, self.label),
             "geom_type": self.geom_types[self.geom_type],
         }
         if self.is_external():
-            state["external_url"] = self.ext_url
+            state["external_url"] = parametise_label(parametisation, view, self.ext_url)
             state["external_type"] = self.ext_type
         else:
             state["properties"] = [ 

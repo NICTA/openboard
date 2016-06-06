@@ -16,6 +16,7 @@ from django.db import models
 
 from widget_def.models.tile_def import TileDefinition
 from widget_def.models.statistic import Statistic
+from widget_def.parametisation import parametise_label
 
 # Create your models here.
 
@@ -39,13 +40,13 @@ class GridDefinition(models.Model):
             "columns": [ c.export() for c in self.gridcolumn_set.all() ],
             "rows": [ c.export() for c in self.gridrow_set.all() ],
         }
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         return {
-            "corner_header": self.corner_label,
+            "corner_header": parametise_label(self.tile.widget, view, self.corner_label),
             "show_column_headers": self.show_column_headers,
             "show_row_headers": self.show_row_headers,
-            "columns": [ c.__getstate__() for c in self.gridcolumn_set.all() ],
-            "rows": [ c.__getstate__() for c in self.gridrow_set.all() ],
+            "columns": [ c.__getstate__(view) for c in self.gridcolumn_set.all() ],
+            "rows": [ c.__getstate__(view) for c in self.gridrow_set.all() ],
         }
     def validate(self):
         problems = []
@@ -119,9 +120,9 @@ class GridColumn(models.Model):
             "label": self.label,
             "sort_order": self.sort_order,
         }
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         return {
-            "header": self.label,
+            "header": parametise_label(self.grid.tile.widget, view, self.label),
         }
     @classmethod
     def import_data(cls, grid, data):
@@ -148,10 +149,10 @@ class GridRow(models.Model):
             "sort_order": self.sort_order,
             "statistics": [ s.statistic.url for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
         }
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         return {
-            "header": self.label,
-            "statistics": [ s.__getstate__() for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
+            "header": parametise_label(self.grid.tile.widget, view, self.label),
+            "statistics": [ s.__getstate__(view) for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
         }
     @classmethod
     def import_data(cls, grid, data):
@@ -183,8 +184,8 @@ class GridStatistic(models.Model):
     statistic = models.ForeignKey(Statistic)
     def export(self):
         return self.statistic.export()
-    def __getstate__(self):
-        return self.statistic.__getstate__()
+    def __getstate__(self, view=None):
+        return self.statistic.__getstate__(view)
     class Meta:
         unique_together = ( ("grid", "column", "row"), ("grid", "statistic") )
         ordering = ("grid", "row", "column")

@@ -19,6 +19,7 @@ from widget_data.models import WidgetData, StatisticData, StatisticListItem, Gra
 
 from widget_def.models.parametisation import Parametisation
 from widget_def.view_utils import max_with_nulls
+from widget_def.parametisation import parametise_label
 
 # Create your models here.
 
@@ -36,25 +37,31 @@ class WidgetDefinition(models.Model):
     def validate(self):
         """Validate Widget Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         problems = []
+        if self.parametisation:
+            if self.family.widgetdefinition_set.exclude(id=self.id).count() > 0:
+                problems.append("Parametised widget %s:%s is not only widget defintion in family" % (self.url(),self.label))
+        else:
+            if self.family.widgetdefinition_set.filter(parametisation__isnull=False).count() > 0:
+                problems.append("Non-parametised widget %s:%s has a paremetised widget defintion in the same family" % (self.url(),self.label))
         if not self.about:
-            problems.append("Widget %s has no 'about' information" % self.url)
+            problems.append("Widget %s:%s has no 'about' information" % (self.url(), self.label))
         if self.viewwidgetdeclaration_set.all().count() == 0:
-            problems.append("Widget %s has no declarations" % self.url)
+            problems.append("Widget %s:%s has no declarations" % (self.url(), self.label))
         default_tiles = self.tiledefinition_set.filter(expansion=False).count()
         if default_tiles < 1:
-            problems.append("Widget %s has no default (non-expansion) tiles - must have at least one" % self.url)
+            problems.append("Widget %s:%s has no default (non-expansion) tiles - must have at least one" % (self.url(), self.label))
         tiles = self.tiledefinition_set.all()
         if tiles.count() == default_tiles:
             if self.expansion_hint or self.deexpansion_hint:
-                problems.append("widget %s has no expansion tiles but expansion hint or deexpansion hint is set" % (self.url))
+                problems.append("widget %s:%s has no expansion tiles but expansion hint or deexpansion hint is set" % (self.url(), self.label))
         else:
             if not self.expansion_hint or not self.deexpansion_hint:
-                problems.append("widget %s has expansion tiles but expansion hint is not set" % (self.url))
+                problems.append("widget %s:%s has expansion tiles but expansion hint is not set" % (self.url(), self.label))
         stat_urls = {}
         Statistic = apps.get_app_config("widget_def").get_model("Statistic")
         for stat in Statistic.objects.filter(tile__widget=self):
             if stat.url in stat_urls:
-                problems.append("Widget %s has two statistics with url '%s' (in tiles %s and %s)" % (self.url, stat.url, stat.tile.url, stat_urls[stat.url]))
+                problems.append("Widget %s:%s has two statistics with url '%s' (in tiles %s and %s)" % (self.url(), self.label, stat.url, stat.tile.url, stat_urls[stat.url]))
             else:
                 stat_urls[stat.url] = stat.tile.url
         for tile in tiles:
@@ -81,24 +88,24 @@ class WidgetDefinition(models.Model):
             return wd.actual_frequency_text
         else:
             return self.default_frequency_text
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         data = {
             "category": self.subcategory().category.name,
             "category_aspect": self.subcategory().category.category_aspect,
             "subcategory": self.subcategory().name,
-            "name": self.name(),
-            "subtitle": self.family.subtitle,
+            "name": parametise_label(self, view, self.name()),
+            "subtitle": parametise_label(self, view, self.family.subtitle),
             "label": self.url(),
             "display": {
                 "expansion_hint": self.expansion_hint,
                 "deexpansion_hint": self.deexpansion_hint,
-                "tiles": [ tile.__getstate__() for tile in self.tiledefinition_set.all() ],
+                "tiles": [ tile.__getstate__(view) for tile in self.tiledefinition_set.all() ],
             },
-            "source_url": self.source_url(),
-            "source_url_text": self.family.source_url_text,
-            "actual_frequency": self.actual_frequency_display(),
+            "source_url": parametise_label(self, view, self.source_url()),
+            "source_url_text": parametise_label(self, view, self.family.source_url_text),
+            "actual_frequency": parametise_label(self, view, self.actual_frequency_display()),
             "refresh_rate": self.refresh_rate,
-            "about": self.about,
+            "about": paremetise_label(self, view, self.about),
         }
         if self.rawdataset_set.all().count() > 0:
             data["raw_data_sets"] = [ rds.__getstate__() for rds in self.rawdataset_set.all() ]

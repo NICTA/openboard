@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.apps import apps
 
 from widget_def.models.widget_definition import WidgetDefinition
+from widget_def.parametisation import parametise_label
 
 # Create your models here.
 
@@ -82,7 +83,7 @@ class TileDefinition(models.Model):
     geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
     geo_datasets = models.ManyToManyField("GeoDataset", blank=True)
     # graph_def, map_def
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         state = {
             "type": self.tile_types[self.tile_type],
             "expansion": self.expansion,
@@ -93,34 +94,34 @@ class TileDefinition(models.Model):
                                 self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR, self.TIME_LINE,
                                 self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, self.TEXT_TEMPLATE, 
                                 self.TAG_CLOUD):
-            state["statistics"] = [ s.__getstate__() for s in self.statistic_set.all() ]
+            state["statistics"] = [ s.__getstate__(view) for s in self.statistic_set.all() ]
         if self.tile_type == self.GRID_SINGLE_STAT:
             state["statistics"] = []
             for s in self.statistic_set.all():
                 if s.gridstatistic_set.count() == 0:
-                    state["statistics"].append(s.__getstate__())
+                    state["statistics"].append(s.__getstate__(view))
         if self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             if self.list_label_width:
                 state["list_label_width"] = self.list_label_width
             else:
                 state["list_label_width"] = 50
         if self.tile_type == self.TEXT_TEMPLATE:
-            state["template"] = self.template
+            state["template"] = parametise_label(self.widget, view, self.template)
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
             state["columns"] = self.columns
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
             g = GraphDefinition.objects.get(tile=self)
-            state["graph"] = g.__getstate__()
+            state["graph"] = g.__getstate__(view)
         if self.tile_type == self.MAP:
             state["map"] = {
                 "url": self.url,
-                "window": self.geo_window.__getstate__(),
-                "layers": [ ds.__getstate__() for ds in self.geo_datasets.all() ],
+                "window": self.geo_window.__getstate__(view),
+                "layers": [ ds.__getstate__(view=view,parametisation=self.widget.paremetisation) for ds in self.geo_datasets.all() ],
             }
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
-            state["grid"] = GridDefinition.objects.get(tile=self).__getstate__()
+            state["grid"] = GridDefinition.objects.get(tile=self).__getstate__(view)
         return state
     def export(self):
         exp = {

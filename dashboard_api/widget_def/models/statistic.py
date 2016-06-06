@@ -21,6 +21,7 @@ from django.db import models
 from widget_data.models import StatisticData, StatisticListItem
 from widget_def.models.tile_def import TileDefinition
 from widget_def.models.eyecandy import IconLibrary, TrafficLightScale, TrafficLightAutoStrategy, TrafficLightAutomation
+from widget_def.parametisation import parametise_label
 
 # Create your models here.
 
@@ -291,13 +292,13 @@ class Statistic(models.Model):
             s.traffic_light_automation = TrafficLightAutomation.objects.get(url=data["traffic_light_automation"])
         s.save()
         return s
-    def __getstate__(self):
+    def __getstate__(self, view):
         state = {
             "label": self.url,
             "type": self.stat_types[self.stat_type],
         }
         if self.tile.tile_type != TileDefinition.GRID:
-            state["name"] = self.name
+            state["name"] = parametise_label(self.tile.widget, view, self.name)
             state["display_name"] = self.name_as_label
         if self.is_numeric():
             state["precision"] = self.num_precision

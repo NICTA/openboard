@@ -18,6 +18,7 @@ from django.db import models
 
 from widget_data.models import GraphData
 from widget_def.models.tile_def import TileDefinition
+from widget_def.parametisation import parametise_label
 
 # Create your models here.
 
@@ -159,9 +160,9 @@ class GraphDefinition(models.Model):
             for dataset in g.graphdataset_set.all():
                 if dataset.url not in dataset_urls:
                     dataset.delete()
-        def __getstate__(self):
+        def __getstate__(self, view=None):
             state = {
-                "heading": self.heading,
+                "heading": parametise_label(self.tile.widget, view, self.heading),
                 "graph_type": self.graph_types[self.graph_type],
                 "label": self.tile.url,
                 "display_options": self.graphdisplayoptions.__getstate__(self.graph_type),
@@ -177,25 +178,25 @@ class GraphDefinition(models.Model):
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
                 state["horizontal_axis"] = {
-                    "name": self.horiz_axis_label,
+                    "name": parametise_label(self.tile.widget, view, self.horiz_axis_label),
                     "type": self.axis_types[self.horiz_axis_type]
                 }
-                state["lines"] = [ d.__getstate__() for d in self.graphdataset_set.all() ]
+                state["lines"] = [ d.__getstate__(view) for d in self.graphdataset_set.all() ]
             elif self.graph_type in (self.HISTOGRAM, self.BAR):
                 state["numeric_axis"] = {
-                    "name": self.numeric_axis_label,
+                    "name": parametise_label(self.tile.widget, view, self.numeric_axis_label),
                     "always_show_zero": self.numeric_axis_always_show_zero,
                 }
                 if self.use_secondary_numeric_axis:
                     state["secondary_numeric_axis"] = {
-                        "name": self.secondary_numeric_axis_label,
+                        "name": parametise_label(self.tile.widget, view, self.secondary_numeric_axis_label),
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
-                state["clusters"] = [ c.__getstate__() for c in self.graphcluster_set.all() ]
-                state["bars"] = [ d.__getstate__() for d in self.graphdataset_set.all()]
+                state["clusters"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
+                state["bars"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
             elif self.graph_type == self.PIE:
-                state["pies"] = [ c.__getstate__() for c in self.graphcluster_set.all() ]
-                state["sectors"] = [ d.__getstate__() for d in self.graphdataset_set.all()]
+                state["pies"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
+                state["sectors"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
             return state
         def clean(self):
             if not self.use_numeric_axes():
@@ -477,11 +478,11 @@ class GraphCluster(models.Model):
             "label": self.label,
             "hyperlink": self.hyperlink,
         }
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         return {
             "label": self.url,
-            "name": self.label,
-            "hyperlink": self.hyperlink,
+            "name": parametise_label(self.graph.tile.widget, view, self.label),
+            "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
         }
     @classmethod
     def import_data(cls, g, data):
@@ -532,12 +533,12 @@ class GraphDataset(models.Model):
         d.hyperlink = data["hyperlink"]
         d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
         d.save()
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         state = {
             "label": self.url,
-            "name": self.label,
+            "name": parametise_label(self.graph.tile.widget, view, self.label),
             "colour": self.colour,
-            "hyperlink": self.hyperlink,
+            "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
         }
         if self.graph.use_secondary_numeric_axis:
             if self.graph.graph_type == self.graph.LINE:

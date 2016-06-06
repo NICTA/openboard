@@ -14,7 +14,9 @@
 
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from widget_def.models import Parametisation, WidgetView, ViewProperty
+from django.template import Engine, Context
+from widget_def.models.parametisation import Parametisation, ParametisationValue, ViewDoesNotHaveAllKeys
+from widget_def.models.reference import WidgetView, ViewProperty
 
 @receiver(post_save, sender=WidgetView)
 @receiver(post_delete, sender=WidgetView)
@@ -26,4 +28,26 @@ def update_parametisations(sender, instance, **kwargs):
     else:
         v = instance.view
     Parametisation.update_all(v)
+
+
+def parametise_label(widget_or_parametisation, view, text):
+    if text is None:
+        return None
+    if widget_or_parametisation:
+        if isinstance(widget_or_parametisation, Parametisation):
+            param = widget_or_parametisation
+        else:
+            param = widget_or_parametisation.parametisation
+    else:
+         param = None
+    if param:
+        try:
+            context = Context(view.parametisationvalue_set.get(param=param).parameters)
+        except ParametisationValue.DoesNotExist:
+            raise ViewDoesNotHaveAllKeys()
+        eng = Engine.get_default()
+        template = eng.from_string(text)
+        return template.render(context)
+    else:
+        return text
 
