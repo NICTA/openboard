@@ -80,7 +80,7 @@ class WidgetView(models.Model):
             "show_children": self.view_type.show_children,
             "show_siblings": self.view_type.show_siblings,
             "properties": { p.key: p.value() for p in self.viewproperty_set.all() },
-            "widgets": [ decl.__getstate__() for decl in self.widgets.all() ], 
+            "widgets": [ decl.__getstate__(self) for decl in self.widgets.all() ], 
         }
         if self.view_type.show_children:
             data["children"] = [ c.desc() for c in self.children.all() ]
