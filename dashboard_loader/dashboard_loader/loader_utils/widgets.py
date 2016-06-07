@@ -252,7 +252,7 @@ LoaderException is raised.
                 if lc[1] == datetimekey_level:
                     datetimekey_level = lc[0]
                     break
-    item = StatisticListItem(statistic=stat, keyval=label, trend=trend,
+    item = StatisticListItem(statistic=stat, pval=pval, keyval=label, trend=trend,
             sort_order=sort_order, datetime_key=datetimekey, datetime_keylevel=datetimekey_level,
             traffic_light_code=tlc, icon_code=ic, url=url)
     if stat.is_numeric():
@@ -263,7 +263,7 @@ LoaderException is raised.
     else:
         item.strval = value
     item.save()
-    apply_traffic_light_automation(stat)
+    apply_traffic_light_automation(stat, pval)
 
 def set_actual_frequency_display_text(widget_url, label, display_text, view=None, pval=None, pval_id=None):
     """Set the actual frequency display text of the indicated widget"""
