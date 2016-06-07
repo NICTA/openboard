@@ -183,8 +183,8 @@ class Statistic(models.Model):
                     return StatisticData.objects.get(statistic=self, param_value__isnull=True)
             except StatisticData.DoesNotExist:
                 return None
-    def get_data_json(self, view=None):
-        data = self.get_data(view)
+    def get_data_json(self, view=None, pval=None):
+        data = self.get_data(view, pval)
         if self.is_data_list():
             return [ self.jsonise(datum) for datum in data ]
         else:

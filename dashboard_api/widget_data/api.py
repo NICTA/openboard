@@ -39,10 +39,10 @@ def get_declared_geodataset(url, view):
     except ViewGeoDatasetDeclaration.DoesNotExist:
         return None
 
-def api_get_widget_data(widget, view):
+def api_get_widget_data(widget, view=None, pval=None):
     stats_json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget):
-        stats_json[statistic.url] = statistic.get_data_json(view)
+        stats_json[statistic.url] = statistic.get_data_json(view=view, pval=pval)
     last_updated = widget.data_last_updated()
     if last_updated:
         last_updated_str = last_updated.strftime("%Y-%m-%dT%H:%M:%S%z")
@@ -50,7 +50,7 @@ def api_get_widget_data(widget, view):
         last_updated_str = None
     return {
         "widget_last_updated": last_updated_str,
-        "actual_frequency": widget.actual_frequency_display(view),
+        "actual_frequency": widget.actual_frequency_display(view=view, pval=pval),
         "data": stats_json,
     }
 

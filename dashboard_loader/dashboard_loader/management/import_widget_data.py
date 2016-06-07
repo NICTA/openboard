@@ -24,13 +24,23 @@ def import_widget_data(data):
     except Exception, e:
         raise ImportExportException("Invalid import data %s" % repr(data))
     for w in data["widgets"]:
-        try:
-            wd = WidgetDefinition.objects.get(family=family, label=w["label"])
-        except WidgetDefinition.DoesNotExist:
-            raise ImportExportException("Widget definition %s (%s) does not exist" % (family.url, w["label"]))
+        if "parameters" in w:
+            set_actual_frequency_display_test(data["family"], w["label"], data["default_actual_frequency"])
+            try:
+                wd = WidgetDefinition.objects.get(family=family)
+            except WidgetDefinition.DoesNotExist:
+                raise ImportExportException("Parametised widget definition %s does not exist" % (family.url))
+            pval = get_paramval(wd.parametisation, **w["parameters"])
+        else: 
+            try:
+                wd = WidgetDefinition.objects.get(family=family, label=w["label"])
+            except WidgetDefinition.DoesNotExist:
+                raise ImportExportException("Widget definition %s (%s) does not exist" % (family.url, w["label"]))
+            pval = None
         set_actual_frequency_display_text(data["family"],
                                 w["label"],
-                                w["data"]["actual_frequency"])
+                                w["data"]["actual_frequency"], 
+                                pval=pval)
         for surl, s in w["data"]["statistics"].items():
             try:
                 stat = Statistic.objects.get(tile__widget=wd,
@@ -40,11 +50,11 @@ def import_widget_data(data):
                                 surl,
                                 data["family"], 
                                 w["label"]))
-                             
             if stat.is_data_list():
                 clear_statistic_list(data["family"],
                                 w["label"],
-                                surl)
+                                surl,
+                                pval=pval)
                 sort_order = 10
                 for item in s:
                     icon = item.get("icon")
@@ -64,7 +74,8 @@ def import_widget_data(data):
                                 icon_code=icon_code,
                                 trend = item.get("trend"),
                                 label = item.get("label"),
-                                url = item.get("url"))
+                                url = item.get("url"),
+                                pval=pval)
                     sort_order += 10
             else:
                 icon = s.get("icon")
@@ -79,7 +90,8 @@ def import_widget_data(data):
                                 traffic_light_code=s.get("traffic_light"),
                                 icon_code=icon_code,
                                 trend = s.get("trend"),
-                                label = s.get("label"))
+                                label = s.get("label"),
+                                pval=pval)
         for gurl, g in w["graph_data"].items():
             try:
                 graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl)

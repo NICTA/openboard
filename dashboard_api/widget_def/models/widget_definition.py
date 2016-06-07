@@ -89,8 +89,8 @@ class WidgetDefinition(models.Model):
             return WidgetData.objects.get(widget=self, param_value__isnull=True)
         except WidgetData.DoesNotExist:
             return None
-    def actual_frequency_display(self, view=None):
-        wd = self.widget_data(view)
+    def actual_frequency_display(self, view=None, pval=None):
+        wd = self.widget_data(view, pval)
         if wd and wd.actual_frequency_text:
             return wd.actual_frequency_text
         else:

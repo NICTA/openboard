@@ -35,14 +35,28 @@ def export_widget_data(widget):
     widget = sanitise_widget_arg(widget)
     defs = WidgetDefinition.objects.filter(family=widget)
     data = { "family": widget.url, "widgets": [] }
+    exported_default_actual_freq = False
     for wd in defs:
         if wd.widgetdeclaration_set.all().count() > 0:
-            wdata = {
-                "label": wd.label,
-                "data": api_get_widget_data(wd),
-                "graph_data": api_get_graph_data(wd),
-            }
-            data["widgets"].append(wdata)
+            if wd.parametisation:
+                for pval in wd.parametisation.parametervalue_set.all():
+                    if not exported_default_actual_freq:
+                        data["default_actual_frequency"] = wd.actual_frequency_display()
+                        exported_default_actual_freq = True
+                    wdata = {
+                        "parameters": pval.parameters(),
+                        "data": api_get_widget_data(wd, pval=pval),
+                        "graph_data": {},
+                        "raw_datasets": None
+                    }
+            else:
+                wdata = {
+                    "label": wd.label,
+                    "data": api_get_widget_data(wd),
+                    "graph_data": api_get_graph_data(wd),
+                    "raw_datasets": None,
+                }
+                data["widgets"].append(wdata)
     return data
 
 def export_trafficlightscale(scale):
