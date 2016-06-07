@@ -42,7 +42,7 @@ def get_declared_geodataset(url, view):
 def api_get_widget_data(widget, view):
     stats_json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget):
-        stats_json[statistic.url] = statistic.get_data_json()
+        stats_json[statistic.url] = statistic.get_data_json(view)
     last_updated = widget.data_last_updated()
     if last_updated:
         last_updated_str = last_updated.strftime("%Y-%m-%dT%H:%M:%S%z")

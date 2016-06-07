@@ -31,7 +31,7 @@ def get_widget_data(request, widget_url):
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     widget = get_declared_widget(widget_url, view)
     if widget:
-        return json_list(request, api_get_widget_data(widget))
+        return json_list(request, api_get_widget_data(widget, view))
     else:
         return HttpResponseNotFound("This Widget does not exist")
 

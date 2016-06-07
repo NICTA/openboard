@@ -42,7 +42,8 @@ Raises LoaderException if the requested Statistic does not exist.
 
 def clear_statistic_data(widget_url_or_stat, 
                 label=None,
-                statistic_url=None):
+                statistic_url=None,
+                pval=None):
     """Clear data for the requested statistic (which must be scalar: non-list)
 
 Interprets arguments as for the get_statistic function.
@@ -50,9 +51,15 @@ Interprets arguments as for the get_statistic function.
 Raises LoaderException if the requested Statistic does not exist or is a list.
 """
     stat = get_statistic(widget_url_or_stat, label, statistic_url)
+    if stat.tile.widget.parametisation:
+        if not pval:
+            raise LoaderException("Must provide parameter values to clear statistic data in a parametised widget")
+    else:
+        if pval:
+            raise LoaderException("Parameter values provided to clear_statistic_data for a non-parametised widget")
     if stat.is_data_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
-    data = stat.get_data()
+    data = stat.get_data(pval=pval)
     if data:
         data.delete()
  
@@ -60,14 +67,16 @@ def set_statistic_data(widget_url,
                     widget_label,
                     statistic_url, 
                     value, 
+                    pval=None,
                     traffic_light_code=None, icon_code=None, 
                     trend=None, label=None):
     """Equivalent to get_stat_data, but with a get_statistic lookup of the statistic"""
     stat = get_statistic(widget_url, widget_label, statistic_url)
-    set_stat_data(stat, value, traffic_light_code, icon_code, trend, label)
+    set_stat_data(stat, value, pval, traffic_light_code, icon_code, trend, label)
 
 def set_stat_data(stat,
                     value, 
+                    pval=None,
                     traffic_light_code=None, icon_code=None, 
                     trend=None, label=None):
     """Set the data for a scalar statistic.
@@ -84,9 +93,15 @@ LoaderException is raised.
 """
     if stat.is_data_list():
         raise LoaderException("Statistic %s is a list statistic" % statistic_url)
-    data = stat.get_data()
+    if stat.tile.widget.parametisation:
+        if not pval:
+            raise LoaderException("Must provide parameter values to set statistic data in a parametised widget")
+    else:
+        if pval:
+            raise LoaderException("Parameter values provided to set_statistic_data for a non-parametised widget")
+    data = stat.get_data(pval=pval)
     if not data:
-        data = StatisticData(statistic=stat)
+        data = StatisticData(statistic=stat, param_value=pval)
     if not stat.name_as_label and not label:
         raise LoaderException("Must provide a label for statistic %s" % statistic_url)
     else:
@@ -124,11 +139,12 @@ LoaderException is raised.
         data.save()
     except Exception, e:
         raise LoaderException(str(e))
-    apply_traffic_light_automation(stat)
+    apply_traffic_light_automation(stat,pval)
 
 def clear_statistic_list(widget_url_or_stat, 
                 label=None,
-                statistic_url=None):
+                statistic_url=None,
+                pval=None):
     """Clear data for the requested statistic (which must be a list)
 
 Interprets arguments as for the get_statistic function.
@@ -136,21 +152,31 @@ Interprets arguments as for the get_statistic function.
 Raises LoaderException if the requested Statistic does not exist or is not a list.
 """
     stat = get_statistic(widget_url_or_stat, label, statistic_url)
-    stat.statisticlistitem_set.all().delete()
+    if stat.tile.widget.parametisation:
+        if not pval:
+            raise LoaderException("Must provide parameter values to clear statistic list data in a parametised widget")
+    else:
+        if pval:
+            raise LoaderException("Parameter values provided to clear_statistic_list for a non-parametised widget")
+    if pval:
+        stat.statisticlistitem_set.all().delete()
+    else:
+        stat.statisticlistitem_set.filter(param_value=pval).delete()
     
 def add_statistic_list_item(widget_url, widget_label,
                 statistic_url, 
                 value, sort_order, 
+                pval=None,
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
     """Equivalent to add_stat_list_item, but with a get_statistic lookup of the statistic"""
     stat = get_statistic(widget_url, widget_label, statistic_url)
-    add_stat_list_item(stat, value, sort_order,
+    add_stat_list_item(stat, value, sort_order, pval,
                 datetimekey, datetimekey_level, datekey, label,
                 traffic_light_code, icon_code, trend, url)
 
 def add_stat_list_item(stat,
-                value, sort_order, 
+                value, sort_order, pval,
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
     """Add an item for a list statistic.
@@ -200,6 +226,12 @@ LoaderException is raised.
         raise LoaderException("Must provide a traffic light code for statistic %s" % statistic_url)
     if stat.icon_library and not icon_code:
         raise LoaderException("Must provide a icon code for statistic %s" % statistic_url)
+    if stat.tile.widget.parametisation:
+        if not pval:
+            raise LoaderException("Must provide parameter values to add a statistic list item in a parametised widget")
+    else:
+        if pval:
+            raise LoaderException("Parameter values provided to add_stat_list_item for a non-parametised widget")
     if stat.traffic_light_scale and isinstance(traffic_light_code, TrafficLightScaleCode):
         tlc = traffic_light_code
     elif stat.traffic_light_scale:
@@ -275,20 +307,26 @@ def get_traffic_light_code(stat, value):
     except TrafficLightScaleCode.DoesNotExist:
         raise LoaderException("Traffic light code %s not found in scale %s for statistic %s" % (value,stat.traffic_light_scale.name, stat.url))
 
-def apply_traffic_light_automation(stat):
+def apply_traffic_light_automation(stat, pval=None):
+    if stat.tile.widget.parametisation:
+        if not pval:
+            raise LoaderException("Must provide parameter values to apply traffic light automation in a parametised widget")
+    else:
+        if pval:
+            raise LoaderException("Parameter values provided to apply_traffic_light_automation for a non-parametised widget")
     for auto in stat.trafficlightautomation_set.all():
         for autostat in auto.statistic_set.all():
-            apply_traffic_light_automation(autostat)
+            apply_traffic_light_automation(autostat, pval)
     auto = stat.traffic_light_automation
     if not auto:
         return
-    metric_data = stat.get_data()
+    metric_data = stat.get_data(pval)
     if not metric_data:
         return
     if not stat.is_data_list():
         metric_data = [ metric_data ]
     if auto.target_statistic:
-        target_value = decimal.Decimal(auto.target_statistic.get_data().value())
+        target_value = decimal.Decimal(auto.target_statistic.get_data(pval).value())
     elif auto.target_value:
         target_value = auto.target_value
     else:

@@ -107,16 +107,17 @@ class ParametisationValue(models.Model):
     views = models.ManyToManyField(WidgetView)
     def parameters(self):
         return { pkv.key: pkv.value() for pkv in self.parametervalue_set.all() }
-    def matches(self, view):
+    def matches_parameters(self, params):
         my_params = self.parameters()
-        view_props = view.properties()
         for k in self.param.keys():
             v = my_params[k]
-            if k not in view_props:
+            if k not in params:
                 raise ViewDoesNotHaveAllKeys()
-            if my_params[k] != view_props[k]:
+            if my_params[k] != params[k]:
                 return False
         return True
+    def matches(self, view):
+        return self.matches_parameters(view.properties())
     def __unicode__(self):
         return "%s: %s" % (unicode(self.param), ", ".join([ unicode(pv) for pv in self.parametervalue_set.all() ]))
     
