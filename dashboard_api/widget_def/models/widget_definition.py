@@ -184,18 +184,36 @@ class WidgetDefinition(models.Model):
         return w
     def __unicode__(self):
         return "%s (%s)" % (unicode(self.family), self.label)
-    def data_last_updated(self, update=False):
-        if self._lud_cache and not update:
+    def data_last_updated(self, update=False, view=None, pval=None):
+        if self.parametisation:
+            if view: 
+                pval = view.parametervalue_set.objects.get(param=self.parametisation)
+            if self._lud_cache and self._lud_cache.get(pval.id) and not update:
+                return self._lud_cache[pval.id]
+            if not self._lud_cache:
+                self._lud_cache = {}
+            latest = None
+            Statistic = apps.get_app_config("widget_def").get_model("Statistic")
+            for s in Statistic.objects.filter(tile__widget=self):
+                slu = s.data_last_updated(update, view, pval)
+                if latest is None:
+                    latest = slu
+                elif slu > latest:
+                    latest = slu
+            self._lud_cache[pval.id] = slu
+            return self._lud_cache[pval.id]
+        else:
+            if self._lud_cache and not update:
+                return self._lud_cache
+            lud_statdata = StatisticData.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
+            lud_listdata = StatisticListItem.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
+            lud_graphdata = GraphData.objects.filter(graph__tile__widget=self).aggregate(lud=models.Max("last_updated"))["lud"]
+            luds_mapdata = [None]
+            for t in self.tiledefinition_set.all():
+                for ds in t.geo_datasets.all():
+                    luds_mapdata.append(ds.data_last_updated(update))
+            self._lud_cache = max_with_nulls(lud_statdata, lud_listdata, lud_graphdata, *luds_mapdata)
             return self._lud_cache
-        lud_statdata = StatisticData.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
-        lud_listdata = StatisticListItem.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
-        lud_graphdata = GraphData.objects.filter(graph__tile__widget=self).aggregate(lud=models.Max("last_updated"))["lud"]
-        luds_mapdata = [None]
-        for t in self.tiledefinition_set.all():
-            for ds in t.geo_datasets.all():
-                luds_mapdata.append(ds.data_last_updated(update))
-        self._lud_cache = max_with_nulls(lud_statdata, lud_listdata, lud_graphdata, *luds_mapdata)
-        return self._lud_cache
     class Meta:
         unique_together = (
             ("family", "label"),

@@ -23,7 +23,7 @@
     <tr>
         <th>Family</th>
         <th>Widget</th>
-        <th>Actual Freq Display</th>
+        <th>(Default) Actual Freq Display</th>
         <th>Last Updated</th>
         <th>Actions</th>
     </tr>
@@ -33,14 +33,24 @@
             <td>{{ w.label }}</td>
             <td>{{ w.actual_frequency_display }}</td>
             <td>
-                {% if w.data_last_updated %}
-                    {{ w.data_last_updated|date:"d/m/Y h:i:sa" }}
-                {% else %}<i>no data</i>{% endif %}
+                {% if w.parametisation %}
+                    {{ w.parametisation.parametervalue_set.count }} parametised instances
+                {% else %}
+                    {% if w.data_last_updated %}
+                        {{ w.data_last_updated|date:"d/m/Y h:i:sa" }}
+                    {% else %}<i>no data</i>{% endif %}
+                {% endif %}
             </td>
             <td>
-                <a href="{% url "view_widget_data" widget_url=w.url label=w.label %}">
-                    {% if w.data_last_updated %}Edit Data{% else %}Enter Data{% endif %}
-                </a>
+                {% if w.parametisation %}
+                    <a href="{% url "list_widget_params" widget_url=w.url label=w.label %}">
+                        List Parametised instances
+                    </a>
+                {% else %}
+                    <a href="{% url "view_widget_data" widget_url=w.url label=w.label %}">
+                        {% if w.data_last_updated %}Edit Data{% else %}Enter Data{% endif %}
+                    </a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}

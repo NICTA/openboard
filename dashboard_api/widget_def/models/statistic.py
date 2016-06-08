@@ -228,7 +228,7 @@ class Statistic(models.Model):
         if self.tile.widget.parametisation:
             if view: 
                 pval = view.parametervalue_set.objects.get(param=self.tile.widget.parametisation)
-            if self._lud_cache and self._lud_cache[pval.id] and not update:
+            if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                 return self._lud_cache[pval.id]
             if not self._lud_cache:
                 self._lud_cache = {}

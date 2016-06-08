@@ -20,7 +20,7 @@ from django.db import models
 
 class StatisticData(models.Model):
     statistic = models.ForeignKey("widget_def.Statistic")
-    param_value = models.ForeignKey("widget_def.ParameterValue", blank=True, null=True)
+    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
     label=models.CharField(max_length=80, blank=True, null=True)
     intval = models.IntegerField(blank=True, null=True)
     decval = models.DecimalField(max_digits=10, decimal_places=4,

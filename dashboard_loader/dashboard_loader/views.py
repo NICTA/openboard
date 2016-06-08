@@ -85,6 +85,31 @@ def list_widgets(request):
             "can_use_admin": can_use_admin,
             })
 
+@login_required
+def list_widget_params(request, widget_url, label):
+    try:
+        w = WidgetDefinition.objects.get(family__url=widget_url, 
+                    label=label)
+    except WidgetDefinition.DoesNotExist:
+        return HttpResponseNotFound("This Widget Definition does not exist")
+    if not user_has_edit_permission(request.user, w):
+        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
+    if not w.parametisation:
+       return redirect("list_widget_data")
+    pvals = []
+    keys = w.parametisation.keys()
+    for pval in w.parametisation.parametisationvalue_set.all():
+        parameters = pval.parameters()
+        pvals.append({
+                "pval": pval,
+                "parameters": [ parameters[k] for k in keys ],
+                "last_updated": w.data_last_updated(pval=pval),
+                }) 
+    return render(request, "widget_data/list_parametisations.html", {
+            "widget": w,
+            "pvals": pvals,
+            })
+
 class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
 

@@ -42,7 +42,7 @@ class StatisticListItem(models.Model):
         ( YEAR, "year" ),
     ]
     statistic = models.ForeignKey("widget_def.Statistic")
-    param_value = models.ForeignKey("widget_def.ParameterValue", null=True, blank=True)
+    param_value = models.ForeignKey("widget_def.ParametisationValue", null=True, blank=True)
     keyval = models.CharField(max_length=120, null=True, blank=True)
     datetime_key = models.DateTimeField(null=True, blank=True)
     datetime_keylevel = models.SmallIntegerField(choices=level_choices, 
