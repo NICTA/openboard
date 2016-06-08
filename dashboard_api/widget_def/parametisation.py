@@ -31,7 +31,9 @@ def update_parametisations(sender, instance, **kwargs):
 
 
 def parametise_label(widget_or_parametisation, view, text):
+    print "parametise_label(%s, %s, %s) called" % (repr(widget_or_parametisation), repr(view), repr(text))
     if text is None:
+        print "Text is None, returning None"
         return None
     if widget_or_parametisation:
         if isinstance(widget_or_parametisation, Parametisation):
@@ -42,12 +44,17 @@ def parametise_label(widget_or_parametisation, view, text):
          param = None
     if param:
         try:
-            context = Context(view.parametisationvalue_set.get(param=param).parameters)
+            context = Context(view.properties())
         except ParametisationValue.DoesNotExist:
             raise ViewDoesNotHaveAllKeys()
+        print "Context is ", repr(context)
         eng = Engine.get_default()
         template = eng.from_string(text)
-        return template.render(context)
+        # return template.render(context)
+        result = template.render(context)
+        print "Returning", result
+        return result
     else:
+        print "param is None - returning None"
         return text
 

@@ -107,7 +107,7 @@ class TileDefinition(models.Model):
                 state["list_label_width"] = 50
         if self.tile_type == self.TEXT_TEMPLATE:
             state["template"] = parametise_label(self.widget, view, self.template)
-        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.MULTI_LIST_STAT, self.SINGLE_LIST_STAT):
             state["columns"] = self.columns
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
@@ -185,7 +185,7 @@ class TileDefinition(models.Model):
         GridDefinition.import_data(t, data.get("grid"))
         return t
     def clean(self):
-        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
+        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
             if self.columns is None:
                 self.columns = 1
         else:
@@ -378,9 +378,9 @@ class TileDefinition(models.Model):
         return problems
     def __unicode__(self):
         if self.expansion:
-            return "%s (expansion tile %d)" % (unicode(self.widget), self.sort_order)
+            return "%s (%s - expansion tile %d)" % (unicode(self.widget), self.url, self.sort_order)
         else:
-            return "%s (default tile %d)" % (unicode(self.widget), self.sort_order)
+            return "%s (%s - default tile %d)" % (unicode(self.widget), self.url, self.sort_order)
     class Meta:
         unique_together=[("widget", "sort_order"), ("widget", "url")]
         ordering=["widget", "expansion", "sort_order"]
