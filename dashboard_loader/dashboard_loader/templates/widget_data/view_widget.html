@@ -18,6 +18,24 @@
 {% endcomment %}
 {% block content %}
 <h1>Widget: {{ widget.name }} ({{ widget.label }})</h1>
+
+{% if pval %}
+<div>
+    <table class="simple_table">
+        <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+        </tr>
+        {% for param in pval.parameters.items %}
+            <tr>
+                <td>{{ param.0 }}</td>
+                <td>{{ param.1 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
+
 <table class="simple_table">
     <tr>
         <th>Statistic (url)</th>
@@ -45,7 +63,7 @@
                 {% else %}<i>no data</i>{% endif %}
             </td>
             <td>
-                <a href="{% url "edit_stat" widget_url=widget.url label=widget.label stat_url=stat.statistic.url %}">
+                <a href="{% if pval %}{% url "edit_parametised_stat" widget_url=widget.url label=widget.label stat_url=stat.statistic.url pval_id=pval.id %}{% else %}{% url "edit_stat" widget_url=widget.url label=widget.label stat_url=stat.statistic.url %}{% endif %}">
                     {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
                 </a>
             </td>

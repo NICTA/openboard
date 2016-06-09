@@ -175,7 +175,7 @@ def view_widget(request, widget_url, label, pval_id=None):
             })
 
 @login_required
-def edit_stat(request, widget_url, label, stat_url):
+def edit_stat(request, widget_url, label, stat_url, pval_id=None):
     try:
         s = get_statistic(widget_url, label, stat_url)
     except LoaderException:
@@ -184,51 +184,65 @@ def edit_stat(request, widget_url, label, stat_url):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
     if not s.editable and not user_has_edit_all_permission(request.user, s.tile.widget):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
+    if s.tile.widget.parametisation and not pval_id:
+        return HttpResponseNotFound("This Widget Definition is parametised")
+    if not s.tile.widget.parametisation:
+        pval = None
+    else:
+        try:
+            pval = ParametisationValue.objects.get(pk=pval_id)
+        except ParametisationValue.DoesNotExist:
+            return HttpResponseNotFound("This parameter value set does not exist")
     form_class = get_form_class_for_statistic(s)
     if s.is_data_list():
         form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
+    redirect_out = False
     if request.method == 'POST':
         if request.POST.get("submit") or request.POST.get("submit_stay"):
             form = form_class(request.POST)
             if form.is_valid():
                 if s.is_data_list():
-                    clear_statistic_list(s)
+                    clear_statistic_list(s, pval=pval)
                     for subform in form:
                         fd = subform.cleaned_data
                         if fd and not fd.get("DELETE"):
-                            add_stat_list_item(s, fd["value"], fd["sort_order"],
+                            add_stat_list_item(s, fd["value"], fd["sort_order"], pval,
                                         fd.get("datetime"), fd.get("level"), fd.get("date"), fd.get("label"),
                                         fd.get("traffic_light_code"), fd.get("icon_code"),
                                         fd.get("trend"), fd.get("url"))
                     if request.POST.get("submit"):
-                        return redirect("view_widget_data", 
-                                widget_url=s.tile.widget.family.url, 
-                                label=s.tile.widget.label)
+                        redirect_out=True
                     else:
-                        form = form_class(initial=s.initial_form_data())
+                        form = form_class(initial=s.initial_form_data(pval))
                 else:
                     fd = form.cleaned_data
-                    set_stat_data(s, fd["value"], 
+                    set_stat_data(s, fd["value"], pval,
                                     fd.get("traffic_light_code"), fd.get("icon_code"), 
                                     fd.get("trend"), fd.get("label"))
-                    return redirect("view_widget_data", 
-                            widget_url=s.tile.widget.family.url, 
-                            label=s.tile.widget.label)
+                    redirect_out=True
         elif request.POST.get("cancel"):
-            return redirect("view_widget_data", 
-                        widget_url=s.tile.widget.family.url, 
-                        label=s.tile.widget.label)
+            redirect_out=True
         elif not s.is_data_list() and request.POST.get("delete"):
             clear_statistic_data(s)
-            return redirect("view_widget_data", 
-                        widget_url=s.tile.widget.family.url, 
-                        label=s.tile.widget.label)
+            redirect_out=True
         else:
-            form = form_class(initial=s.initial_form_data())
+            form = form_class(initial=s.initial_form_data(pval))
     else:
-        form = form_class(initial=s.initial_form_data())
+        form = form_class(initial=s.initial_form_data(pval))
+
+    if redirect_out:
+        if pval:
+            return redirect("view_parametised_widget_data", 
+                    widget_url=s.tile.widget.family.url, 
+                    label=s.tile.widget.label,
+                    pval_id=pval_id)
+        else:
+            return redirect("view_widget_data", 
+                widget_url=s.tile.widget.family.url, 
+                label=s.tile.widget.label)
 
     return render(request, "widget_data/edit_widget.html", {
+                "pval": pval,
                 "widget": s.tile.widget,
                 "statistic": s,
                 "form": form

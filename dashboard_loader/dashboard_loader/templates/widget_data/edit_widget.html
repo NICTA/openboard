@@ -31,10 +31,26 @@
 {% endblock %}
 {% block content %}
 <h1>Widget: {{ widget.name }} ({{ widget.label }})</h1>
+{% if pval %}
+<div>
+    <table class="simple_table">
+        <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+        </tr>
+        {% for param in pval.parameters.items %}
+            <tr>
+                <td>{{ param.0 }}</td>
+                <td>{{ param.1 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
 <h2>Tile: {{ statistic.tile.url }}</h2>
 <h3>Statistic: {{ statistic.name }}</h3>
 <h3>url: {{ statistic.url }}</h3>
-<form action="{% url "edit_stat" widget_url=widget.url label=widget.label stat_url=statistic.url %}" method="post">{% csrf_token %}
+<form action="{% if pval %}{% url "edit_parametised_stat" widget_url=widget.url label=widget.label stat_url=statistic.url pval_id=pval.id %}{% else %}{% url "edit_stat" widget_url=widget.url label=widget.label stat_url=statistic.url %}{% endif %}" method="post">{% csrf_token %}
 {% if statistic.is_data_list %}
     {{ form.management_form }}
     <table border="0" id="listform_table">

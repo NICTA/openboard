@@ -198,9 +198,9 @@ class WidgetDefinition(models.Model):
                 slu = s.data_last_updated(update, view, pval)
                 if latest is None:
                     latest = slu
-                elif slu > latest:
+                elif slu and slu > latest:
                     latest = slu
-            self._lud_cache[pval.id] = slu
+            self._lud_cache[pval.id] = latest
             return self._lud_cache[pval.id]
         else:
             if self._lud_cache and not update:

@@ -176,7 +176,7 @@ def add_statistic_list_item(widget_url, widget_label,
                 traffic_light_code, icon_code, trend, url)
 
 def add_stat_list_item(stat,
-                value, sort_order, pval,
+                value, sort_order, pval=None,
                 datetimekey=None, datetimekey_level=None, datekey=None, label=None, 
                 traffic_light_code=None, icon_code=None, trend=None, url=None):
     """Add an item for a list statistic.
