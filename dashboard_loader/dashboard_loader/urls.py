@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^$', views.list_widgets, name='list_widget_data'),
     url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)$', views.list_widget_params, name="list_widget_params"),
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)$', views.view_widget, name="view_widget_data"),
+    url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<pval_id>[^/]+)$', views.view_widget, name="view_parametised_widget_data"),
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<stat_url>[^/]*)$', 
                         views.edit_stat, name="edit_stat"),
     url(r'^graphs/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<tile_url>[^/]+)$', 

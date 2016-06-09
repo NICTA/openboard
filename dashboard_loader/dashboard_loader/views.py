@@ -19,7 +19,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 
-from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition
+from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition, ParametisationValue
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 from dashboard_loader.models import Uploader
 from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission, get_uploaders_for_user, user_has_uploader_permission
@@ -106,6 +106,7 @@ def list_widget_params(request, widget_url, label):
                 "last_updated": w.data_last_updated(pval=pval),
                 }) 
     return render(request, "widget_data/list_parametisations.html", {
+            "keys": keys,
             "widget": w,
             "pvals": pvals,
             })
@@ -114,7 +115,7 @@ class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
 
 @login_required
-def view_widget(request, widget_url, label):
+def view_widget(request, widget_url, label, pval_id=None):
     try:
         w = WidgetDefinition.objects.get(family__url=widget_url, 
                     label=label)
@@ -122,6 +123,15 @@ def view_widget(request, widget_url, label):
         return HttpResponseNotFound("This Widget Definition does not exist")
     if not user_has_edit_permission(request.user, w):
         return HttpResponseForbidden("You do not have permission to edit the data for this widget")
+    if w.parametisation and not pval_id:
+        return HttpResponseNotFound("This Widget Definition is parametised")
+    if not w.parametisation:
+        pval = None
+    else:
+        try:
+            pval = ParametisationValue.objects.get(pk=pval_id)
+        except ParametisationValue.DoesNotExist:
+            return HttpResponseNotFound("This parameter value set does not exist")
     edit_all = user_has_edit_all_permission(request.user, w)
     if edit_all:
         statistics = Statistic.objects.filter(tile__widget=w)
@@ -130,12 +140,13 @@ def view_widget(request, widget_url, label):
     stats = []
     for s in statistics:
         try:
-            data = StatisticData.objects.get(statistic=s)
+            data = StatisticData.objects.get(statistic=s, param_value=pval)
         except StatisticData.DoesNotExist:
             data = None
-        listdata = StatisticListItem.objects.filter(statistic=s)
+        listdata = StatisticListItem.objects.filter(statistic=s, param_value=pval)
         stats.append({
                 "statistic": s,
+                "data_last_updated": s.data_last_updated(pval=pval),
                 "data": data,
                 "listdata": listdata,
             })
@@ -150,12 +161,13 @@ def view_widget(request, widget_url, label):
         form = WidgetDataForm(request.POST)
         if form.is_valid():
             set_actual_frequency_display_text(w.url(), w.label,
-                        form.cleaned_data["actual_frequency_display_text"])
+                        form.cleaned_data["actual_frequency_display_text"], pval=pval)
     else:
         form = WidgetDataForm(initial={
-                "actual_frequency_display_text": w.actual_frequency_display(),
+                "actual_frequency_display_text": w.actual_frequency_display(pval=pval),
                 })
     return render(request, "widget_data/view_widget.html", {
+            "pval": pval,
             "widget": w,
             "stats": stats,
             "graphs": graphs,

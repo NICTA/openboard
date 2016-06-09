@@ -17,4 +17,35 @@
 
 {% endcomment %}
 {% block content %}
+<h1>Widget {{ widget.name }}{% if widget.subtitle %} ({{ widget.subtitle }}){% endif %} - {{ widget.label }}</h1>
+<h2>Parametisations</h2>
+<table class="simple_table">
+    <tr>
+        <th colspan="{{ k|length }}">Parameter Values</th>
+        <th colspan="2"></th>
+    </tr>
+    <tr>
+        {% for k in keys %}
+            <th>{{ k }}</th>
+        {% endfor %}
+        <th>Last Updated</th>
+        <th>Actions</th>
+    </tr> 
+    {% for pv in pvals %}
+        <tr>
+            {% for param in pv.parameters %}
+                <td>{{ param }}</td>
+            {% endfor %}
+            <td>{% if pv.last_updated %}
+                    {{ pv.last_updated|date:"d/m/Y h:i:sa" }}
+                {% else %}<i>no data</i>{% endif %}
+            </td>
+            <td><a href="{% url "view_parametised_widget_data" widget_url=widget.url label=widget.label pval_id=pv.pval.id %}">
+                {% if pv.last_updated %}Edit Data{% else %}Add Data{% endif %}
+            </a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+<p><a href="{% url "list_widget_data" %}">Back to Maintenance Home</a></p>
 {% endblock %}
