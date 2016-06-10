@@ -28,7 +28,7 @@ def get_graph(widget_url, label, tile_url):
     except GraphDefinition.DoesNotExist:
         raise LoaderException("Graph for tile %s of widget %s:(%s) does not exist"%(tile_url, widget_url, label))
 
-def clear_graph_data(graph, cluster=None, dataset=None):
+def clear_graph_data(graph, cluster=None, dataset=None, pval=None):
     """Clear all graph data, or partially by cluster or dataset"""
     data = graph.get_data()
     if graph.use_clusters():
@@ -38,7 +38,7 @@ def clear_graph_data(graph, cluster=None, dataset=None):
                     cluster = GraphCluster.objects.get(graph=graph, url=cluster)
                 except GraphCluster.DoesNotExist:
                     raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
-            data = data.filter(cluster=cluster)
+            data = data.filter(cluster=cluster, param_value=pval)
         elif cluster:
             raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
         if dataset:
@@ -49,12 +49,12 @@ def clear_graph_data(graph, cluster=None, dataset=None):
                 dataset = GraphDataset.objects.get(graph=graph, url=dataset)
             except GraphDataset.DoesNotExist:
                 raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
-        data = data.filter(dataset=dataset)
+        data = data.filter(dataset=dataset, param_value=pval)
         if cluster:
             raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
     data.delete()
 
-def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None):
+def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None, pval=None):
     """Add a graph datapoint.
 
 Return the newly created GraphData object on success.
@@ -67,7 +67,7 @@ Raise a LoaderException on error, or if the provided arguments are not valid for
         except GraphDataset.DoesNotExist:
             raise LoaderException("Dataset %s for graph %s does not exist" % (str(dataset), graph.tile.url))
     value = decimal.Decimal(value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)
-    gd = GraphData(graph=graph, dataset=dataset,value=value)
+    gd = GraphData(graph=graph, param_value=pval, dataset=dataset,value=value)
     if graph.use_clusters():
         if not cluster:
             raise LoaderException("Must supply cluster for data for graph %s" % graph.tile.url)   

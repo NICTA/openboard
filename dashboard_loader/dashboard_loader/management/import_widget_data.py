@@ -94,7 +94,7 @@ def import_widget_data(data):
                                 pval=pval)
         for gurl, g in w["graph_data"].items():
             try:
-                graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl)
+                graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl, param_value=pval)
             except GraphDefinition.DoesNotExist:
                 raise ImportExportException("Graph %s for widget %s(%s) does not exist" % (
                                     gurl,
@@ -104,7 +104,7 @@ def import_widget_data(data):
             if graph.use_clusters():
                 for curl, c in g["data"].items():
                     for dsurl, ds in c.items():
-                        add_graph_data(graph, dsurl, ds, cluster=curl)
+                        add_graph_data(graph, dsurl, ds, cluster=curl, pval=pval)
             else:
                 for dsurl, ds in g["data"].items():
                     for d in ds:
@@ -116,5 +116,5 @@ def import_widget_data(data):
                             hval = parse_time(hval)
                         elif graph.horiz_axis_type == graph.DATETIME:
                             hval = parse_datetime(hval)
-                        add_graph_data(graph, dsurl, val, horiz_value=hval)
+                        add_graph_data(graph, dsurl, val, horiz_value=hval, pval=pval)
     return family

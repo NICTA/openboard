@@ -44,6 +44,7 @@ class GraphDataQuerySet(models.QuerySet):
 
 class GraphData(models.Model):
     graph = models.ForeignKey("widget_def.GraphDefinition")
+    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
     cluster = models.ForeignKey("widget_def.GraphCluster", blank=True, null=True)
     dataset = models.ForeignKey("widget_def.GraphDataset", blank=True, null=True)
     value = models.DecimalField(max_digits=14, decimal_places=4,
@@ -68,5 +69,10 @@ class GraphData(models.Model):
     def horiz_json_value(self):
         return self.graph.jsonise_horiz_value(self.horiz_value())
     class Meta:
-        ordering = ("graph", "cluster", "dataset", "horiz_numericval", "horiz_dateval", "horiz_timeval")
+        ordering = ("graph", "param_value", "cluster", "dataset", "horiz_numericval", "horiz_dateval", "horiz_timeval")
+        index_together = [ 
+                ("graph", "param_value"),
+                ("graph", "param_value", "dataset"),
+                ("graph", "param_value", "dataset", "cluster"),
+        ]
 

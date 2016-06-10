@@ -46,7 +46,7 @@ def export_widget_data(widget):
                     wdata = {
                         "parameters": pval.parameters(),
                         "data": api_get_widget_data(wd, pval=pval),
-                        "graph_data": {},
+                        "graph_data": api_get_graph_data(wd, pval=pval),
                         "raw_datasets": None
                     }
             else:

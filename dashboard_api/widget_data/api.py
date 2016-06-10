@@ -54,7 +54,7 @@ def api_get_widget_data(widget, view=None, pval=None):
         "data": stats_json,
     }
 
-def api_get_graph_data(widget):
+def api_get_graph_data(widget, view=None, pval=None):
     graph_json = {}
     for graph in GraphDefinition.objects.filter(tile__widget=widget):
         graph_json[graph.tile.url] = { "data": {} }
@@ -70,7 +70,7 @@ def api_get_graph_data(widget):
         numeric2_max = None
         horiz_min = None
         horiz_max = None
-        for gd in graph.get_data():
+        for gd in graph.get_data(view, pval):
             if graph.use_numeric_axes():
                 if graph.use_secondary_numeric_axis and gd.dataset.use_secondary_numeric_axis:
                     (numeric2_min, numeric2_max)=update_maxmin(gd.value, 
@@ -103,7 +103,6 @@ def api_get_graph_data(widget):
                     "min": graph.jsonise_horiz_value(horiz_min),
                     "max": graph.jsonise_horiz_value(horiz_max)
             }
-
     return graph_json
 
 def api_get_raw_data(widget, request, rds_url):

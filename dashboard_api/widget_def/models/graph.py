@@ -70,8 +70,8 @@ class GraphDefinition(models.Model):
             return self.graph_type in (self.LINE, self.HISTOGRAM, self.BAR)
         def use_clusters(self):
             return self.graph_type in (self.PIE, self.HISTOGRAM, self.BAR)
-        def initial_form_data(self):
-            return [ self.initial_form_datum(gd) for gd in self.get_data() ]
+        def initial_form_data(self, pval=None, view=None):
+            return [ self.initial_form_datum(gd) for gd in self.get_data(view=view,pval=pval) ]
         def initial_form_datum(self, gd):
             result = {}
             result["value"] = gd.value
@@ -81,18 +81,33 @@ class GraphDefinition(models.Model):
             else:
                 result["horiz_value"] = gd.horiz_value()
             return result
-        def get_data(self):
-            return GraphData.objects.filter(graph=self).natural_order(self)
-        def get_last_datum(self, dataset, cluster=None):
-            gd = None
-            for gd in GraphData.objects.filter(graph=self, dataset__url=dataset, cluster__url=cluster).natural_order(self):
-                pass
-            return gd
-        def data_last_updated(self, update=False):
-            if self._lud_cache and not update:
+        def get_data(self, view=None, pval=None):
+            if self.widget().parametisation:
+                if view and not pval:
+                    pval =  view.parametervalue_set.objects.get(param=self.widget().parametisation)
+            else:
+                pval = None 
+            return GraphData.objects.filter(graph=self,param_value=pval).natural_order(self)
+        def get_last_datum(self, dataset, cluster=None, pval=None):
+            return GraphData.objects.filter(graph=self, 
+                                dataset__url=dataset, 
+                                param_value=pval,
+                                cluster__url=cluster).natural_order(self).last()
+        def data_last_updated(self, update=False, view=None, pval=None):
+            if self.widget().parametisation:
+                if view and not pval: 
+                    pval = view.parametervalue_set.objects.get(param=self.widget().parametisation)
+                if self._lud_cache and self._lud_cache.get(pval.id) and not update:
+                    return self._lud_cache[pval.id]
+                if not self._lud_cache:
+                    self._lud_cache = {}
+                self._lud_cache[pval.id] = GraphData.objects.filter(graph=self,param_value=pval).aggregate(lud=models.Max("last_updated"))["lud"]
+                return self._lud_cache[pval.id]
+            else:
+                if self._lud_cache and not update:
+                    return self._lud_cache
+                self._lud_cache = GraphData.objects.filter(graph=self,param_value__isnull=True).aggregate(lud=models.Max("last_updated"))["lud"]
                 return self._lud_cache
-            self._lud_cache = GraphData.objects.filter(graph=self).aggregate(lud=models.Max("last_updated"))["lud"]
-            return self._lud_cache
         def jsonise_horiz_value(self, value):
             if self.horiz_axis_type == self.NUMERIC:
                 return value
