@@ -80,7 +80,7 @@ class WidgetDefinition(models.Model):
     def widget_data(self, view=None, pval=None):
         if self.parametisation:
             if view:
-                pval = view.parametisation_value_set.get(param=self.parametisation)
+                pval = view.parametisationvalue_set.get(param=self.parametisation)
             try:
                 return WidgetData.objects.get(widget=self, param_value=pval)
             except WidgetData.DoesNotExist:
@@ -187,7 +187,7 @@ class WidgetDefinition(models.Model):
     def data_last_updated(self, update=False, view=None, pval=None):
         if self.parametisation:
             if view: 
-                pval = view.parametervalue_set.objects.get(param=self.parametisation)
+                pval = view.parametisationvalue_set.get(param=self.parametisation)
             if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                 return self._lud_cache[pval.id]
             if not self._lud_cache:

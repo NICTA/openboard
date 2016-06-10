@@ -44,21 +44,53 @@ class Parametisation(models.Model):
         if not view:
             for v in WidgetView.objects.all():
                 self.update(v)
+            for pv in self.parametisationvalue_set.all():
+                if pv.views.count() == 0:
+                    pv.delete()
             return
         keys = self.keys()
         if view.viewproperty_set.filter(key__in=keys).count() < len(keys):
+            pvs = list(view.parametisationvalue_set.all())
+            view.parametisationvalue_set.clear()
+            for pv in pvs:
+                if pv.views.count() == 0:
+                    pv.delete()
             return
         try:
-            for pv in view.parametisationvalue_set.filter(param=self):
-                if not pv.matches(view):
-                    pv.views.remove(view)
-            match_found = False
+            pv = view.parametisationvalue_set.get(param=self)
+        except ParametisationValue.DoesNotExist:
             for pv in self.parametisationvalue_set.all():
                 if pv.matches(view):
                     pv.views.add(view)
                     return
-        except ViewDoesNotHaveAllKeys:
-            assert False, "View does not have all keys - should not get here"
+            pv = ParametisationValue(param=self)
+            pv.save()
+
+        pv_params = pv.parameters()
+        v_params  = view.properties()
+        for key in keys:
+            if key not in v_params:
+                pv.views.remove(view)
+                if pv.views.count() == 0:
+                    pv.delete()
+                return
+            if key not in pv_params:
+                prop = view.viewproperty_set.get(key=key)
+                pkv = ParameterValue(
+                        pv=pv,
+                        key=prop.key,
+                        property_type=prop.property_type,
+                        intval=prop.intval,
+                        decval=prop.decval,
+                        strval=prop.strval,
+                        boolval=prop.boolval
+                        )
+                pkv.save()
+            elif pv_params[key] != v_params[key]:
+                pv.views.remove(view)
+                if pv.views.count() == 0:
+                    pv.delete()
+                return
         pv = ParametisationValue(param=self)
         pv.save()
         for prop in view.viewproperty_set.filter(key__in=keys):
@@ -110,9 +142,11 @@ class ParametisationValue(models.Model):
     def matches_parameters(self, params):
         my_params = self.parameters()
         for k in self.param.keys():
+            if k not in my_params:
+                return False
             v = my_params[k]
             if k not in params:
-                raise ViewDoesNotHaveAllKeys()
+                raise False
             if my_params[k] != params[k]:
                 return False
         return True

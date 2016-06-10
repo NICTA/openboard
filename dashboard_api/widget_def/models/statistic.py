@@ -166,7 +166,7 @@ class Statistic(models.Model):
     def get_data(self, view=None, pval=None):
         if self.tile.widget.parametisation:
             if view: 
-                pval = view.parametervalue_set.objects.get(param=self.tile.widget.parametisation)
+                pval = view.parametisationvalue_set.get(param=self.tile.widget.parametisation)
         else:
             pval = None
         if self.is_data_list():
@@ -227,7 +227,7 @@ class Statistic(models.Model):
     def data_last_updated(self, update=False, view=None, pval=None):
         if self.tile.widget.parametisation:
             if view: 
-                pval = view.parametervalue_set.objects.get(param=self.tile.widget.parametisation)
+                pval = view.parametisationvalue_set.get(param=self.tile.widget.parametisation)
             if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                 return self._lud_cache[pval.id]
             if not self._lud_cache:

@@ -84,7 +84,7 @@ class GraphDefinition(models.Model):
         def get_data(self, view=None, pval=None):
             if self.widget().parametisation:
                 if view and not pval:
-                    pval =  view.parametervalue_set.objects.get(param=self.widget().parametisation)
+                    pval =  view.parametisationvalue_set.get(param=self.widget().parametisation)
             else:
                 pval = None 
             return GraphData.objects.filter(graph=self,param_value=pval).natural_order(self)
