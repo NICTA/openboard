@@ -16,12 +16,46 @@
    limitations under the License.
 
 {% endcomment %}
+{% load dashboard_tags %}
+{% block extrahead %}
+    <script type="text/javascript" src="{% settings STATIC_URL %}admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="{% settings STATIC_URL %}admin/js/jquery.init.js"></script>
+    <script>
+        function addAnotherRow() {
+            $ = django.jQuery;
+            var form_idx = $("#id_form-TOTAL_FORMS").val();
+            $('#listform_table').append("<tr>" + $('#empty_form_template').html().replace(/__prefix__/g, form_idx) + "</tr>");
+            $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        };
+    </script>
+{% endblock %}
 {% block content %}
 <h1>Widget: {{ widget.name }} ({{ widget.label }})</h1>
+{% if pval %}
+<div>
+    <table class="simple_table">
+        <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+        </tr>
+        {% for param in pval.parameters.items %}
+            <tr>
+                <td>{{ param.0 }}</td>
+                <td>{{ param.1 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endif %}
 <h2>Tile: {{ statistic.tile.url }}</h2>
-<form action="{% url "edit_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url %}" method="post">{% csrf_token %}
+<form action="{% if pval %}{% url "edit_parametised_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url pval_id=pval.id %}{% else %}{% url "edit_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url %}{% endif %}" method="post">{% csrf_token %}
 {{ form.management_form }}
-<table border="0">
+<table border="0" id="listform_table">
+    <tr class="hidden" id="empty_form_template">
+        {% for field in form.empty_form %}
+            <td><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</td>
+        {% endfor %}
+    </tr>
 {% for subform in form %}
     <tr>
         {% for field in subform %}
@@ -30,6 +64,7 @@
     </tr>
 {% endfor %}
 </table>
+<p><a href="#" onclick="addAnotherRow(); return false;">Add another graph datapoint</a></p>
 <input name="submit" type="submit" value="Save" class="button"/>
 <input name="submit_stay" type="submit" value="Save and Continue" class="button"/>
 <input name="cancel" type="submit" value="Cancel" class="button"/>

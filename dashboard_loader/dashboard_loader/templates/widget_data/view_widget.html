@@ -82,17 +82,21 @@
     <tr>
         <td>{{ g.tile.url }}</td>
         <td>
-            {% if g.graph.data_last_updated %}
-                {{ g.graph.data_last_updated|date:"d/m/Y h:i:sa" }}
+            {% if g.data_last_updated %}
+                {{ g.data_last_updated|date:"d/m/Y h:i:sa" }}
             {% else %}<i>no data</i>{% endif %}
         </td>
         <td>
-            {% if g.graph.data_last_updated %}
+            {% if g.data_last_updated %}
                 {{ g.data.count }}
             {% else %}<i>no data</i>{% endif %}
         </td>
         <td>
-            <a href="{% url "edit_graph" widget_url=widget.url label=widget.label tile_url=g.graph.tile.url %}">
+            {% if pval %}
+                <a href="{% url "edit_parametised_graph" widget_url=widget.url label=widget.label tile_url=g.graph.tile.url pval_id=pval.id %}">
+            {% else %}
+                <a href="{% url "edit_graph" widget_url=widget.url label=widget.label tile_url=g.graph.tile.url %}">
+            {% endif %}
                 {% if w.last_updated %}Edit/View Data{% else %}Enter Data{% endif %}
             </a>
         </td>

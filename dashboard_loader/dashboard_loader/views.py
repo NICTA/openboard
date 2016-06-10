@@ -155,6 +155,7 @@ def view_widget(request, widget_url, label, pval_id=None):
         data = GraphData.objects.filter(graph=graph)
         graphs.append({
                 "graph": graph,
+                "data_last_updated": graph.data_last_updated(pval=pval),
                 "data": data
                 })
     if request.method == "POST":
@@ -249,7 +250,7 @@ def edit_stat(request, widget_url, label, stat_url, pval_id=None):
                 })
 
 @login_required
-def edit_graph(request, widget_url, label, tile_url):
+def edit_graph(request, widget_url, label, tile_url, pval_id=None):
     try:
         w = WidgetDefinition.objects.get(family__url=widget_url, 
                         label=label)
@@ -261,18 +262,26 @@ def edit_graph(request, widget_url, label, tile_url):
         g = GraphDefinition.objects.get(tile__widget=w, tile__url=tile_url)
     except GraphDefinition.DoesNotExist:
         return HttpResponseNotFound("This Graph does not exist")
+    if not g.widget().parametisation:
+        pval = None
+    else:
+        try:
+            pval = ParametisationValue.objects.get(pk=pval_id)
+        except ParametisationValue.DoesNotExist:
+            return HttpResponseNotFound("This parameter value set does not exist")
 
     form_class = get_form_class_for_graph(g)
     form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=10)
+    return_redirect = False
     if request.method == 'POST':
         if request.POST.get("submit") or request.POST.get("submit_stay"):
             form = form_class(request.POST)
             if form.is_valid():
-                GraphData.objects.filter(graph=g).delete()
+                clear_graph_data(g, pval=pval)
                 for subform in form:
                     fd = subform.cleaned_data
                     if fd and not fd.get("DELETE"):
-                        gd = GraphData(graph=g)
+                        gd = GraphData(graph=g, param_value=pval)
                         gd.value = fd["value"]
                         if g.use_clusters():
                             # Lookup?
@@ -291,22 +300,27 @@ def edit_graph(request, widget_url, label, tile_url):
                                 gd.horiz_timeval = fd["horiz_value"].time()
                         gd.save()
                 if request.POST.get("submit"):
-                    return redirect("view_widget_data", 
-                            widget_url=w.family.url, 
-                            label=w.label)
+                    return_redirect=True
                 else:
                     form = form_class(initial=g.initial_form_data())
         elif request.POST.get("cancel"):
-            return redirect("view_widget_data", 
-                        widget_url=w.family.url, 
-                        label=label)
+            return_redirect=True
         else:
             form = form_class(initial=g.initial_form_data())
     else:
         form = form_class(initial=g.initial_form_data())
-
+    if return_redirect:
+        if pval:
+            return redirect("view_parametised_widget_data", 
+                        widget_url=w.family.url, 
+                        label=label, pval_id=pval_id)
+        else: 
+            return redirect("view_widget_data", 
+                        widget_url=w.family.url, 
+                        label=label)
     return render(request, "widget_data/edit_graph.html", {
                 "widget": w,
+                "pval": pval,
                 "graph": g,
                 "form": form
                 })

@@ -32,6 +32,8 @@ urlpatterns = [
     url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<pval_id>[^/]+)/(?P<stat_url>[^/]+)$', views.edit_stat, name="edit_parametised_stat"),
     url(r'^graphs/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<tile_url>[^/]+)$', 
                         views.edit_graph, name="edit_graph"),
+    url(r'^graphs/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<tile_url>[^/]+)/(?P<pval_id>[^/]+)$', 
+                        views.edit_graph, name="edit_parametised_graph"),
     url(r'^upload/(?P<uploader_app>[^/]+)$', views.upload, name="upload_data"),
 
     # Views for maintaining users
