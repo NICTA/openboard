@@ -30,7 +30,7 @@ def get_graph(widget_url, label, tile_url):
 
 def clear_graph_data(graph, cluster=None, dataset=None, pval=None):
     """Clear all graph data, or partially by cluster or dataset"""
-    data = graph.get_data()
+    data = graph.get_data(pval=pval)
     if graph.use_clusters():
         if cluster:
             if not isinstance(cluster, GraphCluster):
@@ -38,7 +38,7 @@ def clear_graph_data(graph, cluster=None, dataset=None, pval=None):
                     cluster = GraphCluster.objects.get(graph=graph, url=cluster)
                 except GraphCluster.DoesNotExist:
                     raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
-            data = data.filter(cluster=cluster, param_value=pval)
+            data = data.filter(cluster=cluster)
         elif cluster:
             raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
         if dataset:
@@ -49,7 +49,7 @@ def clear_graph_data(graph, cluster=None, dataset=None, pval=None):
                 dataset = GraphDataset.objects.get(graph=graph, url=dataset)
             except GraphDataset.DoesNotExist:
                 raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
-        data = data.filter(dataset=dataset, param_value=pval)
+        data = data.filter(dataset=dataset)
         if cluster:
             raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
     data.delete()

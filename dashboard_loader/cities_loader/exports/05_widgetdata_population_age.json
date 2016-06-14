@@ -1,0 +1,121 @@
+{
+    "widgets": [
+        {
+            "graph_data": {
+                "pop_age_graph": {
+                    "data": {
+                        "region": {
+                            "yrs_85plus": 1.6, 
+                            "yrs_15_24": 14.2, 
+                            "yrs_25_64": 51.9, 
+                            "yrs_65_84": 12.0, 
+                            "yrs_0_14": 20.3
+                        }, 
+                        "australia": {
+                            "yrs_85plus": 1.9, 
+                            "yrs_15_24": 13.3, 
+                            "yrs_25_64": 53.0, 
+                            "yrs_65_84": 12.8, 
+                            "yrs_0_14": 18.8
+                        }, 
+                        "state": {
+                            "yrs_85plus": 2.1, 
+                            "yrs_15_24": 13.0, 
+                            "yrs_25_64": 52.7, 
+                            "yrs_65_84": 13.4, 
+                            "yrs_0_14": 18.7
+                        }
+                    }
+                }
+            }, 
+            "data": {
+                "widget_last_updated": "2016-06-10T04:23:45+0000", 
+                "actual_frequency": "2014", 
+                "data": {
+                    "yrs_85plus": {
+                        "value": 1.6
+                    }, 
+                    "yrs_15_24": {
+                        "value": 14.2
+                    }, 
+                    "yrs_25_64": {
+                        "value": 51.9
+                    }, 
+                    "yrs_65_84": {
+                        "value": 12.0
+                    }, 
+                    "yrs_0_14": {
+                        "value": 20.3
+                    }
+                }
+            }, 
+            "raw_datasets": null, 
+            "parameters": {
+                "sa4_code": 115, 
+                "state": "NSW", 
+                "sa4_name": "Sydney - Baulkham Hills and Hawkesbury"
+            }, 
+            "label": "pop_age_param"
+        }, 
+        {
+            "graph_data": {
+                "pop_age_graph": {
+                    "data": {
+                        "region": {
+                            "yrs_85plus": 1.5, 
+                            "yrs_15_24": 14.3, 
+                            "yrs_25_64": 55.3, 
+                            "yrs_65_84": 10.3, 
+                            "yrs_0_14": 18.7
+                        }, 
+                        "australia": {
+                            "yrs_85plus": 1.9, 
+                            "yrs_15_24": 13.3, 
+                            "yrs_25_64": 53.0, 
+                            "yrs_65_84": 12.8, 
+                            "yrs_0_14": 18.8
+                        }, 
+                        "state": {
+                            "yrs_85plus": 1.5, 
+                            "yrs_15_24": 14.3, 
+                            "yrs_25_64": 55.3, 
+                            "yrs_65_84": 10.3, 
+                            "yrs_0_14": 18.7
+                        }
+                    }
+                }
+            }, 
+            "data": {
+                "widget_last_updated": "2016-06-10T04:16:25+0000", 
+                "actual_frequency": "2014", 
+                "data": {
+                    "yrs_85plus": {
+                        "value": 1.5
+                    }, 
+                    "yrs_15_24": {
+                        "value": 14.3
+                    }, 
+                    "yrs_25_64": {
+                        "value": 55.3
+                    }, 
+                    "yrs_65_84": {
+                        "value": 10.3
+                    }, 
+                    "yrs_0_14": {
+                        "value": 18.7
+                    }
+                }
+            }, 
+            "raw_datasets": null, 
+            "parameters": {
+                "sa4_code": 801, 
+                "state": "ACT", 
+                "sa4_name": "Australian Capital Territory"
+            }, 
+            "label": "pop_age_param"
+        }
+    ], 
+    "default_actual_frequency": "2014", 
+    "family": "population_age"
+}
+

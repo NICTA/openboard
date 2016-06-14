@@ -25,7 +25,7 @@ def import_widget_data(data):
         raise ImportExportException("Invalid import data %s" % repr(data))
     for w in data["widgets"]:
         if "parameters" in w:
-            set_actual_frequency_display_test(data["family"], w["label"], data["default_actual_frequency"])
+            set_actual_frequency_display_text(data["family"], w["label"], data["default_actual_frequency"])
             try:
                 wd = WidgetDefinition.objects.get(family=family)
             except WidgetDefinition.DoesNotExist:
@@ -41,7 +41,7 @@ def import_widget_data(data):
                                 w["label"],
                                 w["data"]["actual_frequency"], 
                                 pval=pval)
-        for surl, s in w["data"]["statistics"].items():
+        for surl, s in w["data"]["data"].items():
             try:
                 stat = Statistic.objects.get(tile__widget=wd,
                                 url=surl)
@@ -94,13 +94,13 @@ def import_widget_data(data):
                                 pval=pval)
         for gurl, g in w["graph_data"].items():
             try:
-                graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl, param_value=pval)
+                graph = GraphDefinition.objects.get(tile__widget=wd, tile__url=gurl)
             except GraphDefinition.DoesNotExist:
                 raise ImportExportException("Graph %s for widget %s(%s) does not exist" % (
                                     gurl,
                                     data["family"], 
                                     w["label"]))
-            clear_graph_data(graph)
+            clear_graph_data(graph, pval=pval)
             if graph.use_clusters():
                 for curl, c in g["data"].items():
                     for dsurl, ds in c.items():

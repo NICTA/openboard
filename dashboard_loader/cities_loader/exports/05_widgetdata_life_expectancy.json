@@ -1,0 +1,145 @@
+{
+    "widgets": [
+        {
+            "graph_data": {
+                "life_expectancy_change": {
+                    "data": {
+                        "region": {
+                            "current": 85.1, 
+                            "reference": 83.8
+                        }, 
+                        "australia": {
+                            "current": 82.1, 
+                            "reference": 81.3
+                        }, 
+                        "state": {
+                            "current": 82.1, 
+                            "reference": 81.4
+                        }
+                    }, 
+                    "numeric_axis_scale": {
+                        "max": 85.1, 
+                        "min": 81.3
+                    }
+                }, 
+                "life_expectancy_ranking": {
+                    "horizontal_axis_scale": {
+                        "max": 2013.0, 
+                        "min": 2007.0
+                    }, 
+                    "data": {
+                        "ranking": [
+                            [
+                                2007.0, 
+                                0.95
+                            ], 
+                            [
+                                2013.0, 
+                                0.95
+                            ]
+                        ]
+                    }, 
+                    "vertical_axis_scale": {
+                        "max": 0.95, 
+                        "min": 0.95
+                    }
+                }
+            }, 
+            "data": {
+                "widget_last_updated": "2016-06-10T03:59:51+0000", 
+                "actual_frequency": "2007-2013", 
+                "data": {
+                    "life_expectancy_region": {
+                        "trend": 1, 
+                        "value": 85.1
+                    }, 
+                    "life_expectancy_aus": {
+                        "value": 82.1
+                    }, 
+                    "life_expectancy_region_old": {
+                        "value": 83.8
+                    }
+                }
+            }, 
+            "raw_datasets": null, 
+            "parameters": {
+                "sa4_code": 115, 
+                "state": "NSW", 
+                "sa4_name": "Sydney - Baulkham Hills and Hawkesbury"
+            }, 
+            "label": "life_expectancy_param"
+        }, 
+        {
+            "graph_data": {
+                "life_expectancy_change": {
+                    "data": {
+                        "region": {
+                            "current": 83.3, 
+                            "reference": 82.1
+                        }, 
+                        "australia": {
+                            "current": 82.1, 
+                            "reference": 81.3
+                        }, 
+                        "state": {
+                            "current": 83.3, 
+                            "reference": 82.1
+                        }
+                    }, 
+                    "numeric_axis_scale": {
+                        "max": 83.3, 
+                        "min": 81.3
+                    }
+                }, 
+                "life_expectancy_ranking": {
+                    "horizontal_axis_scale": {
+                        "max": 2013.0, 
+                        "min": 2007.0
+                    }, 
+                    "data": {
+                        "ranking": [
+                            [
+                                2007.0, 
+                                0.77
+                            ], 
+                            [
+                                2013.0, 
+                                0.76
+                            ]
+                        ]
+                    }, 
+                    "vertical_axis_scale": {
+                        "max": 0.77, 
+                        "min": 0.76
+                    }
+                }
+            }, 
+            "data": {
+                "widget_last_updated": "2016-06-10T04:10:43+0000", 
+                "actual_frequency": "2007-2013", 
+                "data": {
+                    "life_expectancy_region": {
+                        "trend": 1, 
+                        "value": 83.3
+                    }, 
+                    "life_expectancy_aus": {
+                        "value": 82.1
+                    }, 
+                    "life_expectancy_region_old": {
+                        "value": 82.1
+                    }
+                }
+            }, 
+            "raw_datasets": null, 
+            "parameters": {
+                "sa4_code": 801, 
+                "state": "ACT", 
+                "sa4_name": "Australian Capital Territory"
+            }, 
+            "label": "life_expectancy_param"
+        }
+    ], 
+    "default_actual_frequency": "2007-2013", 
+    "family": "life_expectancy"
+}
+

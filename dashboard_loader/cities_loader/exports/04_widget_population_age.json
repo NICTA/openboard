@@ -1,0 +1,256 @@
+{
+    "category": "Contextual", 
+    "edit_all_groups": [], 
+    "source_url_text": "Dept of Infrastructure", 
+    "subtitle": "", 
+    "subcategory": "Population", 
+    "groups": [], 
+    "url": "population_age", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "0-14 yrs", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "yrs_0_14", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "15-24 yrs", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "yrs_15_24", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "25-64 yrs", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "yrs_25_64", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "65-84 yrs", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "yrs_65_84", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 400
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "85+ yrs", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "yrs_85plus", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 500
+                        }
+                    ], 
+                    "list_label_width": 40, 
+                    "url": "pop_age_list", 
+                    "tile_type": 3, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": 1
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 200, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "pop_age_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "graph_type": 4, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "hyperlink": "", 
+                                "url": "yrs_0_14", 
+                                "colour": "darkest", 
+                                "label": "0-14 years", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100
+                            }, 
+                            {
+                                "hyperlink": "", 
+                                "url": "yrs_15_24", 
+                                "colour": "dark", 
+                                "label": "15-24 years", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200
+                            }, 
+                            {
+                                "hyperlink": "", 
+                                "url": "yrs_25_64", 
+                                "colour": "mid", 
+                                "label": "25-64 years", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300
+                            }, 
+                            {
+                                "hyperlink": "", 
+                                "url": "yrs_65_84", 
+                                "colour": "light", 
+                                "label": "65-84 years", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400
+                            }, 
+                            {
+                                "hyperlink": "", 
+                                "url": "yrs_85plus", 
+                                "colour": "lightest", 
+                                "label": "85+ years", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500
+                            }
+                        ], 
+                        "numeric_axis_label": null, 
+                        "clusters": [
+                            {
+                                "url": "region", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "{{ sa4_name }}"
+                            }, 
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "label": "Australia"
+                            }, 
+                            {
+                                "url": "state", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "label": "{{ state }}"
+                            }
+                        ], 
+                        "heading": "Population by age groups"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 200, 
+                    "view": "baulkham_hills"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "view": "act"
+                }
+            ], 
+            "default_frequency_text": "2014", 
+            "raw_data_sets": [], 
+            "sort_order": 200, 
+            "expansion_hint": "Show graph", 
+            "about": "<p>Population by age.</p>", 
+            "refresh_rate": 5000, 
+            "label": "pop_age_param", 
+            "parametisation": "param_sa4", 
+            "deexpansion_hint": "Hide graph"
+        }
+    ], 
+    "source_url": "http://www.infrastructure.gov.au", 
+    "name": "Population by Age"
+}
+

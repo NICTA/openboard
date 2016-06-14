@@ -21,8 +21,8 @@ def get_paramval(parametisation, **kwargs):
     else:
         param = Parametisation.objects.get(url=parametisation)
     try:
-        for pval in param.parametervalue_set.all():
-            if pval.matches(kwargs):
+        for pval in param.parametisationvalue_set.all():
+            if pval.matches_parameters(kwargs):
                 return pval
     except ViewDoesNotHaveAllKeys:
         LoaderException("Parametisation error. Insuffient parameter specification for %s: %s" % 

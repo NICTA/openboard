@@ -1,0 +1,10 @@
+{
+    "url": "param_sa4", 
+    "keys": [
+        "sa4_code", 
+        "sa4_name", 
+        "state"
+    ], 
+    "name": "SA4 Region Parametisation"
+}
+
