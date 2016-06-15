@@ -50,7 +50,7 @@ Last Uploaded: {{ uploader.last_uploaded|date:"d/m/Y h:t:sa" }}
     </table>
     <h4>Notes</h4>
     <ul>
-        {% for note in notes %}
+        {% for note in sheet.notes %}
             <li>{{ note }}</li>
         {% endfor %}
     </ul>

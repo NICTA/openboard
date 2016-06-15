@@ -20,6 +20,10 @@ def register_loaders(verbosity, logger):
     registered_app_loaders = []
     registered_app_uploaders = []
     for app in apps.get_app_configs():
+        if app.name.startswith('django'):
+            continue
+        if app.name in ('widget_def', 'widget_data', 'dashboard_loader', 'dashboard_api'):
+            continue
         if verbosity >= 3:
             print >> logger, "Checking app %s" % app.name
         try:

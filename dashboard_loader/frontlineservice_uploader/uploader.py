@@ -24,7 +24,7 @@ groups = [ "upload_all", "upload_frontlineservice" ]
 # "python manage.py upload_data frontlineservice_uploader" and by the uploader 
 # page in the data admin GUI.
 file_format = {
-    # format:  Either "csv", "xls", or "zip"
+    # format:  Either "csv", "xls", "xlsx" or "zip"
     "format": "csv",
     # sheets: csv formats should only have one sheet.  For "zip", sheets are 
     #         csv files within the zip file

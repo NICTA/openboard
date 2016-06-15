@@ -25,7 +25,7 @@ def get_paramval(parametisation, **kwargs):
             if pval.matches_parameters(kwargs):
                 return pval
     except ViewDoesNotHaveAllKeys:
-        LoaderException("Parametisation error. Insuffient parameter specification for %s: %s" % 
+        raise LoaderException("Parametisation error. Insuffient parameter specification for %s: %s" % 
                                 (param.url, repr(kwargs)))
     raise LoaderException("Parametisation %s has no value set that matches %s" % 
                                 (param.url, repr(kwargs)))

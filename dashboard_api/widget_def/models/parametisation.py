@@ -141,12 +141,12 @@ class ParametisationValue(models.Model):
         return { pkv.key: pkv.value() for pkv in self.parametervalue_set.all() }
     def matches_parameters(self, params):
         my_params = self.parameters()
-        for k in self.param.keys():
+        for k in params:
             if k not in my_params:
                 return False
             v = my_params[k]
             if k not in params:
-                raise False
+                return False
             if my_params[k] != params[k]:
                 return False
         return True
