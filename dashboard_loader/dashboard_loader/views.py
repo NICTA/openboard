@@ -152,7 +152,7 @@ def view_widget(request, widget_url, label, pval_id=None):
             })
     graphs = []
     for graph in GraphDefinition.objects.filter(tile__widget=w):
-        data = GraphData.objects.filter(graph=graph)
+        data = graph.get_data(pval=pval)
         graphs.append({
                 "graph": graph,
                 "data_last_updated": graph.data_last_updated(pval=pval),
@@ -302,13 +302,13 @@ def edit_graph(request, widget_url, label, tile_url, pval_id=None):
                 if request.POST.get("submit"):
                     return_redirect=True
                 else:
-                    form = form_class(initial=g.initial_form_data())
+                    form = form_class(initial=g.initial_form_data(pval))
         elif request.POST.get("cancel"):
             return_redirect=True
         else:
-            form = form_class(initial=g.initial_form_data())
+            form = form_class(initial=g.initial_form_data(pval))
     else:
-        form = form_class(initial=g.initial_form_data())
+        form = form_class(initial=g.initial_form_data(pval))
     if return_redirect:
         if pval:
             return redirect("view_parametised_widget_data", 
