@@ -47,7 +47,7 @@
     </table>
 </div>
 {% endif %}
-<h2>Tile: {{ statistic.tile.url }}</h2>
+<h2>Tile: {{ graph.tile.url }}</h2>
 <form action="{% if pval %}{% url "edit_parametised_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url pval_id=pval.id %}{% else %}{% url "edit_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url %}{% endif %}" method="post">{% csrf_token %}
 {{ form.management_form }}
 <table border="0" id="listform_table">

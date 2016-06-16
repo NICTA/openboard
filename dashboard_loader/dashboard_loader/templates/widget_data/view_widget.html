@@ -17,7 +17,7 @@
 
 {% endcomment %}
 {% block content %}
-<h1>Widget: {{ widget.name }} ({{ widget.label }})</h1>
+<h1>Widget: {{ widget.name }} ({{ widget.url }}:{{ widget.label }})</h1>
 
 {% if pval %}
 <div>
@@ -80,7 +80,7 @@
     </tr>
     {% for g in graphs %}
     <tr>
-        <td>{{ g.tile.url }}</td>
+        <td>{{ g.graph.tile.url }}</td>
         <td>
             {% if g.data_last_updated %}
                 {{ g.data_last_updated|date:"d/m/Y h:i:sa" }}
