@@ -1,0 +1,2538 @@
+{
+    "requires_authentication": false, 
+    "name": "Australia Index", 
+    "view_type": {
+        "show_children": true, 
+        "name": "Index view", 
+        "show_siblings": false
+    }, 
+    "children": [
+        {
+            "requires_authentication": false, 
+            "name": "Capital Region", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "captial_region", 
+            "sort_order": 101, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 101, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Capital Region", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Central Coast", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "central_coast", 
+            "sort_order": 102, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 102, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Central Coast", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Central West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "central_west", 
+            "sort_order": 103, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 103, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Central West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Coffs Harbour - Grafton", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "coffs_harbour", 
+            "sort_order": 104, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 104, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Coffs Harbour - Grafton", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Far West and Orana", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "far_west_nsw", 
+            "sort_order": 105, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 105, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Far West and Orana", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Hunter Valley exc Newcastle", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "hunter_valley", 
+            "sort_order": 106, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 106, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Hunter Valley exc Newcastle", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Illawarra", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "illawarra", 
+            "sort_order": 107, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 107, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Illawarra", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Mid North Coast", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "mid_north_coast", 
+            "sort_order": 108, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 108, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Mid North Coast", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Murray", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "murray", 
+            "sort_order": 109, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 109, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Murray", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "New England and North West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "new_england", 
+            "sort_order": 110, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 110, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "New England and North West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Newcastle and Lake Macquarie", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "newcastle", 
+            "sort_order": 111, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 111, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Newcastle and Lake Macquarie", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Richmond - Tweed", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "richmond", 
+            "sort_order": 112, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 112, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Richmond - Tweed", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Riverina", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "riverina", 
+            "sort_order": 113, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 113, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Riverina", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Southern Highlands and Shoalhaven", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "southern_highlands", 
+            "sort_order": 114, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 114, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Southern Highlands and Shoalhaven", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Baulkham Hills and Hawkesbury", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "baulkham_hills", 
+            "sort_order": 115, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 115, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Baulkham Hills and Hawkesbury", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Blacktown", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "blacktown", 
+            "sort_order": 116, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 116, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Blacktown", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - City and Inner South", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "sydney_inner_south", 
+            "sort_order": 117, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 117, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - City and Inner South", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Eastern Suburbs", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "eastern_sydney", 
+            "sort_order": 118, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 118, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Eastern Suburbs", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Inner South West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_sw_sydney", 
+            "sort_order": 119, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 119, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Inner South West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Inner West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_west_sydney", 
+            "sort_order": 120, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 120, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Inner West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - North Sydney and Hornsby", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "north_sydney", 
+            "sort_order": 121, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 121, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - North Sydney and Hornsby", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Northern Beaches", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "northern_beaches", 
+            "sort_order": 122, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 122, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Northern Beaches", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Outer South West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outer_sw_sydney", 
+            "sort_order": 123, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 123, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Outer South West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Outer West and Blue Mountains", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outer_west_sydney", 
+            "sort_order": 124, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 124, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Outer West and Blue Mountains", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Parramatta", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "parramatta", 
+            "sort_order": 125, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 125, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Parramatta", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Ryde", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "ryde", 
+            "sort_order": 126, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 126, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Ryde", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - South West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "sw_sydney", 
+            "sort_order": 127, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 127, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - South West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sydney - Sutherland", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "sutherland", 
+            "sort_order": 128, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 128, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sydney - Sutherland", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NSW", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Ballarat", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "ballarat", 
+            "sort_order": 201, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 201, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Ballarat", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Bendigo", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "bendigo", 
+            "sort_order": 202, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 202, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Bendigo", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Geelong", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "geelong", 
+            "sort_order": 203, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 203, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Geelong", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Hume", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "hume", 
+            "sort_order": 204, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 204, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Hume", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Latrobe - Gippsland", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "latrobe_gippsland", 
+            "sort_order": 205, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 205, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Latrobe - Gippsland", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - Inner", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_melbourne", 
+            "sort_order": 206, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 206, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - Inner", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - Inner East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_east_melbourne", 
+            "sort_order": 207, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 207, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - Inner East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - Inner South", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_south_melbourne", 
+            "sort_order": 208, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 208, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - Inner South", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - North East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "ne_melbourne", 
+            "sort_order": 209, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 209, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - North East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - North West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "nw_melbourne", 
+            "sort_order": 210, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 210, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - North West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - Outer East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outer_east_melbourne", 
+            "sort_order": 211, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 211, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - Outer East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - South East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "se_melbourne", 
+            "sort_order": 212, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 212, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - South East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Melbourne - West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "west_melbourne", 
+            "sort_order": 213, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 213, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Melbourne - West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Mornington Peninsula", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "mornington", 
+            "sort_order": 214, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 214, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Mornington Peninsula", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "North West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "nw_victoria", 
+            "sort_order": 215, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 215, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "North West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Shepparton", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "shepparton", 
+            "sort_order": 216, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 216, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Shepparton", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Warrnambool and South West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "warnambool", 
+            "sort_order": 217, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 217, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Warrnambool and South West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Vic", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Brisbane - East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "east_brisbane", 
+            "sort_order": 301, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 301, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Brisbane - East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Brisbane - North", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "north_brisbane", 
+            "sort_order": 302, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 302, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Brisbane - North", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Brisbane - South", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "south_brisbane", 
+            "sort_order": 303, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 303, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Brisbane - South", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Brisbane - West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "west_brisbane", 
+            "sort_order": 304, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 304, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Brisbane - West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Brisbane Inner City", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_brisbane", 
+            "sort_order": 305, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 305, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Brisbane Inner City", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Cairns", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "cairns", 
+            "sort_order": 306, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 306, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Cairns", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Darling Downs - Maranoa", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "darling_downs", 
+            "sort_order": 307, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 307, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Darling Downs - Maranoa", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Fitzroy", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "fitzroy", 
+            "sort_order": 308, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 308, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Fitzroy", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Gold Coast", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "gold_coast", 
+            "sort_order": 309, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 309, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Gold Coast", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Ipswich", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "ipswich", 
+            "sort_order": 310, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 310, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Ipswich", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Logan - Beaudesert", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "logan_beaudesert", 
+            "sort_order": 311, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 311, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Logan - Beaudesert", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Mackay", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "mackay", 
+            "sort_order": 312, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 312, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Mackay", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Moreton Bay - North", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "north_moreton_bay", 
+            "sort_order": 313, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 313, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Moreton Bay - North", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Moreton Bay - South", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "south_moreton_bay", 
+            "sort_order": 314, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 314, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Moreton Bay - South", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Queensland - Outback", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outback_queensland", 
+            "sort_order": 315, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 315, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Queensland - Outback", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Sunshine Coast", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "sunshine_coast", 
+            "sort_order": 316, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 316, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Sunshine Coast", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Toowoomba", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "toowoomba", 
+            "sort_order": 317, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 317, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Toowoomba", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Townsville", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "townsville", 
+            "sort_order": 318, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 318, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Townsville", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Wide Bay", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "wide_bay", 
+            "sort_order": 319, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 319, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Wide Bay", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Qld", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Adelaide - Central and Hills", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "central_adelaide", 
+            "sort_order": 401, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 401, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Adelaide - Central and Hills", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Adelaide - North", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "north_adelaid", 
+            "sort_order": 402, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 402, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Adelaide - North", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Adelaide - South", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "south_adelaid", 
+            "sort_order": 403, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 403, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Adelaide - South", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Adelaide - West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "west_adelaid", 
+            "sort_order": 404, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 404, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Adelaide - West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Barossa - Yorke - Mid North", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "barossa", 
+            "sort_order": 405, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 405, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Barossa - Yorke - Mid North", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "South Australia - Outback", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outback_sa", 
+            "sort_order": 406, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 406, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "South Australia - Outback", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "South Australia - South East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "se_sa", 
+            "sort_order": 407, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 407, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "South Australia - South East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "SA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Bunbury", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "bunbury", 
+            "sort_order": 501, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 501, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Bunbury", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Mandurah", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "mandurah", 
+            "sort_order": 502, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 502, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Mandurah", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Perth - Inner", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "inner_perth", 
+            "sort_order": 503, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 503, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Perth - Inner", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Perth - North East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "ne_perth", 
+            "sort_order": 504, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 504, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Perth - North East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Perth - North West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "nw_perth", 
+            "sort_order": 505, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 505, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Perth - North West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Perth - South East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "se_perth", 
+            "sort_order": 506, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 506, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Perth - South East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Perth - South West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "sw_perth", 
+            "sort_order": 507, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 507, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Perth - South West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Western Australia - Outback", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outback_wa", 
+            "sort_order": 508, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 508, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Western Australia - Outback", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Western Australia - Wheat Belt", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "wheat_belt", 
+            "sort_order": 509, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 509, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Western Australia - Wheat Belt", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "WA", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Hobart", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "hobart", 
+            "sort_order": 601, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 601, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Hobart", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Tas", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Launceston and North East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "launceston", 
+            "sort_order": 602, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 602, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Launceston and North East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Tas", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "South East", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "se_tasmania", 
+            "sort_order": 603, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 603, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "South East", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Tas", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "West and North West", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "west_tasmania", 
+            "sort_order": 604, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 604, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "West and North West", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Tas", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Darwin", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "darwin", 
+            "sort_order": 701, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 701, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Darwin", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NT", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Northern Territory - Outback", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "outback_nt", 
+            "sort_order": 702, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 702, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Northern Territory - Outback", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "NT", 
+                    "key": "state"
+                }
+            ]
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Australian Capital Territory", 
+            "view_type": {
+                "show_children": false, 
+                "name": "SA4 View", 
+                "show_siblings": false
+            }, 
+            "children": [], 
+            "label": "act", 
+            "sort_order": 801, 
+            "properties": [
+                {
+                    "type": 0, 
+                    "value": 801, 
+                    "key": "sa4_code"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "Australian Capital Territory", 
+                    "key": "sa4_name"
+                }, 
+                {
+                    "type": 1, 
+                    "value": "ACT", 
+                    "key": "state"
+                }
+            ]
+        }
+    ], 
+    "label": "australia", 
+    "sort_order": 100, 
+    "properties": []
+}
+
