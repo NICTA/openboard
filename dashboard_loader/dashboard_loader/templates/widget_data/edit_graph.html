@@ -49,6 +49,19 @@
 {% endif %}
 <h2>Tile: {{ graph.tile.url }}</h2>
 <form action="{% if pval %}{% url "edit_parametised_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url pval_id=pval.id %}{% else %}{% url "edit_graph" widget_url=widget.url label=widget.label tile_url=graph.tile.url %}{% endif %}" method="post">{% csrf_token %}
+{% if overrides_form %}
+<h2>Display Name Overrides</h2>
+<table border="0">
+    {% for field in overrides_form %}
+        <tr>
+            <td><b>{{ field.label_tag }}</b></td>
+            <td>{{ field }}</td>
+            <td>{{ field.errors }}</td>
+        </tr>
+    {% endfor %}
+</table>
+<h2>Graph Data</h2>
+{% endif %}
 {{ form.management_form }}
 <table border="0" id="listform_table">
     <tr class="hidden" id="empty_form_template">

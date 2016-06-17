@@ -16,7 +16,7 @@ from decimal import Decimal
 
 from django.db import models
 
-from widget_data.models import GraphData
+from widget_data.models import GraphData, GraphClusterData, GraphDatasetData
 from widget_def.models.tile_def import TileDefinition
 from widget_def.parametisation import parametise_label
 
@@ -80,6 +80,23 @@ class GraphDefinition(models.Model):
                 result["cluster"] = gd.cluster
             else:
                 result["horiz_value"] = gd.horiz_value()
+            return result
+        def initial_override_form_data(self, pval=None):
+            result = {}
+            for c in self.graphcluster_set.filter(dynamic_label=True):
+                try:
+                    dat = GraphClusterData.objects.get(cluster=c,
+                            param_value=pval)
+                    result["cluster_%s" % c.url] = dat.display_name  
+                except GraphClusterData.DoesNotExist:
+                    result["cluster_%s" % c.url] = c.label
+            for d in self.graphdataset_set.filter(dynamic_label=True):
+                try:
+                    dat = GraphDatasetData.objects.get(dataset=d,
+                            param_value=pval)
+                    result["dataset_%s" % d.url] = dat.display_name  
+                except GraphDatasetData.DoesNotExist:
+                    result["dataset_%s" % d.url] = d.label
             return result
         def get_data(self, view=None, pval=None):
             if self.widget().parametisation:
@@ -479,6 +496,7 @@ class GraphCluster(models.Model):
     graph=models.ForeignKey(GraphDefinition)
     url=models.SlugField(verbose_name="label")
     label=models.CharField(verbose_name="name", max_length=80)
+    dynamic_label=models.BooleanField(default=False)
     hyperlink=models.URLField(blank=True, null=True)
     sort_order=models.IntegerField()
     def __unicode__(self):
@@ -491,12 +509,14 @@ class GraphCluster(models.Model):
             "url": self.url,
             "sort_order": self.sort_order,
             "label": self.label,
+            "dynamic_label": self.dynamic_label,
             "hyperlink": self.hyperlink,
         }
     def __getstate__(self, view=None):
         return {
             "label": self.url,
             "name": parametise_label(self.graph.tile.widget, view, self.label),
+            "dynamic_name_display": self.dynamic_label,
             "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
         }
     @classmethod
@@ -508,6 +528,7 @@ class GraphCluster(models.Model):
         c.sort_order = data["sort_order"]
         c.label = data["label"]
         c.hyperlink = data["hyperlink"]
+        c.dynamic_label = data.get("dynamic_label", False)
         c.save()
 
 class GraphDataset(models.Model):
@@ -515,6 +536,7 @@ class GraphDataset(models.Model):
     graph=models.ForeignKey(GraphDefinition)
     url=models.SlugField(verbose_name="label")
     label=models.CharField(verbose_name="name", max_length=80)
+    dynamic_label=models.BooleanField(default=False)
     colour = models.CharField(max_length=50)
     use_secondary_numeric_axis = models.BooleanField(default=False)
     hyperlink=models.URLField(blank=True, null=True)
@@ -530,6 +552,7 @@ class GraphDataset(models.Model):
             "url": self.url,
             "sort_order": self.sort_order,
             "label": self.label,
+            "dynamic_label": self.dynamic_label,
             "colour": self.colour,
             "hyperlink": self.hyperlink,
             "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
@@ -547,6 +570,7 @@ class GraphDataset(models.Model):
         d.colour = data["colour"]
         d.hyperlink = data["hyperlink"]
         d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
+        c.dynamic_label = data.get("dynamic_label", False)
         d.save()
     def __getstate__(self, view=None):
         state = {
@@ -554,6 +578,7 @@ class GraphDataset(models.Model):
             "name": parametise_label(self.graph.tile.widget, view, self.label),
             "colour": self.colour,
             "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
+            "dynamic_name_display": self.dynamic_label,
         }
         if self.graph.use_secondary_numeric_axis:
             if self.graph.graph_type == self.graph.LINE:

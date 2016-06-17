@@ -101,6 +101,10 @@ def import_widget_data(data):
                                     data["family"], 
                                     w["label"]))
             clear_graph_data(graph, pval=pval)
+            for curl, name in g.get("cluster_name_overrides", {}).items():    
+                set_cluster_override(graph, curl, name, pval=pval)
+            for durl, name in g.get("dataset_name_overrides", {}).items():    
+                set_dataset_override(graph, durl, name, pval=pval)
             if graph.use_clusters():
                 for curl, c in g["data"].items():
                     for dsurl, ds in c.items():

@@ -23,7 +23,7 @@ from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 from dashboard_loader.models import Uploader
 from dashboard_loader.permissions import get_editable_widgets_for_user, user_has_edit_permission, user_has_edit_all_permission, get_uploaders_for_user, user_has_uploader_permission
-from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph
+from dashboard_loader.dynform import get_form_class_for_statistic, get_form_class_for_graph, get_override_form_class_for_graph
 from dashboard_loader.loader_utils import *
 
 # View methods
@@ -272,11 +272,15 @@ def edit_graph(request, widget_url, label, tile_url, pval_id=None):
 
     form_class = get_form_class_for_graph(g)
     form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=10)
+    overrides_form_class = get_override_form_class_for_graph(g)
+    overrides_form = None
     return_redirect = False
     if request.method == 'POST':
         if request.POST.get("submit") or request.POST.get("submit_stay"):
             form = form_class(request.POST)
-            if form.is_valid():
+            if overrides_form_class:
+                overrides_form = overrides_form_class(request.POST)
+            if form.is_valid() and (not overrides_form or overrides_form.is_valid()):
                 clear_graph_data(g, pval=pval)
                 for subform in form:
                     fd = subform.cleaned_data
@@ -299,16 +303,30 @@ def edit_graph(request, widget_url, label, tile_url, pval_id=None):
                                 gd.horiz_dateval = fd["horiz_value"].date()
                                 gd.horiz_timeval = fd["horiz_value"].time()
                         gd.save()
+                if overrides_form:
+                    fod = overrides_form.cleaned_data
+                    for fldname, fldval in fod.items():
+                        ov_type, ov_url = fldname.split("_", 1)
+                        if ov_type == 'cluster':
+                            set_cluster_override(g, ov_url, fldval, pval=pval)
+                        else:
+                            set_dataset_override(g, ov_url, fldval, pval=pval)
                 if request.POST.get("submit"):
                     return_redirect=True
                 else:
                     form = form_class(initial=g.initial_form_data(pval))
+                    if overrides_form_class:
+                        overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
         elif request.POST.get("cancel"):
             return_redirect=True
         else:
             form = form_class(initial=g.initial_form_data(pval))
+            if overrides_form_class:
+                overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
     else:
         form = form_class(initial=g.initial_form_data(pval))
+        if overrides_form_class:
+            overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
     if return_redirect:
         if pval:
             return redirect("view_parametised_widget_data", 
@@ -322,7 +340,8 @@ def edit_graph(request, widget_url, label, tile_url, pval_id=None):
                 "widget": w,
                 "pval": pval,
                 "graph": g,
-                "form": form
+                "form": form,
+                "overrides_form": overrides_form
                 })
 
 class UploadForm(forms.Form):

@@ -118,6 +118,7 @@
                                 "hyperlink": "", 
                                 "url": "reference", 
                                 "colour": "pale", 
+                                "dynamic_label": true, 
                                 "label": "2007", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100
@@ -126,29 +127,33 @@
                                 "hyperlink": "", 
                                 "url": "current", 
                                 "colour": "dark", 
+                                "dynamic_label": true, 
                                 "label": "2013", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "years", 
                         "clusters": [
                             {
                                 "url": "region", 
                                 "hyperlink": "", 
                                 "sort_order": 100, 
+                                "dynamic_label": false, 
                                 "label": "{{ sa4_name }}"
                             }, 
                             {
                                 "url": "australia", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
+                                "dynamic_label": false, 
                                 "label": "Australia"
                             }, 
                             {
                                 "url": "state", 
                                 "hyperlink": "", 
                                 "sort_order": 300, 
+                                "dynamic_label": false, 
                                 "label": "{{ state }}"
                             }
                         ], 
@@ -189,6 +194,7 @@
                                 "hyperlink": "", 
                                 "url": "ranking", 
                                 "colour": "dark", 
+                                "dynamic_label": false, 
                                 "label": "Ranking", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100
@@ -206,6 +212,10 @@
                 }
             ], 
             "views": [
+                {
+                    "sort_order": 100, 
+                    "view": "capital_region"
+                }, 
                 {
                     "sort_order": 100, 
                     "view": "central_coast"
@@ -555,7 +565,7 @@
             "raw_data_sets": [], 
             "sort_order": 100, 
             "expansion_hint": "Show Graphs", 
-            "about": "<p>Life expectancy.</p>", 
+            "about": "<p>Life expectancy of inhabitants at birth.</p>", 
             "refresh_rate": 3000, 
             "label": "life_expectancy_param", 
             "parametisation": "param_sa4", 

@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015, 2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -74,5 +74,23 @@ class GraphData(models.Model):
                 ("graph", "param_value"),
                 ("graph", "param_value", "dataset"),
                 ("graph", "param_value", "dataset", "cluster"),
+        ]
+
+class GraphClusterData(models.Model):
+    cluster = models.ForeignKey("widget_def.GraphCluster")
+    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
+    display_name = models.CharField(max_length=200)
+    class Meta:
+        unique_together = [
+            ("cluster", "param_value"),
+        ]
+
+class GraphDatasetData(models.Model):
+    dataset = models.ForeignKey("widget_def.GraphDataset")
+    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
+    display_name = models.CharField(max_length=200)
+    class Meta:
+        unique_together = [
+            ("dataset", "param_value"),
         ]
 

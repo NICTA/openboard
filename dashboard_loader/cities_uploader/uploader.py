@@ -364,6 +364,8 @@ def std_load(ws, row, state_row, pval, data, wurl, rcol, ccol, st_rcol, st_ccol)
     add_graph_data(data["gmain"], "current", pval=pval, cluster="region", value=cy)
     add_graph_data(data["gmain"], "current", pval=pval, cluster="state", value=ws["%s%d" % (st_ccol, state_row)].value)
     add_graph_data(data["gmain"], "current", pval=pval, cluster="australia", value=data["aus_cy"])
+    set_dataset_override(data["gmain"], "reference", data["ref_year"])
+    set_dataset_override(data["gmain"], "current", data["curr_year"])
     clear_graph_data(data["grank"], pval=pval)
     add_graph_data(data["grank"], "ranking", pval=pval, horiz_value=data["ref_year"].split("/")[0], 
                         value=data["ranker_ry"].pct_rank(ry))
@@ -373,7 +375,6 @@ def std_load(ws, row, state_row, pval, data, wurl, rcol, ccol, st_rcol, st_ccol)
                         "%s-%s" % (data["ref_year"], data["curr_year"]), 
                         pval=pval)
     return
-
 
 def init_life_expectancy(wb):
     return std_init(wb, "life_expectancy", "C", "D", "Society", "C", "D")

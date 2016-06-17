@@ -162,6 +162,7 @@
                                 "hyperlink": "", 
                                 "url": "yrs_0_14", 
                                 "colour": "darkest", 
+                                "dynamic_label": false, 
                                 "label": "0-14 years", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100
@@ -170,6 +171,7 @@
                                 "hyperlink": "", 
                                 "url": "yrs_15_24", 
                                 "colour": "dark", 
+                                "dynamic_label": false, 
                                 "label": "15-24 years", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200
@@ -178,6 +180,7 @@
                                 "hyperlink": "", 
                                 "url": "yrs_25_64", 
                                 "colour": "mid", 
+                                "dynamic_label": false, 
                                 "label": "25-64 years", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300
@@ -186,6 +189,7 @@
                                 "hyperlink": "", 
                                 "url": "yrs_65_84", 
                                 "colour": "light", 
+                                "dynamic_label": false, 
                                 "label": "65-84 years", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400
@@ -194,6 +198,7 @@
                                 "hyperlink": "", 
                                 "url": "yrs_85plus", 
                                 "colour": "lightest", 
+                                "dynamic_label": false, 
                                 "label": "85+ years", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500
@@ -205,18 +210,21 @@
                                 "url": "region", 
                                 "hyperlink": "", 
                                 "sort_order": 100, 
+                                "dynamic_label": false, 
                                 "label": "{{ sa4_name }}"
                             }, 
                             {
                                 "url": "australia", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
+                                "dynamic_label": false, 
                                 "label": "Australia"
                             }, 
                             {
                                 "url": "state", 
                                 "hyperlink": "", 
                                 "sort_order": 300, 
+                                "dynamic_label": false, 
                                 "label": "{{ state }}"
                             }
                         ], 
@@ -230,6 +238,10 @@
                 }
             ], 
             "views": [
+                {
+                    "sort_order": 200, 
+                    "view": "capital_region"
+                }, 
                 {
                     "sort_order": 200, 
                     "view": "central_coast"
@@ -578,12 +590,12 @@
             "default_frequency_text": "2014", 
             "raw_data_sets": [], 
             "sort_order": 200, 
-            "expansion_hint": "Show graph", 
+            "expansion_hint": "Show Graph", 
             "about": "<p>Population by age.</p>", 
             "refresh_rate": 5000, 
             "label": "pop_age_param", 
             "parametisation": "param_sa4", 
-            "deexpansion_hint": "Hide graph"
+            "deexpansion_hint": "Hide Graph"
         }
     ], 
     "source_url": "http://www.infrastructure.gov.au", 

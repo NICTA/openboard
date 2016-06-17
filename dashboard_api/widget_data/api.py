@@ -103,6 +103,24 @@ def api_get_graph_data(widget, view=None, pval=None):
                     "min": graph.jsonise_horiz_value(horiz_min),
                     "max": graph.jsonise_horiz_value(horiz_max)
             }
+    overrides = {}
+    for cluster in graph.graphcluster_set.filter(dynamic_label=True):
+        try:
+            cd = GraphClusterData.objects.get(cluster=cluster, pval=pval)
+            overrides[cluster.url] = cd.display_name
+        except GraphClusterData.DoesNotExist:
+            pass
+    if overrides:
+        graph_json["cluster_name_overrides"] = overrides
+    overrides = {}
+    for dataset in graph.graphdataset_set.filter(dynamic_label=True):
+        try:
+            dd = GraphDatasetData.objects.get(dataset=dataset, pval=pval)
+            overrides[dataset.url] = dd.display_name
+        except GraphDatasetData.DoesNotExist:
+            pass
+    if overrides:
+        graph_json["dataset_name_overrides"] = overrides
     return graph_json
 
 def api_get_raw_data(widget, request, rds_url):

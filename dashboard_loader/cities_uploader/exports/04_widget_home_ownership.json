@@ -118,6 +118,7 @@
                                 "hyperlink": "", 
                                 "url": "reference", 
                                 "colour": "pale", 
+                                "dynamic_label": true, 
                                 "label": "2001", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100
@@ -126,6 +127,7 @@
                                 "hyperlink": "", 
                                 "url": "current", 
                                 "colour": "dark", 
+                                "dynamic_label": true, 
                                 "label": "2011", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200
@@ -137,18 +139,21 @@
                                 "url": "region", 
                                 "hyperlink": "", 
                                 "sort_order": 100, 
+                                "dynamic_label": false, 
                                 "label": "{{ sa4_name }}"
                             }, 
                             {
                                 "url": "australia", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
+                                "dynamic_label": false, 
                                 "label": "Australia"
                             }, 
                             {
                                 "url": "state", 
                                 "hyperlink": "", 
                                 "sort_order": 300, 
+                                "dynamic_label": false, 
                                 "label": "{{ state }}"
                             }
                         ], 
@@ -189,6 +194,7 @@
                                 "hyperlink": "", 
                                 "url": "ranking", 
                                 "colour": "dark", 
+                                "dynamic_label": false, 
                                 "label": "Ranking", 
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100

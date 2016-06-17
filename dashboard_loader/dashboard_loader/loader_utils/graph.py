@@ -15,7 +15,7 @@
 import decimal
 
 from widget_def.models import GraphDefinition, GraphDataset, GraphCluster
-from widget_data.models import GraphData
+from widget_data.models import GraphData, GraphClusterData, GraphDatasetData
 
 from interface import LoaderException
 
@@ -31,6 +31,8 @@ def get_graph(widget_url, label, tile_url):
 def clear_graph_data(graph, cluster=None, dataset=None, pval=None):
     """Clear all graph data, or partially by cluster or dataset"""
     data = graph.get_data(pval=pval)
+    clear_allcluster_supp = True
+    clear_alldataset_supp = True
     if graph.use_clusters():
         if cluster:
             if not isinstance(cluster, GraphCluster):
@@ -52,7 +54,50 @@ def clear_graph_data(graph, cluster=None, dataset=None, pval=None):
         data = data.filter(dataset=dataset)
         if cluster:
             raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
+    clear_graph_suppdata(graph, pval, cluster, dataset)
     data.delete()
+
+def clear_graph_suppdata(graph, pval=None, cluster=None, dataset=None):
+    if cluster is None:
+        GraphClusterData.objects.filter(cluster__graph=graph, param_value=pval).delete()
+    else:
+        if not isinstance(cluster, GraphCluster):
+            try:
+                cluster = GraphCluster.objects.get(graph=graph, url=cluster)
+            except GraphCluster.DoesNotExist:
+                raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+        GraphClusterData.objects.filter(cluster=cluster, param_value=pval).delete()
+    if dataset is None:
+        GraphDatasetData.objects.filter(dataset__graph=graph, param_value=pval).delete()
+    else:
+        if not isinstance(dataset, GraphDataset):
+            try:
+                dataset = GraphDataset.objects.get(graph=graph, url=dataset)
+            except GraphDataset.DoesNotExist:
+                raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+        GraphDatasetData.objects.filter(dataset=dataset, param_value=pval).delete()
+
+def set_cluster_override(graph, cluster, display_name, pval=None):
+    if not isinstance(cluster, GraphCluster):
+        try:
+            cluster = GraphCluster.objects.get(graph=graph, url=cluster)
+        except GraphCluster.DoesNotExist:
+            raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+    (cd, created) = GraphClusterData.objects.get_or_create(cluster=cluster, param_value=pval, defaults={'display_name': display_name})
+    if not created:
+        cd.display_name = display_name
+        cd.save()
+
+def set_dataset_override(graph, dataset, display_name, pval=None):
+    if not isinstance(dataset, GraphDataset):
+        try:
+            dataset = GraphDataset.objects.get(graph=graph, url=dataset)
+        except GraphDataset.DoesNotExist:
+            raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+    (dd, created) = GraphDatasetData.objects.get_or_create(dataset=dataset, param_value=pval, defaults={'display_name': display_name})
+    if not created:
+        dd.display_name = display_name
+        dd.save()
 
 def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None, pval=None):
     """Add a graph datapoint.
