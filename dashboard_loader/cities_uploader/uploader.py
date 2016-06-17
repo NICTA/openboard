@@ -320,46 +320,87 @@ def find_australia_row(sheet):
             return row
     raise LoaderException("No Australia row in sheet %s" % sheet.title)
 
-def init_life_expectancy(wb):
+def format_year(yin):
+    if isinstance(yin, int):
+        return unicode(yin)
+    elif "-" in yin:
+        # Financial Year for cleaning
+        bits = yin.split("-")
+        return "%d/%02d" % (int(bits[0]), int(bits[1]))
+    else:
+        return yin
+
+def std_init(wb, wurl, sa_rcol, sa_ccol, au_sheet, au_rcol, au_ccol):
     sa4_sheet = wb["SA4"]
-    society_sheet = wb["Society"]
+    aus_sheet = wb[au_sheet]
     data = {}
-    data["ref_year"] = sa4_sheet["C2"].value
-    data["curr_year"] = sa4_sheet["D2"].value
-    data["ranker_ry"] = PercentRanker([sa4_sheet["C%d" % row].value for row in range(4, sa4_sheet.max_row+1)])
-    data["ranker_cy"] = PercentRanker([sa4_sheet["D%d" % row].value for row in range(4, sa4_sheet.max_row+1)])
-    ozrow = find_australia_row(society_sheet)
-    data["aus_ry"] = society_sheet["C%d" % ozrow].value
-    data["aus_cy"] = society_sheet["D%d" % ozrow].value
-    data["gmain"] = get_graph("life_expectancy", "life_expectancy_param", "life_expectancy_change")
-    data["grank"] = get_graph("life_expectancy", "life_expectancy_param", "life_expectancy_ranking")
+    data["ref_year"] = format_year(sa4_sheet["%s2" % sa_rcol].value)
+    data["curr_year"] = format_year(sa4_sheet["%s2" % sa_ccol].value)
+    data["ranker_ry"] = PercentRanker([sa4_sheet["%s%d" % (sa_rcol, row)].value for row in range(4, sa4_sheet.max_row+1)])
+    data["ranker_cy"] = PercentRanker([sa4_sheet["%s%d" % (sa_ccol, row)].value for row in range(4, sa4_sheet.max_row+1)])
+    ozrow = find_australia_row(aus_sheet)
+    data["aus_ry"] = aus_sheet["%s%d" % (au_rcol, ozrow)].value
+    data["aus_cy"] = aus_sheet["%s%d" % (au_ccol, ozrow)].value
+    data["gmain"] = get_graph(wurl, wurl + "_param", wurl + "_change")
+    data["grank"] = get_graph(wurl, wurl + "_param", wurl + "_ranking")
     return data
 
-def load_life_expectancy(ws, row, state_row, pval, data):
-    lifexp_ry = ws["C%d" % row].value
-    lifexp_cy = ws["D%d" % row].value
-    set_statistic_data("life_expectancy", "life_expectancy_param", "life_expectancy_region", lifexp_cy, 
+def std_load(ws, row, state_row, pval, data, wurl, rcol, ccol, st_rcol, st_ccol):
+    ry = ws["%s%d" % (rcol, row)].value
+    cy = ws["%s%d" % (ccol, row)].value
+    if ry == "#":
+        return
+    set_statistic_data(wurl, wurl + "_param", wurl + "_region", cy, 
                                     pval=pval,
-                                    trend=cmp(lifexp_cy, lifexp_ry))
-    set_statistic_data("life_expectancy", "life_expectancy_param", "life_expectancy_region_old", lifexp_ry, 
+                                    trend=cmp(cy, ry))
+    set_statistic_data(wurl, wurl + "_param", wurl + "_region_old", ry, 
                                     pval=pval)
-    set_statistic_data("life_expectancy", "life_expectancy_param", "life_expectancy_aus", data["aus_cy"], 
+    set_statistic_data(wurl, wurl + "_param", wurl + "_aus", data["aus_cy"], 
                                     pval=pval)
     clear_graph_data(data["gmain"], pval=pval)
-    add_graph_data(data["gmain"], "reference", pval=pval, cluster="region", value=lifexp_ry)
-    add_graph_data(data["gmain"], "reference", pval=pval, cluster="state", value=ws["X%d" % state_row].value)
+    add_graph_data(data["gmain"], "reference", pval=pval, cluster="region", value=ry)
+    add_graph_data(data["gmain"], "reference", pval=pval, cluster="state", value=ws["%s%d" % (st_rcol, state_row)].value)
     add_graph_data(data["gmain"], "reference", pval=pval, cluster="australia", value=data["aus_ry"])
-    add_graph_data(data["gmain"], "current", pval=pval, cluster="region", value=lifexp_cy)
-    add_graph_data(data["gmain"], "current", pval=pval, cluster="state", value=ws["Y%d" % state_row].value)
+    add_graph_data(data["gmain"], "current", pval=pval, cluster="region", value=cy)
+    add_graph_data(data["gmain"], "current", pval=pval, cluster="state", value=ws["%s%d" % (st_ccol, state_row)].value)
     add_graph_data(data["gmain"], "current", pval=pval, cluster="australia", value=data["aus_cy"])
     clear_graph_data(data["grank"], pval=pval)
-    add_graph_data(data["grank"], "ranking", pval=pval, horiz_value=data["ref_year"], 
-                        value=data["ranker_ry"].pct_rank(lifexp_ry))
-    add_graph_data(data["grank"], "ranking", pval=pval, horiz_value=data["curr_year"], 
-                        value=data["ranker_cy"].pct_rank(lifexp_cy))
-    set_actual_frequency_display_text("life_expectancy", "life_expectancy_param", 
-                        "%d-%d" % (data["ref_year"], data["curr_year"]), 
+    add_graph_data(data["grank"], "ranking", pval=pval, horiz_value=data["ref_year"].split("/")[0], 
+                        value=data["ranker_ry"].pct_rank(ry))
+    add_graph_data(data["grank"], "ranking", pval=pval, horiz_value=data["curr_year"].split("/")[0], 
+                        value=data["ranker_cy"].pct_rank(cy))
+    set_actual_frequency_display_text(wurl, wurl + "_param", 
+                        "%s-%s" % (data["ref_year"], data["curr_year"]), 
                         pval=pval)
+    return
+
+
+def init_life_expectancy(wb):
+    return std_init(wb, "life_expectancy", "C", "D", "Society", "C", "D")
+
+def load_life_expectancy(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "life_expectancy", "C", "D", "X", "Y")
+    return
+
+def init_obesity(wb):
+    return std_init(wb, "life_expectancy", "G", "H", "Society", "G", "H")
+
+def load_obesity(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "obesity", "G", "H", "Z", "AA")
+    return
+
+def init_homelessness(wb):
+    return std_init(wb, "homelessness", "K", "L", "Society", "K", "L")
+
+def load_homelessness(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "homelessness", "K", "L", "AB", "AC")
+    return
+
+def init_home_ownership(wb):
+    return std_init(wb, "home_ownership", "O", "P", "Society", "O", "P")
+
+def load_home_ownership(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "home_ownership", "O", "P", "AD", "AE")
     return
 
 def init_pop_age(wb):
@@ -420,6 +461,9 @@ def load_pop_age(ws, row, state_row, pval, data):
 
 widget_loaders = [
         { "label": "life_expectancy", "init": init_life_expectancy, "load": load_life_expectancy},
+        { "label": "obesity", "init": init_obesity, "load": load_obesity},
+        { "label": "homelessness", "init": init_homelessness, "load": load_homelessness},
+        { "label": "home_ownership", "init": init_home_ownership, "load": load_home_ownership},
         { "label": "pop_age", "init": init_pop_age, "load": load_pop_age},
 ]
 

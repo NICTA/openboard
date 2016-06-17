@@ -1,7 +1,7 @@
 from widget_def.models import WidgetView, ViewProperty, ViewType, WidgetDefinition, Parametisation, ViewWidgetDeclaration
 
 sa4s = [
-    (101,"Capital Region", "captial_region", "NSW"),
+    (101,"Capital Region", "capital_region", "NSW"),
     (102,"Central Coast", "central_coast", "NSW"),
     (103,"Central West", "central_west", "NSW"),
     (104,"Coffs Harbour - Grafton", "coffs_harbour", "NSW"),
@@ -89,6 +89,10 @@ sa4s = [
     (702,"Northern Territory - Outback", "outback_nt", "NT"),
     (801,"Australian Capital Territory", "act", "ACT"),
 ]
+
+decl_exceptions = {
+        "obesity": [105, 315, 406, 508, 702],
+}
         
 parent = WidgetView.objects.get(label="australia")
 vt = ViewType.objects.get(name="SA4 View")
@@ -120,10 +124,16 @@ for sa4 in sa4s:
     if props["sa4_code"] != sa4_code or props["sa4_name"] != sa4_name or props["state"] != sa4_state:
         print "SA4 code %s property mismatch: %s" % (sa4_code, repr(props))
     for wd in WidgetDefinition.objects.filter(parametisation=p):
+        exclude = sa4_code in decl_exceptions.get(wd.url(), [])
         try:
-            decl = ViewWidgetDeclaration(definition=wd, view=wv)
-        except ViewWidgetDeclation.DoesNotExist:
-            decl = ViewWidgetDeclaration(definition=wd, view=wv, sort_order=wd.sort_order)
-            decl.save()
+            decl = ViewWidgetDeclaration.objects.get(definition=wd, view=wv)
+            if exclude:
+                print "Deleting excluded view %s from %s" % (wv.label, wd.label)
+                decl.delete()
+        except ViewWidgetDeclaration.DoesNotExist:
+            if not exclude:
+                print "Adding view %s to %s" % (wv.label, wd.label)
+                decl = ViewWidgetDeclaration(definition=wd, view=wv, sort_order=wd.sort_order)
+                decl.save()
 
 p.update()
