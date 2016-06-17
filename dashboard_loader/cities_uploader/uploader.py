@@ -14,6 +14,7 @@
 
 import csv
 import decimal
+import re
 from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from widget_def.models import Parametisation, ParametisationValue
@@ -322,13 +323,14 @@ def find_australia_row(sheet):
 
 def format_year(yin):
     if isinstance(yin, int):
-        return unicode(yin)
-    elif "-" in yin:
+        yout = unicode(yin)
+    elif re.search(r"[^0-9]+", yin):
         # Financial Year for cleaning
-        bits = yin.split("-")
-        return "%d/%02d" % (int(bits[0]), int(bits[1]))
+        bits = re.split(r"[^0-9]+", yin, maxsplit=1)
+        yout = "%d/%02d" % (int(bits[0]), int(bits[1]))
     else:
-        return yin
+        yout = yin
+    return yout
 
 def std_init(wb, wurl, sa_rcol, sa_ccol, au_sheet, au_rcol, au_ccol):
     sa4_sheet = wb["SA4"]
@@ -404,6 +406,48 @@ def load_home_ownership(ws, row, state_row, pval, data):
     std_load(ws, row, state_row, pval, data, "home_ownership", "O", "P", "AD", "AE")
     return
 
+def init_higher_edu(wb):
+    return std_init(wb, "higher_edu", "S", "T", "Society", "S", "T")
+
+def load_higher_edu(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "higher_edu", "S", "T", "AF", "AG")
+    return
+
+def init_labour_force(wb):
+    return std_init(wb, "labour_force", "AH", "AI", "Economy", "C", "D")
+
+def load_labour_force(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "labour_force", "AH", "AI", "BB", "BC")
+    return
+
+def init_earn_learn(wb):
+    return std_init(wb, "earn_learn", "AL", "AM", "Economy", "G", "H")
+
+def load_earn_learn(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "earn_learn", "AL", "AM", "BD", "BE")
+    return
+
+def init_household_income(wb):
+    return std_init(wb, "household_income", "AP", "AQ", "Economy", "K", "L")
+
+def load_household_income(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "household_income", "AP", "AQ", "BF", "BG")
+    return
+
+def init_income_spread(wb):
+    return std_init(wb, "income_spread", "AT", "AU", "Economy", "O", "P")
+
+def load_income_spread(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "income_spread", "AT", "AU", "BH", "BI")
+    return
+
+def init_new_business(wb):
+    return std_init(wb, "new_business", "AX", "AY", "Economy", "S", "T")
+
+def load_new_business(ws, row, state_row, pval, data):
+    std_load(ws, row, state_row, pval, data, "new_business", "AX", "AY", "BJ", "BK")
+    return
+
 def init_pop_age(wb):
     sa4_sheet = wb["SA4"]
     popage_sheet = wb["Pop by age"]
@@ -465,6 +509,12 @@ widget_loaders = [
         { "label": "obesity", "init": init_obesity, "load": load_obesity},
         { "label": "homelessness", "init": init_homelessness, "load": load_homelessness},
         { "label": "home_ownership", "init": init_home_ownership, "load": load_home_ownership},
+        { "label": "higher_edu", "init": init_higher_edu, "load": load_higher_edu},
+        { "label": "labour_force", "init": init_labour_force, "load": load_labour_force},
+        { "label": "earn_learn", "init": init_earn_learn, "load": load_earn_learn},
+        { "label": "household_income", "init": init_household_income, "load": load_household_income},
+        { "label": "income_spread", "init": init_income_spread, "load": load_income_spread},
+        { "label": "new_business", "init": init_new_business, "load": load_new_business},
         { "label": "pop_age", "init": init_pop_age, "load": load_pop_age},
 ]
 

@@ -1,0 +1,238 @@
+{
+    "category": "Economy Progress", 
+    "edit_all_groups": [], 
+    "source_url_text": "Dept of Infrastructure", 
+    "subtitle": "", 
+    "subcategory": "Income", 
+    "groups": [], 
+    "url": "household_income", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Real Median Weekly Income", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "household_income_region", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": true, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "$", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "From", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "household_income_region_old", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "$", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "All Australia", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "household_income_aus", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "$", 
+                            "sort_order": 300
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "household_income_main", 
+                    "tile_type": 1, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 200, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "household_income_change", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "graph_type": 2, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "hyperlink": "", 
+                                "url": "reference", 
+                                "colour": "pale", 
+                                "dynamic_label": true, 
+                                "label": "Reference Year", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100
+                            }, 
+                            {
+                                "hyperlink": "", 
+                                "url": "current", 
+                                "colour": "dark", 
+                                "dynamic_label": true, 
+                                "label": "Latest Year", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200
+                            }
+                        ], 
+                        "numeric_axis_label": "$", 
+                        "clusters": [
+                            {
+                                "url": "region", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "dynamic_label": false, 
+                                "label": "{{ sa4_name }}"
+                            }, 
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "dynamic_label": false, 
+                                "label": "Australia"
+                            }, 
+                            {
+                                "url": "state", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "dynamic_label": false, 
+                                "label": "{{ state }}"
+                            }
+                        ], 
+                        "heading": "Change in Weekly Household Income"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "household_income_ranking", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 1, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "Year", 
+                        "use_secondary_numeric_axis": false, 
+                        "graph_type": 1, 
+                        "horiz_axis_type": 1, 
+                        "datasets": [
+                            {
+                                "hyperlink": "", 
+                                "url": "ranking", 
+                                "colour": "dark", 
+                                "dynamic_label": false, 
+                                "label": "Ranking", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100
+                            }
+                        ], 
+                        "numeric_axis_label": "Percentile", 
+                        "clusters": [], 
+                        "heading": "Region Ranking"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 135, 
+                    "view": "capital_region"
+                }, 
+                {
+                    "sort_order": 135, 
+                    "view": "central_coast"
+                }
+            ], 
+            "default_frequency_text": "2001-2011", 
+            "raw_data_sets": [], 
+            "sort_order": 135, 
+            "expansion_hint": "Show Graphs", 
+            "about": "<p>Real median weekly household income.</p>", 
+            "refresh_rate": 3000, 
+            "label": "household_income_param", 
+            "parametisation": "param_sa4", 
+            "deexpansion_hint": "Hide Graphs"
+        }
+    ], 
+    "source_url": "http://www.infrastructure.gov.au", 
+    "name": "Household Income"
+}
+

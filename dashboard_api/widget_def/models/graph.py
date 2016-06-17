@@ -570,7 +570,7 @@ class GraphDataset(models.Model):
         d.colour = data["colour"]
         d.hyperlink = data["hyperlink"]
         d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
-        c.dynamic_label = data.get("dynamic_label", False)
+        d.dynamic_label = data.get("dynamic_label", False)
         d.save()
     def __getstate__(self, view=None):
         state = {
