@@ -14,14 +14,15 @@ License
 Dependencies
 ============
 
-* Django 1.8  (http://www.djangoproject.com)
+* Python 2.7.x
+
+  I would like to get openboard working with Python 3, but this is not priority at this stage.
+
+* Django 1.9  (http://www.djangoproject.com)
 
   An open source MVC based web application framework written in Python.
 
-  I have been using 1.8.x, which is the most recent major release,
-  but I believe the code should work ok under 1.7.x.
-
-  Note that Django 1.8 requires Python 2.7
+  I have been using 1.9.6, which is the most recent major release.
 
 * django-cors-headers  (https://github.com/ottoyiu/django-cors-headers)
 
@@ -87,6 +88,7 @@ as well as the project settings, urls.py, and other shared resources
   widget families.
 
 * export_categories
+* export_parametisation
 * export_view
 * export_colourmap
 * export_geowindow
