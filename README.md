@@ -16,7 +16,7 @@ Dependencies
 
 * Python 2.7.x
 
-  I would like to get openboard working with Python 3, but this is not priority at this stage.
+  I would like to get openboard working with Python 3, but this is not a priority at this stage.
 
 * Django 1.9  (http://www.djangoproject.com)
 
