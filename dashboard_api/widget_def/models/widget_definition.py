@@ -159,7 +159,6 @@ class WidgetDefinition(models.Model):
         for tile in w.tiledefinition_set.all():
             if tile.url not in tile_urls:
                 tile.delete()
-        WidgetDeclaration = apps.get_app_config("widget_def").get_model("WidgetDeclaration")
         if "declarations" in data:
             print "WARNING: Old-style widget declarations ignored."
         ViewWidgetDeclaration = apps.get_app_config("widget_def").get_model("ViewWidgetDeclaration")

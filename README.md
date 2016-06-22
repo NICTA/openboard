@@ -33,6 +33,10 @@ Dependencies
 
   For Database access and Geospatial support.
 
+* psycopg2 (http://initd.org/psycopg/)
+
+  Python library for accessing postgresql databases.
+
 * pytz  (https://pypi.python.org/pypi/pytz/)
 
   Python Timezone definitions. (open source)
