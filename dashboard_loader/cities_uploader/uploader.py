@@ -322,7 +322,7 @@ def find_australia_row(sheet):
     raise LoaderException("No Australia row in sheet %s" % sheet.title)
 
 def format_year(yin):
-    if isinstance(yin, int):
+    if isinstance(yin, int) or isinstance(yin, long):
         yout = unicode(yin)
     elif re.search(r"[^0-9]+", yin):
         # Financial Year for cleaning
