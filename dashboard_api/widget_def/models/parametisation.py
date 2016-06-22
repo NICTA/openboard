@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from django.db import models
-from widget_def.models.reference import WidgetView, ViewProperty
+from widget_def.models.views import WidgetView, ViewProperty
 
 # Create your models here.
 

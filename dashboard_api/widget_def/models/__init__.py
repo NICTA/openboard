@@ -12,16 +12,17 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from reference import ViewType, WidgetView, ViewProperty, Theme, Location, Frequency, Category, Subcategory
+from reference import Category, Subcategory
+from views import ViewType, WidgetView, ViewProperty
 from widget_family import WidgetFamily
 from parametisation import Parametisation, ParametisationKey, ParametisationValue, ParameterValue, ViewDoesNotHaveAllKeys
 from widget_definition import WidgetDefinition
-from widget_decl import WidgetDeclaration, ViewWidgetDeclaration
+from widget_decl import ViewWidgetDeclaration
 from tile_def import TileDefinition
 from eyecandy import IconLibrary, IconCode, TrafficLightScale, TrafficLightScaleCode, TrafficLightAutoStrategy, TrafficLightAutoRule, TrafficLightAutomation
 from statistic import Statistic, TrafficLightAutomation
 from graph import PointColourMap, PointColourRange, GraphDisplayOptions, GraphDefinition, GraphCluster, GraphDataset
 from grid import GridDefinition, GridColumn, GridRow, GridStatistic 
 from rawdata import RawDataSet, RawDataSetColumn
-from geo import GeoWindow, GeoColourScale, GeoColourPoint, GeoDataset, GeoDatasetDeclaration,GeoPropertyDefinition
+from geo import GeoWindow, GeoColourScale, GeoColourPoint, GeoDataset, ViewGeoDatasetDeclaration,GeoPropertyDefinition
 

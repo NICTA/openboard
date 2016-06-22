@@ -29,31 +29,11 @@ def api_get_top_level_views(user):
         views = WidgetView.objects.filter(parent__isnull=True,requires_authentication=False)
     return [ v.desc() for v in views ]
 
-def api_get_themes(user):
-    if user.is_authenticated():
-        # TODO Theme based permissions
-        themes = Theme.objects.all()
-    else:
-        themes = Theme.objects.filter(requires_authentication=False)
-    return [ t.__getstate__() for t in themes ]
-
-def api_get_locations():
-    return [ l.__getstate__() for l in Location.objects.all() ]
-
-def api_get_frequencies():
-    return [ f.__getstate__() for f in Frequency.objects.filter(display_mode=True) ]
-
 def api_get_icon_libraries():
     return { l.name : l.__getstate__() for l in IconLibrary.objects.all() }
 
 def api_get_view(view):
     return view.__getstate__()
-
-def api_get_widgets(theme, location, frequency):
-    widgets = WidgetDeclaration.objects.filter(theme=theme, 
-                    location=location, 
-                    frequency=frequency)
-    return [ w.__getstate__() for w in widgets ]
 
 def api_get_map_layers(view, hierarchical=False):
     menu = []
@@ -88,7 +68,7 @@ def api_get_map_layers(view, hierarchical=False):
         for decl in decls:
             menu.append(decl.__getstate__())
     return {
-        "window": location.geo_window.__getstate__(),
+        "window": view.geo_window.__getstate__(),
         "menu": menu,
     }
 
@@ -100,7 +80,7 @@ def api_get_terria_init(view, shown=[]):
                     "isOpen": "true",
                     "items": []
                    }],
-        "homeCamera": location.geo_window.__getstate__(),
+        "homeCamera": view.geo_window.__getstate__(),
         "baseMapName": settings.TERRIA_BASE_MAP_NAME,
         "corsDomains": settings.TERRIA_CORS_DOMAINS,
     }

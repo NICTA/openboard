@@ -16,7 +16,7 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from django.template import Engine, Context
 from widget_def.models.parametisation import Parametisation, ParametisationValue, ViewDoesNotHaveAllKeys
-from widget_def.models.reference import WidgetView, ViewProperty
+from widget_def.models.views import WidgetView, ViewProperty
 
 @receiver(post_save, sender=WidgetView)
 @receiver(post_delete, sender=WidgetView)

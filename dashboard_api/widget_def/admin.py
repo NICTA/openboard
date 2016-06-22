@@ -53,24 +53,6 @@ class ParametisationAdmin(admin.ModelAdmin):
 
 admin.site.register(Parametisation, ParametisationAdmin)
 
-# @admin.register(Theme)
-class ThemeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'requires_authentication', 'sort_order')
-
-admin.site.register(Theme, ThemeAdmin)
-
-# @admin.register(Location)
-class LocationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'sort_order')
-
-admin.site.register(Location, LocationAdmin)
-
-# @admin.register(Frequency)
-class FrequencyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'actual_display', 'url', 'display_mode', 'sort_order')
-
-admin.site.register(Frequency, FrequencyAdmin)
-
 class SubcategoryAdminInline(admin.TabularInline):
     model = Subcategory
 
@@ -153,17 +135,13 @@ class TileInline(admin.TabularInline):
     model = TileDefinition
     extra = 2
 
-class DeclarationInline(admin.TabularInline):
-    model = WidgetDeclaration
-    extra = 2
-
 class ViewDeclarationInline(admin.TabularInline):
     model = ViewWidgetDeclaration
     extra = 2
 
 # @admin.register(WidgetDefinition)
 class WidgetAdmin(admin.ModelAdmin):
-    inlines = [DeclarationInline, ViewDeclarationInline, TileInline]
+    inlines = [ViewDeclarationInline, TileInline]
     list_display = ('family', 'subtitle', 'label', 'subcategory', 'sort_order')
     actions = ['validate']
     readonly_fields=('data_last_updated',)
@@ -311,13 +289,9 @@ class GeoPropertyInline(admin.StackedInline):
     model=GeoPropertyDefinition
     extra=2
 
-class GeoDatasetDeclarationInline(admin.StackedInline):
-    model=GeoDatasetDeclaration
-    extra=2
-
 # @admin.register(GeoDataset)
 class GeoDatasetAdmin(admin.ModelAdmin):
-    inlines = [GeoPropertyInline, GeoDatasetDeclarationInline]
+    inlines = [GeoPropertyInline]
     list_display = ['url', 'label', 'geom_type']
     actions = ["validate"]
     def validate(self, request, queryset):

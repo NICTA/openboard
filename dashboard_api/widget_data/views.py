@@ -18,7 +18,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.conf import settings
 
 from widget_def.models import TileDefinition
-from widget_def.view_utils import json_list, get_location_from_request, get_frequency_from_request, get_theme_from_request, get_view_from_request
+from widget_def.view_utils import json_list, get_view_from_request
 from widget_data.api import *
 
 # views.

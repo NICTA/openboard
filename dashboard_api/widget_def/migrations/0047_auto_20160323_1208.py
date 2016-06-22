@@ -23,18 +23,18 @@ from dashboard_api.migration_utils import *
 
 def migrate_declaration(gd, apps):
     ViewGeoDatasetDeclaration=apps.get_model("widget_def", "ViewGeoDatasetDeclaration")
-    view = migrate_view(apps, wd.theme, wd.frequency, wd.location)
+    view = migrate_view(apps, gd.theme, gd.frequency, gd.location)
     try:
         vwd=ViewGeoDatasetDeclaration.objects.get(view=view, definition=wd.definition)
     except ViewGeoDatasetDeclaration.DoesNotExist:
-        vwd=ViewGeodatasetDeclaration(definition=wd.definition,
+        vwd=ViewGeodatasetDeclaration(definition=gd.definition,
                                 view=view,
                                 sort_order=get_sort_order(ViewGeoDatasetDeclaration, view=view))
         vwd.save()
 
 def migrate_geodeclarations(apps, schema_editor):
-    ViewGeoDatasetDeclaration=apps.get_model("widget_def", "ViewGeoDatasetDeclaration")
-    for gd in ViewGeoDatasetDeclaration.objects.all():
+    GeoDatasetDeclaration=apps.get_model("widget_def", "GeoDatasetDeclaration")
+    for gd in GeoDatasetDeclaration.objects.all():
         migrate_geodeclaration(gd, apps)
 
 class Migration(migrations.Migration):

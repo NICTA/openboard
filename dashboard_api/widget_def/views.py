@@ -17,10 +17,10 @@ from django.http.response import HttpResponseForbidden, HttpResponseNotFound
 from django.conf import settings
 
 
-from widget_def.models import Theme, Location, Frequency, WidgetView
+from widget_def.models import WidgetView
 from widget_def.api import *
 from widget_def.view_utils import json_list
-from widget_def.view_utils import get_theme_from_request, get_location_from_request, get_frequency_from_request, get_view_from_label, get_view_from_request
+from widget_def.view_utils import get_view_from_label, get_view_from_request
 
 # Views
 
@@ -28,21 +28,6 @@ def get_top_level_views(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     return json_list(request, api_get_top_level_views(request.user))
-
-def get_themes(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    return json_list(request, api_get_themes(request.user))
-
-def get_locations(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    return json_list(request, api_get_locations())
-
-def get_frequencies(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    return json_list(request, api_get_frequencies())
 
 def get_icon_libraries(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():

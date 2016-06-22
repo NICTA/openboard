@@ -23,7 +23,7 @@ import django.contrib.gis.gdal.geometries as geoms
 
 from dashboard_api.validators import validate_html_colour
 from widget_def.view_utils import csv_escape, max_with_nulls
-from widget_def.models import TileDefinition, Location, Theme, Frequency, WidgetView
+from widget_def.models import TileDefinition, WidgetView
 from widget_data.models import GeoFeature, GeoProperty
 from widget_def.parametisation import parametise_label
 
@@ -444,6 +444,13 @@ class GeoDataset(models.Model):
         for prop in ds.geopropertydefinition_set.all():
             if prop.url not in props:
                 prop.delete()
+        decls = []
+        for d in data.get("view_declarations", []):
+            decl = ViewGeoDatasetDeclaration.__import__(ds, d)
+            decls.append(d)
+        for decl in ds.viewgeodatasetdeclaration_set.all():
+            if decl.view.label not in decls:
+                decl.delete()
         return ds
     def csv_header_row(self, use_urls=False):
         if self.geom_type == self.PREDEFINED:
@@ -470,32 +477,6 @@ class GeoDataset(models.Model):
     class Meta:
         unique_together=(("subcategory", "sort_order"), ("subcategory", "label"))
         ordering = ("subcategory", "sort_order")
-
-# Old style Geodataset declaration
-class GeoDatasetDeclaration(models.Model):
-    dataset = models.ForeignKey(GeoDataset)
-    theme = models.ForeignKey(Theme)
-    location = models.ForeignKey(Location)
-    frequency = models.ForeignKey(Frequency)
-    def __getstate__(self):
-        return self.dataset.__getstate__()
-    def export(self):
-        return {
-            "theme": self.theme.url,
-            "location": self.location.url,
-            "frequency": self.frequency.url,
-        }
-    @classmethod
-    def import_data(cls, dataset, data):
-        decl = cls(dataset=dataset)
-        decl.theme = Theme.objects.get(url=data["theme"])
-        decl.location = Location.objects.get(url=data["location"])
-        decl.frequency = Frequency.objects.get(url=data["frequency"])
-        decl.save()
-        return decl
-    class Meta:
-        unique_together=('dataset', 'theme', 'location', 'frequency')
-        ordering = ('dataset', 'theme', 'location', 'frequency')
 
 class ViewGeoDatasetDeclaration(models.Model):
     dataset = models.ForeignKey(GeoDataset)

@@ -44,52 +44,6 @@ def jsonize(data, html=False):
     else:
         return json.dumps(data, separators=(',',':'), cls=DecimalAwareEncoder)
 
-def get_theme_from_request(request, use_default=False):
-    return get_theme_from_url(request, request.GET.get("theme", ""), use_default)
-
-def get_theme_from_url(request, url, use_default=False):
-    try:
-        theme = Theme.objects.get(url=url)
-    except Theme.DoesNotExist:
-        if use_default and not url:
-            theme = Theme.objects.all()[0]
-        else:
-            raise Http404("Theme %s does not exist" % url)
-    if request.user.is_authenticated():
-        # Theme based authentication!
-        return theme
-    else:
-        if theme.requires_authentication:
-            return None
-        else:
-            return theme
-
-def get_location_from_request(request, use_default=False):
-    return get_location_from_url(request.GET.get("location", ""))
-
-def get_location_from_url(url, use_default=False):
-    try:
-        location = Location.objects.get(url=url)
-    except Location.DoesNotExist:
-        if use_default and not url:
-            location = Location.objects.all()[0]
-        else:
-            raise Http404("Location %s does not exist" % url)
-    return location
-
-def get_frequency_from_request(request, use_default=False):
-    return get_frequency_from_url(request.GET.get("frequency", ""))
-
-def get_frequency_from_url(url, use_default=False):
-    try:
-        frequency = Frequency.objects.get(url=url)
-    except Frequency.DoesNotExist:
-        if use_default and not url:
-            frequency = Frequency.objects.all()[0]
-        else:
-            raise Http404("Frequency %s does not exist" % url)
-    return frequency
-
 def get_view_from_request(request):
     return get_view_from_label(request, request.GET.get("view", ""))
 

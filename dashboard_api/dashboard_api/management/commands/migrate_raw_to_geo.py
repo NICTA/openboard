@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015, 2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ import sys
 from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
-from widget_def.models import GeoDataset, GeoPropertyDefinition, Location, Frequency, Theme
+from widget_def.models import GeoDataset, GeoPropertyDefinition, ViewGeoDatasetDeclaration
 
 class Command(BaseCommand):
     args="<widget.json> <rds.url>"
@@ -94,13 +94,7 @@ class Command(BaseCommand):
             output["label"] = label
         else:
             output["label"] = w["name"]
-        output["declarations"] = [
-                    {
-                        "theme": Theme.objects.all()[0].url,
-                        "location": Location.objects.all()[0].url,
-                        "frequency": Frequency.objects.all()[0].url,
-                    }
-        ]
+        output["view_declarations"] = []
         output["properties"] = []
         first_column = True
         for column in rds["columns"]:

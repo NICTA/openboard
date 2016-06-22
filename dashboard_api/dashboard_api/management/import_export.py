@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation
-from widget_def.models.reference import WidgetViews, AllCategories
+from widget_def.models.reference import AllCategories
 from widget_data.api import *
 
 class ImportExportException(Exception):
@@ -145,9 +145,6 @@ def export_parametisation(p):
         raise ImportExportException('Parametisation "%s" has no keys' % unicode(p))
     return p.export()
 
-def export_views():
-    return WidgetViews().export()
-            
 def export_categories():
     return Category().export_all()
             
@@ -170,8 +167,6 @@ def import_class(data):
         return TrafficLightScale
     elif data.get("map"):
         return PointColourMap
-    elif data.get("themes"):
-        return WidgetViews
     elif data.get("categories"):
         return AllCategories
     elif data.get("north"):
@@ -184,7 +179,7 @@ def import_class(data):
 def import_data(data, merge=False):
     cls = import_class(data)
     try:
-        if cls in (AllCategories, WidgetViews):
+        if cls == AllCategories:
             return cls.import_data(data, merge)
         else:
             return cls.import_data(data)

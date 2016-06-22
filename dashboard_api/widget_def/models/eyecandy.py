@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015, 2016 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -293,8 +293,7 @@ class TrafficLightAutomation(models.Model):
         if self.target_statistic:
             data["target_statistic"] = {
                 "widget": self.target_statistic.tile.widget.url(),
-                "location": self.target_statistic.tile.widget.actual_location.url,
-                "frequency": self.target_statistic.tile.widget.actual_frequency.url,
+                "label": self.target_statistic.tile.widget.label,
                 "url": self.target_statistic.url
             }
         else:
@@ -319,8 +318,7 @@ class TrafficLightAutomation(models.Model):
             Statistic = apps.get_app_config("widget_def").get_model("Statistic")
             try:
                 tla.target_statistic = Statistic.objects.get(tile__widget__family__url=data["target_statistic"]["widget"],
-                                tile__widget__actual_location__url=data["target_statistic"]["location"],
-                                tile__widget__actual_frequency__url=data["target_statistic"]["frequency"],
+                                tile__widget__label=data["target_statistic"]["label"],
                                 url=data["target_statistic"]["url"])
             except Statistic.DoesNotExist:
                 tla.target_statistic = None
