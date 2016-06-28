@@ -76,6 +76,7 @@
             ],
             "refresh_rate": 15, 
             "expansion_hint": "Show more", 
+            "default_frequency_text": "Live",
             "label": "nsw:rt",
             "raw_data_sets": []
         }
