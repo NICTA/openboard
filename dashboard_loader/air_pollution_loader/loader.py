@@ -23,8 +23,6 @@ from django.conf import settings
 
 from dashboard_loader.loader_utils import LoaderException, set_statistic_data, clear_statistic_data, get_statistic, get_traffic_light_code, clear_statistic_list, add_statistic_list_item, call_in_transaction
 
-from widget_def.models import Location
-
 # Refresh every quarter hour
 refresh_rate = 60 * 15
 

@@ -118,6 +118,7 @@
             "refresh_rate": 300, 
             "expansion_hint": "Show more",
             "label": "syd:rt", 
+            "default_frequency_text": "Live",
             "raw_data_sets": []
         }, 
         {
@@ -228,8 +229,7 @@
             ],
             "refresh_rate": 300, 
             "expansion_hint": "Show more", 
-            "actual_frequency_url": "rt", 
-            "actual_location_url": "nsw", 
+            "default_frequency_text": "Live",
             "label": "nsw:rt",
             "raw_data_sets": []
         }
