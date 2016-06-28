@@ -12,6 +12,9 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+import sys
+import traceback
+
 from dashboard_loader.registry import register
 from dashboard_loader.models import Loader, Uploader
 from django.apps import apps
@@ -40,9 +43,13 @@ def register_loaders(verbosity, logger):
             else:
                 if verbosity > 0:
                     print >> logger, "Refresh rate for app %s loader updated from %s to %s" % (app.name, old_rate, refresh_rate)
-        except (ImportError, AttributeError):
-            if verbosity >=2:
+        except (ImportError, AttributeError), e:
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            if verbosity >= 2:
                 print >> logger, "App %s is not a Loader" % app.name
+            if verbosity >= 3:
+                traceback.print_exception(exc_type, exc_value, exc_traceback,
+                              file=sys.stdout)
         try:
             _tmp = __import__(app.name + '.uploader', globals(), locals(),
                             ['upload_file', 'file_format', 'groups'], -1)
