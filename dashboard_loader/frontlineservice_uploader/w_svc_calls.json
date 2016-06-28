@@ -87,6 +87,7 @@
             ],
             "refresh_rate": 300, 
             "expansion_hint": "Show more", 
+            "default_frequency_text": "Daily",
             "label": "syd:day",
             "raw_data_sets": []
         }
