@@ -21,7 +21,7 @@ from django.db import models
 from widget_data.models import StatisticData, StatisticListItem
 from widget_def.models.tile_def import TileDefinition
 from widget_def.models.eyecandy import IconLibrary, TrafficLightScale, TrafficLightAutoStrategy, TrafficLightAutomation
-from widget_def.parametisation import parametise_label
+from widget_def.parametisation import parametise_label, resolve_pval
 
 # Create your models here.
 
@@ -164,11 +164,7 @@ class Statistic(models.Model):
             result["label"] = sd.label
         return result
     def get_data(self, view=None, pval=None):
-        if self.tile.widget.parametisation:
-            if view: 
-                pval = view.parametisationvalue_set.get(param=self.tile.widget.parametisation)
-        else:
-            pval = None
+        pval=resolve_pval(self.tile.widget.parametisation,view=view,pval=pval)
         if self.is_data_list():
             data = StatisticListItem.objects.filter(statistic=self)
             if pval:
@@ -213,7 +209,7 @@ class Statistic(models.Model):
             if self.icon_library:
                 json["icon"]=datum.icon_code.__getstate__()
             if self.trend:
-                json["trend"]=datum.trend
+                json["trend"]=datum.trend 
         return json
     def initial_form_data(self, pval=None):
         if self.is_data_list():
@@ -225,9 +221,8 @@ class Statistic(models.Model):
             else:
                 return {}
     def data_last_updated(self, update=False, view=None, pval=None):
-        if self.tile.widget.parametisation:
-            if view: 
-                pval = view.parametisationvalue_set.get(param=self.tile.widget.parametisation)
+        pval=resolve_pval(self.tile.widget.parametisation,view=view,pval=pval)
+        if pval:
             if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                 return self._lud_cache[pval.id]
             if not self._lud_cache:

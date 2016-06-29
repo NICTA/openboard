@@ -18,6 +18,9 @@ from django.template import Engine, Context
 from widget_def.models.parametisation import Parametisation, ParametisationValue, ViewDoesNotHaveAllKeys
 from widget_def.models.views import WidgetView, ViewProperty
 
+class ParametisationException(Exception):
+    pass
+
 @receiver(post_save, sender=WidgetView)
 @receiver(post_delete, sender=WidgetView)
 @receiver(post_save, sender=ViewProperty)
@@ -50,4 +53,16 @@ def parametise_label(widget_or_parametisation, view, text):
         return template.render(context)
     else:
         return text
+
+def resolve_pval(parametisation, view=None, pval=None):
+    if parametisation:
+        if view:
+            pval = view.parametisationvalue_set.get(param=parametisation)
+        elif not pval:
+            raise ParametisationException("Cannot resolve parametisation")
+        return pval
+    else:
+        return None
+
+
 

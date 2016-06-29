@@ -18,7 +18,7 @@ from django.db import models
 
 from widget_data.models import GraphData, GraphClusterData, GraphDatasetData
 from widget_def.models.tile_def import TileDefinition
-from widget_def.parametisation import parametise_label
+from widget_def.parametisation import parametise_label, resolve_pval
 
 # Create your models here.
 
@@ -99,11 +99,7 @@ class GraphDefinition(models.Model):
                     result["dataset_%s" % d.url] = d.label
             return result
         def get_data(self, view=None, pval=None):
-            if self.widget().parametisation:
-                if view and not pval:
-                    pval =  view.parametisationvalue_set.get(param=self.widget().parametisation)
-            else:
-                pval = None 
+            pval = resolve_pval(self.widget().parametisation, view=view, pval=pval)
             return GraphData.objects.filter(graph=self,param_value=pval).natural_order(self)
         def get_last_datum(self, dataset, cluster=None, pval=None):
             return GraphData.objects.filter(graph=self, 
@@ -111,9 +107,8 @@ class GraphDefinition(models.Model):
                                 param_value=pval,
                                 cluster__url=cluster).natural_order(self).last()
         def data_last_updated(self, update=False, view=None, pval=None):
-            if self.widget().parametisation:
-                if view and not pval: 
-                    pval = view.parametervalue_set.objects.get(param=self.widget().parametisation)
+            pval = resolve_pval(self.widget().parametisation, view=view, pval=pval)
+            if pval:
                 if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                     return self._lud_cache[pval.id]
                 if not self._lud_cache:

@@ -19,7 +19,7 @@ from widget_data.models import WidgetData, StatisticData, StatisticListItem, Gra
 
 from widget_def.models.parametisation import Parametisation
 from widget_def.view_utils import max_with_nulls
-from widget_def.parametisation import parametise_label
+from widget_def.parametisation import parametise_label, resolve_pval
 
 # Create your models here.
 
@@ -78,9 +78,8 @@ class WidgetDefinition(models.Model):
     def source_url(self):
         return self.family.source_url
     def widget_data(self, view=None, pval=None):
-        if self.parametisation:
-            if view:
-                pval = view.parametisationvalue_set.get(param=self.parametisation)
+        pval = resolve_pval(self.parametisation, view=view, pval=pval)
+        if pval:
             try:
                 return WidgetData.objects.get(widget=self, param_value=pval)
             except WidgetData.DoesNotExist:
@@ -184,9 +183,8 @@ class WidgetDefinition(models.Model):
     def __unicode__(self):
         return "%s (%s)" % (unicode(self.family), self.label)
     def data_last_updated(self, update=False, view=None, pval=None):
-        if self.parametisation:
-            if view: 
-                pval = view.parametisationvalue_set.get(param=self.parametisation)
+        pval = resolve_pval(self.parametisation, view=view, pval=pval)
+        if pval:
             if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                 return self._lud_cache[pval.id]
             if not self._lud_cache:

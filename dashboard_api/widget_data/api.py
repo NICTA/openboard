@@ -55,6 +55,7 @@ def api_get_widget_data(widget, view=None, pval=None):
     }
 
 def api_get_graph_data(widget, view=None, pval=None):
+    pval = resolve_pval(widget.parametisation, view=view, pval=pval)
     graph_json = {}
     for graph in GraphDefinition.objects.filter(tile__widget=widget):
         graph_json[graph.tile.url] = { "data": {} }
@@ -70,7 +71,7 @@ def api_get_graph_data(widget, view=None, pval=None):
         numeric2_max = None
         horiz_min = None
         horiz_max = None
-        for gd in graph.get_data(view, pval):
+        for gd in graph.get_data(pval=pval):
             if graph.use_numeric_axes():
                 if graph.use_secondary_numeric_axis and gd.dataset.use_secondary_numeric_axis:
                     (numeric2_min, numeric2_max)=update_maxmin(gd.value, 
