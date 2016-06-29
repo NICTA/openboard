@@ -22,6 +22,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from widget_data.models import GeoProperty
 from widget_def.models import *
 from widget_def.view_utils import update_maxmin, json_list
+from widget_def.parametisation import resolve_pval
 
 def get_declared_widget(widget_url, view):
     try:
