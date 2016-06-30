@@ -40,6 +40,13 @@ def get_declared_geodataset(url, view):
     except ViewGeoDatasetDeclaration.DoesNotExist:
         return None
 
+def get_graph(view, widget_url, tile_url):
+    widget = get_declared_widget(widget_url, view)
+    try:
+        return GraphDefinition.objects.get(tile__widget=widget, tile__url=tile_url)
+    except GraphDefinition.DoesNotExist:
+        return None
+
 def api_get_widget_data(widget, view=None, pval=None):
     stats_json = {}
     for statistic in Statistic.objects.filter(tile__widget=widget):
@@ -55,74 +62,79 @@ def api_get_widget_data(widget, view=None, pval=None):
         "data": stats_json,
     }
 
-def api_get_graph_data(widget, view=None, pval=None):
+def api_get_graph_data(widget, view=None, pval=None, verbose=False):
     pval = resolve_pval(widget.parametisation, view=view, pval=pval)
     graph_json = {}
     for graph in GraphDefinition.objects.filter(tile__widget=widget):
-        graph_json[graph.tile.url] = { "data": {} }
-        if graph.use_clusters():
-            for cluster in graph.graphcluster_set.all():
-                graph_json[graph.tile.url]["data"][cluster.url] = {}
-        else:
-            for dataset in graph.graphdataset_set.all():
-                graph_json[graph.tile.url]["data"][dataset.url] = []
-        numeric_min = None
-        numeric_max = None
-        numeric2_min = None
-        numeric2_max = None
-        horiz_min = None
-        horiz_max = None
-        for gd in graph.get_data(pval=pval):
-            if graph.use_numeric_axes():
-                if graph.use_secondary_numeric_axis and gd.dataset.use_secondary_numeric_axis:
-                    (numeric2_min, numeric2_max)=update_maxmin(gd.value, 
-                                numeric2_min, numeric2_max)
-                else:
-                    (numeric_min, numeric_max)=update_maxmin(gd.value, 
-                                numeric_min, numeric_max)
-            if not graph.use_clusters():
-                (horiz_min, horiz_max) = update_maxmin(gd.horiz_value(),
-                                horiz_min, horiz_max)
-            if graph.use_clusters():
-                graph_json[graph.tile.url]["data"][gd.cluster.url][gd.dataset.url] = gd.value
-            else:
-                graph_json[graph.tile.url]["data"][gd.dataset.url].append([
-                                    gd.horiz_json_value(),
-                                    gd.value
-                                ])
+        graph_json[graph.tile.url] = api_get_single_graph_data(graph, pval=pval, verbose=verbose)
+    return graph_json
+
+def api_get_single_graph_data(graph, view=None, pval=None, verbose=False):
+    pval = resolve_pval(graph.widget().parametisation, view=view, pval=pval)
+    graph_json = { "data": {} }
+    if graph.use_clusters():
+        for cluster in graph.graphcluster_set.all():
+            graph_json["data"][cluster.url] = {}
+    else:
+        for dataset in graph.graphdataset_set.all():
+            graph_json["data"][dataset.url] = []
+    numeric_min = None
+    numeric_max = None
+    numeric2_min = None
+    numeric2_max = None
+    horiz_min = None
+    horiz_max = None
+    for gd in graph.get_data(pval=pval):
         if graph.use_numeric_axes():
-            graph_json[graph.tile.url]["%s_scale" % graph.numeric_axis_name()] = {
-                    "min": numeric_min,
-                    "max": numeric_max
-            }
-            if graph.use_secondary_numeric_axis:
-                graph_json[graph.tile.url]["%s_2_scale" % graph.numeric_axis_name()] = {
-                        "min": numeric2_min,
-                        "max": numeric2_max
-                }
+            if graph.use_secondary_numeric_axis and gd.dataset.use_secondary_numeric_axis:
+                (numeric2_min, numeric2_max)=update_maxmin(gd.value, 
+                            numeric2_min, numeric2_max)
+            else:
+                (numeric_min, numeric_max)=update_maxmin(gd.value, 
+                            numeric_min, numeric_max)
         if not graph.use_clusters():
-            graph_json[graph.tile.url]["horizontal_axis_scale"] = {
-                    "min": graph.jsonise_horiz_value(horiz_min),
-                    "max": graph.jsonise_horiz_value(horiz_max)
+            (horiz_min, horiz_max) = update_maxmin(gd.horiz_value(),
+                            horiz_min, horiz_max)
+        if graph.use_clusters():
+            graph_json["data"][gd.cluster.url][gd.dataset.url] = gd.value
+        else:
+            graph_json["data"][gd.dataset.url].append([
+                                gd.horiz_json_value(),
+                                gd.value
+                            ])
+    if graph.use_numeric_axes():
+        graph_json["%s_scale" % graph.numeric_axis_name()] = {
+                "min": numeric_min,
+                "max": numeric_max
+        }
+        if graph.use_secondary_numeric_axis:
+            graph_json["%s_2_scale" % graph.numeric_axis_name()] = {
+                    "min": numeric2_min,
+                    "max": numeric2_max
             }
-        overrides = {}
-        for cluster in graph.graphcluster_set.filter(dynamic_label=True):
-            try:
-                cd = GraphClusterData.objects.get(cluster=cluster, param_value=pval)
-                overrides[cluster.url] = cd.display_name
-            except GraphClusterData.DoesNotExist:
-                pass
-        if overrides:
-            graph_json[graph.tile.url]["cluster_name_overrides"] = overrides
-        overrides = {}
-        for dataset in graph.graphdataset_set.filter(dynamic_label=True):
-            try:
-                dd = GraphDatasetData.objects.get(dataset=dataset, param_value=pval)
-                overrides[dataset.url] = dd.display_name
-            except GraphDatasetData.DoesNotExist:
-                pass
-        if overrides:
-            graph_json[graph.tile.url]["dataset_name_overrides"] = overrides
+    if not graph.use_clusters():
+        graph_json["horizontal_axis_scale"] = {
+                "min": graph.jsonise_horiz_value(horiz_min),
+                "max": graph.jsonise_horiz_value(horiz_max)
+        }
+    overrides = {}
+    for cluster in graph.graphcluster_set.filter(dynamic_label=True):
+        try:
+            cd = GraphClusterData.objects.get(cluster=cluster, param_value=pval)
+            overrides[cluster.url] = cd.display_name
+        except GraphClusterData.DoesNotExist:
+            pass
+    if overrides:
+        graph_json["cluster_name_overrides"] = overrides
+    overrides = {}
+    for dataset in graph.graphdataset_set.filter(dynamic_label=True):
+        try:
+            dd = GraphDatasetData.objects.get(dataset=dataset, param_value=pval)
+            overrides = dd.display_name
+        except GraphDatasetData.DoesNotExist:
+            pass
+    if overrides:
+        graph_json["dataset_name_overrides"] = overrides
     return graph_json
 
 def api_get_raw_data(widget, request, rds_url):

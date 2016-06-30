@@ -42,10 +42,34 @@ def get_graph_data(request, widget_url):
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
     widget = get_declared_widget(widget_url, view)
-    if widget:
-        return json_list(request, api_get_graph_data(widget, view))
-    else:
+    if not widget:
         return HttpResponseNotFound("This Widget does not exist")
+    form = request.GET.get("form", "terse")
+    if form == "terse":
+        verbose = False
+    elif form == "verbose":
+        verbose = True
+    else:
+        return HttpResponseNotFound("Unknown form requested.")
+    return json_list(request, api_get_graph_data(widget, view=view, verbose=verbose))
+
+def get_single_graph_data(request, widget_url, tile_url):
+    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    view = get_view_from_request(request)
+    if view is None:
+        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    graph = get_graph(view, widget_url, tile_url)
+    if not graph:
+        return HttpResponseNotFound("This Graph does not exist")
+    form = request.GET.get("form", "terse")
+    if form == "terse":
+        verbose = False
+    elif form == "verbose":
+        verbose = True
+    else:
+        return HttpResponseNotFound("Unknown form requested.")
+    return json_list(request, api_get_single_graph_data(graph, view=view, verbose=verbose))
 
 def get_raw_data(request, widget_url, rds_url):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():

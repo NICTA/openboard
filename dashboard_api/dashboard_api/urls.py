@@ -34,8 +34,9 @@ urlpatterns = [
 
     # Main Data API view
     url(r'^widgets/(?P<widget_url>[^/]+)$', wdata_views.get_widget_data, name='get_widget_data'),
-    # API Graph Data view
+    # API Graph Data views
     url(r'^widgets/(?P<widget_url>[^/]+)/graph$', wdata_views.get_graph_data, name='get_graph_data'),
+    url(r'^widgets/(?P<widget_url>[^/]+)/graph/(?P<tile_url>[^/]+)$', wdata_views.get_single_graph_data, name='get_graph_data'),
     # API Raw Data Set view
     url(r'^widgets/(?P<widget_url>[^/]+)/rawdata/(?P<rds_url>[^/]+)$', wdata_views.get_raw_data, name='get_raw_data'),
     # API Widget Map data view
