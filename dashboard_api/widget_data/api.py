@@ -106,14 +106,14 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
                     data_label = graph.numeric_axis_label
                 data_label = parametise_label(graph.widget(), view, data_label)
                 graph_json["data"].append({
-                        parametise_label(graph.widget(), view, graph.cluster_label): parametise_label(graph.widget(), view, gd.cluster.label),
-                        parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, gd.dataset.label),
+                        parametise_label(graph.widget(), view, graph.cluster_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.cluster,pval)),
+                        parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.dataset,pval)),
                         data_label: gd.value
                         })
             else:
                 graph_json["data"].append({
                         parametise_label(graph.widget(), view, graph.horiz_axis_label): gd.horiz_json_value(),
-                        parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, gd.dataset.label),
+                        parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.dataset,pval)),
                         data_label: gd.value
                         })
         else:
@@ -147,6 +147,24 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
         graph_json["dataset_name_overrides"] = overrides
     return graph_json
 
+def get_graph_subset_displayname(dataset_or_cluster, pval):
+    if dataset_or_cluster.dynamic_label:
+        ds = None
+        if isinstance(dataset_or_cluster, GraphCluster):
+            try:
+                ds = GraphClusterData.objects.get(param_value=pval, cluster=dataset_or_cluster)
+            except GraphClusterData.DoesNotExist:
+                pass
+        else:
+            try:
+                ds = GraphDatasetData.objects.get(param_value=pval, dataset=dataset_or_cluster)
+            except GraphDatasetData.DoesNotExist:
+                pass
+        if ds:
+            return ds.display_name
+
+    return dataset_or_cluster.label
+
 def get_graph_overrides(query, clazz, key, pval):
     overrides = {}
     for obj in query.filter(dynamic_label=True):
@@ -156,7 +174,7 @@ def get_graph_overrides(query, clazz, key, pval):
                 "param_value": pval
             }
             dobj = clazz.objects.get(**kwargs)
-            overrides = dobj.display_name
+            overrides[obj.url] = dobj.display_name
         except clazz.DoesNotExist:
             pass
     return overrides
