@@ -2,7 +2,7 @@
     "category": "Society Progress", 
     "edit_all_groups": [], 
     "source_url_text": "Dept of Infrastructure", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "Domesticity", 
     "groups": [], 
     "url": "home_ownership", 
@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 100, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -111,29 +111,7 @@
                         "secondary_numeric_axis_always_show_zero": true, 
                         "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
-                        "graph_type": 2, 
-                        "horiz_axis_type": 0, 
-                        "datasets": [
-                            {
-                                "hyperlink": "", 
-                                "url": "reference", 
-                                "colour": "pale", 
-                                "dynamic_label": true, 
-                                "label": "2001", 
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 100
-                            }, 
-                            {
-                                "hyperlink": "", 
-                                "url": "current", 
-                                "colour": "dark", 
-                                "dynamic_label": true, 
-                                "label": "2011", 
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 200
-                            }
-                        ], 
-                        "numeric_axis_label": "%", 
+                        "dataset_label": "year", 
                         "clusters": [
                             {
                                 "url": "region", 
@@ -157,6 +135,30 @@
                                 "label": "{{ state }}"
                             }
                         ], 
+                        "cluster_label": "region", 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "hyperlink": "", 
+                                "url": "reference", 
+                                "colour": "pale", 
+                                "dynamic_label": true, 
+                                "label": "2001", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100
+                            }, 
+                            {
+                                "hyperlink": "", 
+                                "url": "current", 
+                                "colour": "dark", 
+                                "dynamic_label": true, 
+                                "label": "2011", 
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200
+                            }
+                        ], 
+                        "numeric_axis_label": "Proportion of household that own their own home (%)", 
+                        "graph_type": 2, 
                         "heading": "Change in Home Ownership"
                     }, 
                     "tile_type": 6, 
@@ -181,13 +183,15 @@
                             "point_colour_map": null, 
                             "lines": 1, 
                             "points": 1, 
-                            "rotates": false
+                            "rotates": true
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
                         "horiz_axis_label": "Year", 
                         "use_secondary_numeric_axis": false, 
-                        "graph_type": 1, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
                         "horiz_axis_type": 1, 
                         "datasets": [
                             {
@@ -201,7 +205,7 @@
                             }
                         ], 
                         "numeric_axis_label": "Percentile", 
-                        "clusters": [], 
+                        "graph_type": 1, 
                         "heading": "Region Ranking"
                     }, 
                     "tile_type": 6, 

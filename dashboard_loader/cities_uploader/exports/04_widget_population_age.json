@@ -2,7 +2,7 @@
     "category": "Contextual", 
     "edit_all_groups": [], 
     "source_url_text": "Dept of Infrastructure", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "Population", 
     "groups": [], 
     "url": "population_age", 
@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 100, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -155,7 +155,31 @@
                         "secondary_numeric_axis_always_show_zero": true, 
                         "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
-                        "graph_type": 4, 
+                        "dataset_label": "Age bracket", 
+                        "clusters": [
+                            {
+                                "url": "region", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "dynamic_label": false, 
+                                "label": "{{ sa4_name }}"
+                            }, 
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "dynamic_label": false, 
+                                "label": "Australia"
+                            }, 
+                            {
+                                "url": "state", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "dynamic_label": false, 
+                                "label": "{{ state }}"
+                            }
+                        ], 
+                        "cluster_label": "Region", 
                         "horiz_axis_type": 0, 
                         "datasets": [
                             {
@@ -205,29 +229,7 @@
                             }
                         ], 
                         "numeric_axis_label": null, 
-                        "clusters": [
-                            {
-                                "url": "region", 
-                                "hyperlink": "", 
-                                "sort_order": 100, 
-                                "dynamic_label": false, 
-                                "label": "{{ sa4_name }}"
-                            }, 
-                            {
-                                "url": "australia", 
-                                "hyperlink": "", 
-                                "sort_order": 200, 
-                                "dynamic_label": false, 
-                                "label": "Australia"
-                            }, 
-                            {
-                                "url": "state", 
-                                "hyperlink": "", 
-                                "sort_order": 300, 
-                                "dynamic_label": false, 
-                                "label": "{{ state }}"
-                            }
-                        ], 
+                        "graph_type": 4, 
                         "heading": "Population by age groups"
                     }, 
                     "tile_type": 6, 

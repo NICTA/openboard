@@ -44,10 +44,7 @@ def parametise_label(widget_or_parametisation, view, text):
     else:
          param = None
     if param:
-        try:
-            context = Context(view.properties())
-        except ParametisationValue.DoesNotExist:
-            raise ViewDoesNotHaveAllKeys()
+        context = Context(view.properties())
         eng = Engine.get_default()
         template = eng.from_string(text)
         return template.render(context)

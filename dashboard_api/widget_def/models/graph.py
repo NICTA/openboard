@@ -49,6 +49,8 @@ class GraphDefinition(models.Model):
         use_secondary_numeric_axis = models.BooleanField(default=False)
         secondary_numeric_axis_label = models.CharField(max_length=120, blank=True, null=True)
         secondary_numeric_axis_always_show_zero = models.BooleanField(default=True)
+        cluster_label = models.CharField(max_length=120, default="cluster", help_text="Not used for line graphs")
+        dataset_label = models.CharField(max_length=120, default="dataset")
         horiz_axis_label = models.CharField(max_length=120, blank=True, null=True)
         horiz_axis_type = models.SmallIntegerField(choices=(
                         (0, axis_types[0]),
@@ -146,6 +148,8 @@ class GraphDefinition(models.Model):
                 "secondary_numeric_axis_always_show_zero": self.secondary_numeric_axis_always_show_zero,
                 "horiz_axis_label": self.horiz_axis_label,
                 "horiz_axis_type": self.horiz_axis_type,
+                "cluster_label": self.cluster_label,
+                "dataset_label": self.dataset_label,
                 "display_options": self.graphdisplayoptions.export(),
                 "clusters": [ c.export() for c in self.graphcluster_set.all() ],
                 "datasets": [ d.export() for d in self.graphdataset_set.all() ],
@@ -171,6 +175,8 @@ class GraphDefinition(models.Model):
             g.secondary_numeric_axis_always_show_zero = data["secondary_numeric_axis_always_show_zero"]
             g.horiz_axis_label = data["horiz_axis_label"]
             g.horiz_axis_type = data["horiz_axis_type"]
+            g.cluster_label = data.get("cluster_label", "cluster")
+            g.dataset_label = data.get("dataset_label", "dataset")
             g.save()
             GraphDisplayOptions.import_data(g, data.get("display_options"))
             cluster_urls = []
@@ -196,18 +202,19 @@ class GraphDefinition(models.Model):
             }
             if self.graph_type == self.LINE:
                 state["vertical_axis"] = {
-                    "name": self.numeric_axis_label,
+                    "name": parametise_label(self.tile.widget, view, self.numeric_axis_label),
                     "always_show_zero": self.numeric_axis_always_show_zero,
                 }
                 if self.use_secondary_numeric_axis:
                     state["secondary_vertical_axis"] = {
-                        "name": self.secondary_numeric_axis_label,
+                        "name": parametise_label(self.tile.widget, view, self.secondary_numeric_axis_label),
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
                 state["horizontal_axis"] = {
                     "name": parametise_label(self.tile.widget, view, self.horiz_axis_label),
                     "type": self.axis_types[self.horiz_axis_type]
                 }
+                state["line_label"] = self.dataset_label
                 state["lines"] = [ d.__getstate__(view) for d in self.graphdataset_set.all() ]
             elif self.graph_type in (self.HISTOGRAM, self.BAR):
                 state["numeric_axis"] = {
@@ -219,10 +226,13 @@ class GraphDefinition(models.Model):
                         "name": parametise_label(self.tile.widget, view, self.secondary_numeric_axis_label),
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
+                state["cluster_label"] = self.cluster_label
+                state["bar_label"] = self.dataset_label
                 state["clusters"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
                 state["bars"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
             elif self.graph_type == self.PIE:
-                state["pies"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
+                state["pie_label"] = self.cluster_label
+                state["sector_label"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
                 state["sectors"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
             return state
         def clean(self):

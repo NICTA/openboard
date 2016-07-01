@@ -19,7 +19,7 @@ from widget_data.models import WidgetData, StatisticData, StatisticListItem, Gra
 
 from widget_def.models.parametisation import Parametisation
 from widget_def.view_utils import max_with_nulls
-from widget_def.parametisation import parametise_label, resolve_pval
+from widget_def.parametisation import parametise_label, resolve_pval, ParametisationException
 
 # Create your models here.
 
@@ -78,7 +78,10 @@ class WidgetDefinition(models.Model):
     def source_url(self):
         return self.family.source_url
     def widget_data(self, view=None, pval=None):
-        pval = resolve_pval(self.parametisation, view=view, pval=pval)
+        try:
+            pval = resolve_pval(self.parametisation, view=view, pval=pval)
+        except ParametisationException:
+            pval = None
         if pval:
             try:
                 return WidgetData.objects.get(widget=self, param_value=pval)
