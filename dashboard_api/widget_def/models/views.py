@@ -88,7 +88,7 @@ class WidgetView(models.Model):
             if self.parent:
                 data["siblings"] = [ c.desc() for c in self.parent.children.exclude(id=self.id) ]
             else:
-                data["siblings"] = []
+                data["siblings"] = [ c.desc() for c in WidgetView.objects.filter(parent__isnull=True) ]
         return data
     def export(self):
         data = {

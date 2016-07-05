@@ -64,8 +64,12 @@ def register_loaders(verbosity, logger):
                 if verbosity >= 3:
                     print >> logger, "App %s uploader already registered" % app.name
         except (ImportError, AttributeError):
-            if verbosity >=2:
-                print >> logger, "App %s is not an Uploader" % app.name
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            if verbosity >= 2:
+                print >> logger, "App %s is not an uploader" % app.name
+            if verbosity >= 3:
+                traceback.print_exception(exc_type, exc_value, exc_traceback,
+                              file=sys.stdout)
     for l in Loader.objects.all():
         if l.app not in registered_app_loaders:
             l.delete()
