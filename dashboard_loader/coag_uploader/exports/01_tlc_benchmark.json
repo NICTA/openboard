@@ -1,0 +1,41 @@
+{
+    "codes": [
+        {
+            "colour": "green1", 
+            "sort_order": 100, 
+            "value": "achieved"
+        }, 
+        {
+            "colour": "green2", 
+            "sort_order": 120, 
+            "value": "on_track"
+        }, 
+        {
+            "colour": "green3", 
+            "sort_order": 130, 
+            "value": "likely_to_have_been_met"
+        }, 
+        {
+            "colour": "amber2", 
+            "sort_order": 140, 
+            "value": "unlikely_to_have_been_met"
+        }, 
+        {
+            "colour": "amber1", 
+            "sort_order": 200, 
+            "value": "not_on_track"
+        }, 
+        {
+            "colour": "red", 
+            "sort_order": 300, 
+            "value": "not_met"
+        }, 
+        {
+            "colour": "grey", 
+            "sort_order": 400, 
+            "value": "new_revised_benchmark"
+        }
+    ], 
+    "scale_name": "Benchmark Scale"
+}
+

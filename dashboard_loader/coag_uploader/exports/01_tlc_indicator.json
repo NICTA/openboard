@@ -1,0 +1,26 @@
+{
+    "codes": [
+        {
+            "colour": "green", 
+            "sort_order": 100, 
+            "value": "improving"
+        }, 
+        {
+            "colour": "amber", 
+            "sort_order": 200, 
+            "value": "no_improvement"
+        }, 
+        {
+            "colour": "red", 
+            "sort_order": 300, 
+            "value": "negative_change"
+        }, 
+        {
+            "colour": "grey", 
+            "sort_order": 400, 
+            "value": "mixed_results_or_new_indicator"
+        }
+    ], 
+    "scale_name": "Indicator Scale"
+}
+
