@@ -223,7 +223,6 @@ def calculate_benchmark(reference_year, target_year,
                     verbosity):
     messages = []
     metrics = [ (obj.float_year(), float(getattr(obj,benchmark_field))) for obj in model.objects.filter(state=AUS).order_by("year", "financial_year") ]
-    print repr(metrics)
     trend = find_trend(metrics, reference_year, target_year)
     if trend:
         benchmark = trend["benchmark"]*100.0
