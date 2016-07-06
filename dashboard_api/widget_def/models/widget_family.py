@@ -24,7 +24,7 @@ from widget_def.models.widget_definition import WidgetDefinition
 
 class WidgetFamily(models.Model):
     subcategory = models.ForeignKey(Subcategory)
-    name = models.CharField(max_length=60)
+    name = models.CharField(max_length=80)
     subtitle = models.CharField(max_length=120, null=True, blank=True)
     url  = models.SlugField(unique=True)
     source_url = models.URLField(max_length=400)
