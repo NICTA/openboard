@@ -122,8 +122,7 @@ class WidgetDefinition(models.Model):
             data["raw_data_sets"] = [ rds.__getstate__() for rds in self.rawdataset_set.all() ]
         return data
     def export(self):
-        return {
-            "parametisation": self.parametisation.url,
+        data = {
             "expansion_hint": self.expansion_hint,
             "deexpansion_hint": self.deexpansion_hint,
             "refresh_rate": self.refresh_rate,
@@ -135,6 +134,11 @@ class WidgetDefinition(models.Model):
             "views": [ vwd.export() for vwd in self.viewwidgetdeclaration_set.all() ],
             "raw_data_sets": [ rds.export() for rds in self.rawdataset_set.all() ],
         }
+        if self.parametisation:
+            data["parametisation"] = self.parametisation.url
+        else:
+            data["parametisation"] = None
+        return data
     @classmethod
     def import_data(cls, family, data):
         try:
