@@ -57,6 +57,13 @@ def parse_year(y):
     else:
         raise Exception("Invalid year: %s" % y)
 
+def display_float_year(fy):
+    y = int(fy)
+    if float(y) == fy:
+        return unicode(y)
+    else:
+        return fy_display(y)
+
 class CoagDataBase(models.Model):
     state = models.SmallIntegerField(choices=states)
     year=models.SmallIntegerField()
@@ -66,6 +73,11 @@ class CoagDataBase(models.Model):
             return fy_display(self.year)
         else:
             return unicode(self.year)
+    def float_year(self):
+        if self.financial_year:
+            return float(self.year) + 0.5
+        else:
+            return float(self.year)
     def state_display(self):
         return state_dict[self.state]
     class Meta:
