@@ -32,7 +32,8 @@ def register(app, refresh_rate=None):
             try:
                 g = Group.objects.get(name=grp)
             except Group.DoesNotExist:
-                g = Group(name=grp).save()
+                g = Group(name=grp)
+                g.save()
             g.permissions.add(p)
         for grp in Group.objects.all():
             if grp.name not in groups:
