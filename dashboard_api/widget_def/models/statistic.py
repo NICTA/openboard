@@ -357,6 +357,6 @@ class Statistic(models.Model):
         state["footer"] = self.footer
         return state
     class Meta:
-        unique_together = [("tile", "name"), ("tile", "url")]
+        unique_together = [("tile", "url")]
         ordering = [ "tile", "sort_order" ]
 

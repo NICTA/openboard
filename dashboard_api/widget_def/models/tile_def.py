@@ -373,8 +373,13 @@ class TileDefinition(models.Model):
             for ds in self.geo_datasets.all():
                 problems.extend(ds.validate())
         # Validate all stats.
+        stat_names = []
         for stat in self.statistic_set.all():
             problems.extend(stat.validate())
+            if stat.name in stat_names:
+                problems.append("Multiple statistics with name '%s' in tile %s of Widget %s" % (stat.name, self.url, self.widget.url()))
+            elif stat_name:
+                stat_names.append(stat_name)
         return problems
     def __unicode__(self):
         if self.expansion:
