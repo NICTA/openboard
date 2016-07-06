@@ -1,0 +1,199 @@
+{
+    "category": "COAG", 
+    "edit_all_groups": [], 
+    "source_url_text": "COAG", 
+    "subtitle": "in indigenous home ownership", 
+    "subcategory": "housing", 
+    "groups": [], 
+    "url": "indigenous_home_ownership", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "benchmark", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_ownership_benchmark", 
+                    "tile_type": 1, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Reference Percent", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "reference_percent", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "Reference Year", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "reference_year", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Datum Percent", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "datum_percent", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "Datum Year", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "datum_year", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 400
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_ownership_stats", 
+                    "tile_type": 18, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": "The proportion of Indigenous households owning or purchasing a home %{reference_percent} in %{reference_year} %{datum_percent} in %{datum_year}", 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 300, 
+                    "view": "housing"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "indigenous_home_ownership_data", 
+                    "name": "Indigenous Home Ownership Data", 
+                    "columns": [
+                        {
+                            "sort_order": 100, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "sort_order": 200, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "sort_order": 300, 
+                            "heading": "Indigenous Home Ownership Rate", 
+                            "description": "The proportion of Indigenous households owning or purchasing a home. Includes households that own their dwelling outright, have a mortgage outstanding on their dwelling or are in a rent-buy or shared equity scheme."
+                        }, 
+                        {
+                            "sort_order": 400, 
+                            "heading": "Uncertainty", 
+                            "description": "The uncertainty in the Indigenous home ownership rate."
+                        }
+                    ], 
+                    "filename": "coag_indigenous_home_ownership.csv"
+                }
+            ], 
+            "sort_order": 300, 
+            "expansion_hint": "View details", 
+            "about": "<p>Includes households that own their dwelling outright, have a mortgage outstanding on their dwelling or are in a rent-buy or shared equity scheme.</p>\r\n<p><b>Source:</b> \tABS (unpublished) <i>National Aboriginal and Torres Strait Islander Social Survey, Australian Aboriginal and Torres Strait Islander Health Survey.</i></p>", 
+            "refresh_rate": 120, 
+            "label": "indigenous_home_ownership", 
+            "parametisation": null, 
+            "deexpansion_hint": "Hide details"
+        }
+    ], 
+    "source_url": "http://www.coag.gov.au/node/534", 
+    "name": "Benchmark: 10% increase"
+}
+

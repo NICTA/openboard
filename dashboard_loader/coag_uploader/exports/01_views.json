@@ -1,0 +1,93 @@
+{
+    "requires_authentication": false, 
+    "name": "COAG Performance Report", 
+    "view_type": {
+        "show_children": true, 
+        "name": "COAG Index View", 
+        "show_siblings": false
+    }, 
+    "children": [
+        {
+            "requires_authentication": false, 
+            "name": "Housing", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Main COAG View", 
+                "show_siblings": true
+            }, 
+            "children": [], 
+            "label": "housing", 
+            "sort_order": 100, 
+            "properties": []
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Education", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Main COAG View", 
+                "show_siblings": true
+            }, 
+            "children": [], 
+            "label": "education", 
+            "sort_order": 200, 
+            "properties": []
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Skills", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Main COAG View", 
+                "show_siblings": true
+            }, 
+            "children": [], 
+            "label": "skills", 
+            "sort_order": 300, 
+            "properties": []
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Healthcare", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Main COAG View", 
+                "show_siblings": true
+            }, 
+            "children": [], 
+            "label": "healthcare", 
+            "sort_order": 400, 
+            "properties": []
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Disability", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Main COAG View", 
+                "show_siblings": true
+            }, 
+            "children": [], 
+            "label": "disability", 
+            "sort_order": 500, 
+            "properties": []
+        }, 
+        {
+            "requires_authentication": false, 
+            "name": "Indigenous", 
+            "view_type": {
+                "show_children": true, 
+                "name": "Main COAG View", 
+                "show_siblings": true
+            }, 
+            "children": [], 
+            "label": "indigenous", 
+            "sort_order": 600, 
+            "properties": []
+        }
+    ], 
+    "label": "coag", 
+    "sort_order": 10, 
+    "properties": []
+}
+

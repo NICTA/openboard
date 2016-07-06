@@ -1,0 +1,36 @@
+{
+    "categories": [
+        {
+            "sort_order": 100, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "housing"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "education"
+                }, 
+                {
+                    "sort_order": 300, 
+                    "name": "skills"
+                }, 
+                {
+                    "sort_order": 400, 
+                    "name": "healthcare"
+                }, 
+                {
+                    "sort_order": 500, 
+                    "name": "disability"
+                }, 
+                {
+                    "sort_order": 600, 
+                    "name": "indigenous"
+                }
+            ], 
+            "name": "COAG", 
+            "aspect": 1
+        }
+    ]
+}
+
