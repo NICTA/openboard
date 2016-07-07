@@ -90,7 +90,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
-#        messages.extend(load_housing_data(wb, verbosity))
+        messages.extend(load_housing_data(wb, verbosity))
         messages.extend(load_skills_data(wb, verbosity))
     except LoaderException, e:
         raise e
@@ -112,8 +112,8 @@ def load_skills_data(wb, verbosity):
     messages = []
     if verbosity > 1:
         messages.append("Loading Skills Data...")
-#    messages.extend(load_skills_qualifications(wb, verbosity))
-#    messages.extend(load_skills_higher_qualifications(wb, verbosity))
+    messages.extend(load_skills_qualifications(wb, verbosity))
+    messages.extend(load_skills_higher_qualifications(wb, verbosity))
     messages.extend(load_skills_vet_employment(wb, verbosity))
     return messages
 
