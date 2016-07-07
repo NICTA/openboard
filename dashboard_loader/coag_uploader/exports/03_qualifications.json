@@ -169,7 +169,39 @@
                 }
             ], 
             "default_frequency_text": "Annual", 
-            "raw_data_sets": [], 
+            "raw_data_sets": [
+                {
+                    "url": "qualifications_data", 
+                    "name": "Australians without Certificate III or above qualifications", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 100, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 200, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "unqualified_percentage", 
+                            "sort_order": 300, 
+                            "heading": "Proportion of 20-64 year olds without Cert III qualifications", 
+                            "description": "Proportion of 20\u201364 year olds with qualifications at Certificate level III or above, 2009\u20132014\r\n\r\nThe Survey of Education and Work was not conducted in Aboriginal and Torres Strait Islander communities in very remote areas, which affects the comparability of NT results as these communities account for around 15 per cent of the NT 15\u201374 year old population."
+                        }, 
+                        {
+                            "url": "uncertainty", 
+                            "sort_order": 400, 
+                            "heading": "Uncertainty", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "coag_qualifications_data.csv"
+                }
+            ], 
             "sort_order": 1100, 
             "expansion_hint": "View details", 
             "about": "<p>The Survey of Education and Work was not conducted in Aboriginal and Torres Strait Islander communities in very remote areas, which affects the comparability of NT results as these communities account for around 15 per cent of the NT 15\u201374 year old population.</p>", 

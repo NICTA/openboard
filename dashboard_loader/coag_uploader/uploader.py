@@ -474,6 +474,13 @@ def load_skills_qualifications(wb, verbosity):
                             QualificationsData, "percentage",
                             "qualifications", "qualifications",
                             verbosity))
+    messages.extend(populate_raw_data("qualifications", "qualifications",
+                        "qualifications_data", 
+                        QualificationsData,
+                        {
+                            "percentage": "unqualified_percentage",
+                            "uncertainty": "uncertainty",
+                        }))
     return messages
 
 def load_skills_higher_qualifications(wb, verbosity):
@@ -488,6 +495,15 @@ def load_skills_higher_qualifications(wb, verbosity):
                             HigherQualificationsData, "total",
                             "higher_qualifications", "higher_qualifications",
                             verbosity))
+    messages.extend(populate_raw_data("higher_qualifications", 
+                        "higher_qualifications",
+                        "higher_qualifications_data", 
+                        HigherQualificationsData,
+                        {
+                            "diploma": "diplomas",
+                            "adv_diploma": "advanced_diplomas",
+                            "total": "total",
+                        }))
     return messages
 
 def load_skills_vet_employment(wb, verbosity):
@@ -500,5 +516,13 @@ def load_skills_vet_employment(wb, verbosity):
     messages.extend(calculate_indicator(True,
                     ImprovedVetGraduatesData, "percentage",
                     "vet_employment", "vet_employment", verbosity))
+    messages.extend(populate_raw_data("vet_employment", 
+                        "vet_employment",
+                        "vet_employment_data", 
+                        ImprovedVetGraduatesData,
+                        {
+                            "percentage": "vet_grad_improvement",
+                            "uncertainty": "uncertainty",
+                        }))
     return messages
 

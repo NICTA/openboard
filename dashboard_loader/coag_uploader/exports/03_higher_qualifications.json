@@ -169,7 +169,45 @@
                 }
             ], 
             "default_frequency_text": "Annual", 
-            "raw_data_sets": [], 
+            "raw_data_sets": [
+                {
+                    "url": "higher_qualifications_data", 
+                    "name": "Diplomas and Advanced Diplomas Completed", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 100, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 200, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "diplomas", 
+                            "sort_order": 300, 
+                            "heading": "Diplomas Completed", 
+                            "description": "The number of diploma qualifications completed by students.  Figures exclude the domestic and international fee-for-service activity of Community education providers and other registered providers."
+                        }, 
+                        {
+                            "url": "advanced_diplomas", 
+                            "sort_order": 400, 
+                            "heading": "Advanced Diplomas Completed", 
+                            "description": "The number of advanced diploma qualifications completed by students."
+                        }, 
+                        {
+                            "url": "total", 
+                            "sort_order": 500, 
+                            "heading": "Total", 
+                            "description": "The total number of diploma and advanced diploma qualifications completed by students."
+                        }
+                    ], 
+                    "filename": "coag_higher_qualifications_data.csv"
+                }
+            ], 
             "sort_order": 1200, 
             "expansion_hint": "View details", 
             "about": "<p>Figures exclude the domestic and international fee-for-service activity of Community education providers and other registered providers. </p>", 

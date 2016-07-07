@@ -147,7 +147,39 @@
                 }
             ], 
             "default_frequency_text": "Annual", 
-            "raw_data_sets": [], 
+            "raw_data_sets": [
+                {
+                    "url": "vet_employment_data", 
+                    "name": "VET graduates aged 20-64 who improved their employment circumstances after training", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 100, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 200, 
+                            "heading": "Year", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "vet_grad_improvement", 
+                            "sort_order": 300, 
+                            "heading": "VET grads with improved employment circumstances (%)", 
+                            "description": "Proportion (%) of VET graduates aged 20-64 years who improved their employment circumstances after training."
+                        }, 
+                        {
+                            "url": "uncertainty", 
+                            "sort_order": 400, 
+                            "heading": "Uncertainty", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "coag_vet_employment_data.csv"
+                }
+            ], 
             "sort_order": 1300, 
             "expansion_hint": "View details", 
             "about": "<p></p>", 
