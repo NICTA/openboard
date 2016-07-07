@@ -102,7 +102,8 @@ class RawDataSetColumn(models.Model):
         return {
             "sort_order": self.sort_order,
             "heading": self.heading,
-            "description": self.description
+            "description": self.description,
+            "url": self.url
         }
     def __getstate__(self):
         data = { "heading": self.heading }
@@ -115,6 +116,7 @@ class RawDataSetColumn(models.Model):
             col = RawDataSetColumn.objects.get(rds=rds, sort_order=data["sort_order"])
         except RawDataSetColumn.DoesNotExist:
             col = RawDataSetColumn(rds=rds, sort_order=data["sort_order"])
+        col.url = data["url"]
         col.heading = data["heading"]
         col.description = data["description"]
         col.save()
