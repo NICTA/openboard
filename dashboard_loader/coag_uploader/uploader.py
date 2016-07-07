@@ -355,6 +355,23 @@ def calculate_indicator(desire_increase,
                     new[1], 20, label=display_float_year(new[0]))
     return messages
 
+def populate_raw_data(widget_url, label, rds_url,
+                    model, field_map):
+    messages = []
+    rds = get_rawdataset(widget_url, label, rds_url)
+    clear_rawdataset(rds)
+    sort_order = 1
+    for obj in model.objects.all().order_by("state", "year", "financial_year"):
+        kwargs = {
+            "jurisdiction": obj.state_display(),
+            "year": obj.year_display()
+        }
+        for model_field, rds_field in field_map.items():
+            kwargs[rds_field] = unicode(getattr(obj, model_field))
+        add_rawdatarecord(rds, sort_order, **kwargs)
+        sort_order += 1
+    return messages
+
 def load_housing_rental_stress(wb, verbosity):
     messages = []
     messages.extend(load_state_grid(wb, "1 NAHA", 
@@ -367,6 +384,12 @@ def load_housing_rental_stress(wb, verbosity):
                             HousingRentalStressData, "percentage", 
                             "rental_stress", "rental_stress", 
                             verbosity))
+    messages.extend(populate_raw_data("rental_stress", "rental_stress",
+                        "rental_stress_data", HousingRentalStressData,
+                        {
+                            "percentage": "percentage_rental_stress",
+                            "uncertainty": "uncertainty",
+                        }))
     return messages
 
 
@@ -385,6 +408,13 @@ def load_housing_homelessness(wb, verbosity):
                             HousingHomelessData, "homeless_persons",
                             "homelessness", "homelessness", 
                             verbosity))
+    messages.extend(populate_raw_data("homelessness", "homelessness",
+                        "homelessness_data", HousingHomelessData,
+                        {
+                            "homeless_persons": "number_homeless_persons",
+                            "percent_of_national": "proportion_national_total",
+                            "rate_per_10k": "rate_per_10k",
+                        }))
     return messages
 
 def load_housing_indigenous_ownership(wb, verbosity):
@@ -399,6 +429,14 @@ def load_housing_indigenous_ownership(wb, verbosity):
                             IndigenousHomeOwnershipData, "percentage",
                             "indigenous_home_ownership", "indigenous_home_ownership", 
                             verbosity))
+    messages.extend(populate_raw_data("indigenous_home_ownership", 
+                        "indigenous_home_ownership",
+                        "indigenous_home_ownership_data", 
+                        IndigenousHomeOwnershipData,
+                        {
+                            "percentage": "indigenous_home_ownership_rate",
+                            "uncertainty": "uncertainty",
+                        }))
     return messages
 
 def load_housing_indigenous_crowding(wb, verbosity):
@@ -413,7 +451,14 @@ def load_housing_indigenous_crowding(wb, verbosity):
                             IndigenousOvercrowdingData, "percentage",
                             "indigenous_overcrowding", "indigenous_overcrowding", 
                             verbosity))
-
+    messages.extend(populate_raw_data("indigenous_overcrowding", 
+                        "indigenous_overcrowding",
+                        "indigenous_overcrowding_data", 
+                        IndigenousOvercrowdingData,
+                        {
+                            "percentage": "indigenous_overcrowding",
+                            "uncertainty": "uncertainty",
+                        }))
     return messages
 
 def load_skills_qualifications(wb, verbosity):
