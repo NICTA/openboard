@@ -43,7 +43,7 @@ state_map = {
 }
 
 def fy_display(fy_starting):
-    return "%d-%d" % (fy_starting, (fy_starting+1)%100)
+    return "%d-%02d" % (fy_starting, (fy_starting+1)%100)
 
 def parse_year(y):
     if isinstance(y, int) or isinstance(y, long):

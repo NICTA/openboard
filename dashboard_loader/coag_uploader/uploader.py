@@ -244,23 +244,33 @@ def calculate_benchmark(reference_year, target_year,
                     tlc = "not_on_track"
             else:
                 tlc = "not_met"
+        if trend["projected"]:
+            outcome_type = "projection"     
+        else:
+            outcome_type = "complete"     
     else:
         benchmark = 0.0
         reference = 0.0
         datum = 0.0
+        outcome_type = "N/A"
         tlc = "new_revised_benchmark"
-    trend_ind = cmp(datum, reference)
+    set_statistic_data(widget_url, widget_label, "outcome", 
+                    abs(benchmark), traffic_light_code=tlc, 
+                    trend=cmp(datum, reference))
+    set_statistic_data(widget_url, widget_label, "outcome_type", 
+                    outcome_type)
     set_statistic_data(widget_url, widget_label, "benchmark", 
-                    abs(benchmark), traffic_light_code=tlc, trend=trend_ind)
-    set_statistic_data(widget_url, widget_label, "reference_%s" % stat_base_lbl, 
-                    reference, traffic_light_code=tlc)
-    set_statistic_data(widget_url, widget_label, "reference_year", 
-                    display_float_year(reference_year))
+                    abs(target*100.0), trend=cmp(target, 0.0))
+    set_statistic_data(widget_url, widget_label, "benchmark_year", 
+                    display_float_year(target_year))
+    clear_statistic_list(widget_url, widget_label, "data")
+    add_statistic_list_item(widget_url, widget_label, "data",
+                            reference, 10,
+                            label=display_float_year(reference_year))
     last_metric = metrics[-1]
-    set_statistic_data(widget_url, widget_label, "datum_%s" % stat_base_lbl, 
-                    last_metric[1], traffic_light_code=tlc)
-    set_statistic_data(widget_url, widget_label, "datum_year", 
-                    display_float_year(last_metric[0]))
+    add_statistic_list_item(widget_url, widget_label, "data",
+                            last_metric[1], 20,
+                            label=display_float_year(last_metric[0]))
     return messages
 
 def load_housing_rental_stress(wb, verbosity):
