@@ -153,7 +153,7 @@
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": null, 
+                    "list_label_width": 30, 
                     "url": "qualifications_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 

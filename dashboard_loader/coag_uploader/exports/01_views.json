@@ -18,7 +18,13 @@
             "children": [], 
             "label": "housing", 
             "sort_order": 100, 
-            "properties": []
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "National Affordable Housing Agreement", 
+                    "key": "agreement"
+                }
+            ]
         }, 
         {
             "requires_authentication": false, 
@@ -31,7 +37,13 @@
             "children": [], 
             "label": "education", 
             "sort_order": 200, 
-            "properties": []
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "National Education Agreement / National Education Reform Agreement", 
+                    "key": "agreement"
+                }
+            ]
         }, 
         {
             "requires_authentication": false, 
@@ -44,7 +56,13 @@
             "children": [], 
             "label": "skills", 
             "sort_order": 300, 
-            "properties": []
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "National Agreement for Skills and Workforce Development", 
+                    "key": "agreement"
+                }
+            ]
         }, 
         {
             "requires_authentication": false, 
@@ -57,7 +75,13 @@
             "children": [], 
             "label": "healthcare", 
             "sort_order": 400, 
-            "properties": []
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "National Healthcare Agreement", 
+                    "key": "agreement"
+                }
+            ]
         }, 
         {
             "requires_authentication": false, 
@@ -70,7 +94,13 @@
             "children": [], 
             "label": "disability", 
             "sort_order": 500, 
-            "properties": []
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "National Disability Agreement", 
+                    "key": "agreement"
+                }
+            ]
         }, 
         {
             "requires_authentication": false, 
@@ -83,7 +113,13 @@
             "children": [], 
             "label": "indigenous", 
             "sort_order": 600, 
-            "properties": []
+            "properties": [
+                {
+                    "type": 1, 
+                    "value": "National Indigenous Reform Agreement", 
+                    "key": "agreement"
+                }
+            ]
         }
     ], 
     "label": "coag", 
