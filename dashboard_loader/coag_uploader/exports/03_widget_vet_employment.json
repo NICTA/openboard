@@ -2,7 +2,7 @@
     "category": "COAG", 
     "edit_all_groups": [], 
     "source_url_text": "NCVER Student Outcomes Survey", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "skills", 
     "groups": [], 
     "url": "vet_employment", 
@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 10, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -70,7 +70,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 20, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -106,7 +106,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 30, 
-                    "aspect": 2, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -131,7 +131,7 @@
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": 30, 
+                    "list_label_width": null, 
                     "url": "vet_employment_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 

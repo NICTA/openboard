@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 10, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 0, 
@@ -30,7 +30,7 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -70,7 +70,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 20, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -88,7 +88,7 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -128,7 +128,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 30, 
-                    "aspect": 2, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -146,14 +146,14 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 4, 
                             "unit_prefix": "", 
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": 30, 
+                    "list_label_width": null, 
                     "url": "higher_qualifications_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 

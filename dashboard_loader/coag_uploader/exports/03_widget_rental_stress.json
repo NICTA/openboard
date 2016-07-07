@@ -2,7 +2,7 @@
     "category": "COAG", 
     "edit_all_groups": [], 
     "source_url_text": "COAG", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "housing", 
     "groups": [], 
     "url": "rental_stress", 
@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 5, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -70,7 +70,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 10, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -128,7 +128,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 20, 
-                    "aspect": 2, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -153,7 +153,7 @@
                             "sort_order": 111
                         }
                     ], 
-                    "list_label_width": 30, 
+                    "list_label_width": null, 
                     "url": "rental_stress_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 

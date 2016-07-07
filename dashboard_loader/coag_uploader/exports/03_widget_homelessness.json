@@ -2,7 +2,7 @@
     "category": "COAG", 
     "edit_all_groups": [], 
     "source_url_text": "COAG", 
-    "subtitle": "", 
+    "subtitle": null, 
     "subcategory": "housing", 
     "groups": [], 
     "url": "homelessness", 
@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 50, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -70,7 +70,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 100, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": 1, 
@@ -128,10 +128,10 @@
                 {
                     "expansion": false, 
                     "sort_order": 200, 
-                    "aspect": 2, 
+                    "aspect": 0, 
                     "statistics": [
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
@@ -146,14 +146,14 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 4, 
                             "unit_prefix": "", 
                             "sort_order": 111
                         }
                     ], 
-                    "list_label_width": 30, 
+                    "list_label_width": null, 
                     "url": "homelessness_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 
