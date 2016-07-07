@@ -175,21 +175,25 @@
                     "name": "Rental Stress Data", 
                     "columns": [
                         {
+                            "url": "jurisdiction", 
                             "sort_order": 100, 
                             "heading": "Jurisdiction", 
                             "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
                         }, 
                         {
+                            "url": "year", 
                             "sort_order": 200, 
                             "heading": "Year", 
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
+                            "url": "percentage_rental_stress", 
                             "sort_order": 300, 
                             "heading": "Proportion of households in rental stress (%)", 
                             "description": "The proportion of low income households in rental stress (%)."
                         }, 
                         {
+                            "url": "uncertainty", 
                             "sort_order": 400, 
                             "heading": "Uncertainty", 
                             "description": "The uncertainty in the main percentage of households in rental stress figure."

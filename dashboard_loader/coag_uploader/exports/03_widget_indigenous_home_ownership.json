@@ -175,21 +175,25 @@
                     "name": "Indigenous Home Ownership Data", 
                     "columns": [
                         {
+                            "url": "jurisdiction", 
                             "sort_order": 100, 
                             "heading": "Jurisdiction", 
                             "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
                         }, 
                         {
+                            "url": "year", 
                             "sort_order": 200, 
                             "heading": "Year", 
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
+                            "url": "indigenous_home_ownership_rate", 
                             "sort_order": 300, 
                             "heading": "Indigenous Home Ownership Rate", 
                             "description": "The proportion of Indigenous households owning or purchasing a home. Includes households that own their dwelling outright, have a mortgage outstanding on their dwelling or are in a rent-buy or shared equity scheme."
                         }, 
                         {
+                            "url": "uncertainty", 
                             "sort_order": 400, 
                             "heading": "Uncertainty", 
                             "description": "The uncertainty in the Indigenous home ownership rate."

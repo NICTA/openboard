@@ -175,21 +175,25 @@
                     "name": "Indigenous Over-crowding Data", 
                     "columns": [
                         {
+                            "url": "jurisdiction", 
                             "sort_order": 100, 
                             "heading": "Jurisdiction", 
                             "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
                         }, 
                         {
+                            "url": "year", 
                             "sort_order": 200, 
                             "heading": "Year", 
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
+                            "url": "indigenous_overcrowding", 
                             "sort_order": 300, 
                             "heading": "Indigenous Overcrowding Rate", 
                             "description": "The proportion of Indigenous households living in overcrowded conditions. Overcrowded conditions are defined using the Canadian National Occupancy Standard as requiring one or more additional bedrooms."
                         }, 
                         {
+                            "url": "uncertainty", 
                             "sort_order": 400, 
                             "heading": "Uncertainty", 
                             "description": "The uncertainty (95% confidence interval) in the Indigenous overcrowding rate."
