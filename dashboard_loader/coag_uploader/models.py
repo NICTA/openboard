@@ -118,3 +118,28 @@ class IndigenousOvercrowdingData(CoagPercentageUncertaintyDataBase):
             ("state", "year"),
         ]
 
+class QualificationsData(CoagPercentageUncertaintyDataBase):
+    class Meta:
+        unique_together = [
+            ("state", "year"),
+        ]
+
+class HigherQualificationsData(CoagDataBase):
+    diploma=models.IntegerField()
+    adv_diploma=models.IntegerField()
+    total=models.IntegerField()
+    def save(self, *args, **kwargs):
+        self.total = self.diploma + self.adv_diploma
+        super(HigherQualificationsData, self).save(*args, **kwargs)
+    class Meta:
+        unique_together = [
+            ("state", "year"),
+        ]
+
+class ImprovedVetGraduatesData(CoagPercentageUncertaintyDataBase):
+    class Meta:
+        unique_together = [
+            ("state", "year"),
+        ]
+
+

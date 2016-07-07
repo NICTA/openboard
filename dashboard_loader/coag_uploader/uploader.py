@@ -63,6 +63,24 @@ file_format = {
              "cols": [],
              "notes": [ "TODO", ],
          },
+         {
+             "name": "5 NASWD",
+             "rows": [],
+             "cols": [],
+             "notes": [ "TODO", ],
+         },
+         {
+             "name": "6 NASWD",
+             "rows": [],
+             "cols": [],
+             "notes": [ "TODO", ],
+         },
+         {
+             "name": "7 NASWD",
+             "rows": [],
+             "cols": [],
+             "notes": [ "TODO", ],
+         },
     ],
 }
 
@@ -72,7 +90,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
-        messages.extend(load_housing_data(wb, verbosity))
+#        messages.extend(load_housing_data(wb, verbosity))
+        messages.extend(load_skills_data(wb, verbosity))
     except LoaderException, e:
         raise e
     except Exception, e:
@@ -87,6 +106,15 @@ def load_housing_data(wb, verbosity):
     messages.extend(load_housing_homelessness(wb, verbosity))
     messages.extend(load_housing_indigenous_ownership(wb, verbosity))
     messages.extend(load_housing_indigenous_crowding(wb, verbosity))
+    return messages
+
+def load_skills_data(wb, verbosity):
+    messages = []
+    if verbosity > 1:
+        messages.append("Loading Skills Data...")
+#    messages.extend(load_skills_qualifications(wb, verbosity))
+#    messages.extend(load_skills_higher_qualifications(wb, verbosity))
+    messages.extend(load_skills_vet_employment(wb, verbosity))
     return messages
 
 def column_labels(mini, maxi):
@@ -121,7 +149,7 @@ def all_rows_found(rows):
             return False
     return True
 
-def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity):
+def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity, transforms={}):
     messages = []
     if verbosity > 2:
         messages.append("Loading %s Data: %s" % (data_category, dataset))
@@ -170,7 +198,11 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     for state, scol in state_cols.items():
                         defaults = { "financial_year": isfy }
                         for fld, frow in rows.items():
-                            defaults[fld] = sheet["%s%d" % (scol, frow)].value
+                            rawval = sheet["%s%d" % (scol, frow)].value
+                            if fld in transforms:
+                                defaults[fld] = transforms[fld](rawval)
+                            else:
+                                defaults[fld] = rawval
                         obj, created = model.objects.update_or_create(
                                     state=state,
                                     year=year,
@@ -219,7 +251,7 @@ def find_trend(metrics, reference_year, target_year):
 def calculate_benchmark(reference_year, target_year, 
                     target, desire_overtarget, 
                     model, benchmark_field, 
-                    widget_url, widget_label, stat_base_lbl,
+                    widget_url, widget_label, 
                     verbosity):
     messages = []
     metrics = [ (obj.float_year(), float(getattr(obj,benchmark_field))) for obj in model.objects.filter(state=AUS).order_by("year", "financial_year") ]
@@ -273,6 +305,56 @@ def calculate_benchmark(reference_year, target_year,
                             label=display_float_year(last_metric[0]))
     return messages
 
+def calculate_indicator(desire_increase, 
+                    model, indicator_field, 
+                    widget_url, widget_label, 
+                    verbosity):
+    messages = []
+    metrics = [ (obj.float_year(), float(getattr(obj,indicator_field))) for obj in model.objects.filter(state=AUS).order_by("year", "financial_year") ]
+    if desire_increase:
+        indicator_trend = 1
+    else:
+        indicator_trend = -1
+    if len(metrics) == 0:
+        # New indicator
+        trend = 0
+        tlc = "mixed_results_or_new_indicator"
+        outcome_years = "N/A"
+        old = None
+        new = None
+    else:
+        if len(metrics) == 1:
+            old = metrics[0]
+            new = None
+            trend = 0
+            outcome_years = "%s" % display_float_year(old[0])
+        else:
+            old = metrics[0]
+            new = metrics[-1]
+            trend = cmp(new[1],old[1])
+            outcome_years = "%s - %s" % (display_float_year(old[0]), display_float_year(new[0]))
+        if trend == 0:
+            tlc = "no_improvement"
+        elif (trend > 0 and desire_increase) or (trend < 0 and not desire_increase):
+            tlc = "improving"
+        else:
+            tlc = "negative_change"
+    set_statistic_data(widget_url, widget_label, "outcome", 
+                    "", traffic_light_code=tlc, 
+                    trend=trend)
+    set_statistic_data(widget_url, widget_label, "outcome_years", 
+                    outcome_years)
+    set_statistic_data(widget_url, widget_label, "indicator", 
+                    "", trend=indicator_trend)
+    clear_statistic_list(widget_url, widget_label, "data")
+    if old:
+        add_statistic_list_item(widget_url, widget_label, "data",
+                    old[1], 10, label=display_float_year(old[0]))
+    if new:
+        add_statistic_list_item(widget_url, widget_label, "data",
+                    new[1], 20, label=display_float_year(new[0]))
+    return messages
+
 def load_housing_rental_stress(wb, verbosity):
     messages = []
     messages.extend(load_state_grid(wb, "1 NAHA", 
@@ -283,7 +365,7 @@ def load_housing_rental_stress(wb, verbosity):
     messages.extend(calculate_benchmark(2007.5, 2015.5, 
                             -0.1, False, 
                             HousingRentalStressData, "percentage", 
-                            "rental_stress", "rental_stress", "percent",
+                            "rental_stress", "rental_stress", 
                             verbosity))
     return messages
 
@@ -301,7 +383,7 @@ def load_housing_homelessness(wb, verbosity):
     messages.extend(calculate_benchmark(2006.0, 2013.0,
                             -0.07, False,
                             HousingHomelessData, "homeless_persons",
-                            "homelessness", "homelessness", "count",
+                            "homelessness", "homelessness", 
                             verbosity))
     return messages
 
@@ -316,7 +398,7 @@ def load_housing_indigenous_ownership(wb, verbosity):
                             0.1, True,
                             IndigenousHomeOwnershipData, "percentage",
                             "indigenous_home_ownership", "indigenous_home_ownership", 
-                            "percent", verbosity))
+                            verbosity))
     return messages
 
 def load_housing_indigenous_crowding(wb, verbosity):
@@ -330,7 +412,48 @@ def load_housing_indigenous_crowding(wb, verbosity):
                             -0.2, False,
                             IndigenousOvercrowdingData, "percentage",
                             "indigenous_overcrowding", "indigenous_overcrowding", 
-                            "percent", verbosity))
+                            verbosity))
 
+    return messages
+
+def load_skills_qualifications(wb, verbosity):
+    messages = []
+    messages.extend(load_state_grid(wb, "5 NASWD",
+                        "Skills", "Without Cert III Qualifications",
+                        "Notes:", QualificationsData,
+                        { "uncertainty": "95 per cent confidence interval"}, 
+                        { "percentage": "%"}, verbosity,
+                        transforms={ "percentage": lambda x: 100.0-x, }))
+    messages.extend(calculate_benchmark(2009.0, 2020.0,
+                            -0.5, False,
+                            QualificationsData, "percentage",
+                            "qualifications", "qualifications",
+                            verbosity))
+    return messages
+
+def load_skills_higher_qualifications(wb, verbosity):
+    messages = []
+    messages.extend(load_state_grid(wb, "6 NASWD",
+                        "Skills", "Higher Qualifications",
+                        "Notes:", HigherQualificationsData,
+                        { "diploma": "Diploma", "adv_diploma": "Advanced Diploma"}, 
+                        {}, verbosity))
+    messages.extend(calculate_benchmark(2009.0, 2020.0,
+                            1, True,
+                            HigherQualificationsData, "total",
+                            "higher_qualifications", "higher_qualifications",
+                            verbosity))
+    return messages
+
+def load_skills_vet_employment(wb, verbosity):
+    messages = []
+    messages.extend(load_state_grid(wb, "7 NASWD",
+                        "Skills", "VET Graduates with Improved Employment",
+                        "Source: ", ImprovedVetGraduatesData,
+                        { "uncertainty": "95 per cent confidence interval"}, 
+                        { "percentage": "%"}, verbosity))
+    messages.extend(calculate_indicator(True,
+                    ImprovedVetGraduatesData, "percentage",
+                    "vet_employment", "vet_employment", verbosity))
     return messages
 
