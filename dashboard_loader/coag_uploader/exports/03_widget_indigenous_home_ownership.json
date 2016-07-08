@@ -1,8 +1,8 @@
 {
     "category": "COAG", 
     "edit_all_groups": [], 
-    "source_url_text": "COAG", 
-    "subtitle": null, 
+    "source_url_text": "ABS, National Aboriginal and Torres Strait Islander Surveys", 
+    "subtitle": "", 
     "subcategory": "housing", 
     "groups": [], 
     "url": "indigenous_home_ownership", 
@@ -153,7 +153,7 @@
                             "sort_order": 111
                         }
                     ], 
-                    "list_label_width": null, 
+                    "list_label_width": 30, 
                     "url": "indigenous_ownership_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 
@@ -211,7 +211,7 @@
             "deexpansion_hint": "Hide details"
         }
     ], 
-    "source_url": "http://www.coag.gov.au/node/534", 
+    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples", 
     "name": "Indigenous households owning or purchasing a home"
 }
 

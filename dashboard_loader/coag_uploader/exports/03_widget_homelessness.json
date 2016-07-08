@@ -1,8 +1,8 @@
 {
     "category": "COAG", 
     "edit_all_groups": [], 
-    "source_url_text": "COAG", 
-    "subtitle": null, 
+    "source_url_text": "ABS, Census of Population and Housing", 
+    "subtitle": "", 
     "subcategory": "housing", 
     "groups": [], 
     "url": "homelessness", 
@@ -217,7 +217,7 @@
             "deexpansion_hint": "Show details"
         }
     ], 
-    "source_url": "http://www.coag.gov.au/node/534", 
+    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200", 
     "name": "Homeless Australians"
 }
 

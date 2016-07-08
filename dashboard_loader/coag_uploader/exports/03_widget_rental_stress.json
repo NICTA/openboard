@@ -1,8 +1,8 @@
 {
     "category": "COAG", 
     "edit_all_groups": [], 
-    "source_url_text": "COAG", 
-    "subtitle": null, 
+    "source_url_text": "ABS Survey of Income and Housing", 
+    "subtitle": "", 
     "subcategory": "housing", 
     "groups": [], 
     "url": "rental_stress", 
@@ -153,7 +153,7 @@
                             "sort_order": 111
                         }
                     ], 
-                    "list_label_width": null, 
+                    "list_label_width": 30, 
                     "url": "rental_stress_stats", 
                     "tile_type": 10, 
                     "geo_datasets": [], 
@@ -211,7 +211,7 @@
             "deexpansion_hint": "Hide details"
         }
     ], 
-    "source_url": "http://coag.gov.au/node/534", 
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/dossbytitle/F0CDB39ECC092711CA256BD00026C3D5?OpenDocument", 
     "name": "Low-income renter households in renter stress"
 }
 
