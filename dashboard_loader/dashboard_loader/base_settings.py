@@ -109,9 +109,8 @@ LOGOUT="/logout"
 LOCALROOT = os.path.dirname(os.path.abspath(__file__)) + "/.."
 
 STATIC_ROOT = LOCALROOT + '/static'
-STATICFILES_DIRS = (
-        LOCALROOT + '/dashboard_loader/static',
-        )
+STATICFILES_DIRS = []
+     
 STATICFILES_FINDERS = (
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
