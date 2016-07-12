@@ -248,19 +248,29 @@ def find_trend(metrics, reference_year, target_year):
             "projected": projected
     }
 
+TARGET_RELATIVE_CHANGE = 1
+TARGET_ABSOLUTE_CHANGE = 2
+TARGET_ABSOLUTE_VALUE  = 3
+
+def benchmark_met(target, trend,
+                desire_overtarget, target_type):
+    if target_type == TARGET_RELATIVE_CHANGE:
+        return (desire_overtarget and trend["benchmark"] >= target) or (not desire_overtarget and trend["benchmark"] <= target)
+    elif target_type == TARGET_ABSOLUTE_CHANGE:
+        return (desire_overtarget and trend["datum"]-trend["reference"] >= target) or (not desire_overtarget and trend["datum"]-trend["reference"] <= target)
+    else:
+        return (desire_overtarget and trend["datum"] >= target) or (not desire_overtarget and trend["datum"] <= target)
+
 def calculate_benchmark(reference_year, target_year, 
                     target, desire_overtarget, 
                     model, benchmark_field, 
                     widget_url, widget_label, 
-                    verbosity):
+                    verbosity, target_type=TARGET_RELATIVE_CHANGE):
     messages = []
     metrics = [ (obj.float_year(), float(getattr(obj,benchmark_field))) for obj in model.objects.filter(state=AUS).order_by("year", "financial_year") ]
     trend = find_trend(metrics, reference_year, target_year)
     if trend:
-        benchmark = trend["benchmark"]*100.0
-        datum = trend["datum"]
-        reference = trend["reference"]
-        if (desire_overtarget and trend["benchmark"] >= target) or (not desire_overtarget and trend["benchmark"] <= target):
+        if benchmark_met(target, trend, desire_overtarget, target_type):
             if trend["projected"]:
                 if target_year >= current_float_year():
                     tlc = "likely_to_have_been_met"
@@ -279,7 +289,15 @@ def calculate_benchmark(reference_year, target_year,
         if trend["projected"]:
             outcome_type = "projection"     
         else:
-            outcome_type = "complete"     
+            outcome_type = "complete"
+        if target_type == TARGET_RELATIVE_CHANGE:
+            benchmark = trend["benchmark"]*100.0
+        elif target_type == TARGET_ABSOLUTE_CHANGE:
+            benchmark = trend["datum"] - datum["reference"]
+        else:
+            benchmark = trend["datum"]
+        datum = trend["datum"]
+        reference = trend["reference"]
     else:
         benchmark = 0.0
         reference = 0.0
