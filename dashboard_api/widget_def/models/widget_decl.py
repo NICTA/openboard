@@ -21,7 +21,7 @@ from widget_def.models.widget_definition import WidgetDefinition
 
 class ViewWidgetDeclaration(models.Model):
     definition = models.ForeignKey(WidgetDefinition)
-    view = models.ForeignKey(WidgetView, related_name="widgets")
+    view = models.ForeignKey(WidgetView, limit_choices_to={'external_url': None}, related_name="widgets")
     sort_order = models.IntegerField()
     child_view = models.ForeignKey(WidgetView, null=True, blank=True, related_name="declarations")
     child_view_text = models.CharField(max_length=255, null=True, blank=True)

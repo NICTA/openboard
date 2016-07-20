@@ -46,6 +46,7 @@ class WidgetView(models.Model):
     name = models.CharField(max_length=120)
     label = models.SlugField(unique=True)
     parent = models.ForeignKey("self", null=True,blank=True, related_name="children")
+    external_url = models.URLField(null=True, blank=True)
     view_type = models.ForeignKey(ViewType)
     sort_order = models.IntegerField()
     requires_authentication = models.BooleanField(default=False)
@@ -59,10 +60,13 @@ class WidgetView(models.Model):
     def __unicode__(self):
         return self.label
     def desc(self):
-        return {
+        desc =  {
             "name": self.name,
             "label": self.label,
         }
+        if self.external_url:
+            desc["api_url_base"] = self.external_url
+        return desc
     def crumbs(self):
         c = []
         v = self
@@ -96,6 +100,7 @@ class WidgetView(models.Model):
             "label": self.label,
             "view_type": self.view_type.export(),
             "sort_order": self.sort_order,
+            "external_url": self.external_url,
             "requires_authentication": self.requires_authentication,
             "properties": [ p.export() for p in self.viewproperty_set.all() ],
             "children": [ c.export() for c in self.children.all() ],
@@ -114,6 +119,7 @@ class WidgetView(models.Model):
         v.view_type = ViewType.import_data(data["view_type"])
         v.sort_order = data["sort_order"]
         v.requires_authentication = data["requires_authentication"]
+        v.external_url = data.get("external_url")
         if "geo_window" in data:
             GeoWindow = apps.get_app_config("widget_def").get_model("GeoWindow")
             v.geo_window = GeoWindow.objects.get(name=data["geo_window"])

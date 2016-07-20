@@ -20,6 +20,12 @@ from django.http import HttpResponse, Http404
 
 from widget_def.models import *
 
+def redirect_for_external_view(request, view):
+    path = view.external_url + request.path_info
+    if request.GET:
+        path = path + "?" + urlencode(request.GET)
+    return HttpResponseRedirect(path)
+
 class DecimalAwareEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, decimal.Decimal):
