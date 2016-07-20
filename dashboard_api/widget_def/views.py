@@ -12,14 +12,16 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+from urllib import urlencode
+
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import HttpResponseForbidden, HttpResponseNotFound
+from django.http.response import HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect
 from django.conf import settings
 
 
 from widget_def.models import WidgetView
 from widget_def.api import *
-from widget_def.view_utils import json_list
+from widget_def.view_utils import json_list, redirect_for_external_view
 from widget_def.view_utils import get_view_from_label, get_view_from_request
 
 # Views
@@ -40,17 +42,9 @@ def get_view(request, view_label):
     v = get_view_from_label(request, view_label)
     if not v:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if v.external_url:
+        return redirect_for_external_view(request, v)
     return json_list(request, api_get_view(v))
-
-def get_widgets(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    theme = get_theme_from_request(request)
-    if theme is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    location = get_location_from_request(request)
-    frequency = get_frequency_from_request(request)
-    return json_list(request, api_get_widgets(theme, location, frequency))
 
 def get_map_layers(request):
     if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
@@ -58,6 +52,8 @@ def get_map_layers(request):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     hierarchical = request.GET.get("hierarchical")
     if hierarchical in ("", None, "0"):
         hierarchical = False
@@ -71,6 +67,8 @@ def get_terria_init(request, view_label, shown_urls=""):
     view = get_view_from_label(request, view_label)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     if not view.geo_window:
         return HttpResponseNotFound("No Geo-window defined for view %s" % view_label)
     if shown_urls:

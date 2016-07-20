@@ -18,7 +18,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.conf import settings
 
 from widget_def.models import TileDefinition
-from widget_def.view_utils import json_list, get_view_from_request
+from widget_def.view_utils import json_list, get_view_from_request, redirect_for_external_view
 from widget_data.api import *
 
 # views.
@@ -29,6 +29,8 @@ def get_widget_data(request, widget_url):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     widget = get_declared_widget(widget_url, view)
     if widget:
         return json_list(request, api_get_widget_data(widget, view))
@@ -41,6 +43,8 @@ def get_graph_data(request, widget_url):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     widget = get_declared_widget(widget_url, view)
     if not widget:
         return HttpResponseNotFound("This Widget does not exist")
@@ -59,6 +63,8 @@ def get_single_graph_data(request, widget_url, tile_url):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     graph = get_graph(view, widget_url, tile_url)
     if not graph:
         return HttpResponseNotFound("This Graph does not exist")
@@ -77,6 +83,8 @@ def get_raw_data(request, widget_url, rds_url):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     widget = get_declared_widget(widget_url, view)
     if not widget:
         return HttpResponseNotFound("This Widget does not exist")
@@ -88,6 +96,8 @@ def get_widget_map_data(request, widget_url, tile_url, geo_dataset_url):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     widget = get_declared_widget(widget_url, view)
     try:
         tile = TileDefinition.objects.get(widget=widget, url=tile_url, tile_type=TileDefinition.MAP)
@@ -106,6 +116,8 @@ def get_map_data(request, geo_dataset_url):
     view = get_view_from_request(request)
     if view is None:
         return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    if view.external_url:
+        return redirect_for_external_view(request, view)
     ds = get_declared_geodataset(geo_dataset_url, view)
     if ds is None:
         return HttpResponseNotFound("Map layer %s does not exist" % geo_dataset_url)
