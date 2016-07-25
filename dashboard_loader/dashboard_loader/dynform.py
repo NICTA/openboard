@@ -176,9 +176,29 @@ def get_override_form_class_for_graph(graph):
         return None
     return type(str("GraphOverrides_%s_Form" % graph.tile.url), (forms.Form,), form_fields)
 
+def clean_error_bars(self, data):
+    if not data["DELETE"]:
+        dataset = data["dataset"]
+        if dataset.use_error_bars:
+            if data.get("err_valmin") is None:
+                self.add_error("err_valmin", "Error range required for this dataset")
+            if data.get("err_valmax") is None:
+                self.add_error("err_valmax", "Error range required for this dataset")
+        else:
+            if data.get("err_valmin") is not None:
+                del data["err_valmin"]
+            if data.get("err_valmax") is not None:
+                del data["err_valmax"]
+    return data
+
 def get_form_class_for_graph(graph):
     form_fields = OrderedDict()
     field_count = 0
+    clean_checks = []
+    error_bar_datasets = []
+    for ds in graph.graphdataset_set.filter(use_error_bars=True):
+        error_bar_datasets.append(ds.url)
+    form_fields["error_bar_datasets"] = error_bar_datasets
     if graph.use_clusters():
         form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.graphcluster_set.all(), to_field_name="url", required=True)
         field_count += 1
@@ -186,6 +206,11 @@ def get_form_class_for_graph(graph):
     field_count += 1
     form_fields["value"] = forms.DecimalField(required=True, decimal_places=4)
     field_count += 1
+    if graph.use_numeric_axes():
+        form_fields["err_valmin"] = forms.DecimalField(label="Min", required=False, decimal_places=4)
+        form_fields["err_valmax"] = forms.DecimalField(label="Max", required=False, decimal_places=4)
+        clean_checks.append(clean_error_bars)
+        field_count += 2
     if graph.graph_type == graph.LINE:
         if graph.horiz_axis_type == graph.NUMERIC:
             form_fields["horiz_value"] = forms.DecimalField(required=True, decimal_places=4)
@@ -197,6 +222,9 @@ def get_form_class_for_graph(graph):
             form_fields["horiz_value"] = forms.DateTimeField(required=True, widget=SelectDateTimeWidget)
         field_count += 1
     form_fields["field_count"] = field_count
+    form_fields["clean"] = clean
+    form_fields["clean_checks"] = clean_checks
+    form_fields["hidable_fields"] = ["Min", "Max"]
     return type(str("Graph_%s_Form" % graph.tile.url), (forms.Form,), 
                         form_fields)  
 

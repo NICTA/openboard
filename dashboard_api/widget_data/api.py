@@ -99,31 +99,40 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             (horiz_min, horiz_max) = update_maxmin(gd.horiz_value(),
                             horiz_min, horiz_max)
         if verbose:
-            if graph.use_clusters():
+            if graph.use_numeric_axes():
                 if gd.dataset.use_secondary_numeric_axis:
                     data_label = graph.secondary_numeric_axis_label
                 else:
                     data_label = graph.numeric_axis_label
                 data_label = parametise_label(graph.widget(), view, data_label)
-                graph_json["data"].append({
-                        parametise_label(graph.widget(), view, graph.cluster_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.cluster,pval)),
-                        parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.dataset,pval)),
-                        data_label: gd.value
-                        })
             else:
-                graph_json["data"].append({
-                        parametise_label(graph.widget(), view, graph.horiz_axis_label): gd.horiz_json_value(),
-                        parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.dataset,pval)),
-                        data_label: gd.value
-                        })
-        else:
+                data_label = "value"
+            graph_datum = {
+                    parametise_label(graph.widget(), view, graph.dataset_label): parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.dataset,pval)),
+                    data_label: gd.value
+                    }
             if graph.use_clusters():
-                graph_json["data"][gd.cluster.url][gd.dataset.url] = gd.value
+                graph_datum[parametise_label(graph.widget(), view, graph.cluster_label)] = parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.cluster,pval))
             else:
-                graph_json["data"][gd.dataset.url].append([
-                                    gd.horiz_json_value(),
-                                    gd.value
-                                ])
+                graph_datum[parametise_label(graph.widget(), view, graph.horiz_axis_label)] = gd.horiz_json_value()
+            if gd.dataset.use_error_bars:
+                graph_datum[data_label + "_min"] = gd.err_valmin
+                graph_datum[data_label + "_max"] = gd.err_valmax
+            graph_json["data"].append(graph_datum)
+        else:
+            if gd.dataset.use_error_bars:
+                json_val = {
+                            "value": gd.value,
+                            "min": gd.err_valmin,
+                            "max": gd.err_valmax,
+                }
+            else:
+                json_val = gd.value
+            if graph.use_clusters():
+                graph_json["data"][gd.cluster.url][gd.dataset.url] = json_val
+            else:
+                json_val["horizontal_value"] = gd.horiz_json_value()
+                graph_json["data"][gd.dataset.url].append(json_val)
     if graph.use_numeric_axes():
         graph_json["%s_scale" % graph.numeric_axis_name()] = {
                 "min": numeric_min,
