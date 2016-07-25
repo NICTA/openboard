@@ -49,6 +49,10 @@ class GraphData(models.Model):
     dataset = models.ForeignKey("widget_def.GraphDataset", blank=True, null=True)
     value = models.DecimalField(max_digits=14, decimal_places=4,
                         blank=True, null=True)
+    err_valmax = models.DecimalField(max_digits=14, decimal_places=4,
+                        blank=True, null=True)
+    err_valmin = models.DecimalField(max_digits=14, decimal_places=4,
+                        blank=True, null=True)
     horiz_numericval = models.DecimalField(max_digits=14, decimal_places=4,
                         blank=True, null=True)
     horiz_dateval = models.DateField(blank=True, null=True)

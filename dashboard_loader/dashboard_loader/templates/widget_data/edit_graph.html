@@ -22,10 +22,26 @@
     <script type="text/javascript" src="{% settings STATIC_URL %}admin/js/jquery.init.js"></script>
     <script>
         function addAnotherRow() {
-            $ = django.jQuery;
-            var form_idx = $("#id_form-TOTAL_FORMS").val();
+            $ = django.jQuery; var form_idx = $("#id_form-TOTAL_FORMS").val();
             $('#listform_table').append("<tr>" + $('#empty_form_template').html().replace(/__prefix__/g, form_idx) + "</tr>");
             $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        };
+        function hideDiv(id) {
+            $ = django.jQuery;
+            $('#field_' + id).addClass('hidden');
+        };
+        function showDiv(id) {
+            $ = django.jQuery;
+            $('#field_' + id).removeClass('hidden');
+        };
+        function hideShowDivs(id1, id2, show_div) {
+            if (show_div) {
+                showDiv(id1);
+                showDiv(id2);
+            } else {
+                hideDiv(id1);
+                hideDiv(id2);
+            };
         };
     </script>
 {% endblock %}
@@ -66,16 +82,32 @@
 <table border="0" id="listform_table">
     <tr class="hidden" id="empty_form_template">
         {% for field in form.empty_form %}
-            <td><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</td>
+            <td><div id="field_{{ field.id_for_label }}"><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</div></td>
         {% endfor %}
     </tr>
 {% for subform in form %}
     <tr>
         {% for field in subform %}
-            <td><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</td>
+            <td>{% if field.label == "Dataset" %}
+                    <div id="field_{{ field.id_for_label }}"
+                        <b>{{ field.label_tag }}</b>
+                        <select 
+                                onchange="hideShowDivs('id_{{ subform.prefix }}-err_valmin','id_{{ subform.prefix }}-err_valmax', this.options[this.selectedIndex].value.match('^(?:{{ subform.error_bar_datasets|join:"|" }})$'));return true;"
+                                id="{{ field.id_for_label }}" name="{{ subform.prefix }}-{{ field.name }}">
+                            {% for val, key in field.field.choices %}
+                                <option {% if field.value == val %}selected="selected"{% endif %} value={{ val }}>{{ key }}</option>
+                            {% endfor %}
+                        </select>
+                        <br/>{{ field.errors }}
+                    </div>
+                {% else %}
+                <div id="field_{{ field.id_for_label }}" {% if field.label in subform.hidable_fields and subform.dataset.value not in subform.error_bar_datasets %}class="hidden"{% else %}class="debug:{{field.label}},{{ subform.dataset.value}}"{% endif %}><b>{{ field.label_tag }}</b> {{field}} <br/>{{ field.errors }}</div>
+                {% endif %}
+            </td>
         {% endfor %}
     </tr>
 {% endfor %}
+{# TODO: Make error bars conditional on dataset #}
 </table>
 <p><a href="#" onclick="addAnotherRow(); return false;">Add another graph datapoint</a></p>
 <input name="submit" type="submit" value="Save" class="button"/>

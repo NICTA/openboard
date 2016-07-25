@@ -99,7 +99,7 @@ def set_dataset_override(graph, dataset, display_name, pval=None):
         dd.display_name = display_name
         dd.save()
 
-def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None, pval=None):
+def add_graph_data(graph, dataset, value, cluster=None, horiz_value=None, pval=None, val_min=None, val_max=None):
     """Add a graph datapoint.
 
 Return the newly created GraphData object on success.
@@ -111,8 +111,14 @@ Raise a LoaderException on error, or if the provided arguments are not valid for
             dataset = GraphDataset.objects.get(graph=graph, url=dataset)
         except GraphDataset.DoesNotExist:
             raise LoaderException("Dataset %s for graph %s does not exist" % (str(dataset), graph.tile.url))
+    if dataset.use_error_bars:
+        if val_min is None or val_max is None:
+            raise LoaderException("Dataset %s for graph %s requires error bar limits" % (dataset.url, graph.tile.url))
+    else:
+        if val_min is not None or val_max is not None:
+            raise LoaderException("Dataset %s for graph %s does not use error bars" % (dataset.url, graph.tile.url))
     value = decimal.Decimal(value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)
-    gd = GraphData(graph=graph, param_value=pval, dataset=dataset,value=value)
+    gd = GraphData(graph=graph, param_value=pval, dataset=dataset,value=value, err_valmin=val_min, err_valmax=val_max)
     if graph.use_clusters():
         if not cluster:
             raise LoaderException("Must supply cluster for data for graph %s" % graph.tile.url)   

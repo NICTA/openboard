@@ -82,6 +82,9 @@ class GraphDefinition(models.Model):
                 result["cluster"] = gd.cluster
             else:
                 result["horiz_value"] = gd.horiz_value()
+            if gd.dataset.use_error_bars:
+                result["err_valmin"] = gd.err_valmin
+                result["err_valmax"] = gd.err_valmax
             return result
         def initial_override_form_data(self, pval=None):
             result = {}
@@ -266,6 +269,8 @@ class GraphDefinition(models.Model):
                     problems.append("Graph for tile %s of widget %s is a line graph but does not specify horizontal axis type" % (self.tile.url, self.tile.widget.url()))
             if self.graphdataset_set.count() == 0:
                 problems.append("Graph for tile %s of widget %s has no datasets defined" % (self.tile.url, self.widget().url()))
+            if self.graphdataset_set.filter(use_error_bars=True).count() > 0 and not self.use_numeric_axes():
+                problems.append("Pie chart for tile %s of widget %s uses error bars on a dataset." % (self.tile.url, self.widget().url()))
             return problems
 
 class PointColourMap(models.Model):
@@ -544,6 +549,7 @@ class GraphDataset(models.Model):
     dynamic_label=models.BooleanField(default=False)
     colour = models.CharField(max_length=50)
     use_secondary_numeric_axis = models.BooleanField(default=False)
+    use_error_bars = models.BooleanField(default=False)
     hyperlink=models.URLField(blank=True, null=True)
     sort_order=models.IntegerField()
     class Meta:
@@ -561,6 +567,7 @@ class GraphDataset(models.Model):
             "colour": self.colour,
             "hyperlink": self.hyperlink,
             "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
+            "use_error_bars": self.use_error_bars,
         }
     def __unicode__(self):
         return self.url
@@ -575,6 +582,7 @@ class GraphDataset(models.Model):
         d.colour = data["colour"]
         d.hyperlink = data["hyperlink"]
         d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
+        d.use_error_bars = data.get("use_error_bars", False)
         d.dynamic_label = data.get("dynamic_label", False)
         d.save()
     def __getstate__(self, view=None):
@@ -590,5 +598,6 @@ class GraphDataset(models.Model):
                 state["use_secondary_vertical_axis"] = self.use_secondary_numeric_axis
             else:
                 state["use_secondary_numeric_axis"] = self.use_secondary_numeric_axis
+            state["use_error_bars"] = self.use_error_bars
         return state
 
