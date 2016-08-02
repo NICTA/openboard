@@ -133,7 +133,7 @@ LoaderException is raised.
             data.intval = value + 0.5
         else:
             data.decval = value
-    else:
+    elif stat.stat_type != stat.NULL_STAT:
         data.strval = value
     try:
         data.save()

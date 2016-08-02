@@ -217,7 +217,7 @@ def edit_stat(request, widget_url, label, stat_url, pval_id=None):
                         form = form_class(initial=s.initial_form_data(pval))
                 else:
                     fd = form.cleaned_data
-                    set_stat_data(s, fd["value"], pval,
+                    set_stat_data(s, fd.get("value"), pval,
                                     fd.get("traffic_light_code"), fd.get("icon_code"), 
                                     fd.get("trend"), fd.get("label"))
                     redirect_out=True

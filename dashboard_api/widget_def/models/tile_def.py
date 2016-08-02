@@ -75,7 +75,7 @@ class TileDefinition(models.Model):
                 ))
     aspect = models.IntegerField(default=1)
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
-    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(100)])
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(0), MaxValueValidator(100)])
     columns = models.SmallIntegerField(blank=True, null=True)
     template = models.CharField(max_length=512, blank=True, null=True, help_text="Reference statistics with '%{statistic_url}")
     url = models.SlugField()
@@ -288,8 +288,6 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
             if not self.list_label_width:
                 problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))
-            elif self.list_label_width > 85:
-                problems.append("Tile %s of Widget %s is of list type has list label width greater than 85%%" % (self.url, self.widget.url()))
         elif self.tile_type in (self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
             if not self.list_label_width:
                 problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))

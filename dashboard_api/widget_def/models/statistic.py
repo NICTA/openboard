@@ -39,8 +39,10 @@ class Statistic(models.Model):
     LONG_STRING = 8
     LONG_STRING_LIST = 9
     HIERARCHICAL_EVENT_LIST = 10
+    NULL_STAT = 11
     stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", 
-                    "am_pm" , "event_list" , "long_string", "long_string_list", "hierarchical_event_list" ]
+                   "am_pm" , "event_list" , "long_string", "long_string_list", "hierarchical_event_list", 
+                   "null" ]
     tile = models.ForeignKey(TileDefinition)
     name = models.CharField(max_length=80, blank=True)
     url = models.SlugField(verbose_name="label")
@@ -56,6 +58,7 @@ class Statistic(models.Model):
                     (AM_PM, stat_types[AM_PM]),
                     (EVENT_LIST, stat_types[EVENT_LIST]),
                     (HIERARCHICAL_EVENT_LIST, stat_types[HIERARCHICAL_EVENT_LIST]),
+                    (NULL_STAT, stat_types[NULL_STAT]),
                 ))
     traffic_light_scale = models.ForeignKey(TrafficLightScale, blank=True, null=True)
     traffic_light_automation = models.ForeignKey(TrafficLightAutomation, blank=True, null=True)
@@ -141,7 +144,8 @@ class Statistic(models.Model):
         return self.stat_type in (self.STRING_KVL, self.NUMERIC_KVL)
     def initial_form_datum(self, sd):
         result = {}
-        result["value"] = sd.value()
+        if self.stat_type != self.NULL_STAT:
+            result["value"] = sd.value()
         if self.traffic_light_scale:
             result["traffic_light_code"] = sd.traffic_light_code.value
         if self.icon_library:
@@ -188,7 +192,8 @@ class Statistic(models.Model):
     def jsonise(self, datum):
         json = {}
         if datum:
-            json["value"] = datum.value()
+            if self.stat_type != self.NULL_STAT:
+                json["value"] = datum.value()
             if self.is_kvlist():
                 json["label"]=datum.keyval
             elif self.use_datekey():
