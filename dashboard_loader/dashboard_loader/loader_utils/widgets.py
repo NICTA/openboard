@@ -288,6 +288,29 @@ def set_widget_actual_frequency_display_text(widget, display_text, view=None, pv
     wdata.actual_frequency_text = display_text
     wdata.save()
 
+def set_text_block(widget_url, label, text, view=None, pval=None, pval_id=None):
+    """Set the text block for the indicated widget"""
+    try:
+        wdef = WidgetDefinition.objects.get(family__url=widget_url,
+                                label=label)
+    except WidgetDefinition.DoesNotExist:
+        raise LoaderException("Widget %s(%s) does not exist" % (widget_url, label))
+    set_widget_text_block(wdef, text,view=view, pval=pval, pval_id=pval_id)
+
+def set_widget_text_block(widget, text, view=None, pval=None, pval_id=None):
+    if widget.parametisation:
+        if view:
+            pval = view.parameter_value_set(param=widget.parametisation)
+        elif pval_id:
+            pval = ParameterValue.objects.get(pk=pval_id)
+    else:
+        pval = None
+    wdata = widget.widget_data(pval=pval)
+    if not wdata:
+        wdata = WidgetData(widget=widget,param_value=pval)
+    wdata.text_block = text
+    wdata.save()
+
 def get_icon(library, lookup):
     """Lookup icon code by icon library name and icon name or sort_order"""
     try: 

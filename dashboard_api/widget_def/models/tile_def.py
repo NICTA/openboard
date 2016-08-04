@@ -42,6 +42,7 @@ class TileDefinition(models.Model):
     TAG_CLOUD = 16
     TIME_LINE = 17
     TEXT_TEMPLATE = 18
+    TEXT_BLOCK = 19
     tile_types = [ "-", 
                 "single_main_stat", "double_main_stat", 
                 "priority_list", "urgency_list", "list_overflow", 
@@ -51,7 +52,7 @@ class TileDefinition(models.Model):
                 "newsfeed", "news_ticker",
                 "graph_single_stat", "grid_single_stat",
                 "multi_list_stat", "tag_cloud",
-                "time_line", "text_template", ]
+                "time_line", "text_template", "text_block" ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
@@ -72,6 +73,7 @@ class TileDefinition(models.Model):
                     (NEWSFEED, tile_types[NEWSFEED]),
                     (NEWSTICKER, tile_types[NEWSTICKER]),
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
+                    (TEXT_BLOCK, tile_types[TEXT_BLOCK]),
                 ))
     aspect = models.IntegerField(default=1)
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")

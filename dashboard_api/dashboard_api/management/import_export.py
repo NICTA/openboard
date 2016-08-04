@@ -35,20 +35,16 @@ def export_widget_data(widget):
     widget = sanitise_widget_arg(widget)
     defs = WidgetDefinition.objects.filter(family=widget)
     data = { "family": widget.url, "widgets": [] }
-    exported_default_actual_freq = False
     for wd in defs:
         if wd.viewwidgetdeclaration_set.all().count() > 0:
             if wd.parametisation:
                 for pval in wd.parametisation.parametisationvalue_set.all():
-                    if not exported_default_actual_freq:
-                        data["default_actual_frequency"] = wd.actual_frequency_display()
-                        exported_default_actual_freq = True
                     wdata = {
                         "label": wd.label,
                         "parameters": pval.parameters(),
                         "data": api_get_widget_data(wd, pval=pval),
                         "graph_data": api_get_graph_data(wd, pval=pval),
-                        "raw_datasets": None
+                        "raw_datasets": None, # TODO
                     }
                     data["widgets"].append(wdata)
             else:
@@ -56,7 +52,7 @@ def export_widget_data(widget):
                     "label": wd.label,
                     "data": api_get_widget_data(wd),
                     "graph_data": api_get_graph_data(wd),
-                    "raw_datasets": None,
+                    "raw_datasets": None, # TODO
                 }
                 data["widgets"].append(wdata)
     return data
