@@ -24,23 +24,18 @@ def import_widget_data(data):
     except Exception, e:
         raise ImportExportException("Invalid import data %s" % repr(data))
     for w in data["widgets"]:
+        try:
+            wd = WidgetDefinition.objects.get(family=family, label=w["label"])
+        except WidgetDefinition.DoesNotExist:
+            raise ImportExportException("Widget definition %s (%s) does not exist" % (family.url, w["label"]))
         if "parameters" in w:
-            set_actual_frequency_display_text(data["family"], w["label"], data["default_actual_frequency"])
-            try:
-                wd = WidgetDefinition.objects.get(family=family)
-            except WidgetDefinition.DoesNotExist:
-                raise ImportExportException("Parametised widget definition %s does not exist" % (family.url))
             pval = get_paramval(wd.parametisation, **w["parameters"])
         else: 
-            try:
-                wd = WidgetDefinition.objects.get(family=family, label=w["label"])
-            except WidgetDefinition.DoesNotExist:
-                raise ImportExportException("Widget definition %s (%s) does not exist" % (family.url, w["label"]))
             pval = None
-        set_actual_frequency_display_text(data["family"],
-                                w["label"],
+        set_widget_actual_frequency_display_text(wd,
                                 w["data"]["actual_frequency"], 
                                 pval=pval)
+        set_widget_text_block(wd, w["data"].get("text_block"), pval=pval)
         for surl, s in w["data"]["data"].items():
             try:
                 stat = Statistic.objects.get(tile__widget=wd,
@@ -121,4 +116,5 @@ def import_widget_data(data):
                         elif graph.horiz_axis_type == graph.DATETIME:
                             hval = parse_datetime(hval)
                         add_graph_data(graph, dsurl, val, horiz_value=hval, pval=pval)
+        # TODO: data["raw_data"]
     return family

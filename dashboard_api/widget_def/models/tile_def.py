@@ -42,6 +42,7 @@ class TileDefinition(models.Model):
     TAG_CLOUD = 16
     TIME_LINE = 17
     TEXT_TEMPLATE = 18
+    TEXT_BLOCK = 19
     tile_types = [ "-", 
                 "single_main_stat", "double_main_stat", 
                 "priority_list", "urgency_list", "list_overflow", 
@@ -51,7 +52,7 @@ class TileDefinition(models.Model):
                 "newsfeed", "news_ticker",
                 "graph_single_stat", "grid_single_stat",
                 "multi_list_stat", "tag_cloud",
-                "time_line", "text_template", ]
+                "time_line", "text_template", "text_block" ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
                     (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
@@ -72,10 +73,11 @@ class TileDefinition(models.Model):
                     (NEWSFEED, tile_types[NEWSFEED]),
                     (NEWSTICKER, tile_types[NEWSTICKER]),
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
+                    (TEXT_BLOCK, tile_types[TEXT_BLOCK]),
                 ))
     aspect = models.IntegerField(default=1)
     expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
-    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(30), MaxValueValidator(100)])
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(0), MaxValueValidator(100)])
     columns = models.SmallIntegerField(blank=True, null=True)
     template = models.CharField(max_length=512, blank=True, null=True, help_text="Reference statistics with '%{statistic_url}")
     url = models.SlugField()
@@ -288,8 +290,6 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST):
             if not self.list_label_width:
                 problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))
-            elif self.list_label_width > 85:
-                problems.append("Tile %s of Widget %s is of list type has list label width greater than 85%%" % (self.url, self.widget.url()))
         elif self.tile_type in (self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
             if not self.list_label_width:
                 problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))

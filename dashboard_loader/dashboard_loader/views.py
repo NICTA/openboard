@@ -113,6 +113,7 @@ def list_widget_params(request, widget_url, label):
 
 class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
+    text_block=forms.CharField(widget=forms.Textarea(attrs={"rows": 9, "cols": 50 }))
 
 @login_required
 def view_widget(request, widget_url, label, pval_id=None):
@@ -163,9 +164,17 @@ def view_widget(request, widget_url, label, pval_id=None):
         if form.is_valid():
             set_actual_frequency_display_text(w.url(), w.label,
                         form.cleaned_data["actual_frequency_display_text"], pval=pval)
+            set_text_block(w.url(), w.label,
+                        form.cleaned_data["text_block"], pval=pval)
     else:
+        wd = w.widget_data(pval=pval)
+        if wd:
+            text = wd.text_block
+        else:
+            text = ""
         form = WidgetDataForm(initial={
-                "actual_frequency_display_text": w.actual_frequency_display(pval=pval),
+                "actual_frequency_display_text": w.actual_frequency_display(wd=wd),
+                "text_block": text,
                 })
     return render(request, "widget_data/view_widget.html", {
             "pval": pval,
@@ -217,7 +226,7 @@ def edit_stat(request, widget_url, label, stat_url, pval_id=None):
                         form = form_class(initial=s.initial_form_data(pval))
                 else:
                     fd = form.cleaned_data
-                    set_stat_data(s, fd["value"], pval,
+                    set_stat_data(s, fd.get("value"), pval,
                                     fd.get("traffic_light_code"), fd.get("icon_code"), 
                                     fd.get("trend"), fd.get("label"))
                     redirect_out=True

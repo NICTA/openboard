@@ -64,8 +64,13 @@ class WidgetDefinition(models.Model):
                 problems.append("Widget %s:%s has two statistics with url '%s' (in tiles %s and %s)" % (self.url(), self.label, stat.url, stat.tile.url, stat_urls[stat.url]))
             else:
                 stat_urls[stat.url] = stat.tile.url
+        text_block_tiles = 0
         for tile in tiles:
             problems.extend(tile.validate())
+            if tile.tile_type == tile.TEXT_BLOCK:
+                text_block_tiles += 1
+        if text_block_tiles > 1:
+            problems.append("Widget %s:%s has two TEXT BLOCK tiles" % (self.url(), self.label))
         return problems
     def subcategory(self):
         return self.family.subcategory
@@ -88,11 +93,12 @@ class WidgetDefinition(models.Model):
             except WidgetData.DoesNotExist:
                 pass
         try:
-            return WidgetData.objects.get(widget=self, param_value__isnull=True)
+            return WidgetData.objects.get(widget=self, param_value=pval)
         except WidgetData.DoesNotExist:
             return None
-    def actual_frequency_display(self, view=None, pval=None):
-        wd = self.widget_data(view, pval)
+    def actual_frequency_display(self, wd=None, view=None, pval=None):
+        if not wd:
+            wd = self.widget_data(view, pval)
         if wd and wd.actual_frequency_text:
             return wd.actual_frequency_text
         else:
@@ -114,7 +120,6 @@ class WidgetDefinition(models.Model):
             },
             "source_url": parametise_label(self, view, self.source_url()),
             "source_url_text": parametise_label(self, view, self.family.source_url_text),
-            "actual_frequency": parametise_label(self, view, self.actual_frequency_display()),
             "refresh_rate": self.refresh_rate,
             "about": parametise_label(self, view, self.about),
         }

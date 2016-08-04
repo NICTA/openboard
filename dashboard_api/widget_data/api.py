@@ -56,11 +56,17 @@ def api_get_widget_data(widget, view=None, pval=None):
         last_updated_str = last_updated.strftime("%Y-%m-%dT%H:%M:%S%z")
     else:
         last_updated_str = None
-    return {
+    widget_data=widget.widget_data(view=view, pval=pval)
+    data = {
         "widget_last_updated": last_updated_str,
-        "actual_frequency": widget.actual_frequency_display(view=view, pval=pval),
         "data": stats_json,
     }
+    data["actual_frequency"] = widget.actual_frequency_display(wd=widget_data)
+    if widget_data:
+        data["text_block"] = widget_data.text_block
+    else:
+        data["text_block"] = None
+    return data
 
 def api_get_graph_data(widget, view, verbose=False):
     pval = resolve_pval(widget.parametisation, view=view)

@@ -39,7 +39,9 @@ class StatisticData(models.Model):
                     ("statistic", "param_value"),
         ]
     def display_val(self):
-        if self.statistic.is_numeric():
+        if self.statistic.stat_type == self.statistic.NULL_STAT:
+            return None
+        elif self.statistic.is_numeric():
             if self.statistic.num_precision == 0:
                 return unicode(self.intval)
             else:
@@ -50,7 +52,9 @@ class StatisticData(models.Model):
         else:
             return self.strval
     def value(self):
-        if self.statistic.is_numeric():
+        if self.statistic.stat_type == self.statistic.NULL_STAT:
+            return None
+        elif self.statistic.is_numeric():
             if self.statistic.num_precision == 0:
                 return self.intval
             else:

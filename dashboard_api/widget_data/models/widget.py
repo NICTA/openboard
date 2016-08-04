@@ -20,6 +20,7 @@ class WidgetData(models.Model):
     widget = models.ForeignKey("widget_def.WidgetDefinition")
     param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
     actual_frequency_text = models.CharField(max_length=60, blank=True, null=True)
+    text_block = models.TextField(blank=True, null=True)
     class Meta:
         unique_together = [
                 ("widget", "param_value"),

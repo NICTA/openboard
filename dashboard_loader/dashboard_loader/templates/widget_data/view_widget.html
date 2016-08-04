@@ -107,13 +107,15 @@
 
 <form action="{% if pval %}{% url "view_parametised_widget_data" widget_url=widget.url label=widget.label pval_id=pval.id  %}{% else %}{% url "view_widget_data" widget_url=widget.url label=widget.label %}{% endif %}" method="post">{% csrf_token %}
     <table border="0">
-        <tr>
     {% for field in form %}
+        <tr>
             <td><b>{{ field.label_tag }}</b></td>
             <td>{{ field }}</td>
             <td>{{ field.errors }}</td>
+        </tr>
     {% endfor %}
-        <td><input name="save" type="submit" value="Save" class="button"/></td>
+        <tr>
+        <td colspan="3"><input name="save" type="submit" value="Save" class="button"/></td>
         </tr>
     </table>
 </form>

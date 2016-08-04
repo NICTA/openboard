@@ -126,7 +126,7 @@ def get_form_class_for_statistic(stat):
         form_fields["value"] = forms.ChoiceField(required=True,
                         choices = ( ("am", "am"), ("pm", "pm") )
                         )
-    else:
+    elif stat.stat_type != stat.NULL_STAT:
         form_fields["value"] = forms.CharField(max_length=400, required=True)
     field_count += 1
     if stat.traffic_light_scale:
