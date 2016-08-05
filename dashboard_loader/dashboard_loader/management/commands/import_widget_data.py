@@ -13,7 +13,6 @@
 #   limitations under the License.
 
 import json
-from optparse import make_option
 
 from django.core.management.base import BaseCommand, CommandError
 
@@ -21,14 +20,11 @@ from dashboard_api.management.import_export import ImportExportException, export
 from dashboard_loader.management.import_widget_data import import_widget_data
 
 class Command(BaseCommand):
-    args="<json_file> ..."
     help = "Import named widget data json export files"
-    # option_list = BaseCommand.option_list + (
-    #           make_option("-t", "--test",
-    #                   action="store_true", default=False, dest="test",
-    #                   help="Test that data imported correctly"),
-    #       )
-    def handle(self, *args, **options):
+    def add_arguments(self,parser):
+        parser.add_argument('json_file', nargs='+', type=unicode)
+    def handle(self, **options):
+        args = options['json_file']
         if len(args) == 0:
             raise CommandError("Must supply at least one json file to import")
         verbosity = options["verbosity"]

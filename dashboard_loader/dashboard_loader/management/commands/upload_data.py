@@ -12,7 +12,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from optparse import make_option
 from django.core.management.base import BaseCommand, CommandError
 
 from dashboard_loader.models import Uploader
@@ -25,7 +24,6 @@ class Command(BaseCommand):
         parser.add_argument("filename", nargs="?", type=unicode, default=None)
         parser.add_argument("actual_frequency_display", nargs="?", type=unicode, default=None)
         
-# args = "<app> [<filename> [<actual_frequency_display>]]"
     help = "Upload a file for the selected uploader. If no filename supplied, print the expected file format for the selected uploader. If supplied, the actual frequency display is updated (use quotes if new value contains white space)."
     def handle(self, uploader, filename, actual_frequency_display, **options):
         verbosity = int(options["verbosity"])
