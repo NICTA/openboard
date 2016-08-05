@@ -1,129 +1,136 @@
 {
     "requires_authentication": false, 
+    "sort_order": 10, 
     "name": "COAG Performance Report", 
     "view_type": {
         "show_children": true, 
         "name": "COAG Index View", 
         "show_siblings": false
     }, 
+    "external_url": "", 
     "children": [
         {
             "requires_authentication": false, 
+            "sort_order": 100, 
             "name": "Housing", 
             "view_type": {
                 "show_children": true, 
                 "name": "Main COAG View", 
                 "show_siblings": true
             }, 
+            "external_url": null, 
             "children": [], 
-            "label": "housing", 
-            "sort_order": 100, 
             "properties": [
                 {
                     "type": 1, 
                     "value": "National Affordable Housing Agreement", 
                     "key": "agreement"
                 }
-            ]
+            ], 
+            "label": "housing"
         }, 
         {
             "requires_authentication": false, 
+            "sort_order": 200, 
             "name": "Education", 
             "view_type": {
                 "show_children": true, 
                 "name": "Main COAG View", 
                 "show_siblings": true
             }, 
+            "external_url": null, 
             "children": [], 
-            "label": "education", 
-            "sort_order": 200, 
             "properties": [
                 {
                     "type": 1, 
                     "value": "National Education Agreement / National Education Reform Agreement", 
                     "key": "agreement"
                 }
-            ]
+            ], 
+            "label": "education"
         }, 
         {
             "requires_authentication": false, 
+            "sort_order": 300, 
             "name": "Skills", 
             "view_type": {
                 "show_children": true, 
                 "name": "Main COAG View", 
                 "show_siblings": true
             }, 
+            "external_url": null, 
             "children": [], 
-            "label": "skills", 
-            "sort_order": 300, 
             "properties": [
                 {
                     "type": 1, 
                     "value": "National Agreement for Skills and Workforce Development", 
                     "key": "agreement"
                 }
-            ]
+            ], 
+            "label": "skills"
         }, 
         {
             "requires_authentication": false, 
+            "sort_order": 400, 
             "name": "Healthcare", 
             "view_type": {
                 "show_children": true, 
                 "name": "Main COAG View", 
                 "show_siblings": true
             }, 
+            "external_url": null, 
             "children": [], 
-            "label": "healthcare", 
-            "sort_order": 400, 
             "properties": [
                 {
                     "type": 1, 
                     "value": "National Healthcare Agreement", 
                     "key": "agreement"
                 }
-            ]
+            ], 
+            "label": "healthcare"
         }, 
         {
             "requires_authentication": false, 
+            "sort_order": 500, 
             "name": "Disability", 
             "view_type": {
                 "show_children": true, 
                 "name": "Main COAG View", 
                 "show_siblings": true
             }, 
+            "external_url": null, 
             "children": [], 
-            "label": "disability", 
-            "sort_order": 500, 
             "properties": [
                 {
                     "type": 1, 
                     "value": "National Disability Agreement", 
                     "key": "agreement"
                 }
-            ]
+            ], 
+            "label": "disability"
         }, 
         {
             "requires_authentication": false, 
+            "sort_order": 600, 
             "name": "Indigenous", 
             "view_type": {
                 "show_children": true, 
                 "name": "Main COAG View", 
                 "show_siblings": true
             }, 
+            "external_url": null, 
             "children": [], 
-            "label": "indigenous", 
-            "sort_order": 600, 
             "properties": [
                 {
                     "type": 1, 
                     "value": "National Indigenous Reform Agreement", 
                     "key": "agreement"
                 }
-            ]
+            ], 
+            "label": "indigenous"
         }
     ], 
-    "label": "coag", 
-    "sort_order": 10, 
-    "properties": []
+    "properties": [], 
+    "label": "home"
 }
 
