@@ -18,14 +18,12 @@ from django.core.management.base import BaseCommand, CommandError
 from dashboard_api.management.import_export import ImportExportException, export_geocolourscale
 
 class Command(BaseCommand):
-    args="<url>"
     help = """Export indicated GeoColourScale to stdout"""
-
+    def add_arguments(self, parser):
+        parser.add_argument("url", type="unicode")
     def handle(self, *args, **options):
-        if len(args) != 1:
-            raise CommandError("Must supply one and only one argument - the GeoColourScale url")
         try:
-            data = export_geocolourscale(args[0])
+            data = export_geocolourscale(options["url"])
         except ImportExportException, e:
             raise CommandError(unicode(e))
         print >> self.stdout, json.dumps(data, indent=4)

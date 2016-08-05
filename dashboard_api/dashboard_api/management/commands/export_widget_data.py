@@ -19,14 +19,12 @@ from dashboard_api.management.import_export import ImportExportException, export
 from widget_def.view_utils import jsonize
 
 class Command(BaseCommand):
-    args="<url>"
     help = "Export data for named Widget Family to stdout"
-
+    def add_arguments(self, parser):
+        parser.add_argument("url", type=unicode)
     def handle(self, *args, **options):
-        if len(args) != 1:
-            raise CommandError("Must supply one and only one argument - the widget family url")
         try:
-            data = export_widget_data(args[0])
+            data = export_widget_data(options["url"])
         except ImportExportException, e:
             raise CommandError(unicode(e))
         print >> self.stdout, jsonize(data, True)

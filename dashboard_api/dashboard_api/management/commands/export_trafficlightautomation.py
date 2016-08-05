@@ -18,14 +18,12 @@ from django.core.management.base import BaseCommand, CommandError
 from dashboard_api.management.import_export import ImportExportException, export_trafficlightautomation
 
 class Command(BaseCommand):
-    args="<automation_url>"
     help = "Export named Traffic Light Automation to stdout"
-
+    def add_arguments(self, parser):
+        parser.add_argument("url", type=unicode)
     def handle(self, *args, **options):
-        if len(args) != 1:
-            raise CommandError("Must supply one and only one argument - the automation url")
         try:
-            data = export_trafficlightautomation(args[0])
+            data = export_trafficlightautomation(options["url"])
         except ImportExportException, e:
             raise CommandError(unicode(e))
         print >> self.stdout, json.dumps(data, indent=4)

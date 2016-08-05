@@ -12,7 +12,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from optparse import make_option
 from django.core.management.base import BaseCommand, CommandError
 
 from dashboard_loader.loader_utils import LoaderException, geo_upload

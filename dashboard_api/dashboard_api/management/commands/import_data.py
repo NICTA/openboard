@@ -20,23 +20,20 @@ from django.core.management.base import BaseCommand, CommandError
 from dashboard_api.management.import_export import ImportExportException, import_data
 
 class Command(BaseCommand):
-    args="<json_file> ..."
     help = "Import named json export files"
-    option_list = BaseCommand.option_list + (
-                make_option("-t", "--test",
-                        action="store_true", default=False, dest="test",
-                        help="Test that data imported correctly"),
-                make_option("-m", "--merge",
-                        action="store_true", default=False, dest="merge",
-                        help="Do not delete objects not included in file (for categories and views import files only)"),
-            )
+    def add_arguments(self, parser):
+        parser.add_argument("-t", "--test",
+                action="store_true", default=False, dest="test",
+                help="Test that data imported correctly"),
+        parser.add_argument("-m", "--merge",
+                action="store_true", default=False, dest="merge",
+                help="Do not delete objects not included in file (for categories and views import files only)"),
+        parser.add_argument("json_file", nargs="+", type=unicode)
     def handle(self, *args, **options):
-        if len(args) == 0:
-            raise CommandError("Must supply at least one json file to import")
         test = options["test"]
         verbosity = options["verbosity"]
         try:
-            for jf in args:
+            for jf in options["json_file"]:
                 f = open(jf)
                 data = json.load(f)
                 obj = import_data(data, merge=options["merge"])

@@ -18,7 +18,6 @@ from django.contrib.auth.models import Permission
 from widget_def.models import WidgetFamily
 
 class Command(BaseCommand):
-    args=""
     help = "Cleanup Widget Family permissions"
 
     def handle(self, *args, **options):

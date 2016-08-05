@@ -12,14 +12,12 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from optparse import make_option
 from django.apps import apps
 from django.core.management import call_command
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
 
 class Command(BaseCommand):
-    args = []
     help = "Run tests for all non-django installed apps."
 
     def handle(self, *args, **options):

@@ -18,14 +18,12 @@ from django.core.management.base import BaseCommand, CommandError
 from dashboard_api.management.import_export import ImportExportException, export_parametisation
 
 class Command(BaseCommand):
-    args="<label>"
     help = "Export named View Parametisation to stdout"
-
+    def add_arguments(self, parser):
+        parser.add_argument("label", type=unicode)
     def handle(self, *args, **options):
-        if len(args) != 1:
-            raise CommandError("Must supply one and only one argument - the paremetisation label")
         try:
-            data = export_parametisation(args[0])
+            data = export_parametisation(options["label"])
         except ImportExportException, e:
             raise CommandError(unicode(e))
         print >> self.stdout, json.dumps(data, indent=4)

@@ -12,7 +12,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from optparse import make_option
 from django.core.management.base import BaseCommand, CommandError
 
 from dashboard_loader.models import Loader
@@ -21,17 +20,11 @@ from dashboard_loader.loader_utils import LoaderException
 from dashboard_loader.management.update_data import update
 
 class Command(BaseCommand):
-    args="[<app1> [<app2> ....]]"
     help = "Run selected loaders, or all loaders if none passed in"
-    option_list = BaseCommand.option_list + (
-                make_option("-f", "--force",
-                        action="store_true", default=False, dest="force",
-                        help="Force loader to run"),
-                make_option("-V", "--VERBOSE",
-                        action="store_true", default=False, dest="super_verbose",
-                        help="Maximum verbosity"),
-            )
-
+    def add_arguments(self, parser):
+        parser.add_argument("-f", "--force", action="store_true", default=False, dest="force", help="Force loader to run")
+        parser.add_argument("-V", "--VERBOSE", action="store_true", default=False, dest="super_verbose", help="Maximum verbosity")
+        parser.add_argument('app', nargs="*", type=unicode)
     def handle(self, *args, **options):
         verbosity = int(options["verbosity"])
         if options["super_verbose"]:
