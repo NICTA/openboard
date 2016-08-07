@@ -57,6 +57,10 @@ class WidgetView(models.Model):
             ("parent", "sort_order"),
         ]
         ordering=["sort_order"]
+    def save(self, *args, **kwargs):
+        if self.external_url == "":
+            self.external_url = None
+        super(WidgetView, self).save(*args, **kwargs)
     def __unicode__(self):
         return self.label
     def desc(self):
