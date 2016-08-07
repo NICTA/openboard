@@ -1,7 +1,7 @@
 {
     "requires_authentication": false, 
     "sort_order": 10, 
-    "name": "COAG Performance Report", 
+    "name": "Home", 
     "view_type": {
         "show_children": true, 
         "name": "COAG Index View", 
