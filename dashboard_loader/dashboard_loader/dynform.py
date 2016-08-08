@@ -177,7 +177,7 @@ def get_override_form_class_for_graph(graph):
     return type(str("GraphOverrides_%s_Form" % graph.tile.url), (forms.Form,), form_fields)
 
 def clean_error_bars(self, data):
-    if not data["DELETE"] and not data.get("dataset"):
+    if not data["DELETE"] and data.get("dataset"):
         dataset = data["dataset"]
         if dataset.use_error_bars:
             if data.get("err_valmin") is None:
