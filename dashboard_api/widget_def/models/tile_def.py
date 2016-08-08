@@ -219,30 +219,33 @@ class TileDefinition(models.Model):
         max_scalar_stat_count = 40
         if self.tile_type == self.SINGLE_MAIN_STAT:
             max_scalar_stat_count = 5
-        if self.tile_type == self.DOUBLE_MAIN_STAT:
+        elif self.tile_type == self.DOUBLE_MAIN_STAT:
             min_scalar_stat_count = 2
             max_scalar_stat_count = 2
-        if self.tile_type in (self.LIST_OVERFLOW, self.GRAPH):
+        elif self.tile_type in (self.LIST_OVERFLOW, self.GRAPH):
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
-        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.TEXT_TEMPLATE):
+        elif self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.TEXT_TEMPLATE):
             pass # Defaults all correct
-        if self.tile_type == self.MAP:
+        elif self.tile_type == self.MAP:
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
-        if self.tile_type in (self.CALENDAR, self.SINGLE_LIST_STAT, 
+        elif self.tile_type in (self.CALENDAR, self.SINGLE_LIST_STAT, 
                             self.NEWSFEED, self.NEWSTICKER, self.TAG_CLOUD, self.TIME_LINE):
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
             min_list_stat_count = 1
             max_list_stat_count = 1
-        if self.tile_type == self.GRAPH_SINGLE_STAT:
+        elif self.tile_type == self.GRAPH_SINGLE_STAT:
             max_scalar_stat_count = 1
-        if self.tile_type == self.MULTI_LIST_STAT:
+        elif self.tile_type == self.MULTI_LIST_STAT:
             min_list_stat_count = 1
             max_list_stat_count = 4
             min_scalar_stat_count = 0
             max_scalar_stat_count = 1
+        elif self.tile_type == self.TEXT_BLOCK:
+            max_scalar_stat_count = 0
+            min_scalar_stat_count = 0
         stats = self.statistic_set.all()
         scalar_stats = 0
         list_stats = 0
