@@ -113,7 +113,7 @@ def list_widget_params(request, widget_url, label):
 
 class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
-    text_block=forms.CharField(widget=forms.Textarea(attrs={"rows": 9, "cols": 50 }))
+    text_block=forms.CharField(widget=forms.Textarea(attrs={"rows": 9, "cols": 50 }), required=False)
 
 @login_required
 def view_widget(request, widget_url, label, pval_id=None):
