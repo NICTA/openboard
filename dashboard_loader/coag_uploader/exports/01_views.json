@@ -7,7 +7,7 @@
         "name": "COAG Index View", 
         "show_siblings": false
     }, 
-    "external_url": "", 
+    "external_url": null, 
     "children": [
         {
             "requires_authentication": false, 
