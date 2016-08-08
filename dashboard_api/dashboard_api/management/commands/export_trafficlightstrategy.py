@@ -20,7 +20,7 @@ from dashboard_api.management.import_export import ImportExportException, export
 class Command(BaseCommand):
     help = "Export named Traffic Light Strategy to stdout"
     def add_arguments(self, parser):
-        parser.add_arguments("url", type=unicode)
+        parser.add_argument("url", type=unicode)
     def handle(self, *args, **options):
         try:
             data = export_trafficlightstrategy(options["url"])
