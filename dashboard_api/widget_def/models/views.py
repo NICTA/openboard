@@ -158,7 +158,7 @@ class ViewProperty(models.Model):
     view=models.ForeignKey(WidgetView)
     key=models.CharField(max_length=120)
     property_type=models.SmallIntegerField(choices=property_types.items())
-    strval=models.CharField(max_length=255, blank=True, null=True)
+    strval=models.TextField(blank=True, null=True)
     intval=models.IntegerField(blank=True, null=True)
     boolval=models.NullBooleanField()
     decval=models.DecimalField(decimal_places=4, max_digits=14, blank=True, null=True)
