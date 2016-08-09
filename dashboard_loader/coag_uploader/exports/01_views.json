@@ -23,6 +23,11 @@
             "properties": [
                 {
                     "type": 1, 
+                    "value": "<p>The objective of the National Affordable Housing Agreement (NAHA) is \u2019...that all Australians have access to affordable,\r\nsafe and sustainable housing that contributes to social and economic participation\u2019 (COAG, 2009a). The NAHA aims to\r\ncontribute to the following outcomes:</p>\r\n<ol type=\"a\">\r\n<li>people who are homeless or at risk of homelessness achieve sustainable housing and social inclusion;</li>\r\n<li>people are able to rent housing that meets their needs;</li>\r\n<li>people can purchase affordable housing;</li>\r\n<li>people have access to housing through an efficient and responsive housing market;</li>\r\n<li> Indigenous people have the same housing opportunities (in relation to homelessness services, housing rental,\r\nhousing purchase and access to housing through an efficient and responsive housing market) as other\r\nAustralians; and</li>\r\n<li> Indigenous people have improved housing amenity and reduced overcrowding, particularly in remote areas\r\nand discrete communities.</li>\r\n</ol>\r\n\r\n<p>We assess COAG\u2019s performance against the four benchmarks identified in the NAHA, including those relating to home\r\nownership and household overcrowding among Aboriginal and Torres Strait Islander peoples.</p>", 
+                    "key": "objective"
+                }, 
+                {
+                    "type": 1, 
                     "value": "National Affordable Housing Agreement", 
                     "key": "agreement"
                 }
@@ -41,6 +46,11 @@
             "external_url": null, 
             "children": [], 
             "properties": [
+                {
+                    "type": 1, 
+                    "value": "<p>There are two agreements in place that relate to schools education: the National Education Agreement (NEA) and the\r\nNational Education Reform Agreement (NERA).</p>\r\n<p>Only benchmarks and indicators common to both agreements have been included. The performance frameworks for the\r\ntwo agreements have significant overlap.</p>\r\n<h3>National Education Agreement</h3>\r\n<p>The objective of the NEA (January 2009) is \u2018All Australian school students acquire the knowledge and skills to participate\r\neffectively in society and employment in a globalised economy\u2019 (COAG, 2009c). The NEA is intended to contribute to the\r\nachievement of the following outcomes:</p>\r\n<ol type=\"a\">\r\n<li>all children are engaged in and benefiting from schooling;</li>\r\n<li>young people are meeting basic literacy and numeracy standards, and overall levels of literacy and numeracy\r\nachievement are improving;</li>\r\n<li>Australian students excel by international standards;</li>\r\n<li>schooling promotes the social inclusion and reduces the educational disadvantage of children, especially\r\nIndigenous children; and</li>\r\n<li>young people make a successful transition from school to work and further study.\r\nQueensland, Western Australia and the Northern Territory operate under the NEA in agreement with the\r\nCommonwealth.</li>\r\n</ol>\r\n<h3>National Education Reform Agreement</h3>\r\n<p>Outcomes for the NERA (COAG, 2013) are similar to the ones stated in the NEA:</p>\r\n<ol type=\"a\">\r\n<li>Australian students excel by international standards;</li>\r\n<li>young people make a successful transition from school to work and further study;</li>\r\n<li>all children are engaged in and benefiting from schooling; and</li>\r\n<li>schooling reduces the educational disadvantage of children, including Aboriginal and Torres Strait Islander\r\nchildren and children from low socio-economic status backgrounds.</li>\r\n</ol>\r\n<p>New South Wales, Victoria, South Australia, Tasmania and the Australian Capital Territory operate under the NERA in\r\nagreement with the Commonwealth.</p>\r\n<p>We assess COAG\u2019s performance against the two benchmarks identified in the NEA and the NERA, and supplement this\r\nwith an indication of literacy and numeracy achievement among school age children and the participation of young\r\npeople in post-school education, training or employment.</p>\r\n<p><i>See also: National Agreement on Skills and Workforce Development on page 15 for assessment of similar benchmarks.</i></p>", 
+                    "key": "objective"
+                }, 
                 {
                     "type": 1, 
                     "value": "National Education Agreement / National Education Reform Agreement", 
@@ -63,6 +73,11 @@
             "properties": [
                 {
                     "type": 1, 
+                    "value": "<p>The objective of the National Agreement for Skills and Workforce Development (NASWD) is a vocational education and\r\ntraining (VET) system that:</p>\r\n<ol type=\"a\">\r\n<li>delivers a productive and highly skilled workforce;</li>\r\n<li>enables all working age Australians to develop the skills and qualifications needed to participate effectively\r\nin the labour market and contribute to Australia\u2019s economic future; and</li>\r\n<li>supports increased rates of workforce participation.</li>\r\n</ol>\r\n<p>To achieve this objective, the three outcomes the agreement seeks to achieve are:</p>\r\n<ol type=\"a\">\r\n<li>the skill levels of the working age population are increased to meet the changing needs of the economy;</li>\r\n<li> all working age Australians have the opportunity to develop skills; and</li>\r\n<li> training delivers the skills and capabilities needed for improved economic participation for working age\r\nAustralians.</li>\r\n</ol>\r\n<p>We assess COAG\u2019s performance against the two benchmarks identified in the NASWD, and supplement this with an\r\nindication of how effectively VET is translating into improved employment outcomes for graduates.</p>\r\n<p><i>See also: National Education Agreement and National Education Reform Agreement on page 22 for assessment of similar\r\nbenchmarks.</i></p>", 
+                    "key": "objective"
+                }, 
+                {
+                    "type": 1, 
                     "value": "National Agreement for Skills and Workforce Development", 
                     "key": "agreement"
                 }
@@ -81,6 +96,11 @@
             "external_url": null, 
             "children": [], 
             "properties": [
+                {
+                    "type": 1, 
+                    "value": "<p>The objective of the National Healthcare Agreement (NHA) is for Commonwealth, state and territory governments to\r\nimprove health outcomes for all Australians and ensure the sustainability of the Australian health system (COAG, 2011).</p>\r\n<p>This section includes benchmarks or indicators providing information on five of the seven outcomes of the NHA:</p>\r\n<ol type=\"a\">\r\n<li>Australians are born and remain healthy;</li>\r\n<li>Australians receive appropriate high quality and affordable primary and community health services;</li>\r\n<li>Australians receive appropriate high quality and affordable hospital and hospital related care;</li>\r\n<li>Older Australians receive appropriate high quality and affordable health and aged care services;</li>\r\n<li>Australians have positive health and aged care experiences which take account of individual circumstances\r\nand care needs (not reported);</li>\r\n<li>Australians have a health system that promotes social inclusion and reduces disadvantage, especially for\r\nIndigenous Australians (partially reported \u2013 see our section on the National Indigenous Reform Agreement\r\nfor more information); and</li>\r\n<li>Australians have a sustainable health system (not reported).</li>\r\n</ol>", 
+                    "key": "objective"
+                }, 
                 {
                     "type": 1, 
                     "value": "National Healthcare Agreement", 
@@ -103,6 +123,11 @@
             "properties": [
                 {
                     "type": 1, 
+                    "value": "<p>The objective of the National Disability Agreement (NDA) is that \u2018People with disability and their carers have an\r\nenhanced quality of life and participate as valued members of the community\u2019 (COAG 2009b). The NDA aims to\r\ncontribute to the following outcomes:</p>\r\n<ol type=\"a\">\r\n<li>people with disability achieve economic participation and social inclusion;</li>\r\n<li>people with disability enjoy choice, wellbeing and opportunity to live as independently as possible; and</li>\r\n<li> families and carers are well supported.</li>\r\n</ol>\r\n<p>The staged implementation of the National Disability Insurance Scheme (NDIS) commenced in mid-2013. The data used\r\nin this section are the latest available; but predate the NDIS rollout.</p>\r\n<p>We assess COAG\u2019s performance against the two benchmarks identified in the NDA, and supplement this with an\r\nindication of the level of participation by people with a disability in social and community activities.</p>", 
+                    "key": "objective"
+                }, 
+                {
+                    "type": 1, 
                     "value": "National Disability Agreement", 
                     "key": "agreement"
                 }
@@ -121,6 +146,11 @@
             "external_url": null, 
             "children": [], 
             "properties": [
+                {
+                    "type": 1, 
+                    "value": "<p>The overarching objective of the National Indigenous Reform Agreement (NIRA) is to implement intergovernmental\r\nreforms to close the gap in Indigenous disadvantage. COAG has recognised that overcoming Indigenous disadvantage\r\nwill require long-term commitment across the Closing the Gap benchmarks (COAG, 2008):</p>\r\n<ul>\r\n<li>Close the life expectancy gap within a generation (by 2031)</li>\r\n<li>Halve the gap in mortality rates for Indigenous children under five within a decade (by 2018)</li>\r\n<li>Ensuring that 95 per cent of all Indigenous four-year-olds are enrolled in early childhood education (by 2025)</li>\r\n<li>Close the gap between Indigenous and non-Indigenous school attendance within five years (by 2018)</li>\r\n<li>Halve the gap for Indigenous students in reading, writing and numeracy within a decade (by 2018)</li>\r\n<li>Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent attainment rates by 2020</li>\r\n<li>Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians within a decade\r\n(by 2018).</li>\r\n</ul>\r\n\r\n<p>Unlike other National Agreements, the NIRA covers a range of service areas, drawing together Indigenous-related\r\ninformation from other Agreements plus additional NIRA-specific performance benchmark information. For the purposes\r\nof this summary report, the additional indicators have not been analysed\u2014instead, attention has focused specifically on\r\nthe Closing the Gap targets.</p>", 
+                    "key": "objective"
+                }, 
                 {
                     "type": 1, 
                     "value": "National Indigenous Reform Agreement", 
