@@ -20,7 +20,7 @@ from dashboard_api.management.import_export import ImportExportException, export
 class Command(BaseCommand):
     help = "Export named Icon Library to stdout"
     def add_arguments(self, parser):
-        parser.add_argument("library_name", type="unicode")
+        parser.add_argument("library_name", type=unicode)
     def handle(self, *args, **options):
         try:
             data = export_iconlibrary(options["library_name"])
