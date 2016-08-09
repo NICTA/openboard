@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 
 import re
+from datetime import date
 from django.db import models
 
 # Create your models here.
@@ -64,6 +65,13 @@ def display_float_year(fy):
     else:
         return fy_display(y)
 
+def float_year_as_date(fy):
+    iy = int(fy)
+    if float(iy) == fy:
+        return date(iy, 1, 1)
+    else:
+        return date(iy, 7, 1)
+
 class CoagDataBase(models.Model):
     state = models.SmallIntegerField(choices=states)
     year=models.SmallIntegerField()
@@ -78,6 +86,11 @@ class CoagDataBase(models.Model):
             return float(self.year) + 0.5
         else:
             return float(self.year)
+    def year_as_date(self):
+        if self.financial_year:
+            return date(self.year, 7, 1)
+        else:
+            return date(self.year, 1, 1)
     def state_display(self):
         return state_dict[self.state]
     class Meta:
@@ -90,12 +103,6 @@ class CoagPercentageUncertaintyDataBase(CoagDataBase):
                         decimal_places=1)
     class Meta:
         abstract = True
-
-class HousingRentalStressData(CoagPercentageUncertaintyDataBase):
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
 
 class HousingHomelessData(CoagDataBase):
     homeless_persons = models.IntegerField()

@@ -31,9 +31,19 @@
             "value": "not_met"
         }, 
         {
-            "colour": "grey", 
-            "sort_order": 400, 
-            "value": "new_revised_benchmark"
+            "colour": "grey1", 
+            "sort_order": 401, 
+            "value": "new_benchmark"
+        },
+        {
+            "colour": "grey2", 
+            "sort_order": 411, 
+            "value": "revised_benchmark"
+        },
+        {
+            "colour": "grey3", 
+            "sort_order": 420, 
+            "value": "mixed_results"
         }
     ], 
     "scale_name": "Benchmark Scale"

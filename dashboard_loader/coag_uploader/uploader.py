@@ -23,99 +23,9 @@ from dashboard_loader.loader_utils import *
 from widget_def.models import Parametisation, ParametisationValue
 from coag_uploader.models import *
 
-# These are the names of the groups that have permission to upload data for this uploader.
-# If the groups do not exist they are created on registration.
-groups = [ "upload_all", "upload_coag" ]
-
-# This describes the file format.  It is used to describe the format by both
-# "python manage.py upload_data frontlineservice_uploader" and by the uploader 
-# page in the data admin GUI.
-file_format = {
-    "format": "xlsx",
-    "sheets": [
-         {
-             "name": "Table of Contents",
-             "rows": [],
-             "cols": [],
-             "notes": [ "Not read by uploader", ],
-         },
-         {
-             "name": "1 NAHA",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-         {
-             "name": "2 NAHA",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-         {
-             "name": "3 NAHA",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-         {
-             "name": "4 NAHA",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-         {
-             "name": "5 NASWD",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-         {
-             "name": "6 NASWD",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-         {
-             "name": "7 NASWD",
-             "rows": [],
-             "cols": [],
-             "notes": [ "TODO", ],
-         },
-    ],
+hero_widgets = {
+    "housing": [ "rentalstress-housing-hero", ],
 }
-
-def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-    messages = []
-    try:
-        if verbosity > 0:
-            messages.append("Loading workbook...")
-        wb = load_workbook(fh, read_only=True)
-        messages.extend(load_housing_data(wb, verbosity))
-        messages.extend(load_skills_data(wb, verbosity))
-    except LoaderException, e:
-        raise e
-    except Exception, e:
-        raise LoaderException("Invalid file: %s" % unicode(e))
-    return messages
-
-def load_housing_data(wb, verbosity):
-    messages = []
-    if verbosity > 1:
-        messages.append("Loading Housing Data...")
-    messages.extend(load_housing_rental_stress(wb, verbosity))
-    messages.extend(load_housing_homelessness(wb, verbosity))
-    messages.extend(load_housing_indigenous_ownership(wb, verbosity))
-    messages.extend(load_housing_indigenous_crowding(wb, verbosity))
-    return messages
-
-def load_skills_data(wb, verbosity):
-    messages = []
-    if verbosity > 1:
-        messages.append("Loading Skills Data...")
-    messages.extend(load_skills_qualifications(wb, verbosity))
-    messages.extend(load_skills_higher_qualifications(wb, verbosity))
-    messages.extend(load_skills_vet_employment(wb, verbosity))
-    return messages
 
 def column_labels(mini, maxi):
     labels=[]
@@ -169,7 +79,10 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
     for fld in intermediate_cell_rows.keys():
         rows[fld] = 0
     while True:
-        first_cell=sheet["A%d" % row].value
+        try:
+            first_cell=sheet["A%d" % row].value
+        except IndexError:
+            break
         if first_cell:
             if first_cell == abort_on:
                 break
@@ -373,6 +286,113 @@ def calculate_indicator(desire_increase,
                     new[1], 20, label=display_float_year(new[0]))
     return messages
 
+def load_benchmark_description(wb, sheetname):
+    key_lookup = {
+        "status": "status",
+        "updated": "updated",
+        "desc body": "body",
+        "description body": "body",
+        "body": "body",
+        "description": "body",
+        "influences": "influences",
+        "notes": "notes",
+    }
+    statuses = {
+        "achieved": {
+            "short": "Achieved",
+            "long": "The final assessment date for the benchmark has passed. The benchmark was met.",
+            "tlc": "achieved",
+            "icon": "yes",
+        },
+        "on_track": {
+            "short": "On track",
+            "long": "The final assessment date for this benchmark is in the future. On the basis of results so far, the benchmark is on track to be met.",
+            "tlc": "on_track",
+            "icon": "yes",
+        },
+        "likely_to_have_been_met": {
+            "short": "Likely to have been met",
+            "long": "The due date for the benchmark assessment has passed, but we do not yet have data to assess results at that date. On the basis of the available data, the benchmark is likely to have been met.",
+            "tlc": "likely_to_have_been_met",
+            "icon": "yes",
+        },
+        "unlikely_to_have_been_met": {
+            "short": "Unlikely to have been met",
+            "long": "The due date for the benchmark assessment has passed, but we do not yet have data to assess results at that date. On the basis of the available data, the benchmark is unlikely to have been met.",
+            "tlc": "unlikely_to_have_been_met",
+            "icon": "warning",
+        },
+        "not_on_track": {
+            "short": "Not on track",
+            "long": "The final assessment date for this benchmark is in the future. On the basis of results so far, the benchmark is not on track to be met.",
+            "tlc": "on_track",
+            "icon": "warning",
+        },
+        "not_met": {
+            "short": "Not met",
+            "long": "The final assessment date for the benchmark is has passed. The benchmark was not met.",
+            "tlc": "not_met",
+            "icon": "no",
+        },
+        "new_benchmark": {
+            "short": "New benchmark",
+            "long": "There is no time series data available for this benchmark yet, so it is not possible to assess progress at this point.",
+            "tlc": "new_benchmark",
+            "icon": "unknown",
+        },
+        "revised_benchmark": {
+            "short": "Revised benchmark",
+            "long": "An agreement has been reached to replace a previous benchmark.",
+            "tlc": "revised_benchmark",
+            "icon": "unknown",
+        },
+        "mixed_results": {
+            "short": "Mixed Results",
+            "long": "This benchmark includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
+            "tlc": "mixed_results",
+            "icon": "unknown",
+        },
+    }
+    sheet = wb[sheetname]
+    desc = {}
+    append_to = None
+    row = 1
+    while True:
+        try:
+            rawkey = sheet["A%d" % row].value
+        except IndexError:
+            break
+        if rawkey:
+            key = key_lookup[rawkey.lower()]
+        value = sheet["B%d" % row].value
+        if key == "status":
+            status = None
+            for sv in statuses.values():
+                if value.lower() in (sv["tlc"], sv["short"].lower()):
+                    status = sv
+                    break
+            if not status:
+                raise LoaderException("Unrecognised benchmark status: %s" % value)
+            desc["status"] = status
+        elif key == "updated":
+            desc["updated"] = value
+        elif key == "body":
+            desc["body"] = []
+            append_to = desc["body"]
+            key = None
+        elif key == "influences":
+            desc["influences"] = []
+            append_to = desc["influences"]
+            key = None
+        elif key == "notes":
+            desc["notes"] = []
+            append_to = desc["notes"]
+            key = None
+        if not key:
+            append_to.append(value)
+        row += 1
+    return desc
+
 def populate_raw_data(widget_url, label, rds_url,
                     model, field_map):
     messages = []
@@ -390,26 +410,44 @@ def populate_raw_data(widget_url, label, rds_url,
         sort_order += 1
     return messages
 
-def load_housing_rental_stress(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "1 NAHA", 
-                        "Housing", "Rental Stress", 
-                        "Notes:", HousingRentalStressData,
-                        {}, {"percentage": "%", "uncertainty": "+"}, 
-                        verbosity))
-    messages.extend(calculate_benchmark(2007.5, 2015.5, 
-                            -0.1, False, 
-                            HousingRentalStressData, "percentage", 
-                            "rental_stress", "rental_stress", 
-                            verbosity))
-    messages.extend(populate_raw_data("rental_stress", "rental_stress",
-                        "rental_stress_data", HousingRentalStressData,
-                        {
-                            "percentage": "percentage_rental_stress",
-                            "uncertainty": "uncertainty",
-                        }))
+def update_graph_data(wurl, wlbl, graphlbl, model, 
+                            jurisdictions = None,
+                            benchmark_start=None,
+                            benchmark_end=None,
+                            benchmark_gen=lambda x: x,
+                            use_error_bars=False,
+                            verbosity=0):
+    messages=[]
+    g = get_graph(wurl, wlbl, graphlbl)
+    clear_graph_data(g)
+    if jurisdictions:
+        qry = model.objects.filter(state__in=jurisdictions)
+    else:
+        qry = model.objects.all()
+    benchmark_init = None
+    benchmark_final = None
+    for o in qry:
+        if o.float_year == benchmark_start:
+            benchmark_init = o.percentage
+            benchmark_final = benchmark_gen(benchmark_init)
+        kwargs = {}
+        kwargs["horiz_value"] = o.year_as_date()
+        if use_error_bars:
+            kwargs["val_min"] = o.percentage-o.uncertainty
+            kwargs["val_max"] = o.percentage+o.uncertainty
+        add_graph_data(g, o.state_display().lower(),
+                o.percentage,
+                **kwargs)
+    if benchmark_init is not None and benchmark_final is not None :
+        add_graph_data(g, "benchmark",
+                    benchmark_init,
+                    horiz_value=float_year_as_date(benchmark_start))
+        add_graph_data(g, "benchmark",
+                    benchmark_final,
+                    horiz_value=float_year_as_date(benchmark_end))
+    if verbosity > 1:
+        messages.append("Graph %s updated" % graphlbl)
     return messages
-
 
 def load_housing_homelessness(wb, verbosity):
     messages = []
@@ -543,4 +581,5 @@ def load_skills_vet_employment(wb, verbosity):
                             "uncertainty": "uncertainty",
                         }))
     return messages
+
 
