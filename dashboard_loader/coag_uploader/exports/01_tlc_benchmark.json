@@ -34,12 +34,12 @@
             "colour": "grey1", 
             "sort_order": 401, 
             "value": "new_benchmark"
-        },
+        }, 
         {
             "colour": "grey2", 
             "sort_order": 411, 
             "value": "revised_benchmark"
-        },
+        }, 
         {
             "colour": "grey3", 
             "sort_order": 420, 

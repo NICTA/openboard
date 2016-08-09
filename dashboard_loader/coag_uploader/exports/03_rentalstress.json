@@ -5,14 +5,14 @@
     "subtitle": "A 10% reduction nationally in the proportion of low-income renter households in rental stress", 
     "subcategory": "housing", 
     "groups": [], 
-    "url": "rentalstress", 
+    "url": "housing_rentalstress", 
     "definitions": [
         {
             "tiles": [
                 {
                     "expansion": false, 
                     "sort_order": 100, 
-                    "aspect": 1, 
+                    "aspect": 0, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -48,7 +48,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 200, 
-                    "aspect": 4, 
+                    "aspect": 0, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_rentalstress_summary_graph", 
@@ -77,7 +77,7 @@
                                 "sort_order": 100, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "national", 
+                                "url": "australia", 
                                 "colour": "amber", 
                                 "dynamic_label": false, 
                                 "label": "National"
@@ -164,7 +164,7 @@
                 {
                     "expansion": true, 
                     "sort_order": 400, 
-                    "aspect": 4, 
+                    "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_rentalstress_details", 
@@ -177,7 +177,7 @@
                 {
                     "expansion": true, 
                     "sort_order": 500, 
-                    "aspect": 8, 
+                    "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_rentalstress_detail_graph", 
@@ -286,7 +286,7 @@
                                 "sort_order": 900, 
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
-                                "url": "national", 
+                                "url": "australia", 
                                 "colour": "dark_green", 
                                 "dynamic_label": false, 
                                 "label": "National"
