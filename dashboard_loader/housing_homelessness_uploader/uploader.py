@@ -109,7 +109,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 update_graph_data(
                             "housing_homelessness", "housing_homelessness",
                             "housing_homelessness_summary_graph",
-                            HousingRentalStressData, "homeless_persons",
+                            HousingHomelessData, "homeless_persons",
                             [ AUS, ],
                             benchmark_start=2006,
                             benchmark_end=2013,
@@ -121,7 +121,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 update_graph_data(
                             "housing_homelessness", "housing_homelessness",
                             "housing_homelessness_detail_graph",
-                            HousingRentalStressData, "homeless_persons",
+                            HousingHomelessData, "homeless_persons",
                             benchmark_start=2006,
                             benchmark_end=2013,
                             benchmark_gen=lambda init: 0.93*init,
@@ -173,7 +173,7 @@ txt_block_template = Template("""<div class="coag_description">
 def update_stats(desc, verbosity):
     messages = []
     for w in hero_widgets["housing"]:
-        set_statistic_data(w, w, "homelesness", None, 
+        set_statistic_data(w, w, "homelessness", None, 
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
     set_statistic_data("homelessness-housing-hero", "homelessness-housing-hero", 
@@ -195,8 +195,9 @@ def update_stats(desc, verbosity):
                     "status_long",
                     desc["status"]["long"],
                     traffic_light_code=desc["status"]["tlc"])
-    set_actual_frequency_display_text(w, w, "Updated: %s" % unicode(desc["updated"]))
-    set_text_block(w,w,
+    set_actual_frequency_display_text("housing_homelessness", "housing_homelessness",
+                "Updated: %s" % unicode(desc["updated"]))
+    set_text_block("housing_homelessness", "housing_homelessness",
                 txt_block_template.render(Context({ 
                                 "benchmark": benchmark, 
                                 "desc": desc })))

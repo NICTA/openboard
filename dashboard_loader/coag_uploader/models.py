@@ -104,12 +104,6 @@ class CoagPercentageUncertaintyDataBase(CoagDataBase):
     class Meta:
         abstract = True
 
-class IndigenousHomeOwnershipData(CoagPercentageUncertaintyDataBase):
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
 class IndigenousOvercrowdingData(CoagPercentageUncertaintyDataBase):
     class Meta:
         unique_together = [

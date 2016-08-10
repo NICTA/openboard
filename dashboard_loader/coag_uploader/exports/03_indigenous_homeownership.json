@@ -2,10 +2,10 @@
     "category": "COAG", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "A 7% reduction nationally in the number of homeless Australians", 
+    "subtitle": "A 10% increase nationally in the proportion of Indigenous households owning or purchasing a home", 
     "subcategory": "housing", 
     "groups": [], 
-    "url": "housing_homelessness", 
+    "url": "housing_indigenous_homeownership", 
     "definitions": [
         {
             "tiles": [
@@ -38,7 +38,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "housing_homelessness_header", 
+                    "url": "housing_indigenous_homeownership_header", 
                     "tile_type": 1, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -51,7 +51,7 @@
                     "aspect": 0, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "housing_homelessness_summary_graph", 
+                    "url": "housing_indigenous_homeownership_summary_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -93,7 +93,7 @@
                                 "label": "Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "people", 
+                        "numeric_axis_label": "%", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -154,7 +154,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "housing_homelessness_status", 
+                    "url": "housing_indigenous_homeownership_status", 
                     "tile_type": 1, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -167,7 +167,7 @@
                     "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "housing_homelessness_details", 
+                    "url": "housing_indigenous_homeownership_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -180,7 +180,7 @@
                     "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "housing_homelessness_detail_graph", 
+                    "url": "housing_indigenous_homeownership_detail_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -204,7 +204,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
                                 "colour": "blue", 
@@ -214,7 +214,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "vic", 
                                 "colour": "red", 
@@ -224,7 +224,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "qld", 
                                 "colour": "pale_green", 
@@ -234,7 +234,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "wa", 
                                 "colour": "purple", 
@@ -244,7 +244,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "sa", 
                                 "colour": "pale_blue", 
@@ -254,7 +254,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 600, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "tas", 
                                 "colour": "orange", 
@@ -264,7 +264,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 700, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
                                 "colour": "dark_blue", 
@@ -274,7 +274,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 800, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nt", 
                                 "colour": "brown", 
@@ -284,7 +284,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 900, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "australia", 
                                 "colour": "dark_green", 
@@ -302,7 +302,7 @@
                                 "label": "Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "people", 
+                        "numeric_axis_label": "%", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -315,15 +315,15 @@
             ], 
             "views": [
                 {
-                    "sort_order": 200, 
+                    "sort_order": 130, 
                     "view": "housing"
                 }
             ], 
-            "default_frequency_text": "Five yearly", 
+            "default_frequency_text": "Irregular",
             "raw_data_sets": [
                 {
-                    "url": "housing_homelessness", 
-                    "name": "Homelessness Data", 
+                    "url": "housing_indigenous_homeownership", 
+                    "name": "Rental Stress Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -338,37 +338,32 @@
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
-                            "url": "number_homeless_persons",
+                            "url": "indigenous_home_ownership_rate",
                             "sort_order": 300,
-                            "heading": "Number of homeless persons",
-                            "description": "The number of homeless people. A person is considered to be homeless if they are staying (1) in improvised dwellings, tents, or sleeping out; (2) in supported accommodation for the homeless; (3) temporarily with other households; (4) in boarding houses; (5) in other temporary lodging; or (6) in \"severely\" crowded dwellings."
+                            "heading": "Indigenous Home Ownership Rate",
+                            "description": "The proportion of Indigenous households owning or purchasing a home. Includes households that own their dwelling outright, have a mortgage outstanding on their dwelling or are in a rent-buy or shared equity scheme."
                         },
                         {
-                            "url": "proportion_national_total",
+                            "url": "uncertainty",
                             "sort_order": 400,
-                            "heading": "Proportion of national total",
-                            "description": "The proportion (%) of the national total homeless count this jurisdication contributes to."
-                        },
-                        {
-                            "url": "rate_per_10k",
-                            "sort_order": 500,
-                            "heading": "Rate per 10,000 of the population",
-                            "description": "The number of homeless people per 10,000 of the population."
+                            "heading": "Uncertainty",
+                            "description": "The uncertainty in the Indigenous home ownership rate."
                         }
+
                     ], 
-                    "filename": "coag_housing_homelessness_data.csv"
+                    "filename": "coag_housing_indigenous_homeownership_data.csv"
                 }
             ], 
-            "sort_order": 1100, 
+            "sort_order": 1020, 
             "expansion_hint": "View more", 
-            "about": "<p>The objective of the National Affordable Housing Agreement (NAHA) is that all Australians have access to affordable, safe and sustainable housing that contributes to social and economic participation (COAG, 2009a). The NAHA aims to contribute to the following outcomes:</p><ol><li>people who are homeless or at risk of homelessness achieve sustainable housing and social inclusion;</li>\r\n<li>people are able to rent housing that meets their needs;</li>\r\n<li>people can purchase affordable housing;</li>\r\n<li>people have access to housing through an efficient and responsive housing market;</li>\r\n<li>Indigenous people have the same housing opportunities (in relation to homelessness services, housing rental,\r\nhousing purchase and access to housing through an efficient and responsive housing market) as other\r\nAustralians; and</li>\r\n<li>Indigenous people have improved housing amenity and reduced overcrowding, particularly in remote areas\r\nand discrete communities.</li>\r\n</ol>\r\n<p><b>Benchmark 2</b>: From 2006 to 2013, a 7% reduction nationally in the number of homeless Australians.</p>", 
+            "about": "<p>The objective of the National Affordable Housing Agreement (NAHA) is \u2019...that all Australians have access to affordable,\r\nsafe and sustainable housing that contributes to social and economic participation\u2019 (COAG, 2009a). The NAHA aims to\r\ncontribute to the following outcomes:</p>\r\n<ol>\r\n<li>people who are homeless or at risk of homelessness achieve sustainable housing and social inclusion;</li>\r\n<li>people are able to rent housing that meets their needs;</li>\r\n<li>people can purchase affordable housing;</li>\r\n<li>people have access to housing through an efficient and responsive housing market;</li>\r\n<li>Indigenous people have the same housing opportunities (in relation to homelessness services, housing rental,\r\nhousing purchase and access to housing through an efficient and responsive housing market) as other\r\nAustralians; and</li>\r\n<li>Indigenous people have improved housing amenity and reduced overcrowding, particularly in remote areas\r\nand discrete communities.</li>\r\n</ol>\r\n<p><b>Benchmark 3</b>: From 2008 to 2017-18, a 10% reduction nationally in the proportion of Indigenous households owning or purchasing a home.</p>", 
             "refresh_rate": 3600, 
-            "label": "housing_homelessness", 
+            "label": "housing_indigenous_homeownership", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200",
-    "name": "Homelessness"
+    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples",
+    "name": "Indigenous Home Ownership"
 }
 

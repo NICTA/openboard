@@ -27,6 +27,7 @@ hero_widgets = {
     "housing": [ 
             "rentalstress-housing-hero", 
             "homelessness-housing-hero", 
+            "indigenous_homeownership-housing-hero", 
     ],
 }
 

@@ -22,7 +22,7 @@ import re
 from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
-from housing_rentalstress_uploader.models import *
+from housing_indigenous_homeownership_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data
 from django.template import Template, Context
 
@@ -72,7 +72,7 @@ file_format = {
         ],
 }
 
-benchmark = "From 2007-08 to 2015-16, a 10% reduction nationally in the proportion of low-income renter households in rental stress"
+benchmark = "From 2008 to 2017-18, a 10% reduction nationally in the proportion of Indigenous households owning or purchasing a home"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -82,8 +82,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         wb = load_workbook(fh, read_only=True)
         messages.extend(
                 load_state_grid(wb, "Data",
-                                "Housing", "Rental Stress",
-                                None, HousingRentalStressData,
+                                "Housing", "Indigenous Home-Ownership",
+                                None, IndigenousHomeOwnershipData,
                                 {}, {"percentage": "%", "uncertainty": "+",},
                                 verbosity)
                 )
@@ -91,9 +91,21 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_stats(desc, verbosity))
         messages.extend(
                 update_graph_data(
-                            "rentalstress-housing-hero", "rentalstress-housing-hero",
-                            "housing-rs-hero-graph",
-                            HousingRentalStressData, "percentage",
+                            "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero",
+                            "housing-iho-hero-graph",
+                            IndigenousHomeOwnershipData, "percentage",
+                            [ AUS, ],
+                            benchmark_start=2008,
+                            benchmark_end=2017.5,
+                            benchmark_gen=lambda init: 0.9*init,
+                            use_error_bars=False,
+                            verbosity=verbosity)
+                )
+        messages.extend(
+                update_graph_data(
+                            "housing_indigenous_homeownership", "housing_indigenous_homeownership",
+                            "housing_indigenous_homeownership_summary_graph",
+                            IndigenousHomeOwnershipData, "percentage",
                             [ AUS, ],
                             benchmark_start=2007.5,
                             benchmark_end=2015.5,
@@ -103,21 +115,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 )
         messages.extend(
                 update_graph_data(
-                            "housing_rentalstress", "housing_rentalstress",
-                            "housing_rentalstress_summary_graph",
-                            HousingRentalStressData, "percentage",
-                            [ AUS, ],
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: 0.9*init,
-                            use_error_bars=False,
-                            verbosity=verbosity)
-                )
-        messages.extend(
-                update_graph_data(
-                            "housing_rentalstress", "housing_rentalstress",
-                            "housing_rentalstress_detail_graph",
-                            HousingRentalStressData, "percentage",
+                            "housing_indigenous_homeownership", "housing_indigenous_homeownership",
+                            "housing_indigenous_homeownership_detail_graph",
+                            IndigenousHomeOwnershipData, "percentage",
                             benchmark_start=2007.5,
                             benchmark_end=2015.5,
                             benchmark_gen=lambda init: 0.9*init,
@@ -125,10 +125,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             verbosity=verbosity)
                 )
         messages.extend(
-                populate_raw_data("housing_rentalstress", "housing_rentalstress",
-                                "housing_rentalstress", HousingRentalStressData,
+                populate_raw_data("housing_indigenous_homeownership", "housing_indigenous_homeownership",
+                                "housing_indigenous_homeownership", IndigenousHomeOwnershipData,
                                 {
-                                    "percentage": "percentage_rental_stress",
+                                    "percentage": "indigenous_home_ownership_rate",
                                     "uncertainty": "uncertainty",
                                 })
                 )
@@ -168,31 +168,31 @@ txt_block_template = Template("""<div class="coag_description">
 def update_stats(desc, verbosity):
     messages = []
     for w in hero_widgets["housing"]:
-        set_statistic_data(w, w, "rental_stress", None, 
+        set_statistic_data(w, w, "indigenous_ownership", None, 
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("rentalstress-housing-hero", "rentalstress-housing-hero", 
+    set_statistic_data("indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero", 
                     "summary",
                     benchmark,
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
+    set_statistic_data("housing_indigenous_homeownership", "housing_indigenous_homeownership", 
                     "summary",
                     benchmark,
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
+    set_statistic_data("housing_indigenous_homeownership", "housing_indigenous_homeownership", 
                     "status_short",
                     desc["status"]["short"],
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
+    set_statistic_data("housing_indigenous_homeownership", "housing_indigenous_homeownership", 
                     "status_long",
                     desc["status"]["long"],
                     traffic_light_code=desc["status"]["tlc"])
-    set_actual_frequency_display_text("housing_rentalstress", "housing_rentalstress", 
-                "Updated: %s" % unicode(desc["updated"]))
-    set_text_block("housing_rentalstress", "housing_rentalstress", 
+    set_actual_frequency_display_text("housing_indigenous_homeownership", "housing_indigenous_homeownership", 
+                    "Updated: %s" % unicode(desc["updated"]))
+    set_text_block("housing_indigenous_homeownership", "housing_indigenous_homeownership", 
                 txt_block_template.render(Context({ 
                                 "benchmark": benchmark, 
                                 "desc": desc })))
