@@ -24,7 +24,10 @@ from widget_def.models import Parametisation, ParametisationValue
 from coag_uploader.models import *
 
 hero_widgets = {
-    "housing": [ "rentalstress-housing-hero", ],
+    "housing": [ 
+            "rentalstress-housing-hero", 
+            "homelessness-housing-hero", 
+    ],
 }
 
 def column_labels(mini, maxi):
@@ -410,7 +413,7 @@ def populate_raw_data(widget_url, label, rds_url,
         sort_order += 1
     return messages
 
-def update_graph_data(wurl, wlbl, graphlbl, model, 
+def update_graph_data(wurl, wlbl, graphlbl, model, field,
                             jurisdictions = None,
                             benchmark_start=None,
                             benchmark_end=None,
@@ -427,16 +430,17 @@ def update_graph_data(wurl, wlbl, graphlbl, model,
     benchmark_init = None
     benchmark_final = None
     for o in qry:
+        value = getattr(o,field)
         if o.float_year == benchmark_start:
-            benchmark_init = o.percentage
+            benchmark_init = value
             benchmark_final = benchmark_gen(benchmark_init)
         kwargs = {}
         kwargs["horiz_value"] = o.year_as_date()
         if use_error_bars:
-            kwargs["val_min"] = o.percentage-o.uncertainty
-            kwargs["val_max"] = o.percentage+o.uncertainty
+            kwargs["val_min"] = value-o.uncertainty
+            kwargs["val_max"] = value+o.uncertainty
         add_graph_data(g, o.state_display().lower(),
-                o.percentage,
+                value,
                 **kwargs)
     if benchmark_init is not None and benchmark_final is not None :
         add_graph_data(g, "benchmark",

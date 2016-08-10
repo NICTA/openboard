@@ -22,7 +22,7 @@ import re
 from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
-from housing_rentalstress_uploader.models import *
+from housing_homelessness_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data
 from django.template import Template, Context
 
@@ -41,13 +41,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("no.", % or "rate per 10k")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for number (no.), one for percentage of national total (%), and one for rate (rate per 10k)'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -72,7 +72,7 @@ file_format = {
         ],
 }
 
-benchmark = "From 2007-08 to 2015-16, a 10% reduction nationally in the proportion of low-income renter households in rental stress"
+benchmark = "From 2006 to 2013, a 7% reduction nationally in the number of homeless Australians"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -82,55 +82,60 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         wb = load_workbook(fh, read_only=True)
         messages.extend(
                 load_state_grid(wb, "Data",
-                                "Housing", "Rental Stress",
-                                None, HousingRentalStressData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                "Housing", "Homelessness",
+                                None, HousingHomelessData,
+                                {}, {
+                                    "homeless_persons": "no.", 
+                                    "percent_of_national": "%",
+                                    "rate_per_10k": "rate per 10k",
+                                },
                                 verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, verbosity))
         messages.extend(
                 update_graph_data(
-                            "rentalstress-housing-hero", "rentalstress-housing-hero",
-                            "housing-rs-hero-graph",
-                            HousingRentalStressData, "percentage",
+                            "homelessness-housing-hero", "homelessness-housing-hero",
+                            "housing-hln-hero-graph",
+                            HousingHomelessData, "homeless_persons",
                             [ AUS, ],
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: 0.9*init,
+                            benchmark_start=2006,
+                            benchmark_end=2013,
+                            benchmark_gen=lambda init: 0.93*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
         messages.extend(
                 update_graph_data(
-                            "housing_rentalstress", "housing_rentalstress",
-                            "housing_rentalstress_summary_graph",
-                            HousingRentalStressData, "percentage",
+                            "housing_homelessness", "housing_homelessness",
+                            "housing_homelessness_summary_graph",
+                            HousingRentalStressData, "homeless_persons",
                             [ AUS, ],
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: 0.9*init,
+                            benchmark_start=2006,
+                            benchmark_end=2013,
+                            benchmark_gen=lambda init: 0.93*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
         messages.extend(
                 update_graph_data(
-                            "housing_rentalstress", "housing_rentalstress",
-                            "housing_rentalstress_detail_graph",
-                            HousingRentalStressData, "percentage",
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: 0.9*init,
-                            use_error_bars=True,
+                            "housing_homelessness", "housing_homelessness",
+                            "housing_homelessness_detail_graph",
+                            HousingRentalStressData, "homeless_persons",
+                            benchmark_start=2006,
+                            benchmark_end=2013,
+                            benchmark_gen=lambda init: 0.93*init,
+                            use_error_bars=False,
                             verbosity=verbosity)
                 )
         messages.extend(
-                populate_raw_data("housing_rentalstress", "housing_rentalstress",
-                                "housing_rentalstress", HousingRentalStressData,
-                                {
-                                    "percentage": "percentage_rental_stress",
-                                    "uncertainty": "uncertainty",
-                                })
+                populate_raw_data("housing_homelessness", "housing_homelessness",
+                            "housing_homelessness", HousingHomelessData,
+                            {
+                                "homeless_persons": "number_homeless_persons",
+                                "percent_of_national": "proportion_national_total",
+                                "rate_per_10k": "rate_per_10k",
+                            })
                 )
     except LoaderException, e:
         raise e
@@ -168,25 +173,25 @@ txt_block_template = Template("""<div class="coag_description">
 def update_stats(desc, verbosity):
     messages = []
     for w in hero_widgets["housing"]:
-        set_statistic_data(w, w, "rental_stress", None, 
+        set_statistic_data(w, w, "homelesness", None, 
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("rentalstress-housing-hero", "rentalstress-housing-hero", 
+    set_statistic_data("homelessness-housing-hero", "homelessness-housing-hero", 
                     "summary",
                     benchmark,
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
+    set_statistic_data("housing_homelessness", "housing_homelessness", 
                     "summary",
                     benchmark,
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
+    set_statistic_data("housing_homelessness", "housing_homelessness", 
                     "status_short",
                     desc["status"]["short"],
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
+    set_statistic_data("housing_homelessness", "housing_homelessness", 
                     "status_long",
                     desc["status"]["long"],
                     traffic_light_code=desc["status"]["tlc"])
