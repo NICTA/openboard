@@ -22,6 +22,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from widget_def.models import Parametisation, ParametisationValue
 from coag_uploader.models import *
+from django.template import Template, Context
 
 hero_widgets = {
     "housing": [ 
@@ -452,6 +453,68 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
                     horiz_value=float_year_as_date(benchmark_end))
     if verbosity > 1:
         messages.append("Graph %s updated" % graphlbl)
+    return messages
+
+txt_block_template = Template("""<div class="coag_description">
+    <div class="coag_desc_heading">
+    {{ benchmark }}
+    </div>
+    <div class="coag_desc_body">
+        {% for body_elem in desc.body %}
+            <p>{{ body_elem }}</p>
+        {% endfor %}
+        {% for inf_elem in desc.influences %}
+            <p>
+                {% if forloop.first %}
+                    <b>Influences:</b>
+                {% endif %}
+                {{ inf_elem }}
+            </p>
+        {% endfor %}
+    </div>
+    <div class="coag_desc_notes">'
+        <p>Notes:</p>
+        <ol>
+            {% for note in desc.notes %}
+                <li>{{ note }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>""")
+
+def update_stats(desc, section, hero_indicator_url, benchmark, wurl_hero, wlbl_hero, wurl, wlbl, verbosity):
+    messages = []
+    for w in hero_widgets[section]:
+        set_statistic_data(w, w, hero_indicator_url, None, 
+                    traffic_light_code=desc["status"]["tlc"],
+                    icon_code=desc["status"]["icon"])
+    set_statistic_data(wurl_hero, wlbl_hero,
+                    "summary",
+                    benchmark,
+                    traffic_light_code=desc["status"]["tlc"],
+                    icon_code=desc["status"]["icon"])
+    set_statistic_data(wurl, wlbl,
+                    "summary",
+                    benchmark,
+                    traffic_light_code=desc["status"]["tlc"],
+                    icon_code=desc["status"]["icon"])
+    set_statistic_data(wurl, wlbl,
+                    "status_short",
+                    desc["status"]["short"],
+                    traffic_light_code=desc["status"]["tlc"],
+                    icon_code=desc["status"]["icon"])
+    set_statistic_data(wurl, wlbl,
+                    "status_long",
+                    desc["status"]["long"],
+                    traffic_light_code=desc["status"]["tlc"])
+    set_actual_frequency_display_text(wurl, wlbl,
+                "Updated: %s" % unicode(desc["updated"]))
+    set_text_block(wurl, wlbl,
+                txt_block_template.render(Context({ 
+                                "benchmark": benchmark, 
+                                "desc": desc })))
+    if verbosity > 1:
+        messages.append("Stats updated")
     return messages
 
 def load_housing_homelessness(wb, verbosity):

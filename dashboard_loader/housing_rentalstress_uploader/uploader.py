@@ -23,8 +23,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_rentalstress_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data
-from django.template import Template, Context
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data, update_stats
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -88,7 +87,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, verbosity))
+        messages.extend(update_stats(desc, 
+                                "housing", "rental_stress", benchmark,
+                                "rentalstress-housing-hero", "rentalstress-housing-hero", 
+                                "housing_rentalstress", "housing_rentalstress", 
+                                verbosity))
         messages.extend(
                 update_graph_data(
                             "rentalstress-housing-hero", "rentalstress-housing-hero",
@@ -136,67 +139,5 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise e
     except Exception, e:
         raise LoaderException("Invalid file: %s" % unicode(e))
-    return messages
-
-txt_block_template = Template("""<div class="coag_description">
-    <div class="coag_desc_heading">
-    {{ benchmark }}
-    </div>
-    <div class="coag_desc_body">
-        {% for body_elem in desc.body %}
-            <p>{{ body_elem }}</p>
-        {% endfor %}
-        {% for inf_elem in desc.influences %}
-            <p>
-                {% if forloop.first %}
-                    <b>Influences:</b>
-                {% endif %}
-                {{ inf_elem }}
-            </p>
-        {% endfor %}
-    </div>
-    <div class="coag_desc_notes">'
-        <p>Notes:</p>
-        <ol>
-            {% for note in desc.notes %}
-                <li>{{ note }}</li>
-            {% endfor %}
-        </ol>
-    </div>
-</div>""")
-
-def update_stats(desc, verbosity):
-    messages = []
-    for w in hero_widgets["housing"]:
-        set_statistic_data(w, w, "rental_stress", None, 
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
-    set_statistic_data("rentalstress-housing-hero", "rentalstress-housing-hero", 
-                    "summary",
-                    benchmark,
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
-                    "summary",
-                    benchmark,
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
-                    "status_short",
-                    desc["status"]["short"],
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
-    set_statistic_data("housing_rentalstress", "housing_rentalstress", 
-                    "status_long",
-                    desc["status"]["long"],
-                    traffic_light_code=desc["status"]["tlc"])
-    set_actual_frequency_display_text("housing_rentalstress", "housing_rentalstress", 
-                "Updated: %s" % unicode(desc["updated"]))
-    set_text_block("housing_rentalstress", "housing_rentalstress", 
-                txt_block_template.render(Context({ 
-                                "benchmark": benchmark, 
-                                "desc": desc })))
-    if verbosity > 1:
-        messages.append("Stats updated")
     return messages
 
