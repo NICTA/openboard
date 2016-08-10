@@ -22,7 +22,7 @@ import re
 from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
-from housing_indigenous_homeownership_uploader.models import *
+from housing_indigenous_overcrowding_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data, update_stats
 from django.template import Template, Context
 
@@ -72,7 +72,7 @@ file_format = {
         ],
 }
 
-benchmark = "From 2008 to 2017-18, a 10% reduction nationally in the proportion of Indigenous households owning or purchasing a home"
+benchmark = "From 2008 to 2017-18, a 20% reduction nationally in the proportion of Indigenous households living in overcrowded conditions"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -82,57 +82,57 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         wb = load_workbook(fh, read_only=True)
         messages.extend(
                 load_state_grid(wb, "Data",
-                                "Housing", "Indigenous Home-Ownership",
-                                None, IndigenousHomeOwnershipData,
+                                "Housing", "Indigenous Overcrowding",
+                                None, IndigenousOvercrowdingData,
                                 {}, {"percentage": "%", "uncertainty": "+",},
                                 verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, 
-                            "housing", "indigenous_ownership", benchmark,
-                            "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero",
-                            "housing_indigenous_homeownership", "housing_indigenous_homeownership",
+                            "housing", "indigenous_overcrowding", benchmark,
+                            "indigenous_overcrowding-housing-hero", "indigenous_overcrowding-housing-hero",
+                            "housing_indigenous_overcrowding", "housing_indigenous_overcrowding",
                             verbosity))
         messages.extend(
                 update_graph_data(
-                            "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero",
-                            "housing-iho-hero-graph",
-                            IndigenousHomeOwnershipData, "percentage",
+                            "indigenous_overcrowding-housing-hero", "indigenous_overcrowding-housing-hero",
+                            "housing-ioc-hero-graph",
+                            IndigenousOvercrowdingData, "percentage",
                             [ AUS, ],
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: 0.9*init,
+                            benchmark_gen=lambda init: 0.8*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
         messages.extend(
                 update_graph_data(
-                            "housing_indigenous_homeownership", "housing_indigenous_homeownership",
-                            "housing_indigenous_homeownership_summary_graph",
-                            IndigenousHomeOwnershipData, "percentage",
+                            "housing_indigenous_overcrowding", "housing_indigenous_overcrowding",
+                            "housing_indigenous_overcrowding_summary_graph",
+                            IndigenousOvercrowdingData, "percentage",
                             [ AUS, ],
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: 0.9*init,
+                            benchmark_gen=lambda init: 0.8*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
         messages.extend(
                 update_graph_data(
-                            "housing_indigenous_homeownership", "housing_indigenous_homeownership",
-                            "housing_indigenous_homeownership_detail_graph",
-                            IndigenousHomeOwnershipData, "percentage",
+                            "housing_indigenous_overcrowding", "housing_indigenous_overcrowding",
+                            "housing_indigenous_overcrowding_detail_graph",
+                            IndigenousOvercrowdingData, "percentage",
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: 0.9*init,
+                            benchmark_gen=lambda init: 0.8*init,
                             use_error_bars=True,
                             verbosity=verbosity)
                 )
         messages.extend(
-                populate_raw_data("housing_indigenous_homeownership", "housing_indigenous_homeownership",
-                                "housing_indigenous_homeownership", IndigenousHomeOwnershipData,
+                populate_raw_data("housing_indigenous_overcrowding", "housing_indigenous_overcrowding",
+                                "housing_indigenous_overcrowding", IndigenousOvercrowdingData,
                                 {
-                                    "percentage": "indigenous_home_ownership_rate",
+                                    "percentage": "indigenous_overcrowding",
                                     "uncertainty": "uncertainty",
                                 })
                 )
