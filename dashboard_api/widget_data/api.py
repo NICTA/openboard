@@ -137,7 +137,10 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             if graph.use_clusters():
                 graph_json["data"][gd.cluster.url][gd.dataset.url] = json_val
             else:
-                json_val["horizontal_value"] = gd.horiz_json_value()
+                if gd.dataset.use_error_bars:
+                    json_val["horizontal_value"] = gd.horiz_json_value()
+                else:
+                    json_val = ( gd.horiz_json_value(), json_val )
                 graph_json["data"][gd.dataset.url].append(json_val)
     if graph.use_numeric_axes():
         graph_json["%s_scale" % graph.numeric_axis_name()] = {
