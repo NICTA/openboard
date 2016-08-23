@@ -24,8 +24,8 @@ from widget_def.parametisation import parametise_label
 # Create your models here.
 
 class TileDefinition(models.Model):
-    SINGLE_MAIN_STAT = 1
-    DOUBLE_MAIN_STAT = 2
+    SINGLE_MAIN_STAT = 1   # Deprecated
+    DOUBLE_MAIN_STAT = 2   # Deprecated
     PRIORITY_LIST = 3
     URGENCY_LIST = 4
     LIST_OVERFLOW = 5
@@ -43,8 +43,9 @@ class TileDefinition(models.Model):
     TIME_LINE = 17
     TEXT_TEMPLATE = 18
     TEXT_BLOCK = 19
+    MAIN_STAT = 20
     tile_types = [ "-", 
-                "single_main_stat", "double_main_stat", 
+                "single_main_stat (DO NOT USE)", "double_main_stat (DO NOT USE)", 
                 "priority_list", "urgency_list", "list_overflow", 
                 "graph", "map", 
                 "calendar", "grid", 
@@ -52,11 +53,13 @@ class TileDefinition(models.Model):
                 "newsfeed", "news_ticker",
                 "graph_single_stat", "grid_single_stat",
                 "multi_list_stat", "tag_cloud",
-                "time_line", "text_template", "text_block" ]
+                "time_line", "text_template", "text_block",
+                "main_stat" ]
     widget = models.ForeignKey(WidgetDefinition)
     tile_type = models.SmallIntegerField(choices=(
-                    (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
-                    (DOUBLE_MAIN_STAT, tile_types[DOUBLE_MAIN_STAT]),
+# (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
+#                    (DOUBLE_MAIN_STAT, tile_types[DOUBLE_MAIN_STAT]),
+                    (MAIN_STAT, tile_types[MAIN_STAT]),
                     (TEXT_TEMPLATE, tile_types[TEXT_TEMPLATE]),
                     (SINGLE_LIST_STAT, tile_types[SINGLE_LIST_STAT]),
                     (MULTI_LIST_STAT, tile_types[MULTI_LIST_STAT]),
@@ -84,6 +87,7 @@ class TileDefinition(models.Model):
     sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
     geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
     geo_datasets = models.ManyToManyField("GeoDataset", blank=True)
+    main_stat_count = models.SmallIntegerField(blank=True, null=True)
     # graph_def, map_def
     def __getstate__(self, view=None):
         state = {
@@ -92,7 +96,7 @@ class TileDefinition(models.Model):
             "aspect": self.aspect,
         }
         if self.tile_type in (self.NEWSFEED, self.NEWSTICKER, 
-                                self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, 
+                                self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.MAIN_STAT,
                                 self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR, self.TIME_LINE,
                                 self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, self.TEXT_TEMPLATE, 
                                 self.TAG_CLOUD):
@@ -102,7 +106,7 @@ class TileDefinition(models.Model):
             for s in self.statistic_set.all():
                 if s.gridstatistic_set.count() == 0:
                     state["statistics"].append(s.__getstate__(view))
-        if self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
+        elif self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             if self.list_label_width:
                 state["list_label_width"] = self.list_label_width
             else:
@@ -124,6 +128,8 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
             state["grid"] = GridDefinition.objects.get(tile=self).__getstate__(view)
+        if self.tile_type == self.MAIN_STAT:
+            state["main_stat_count"] = self.main_stat_count
         return state
     def export(self):
         exp = {
@@ -139,6 +145,14 @@ class TileDefinition(models.Model):
             "geo_window": None,
             "geo_datasets": [ ds.url for ds in self.geo_datasets.all() ],
         }
+        if self.tile_type == self.SINGLE_MAIN_STAT:
+            exp["tile_type"] = self.MAIN_STAT
+            exp["main_stat_count"] = 1
+        elif self.tile_type == self.DOUBLE_MAIN_STAT:
+            exp["tile_type"] = self.MAIN_STAT
+            exp["main_stat_count"] = 2
+        elif self.tile_type == self.MAIN_STAT:
+            exp["main_stat_count"] = self.main_stat_count
         if self.geo_window:
             exp["geo_window"] = self.geo_window.name
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
@@ -155,6 +169,14 @@ class TileDefinition(models.Model):
         except TileDefinition.DoesNotExist:
             t = TileDefinition(widget=widget, url=data["url"])
         t.tile_type = data["tile_type"]
+        if t.tile_type == self.SINGLE_MAIN_STAT:
+            t.tile_type = self.MAIN_STAT
+            t.main_stat_count = 1
+        elif t.tile_type == self.DOUBLE_MAIN_STAT:
+            t.tile_type = self.MAIN_STAT
+            t.main_stat_count = 2
+        elif t.tile_type == self.MAIN_STAT:
+            t.main_stat_count = data["main_stat_count"]
         t.expansion = data["expansion"]
         t.aspect = data.get("expansion", 1)
         t.list_label_widh = data.get("list_label_width")
@@ -201,6 +223,8 @@ class TileDefinition(models.Model):
                     self.list_label_width = 100
         else:
             self.list_label_width = None
+        if self.tile_type != self.MAIN_STAT:
+            self.main_stat_count = None
         if self.tile_type != self.TEXT_TEMPLATE:
             self.template = None
         if self.tile_type != self.MAP:
@@ -218,10 +242,16 @@ class TileDefinition(models.Model):
         min_scalar_stat_count = 1
         max_scalar_stat_count = 40
         if self.tile_type == self.SINGLE_MAIN_STAT:
+            problems.append("Tile %s of Widget %s is 'single_main_stat' type.  This tile type is now deprecated.  Use 'main_stat' tile type with main_stat_count=1" % (self.url, self.widget.url()))
             max_scalar_stat_count = 5
         elif self.tile_type == self.DOUBLE_MAIN_STAT:
+            problems.append("Tile %s of Widget %s is 'double_main_stat' type.  This tile type is now deprecated.  Use 'main_stat' tile type with main_stat_count=2" % (self.url, self.widget.url()))
             min_scalar_stat_count = 2
             max_scalar_stat_count = 2
+        elif self.tile_type == self.MAIN_STAT:
+            if self.main_stat_count is None or self.main_stat_count < 1:
+                problems.append("Tile %s of Widget %s is 'main_stat' type but main_stat_count is not set or less than one." % (self.url, self.widget.url()))
+            min_scalar_stat_count = self.main_stat_count
         elif self.tile_type in (self.LIST_OVERFLOW, self.GRAPH):
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
