@@ -256,7 +256,7 @@ class TileDefinition(models.Model):
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
         elif self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.TEXT_TEMPLATE):
-            pass # Defaults all correct
+            min_scalar_stat_count = 0
         elif self.tile_type == self.MAP:
             min_scalar_stat_count = 0
             max_scalar_stat_count = 0
