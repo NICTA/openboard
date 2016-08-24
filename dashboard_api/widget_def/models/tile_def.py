@@ -383,8 +383,6 @@ class TileDefinition(models.Model):
                 start_refs = re.findall(r'%\{', self.template)
                 if len(start_refs) > len(references):
                     problems.append("Tile %s of Widget %s has an invalid text template: %s" % (self.url, self.widget.url(), self.template))
-                if len(references) == 0:
-                    problems.append("Tile %s of Widget %s has a text template that references no statistics" % (self.url, self.widget.url()))
                 Statistic = apps.get_app_config("widget_def").get_model("Statistic")
                 for reference in references:
                     m = re.match(r'%\{(?P<ref>\w+)\}', reference)
