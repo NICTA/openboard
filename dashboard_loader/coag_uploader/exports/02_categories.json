@@ -5,30 +5,131 @@
             "subcategories": [
                 {
                     "sort_order": 100, 
-                    "name": "housing"
+                    "name": "summary"
                 }, 
                 {
                     "sort_order": 200, 
-                    "name": "education"
+                    "name": "national agreement"
                 }, 
                 {
                     "sort_order": 300, 
-                    "name": "skills"
-                }, 
-                {
-                    "sort_order": 400, 
-                    "name": "healthcare"
-                }, 
-                {
-                    "sort_order": 500, 
-                    "name": "disability"
-                }, 
-                {
-                    "sort_order": 600, 
-                    "name": "indigenous"
+                    "name": "national partnership agreement"
                 }
             ], 
-            "name": "COAG", 
+            "name": "housing", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 200, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "national agreement"
+                }, 
+                {
+                    "sort_order": 300, 
+                    "name": "national partnership agreement"
+                }
+            ], 
+            "name": "education", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 300, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "national agreement"
+                }
+            ], 
+            "name": "skills", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 400, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "national agreement"
+                }, 
+                {
+                    "sort_order": 300, 
+                    "name": "national partnership agreement"
+                }
+            ], 
+            "name": "health", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 500, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "national agreement"
+                }
+            ], 
+            "name": "disability", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 600, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 200, 
+                    "name": "national agreement"
+                }
+            ], 
+            "name": "Indigenous", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 700, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 300, 
+                    "name": "national partnership agreement"
+                }
+            ], 
+            "name": "Infrastructure", 
+            "aspect": 1
+        }, 
+        {
+            "sort_order": 800, 
+            "subcategories": [
+                {
+                    "sort_order": 100, 
+                    "name": "summary"
+                }, 
+                {
+                    "sort_order": 300, 
+                    "name": "national partnership agreement"
+                }
+            ], 
+            "name": "Legal Assistance", 
             "aspect": 1
         }
     ]
