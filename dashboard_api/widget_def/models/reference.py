@@ -22,7 +22,7 @@ from django.apps import apps
 class Category(models.Model):
     name = models.CharField(max_length=60, unique=True)
     category_aspect = models.IntegerField()
-    sort_order = models.IntegerField()
+    sort_order = models.IntegerField(unique=True)
     def export(self):
         return {
             "name": self.name,
