@@ -433,7 +433,7 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
     benchmark_final = None
     for o in qry:
         value = getattr(o,field)
-        if o.float_year == benchmark_start:
+        if o.state == AUS and o.float_year() == benchmark_start:
             benchmark_init = value
             benchmark_final = benchmark_gen(benchmark_init)
         kwargs = {}
@@ -489,13 +489,13 @@ def update_stats(desc, section, hero_indicator_url, benchmark, wurl_hero, wlbl_h
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
     set_statistic_data(wurl_hero, wlbl_hero,
-                    "summary",
-                    benchmark,
+                    "status_header",
+                    desc["status"]["short"],
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
     set_statistic_data(wurl, wlbl,
-                    "summary",
-                    benchmark,
+                    "status_header",
+                    desc["status"]["short"],
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
     set_statistic_data(wurl, wlbl,

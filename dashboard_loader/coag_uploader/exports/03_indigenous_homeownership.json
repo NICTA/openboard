@@ -1,9 +1,9 @@
 {
-    "category": "COAG", 
+    "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "A 10% increase nationally in the proportion of Indigenous households owning or purchasing a home", 
-    "subcategory": "housing", 
+    "subtitle": "Increase the proportion of Indigenous households owning or purchasing a home", 
+    "subcategory": "national agreement", 
     "groups": [], 
     "url": "housing_indigenous_homeownership", 
     "definitions": [
@@ -11,6 +11,7 @@
             "tiles": [
                 {
                     "expansion": false, 
+                    "main_stat_count": 1, 
                     "sort_order": 100, 
                     "aspect": 0, 
                     "statistics": [
@@ -20,7 +21,7 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "summary", 
+                            "url": "status_header", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -32,14 +33,14 @@
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": null, 
                             "rotates": false, 
-                            "stat_type": 8, 
+                            "stat_type": 1, 
                             "unit_prefix": null, 
                             "sort_order": 100
                         }
                     ], 
                     "list_label_width": null, 
                     "url": "housing_indigenous_homeownership_header", 
-                    "tile_type": 1, 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -78,7 +79,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "australia", 
-                                "colour": "amber", 
+                                "colour": "green-solid", 
                                 "dynamic_label": false, 
                                 "label": "National"
                             }, 
@@ -88,7 +89,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "green", 
+                                "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
@@ -105,6 +106,7 @@
                 }, 
                 {
                     "expansion": true, 
+                    "main_stat_count": 1, 
                     "sort_order": 300, 
                     "aspect": 1, 
                     "statistics": [
@@ -155,7 +157,7 @@
                     ], 
                     "list_label_width": null, 
                     "url": "housing_indigenous_homeownership_status", 
-                    "tile_type": 1, 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -319,7 +321,7 @@
                     "view": "housing"
                 }
             ], 
-            "default_frequency_text": "Irregular",
+            "default_frequency_text": "Irregular", 
             "raw_data_sets": [
                 {
                     "url": "housing_indigenous_homeownership", 
@@ -338,18 +340,17 @@
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
-                            "url": "indigenous_home_ownership_rate",
-                            "sort_order": 300,
-                            "heading": "Indigenous Home Ownership Rate",
+                            "url": "indigenous_home_ownership_rate", 
+                            "sort_order": 300, 
+                            "heading": "Indigenous Home Ownership Rate", 
                             "description": "The proportion of Indigenous households owning or purchasing a home. Includes households that own their dwelling outright, have a mortgage outstanding on their dwelling or are in a rent-buy or shared equity scheme."
-                        },
+                        }, 
                         {
-                            "url": "uncertainty",
-                            "sort_order": 400,
-                            "heading": "Uncertainty",
+                            "url": "uncertainty", 
+                            "sort_order": 400, 
+                            "heading": "Uncertainty", 
                             "description": "The uncertainty in the Indigenous home ownership rate."
                         }
-
                     ], 
                     "filename": "coag_housing_indigenous_homeownership_data.csv"
                 }
@@ -363,7 +364,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples",
+    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples", 
     "name": "Indigenous Home Ownership"
 }
 

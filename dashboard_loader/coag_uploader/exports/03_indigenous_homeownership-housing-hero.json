@@ -1,14 +1,27 @@
 {
-    "category": "COAG", 
+    "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "A 10% increase nationally in the proportion of Indigenous households owning or purchasing a home", 
-    "subcategory": "housing", 
+    "subtitle": "Increase Indigenous home ownership", 
+    "subcategory": "summary", 
     "groups": [], 
     "url": "indigenous_homeownership-housing-hero", 
     "definitions": [
         {
             "tiles": [
+                {
+                    "expansion": false, 
+                    "sort_order": 50, 
+                    "aspect": 0, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing-iho-agreement-summary", 
+                    "tile_type": 18, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": "4 National Agreements | 2 National Partnership Agreements", 
+                    "columns": null
+                }, 
                 {
                     "expansion": false, 
                     "sort_order": 100, 
@@ -101,6 +114,50 @@
                             "stat_type": 11, 
                             "unit_prefix": null, 
                             "sort_order": 400
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "remote_indigenous_housing", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 11, 
+                            "unit_prefix": null, 
+                            "sort_order": 500
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "npa_homelessness", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 11, 
+                            "unit_prefix": null, 
+                            "sort_order": 600
                         }
                     ], 
                     "list_label_width": 50, 
@@ -113,6 +170,7 @@
                 }, 
                 {
                     "expansion": false, 
+                    "main_stat_count": 1, 
                     "sort_order": 200, 
                     "aspect": 0, 
                     "statistics": [
@@ -122,7 +180,7 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "summary", 
+                            "url": "status_header", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -134,14 +192,14 @@
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": null, 
                             "rotates": false, 
-                            "stat_type": 8, 
+                            "stat_type": 1, 
                             "unit_prefix": null, 
                             "sort_order": 100
                         }
                     ], 
                     "list_label_width": null, 
                     "url": "housing-iho-hero-header", 
-                    "tile_type": 1, 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -180,7 +238,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "australia", 
-                                "colour": "amber", 
+                                "colour": "green-solid", 
                                 "dynamic_label": false, 
                                 "label": "National"
                             }, 
@@ -190,7 +248,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "green", 
+                                "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
@@ -206,8 +264,7 @@
                     "columns": null
                 }
             ], 
-            "views": [
-            ], 
+            "views": [], 
             "default_frequency_text": "Irregular", 
             "raw_data_sets": [], 
             "sort_order": 120, 
@@ -219,7 +276,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples",
-    "name": "Indigenous Home Ownership"
+    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples", 
+    "name": "Housing"
 }
 

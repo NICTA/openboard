@@ -105,7 +105,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2006,
                             benchmark_end=2013,
-                            benchmark_gen=lambda init: 0.93*init,
+                            benchmark_gen=lambda init: Decimal(0.93)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
@@ -117,7 +117,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2006,
                             benchmark_end=2013,
-                            benchmark_gen=lambda init: 0.93*init,
+                            benchmark_gen=lambda init: Decimal(0.93)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
@@ -128,7 +128,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             HousingHomelessData, "homeless_persons",
                             benchmark_start=2006,
                             benchmark_end=2013,
-                            benchmark_gen=lambda init: 0.93*init,
+                            benchmark_gen=lambda init: Decimal(0.93)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )

@@ -1,9 +1,9 @@
 {
-    "category": "COAG", 
+    "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "A 20% reduction nationally in the proportion of Indigenous households living in overcrowded conditions", 
-    "subcategory": "housing", 
+    "subtitle": "Reduce proportion of Indigenous households living in overcrowded conditions", 
+    "subcategory": "national agreement", 
     "groups": [], 
     "url": "housing_indigenous_overcrowding", 
     "definitions": [
@@ -11,6 +11,7 @@
             "tiles": [
                 {
                     "expansion": false, 
+                    "main_stat_count": 1, 
                     "sort_order": 100, 
                     "aspect": 0, 
                     "statistics": [
@@ -20,7 +21,7 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "summary", 
+                            "url": "status_header", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -32,14 +33,14 @@
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": null, 
                             "rotates": false, 
-                            "stat_type": 8, 
+                            "stat_type": 1, 
                             "unit_prefix": null, 
                             "sort_order": 100
                         }
                     ], 
                     "list_label_width": null, 
                     "url": "housing_indigenous_overcrowding_header", 
-                    "tile_type": 1, 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -105,6 +106,7 @@
                 }, 
                 {
                     "expansion": true, 
+                    "main_stat_count": 1, 
                     "sort_order": 300, 
                     "aspect": 1, 
                     "statistics": [
@@ -155,7 +157,7 @@
                     ], 
                     "list_label_width": null, 
                     "url": "housing_indigenous_overcrowding_status", 
-                    "tile_type": 1, 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -319,7 +321,7 @@
                     "view": "housing"
                 }
             ], 
-            "default_frequency_text": "Irregular",
+            "default_frequency_text": "Irregular", 
             "raw_data_sets": [
                 {
                     "url": "housing_indigenous_overcrowding", 
@@ -338,18 +340,17 @@
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
-                            "url": "indigenous_overcrowding",
-                            "sort_order": 300,
-                            "heading": "Indigenous Overcrowding Rate",
+                            "url": "indigenous_overcrowding", 
+                            "sort_order": 300, 
+                            "heading": "Indigenous Overcrowding Rate", 
                             "description": "The proportion of Indigenous households living in overcrowded conditions. Overcrowded conditions are defined using the Canadian National Occupancy Standard as requiring one or more additional bedrooms."
-                        },
+                        }, 
                         {
-                            "url": "uncertainty",
-                            "sort_order": 400,
-                            "heading": "Uncertainty",
+                            "url": "uncertainty", 
+                            "sort_order": 400, 
+                            "heading": "Uncertainty", 
                             "description": "The uncertainty (95% confidence interval) in the Indigenous overcrowding rate."
                         }
-
                     ], 
                     "filename": "coag_housing_indigenous_overcrowding.csv"
                 }
@@ -363,7 +364,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples",
+    "source_url": "http://www.abs.gov.au/Aboriginal-and-Torres-Strait-Islander-Peoples", 
     "name": "Indigenous Overcrowding"
 }
 
