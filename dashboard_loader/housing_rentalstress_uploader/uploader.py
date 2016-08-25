@@ -16,7 +16,6 @@
 
 import datetime
 import csv
-from scipy import stats
 from decimal import Decimal, ROUND_HALF_UP
 import re
 from openpyxl import load_workbook

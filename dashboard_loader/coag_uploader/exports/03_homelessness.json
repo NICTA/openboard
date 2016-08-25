@@ -359,6 +359,181 @@
                         }
                     ], 
                     "filename": "coag_housing_homelessness_data.csv"
+                },
+                {
+                    "url": "data_table", 
+                    "name": "Homelessness Data Table", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_persons", 
+                            "sort_order": 20, 
+                            "heading": "NSW | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_proportion", 
+                            "sort_order": 30, 
+                            "heading": "NSW | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "nsw_rate10k", 
+                            "sort_order": 40, 
+                            "heading": "NSW | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "vic_persons", 
+                            "sort_order": 50, 
+                            "heading": "Vic | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_proportion", 
+                            "sort_order": 60, 
+                            "heading": "Vic | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "vic_rate10k", 
+                            "sort_order": 70, 
+                            "heading": "Vic | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "qld_persons", 
+                            "sort_order": 80, 
+                            "heading": "Qld | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_proportion", 
+                            "sort_order": 90, 
+                            "heading": "Qld | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "qld_rate10k", 
+                            "sort_order": 100, 
+                            "heading": "Qld | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "wa_persons", 
+                            "sort_order": 110, 
+                            "heading": "WA | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_proportion", 
+                            "sort_order": 120, 
+                            "heading": "WA | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "wa_rate10k", 
+                            "sort_order": 130, 
+                            "heading": "WA | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "sa_persons", 
+                            "sort_order": 140, 
+                            "heading": "SA | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_proportion", 
+                            "sort_order": 150, 
+                            "heading": "SA | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "sa_rate10k", 
+                            "sort_order": 160, 
+                            "heading": "SA | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "tas_persons", 
+                            "sort_order": 170, 
+                            "heading": "TAS | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_proportion", 
+                            "sort_order": 180, 
+                            "heading": "Tas | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "tas_rate10k", 
+                            "sort_order": 190, 
+                            "heading": "TAS | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "act_persons", 
+                            "sort_order": 200, 
+                            "heading": "ACT | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_proportion", 
+                            "sort_order": 210, 
+                            "heading": "ACT | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "act_rate10k", 
+                            "sort_order": 220, 
+                            "heading": "ACT | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "nt_persons", 
+                            "sort_order": 230, 
+                            "heading": "NT | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_proportion", 
+                            "sort_order": 240, 
+                            "heading": "NT | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "nt_rate10k", 
+                            "sort_order": 250, 
+                            "heading": "NT | rate per 10k", 
+                            "description": ""
+                        },
+                        {
+                            "url": "australia_persons", 
+                            "sort_order": 260, 
+                            "heading": "Aust | persons", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_proportion", 
+                            "sort_order": 270, 
+                            "heading": "Aust | % of national total", 
+                            "description": ""
+                        },
+                        {
+                            "url": "australia_rate10k", 
+                            "sort_order": 280, 
+                            "heading": "Aust | rate per 10k", 
+                            "description": ""
+                        }
+                    ],
+                    "filename": "homelessness_data_table.csv"
                 }
             ], 
             "sort_order": 1100, 

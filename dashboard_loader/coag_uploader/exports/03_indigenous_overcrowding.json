@@ -324,6 +324,127 @@
             "default_frequency_text": "Irregular", 
             "raw_data_sets": [
                 {
+                    "url": "data_table", 
+                    "name": "Indigenous Overcrowding Data Table", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_percent", 
+                            "sort_order": 20, 
+                            "heading": "NSW | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_error", 
+                            "sort_order": 30, 
+                            "heading": "NSW | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_percent", 
+                            "sort_order": 40, 
+                            "heading": "Vic | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_error", 
+                            "sort_order": 50, 
+                            "heading": "Vic | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_percent", 
+                            "sort_order": 60, 
+                            "heading": "Qld | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_error", 
+                            "sort_order": 70, 
+                            "heading": "Qld | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_percent", 
+                            "sort_order": 80, 
+                            "heading": "WA | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_error", 
+                            "sort_order": 90, 
+                            "heading": "WA | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_percent", 
+                            "sort_order": 100, 
+                            "heading": "SA | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_error", 
+                            "sort_order": 110, 
+                            "heading": "SA | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_percent", 
+                            "sort_order": 120, 
+                            "heading": "Tas | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_error", 
+                            "sort_order": 130, 
+                            "heading": "Tas | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_percent", 
+                            "sort_order": 140, 
+                            "heading": "ACT | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_error", 
+                            "sort_order": 150, 
+                            "heading": "ACT | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_percent", 
+                            "sort_order": 160, 
+                            "heading": "NT | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_error", 
+                            "sort_order": 170, 
+                            "heading": "NT | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_percent", 
+                            "sort_order": 180, 
+                            "heading": "Aust | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_error", 
+                            "sort_order": 190, 
+                            "heading": "Aust | \u00b1", 
+                            "description": ""
+                        }
+                    ],
+                    "filename": "coag_housing_indigenous_overcrowding_data_table.csv"
+                },
+                {
                     "url": "housing_indigenous_overcrowding", 
                     "name": "Indigenous Overcrowding Data", 
                     "columns": [

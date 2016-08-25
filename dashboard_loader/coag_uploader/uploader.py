@@ -431,7 +431,7 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
             kwargs["year"] = obj.year_display()
         jurisdiction = obj.state_display().lower()
         for model_field, rds_field in field_map.items():
-            kwargs[jurisdiction + "_"+ rds_field] = unicode(getattr(obj, model_field))
+            kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
     add_rawdatarecord(rds, sort_order, **kwargs)
     return messages
 
