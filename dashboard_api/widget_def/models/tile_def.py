@@ -169,13 +169,13 @@ class TileDefinition(models.Model):
         except TileDefinition.DoesNotExist:
             t = TileDefinition(widget=widget, url=data["url"])
         t.tile_type = data["tile_type"]
-        if t.tile_type == self.SINGLE_MAIN_STAT:
-            t.tile_type = self.MAIN_STAT
+        if t.tile_type == cls.SINGLE_MAIN_STAT:
+            t.tile_type = cls.MAIN_STAT
             t.main_stat_count = 1
-        elif t.tile_type == self.DOUBLE_MAIN_STAT:
-            t.tile_type = self.MAIN_STAT
+        elif t.tile_type == cls.DOUBLE_MAIN_STAT:
+            t.tile_type = cls.MAIN_STAT
             t.main_stat_count = 2
-        elif t.tile_type == self.MAIN_STAT:
+        elif t.tile_type == cls.MAIN_STAT:
             t.main_stat_count = data["main_stat_count"]
         t.expansion = data["expansion"]
         t.aspect = data.get("expansion", 1)
