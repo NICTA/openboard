@@ -415,6 +415,26 @@ def populate_raw_data(widget_url, label, rds_url,
         sort_order += 1
     return messages
 
+def populate_crosstab_raw_data(widget_url, label, rds_url,
+                    model, field_map):
+    messages = []
+    rds = get_rawdataset(widget_url, label, rds_url)
+    clear_rawdataset(rds)
+    sort_order = 1
+    kwargs = {}
+    kwargs["year"] = None
+    for obj in model.objects.all().order_by("year", "financial_year", "state"):
+        if obj.year_display() != kwargs["year"]:
+            add_rawdatarecord(rds, sort_order, **kwargs)
+            sort_order += 1
+            kwargs = {}
+            kwargs["year"] = obj.year_display()
+        jurisdiction = obj.state_display().lower()
+        for model_field, rds_field in field_map.items():
+            kwargs[jurisdiction + "_"+ rds_field] = unicode(getattr(obj, model_field))
+    add_rawdatarecord(rds, sort_order, **kwargs)
+    return messages
+
 def update_graph_data(wurl, wlbl, graphlbl, model, field,
                             jurisdictions = None,
                             benchmark_start=None,

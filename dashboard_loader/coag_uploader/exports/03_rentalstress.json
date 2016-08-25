@@ -430,13 +430,13 @@
                             "description": ""
                         }, 
                         {
-                            "url": "aust_percent", 
+                            "url": "australia_percent", 
                             "sort_order": 180, 
                             "heading": "Aust | %", 
                             "description": ""
                         }, 
                         {
-                            "url": "aust_error", 
+                            "url": "australia_error", 
                             "sort_order": 190, 
                             "heading": "Aust | \u00b1", 
                             "description": ""
