@@ -29,6 +29,8 @@ hero_widgets = {
             "rentalstress-housing-hero", 
             "homelessness-housing-hero", 
             "indigenous_homeownership-housing-hero", 
+            "indigenous_overcrowding-housing-hero", 
+            "indigenous_remote-housing-hero", 
     ],
 }
 
@@ -299,6 +301,9 @@ def load_benchmark_description(wb, sheetname):
         "description body": "body",
         "body": "body",
         "description": "body",
+        "other benchmarks": "other",
+        "other": "other",
+        "other_indicators": "other",
         "influences": "influences",
         "notes": "notes",
     }
@@ -392,6 +397,10 @@ def load_benchmark_description(wb, sheetname):
         elif key == "notes":
             desc["notes"] = []
             append_to = desc["notes"]
+            key = None
+        elif key == "other":
+            desc["other"] = []
+            append_to = desc["other"]
             key = None
         if not key:
             append_to.append(value)
@@ -489,6 +498,14 @@ txt_block_template = Template("""<div class="coag_description">
                     <b>Influences:</b>
                 {% endif %}
                 {{ inf_elem }}
+            </p>
+        {% endfor %}
+        {% for other_elem in desc.other %}
+            <p>
+                {% if forloop.first %}
+                    <b>Other Benchmarks/Indicators:</b>
+                {% endif %}
+                {{ other_elem }}
             </p>
         {% endfor %}
     </div>

@@ -1,0 +1,445 @@
+{
+    "category": "housing", 
+    "edit_all_groups": [], 
+    "source_url_text": "Australian Government", 
+    "subtitle": "Remote Indigenous Housing", 
+    "subcategory": "national partnership agreement", 
+    "groups": [], 
+    "url": "housing_remote_indigenous", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 0, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "housing_remote_indigenous_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 0, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_remote_indigenous_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "year", 
+                        "clusters": [
+                            {
+                                "url": "new", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "dynamic_label": false, 
+                                "label": "New"
+                            }, 
+                            {
+                                "url": "refurbished", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "dynamic_label": false, 
+                                "label": "Refurbished"
+                            }
+                        ], 
+                        "cluster_label": "Capital Works", 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year", 
+                                "colour": "blue-solid-bar", 
+                                "dynamic_label": true, 
+                                "label": "Year"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "blue-dotted-line", 
+                                "dynamic_label": false, 
+                                "label": "Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "housing_remote_indigenous_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_remote_indigenous_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 1, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_remote_indigenous_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Capital Work", 
+                        "clusters": [
+                            {
+                                "url": "nsw", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "url": "qld", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "url": "wa", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "url": "sa", 
+                                "hyperlink": "", 
+                                "sort_order": 400, 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "url": "tas", 
+                                "hyperlink": "", 
+                                "sort_order": 500, 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "url": "nt", 
+                                "hyperlink": "", 
+                                "sort_order": 600, 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }
+                        ], 
+                        "cluster_label": "State", 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "new", 
+                                "colour": "green", 
+                                "dynamic_label": false, 
+                                "label": "New"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "refurbished", 
+                                "colour": "blue", 
+                                "dynamic_label": false, 
+                                "label": "Refurbished"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 150, 
+                    "view": "housing"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "housing_indigenous_remote", 
+                    "name": "Remote Indigenous Housing Data", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 20, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "new", 
+                            "sort_order": 30, 
+                            "heading": "New Houses", 
+                            "description": "Number of new houses completed since 2008."
+                        }, 
+                        {
+                            "url": "refurbished", 
+                            "sort_order": 40, 
+                            "heading": "Refurbished Houses", 
+                            "description": "Number of refurbishments completed since 2008."
+                        }
+                    ], 
+                    "filename": "coag_remote_indigenous_housing_data.csv"
+                }, 
+                {
+                    "url": "data_table", 
+                    "name": "Remote Indigenous Housing Data Table", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_new", 
+                            "sort_order": 20, 
+                            "heading": "NSW | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_refurbished", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Refurbishments", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_new", 
+                            "sort_order": 40, 
+                            "heading": "Qld | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_refurbished", 
+                            "sort_order": 50, 
+                            "heading": "Qld | Refurbishments", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_new", 
+                            "sort_order": 60, 
+                            "heading": "WA | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_refurbished", 
+                            "sort_order": 70, 
+                            "heading": "WA | Refurbishments", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_new", 
+                            "sort_order": 80, 
+                            "heading": "SA | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_refurbished", 
+                            "sort_order": 90, 
+                            "heading": "SA | Refurbishments", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_new", 
+                            "sort_order": 100, 
+                            "heading": "Tas | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_refurbished", 
+                            "sort_order": 110, 
+                            "heading": "Tas | Refurbishments", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_new", 
+                            "sort_order": 120, 
+                            "heading": "NT | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_refurbished", 
+                            "sort_order": 130, 
+                            "heading": "NT | Refurbishments", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_new", 
+                            "sort_order": 140, 
+                            "heading": "Aust | New Houses", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_refurbished", 
+                            "sort_order": 150, 
+                            "heading": "Aust| Refurbishments", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "coag_remote_indigenous_housing_data.csv"
+                }
+            ], 
+            "sort_order": 1050, 
+            "expansion_hint": "View more", 
+            "about": "<p>The National Partnership Agreement on Remote Indigenous Housing (NPARIH) aims to address significant overcrowding,\r\nhomelessness, poor housing conditions and the severe housing shortage in remote Indigenous communities. NPARIH\u2019s\r\ncapital works programme is the key output to address these outcomes.</p>\r\n<p>A new Remote Housing Strategy is being negotiated to replace the NPARIH.</p>\r\n<p><b>Benchmark 1</b>: 4200 new houses to be delivered by 2018; 4800 refurbishments to be delivered by 2014.</p>", 
+            "refresh_rate": 4000, 
+            "label": "housing_remote_indigenous", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "https://www.dpmc.gov.au/indigenous-affairs/housing/national-partnership-agreement-remote-indigenous-housing-nparih", 
+    "name": "Remote Indigenous Housing"
+}
+
