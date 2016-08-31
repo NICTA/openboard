@@ -19,7 +19,7 @@ from django.conf import settings
 from django.db.models import Max, Min
 from django.http import HttpResponse, HttpResponseNotFound
 
-from widget_data.models import GeoProperty, GraphClusterData, GraphDatasetData
+from widget_data.models import GeoProperty, GraphDatasetData
 from widget_def.models import *
 from widget_def.view_utils import update_maxmin, json_list
 from widget_def.parametisation import resolve_pval, parametise_label
@@ -82,7 +82,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
         graph_json["data"] = []
     else:
         if graph.use_clusters():
-            for cluster in graph.graphcluster_set.all():
+            for cluster in graph.clusters():
                 graph_json["data"][cluster.url] = {}
         else:
             for dataset in graph.graphdataset_set.all():
@@ -118,7 +118,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
                     data_label: gd.value
                     }
             if graph.use_clusters():
-                graph_datum[parametise_label(graph.widget(), view, graph.cluster_label)] = parametise_label(graph.widget(), view, get_graph_subset_displayname(gd.cluster,pval))
+                graph_datum[parametise_label(graph.widget(), view, graph.cluster_label)] = parametise_label(graph.widget(), view, gd.cluster().label)
             else:
                 graph_datum[parametise_label(graph.widget(), view, graph.horiz_axis_label)] = gd.horiz_json_value()
             if gd.dataset.use_error_bars:
@@ -135,7 +135,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             else:
                 json_val = gd.value
             if graph.use_clusters():
-                graph_json["data"][gd.cluster.url][gd.dataset.url] = json_val
+                graph_json["data"][gd.cluster().url][gd.dataset.url] = json_val
             else:
                 if gd.dataset.use_error_bars:
                     json_val["horizontal_value"] = gd.horiz_json_value()
@@ -157,7 +157,8 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
                 "min": graph.jsonise_horiz_value(horiz_min),
                 "max": graph.jsonise_horiz_value(horiz_max)
         }
-    overrides = get_graph_overrides(graph.graphcluster_set, GraphClusterData, "cluster", pval)
+    if graph.use_clusters() and graph.dynamic_clusters:
+        graph_json["clusters"] = [ c.__getstate__(view) for c in graph.clusters() ]
     if overrides:
         graph_json["cluster_name_overrides"] = overrides
     overrides = get_graph_overrides(graph.graphdataset_set, GraphDatasetData, "dataset", pval)
@@ -168,16 +169,10 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
 def get_graph_subset_displayname(dataset_or_cluster, pval):
     if dataset_or_cluster.dynamic_label:
         ds = None
-        if isinstance(dataset_or_cluster, GraphCluster):
-            try:
-                ds = GraphClusterData.objects.get(param_value=pval, cluster=dataset_or_cluster)
-            except GraphClusterData.DoesNotExist:
-                pass
-        else:
-            try:
-                ds = GraphDatasetData.objects.get(param_value=pval, dataset=dataset_or_cluster)
-            except GraphDatasetData.DoesNotExist:
-                pass
+        try:
+            ds = GraphDatasetData.objects.get(param_value=pval, dataset=dataset_or_cluster)
+        except GraphDatasetData.DoesNotExist:
+            pass
         if ds:
             return ds.display_name
 

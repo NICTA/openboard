@@ -208,7 +208,7 @@ class GraphAdmin(admin.ModelAdmin):
     list_display = ('widget', 'tile')
     fieldsets = (
         (None, {
-            'fields': ('tile', 'heading', 'graph_type','cluster_label', 'dataset_label'),
+            'fields': ('tile', 'heading', 'graph_type','cluster_label', 'dataset_label', 'dynamic_clusters'),
          }),
         ('Numeric Axes', {
             'fields': ('numeric_axis_label', 'numeric_axis_always_show_zero',
