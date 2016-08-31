@@ -14,7 +14,7 @@
 
 import decimal
 
-from widget_def.models import GraphDefinition, GraphDataset, GraphCluster
+from widget_def.models import GraphDefinition, GraphDataset, GraphCluster, GraphClusterBase
 from widget_data.models import GraphData, DynamicGraphCluster, GraphDatasetData
 
 from interface import LoaderException
@@ -54,19 +54,10 @@ def clear_graph_data(graph, cluster=None, dataset=None, pval=None, clusters=Fals
         data = data.filter(dataset=dataset)
         if cluster or clusters:
             raise LoaderException("Graph %s does not use clusters" % graph.tile.url)
-    clear_graph_suppdata(graph, pval, cluster, dataset, clusters)
+    clear_graph_suppdata(graph, pval, dataset, clusters)
     data.delete()
 
-def clear_graph_suppdata(graph, pval=None, cluster=None, dataset=None, clusters=False):
-    if cluster is None:
-        GraphClusterData.objects.filter(cluster__graph=graph, param_value=pval).delete()
-    else:
-        if not isinstance(cluster, GraphCluster):
-            try:
-                cluster = GraphCluster.objects.get(graph=graph, url=cluster)
-            except GraphCluster.DoesNotExist:
-                raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
-        GraphClusterData.objects.filter(cluster=cluster, param_value=pval).delete()
+def clear_graph_suppdata(graph, pval=None, dataset=None, clusters=False):
     if dataset is None:
         GraphDatasetData.objects.filter(dataset__graph=graph, param_value=pval).delete()
     else:
@@ -74,10 +65,10 @@ def clear_graph_suppdata(graph, pval=None, cluster=None, dataset=None, clusters=
             try:
                 dataset = GraphDataset.objects.get(graph=graph, url=dataset)
             except GraphDataset.DoesNotExist:
-                raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+                raise LoaderException("Dataset %s for graph %s does not exist" % (str(dataset), graph.tile.url))
         GraphDatasetData.objects.filter(dataset=dataset, param_value=pval).delete()
     if clusters:
-        GraphCluster.objects.filter(graph=graph, param_val=pval).delete()
+        DynamicGraphCluster.objects.filter(graph=graph, param_value=pval).delete()
 
 def set_dataset_override(graph, dataset, display_name, pval=None):
     if not isinstance(dataset, GraphDataset):
@@ -97,7 +88,7 @@ def add_graph_dyncluster(graph,label,sort_order, name, hyperlink=None, pval=None
         raise LoaderException("Graph %s is parametised, but no parametisation value supplied when creating dynamic cluster" % graph.tile.url)
     if not graph.widget().parametisation and pval:
         raise LoaderException("Graph %s is not parametised, but a parametisation value was supplied when creating dynamic cluster" % graph.tile.url)
-    cluster = DynamicGraphCluster(graph=graph, pval=pval, url=label, sort_order=sort_order, label=name, hyperlink=hyperlink)
+    cluster = DynamicGraphCluster(graph=graph, param_value=pval, url=label, sort_order=sort_order, label=name, hyperlink=hyperlink)
     try:
         cluster.save()
     except Exception, e:
@@ -127,12 +118,15 @@ Raise a LoaderException on error, or if the provided arguments are not valid for
     if graph.use_clusters():
         if not cluster:
             raise LoaderException("Must supply cluster for data for graph %s" % graph.tile.url)   
-        elif not isinstance(cluster, GraphCluster):
+        elif not isinstance(cluster, GraphClusterBase):
             try:
                 cluster = GraphCluster.objects.get(graph=graph, url=cluster)
             except GraphCluster.DoesNotExist:
                 raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
-        gd.cluster = cluster
+        if graph.dynamic_clusters:
+            gd.dynamic_cluster = cluster
+        else:
+            gd.cluster = cluster
     else:
         if graph.horiz_axis_type == graph.NUMERIC:
             gd.horiz_numericval = decimal.Decimal(horiz_value).quantize(decimal.Decimal("0.0001"), rounding=decimal.ROUND_HALF_UP)

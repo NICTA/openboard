@@ -158,9 +158,10 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
                 "max": graph.jsonise_horiz_value(horiz_max)
         }
     if graph.use_clusters() and graph.dynamic_clusters:
-        graph_json["clusters"] = [ c.__getstate__(view) for c in graph.clusters() ]
-    if overrides:
-        graph_json["cluster_name_overrides"] = overrides
+        if graph.is_histogram():
+            graph_json["clusters"] = [ c.__getstate__(view) for c in graph.clusters() ]
+        else:
+            graph_json["pies"] = [ c.__getstate__(view) for c in graph.clusters() ]
     overrides = get_graph_overrides(graph.graphdataset_set, GraphDatasetData, "dataset", pval)
     if overrides:
         graph_json["dataset_name_overrides"] = overrides
