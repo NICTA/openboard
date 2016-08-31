@@ -16,7 +16,8 @@ from decimal import Decimal
 
 from django.db import models
 
-from widget_data.models import GraphData, GraphClusterData, GraphDatasetData
+from widget_data.models import GraphData, GraphDatasetData
+from widget_def.models.graphbase import GraphClusterBase
 from widget_def.models.tile_def import TileDefinition
 from widget_def.parametisation import parametise_label, resolve_pval
 
@@ -51,6 +52,7 @@ class GraphDefinition(models.Model):
         secondary_numeric_axis_always_show_zero = models.BooleanField(default=True)
         cluster_label = models.CharField(max_length=120, default="cluster", help_text="Not used for line graphs")
         dataset_label = models.CharField(max_length=120, default="dataset")
+        dynamic_clusters = models.BooleanField(default=False)
         horiz_axis_label = models.CharField(max_length=120, blank=True, null=True)
         horiz_axis_type = models.SmallIntegerField(choices=(
                         (0, axis_types[0]),
@@ -66,6 +68,11 @@ class GraphDefinition(models.Model):
                 return "vertical_axis"
             else:
                 return "numeric_axis"
+        def clusters(self, pval=None):
+            if self.dynamic_clusters:
+                return self.dynamicgraphcluster_set.filter(pval=pval)
+            else:
+                return self.graphcluster_set.all()
         def is_histogram(self):
             return self.graph_type in (self.BAR, self.HISTOGRAM)
         def use_numeric_axes(self):
@@ -78,7 +85,7 @@ class GraphDefinition(models.Model):
             result = {}
             result["value"] = gd.value
             result["dataset"] = gd.dataset
-            if self.use_clusters():
+            if self.use_clusters() and not self.dynamic_clusters:
                 result["cluster"] = gd.cluster
             else:
                 result["horiz_value"] = gd.horiz_value()
@@ -88,13 +95,7 @@ class GraphDefinition(models.Model):
             return result
         def initial_override_form_data(self, pval=None):
             result = {}
-            for c in self.graphcluster_set.filter(dynamic_label=True):
-                try:
-                    dat = GraphClusterData.objects.get(cluster=c,
-                            param_value=pval)
-                    result["cluster_%s" % c.url] = dat.display_name  
-                except GraphClusterData.DoesNotExist:
-                    result["cluster_%s" % c.url] = c.label
+            # TODO: dynamic cluster definition
             for d in self.graphdataset_set.filter(dynamic_label=True):
                 try:
                     dat = GraphDatasetData.objects.get(dataset=d,
@@ -154,6 +155,7 @@ class GraphDefinition(models.Model):
                 "cluster_label": self.cluster_label,
                 "dataset_label": self.dataset_label,
                 "display_options": self.graphdisplayoptions.export(),
+                "dynamic_clusters": self.dynamic_clusters,
                 "clusters": [ c.export() for c in self.graphcluster_set.all() ],
                 "datasets": [ d.export() for d in self.graphdataset_set.all() ],
             }
@@ -180,6 +182,7 @@ class GraphDefinition(models.Model):
             g.horiz_axis_type = data["horiz_axis_type"]
             g.cluster_label = data.get("cluster_label", "cluster")
             g.dataset_label = data.get("dataset_label", "dataset")
+            g.dynamic_clusters = data.get("dynamic_clusters", False)
             g.save()
             GraphDisplayOptions.import_data(g, data.get("display_options"))
             cluster_urls = []
@@ -198,19 +201,19 @@ class GraphDefinition(models.Model):
                     dataset.delete()
         def __getstate__(self, view=None):
             state = {
-                "heading": parametise_label(self.tile.widget, view, self.heading),
+                "heading": parametise_label(self.widget(), view, self.heading),
                 "graph_type": self.graph_types[self.graph_type],
                 "label": self.tile.url,
                 "display_options": self.graphdisplayoptions.__getstate__(self.graph_type),
             }
             if self.graph_type == self.LINE:
                 state["vertical_axis"] = {
-                    "name": parametise_label(self.tile.widget, view, self.numeric_axis_label),
+                    "name": parametise_label(self.widget(), view, self.numeric_axis_label),
                     "always_show_zero": self.numeric_axis_always_show_zero,
                 }
                 if self.use_secondary_numeric_axis:
                     state["secondary_vertical_axis"] = {
-                        "name": parametise_label(self.tile.widget, view, self.secondary_numeric_axis_label),
+                        "name": parametise_label(self.widget(), view, self.secondary_numeric_axis_label),
                         "always_show_zero": self.secondary_numeric_axis_always_show_zero,
                     }
                 state["horizontal_axis"] = {
@@ -231,18 +234,22 @@ class GraphDefinition(models.Model):
                     }
                 state["cluster_label"] = self.cluster_label
                 state["bar_label"] = self.dataset_label
-                state["clusters"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
+                state["dynamic_clusters"] = self.dynamic_clusters
+                if not self.dynamic_clusters:
+                    state["clusters"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
                 state["bars"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
             elif self.graph_type == self.PIE:
                 state["pie_label"] = self.cluster_label
-                state["sector_label"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
+                state["dynamic_pies"] = self.dynamic_clusters
+                if not self.dynamic_clusters:
+                    state["pies"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
                 state["sectors"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
             return state
         def clean(self):
             if not self.use_numeric_axes():
                 self.numeric_axis_label = None
                 self.use_secondary_numeric_axis = False
-            if not self.use_clusters():
+            if not self.use_clusters() or self.dynamic_clusters:
                 self.graphcluster_set.all().delete()
             else:
                 self.horiz_axis_label = None
@@ -262,9 +269,11 @@ class GraphDefinition(models.Model):
                 ds.clean()
                 ds.save()
             if self.use_clusters():
-                if self.graphcluster_set.count() == 0:
-                    problems.append("Graph for tile %s of widget %s is a %s graph but has no clusters defined" % (self.tile.url, self.widget.url(), self.graph_types[self.graph_type]))
+                if self.graphcluster_set.count() == 0 and not self.dynamic_clusters:
+                    problems.append("Graph for tile %s of widget %s is a %s graph but has no clusters defined" % (self.tile.url, self.widget().url(), self.graph_types[self.graph_type]))
             else:
+                if self.dynamic_clusters:
+                    problems.append("Graph for tile %s of widget %s is a line graph but has dynamic_clusters set" % (self.tile.url, self.tile.widget.url()))
                 if self.horiz_axis_type == 0:
                     problems.append("Graph for tile %s of widget %s is a line graph but does not specify horizontal axis type" % (self.tile.url, self.tile.widget.url()))
             if self.graphdataset_set.count() == 0:
@@ -501,33 +510,33 @@ class GraphDisplayOptions(models.Model):
                 problems.extend(self.point_colour_map.validate())
         return problems
 
-class GraphCluster(models.Model):
+class GraphClusterBase(models.Model):
     # Histo/bar clusters or Pies
     graph=models.ForeignKey(GraphDefinition)
     url=models.SlugField(verbose_name="label")
     label=models.CharField(verbose_name="name", max_length=80)
-    dynamic_label=models.BooleanField(default=False)
     hyperlink=models.URLField(blank=True, null=True)
     sort_order=models.IntegerField()
     def __unicode__(self):
         return self.url
     class Meta:
+        abstract=True
         unique_together = [("graph", "sort_order"), ("graph", "url"), ("graph", "label")]
         ordering = [ "graph", "sort_order" ]
+    def __getstate__(self, view=None):
+        return {
+            "label": self.url,
+            "name": parametise_label(self.graph.tile.widget, view, self.label),
+            "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
+        }
+
+class GraphCluster(GraphClusterBase):
     def export(self):
         return {
             "url": self.url,
             "sort_order": self.sort_order,
             "label": self.label,
-            "dynamic_label": self.dynamic_label,
             "hyperlink": self.hyperlink,
-        }
-    def __getstate__(self, view=None):
-        return {
-            "label": self.url,
-            "name": parametise_label(self.graph.tile.widget, view, self.label),
-            "dynamic_name_display": self.dynamic_label,
-            "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
         }
     @classmethod
     def import_data(cls, g, data):
@@ -538,7 +547,6 @@ class GraphCluster(models.Model):
         c.sort_order = data["sort_order"]
         c.label = data["label"]
         c.hyperlink = data["hyperlink"]
-        c.dynamic_label = data.get("dynamic_label", False)
         c.save()
 
 class GraphDataset(models.Model):

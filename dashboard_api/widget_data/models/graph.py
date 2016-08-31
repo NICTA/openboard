@@ -17,6 +17,7 @@ import pytz
 
 from django.conf import settings
 from django.db import models
+from widget_def.models.graphbase import GraphClusterBase
 
 # Create your models here.
 tz = pytz.timezone(settings.TIME_ZONE)
@@ -46,6 +47,7 @@ class GraphData(models.Model):
     graph = models.ForeignKey("widget_def.GraphDefinition")
     param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
     cluster = models.ForeignKey("widget_def.GraphCluster", blank=True, null=True)
+    dynamic_cluster = models.ForeignKey("DynamicGraphCluster", blank=True, null=True)
     dataset = models.ForeignKey("widget_def.GraphDataset", blank=True, null=True)
     value = models.DecimalField(max_digits=14, decimal_places=4,
                         blank=True, null=True)
@@ -59,6 +61,11 @@ class GraphData(models.Model):
     horiz_timeval = models.TimeField(blank=True, null=True)
     objects = GraphDataQuerySet.as_manager()
     last_updated = models.DateTimeField(auto_now=True)
+    def get_cluster(self):
+        if graph.dynamic_clusters:
+            return self.dynamic_cluster
+        else:
+            return self.cluster
     def horiz_value(self):
         if self.graph.horiz_axis_type == self.graph.NUMERIC:
             return self.horiz_numericval
@@ -80,15 +87,6 @@ class GraphData(models.Model):
                 ("graph", "param_value", "dataset", "cluster"),
         ]
 
-class GraphClusterData(models.Model):
-    cluster = models.ForeignKey("widget_def.GraphCluster")
-    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
-    display_name = models.CharField(max_length=200)
-    class Meta:
-        unique_together = [
-            ("cluster", "param_value"),
-        ]
-
 class GraphDatasetData(models.Model):
     dataset = models.ForeignKey("widget_def.GraphDataset")
     param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
@@ -97,4 +95,12 @@ class GraphDatasetData(models.Model):
         unique_together = [
             ("dataset", "param_value"),
         ]
+
+class DynamicGraphCluster(GraphClusterBase):
+    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
+    class Meta(GraphClusterBase.Meta):
+        unique_together = [("graph", "param_value", "sort_order"), ("graph", "param_value", "url"), ("graph", "param_value", "label")]
+        ordering = [ "graph", "param_value", "sort_order" ]
+
+    
 
