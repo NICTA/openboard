@@ -21,10 +21,6 @@ from coag_uploader.models import *
 # Create your models here.
 
 class IndigenousHomeOwnershipData(CoagPercentageUncertaintyDataBase):
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
+    pass
 
 

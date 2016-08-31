@@ -22,10 +22,5 @@ from coag_uploader.models import *
 
 
 class IndigenousOvercrowdingData(CoagPercentageUncertaintyDataBase):
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
-
+    pass
 

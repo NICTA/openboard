@@ -25,9 +25,4 @@ class HousingHomelessData(CoagDataBase):
     homeless_persons = models.IntegerField()
     percent_of_national = models.IntegerField()
     rate_per_10k = models.DecimalField(max_digits=6, decimal_places=1)    
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
 

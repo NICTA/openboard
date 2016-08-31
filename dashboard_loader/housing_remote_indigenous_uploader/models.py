@@ -22,8 +22,4 @@ from coag_uploader.models import *
 class HousingRemoteIndigenousData(CoagDataBase):
     new_houses = models.IntegerField()
     refurbishments = models.IntegerField()
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
 
