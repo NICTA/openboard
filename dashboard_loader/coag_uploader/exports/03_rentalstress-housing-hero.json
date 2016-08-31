@@ -149,7 +149,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -221,7 +221,7 @@
                             "point_colour_map": null, 
                             "lines": 1, 
                             "points": 0, 
-                            "rotates": false
+                            "rotates": true
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
@@ -230,6 +230,7 @@
                         "dataset_label": "dataset", 
                         "clusters": [], 
                         "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
                         "horiz_axis_type": 2, 
                         "datasets": [
                             {

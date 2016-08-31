@@ -16,10 +16,10 @@
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing-ioc-agreement-summary", 
-                    "tile_type": 19, 
+                    "tile_type": 18, 
                     "geo_datasets": [], 
                     "geo_window": null, 
-                    "template": null, 
+                    "template": "4 National Agreements | 2 National Partnership Agreements", 
                     "columns": null
                 }, 
                 {
@@ -149,7 +149,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -166,7 +166,7 @@
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
-                    "columns": 4
+                    "columns": 6
                 }, 
                 {
                     "expansion": false, 
@@ -221,7 +221,7 @@
                             "point_colour_map": null, 
                             "lines": 1, 
                             "points": 0, 
-                            "rotates": false
+                            "rotates": true
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
@@ -230,6 +230,7 @@
                         "dataset_label": "dataset", 
                         "clusters": [], 
                         "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
                         "horiz_axis_type": 2, 
                         "datasets": [
                             {

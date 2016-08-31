@@ -16,9 +16,14 @@
             "value": "negative_change"
         }, 
         {
-            "colour": "grey", 
+            "colour": "grey1", 
             "sort_order": 400, 
-            "value": "mixed_results_or_new_indicator"
+            "value": "mixed_results"
+        }, 
+        {
+            "colour": "grey2", 
+            "sort_order": 500, 
+            "value": "new_indicator"
         }
     ], 
     "scale_name": "Indicator Scale"

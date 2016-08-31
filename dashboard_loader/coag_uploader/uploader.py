@@ -50,10 +50,13 @@ def column_labels(mini, maxi):
 
 def find_state_cols(sheet, row):
     state_cols = {}
-    for col in column_labels(sheet.min_column, sheet.max_column):
-       val = sheet["%s%d" % (col, row)].value
-       if val in state_map:
-            state_cols[state_map[val]] = col
+    try:
+        for col in column_labels(sheet.min_column, sheet.max_column):
+           val = sheet["%s%d" % (col, row)].value
+           if val in state_map:
+                state_cols[state_map[val]] = col
+    except IndexError:
+           pass
     return state_cols
 
 def zero_all_rows(rows):
@@ -114,6 +117,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     if cval == icr:
                         rows[fld]=row
                         break
+
                 if year and all_rows_found(rows):
                     for state, scol in state_cols.items():
                         defaults = { "financial_year": isfy }
@@ -293,7 +297,7 @@ def calculate_indicator(desire_increase,
                     new[1], 20, label=display_float_year(new[0]))
     return messages
 
-def load_benchmark_description(wb, sheetname):
+def load_benchmark_description(wb, sheetname, indicator=False):
     key_lookup = {
         "status": "status",
         "updated": "updated",
@@ -307,7 +311,7 @@ def load_benchmark_description(wb, sheetname):
         "influences": "influences",
         "notes": "notes",
     }
-    statuses = {
+    benchmark_statuses = {
         "achieved": {
             "short": "Achieved",
             "long": "The final assessment date for the benchmark has passed. The benchmark was met.",
@@ -363,10 +367,46 @@ def load_benchmark_description(wb, sheetname):
             "icon": "unknown",
         },
     }
+    indicator_statuses = {
+        "improving": {
+            "short": "Improving",
+            "long": "There has been a noticable improvement on this measure.",
+            "tlc": "improving",
+            "icon": "yes",
+        },
+        "no_improvement": {
+            "short": "No Improvement",
+            "long": "There has been no noticable change across this measure.",
+            "tlc": "no_improvement",
+            "icon": "warning",
+        },
+        "negative_change": {
+            "short": "Negative change",
+            "long": "There has been a noticable worsening on this measure.",
+            "tlc": "negative_change",
+            "icon": "no",
+        },
+        "mixed_results": {
+            "short": "Mixed results",
+            "long": "This indicator includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
+            "tlc": "mixed_results",
+            "icon": "unknown",
+        },
+        "new_indicator": {
+            "short": "New indicator",
+            "long": "There is no time series data available for this indicator yet, so it is not possible to assess progress at this point.",
+            "tlc": "new_indicator",
+            "icon": "unknown",
+        },
+    }
     sheet = wb[sheetname]
     desc = {}
     append_to = None
     row = 1
+    if indicator:
+        statuses = indicator_statuses
+    else:
+        statuses = benchmark_statuses
     while True:
         try:
             rawkey = sheet["A%d" % row].value
@@ -525,7 +565,8 @@ def update_stats(desc, section, hero_indicator_url, benchmark, wurl_hero, wlbl_h
         set_statistic_data(w, w, hero_indicator_url, None, 
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data(wurl_hero, wlbl_hero,
+    if wurl_hero:
+        set_statistic_data(wurl_hero, wlbl_hero,
                     "status_header",
                     desc["status"]["short"],
                     traffic_light_code=desc["status"]["tlc"],

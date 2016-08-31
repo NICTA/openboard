@@ -149,7 +149,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -233,18 +233,17 @@
                                 "url": "new", 
                                 "hyperlink": "", 
                                 "sort_order": 100, 
-                                "dynamic_label": false, 
                                 "label": "New"
                             }, 
                             {
                                 "url": "refurbished", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
-                                "dynamic_label": false, 
                                 "label": "Refurbished"
                             }
                         ], 
                         "cluster_label": "Capital Works", 
+                        "dynamic_clusters": false, 
                         "horiz_axis_type": 0, 
                         "datasets": [
                             {

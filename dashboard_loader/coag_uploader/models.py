@@ -94,6 +94,7 @@ class CoagDataBase(models.Model):
     def state_display(self):
         return state_dict[self.state]
     class Meta:
+        unique_together = [ ("state", "year"), ]
         abstract = True
 
 class CoagPercentageUncertaintyDataBase(CoagDataBase):
@@ -101,7 +102,7 @@ class CoagPercentageUncertaintyDataBase(CoagDataBase):
                         decimal_places=1)
     uncertainty = models.DecimalField(max_digits=3, 
                         decimal_places=1)
-    class Meta:
+    class Meta(CoagDataBase.Meta):
         abstract = True
 
 class QualificationsData(CoagPercentageUncertaintyDataBase):
