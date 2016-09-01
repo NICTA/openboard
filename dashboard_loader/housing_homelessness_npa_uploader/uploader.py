@@ -22,7 +22,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_homelessness_npa_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data_nostate, update_stats
 from django.template import Template, Context
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -103,6 +103,24 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "housing_homelessness_npa_summary_graph", include_all_years=False))
         messages.extend(update_my_graph_data("housing_homelessness_npa", "housing_homelessness_npa",
                             "housing_homelessness_npa_detail_graph"))
+        messages.extend(populate_raw_data_nostate(
+                "housing_homelessness_npa", "housing_homelessness_npa",
+                "housing_homelessness_npa_data",
+                HousingHomelessnessNpaData, {
+                    "accommodation_needs_met": "accommodation",
+                    "service_needs_met": "services",
+                    "clients_exp_violence": "violence",
+                    "young_presenting_alone": "alone",
+                }))
+        messages.extend(populate_raw_data_nostate(
+                "housing_homelessness_npa", "housing_homelessness_npa",
+                "data_table",
+                HousingHomelessnessNpaData, {
+                    "accommodation_needs_met": "accommodation",
+                    "service_needs_met": "services",
+                    "clients_exp_violence": "violence",
+                    "young_presenting_alone": "alone",
+                }))
     except LoaderException, e:
         raise e
 #   except Exception, e:

@@ -284,7 +284,82 @@
                 }
             ], 
             "default_frequency_text": "Annual", 
-            "raw_data_sets": [], 
+            "raw_data_sets": [
+                {
+                    "url": "housing_homelessness_npa_data", 
+                    "name": "Homelessness NPA Data", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 100, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "accommodation", 
+                            "sort_order": 200, 
+                            "heading": "Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "services", 
+                            "sort_order": 300, 
+                            "heading": "Need for services met", 
+                            "description": "Proportion of specialist homelessness services clients with needs for other services (non-accommodation) met."
+                        }, 
+                        {
+                            "url": "violence", 
+                            "sort_order": 400, 
+                            "heading": "Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "alone", 
+                            "sort_order": 500, 
+                            "heading": "Young people presenting alone", 
+                            "description": "Proportion of young clients (15-24 years old) of specialist homelessness services presenting alone.\r\n\r\n(A proportion of young clients presenting alone also experienced domestic and family violence.)"
+                        }
+                    ], 
+                    "filename": "housing_homelessness_npa_data.csv"
+                },
+                {
+                    "url": "data_table", 
+                    "name": "Homelessness NPA Data Table", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 100, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "accommodation", 
+                            "sort_order": 200, 
+                            "heading": "Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "services", 
+                            "sort_order": 300, 
+                            "heading": "Need for services met", 
+                            "description": "Proportion of specialist homelessness services clients with needs for other services (non-accommodation) met."
+                        }, 
+                        {
+                            "url": "violence", 
+                            "sort_order": 400, 
+                            "heading": "Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "alone", 
+                            "sort_order": 500, 
+                            "heading": "Young people presenting alone", 
+                            "description": "Proportion of young clients (15-24 years old) of specialist homelessness services presenting alone.\r\n\r\n(A proportion of young clients presenting alone also experienced domestic and family violence.)"
+                        }
+                    ], 
+                    "filename": "housing_homelessness_npa_data.csv"
+                }
+            ], 
             "sort_order": 1060, 
             "expansion_hint": "View more", 
             "about": "<p>Increase in the number of clients whose accomodation needs are met. Decrease in the number of clients experiencing family or domestic violence, and in the rate of young people presenting alone.</p>", 
