@@ -15,7 +15,7 @@
 from dashboard_loader.models import Loader, Uploader
 
 from django.contrib.auth.models import Group
-from django.utils.importlib import import_module
+from importlib import import_module
 
 def register(app, refresh_rate=None):
     if refresh_rate is None:
