@@ -15,6 +15,7 @@
 from dashboard_loader.models import Loader, Uploader
 
 from django.contrib.auth.models import Group
+from django.utils.importlib import import_module
 
 def register(app, refresh_rate=None):
     if refresh_rate is None:
@@ -54,6 +55,4 @@ def register(app, refresh_rate=None):
         return old_rate
 
 def get_uploader_groups(app):
-    _tmp = __import__(app + ".uploader", globals(), locals(),
-                    [ "groups", ], -1)
-    return _tmp.groups
+    return import_module(app + ".uploader").groups
