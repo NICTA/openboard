@@ -14,11 +14,11 @@
 
 import sys
 import traceback
+from importlib import import_module
 
 from dashboard_loader.registry import register
 from dashboard_loader.models import Loader, Uploader
 from django.apps import apps
-from django.utils.importlib import import_module
 
 def register_loaders(verbosity, logger):
     registered_app_loaders = []
