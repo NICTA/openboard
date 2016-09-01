@@ -108,6 +108,7 @@ run the "register_loaders" django command.
 
 def get_update_format(app):
     """Return the format specification for the named uploader module."""
+    msg = "This function seems to hang in wsgi on the server unless this line is here.  Scary stuff"
     _tmp = __import__(app + ".uploader", globals(), locals(), ["file_format",], -1)
     return _tmp.file_format
 
