@@ -18,6 +18,7 @@ import traceback
 from dashboard_loader.registry import register
 from dashboard_loader.models import Loader, Uploader
 from django.apps import apps
+from django.utils.importlib import import_module
 
 def register_loaders(verbosity, logger):
     registered_app_loaders = []
@@ -30,8 +31,7 @@ def register_loaders(verbosity, logger):
         if verbosity >= 3:
             print >> logger, "Checking app %s" % app.name
         try:
-            _tmp = __import__(app.name + '.loader', globals(), locals(), ['refresh_rate',], -1)
-            refresh_rate = _tmp.refresh_rate
+            refresh_rate = import_module(app.name + ".loader").refresh_rate
             old_rate = register(app.name, refresh_rate)
             registered_app_loaders.append(app.name)
             if old_rate is None:
@@ -51,10 +51,9 @@ def register_loaders(verbosity, logger):
                 traceback.print_exception(exc_type, exc_value, exc_traceback,
                               file=sys.stdout)
         try:
-            _tmp = __import__(app.name + '.uploader', globals(), locals(),
-                            ['upload_file', 'file_format', 'groups'], -1)
-            upload_file = _tmp.upload_file
-            file_format = _tmp.file_format
+            candidate_uploader = import_module(app.name + ".uploader")
+            upload_file = candidate_uploader.upload_file
+            file_format = candidate_uploader.file_format
             new = register(app.name)
             registered_app_uploaders.append(app.name)
             if new:

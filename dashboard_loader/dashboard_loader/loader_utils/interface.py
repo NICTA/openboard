@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import thread
 
 from django.conf import settings
 from django.db import transaction
+from django.utils.importlib import import_module
 
 from dashboard_loader.models import Loader, Uploader
 
@@ -85,8 +86,7 @@ Loader modules must be registered with dashboard_loader application. To
 register a loader module, add it to the "INCLUDED_APPS" setting and
 run the "register_loaders" django command.
 """
-    _tmp = __import__(app + ".loader", globals(), locals(), ["update_data",], -1)
-    update_data = _tmp.update_data
+    update_data = import_module(app + ".loader").update_data
     loader = lock_update(app)
     if loader.locked_by_me():
         reason = loader.reason_to_not_run()
@@ -108,8 +108,7 @@ run the "register_loaders" django command.
 
 def get_update_format(app):
     """Return the format specification for the named uploader module."""
-    _tmp = __import__(app + ".uploader", globals(), locals(), ["file_format",], -1)
-    return _tmp.file_format
+    return import_module(app + ".uploader").file_format
 
 def do_upload(app, fh, actual_freq_display=None, verbosity=0):
     """Perform a data upload for the named module
@@ -153,9 +152,7 @@ run the "register_loaders" django command.
         app = uploader.app
     else:
         uploader = Uploader.objects.get(app=app)
-    _tmp = __import__(app + ".uploader", globals(), locals(), 
-                        ["upload_file", ], -1)
-    upload_file = _tmp.upload_file
+    upload_file = import_module(app + ".uploader").upload_file
     try:
         messages = upload_file(uploader, fh, actual_freq_display, verbosity)
     except LoaderException, e:
@@ -173,8 +170,7 @@ def call_in_transaction(func, *args, **kwargs):
 
 # Not used - only one geo-uploader is currently required and it is accessed directly.
 def geo_upload(uploader, filename, url, verbosity=0, **kwargs):
-    _tmp = __import__(uploader + ".geoloader", globals(), locals(), ["load_geodata",], -1)
-    load_geodata = _tmp.load_geodata
+    load_geodata = import_module(uploader + ".geoloader").load_geodata
     try:
         messages = load_geodata(filename, url, verbosity, **kwargs)
         if verbosity > 0:
