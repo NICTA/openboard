@@ -118,7 +118,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
                     data_label: gd.value
                     }
             if graph.use_clusters():
-                graph_datum[parametise_label(graph.widget(), view, graph.cluster_label)] = parametise_label(graph.widget(), view, gd.cluster().label)
+                graph_datum[parametise_label(graph.widget(), view, graph.cluster_label)] = parametise_label(graph.widget(), view, gd.get_cluster().label)
             else:
                 graph_datum[parametise_label(graph.widget(), view, graph.horiz_axis_label)] = gd.horiz_json_value()
             if gd.dataset.use_error_bars:
@@ -135,7 +135,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             else:
                 json_val = gd.value
             if graph.use_clusters():
-                graph_json["data"][gd.cluster().url][gd.dataset.url] = json_val
+                graph_json["data"][gd.get_cluster().url][gd.dataset.url] = json_val
             else:
                 if gd.dataset.use_error_bars:
                     json_val["horizontal_value"] = gd.horiz_json_value()
