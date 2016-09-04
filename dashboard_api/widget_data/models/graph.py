@@ -62,7 +62,7 @@ class GraphData(models.Model):
     objects = GraphDataQuerySet.as_manager()
     last_updated = models.DateTimeField(auto_now=True)
     def get_cluster(self):
-        if graph.dynamic_clusters:
+        if self.graph.dynamic_clusters:
             return self.dynamic_cluster
         else:
             return self.cluster
