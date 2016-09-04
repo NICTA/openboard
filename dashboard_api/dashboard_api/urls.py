@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from widget_def import views as wdef_views
 from widget_data import views as wdata_views
 
