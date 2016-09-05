@@ -14,7 +14,7 @@
 
 from django.core.management.base import BaseCommand, CommandError
 
-from dashboard_loader.models import Uploader
+from dashboard_loader_app.models import Uploader
 
 from dashboard_loader.loader_utils import LoaderException, do_upload, get_update_format
 

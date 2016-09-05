@@ -6,8 +6,6 @@ from django.db import models, migrations
 
 class Migration(migrations.Migration):
 
-    replaces = [(b'dashboard_loader', '0001_initial'), (b'dashboard_loader', '0002_loader_locked_by'), (b'dashboard_loader', '0003_loader_suspended'), (b'dashboard_loader', '0004_loader_last_run'), (b'dashboard_loader', '0005_auto_20150323_1125'), (b'dashboard_loader', '0006_auto_20150323_1316'), (b'dashboard_loader', '0007_loader_last_api_access'), (b'dashboard_loader', '0008_uploader')]
-
     dependencies = [
     ]
 

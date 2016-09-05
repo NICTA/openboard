@@ -14,7 +14,7 @@
 
 from django.core.management.base import BaseCommand, CommandError
 
-from dashboard_loader.models import Loader
+from dashboard_loader_app.models import Loader
 
 from dashboard_loader.loader_utils import LoaderException
 from dashboard_loader.management.update_data import update
