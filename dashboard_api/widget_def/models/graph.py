@@ -70,7 +70,7 @@ class GraphDefinition(models.Model):
                 return "numeric_axis"
         def clusters(self, pval=None):
             if self.dynamic_clusters:
-                return self.dynamicgraphcluster_set.filter(pval=pval)
+                return self.dynamicgraphcluster_set.filter(param_value=pval)
             else:
                 return self.graphcluster_set.all()
         def is_histogram(self):
