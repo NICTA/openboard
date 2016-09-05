@@ -17,7 +17,7 @@ import pytz
 
 from django.conf import settings
 
-from dashboard_loader_app.models import Loader
+from dashboard_loader.models import Loader
 from dashboard_loader.loader_utils import do_update
 from dashboard_loader.tasks import update_app_data
 

@@ -44,7 +44,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'dashboard_loader',
-    'dashboard_loader_app',
     'dashboard_api',
     'widget_def.apps.WidgetDefConfig',
     'widget_data',

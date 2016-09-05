@@ -14,7 +14,7 @@
 
 from django.contrib import admin
 from django.contrib import messages
-from dashboard_loader_app.models import Loader
+from dashboard_loader.models import Loader
 from dashboard_loader.management.update_data import update
 from dashboard_loader.loader_utils import LoaderException
 
