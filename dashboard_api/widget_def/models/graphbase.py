@@ -14,6 +14,8 @@
 
 
 from django.db import models
+from widget_def.parametisation import parametise_label
+
 
 class GraphClusterBase(models.Model):
     # Histo/bar clusters or Pies
