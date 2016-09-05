@@ -17,7 +17,7 @@ from __future__ import absolute_import
 from celery import shared_task
 
 from dashboard_loader.loader_utils import do_update
-from dashboard_loader.models import Loader
+from dashboard_loader_apps.models import Loader
 
 @shared_task
 def update_app_data(app):
