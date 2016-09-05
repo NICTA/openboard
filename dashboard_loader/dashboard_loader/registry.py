@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from dashboard_loader_app.models import Loader, Uploader
+from dashboard_loader.models import Loader, Uploader
 
 from django.contrib.auth.models import Group
 from importlib import import_module

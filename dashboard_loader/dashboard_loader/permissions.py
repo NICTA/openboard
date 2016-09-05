@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from widget_def.models import WidgetDefinition
-from dashboard_loader_app.models import Uploader
+from dashboard_loader.models import Uploader
 
 # Permission methods
 

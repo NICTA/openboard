@@ -17,7 +17,7 @@ import traceback
 from importlib import import_module
 
 from dashboard_loader.registry import register
-from dashboard_loader_app.models import Loader, Uploader
+from dashboard_loader.models import Loader, Uploader
 from django.apps import apps
 
 def register_loaders(verbosity, logger):

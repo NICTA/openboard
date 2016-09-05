@@ -21,7 +21,7 @@ from django.conf import settings
 from django.db import transaction
 from importlib import import_module
 
-from dashboard_loader_app.models import Loader, Uploader
+from dashboard_loader.models import Loader, Uploader
 
 # Default Timezone for datetimes, as configured in settings
 tz = pytz.timezone(settings.TIME_ZONE)
@@ -77,7 +77,7 @@ that defines:
        to wait between loads for the loader module (in seconds).
     2) A function update_data that performs the actual load, returns a 
        list of messages (strings) and takes two arguments:
-       a) loader:  The dashboard_loader_app.models.Loader registration object 
+       a) loader:  The dashboard_loader.models.Loader registration object 
           for the loader module.
        b) verbosity: The verbosity level, 0-3.  
           Higher numbers = more verbosity. (default=0)
@@ -114,7 +114,7 @@ def do_upload(app, fh, actual_freq_display=None, verbosity=0):
     """Perform a data upload for the named module
 
 app: The name of the uploader module that will upload the file, or it's
-     registered dashboard_loader_app.models.Uploader object
+     registered dashboard_loader.models.Uploader object
 fh: A file-like object representing the the file to be uploaded.
 actual_freq_display: If not None, this is the "actual frequency display"
         value to be passed to the uploader.
@@ -134,7 +134,7 @@ that defines:
     3) upload_file: A function that loads data from a provided file_handle.
                Returns a list of logging messages (strings) and take the
                following arguments:
-        a) uploader: The dashboard_loader_app.models.Uploader registration
+        a) uploader: The dashboard_loader.models.Uploader registration
            object for the uploader module.
         b) fh: A file-like object from which data is to be read.
         c) actual_freq_display: An actual_freq_display value to be 
