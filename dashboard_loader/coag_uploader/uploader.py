@@ -34,7 +34,10 @@ hero_widgets = {
     ],
     "education": [
             "yr12-education-hero",
-    ]
+    ],
+    "skills": [
+            "cert3-skills-hero",
+    ],
 }
 
 def column_labels(mini, maxi):
@@ -617,74 +620,6 @@ def update_stats(desc, section, hero_indicator_url, benchmark, wurl_hero, wlbl_h
                                     "desc": desc })))
     if verbosity > 1:
         messages.append("Stats updated")
-    return messages
-
-def load_housing_homelessness(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "2 NAHA", 
-                        "Housing", "Homelessness", 
-                        "Notes:", HousingHomelessData,
-                        {
-                            "homeless_persons": "All homeless persons", 
-                            "rate_per_10k": "Rate per 10,000 of the population"
-                        }, 
-                        { "percent_of_national": "%",}, verbosity))
-    messages.extend(calculate_benchmark(2006.0, 2013.0,
-                            -0.07, False,
-                            HousingHomelessData, "homeless_persons",
-                            "homelessness", "homelessness", 
-                            verbosity))
-    messages.extend(populate_raw_data("homelessness", "homelessness",
-                        "homelessness_data", HousingHomelessData,
-                        {
-                            "homeless_persons": "number_homeless_persons",
-                            "percent_of_national": "proportion_national_total",
-                            "rate_per_10k": "rate_per_10k",
-                        }))
-    return messages
-
-def load_housing_indigenous_ownership(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "3 NAHA", 
-                        "Housing", "Indigenous Ownership", 
-                        "Notes:", IndigenousHomeOwnershipData,
-                        { "uncertainty": "95 per cent confidence interval"}, 
-                        { "percentage": "%"}, verbosity))
-    messages.extend(calculate_benchmark(2008.0, 2017.5,
-                            0.1, True,
-                            IndigenousHomeOwnershipData, "percentage",
-                            "indigenous_home_ownership", "indigenous_home_ownership", 
-                            verbosity))
-    messages.extend(populate_raw_data("indigenous_home_ownership", 
-                        "indigenous_home_ownership",
-                        "indigenous_home_ownership_data", 
-                        IndigenousHomeOwnershipData,
-                        {
-                            "percentage": "indigenous_home_ownership_rate",
-                            "uncertainty": "uncertainty",
-                        }))
-    return messages
-
-def load_housing_indigenous_crowding(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "4 NAHA", 
-                        "Housing", "Indigenous Overcrowding", 
-                        "Notes:", IndigenousOvercrowdingData,
-                        {}, {"percentage": "%", "uncertainty": "+"}, 
-                        verbosity))
-    messages.extend(calculate_benchmark(2008.0, 2017.5,
-                            -0.2, False,
-                            IndigenousOvercrowdingData, "percentage",
-                            "indigenous_overcrowding", "indigenous_overcrowding", 
-                            verbosity))
-    messages.extend(populate_raw_data("indigenous_overcrowding", 
-                        "indigenous_overcrowding",
-                        "indigenous_overcrowding_data", 
-                        IndigenousOvercrowdingData,
-                        {
-                            "percentage": "indigenous_overcrowding",
-                            "uncertainty": "uncertainty",
-                        }))
     return messages
 
 def load_skills_qualifications(wb, verbosity):
