@@ -158,15 +158,9 @@ def get_form_class_for_statistic(stat):
     return type(str("Stat_%s_Form" % stat.name), (forms.Form,), form_fields)
 
 def get_override_form_class_for_graph(graph):
-    override_clusters = graph.graphcluster_set.filter(dynamic_label=True)
     override_datasets = graph.graphdataset_set.filter(dynamic_label=True)
     form_fields = OrderedDict()
     field_count = 0
-    for c in override_clusters:
-        form_fields["cluster_%s" % c.url] = forms.CharField(
-                    label="Cluster %s (%s)" % (c.label, c.url),
-                    max_length=200, required=True)
-        field_count += 1
     for d in override_datasets:
         form_fields["dataset_%s" % d.url] = forms.CharField(
                     label="Dataset %s (%s)" % (d.label, d.url),
