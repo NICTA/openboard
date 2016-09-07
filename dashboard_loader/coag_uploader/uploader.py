@@ -32,6 +32,9 @@ hero_widgets = {
             "indigenous_overcrowding-housing-hero", 
             "indigenous_remote-housing-hero", 
     ],
+    "education": [
+            "yr12-education-hero",
+    ]
 }
 
 def column_labels(mini, maxi):
@@ -69,7 +72,7 @@ def all_rows_found(rows):
             return False
     return True
 
-def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity, transforms={}):
+def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}):
     messages = []
     if verbosity > 2:
         messages.append("Loading %s Data: %s" % (data_category, dataset))
@@ -127,6 +130,8 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                                 defaults[fld] = transforms[fld](rawval)
                             else:
                                 defaults[fld] = rawval
+                        for def_fld, def_val in fld_defaults.items():
+                            defaults[def_fld] = def_val
                         obj, created = model.objects.update_or_create(
                                     state=state,
                                     year=year,
@@ -587,26 +592,29 @@ def update_stats(desc, section, hero_indicator_url, benchmark, wurl_hero, wlbl_h
                     desc["status"]["short"],
                     traffic_light_code=desc["status"]["tlc"],
                     icon_code=desc["status"]["icon"])
-    set_statistic_data(wurl, wlbl,
-                    "status_header",
-                    desc["status"]["short"],
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
-    set_statistic_data(wurl, wlbl,
-                    "status_short",
-                    desc["status"]["short"],
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
-    set_statistic_data(wurl, wlbl,
-                    "status_long",
-                    desc["status"]["long"],
-                    traffic_light_code=desc["status"]["tlc"])
-    set_actual_frequency_display_text(wurl, wlbl,
-                "Updated: %s" % unicode(desc["updated"]))
-    set_text_block(wurl, wlbl,
-                txt_block_template.render(Context({ 
-                                "benchmark": benchmark, 
-                                "desc": desc })))
+        set_actual_frequency_display_text(wurl_hero, wlbl_hero,
+                    "%s" % unicode(desc["updated"]))
+    if wurl:
+        set_statistic_data(wurl, wlbl,
+                        "status_header",
+                        desc["status"]["short"],
+                        traffic_light_code=desc["status"]["tlc"],
+                        icon_code=desc["status"]["icon"])
+        set_statistic_data(wurl, wlbl,
+                        "status_short",
+                        desc["status"]["short"],
+                        traffic_light_code=desc["status"]["tlc"],
+                        icon_code=desc["status"]["icon"])
+        set_statistic_data(wurl, wlbl,
+                        "status_long",
+                        desc["status"]["long"],
+                        traffic_light_code=desc["status"]["tlc"])
+        set_actual_frequency_display_text(wurl, wlbl,
+                    "Updated: %s" % unicode(desc["updated"]))
+        set_text_block(wurl, wlbl,
+                    txt_block_template.render(Context({ 
+                                    "benchmark": benchmark, 
+                                    "desc": desc })))
     if verbosity > 1:
         messages.append("Stats updated")
     return messages

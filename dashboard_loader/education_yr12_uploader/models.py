@@ -20,5 +20,5 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class HousingRentalStressData(CoagPercentageUncertaintyDataBase):
+class EducationYr12Cert3AttainmentData(CoagPercentageUncertaintyDataBase):
     pass

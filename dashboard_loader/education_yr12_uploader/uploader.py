@@ -13,7 +13,6 @@
 #   limitations under the License.
 
 
-
 import datetime
 import csv
 from decimal import Decimal, ROUND_HALF_UP
@@ -21,7 +20,7 @@ import re
 from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
-from housing_rentalstress_uploader.models import *
+from education_yr12_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -32,11 +31,12 @@ groups = [ "upload_all", "upload" ]
 # "python manage.py upload_data frontlineservice_uploader" and by the uploader 
 # page in the data admin GUI.
 
+
 file_format = {
     "format": "xlsx",
     "sheets": [
             {
-                "name": "Data",
+                "name": "Data1",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
                             ('B', 'Row Discriminator (% or +)'),
@@ -49,6 +49,26 @@ file_format = {
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
+                    'Contains Survey of Education and Work data',
+                    'Data in this worksheet may be overridden by data in worksheet Data2',
+                ],
+            },
+            {
+                "name": "Data2",
+                "cols": [ 
+                            ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
+                            ('B', 'Row Discriminator (Always %)'),
+                            ('...', 'Column per state + Aust'),
+                        ],
+                "rows": [
+                            ('1', "Heading row"),
+                            ('2', "State Heading row"),
+                            ('...', 'One Row per year, containing percentage attainment'),
+                        ],
+                "notes": [
+                    'Blank rows and columns ignored',
+                    'Contains Census data',
+                    'Data in this worksheet take precedence over data in worksheet Data1'
                 ],
             },
             {
@@ -70,7 +90,7 @@ file_format = {
         ],
 }
 
-benchmark = "From 2007-08 to 2015-16, a 10% reduction nationally in the proportion of low-income renter households in rental stress"
+benchmark = "Lift the Year 12 or equivalent or Certificate III attainment rate to 90% by 2020"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -79,69 +99,41 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
         messages.extend(
-                load_state_grid(wb, "Data",
-                                "Housing", "Rental Stress",
-                                None, HousingRentalStressData,
+                load_state_grid(wb, "Data1",
+                                "Education", "Year 12/Cert 3 Attainment (SEW data)",
+                                None, EducationYr12Cert3AttainmentData,
                                 {}, {"percentage": "%", "uncertainty": "+",},
                                 verbosity)
                 )
+        messages.extend(
+                load_state_grid(wb, "Data2",
+                                "Education", "Year 12/Cert 3 Attainment (Census data)",
+                                None, EducationYr12Cert3AttainmentData,
+                                {}, {"percentage": "%", },
+                                verbosity,
+                                fld_defaults={
+                                    "uncertainty": 0.0,
+                                })
+                )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, 
-                                "housing", "rental_stress", benchmark,
-                                "rentalstress-housing-hero", "rentalstress-housing-hero", 
-                                "housing_rentalstress", "housing_rentalstress", 
+                                "education", "yr12", benchmark,
+                                "yr12-education-hero", "yr12-education-hero", 
+                                None, None,
                                 verbosity))
         messages.extend(
                 update_graph_data(
-                            "rentalstress-housing-hero", "rentalstress-housing-hero",
-                            "housing-rs-hero-graph",
-                            HousingRentalStressData, "percentage",
+                            "yr12-education-hero", "yr12-education-hero",
+                            "education-yr12-hero-graph",
+                            EducationYr12Cert3AttainmentData, "percentage",
                             [ AUS, ],
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
+                            benchmark_start=2006,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: 0.9,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
-        messages.extend(
-                update_graph_data(
-                            "housing_rentalstress", "housing_rentalstress",
-                            "housing_rentalstress_summary_graph",
-                            HousingRentalStressData, "percentage",
-                            [ AUS, ],
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
-                            use_error_bars=False,
-                            verbosity=verbosity)
-                )
-        messages.extend(
-                update_graph_data(
-                            "housing_rentalstress", "housing_rentalstress",
-                            "housing_rentalstress_detail_graph",
-                            HousingRentalStressData, "percentage",
-                            benchmark_start=2007.5,
-                            benchmark_end=2015.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
-                            use_error_bars=True,
-                            verbosity=verbosity)
-                )
-        messages.extend(
-                populate_raw_data("housing_rentalstress", "housing_rentalstress",
-                                "housing_rentalstress", HousingRentalStressData,
-                                {
-                                    "percentage": "percentage_rental_stress",
-                                    "uncertainty": "uncertainty",
-                                })
-                )
-        messages.extend(
-                populate_crosstab_raw_data("housing_rentalstress", "housing_rentalstress",
-                                "data_table", HousingRentalStressData,
-                                {
-                                    "percentage": "percent",
-                                    "uncertainty": "error",
-                                })
-                )
+
     except LoaderException, e:
         raise e
     except Exception, e:
