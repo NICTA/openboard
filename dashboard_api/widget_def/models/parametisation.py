@@ -21,8 +21,17 @@ class ViewDoesNotHaveAllKeys(Exception):
     pass
 
 class Parametisation(models.Model):
-    url=models.SlugField(unique=True)
-    name=models.CharField(max_length=128, unique=True)
+    """
+    A :model:`widget_def.WidgetDefinition` may be parametised by associating it with a Parametisation.
+
+    A Parametisation provides a method by which the appearance and data for a widget can vary depending on the
+    :model:`widget_def.WidgetView` in which it is being displayed. This means that in a situation where a (potentially
+    large) group of WidgetViews might all contain a similar but slightly different widget, the widget need only
+    be defined once, with the differences between the various parametised widgets being captured in the values of
+    various :model:`WidgetProperty` instances.
+    """
+    url=models.SlugField(unique=True, help_text="A short symbolic name used by export commands")
+    name=models.CharField(max_length=128, unique=True, help_text="A longer descriptive name.")
     def __unicode__(self):
         return u"%s (%s)" % (self.name, self.url)
     def export(self):
@@ -32,15 +41,23 @@ class Parametisation(models.Model):
             "keys": self.keys(),
         }
     def add_key(self, key):
+        """Add a new :model:`ParametisationKey` to this Parametisation if it does not already exist. Returns the key either way."""
         return ParametisationKey.objects.get_or_create(param=self, key=key)[0]
     def delete_key(self, key):
+        """Deletes a :model:`ParametisationKey` from this Parametisation if it exists. Fails silently if it does not."""
         try:
             ParametisationKey.objects.get(param=self, key=key).delete()
         except ParametisationKey.DoesNotExist:
             pass
     def keys(self):
+        """Returns this Parametisation's keys (as a list of strings)"""
         return [ pk.key for pk in self.parametisationkey_set.all() ]
     def update(self, view=None):
+        """
+        Update :model:`ParametisationValue` objects for this Parametisation. For specified view or all views.
+        
+        Should be called automatically by signals, should not need to be invoked manually.
+        """
         if not view:
             for v in WidgetView.objects.all():
                 self.update(v)
@@ -106,6 +123,11 @@ class Parametisation(models.Model):
             pkv.save()
     @classmethod
     def update_all(cls, view=None):
+        """
+        Calls update on all Parametisations.
+        
+        Should be called automatically by signals, should not need to be invoked manually.
+        """
         if not view:
             for v in WidgetView.objects.all():
                 cls.update_all(v)
@@ -126,8 +148,13 @@ class Parametisation(models.Model):
         ordering = ("name",)
 
 class ParametisationKey(models.Model):
-    param = models.ForeignKey(Parametisation)
-    key = models.CharField(max_length=120)
+    """
+    A key that is parametised by a :model:`Parametisation`.
+
+    Every view that declares a widget with this Parametisation is assumed to have a property with this key.
+    """
+    param = models.ForeignKey(Parametisation, help_text="The Parametisation")
+    key = models.CharField(max_length=120, help_text="The parametised key")
     def __unicode__(self):
         return "%s[%s]" % (self.param.name, self.key)
     class Meta:
@@ -135,11 +162,21 @@ class ParametisationKey(models.Model):
         ordering=("param", "key")
 
 class ParametisationValue(models.Model):
-    param = models.ForeignKey(Parametisation)
-    views = models.ManyToManyField(WidgetView)
+    """
+    A ParametisationValue defines a virtual instance of each widget parametised by a given Parametisation.
+
+    It encapsulates a set of values of for a :model:`Parametisation`'s keys.
+
+    ParametisationValues are maintained automatically by signals, they should never need to be 
+    manually created, deleted or modified.
+    """
+    param = models.ForeignKey(Parametisation, help_text="The Parametisation")
+    views = models.ManyToManyField(WidgetView, help_text="The set of views whose properties match this ParametisationValue")
     def parameters(self):
+        """Returns the values for the parametised keys that this object encapsulates as an associative array."""
         return { pkv.key: pkv.value() for pkv in self.parametervalue_set.all() }
     def matches_parameters(self, params):
+        """Tests whether a given set of parameters (as an associative array) matches that of this ParametisationValue"""
         my_params = self.parameters()
         for k in params:
             if k not in my_params:
@@ -151,11 +188,15 @@ class ParametisationValue(models.Model):
                 return False
         return True
     def matches(self, view):
+        """Tests whether a view's properties match this ParametisationValue"""
         return self.matches_parameters(view.properties())
     def __unicode__(self):
         return "%s: %s" % (unicode(self.param), ", ".join([ unicode(pv) for pv in self.parametervalue_set.all() ]))
     
 class ParameterValue(models.Model):
+    """
+    Holds a single parameter value as part of a :model:`ParametisationValue`
+    """
     INT_PROPERTY=ViewProperty.INT_PROPERTY
     STR_PROPERTY=ViewProperty.STR_PROPERTY
     BOOL_PROPERTY=ViewProperty.BOOL_PROPERTY
