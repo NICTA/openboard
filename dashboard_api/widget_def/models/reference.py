@@ -20,10 +20,21 @@ from django.apps import apps
 # Create your models here.
 
 class Category(models.Model):
-    name = models.CharField(max_length=60, unique=True)
-    category_aspect = models.IntegerField()
-    sort_order = models.IntegerField(unique=True)
+    """
+    Widgets may be organised into categories.
+
+    Widgets within a view are sorted by category (and subcategory).
+
+    Front end implementations may use category to influence display -  e.g.
+    the category (and subcategory) of a widget may determine the colour
+    pallet used for the widget, the fixed column the widget should be
+    placed in, or other display properties.
+    """
+    name = models.CharField(max_length=60, unique=True, help_text="The category name, as it appears in API.")
+    category_aspect = models.IntegerField(help_text="A numeric value associated with the category, the interpretation may vary between front end implementations. Possible uses include relative size of widgets of this category.")
+    sort_order = models.IntegerField(unique=True, help_text="Widgets are sorted by category according to the value of this field.")
     def export(self):
+        """Serialise category for export"""
         return {
             "name": self.name,
             "aspect": self.category_aspect,
@@ -32,6 +43,15 @@ class Category(models.Model):
         }
     @classmethod
     def import_data(cls, data, merge=False):
+        """
+        Import a category (as serialised by export)
+
+        data: The serialised category to be imported.
+
+        merge: Behaviour if category already exists.  If true, serialised 
+               subcategories are merged with existing ones.  If false existing
+               subcategories are deleted.
+        """
         try:
             c = cls.objects.get(name=data["name"])
         except cls.DoesNotExist:
@@ -50,6 +70,9 @@ class Category(models.Model):
         return c
     @classmethod
     def export_all(cls):
+        """
+            Export all categories at once.
+        """
         return { "categories": [ c.export() for c in cls.objects.all() ] }
     def __unicode__(self):
         return self.name
@@ -57,6 +80,9 @@ class Category(models.Model):
         ordering=("sort_order",)
 
 class AllCategories(object):
+    """
+    Dummy model used by the import_export code to export all categories.
+    """
     _instance = None
     def export(self):
         return Category.export_all()
@@ -75,16 +101,30 @@ class AllCategories(object):
         return cls._instance
 
 class Subcategory(models.Model):
-    category = models.ForeignKey(Category)
-    name = models.CharField(max_length=60)
-    sort_order = models.IntegerField()
+    """
+    A :model:`widget_def.Category` has one of more subcategories.
+    
+    Subcategories provide a finer classification of widgets than
+    categories but otherwise serve the same purpose.
+    """
+    category = models.ForeignKey(Category, help_text="The parent category")
+    name = models.CharField(max_length=60, help_text="The subcategory name, as it appears in the API")
+    sort_order = models.IntegerField(help_text="Widgets are sorted by subcategory (after sorting by category) according to the value of this field.")
     def export(self):
+        """Serialise subcategory for export"""
         return {
             "name": self.name,
             "sort_order": self.sort_order,
         }
     @classmethod
     def import_data(cls, cat, data):
+        """
+        Import a subcategory (as serialised by export)
+
+        cat: The parent category to attach the new subcategory to.
+
+        data: The serialised subcategory to be imported.
+        """
         try:
             sub = cls.objects.get(category=cat, name=data["name"])
         except cls.DoesNotExist:

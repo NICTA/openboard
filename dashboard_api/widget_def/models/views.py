@@ -20,9 +20,14 @@ from django.apps import apps
 # Create your models here.
 
 class ViewType(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    show_children = models.BooleanField(default=False)
-    show_siblings = models.BooleanField(default=False)
+    """
+    A type of :model:`widget_def.WidgetView`
+
+    Typically used by the front end implementation to choose the appropriate display template for a WidgetView.
+    """
+    name = models.CharField(max_length=120, unique=True, help_text="The name of the view type, as it appears in the API")
+    show_children = models.BooleanField(default=False, help_text="If true views of this type should show links to their child views")
+    show_siblings = models.BooleanField(default=False, help_text="If true views of this type should show links to their sibling views")
     def __unicode__(self):
         return self.name
     def export(self):
@@ -43,14 +48,17 @@ class ViewType(models.Model):
         return vt
 
 class WidgetView(models.Model):
-    name = models.CharField(max_length=120)
-    label = models.SlugField(unique=True)
-    parent = models.ForeignKey("self", null=True,blank=True, related_name="children")
-    external_url = models.URLField(null=True, blank=True)
-    view_type = models.ForeignKey(ViewType)
-    sort_order = models.IntegerField()
-    requires_authentication = models.BooleanField(default=False)
-    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
+    """
+    A WidgetView is a collection of widgets to be displayed at once - a dashboard in a hierarchical family of dashboards.
+    """
+    name = models.CharField(max_length=120, help_text="The display name for the view, as displayed in links to the view, and in the view itself")
+    label = models.SlugField(unique=True, help_text="The symbolic label for the view, as used in the API.")
+    parent = models.ForeignKey("self", null=True,blank=True, related_name="children", help_text="The parent WidgetView. If null, this WidgetView is a root node in a view hierarchy.")
+    external_url = models.URLField(null=True, blank=True, help_text="If not null, then this Widget View is not hosted locally, but is merely a placeholder for a view hosted by another Openboard instance, and this is the API root URL for that external Openboard instance.")
+    view_type = models.ForeignKey(ViewType, help_text="The type of WidgetView")
+    sort_order = models.IntegerField(help_text="WidgetViews are sorted by parent, then by this field")
+    requires_authentication = models.BooleanField(default=False, help_text="If true then authentication is required to access this view. Note that authentication is not supported acroess externally hosted WidgetViews.")
+    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True, help_text="A geospatial window - a rectangle that defines the initial viewing area for geodatasets under this WidgetView.  A WidgetView with a non-null geowindow may contain GeoDatasets as well as widgets.")
     class Meta:
         unique_together=[
             ("parent", "name"),
@@ -145,6 +153,10 @@ class WidgetView(models.Model):
         return v
 
 class ViewProperty(models.Model):
+    """
+    Views can have arbitrary key-value properties which can be used by front-end implementations for
+    any purpose.  View properties also support :model:`widget_def.Parametisation`
+    """
     INT_PROPERTY=0
     STR_PROPERTY=1
     BOOL_PROPERTY=2
@@ -155,14 +167,15 @@ class ViewProperty(models.Model):
         BOOL_PROPERTY: "boolean",
         DEC_PROPERTY: "decimal",
     }
-    view=models.ForeignKey(WidgetView)
-    key=models.CharField(max_length=120)
-    property_type=models.SmallIntegerField(choices=property_types.items())
-    strval=models.TextField(blank=True, null=True)
-    intval=models.IntegerField(blank=True, null=True)
-    boolval=models.NullBooleanField()
-    decval=models.DecimalField(decimal_places=4, max_digits=14, blank=True, null=True)
+    view=models.ForeignKey(WidgetView, help_text="The view this property belongs to")
+    key=models.CharField(max_length=120, help_text="The key for this property")
+    property_type=models.SmallIntegerField(choices=property_types.items(), help_text="The datatype of this property")
+    strval=models.TextField(blank=True, null=True, help_text="The value (for string properties)")
+    intval=models.IntegerField(blank=True, null=True, help_text="The value (for integer properties)")
+    boolval=models.NullBooleanField(help_text="The value (for boolean properties)")
+    decval=models.DecimalField(decimal_places=4, max_digits=14, blank=True, null=True, help_text="The value (for decimal properties)")
     def value(self):
+        """Return the appropriately typed value for this property"""
         if self.property_type == self.INT_PROPERTY:
             return self.intval
         elif self.property_type == self.DEC_PROPERTY:
