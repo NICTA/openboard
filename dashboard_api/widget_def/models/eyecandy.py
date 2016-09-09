@@ -1,4 +1,4 @@
-#   Copyright 2015, 2016 NICTA
+#   Copyright 2015, 2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,7 +19,13 @@ from django.db import models
 # Create your models here.
 
 class IconLibrary(models.Model):
-    name=models.SlugField(unique=True)
+    """
+    An icon library is collection of concepts to represented by images.
+
+    Icons are only stored in Openboard by name. It is up to the front end implementation to
+    supply the actual images.
+    """
+    name=models.SlugField(unique=True, help_text="Name of the IconLibrary")
     def __unicode__(self):
         return self.name
     def __getstate__(self):
@@ -53,10 +59,13 @@ class IconLibrary(models.Model):
         return choices
 
 class IconCode(models.Model):
-    scale=models.ForeignKey(IconLibrary)
-    value=models.SlugField()
-    description=models.CharField(max_length=80)
-    sort_order=models.IntegerField()
+    """
+    Represents a single icon within an icon library.
+    """
+    scale=models.ForeignKey(IconLibrary, verbose_name="Library", help_text="The IconLibrary this IconCode belongs to")
+    value=models.SlugField(help_text="A short symbolic label for the icon, as used in the API")
+    description=models.CharField(max_length=80, help_text="A longer description of the icon")
+    sort_order=models.IntegerField(help_text="icons are sorted within a library by this field")
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
     def export(self):
@@ -86,7 +95,10 @@ class IconCode(models.Model):
         ordering = [ "scale", "sort_order" ]
  
 class TrafficLightScale(models.Model):
-    name=models.CharField(max_length=80, unique=True)
+    """
+    Represents a scale of colours used to represent the intensity or severity of a metric.
+    """
+    name=models.CharField(max_length=80, unique=True, help_text="Identifies the traffic light scale")
     def __unicode__(self):
         return self.name
     def export(self):
@@ -123,9 +135,12 @@ class TrafficLightScale(models.Model):
         return choices
 
 class TrafficLightScaleCode(models.Model):
-    scale = models.ForeignKey(TrafficLightScale)
-    value = models.SlugField()
-    colour = models.CharField(max_length=50)
+    """
+    Represents a colour in a :model:`TrafficLightScale`.
+    """
+    scale = models.ForeignKey(TrafficLightScale, help_text="The traffic light scale")
+    value = models.SlugField(help_text="A short symbolic representation of the intensity/severity this code represents, as used in the API")
+    colour = models.CharField(max_length=50, help_text="A description of the actual colour.  May exactl specify the colour (e.g. a hex code) but in general the exact colour scheme should be left to the front end implementation")
     sort_order = models.IntegerField(help_text='"Good" codes should have lower sort order than "Bad" codes.')
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
@@ -155,19 +170,38 @@ class TrafficLightScaleCode(models.Model):
         ordering = [ "scale", "sort_order" ]
 
 class TrafficLightAutoStrategy(models.Model):
+    """
+    Describes a method by which statistic values can be automatically mapped to :model:`TrafficLightScaleCode`s.
+
+    Supported strategy types are:
+
+    RELATIVE: Traffic light code is determined from the ratio of a numeric statistic value to a defined target value.
+
+    ABSOLUTE: Traffic light code is determined directly from a numeric statistic value.
+
+    MAP: Traffic light code is mapped from a string statistic value.
+    """
     RELATIVE = 1
     ABSOLUTE = 2
     MAP = 3
-    url = models.SlugField(unique=True)
+    url = models.SlugField(unique=True, help_text="Identifies the automation strategy")
     strategy_types = [ "-", "relative", "absolute", "map" ]
-    scale = models.ForeignKey(TrafficLightScale)
+    scale = models.ForeignKey(TrafficLightScale, help_text="The TrafficLightScale this strategy automates")
     strategy_type = models.SmallIntegerField(choices=(
                     (RELATIVE, strategy_types[RELATIVE]),
                     (ABSOLUTE, strategy_types[ABSOLUTE]),
                     (MAP, strategy_types[MAP]),
-            ))
+            ), help_text="""The type of automation strategy. Supported strategy types are:
+
+            RELATIVE: Traffic light code is determined from the ratio of a numeric statistic value to a defined target value.
+
+            ABSOLUTE: Traffic light code is determined directly from a numeric statistic value.
+
+            MAP: Traffic light code is mapped from a string statistic value.
+            """)
     def rules(self):
-        return self.trafficlightautorule_set
+        """Returns the rules for this automation strategy"""
+        return self.trafficlightautorule_set.all()
     def __unicode__(self):
         return self.url
     def export(self):
@@ -202,6 +236,13 @@ class TrafficLightAutoStrategy(models.Model):
             problems.append("Traffic Light Auto-Strategy %s has multiple default values" % self.url)
         return problems
     def traffic_light_for(self, val, target_val=None):
+        """
+        Use this strategy to determine the traffic light code for a given statistic value.
+
+        val: The statistic value to determine the traffic light code for.
+
+        target_val: The target value for RELATIVE strategies.
+        """
         rules = self.rules().filter(default_val=False)
         default_rule = self.rules().get(default_val=True)
         if self.strategy_type == self.RELATIVE and target_val:
@@ -219,11 +260,16 @@ class TrafficLightAutoStrategy(models.Model):
         ordering=("url",)
 
 class TrafficLightAutoRule(models.Model):
-    strategy=models.ForeignKey(TrafficLightAutoStrategy)
-    min_val=models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True)
-    map_val=models.CharField(max_length=400, null=True, blank=True)
-    default_val=models.BooleanField(default=False)
-    code = models.ForeignKey(TrafficLightScaleCode)
+    """
+    A rule from a :model:`TrafficLightAutoStrategy`
+
+    Consists of a traffic light code and a rule for when to use it.
+    """
+    strategy=models.ForeignKey(TrafficLightAutoStrategy, help_text="The automation strategy this rule is a part of")
+    min_val=models.DecimalField(max_digits=10, decimal_places=4, null=True, blank=True, help_text="The minimum value for which this rule applies. Required for absolute and relative strategies (unless default_val is set).")
+    map_val=models.CharField(max_length=400, null=True, blank=True, help_text="The string value for which this rule applies. Required for map strategies (unless default_val is set)")
+    default_val=models.BooleanField(default=False, help_text="If true, then this is the default rule which applies if no other rule matches. There should be one and only one default value rule per automation strategy.")
+    code = models.ForeignKey(TrafficLightScaleCode, help_text="The traffic light code to use if this rule applies.")
     def export(self):
         data = {
             "map_val": self.map_val,
@@ -275,14 +321,21 @@ class TrafficLightAutoRule(models.Model):
         ordering=("strategy", "default_val", "-min_val", "map_val")
 
 class TrafficLightAutomation(models.Model):
-    url = models.SlugField(unique=True)
+    """
+    An actual traffic light automation instance.
+
+    Consists of a :model:`TrafficLightAutoStrategy` and a statistic to be automated.  
+    (And also a target value if the strategy is of RELATIVE type.)
+    """
+    url = models.SlugField(unique=True, help_text="Identifies the automation")
     # 2,4  ==>  Statistic.NUMERIC, Statistic.NUMERIC_KVL
     # Can't reference directly because of circular dependencies.  Think on this.
     target_statistic = models.ForeignKey("widget_def.Statistic", 
-                        null=True, blank=True, limit_choices_to={'stat_type__in': (2,4)})
+                        null=True, blank=True, limit_choices_to={'stat_type__in': (2,4)},
+                        help_text="The statistic being automated - should be either numeric or string statistic.")
     target_value = models.DecimalField(max_digits=10, decimal_places=4,
-                        blank=True, null=True)
-    strategy = models.ForeignKey(TrafficLightAutoStrategy)
+                        blank=True, null=True, help_text="The target value (for relative automation strategies)")
+    strategy = models.ForeignKey(TrafficLightAutoStrategy, help_text="The automation strategy")
     def __unicode__(self):
         return self.url
     def export(self):

@@ -15,12 +15,11 @@
 from django.db import models
 
 from widget_def.models.views import WidgetView
-from widget_def.models.widget_definition import WidgetDefinition
 
 # Create your models here.
 
 class ViewWidgetDeclaration(models.Model):
-    definition = models.ForeignKey(WidgetDefinition)
+    definition = models.ForeignKey("WidgetDefinition")
     view = models.ForeignKey(WidgetView, limit_choices_to={'external_url': None}, related_name="widgets")
     sort_order = models.IntegerField()
     child_view = models.ForeignKey(WidgetView, null=True, blank=True, related_name="declarations")
