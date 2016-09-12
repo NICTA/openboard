@@ -196,7 +196,7 @@ class GeoColourScale(models.Model):
     """
     Defines a colour scale for geospatial datasets.
 
-    A colour scale consists of a series of :model:`GeoColourPoint`s
+    A colour scale consists of a series of :model:`widget_def.GeoColourPoint`s
     """
     url=models.SlugField(unique=True, help_text="Identifies the colour scale")
     autoscale=models.BooleanField(default=True, help_text="If true colour table is auto-scaled from the defined colour point value range to the minimum and maximum values supplied at runtime.")
@@ -226,7 +226,7 @@ class GeoColourScale(models.Model):
 
 class GeoColourPoint(models.Model):
     """
-    A colour point within a :model:`GeoColourScale`
+    A colour point within a :model:`widget_def.GeoColourScale`
 
     Defines a value and an associated colour.
     """
@@ -302,7 +302,7 @@ class GeoDataset(models.Model):
                     (geoms.Polygon, geoms.MultiPolygon),
                     [None.__class__], [])
     url = models.SlugField(verbose_name="label", unique=True, help_text="Identifies the GeoDataset in the API.")
-    label = models.CharField(verbose_name="name", max_length=128, help_text="A user-displayable label for the dataset")
+    label = models.CharField(verbose_name="name", max_length=128, help_text="A user-displayable label for the dataset. May be parametised.")
     subcategory = models.ForeignKey("Subcategory", )
     geom_type = models.SmallIntegerField(choices=(
                     (POINT, geom_types[POINT]),
@@ -314,7 +314,7 @@ class GeoDataset(models.Model):
                     (PREDEFINED, geom_types[PREDEFINED]),
                     (EXTERNAL, geom_types[EXTERNAL]),
                 ))
-    ext_url = models.URLField(null=True, blank=True, help_text="External URL - For External GeoDatasets only")
+    ext_url = models.URLField(null=True, blank=True, help_text="External URL - For External GeoDatasets only. May be parametised.")
     ext_type = models.CharField(max_length=80, blank=True, null=True, help_text="For External GeoDatasets only - used as 'type' field in Terria catalog.")
     ext_extra = models.CharField(max_length=256, blank=True, null=True, help_text="For External Datasets only - optional extra json for the Terria catalog.  Should be a valid json object if set")
     colour_map = models.ForeignKey(GeoColourScale, null=True, blank=True, help_text="A colour map to use for the dataset")
@@ -322,7 +322,7 @@ class GeoDataset(models.Model):
     def colour_table(self):
         """
             Return a compiled colour table for this GeoDataset (ColourScaleTable), calculated from 
-            the :model:`GeoColourScale`
+            the :model:`widget_def.GeoColourScale`
         """
         if self.colour_map:
             try:
@@ -365,7 +365,7 @@ class GeoDataset(models.Model):
     def prop_array_dict(self):
         """
             Return a tuple containing :
-            1) an array of :model:`GeoPropertyDefinition`s supported by this dataset.
+            1) an array of :model:`widget_def.GeoPropertyDefinition`s supported by this dataset.
             2) a dictionary mapping the property url's to the GeoPropertyDefinition object.
         """
         arr = []
@@ -528,7 +528,7 @@ class GeoDataset(models.Model):
 
 class ViewGeoDatasetDeclaration(models.Model):
     """
-        Declares that a given :model:`GeoDataset` should be included in a given :model:`WidgetView`
+        Declares that a given :model:`widget_def.GeoDataset` should be included in a given :model:`widget_def.WidgetView`
     """
     dataset = models.ForeignKey(GeoDataset, help_text="The GeoDataset to include in the WidgetView")
     view = models.ForeignKey(WidgetView, help_text="The WidgetView the GeoDataset is to be included in")

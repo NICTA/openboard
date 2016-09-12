@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -24,16 +24,22 @@ from widget_def.parametisation import parametise_label, resolve_pval, Parametisa
 # Create your models here.
 
 class WidgetDefinition(models.Model):
+    """
+    Represents a widget.
+
+    Widgets may appear in multiple views. When closely related but distinct widgets appear in different views,
+    this can be accomplished either by parametisation or by grouping widgets into a family.
+    """
     _lud_cache = None
-    family = models.ForeignKey("WidgetFamily")
-    parametisation = models.ForeignKey(Parametisation, blank=True, null=True)
-    expansion_hint = models.CharField(max_length=80, blank=True, null=True)
-    deexpansion_hint = models.CharField(max_length=80, blank=True, null=True)
-    label = models.CharField(max_length=128)
-    default_frequency_text = models.CharField(max_length=60)
-    refresh_rate = models.IntegerField(help_text="in seconds")
-    sort_order = models.IntegerField(unique=True)
-    about = models.TextField(null=True, blank=True)
+    family = models.ForeignKey("WidgetFamily", help_text="The widget family")
+    parametisation = models.ForeignKey(Parametisation, blank=True, null=True, help_text="The Parametisation. Note that a Parametisation can only be set on a widget definition that is the only widget definition for it's widget family")
+    expansion_hint = models.CharField(max_length=80, blank=True, null=True, help_text="The text hint on the control to open expansion tiles. Required for widgets with expansion tiles.")
+    deexpansion_hint = models.CharField(max_length=80, blank=True, null=True, help_text="The text hint on the control to close expansion tiles. Required for widgets with expansion tiles.")
+    label = models.CharField(max_length=128, help_text="Used in admin interfaces to distinguish between widgets within a family. Not exposed in the API.")
+    default_frequency_text = models.CharField(max_length=60, help_text="The default text indicating update frequency or time of last update.  Rarely seen - usually overridden at dataload time.")
+    refresh_rate = models.IntegerField(help_text="How often (in seconds) the client should poll Openboard for new data.")
+    sort_order = models.IntegerField(unique=True, help_text="How the widget is sorted in admin backend")
+    about = models.TextField(null=True, blank=True, help_text="Arbitrary html block describing the widget. May be parametised.")
     def validate(self):
         """Validate Widget Definition. Return list of strings describing problems with the definition, i.e. an empty list indicates successful validation"""
         problems = []
@@ -83,6 +89,11 @@ class WidgetDefinition(models.Model):
     def source_url(self):
         return self.family.source_url
     def widget_data(self, view=None, pval=None):
+        """
+        Return the :model:`widget_data.WidgetData` object for this widget.
+
+        view, pval: One of these must be supplied for a parametised widget.
+        """
         try:
             pval = resolve_pval(self.parametisation, view=view, pval=pval)
         except ParametisationException:
@@ -97,6 +108,12 @@ class WidgetDefinition(models.Model):
         except WidgetData.DoesNotExist:
             return None
     def actual_frequency_display(self, wd=None, view=None, pval=None):
+        """
+        Returns the actual frequency display value.
+
+        wd: If the :model:`widget_data.WidgetData` object is already available, it may be passed in directly.
+        view, pval: One of these must be supplied for a parametised widget (unless a non-None wd has been passed in)
+        """
         if not wd:
             wd = self.widget_data(view, pval)
         if wd and wd.actual_frequency_text:
@@ -195,6 +212,12 @@ class WidgetDefinition(models.Model):
     def __unicode__(self):
         return "%s (%s)" % (unicode(self.family), self.label)
     def data_last_updated(self, update=False, view=None, pval=None):
+        """
+        Return the date the data for this widget was last updated.
+
+        update: If true, the objects last-updated cache is flushed and recalculated.
+        view, pval: One of these must be supplied for a parametised widget (unless a non-None wd has been passed in)
+        """
         pval = resolve_pval(self.parametisation, view=view, pval=pval)
         if pval:
             if self._lud_cache and self._lud_cache.get(pval.id) and not update:

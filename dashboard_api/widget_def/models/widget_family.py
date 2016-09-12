@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -23,20 +23,38 @@ from widget_def.models.widget_definition import WidgetDefinition
 # Create your models here.
 
 class WidgetFamily(models.Model):
-    subcategory = models.ForeignKey(Subcategory)
-    name = models.CharField(max_length=80)
-    subtitle = models.CharField(max_length=120, null=True, blank=True)
-    url  = models.SlugField(unique=True)
-    source_url = models.URLField(max_length=400)
-    source_url_text = models.CharField(max_length=60)
+    """
+    Represents a family of closely related widgets. 
+
+    When you have two widgets in two views with the same heading and subheading but which require slightly different
+    presentation and data, consider making them a widget family.
+    """
+    subcategory = models.ForeignKey(Subcategory, help_text="The subcategory (and therefore category) of the widget family")
+    name = models.CharField(max_length=80, help_text="The name (main heading) of widgets in this family. May be parametised.")
+    subtitle = models.CharField(max_length=120, null=True, blank=True, help_text="The option subheading of widgets in this family. May be parametised.")
+    url  = models.SlugField(unique=True, help_text="A short symbolic name used to refer to widgets in this family in the API. May be parametised.")
+    source_url = models.URLField(max_length=400, help_text="An external URL that the user can be directed to for more information.  Typically the canonical source for the widget's data. May be parametised.")
+    source_url_text = models.CharField(max_length=60, help_text="The text for the source_url link. May be parametised.")
     class Meta:
         ordering=("subcategory",)
     def edit_permission_name(self):
+        """
+            Returns the name of the django auth permission required to manually edit the 
+            editable data for this widget family.
+        """
         return "w_%s" % self.url
     def edit_permission_label(self):
+        """
+            Returns the label of the django auth permission required to manually edit the 
+            editable data for this widget family.
+        """
         p = self.edit_permission()
         return "%s.%s" % (p.content_type.app_label, p.codename) 
     def edit_permission(self, log=None):
+        """
+            Returns the actual :model:`auth.Permission` permission object required to manually edit 
+            the editable data for this widget family, creating it if it does not already exist.
+        """
         ct = ContentType.objects.get_for_model(self)
         try:
             p = Permission.objects.get(content_type=ct, codename=self.edit_permission_name())
@@ -48,11 +66,23 @@ class WidgetFamily(models.Model):
                 print >> log, "Created permission for widget %s" % self.name
         return p
     def edit_all_permission_name(self):
+        """
+            Returns the name of the django auth permission required to manually edit 
+            all data for this widget family.
+        """
         return "wa_%s" % self.url
     def edit_all_permission_label(self):
+        """
+            Returns the label of the django auth permission required to manually edit 
+            all data for this widget family.
+        """
         p = self.edit_all_permission()
         return "%s.%s" % (p.content_type.app_label, p.codename) 
     def edit_all_permission(self, log=None):
+        """
+            Returns the actual :model:`auth.Permission` permission object required to manually edit 
+            all data for this widget family, creating it if it does not already exist.
+        """
         ct = ContentType.objects.get_for_model(self)
         try:
             p = Permission.objects.get(content_type=ct, codename=self.edit_all_permission_name())
