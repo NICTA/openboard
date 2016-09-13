@@ -123,7 +123,7 @@ class RawDataSetColumn(models.Model):
     description = models.TextField(null=True, blank=True, help_text="A detailed description of the column")
     def csv(self, view=None):
         """Return a CSV escaped heading for this column"""
-        return csv_escape(self.parametise_label(self.rds.widget, view, self.heading))
+        return csv_escape(parametise_label(self.rds.widget, view, self.heading))
     def __unicode__(self):
         return "Column: %s" % self.heading
     def export(self):
