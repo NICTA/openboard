@@ -34,9 +34,13 @@ state_dict = dict(states)
 state_map = {
     'NSW': NSW,
     'Vic': VIC,
+    'VIC': VIC,
     'Qld': QLD,
+    'QLD': QLD,
+    'WA': WA,
     'SA': SA,
     'Tas': TAS,
+    'TAS': TAS,
     'ACT': ACT,
     'NT': NT,
     'Australia': AUS,
