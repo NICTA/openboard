@@ -28,7 +28,7 @@ def get_rawdataset(widget_url, label, rds_url):
 
 def clear_rawdataset(rds, pval=None):
     """Clear all data for a RawDataSet object"""
-    rds.rawdatarecord_set.all(param_value=pval).delete()
+    rds.rawdatarecord_set.filter(param_value=pval).delete()
 
 def add_rawdatarecord(rds, sort_order, pval=None, *args, **kwargs):
     """Add a record to a RawDataSet.
