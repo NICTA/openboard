@@ -80,7 +80,7 @@ class RawDataSet(models.Model):
         """Return a json-serialisable dump of this dataset."""
         # TODO: Should return an iterator instead of an in-memory array.
         result = []
-        pval = resolve_pval(self.widget().parametisation, view=view, pval=pval)
+        pval = resolve_pval(self.widget.parametisation, view=view, pval=pval)
         if pval:
             for rec in self.rawdatarecord_set.all(param_value=pval):
                 result.append(rec.json())
@@ -101,7 +101,7 @@ class RawDataSet(models.Model):
         return out
     def csv(self, writer, view=None):
         """Write out a CSV for the dataset to the provided writer (e.g. an HttpResponse object)"""
-        pval = resolve_pval(self.widget().parametisation, view=view)
+        pval = resolve_pval(self.widget.parametisation, view=view)
         writer.write(self.csv_header(view))
         if pval:
             for rec in self.rawdatarecord_set.all(param_value=pval):
