@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -28,12 +28,16 @@ from widget_data.models import GeoFeature, GeoProperty
 from widget_def.parametisation import parametise_label
 
 class GeoWindow(models.Model):
+    """
+    Represents a rectangular viewing window for geospatial data.
+    """
     name=models.CharField(max_length=128, 
                     unique=True, help_text="For internal reference only")
-    north_east = models.PointField()
-    south_west = models.PointField()
-    view_override = models.BooleanField(default=False)
+    north_east = models.PointField(help_text="Coordinates of north-east corner of window")
+    south_west = models.PointField(help_text="Coordinates of south-west corner of window")
+    view_override = models.BooleanField(default=False, help_text="If true, prefer the geo-window defined by the current view (if it has a geo-window defined)")
     def padded_polygon(self):
+        """Return a polygon of the geowindow, padded in each direction by 10%"""
         n = self.north_east.y
         e = self.north_east.x
         s = self.south_west.y
@@ -189,9 +193,15 @@ class ColourScaleTable(object):
         return "%02X%02X%02X" % rgb
 
 class GeoColourScale(models.Model):
-    url=models.SlugField(unique=True)
-    autoscale=models.BooleanField(default=True)
+    """
+    Defines a colour scale for geospatial datasets.
+
+    A colour scale consists of a series of :model:`widget_def.GeoColourPoint`s
+    """
+    url=models.SlugField(unique=True, help_text="Identifies the colour scale")
+    autoscale=models.BooleanField(default=True, help_text="If true colour table is auto-scaled from the defined colour point value range to the minimum and maximum values supplied at runtime.")
     def table(self, mini=None, maxi=None):
+        """Generate a ColourScaleTable for this colour scale"""
         return ColourScaleTable(self, mini, maxi)
     def export(self):
         return {
@@ -215,14 +225,20 @@ class GeoColourScale(models.Model):
         return self.url
 
 class GeoColourPoint(models.Model):
-    scale=models.ForeignKey(GeoColourScale)
-    value=models.DecimalField(max_digits=15, decimal_places=4)
-    colour=models.CharField(max_length=6, validators=[validate_html_colour])
+    """
+    A colour point within a :model:`widget_def.GeoColourScale`
+
+    Defines a value and an associated colour.
+    """
+    scale=models.ForeignKey(GeoColourScale, help_text="The colour scale")
+    value=models.DecimalField(max_digits=15, decimal_places=4, help_text="The value")
+    colour=models.CharField(max_length=6, validators=[validate_html_colour], help_text="The colour. Stored as a 3 or 6 digit hex string")
     def rgb(self):
+        """Return the colour as an rgb tuple of 8 bit integers"""
         if len(self.colour) == 3:
-            return (int(self.colour[0], base=16),
-                    int(self.colour[1], base=16),
-                    int(self.colour[2], base=16),
+            return (int(self.colour[0]*2, base=16),
+                    int(self.colour[1]*2, base=16),
+                    int(self.colour[2]*2, base=16),
             )
         else:
             return (int(self.colour[0:2], base=16),
@@ -253,6 +269,18 @@ class GeoColourPoint(models.Model):
         ordering=('scale', 'value')
 
 class GeoDataset(models.Model): 
+    """
+    Defines a geospatial dataset. 
+    
+    All geospatial data in Openboard is assumed to use GDA-94 (SRID 4283)
+
+    Supported types:
+
+    POINT, LINE, POLYGON, MULTI_POINT, MULTI_LINE, MULTI_POLYGON: Dataset consists of a collection of 
+            geospatial objects of the indicated type.
+    PREDEFINED: Dataset consists of data defined against any of the predefined boundary sets supported by the geo-csv-au standard.
+    EXTERNAL: Dataset is simply the URL of an externally hosted geospatial dataset. See TerriaJS for supported formats and protocols.
+    """
     _lud_cache = None
     POINT = 1
     LINE = 2
@@ -273,9 +301,9 @@ class GeoDataset(models.Model):
                     (geoms.LineString, geoms.MultiLineString),
                     (geoms.Polygon, geoms.MultiPolygon),
                     [None.__class__], [])
-    url = models.SlugField(verbose_name="label", unique=True)
-    label = models.CharField(verbose_name="name", max_length=128)
-    subcategory = models.ForeignKey("Subcategory")
+    url = models.SlugField(verbose_name="label", unique=True, help_text="Identifies the GeoDataset in the API.")
+    label = models.CharField(verbose_name="name", max_length=128, help_text="A user-displayable label for the dataset. May be parametised.")
+    subcategory = models.ForeignKey("Subcategory", )
     geom_type = models.SmallIntegerField(choices=(
                     (POINT, geom_types[POINT]),
                     (LINE, geom_types[LINE]),
@@ -286,12 +314,16 @@ class GeoDataset(models.Model):
                     (PREDEFINED, geom_types[PREDEFINED]),
                     (EXTERNAL, geom_types[EXTERNAL]),
                 ))
-    ext_url = models.URLField(null=True, blank=True, help_text="For External GeoDatasets only")
+    ext_url = models.URLField(null=True, blank=True, help_text="External URL - For External GeoDatasets only. May be parametised.")
     ext_type = models.CharField(max_length=80, blank=True, null=True, help_text="For External GeoDatasets only - used as 'type' field in Terria catalog.")
     ext_extra = models.CharField(max_length=256, blank=True, null=True, help_text="For External Datasets only - optional extra json for the Terria catalog.  Should be a valid json object if set")
-    colour_map = models.ForeignKey(GeoColourScale, null=True, blank=True)
-    sort_order = models.IntegerField()
+    colour_map = models.ForeignKey(GeoColourScale, null=True, blank=True, help_text="A colour map to use for the dataset")
+    sort_order = models.IntegerField(help_text="How the dataset should be sorted within it's sub-category")
     def colour_table(self):
+        """
+            Return a compiled colour table for this GeoDataset (ColourScaleTable), calculated from 
+            the :model:`widget_def.GeoColourScale`
+        """
         if self.colour_map:
             try:
                 data_prop = self.geopropertydefinition_set.get(data_property=True)
@@ -319,14 +351,23 @@ class GeoDataset(models.Model):
         else:
             return None
     def is_external(self):
+        """Returns true if this is an external dataset"""
         return self.geom_type == self.EXTERNAL
     def terria_prefer_csv(self):
+        """Returns true if this dataset can be represented in CSV file"""
         return self.geom_type in (self.POINT,self.PREDEFINED)
     def gdal_datatypes(self):
+        """Returns the GDAL datatypes supported by the dataset"""
         return self.gdal_datatypes_map[self.geom_type]
     def datatype(self):
+        """Return simple string geometry type"""
         return self.geom_types[self.geom_type]
     def prop_array_dict(self):
+        """
+            Return a tuple containing :
+            1) an array of :model:`widget_def.GeoPropertyDefinition`s supported by this dataset.
+            2) a dictionary mapping the property url's to the GeoPropertyDefinition object.
+        """
         arr = []
         d = {}
         for prop in self.geopropertydefinition_set.all():
@@ -453,6 +494,12 @@ class GeoDataset(models.Model):
                 decl.delete()
         return ds
     def csv_header_row(self, use_urls=False):
+        """
+            Generate (as a string) the header row of a CSV dump of this dataset.  
+            Note that prefer_csv() must return True for this to work (i.e. Predefined or Point data)
+
+            If use_urls is True, the headings are property labels (urls). If false they are property names (labels).
+        """
         if self.geom_type == self.PREDEFINED:
             out = ""
             skip_comma = True
@@ -471,6 +518,7 @@ class GeoDataset(models.Model):
         out += "\n"
         return out
     def csv(self, writer, use_urls=False):
+        """Write out (to writer) a CSV dump of this dataset. """
         writer.write(self.csv_header_row(use_urls))
         for f in self.geofeature_set.all():
             writer.write(f.csv())
@@ -479,8 +527,11 @@ class GeoDataset(models.Model):
         ordering = ("subcategory", "sort_order")
 
 class ViewGeoDatasetDeclaration(models.Model):
-    dataset = models.ForeignKey(GeoDataset)
-    view = models.ForeignKey(WidgetView)
+    """
+        Declares that a given :model:`widget_def.GeoDataset` should be included in a given :model:`widget_def.WidgetView`
+    """
+    dataset = models.ForeignKey(GeoDataset, help_text="The GeoDataset to include in the WidgetView")
+    view = models.ForeignKey(WidgetView, help_text="The WidgetView the GeoDataset is to be included in")
     def __getstate__(self):
         return self.dataset.__getstate__()
     def export(self):
@@ -495,26 +546,27 @@ class ViewGeoDatasetDeclaration(models.Model):
             return decl
 
 class GeoPropertyDefinition(models.Model):
+    """A Property of geodataset. Every feature in the dataset should have a value for this property."""
     STRING = 1
     NUMERIC = 2
     DATE=3
     TIME=4
     DATETIME=5
     property_types=('-', 'string', 'numeric', 'date', 'time', 'datetime')
-    dataset = models.ForeignKey(GeoDataset)
-    url = models.SlugField(verbose_name="label")
-    label = models.CharField(verbose_name="name", max_length=256)
+    dataset = models.ForeignKey(GeoDataset, help_text="The GeoDataset the property is defined for")
+    url = models.SlugField(verbose_name="label", help_text="A short symbolic name for the property, as used by the API")
+    label = models.CharField(verbose_name="name", max_length=256, help_text="A longer descriptive name for the property")
     property_type=models.SmallIntegerField(choices=(
                     (STRING, property_types[STRING]),
                     (NUMERIC, property_types[NUMERIC]),
                     (DATE, property_types[DATE]),
                     (TIME, property_types[TIME]),
                     (DATETIME, property_types[DATETIME]),
-                ))
-    num_precision=models.SmallIntegerField(blank=True, null=True)
-    predefined_geom_property=models.BooleanField(default=False)
-    data_property=models.BooleanField(default=False)
-    sort_order = models.IntegerField()
+                ), help_text="The datatype of the property.")
+    num_precision=models.SmallIntegerField(blank=True, null=True, help_text="The precision (number of decimal places) of a numeric property")
+    predefined_geom_property=models.BooleanField(default=False, help_text="This property describes a pre-defined geometry, as specified in csv-geo-au. Can only be set for a Predefined GeoDataset, for which it must be the first property.")
+    data_property=models.BooleanField(default=False, help_text="Only one dataset property can be flagged as a data property. It is the property whose value is used to colour-code the map display of the the GeoDataSet")
+    sort_order = models.IntegerField(help_text="Sort order of property within a GeoDataset")
     def clean(self):
         if self.property_type != self.NUMERIC:
             self.num_precision = None

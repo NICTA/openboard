@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,12 +15,22 @@
 from django.db import models
 
 from widget_def.models.widget_definition import WidgetDefinition
+from widget_def.parametisation import parametise_label, resolve_pval
+from widget_def.view_tools import csv_escape
 
 class RawDataSet(models.Model):
-    widget = models.ForeignKey(WidgetDefinition)
-    url = models.SlugField()
-    name = models.CharField(max_length=128)
-    filename = models.CharField(max_length=128)
+    """
+    Defines a "raw data set" for a widget.
+
+    A raw data set can be thought of as a CSV file*. It is not stored as such, but that's how it is 
+    usually delivered (although json is supported as well).
+
+    * or a family of CSV files if the widget is parametised.
+    """
+    widget = models.ForeignKey(WidgetDefinition, help_text="The Widget this dataset belongs to")
+    url = models.SlugField(verbose_name="label", help_text="A short symbolic label for the raw dataset, as used in the API")
+    name = models.CharField(max_length=128, help_text="A longer more descriptive name for the raw dataset. May be parametised.")
+    filename = models.CharField(max_length=128, help_text="The filename for the generated csv file. (Should end in '.csv').")
     def __unicode__(self):
         return "%s.%s (%s)" % (self.widget.family.url, self.url, self.filename)
     def export(self):
@@ -47,55 +57,73 @@ class RawDataSet(models.Model):
             if col.sort_order not in cols:
                 col.delete()
         return rds
-    def __getstate__(self):
+    def __getstate__(self, view=None):
         return {
             "label": self.url,
-            "name": self.name,
-            "columns": [ c.__getstate__() for c in self.rawdatasetcolumn_set.all() ],
+            "name": parametise_label(self.widget, view, self.name),
+            "columns": [ c.__getstate__(view) for c in self.rawdatasetcolumn_set.all() ],
         }
     def col_array_dict(self):
+        """
+        Return a tuple consisting of:
+
+        1) An array of :model:`RawDataSetColumn` objects.
+        2) A dictionary of :model:`RawDataSetColumn` objects, keyed by their label (url).
+        """
         arr = []
         d = {}
         for col in self.rawdatasetcolumn_set.all():
             arr.append(col)
             d[col.url] = col
         return (arr, d)
-    def json(self):
+    def json(self, pval=None, view=None):
+        """Return a json-serialisable dump of this dataset."""
+        # TODO: Should return an iterator instead of an in-memory array.
         result = []
-        for rec in self.rawdatarecord_set.all():
-            result.append(rec.json())
+        pval = resolve_pval(self.widget().parametisation, view=view, pval=pval)
+        if pval:
+            for rec in self.rawdatarecord_set.all(param_value=pval):
+                result.append(rec.json())
+        else:
+            for rec in self.rawdatarecord_set.all():
+                result.append(rec.json())
         return result
-    def csv_header(self):
+    def csv_header(self, view=None):
+        """Return a CSV header row for the dataset."""
         first_col = True
         out = ""
         for col in self.rawdatasetcolumn_set.all():
             if not first_col:
                 out += ","
-            out += col.csv()
+            out += col.csv(view)
             first_col = False
         out += "\n"
         return out
-    def csv(self, writer):
-        writer.write(self.csv_header())
-        for rec in self.rawdatarecord_set.all():
-            writer.write(rec.csv)
+    def csv(self, writer, view=None):
+        """Write out a CSV for the dataset to the provided writer (e.g. an HttpResponse object)"""
+        pval = resolve_pval(self.widget().parametisation, view=view)
+        writer.write(self.csv_header(view))
+        if pval:
+            for rec in self.rawdatarecord_set.all(param_value=pval):
+                writer.write(rec.csv)
+        else:
+            for rec in self.rawdatarecord_set.all():
+                writer.write(rec.csv)
     class Meta: 
         unique_together = [ ('widget', 'url') ,
                             ('widget', 'name') ,
         ]
 
 class RawDataSetColumn(models.Model):
-    rds = models.ForeignKey(RawDataSet)
-    sort_order = models.IntegerField()
-    heading = models.CharField(max_length=128)
-    url = models.SlugField()
-    description = models.TextField(null=True, blank=True)
-    def csv(self):
-        out = self.heading.replace('"', '""')
-        if '"' in out or ',' in out:
-            return '"%s"' % out
-        else:
-            return out
+    """A column in a :model:`widget_def.RawDataSet`"""
+    rds = models.ForeignKey(RawDataSet, help_text="The raw dataset")
+    sort_order = models.IntegerField(help_text="Determines the column order within a raw dataset")
+    heading = models.CharField(max_length=128, help_text="The column heading, as used in a csv file")
+    url = models.SlugField(help_text="A short symbolic name for the column, used by default in a json file")
+    description = models.TextField(null=True, blank=True, help_text="A detailed description of the column")
+    def csv(self, view=None):
+        """Return a CSV escaped heading for this column"""
+        return csv_escape(self.parametise_label(self.rds.widget, view, self.heading))
     def __unicode__(self):
         return "Column: %s" % self.heading
     def export(self):
@@ -105,10 +133,10 @@ class RawDataSetColumn(models.Model):
             "description": self.description,
             "url": self.url
         }
-    def __getstate__(self):
-        data = { "heading": self.heading }
+    def __getstate__(self, view=None):
+        data = { "heading": parametise_label(self.rds.widget, view, self.heading) }
         if self.description:
-            data["description"] = self.description
+            data["description"] = parametise_label(self.rds.widget, view, self.description)
         return data
     @classmethod
     def import_data(cls, rds, data):

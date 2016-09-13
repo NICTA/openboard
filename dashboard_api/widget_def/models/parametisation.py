@@ -1,4 +1,4 @@
-#   Copyright 2016 NICTA
+#   Copyright 2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -29,6 +29,11 @@ class Parametisation(models.Model):
     large) group of WidgetViews might all contain a similar but slightly different widget, the widget need only
     be defined once, with the differences between the various parametised widgets being captured in the values of
     various :model:`WidgetProperty` instances.
+
+    Many fields in widget_def objects are documented with "May be parametised" in the help_text. When
+    a widget is parametised, these fields are interpreted as a Django template, with the actual value 
+    within a particular view determined by rendering the template with a Context equal to the view's
+    properties.
     """
     url=models.SlugField(unique=True, help_text="A short symbolic name used by export commands")
     name=models.CharField(max_length=128, unique=True, help_text="A longer descriptive name.")

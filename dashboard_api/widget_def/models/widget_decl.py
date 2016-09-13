@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,16 +15,19 @@
 from django.db import models
 
 from widget_def.models.views import WidgetView
-from widget_def.models.widget_definition import WidgetDefinition
 
 # Create your models here.
 
 class ViewWidgetDeclaration(models.Model):
-    definition = models.ForeignKey(WidgetDefinition)
-    view = models.ForeignKey(WidgetView, limit_choices_to={'external_url': None}, related_name="widgets")
-    sort_order = models.IntegerField()
-    child_view = models.ForeignKey(WidgetView, null=True, blank=True, related_name="declarations")
-    child_view_text = models.CharField(max_length=255, null=True, blank=True)
+    """
+    Declares that a given :model:`widget_def.WidgetDefinition` should be included in 
+    a given :model:`widget_def.WidgetView`
+    """
+    definition = models.ForeignKey("WidgetDefinition", help_text="The WidgetDefinition to include in the WidgetView")
+    view = models.ForeignKey(WidgetView, limit_choices_to={'external_url': None}, related_name="widgets", help_text="The WidgetView the WidgetDefinition is to be included in")
+    sort_order = models.IntegerField(help_text="How the widget is to be sorted within the view")
+    child_view = models.ForeignKey(WidgetView, null=True, blank=True, related_name="declarations", help_text="(Optional) The label of a view which can be navigated to through this widget.  Would typically be a child view of the containing view, or at least in the same navigation hierarchy, but this is not required.")
+    child_view_text = models.CharField(max_length=255, null=True, blank=True, help_text="The text to display in the hyperlink pointing to the child view.")
     def __unicode__(self):
         return "%s (%s)" % (self.definition.family.name, self.view.name)
     class Meta:
