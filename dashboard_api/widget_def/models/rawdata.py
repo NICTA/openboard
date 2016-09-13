@@ -77,6 +77,8 @@ class RawDataSet(models.Model):
             d[col.url] = col
         return (arr, d)
     def json(self, pval=None, view=None):
+        """Return a json-serialisable dump of this dataset."""
+        # TODO: Should return an iterator instead of an in-memory array.
         result = []
         pval = resolve_pval(self.widget().parametisation, view=view, pval=pval)
         if pval:
@@ -87,6 +89,7 @@ class RawDataSet(models.Model):
                 result.append(rec.json())
         return result
     def csv_header(self, view=None):
+        """Return a CSV header row for the dataset."""
         first_col = True
         out = ""
         for col in self.rawdatasetcolumn_set.all():
@@ -97,6 +100,7 @@ class RawDataSet(models.Model):
         out += "\n"
         return out
     def csv(self, writer, view=None):
+        """Write out a CSV for the dataset to the provided writer (e.g. an HttpResponse object)"""
         pval = resolve_pval(self.widget().parametisation, view=view)
         writer.write(self.csv_header(view))
         if pval:
@@ -111,12 +115,14 @@ class RawDataSet(models.Model):
         ]
 
 class RawDataSetColumn(models.Model):
-    rds = models.ForeignKey(RawDataSet)
-    sort_order = models.IntegerField()
-    heading = models.CharField(max_length=128)
-    url = models.SlugField()
-    description = models.TextField(null=True, blank=True)
+    """A column in a :model:`widget_def.RawDataSet`"""
+    rds = models.ForeignKey(RawDataSet, help_text="The raw dataset")
+    sort_order = models.IntegerField(help_text="Determines the column order within a raw dataset")
+    heading = models.CharField(max_length=128, help_text="The column heading, as used in a csv file")
+    url = models.SlugField(help_text="A short symbolic name for the column, used by default in a json file")
+    description = models.TextField(null=True, blank=True, help_text="A detailed description of the column")
     def csv(self, view=None):
+        """Return a CSV escaped heading for this column"""
         return csv_escape(self.parametise_label(self.rds.widget, view, self.heading))
     def __unicode__(self):
         return "Column: %s" % self.heading
