@@ -141,7 +141,7 @@ class WidgetDefinition(models.Model):
             "about": parametise_label(self, view, self.about),
         }
         if self.rawdataset_set.all().count() > 0:
-            data["raw_data_sets"] = [ rds.__getstate__() for rds in self.rawdataset_set.all() ]
+            data["raw_data_sets"] = [ rds.__getstate__(view) for rds in self.rawdataset_set.all() ]
         return data
     def export(self):
         data = {

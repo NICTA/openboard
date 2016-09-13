@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,12 +13,13 @@
 #   limitations under the License.
 
 from django.db import models
-from widget_def.view_utils import csv_escape
+from widget_def.view_tools import csv_escape
 
 # Create your models here.
 
 class RawDataRecord(models.Model):
     rds = models.ForeignKey("widget_def.RawDataSet")
+    param_value = models.ForeignKey("widget_def.ParametisationValue", blank=True, null=True)
     sort_order = models.IntegerField()
     csv = models.TextField(null=True)
     def update_csv(self):
@@ -46,8 +47,8 @@ class RawDataRecord(models.Model):
                 result[col.url] = None
         return result
     class Meta:
-        unique_together=("rds", "sort_order")
-        ordering = ("rds", "sort_order")
+        unique_together= [ ("rds", "param_value", "sort_order"), ]
+        ordering = ("rds", "param_value", "sort_order")
 
 class RawData(models.Model):
     record = models.ForeignKey(RawDataRecord)

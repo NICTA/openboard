@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -193,17 +193,18 @@ def get_graph_overrides(query, clazz, key, pval):
             pass
     return overrides
 
-def api_get_raw_data(widget, request, rds_url):
+def api_get_raw_data(widget, request, rds_url, view=None, pval=None):
     try:
         rds = RawDataSet.objects.get(widget=widget, url=rds_url)
     except RawDataSet.DoesNotExist:
         return HttpResponseNotFound("This Raw Data Set does not exist")
+    pval = resolve_pval(rds.widget.parametisation, view=view, pval=pval)
     if "format" in request.GET and request.GET["format"] != "csv":
-        return json_list(request, rds.json())
+        return json_list(request, rds.json(pval=pval))
     response = HttpResponse()    
     response['content-type'] = 'application/csv'
     response['content-disposition'] = 'attachment; filename=%s' % rds.filename
-    rds.csv(response)
+    rds.csv(response, view=view)
     return response
 
 def api_geo_dataset(request, dataset, window):

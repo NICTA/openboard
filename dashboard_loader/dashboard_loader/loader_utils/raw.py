@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -26,11 +26,11 @@ def get_rawdataset(widget_url, label, rds_url):
     except RawDataSet.DoesNotExist:
         raise LoaderException("Raw Dataset %s of widget %s(%s) does not exist" % (rds_url, widget_url, label))
 
-def clear_rawdataset(rds):
+def clear_rawdataset(rds, pval=None):
     """Clear all data for a RawDataSet object"""
-    rds.rawdatarecord_set.all().delete()
+    rds.rawdatarecord_set.all(param_value=pval).delete()
 
-def add_rawdatarecord(rds, sort_order, *args, **kwargs):
+def add_rawdatarecord(rds, sort_order, pval=None, *args, **kwargs):
     """Add a record to a RawDataSet.
 
 rds: The Raw Data Set object.
@@ -40,7 +40,7 @@ The data may be supplied as either positional arguments (column
 order from left to right) or keyword arguments (keys are the defined
 column urls).
 """
-    record = RawDataRecord(rds=rds, sort_order=sort_order)
+    record = RawDataRecord(rds=rds, pval=pval, sort_order=sort_order)
     record.save()
     (colarray, coldict ) = rds.col_array_dict()
     for i in range(len(args)):
