@@ -40,7 +40,7 @@ The data may be supplied as either positional arguments (column
 order from left to right) or keyword arguments (keys are the defined
 column urls).
 """
-    record = RawDataRecord(rds=rds, pval=pval, sort_order=sort_order)
+    record = RawDataRecord(rds=rds, param_value=pval, sort_order=sort_order)
     record.save()
     (colarray, coldict ) = rds.col_array_dict()
     for i in range(len(args)):
