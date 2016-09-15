@@ -24,6 +24,82 @@ from widget_def.parametisation import parametise_label
 # Create your models here.
 
 class TileDefinition(models.Model):
+    """
+    Represents a tile or panel within a widget.
+
+    Supported tile types are:
+
+    main_stat:
+        A tile with a number of main (non-display-list) :model:`widget_def.Statistic`s shown, and optionally 
+        one or more secondary (non-display-list) statistics.
+
+    text_template:
+        A tile containing a text template into which non-list :model:`widget_def.Statistic` data can be inserted.  
+        E.g. A sentence like "Of 12 services from 5 agencies, representing 65% of total traffic, 
+        85% are online." where the numeric elements (including the '%' postfix character) are 
+        (non-display-list) statistic data.
+
+    single_list_stat:
+        A tile containing a single :model:`widget_def.Statistic`, which must be a display list statistic. 
+
+    multi_list_stat:
+        A tile containing at least one and up to four display list :model:`widget_def.Statistic`s.  
+        It may also contain a single non-display-list statistic, which must be the first statistic listed 
+        if present.
+
+    priority_list:
+        A list of non-list :model:`widget_def.Statistic`s, to be displayed according to their sort_order. 
+
+    urgency_list:
+        A list of non-list :model:`widget_def.Statistic`s, ordered by traffic light value, 
+        i.e. bad/red statistics first.
+
+    list_overflow:
+        If there is one default tile of type priority_list, urgency_list, newsfeed or single_list_stat, 
+        then an expansion tile can be of type "list_overflow".  The tile should then be displayed with 
+        all list items from the default tile list that didn't fit on the default tile. 
+
+    calendar:
+        A calendar tile - must contain only one :model:`widget_def.Statistic` which must be of event_list type.
+
+    graph:
+        A :model:`widget_def.Graph` is rendered in the tile.
+
+    grid:
+        :model:`widget_def.Statistic`s are displayed in a rectangular :model:`widget_def.Grid`.
+
+    graph_single_stat:
+        A :model: `widget_def.Graph` is rendered in the tile, along with one non-display-list 
+        :model:`widget_def.Statistic`.
+
+    grid_single_stat:
+        Non-displa-list :model:`widget_def.Statistic`s are displayed in a rectangular :model:`widget_def.Grid`. 
+        An additional non-display-list statistic is displayed outside the grid.
+
+    newsfeed:
+        A tile containing a single :model:`widget_def.Statistic` of type string_kv_list, rendered as a newsfeed
+        with headlines (keys) and summaries (values).
+
+    news_ticker:
+        A tile containing a single :model:`widget_def.Statistic` of type string_list. 
+        Displayed as a scrolling news feed.
+
+    tag_cloud:
+        A tile containing a tag-cloud. Contains a single numeric_kv_list :model:`widget_def.Statistic`, the 
+        keys of which represent the tags to be displayed and the value of which represents the relative size 
+        of the tags.
+
+    time_line:
+        A tile containing a time-line. Contains a single hierarchical_event_list :model:`widget_def.Statistic`.
+
+    map:
+        A map is rendered in the tile.  Tile must have a :model:`widget_def.GeoWindow` and one or more 
+        :model:`widget_def.GeoDataset`s.
+
+    text_block:
+        Tile contains a block of raw HTML text to be served with the widget data. There can be at most one 
+        text_block tile per widget.
+    """
     SINGLE_MAIN_STAT = 1   # Deprecated
     DOUBLE_MAIN_STAT = 2   # Deprecated
     PRIORITY_LIST = 3
@@ -55,7 +131,7 @@ class TileDefinition(models.Model):
                 "multi_list_stat", "tag_cloud",
                 "time_line", "text_template", "text_block",
                 "main_stat" ]
-    widget = models.ForeignKey(WidgetDefinition)
+    widget = models.ForeignKey(WidgetDefinition, help_text="The widget the tile is part of")
     tile_type = models.SmallIntegerField(choices=(
 # (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
 #                    (DOUBLE_MAIN_STAT, tile_types[DOUBLE_MAIN_STAT]),
@@ -77,17 +153,17 @@ class TileDefinition(models.Model):
                     (NEWSTICKER, tile_types[NEWSTICKER]),
                     (TAG_CLOUD, tile_types[TAG_CLOUD]),
                     (TEXT_BLOCK, tile_types[TEXT_BLOCK]),
-                ))
-    aspect = models.IntegerField(default=1)
-    expansion =  models.BooleanField(default=False, help_text="A widget must have one and only one non-expansion tile")
-    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(0), MaxValueValidator(100)])
-    columns = models.SmallIntegerField(blank=True, null=True)
-    template = models.CharField(max_length=512, blank=True, null=True, help_text="Reference statistics with '%{statistic_url}")
-    url = models.SlugField()
-    sort_order = models.IntegerField(help_text="Note: The default (non-expansion) tile is always sorted first")
-    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True)
-    geo_datasets = models.ManyToManyField("GeoDataset", blank=True)
-    main_stat_count = models.SmallIntegerField(blank=True, null=True)
+                ), help_text="The type of tile")
+    aspect = models.IntegerField(default=1, help_text="Front-end implementation-specific indicator of relative tile size within the widget.")
+    expansion =  models.BooleanField(default=False, help_text="Whether the tile displays by default, or only when the widget is 'expanded'.")
+    list_label_width= models.SmallIntegerField(blank=True, null=True,validators=[MinValueValidator(0), MaxValueValidator(100)], help_text="Relative width of the name column for a list.  May apply for main_stat, priority_list and urgency_list tiles, depending on front-end implementation.")
+    columns = models.SmallIntegerField(blank=True, null=True, help_text="The number of columns to display a list (or lists) in. For single_list_stat, multi_list_stat, priority_list and urgency_list tiles.")
+    template = models.CharField(max_length=512, blank=True, null=True, help_text="The text teplate for text_template tiles.  Reference statistics with '%{statistic_label}")
+    url = models.SlugField("An identifier for the tile. Only appears in the API for graph tiles.")
+    sort_order = models.IntegerField(help_text="How the tile is sorted within the widget. Note: The default (non-expansion) tile is always sorted first")
+    geo_window = models.ForeignKey("GeoWindow", null=True, blank=True, help_text="For map tiles.  Describes the geospatial coordinates the map must cover.")
+    geo_datasets = models.ManyToManyField("GeoDataset", blank=True, help_text="For map tiles. The geodatasets to display on the map")
+    main_stat_count = models.SmallIntegerField(blank=True, null=True, help_text="For main_stat tiles. The number of Statistics that are 'main' statistics. The remainder are 'secondary'. The main statistics are the ones that are sorted first within the tile.")
     # graph_def, map_def
     def __getstate__(self, view=None):
         state = {
