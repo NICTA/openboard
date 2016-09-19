@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 Data61
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -18,12 +18,16 @@ from widget_def.parametisation import parametise_label
 
 
 class GraphClusterBase(models.Model):
+    """
+    Abstract base class for graph clusters.  Graph clusters may be statically defined (in widget_def)
+    or dynamically defined (in widget_data), thus a common abstract base class is required.
+    """
     # Histo/bar clusters or Pies
-    graph=models.ForeignKey("widget_def.GraphDefinition")
-    url=models.SlugField(verbose_name="label")
-    label=models.CharField(verbose_name="name", max_length=80)
-    hyperlink=models.URLField(blank=True, null=True)
-    sort_order=models.IntegerField()
+    graph=models.ForeignKey("widget_def.GraphDefinition", help_text="The graph the cluster belongs to")
+    url=models.SlugField(verbose_name="label", help_text="A short symbolic label for the cluster, as used in the API")
+    label=models.CharField(verbose_name="name", max_length=80, help_text="A longer descriptive name for the cluster, suitable for presentation to an end user.")
+    hyperlink=models.URLField(blank=True, null=True, help_text="An optional external URL to link for this cluster ")
+    sort_order=models.IntegerField(help_text="How to sort the cluster within the graph")
     def __unicode__(self):
         return self.url
     class Meta:
