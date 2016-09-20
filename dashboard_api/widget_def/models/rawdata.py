@@ -78,16 +78,14 @@ class RawDataSet(models.Model):
         return (arr, d)
     def json(self, pval=None, view=None):
         """Return a json-serialisable dump of this dataset."""
-        # TODO: Should return an iterator instead of an in-memory array.
         result = []
         pval = resolve_pval(self.widget.parametisation, view=view, pval=pval)
         if pval:
             for rec in self.rawdatarecord_set.all(param_value=pval):
-                result.append(rec.json())
+                yield rec.json()
         else:
             for rec in self.rawdatarecord_set.all():
-                result.append(rec.json())
-        return result
+                yield rec.json()
     def csv_header(self, view=None):
         """Return a CSV header row for the dataset."""
         first_col = True
