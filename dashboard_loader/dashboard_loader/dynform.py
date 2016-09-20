@@ -20,7 +20,7 @@ from django import forms
 from django.conf import settings
 from django.forms.extras import SelectDateWidget
 
-from widget_data.models import StatisticListItem
+from widget_data.models import StatisticListItem, DynamicGraphCluster
 from dashboard_loader.time_widget import SelectTimeWidget
 
 tz = pytz.timezone(settings.TIME_ZONE)
@@ -157,6 +157,19 @@ def get_form_class_for_statistic(stat):
     form_fields["clean_checks"] = clean_checks
     return type(str("Stat_%s_Form" % stat.name), (forms.Form,), form_fields)
 
+class DynamicGraphClusterForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        graph=kwargs["graph"]
+        pval=kwargs["pval"]
+        del kwargs["graph"]
+        del kwargs["pval"]
+        super(DynamicGraphClusterForm,self).__init__(*args, **kwargs)
+        self.instance.graph = graph
+        self.instance.param_value = pval
+    class Meta:
+        model = DynamicGraphCluster
+        exclude = [ 'graph', 'param_value' ]
+
 def get_override_form_class_for_graph(graph):
     override_datasets = graph.graphdataset_set.filter(dynamic_label=True)
     form_fields = OrderedDict()
@@ -185,7 +198,7 @@ def clean_error_bars(self, data):
                 del data["err_valmax"]
     return data
 
-def get_form_class_for_graph(graph):
+def get_form_class_for_graph(graph, pval=None):
     form_fields = OrderedDict()
     field_count = 0
     clean_checks = []
@@ -194,7 +207,10 @@ def get_form_class_for_graph(graph):
         error_bar_datasets.append(ds.url)
     form_fields["error_bar_datasets"] = error_bar_datasets
     if graph.use_clusters():
-        form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.graphcluster_set.all(), to_field_name="url", required=True)
+        if graph.dynamic_clusters:
+            form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.dynamicgraphcluster_set.filter(param_value=pval), to_field_name="url", required=True)
+        else:
+            form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.graphcluster_set.all(), to_field_name="url", required=True)
         field_count += 1
     form_fields["dataset"] = forms.ModelChoiceField(queryset=graph.graphdataset_set.all(), to_field_name="url", required=True)
     field_count += 1

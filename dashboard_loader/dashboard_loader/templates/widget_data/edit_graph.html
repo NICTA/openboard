@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% comment %}
 
-   Copyright 2015,2016 NICTA
+   Copyright 2015,2016 CSIRO
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -76,8 +76,26 @@
         </tr>
     {% endfor %}
 </table>
-<h2>Graph Data</h2>
 {% endif %}
+{% if dyncluster_form %}
+    <h2>Dynamic Clusters</h2>
+    {{ dyncluster_form.management_form }}
+    <table border="0" id="cluster_table">
+        {% for subform in dyncluster_form %}
+            <tr>
+                {% for field in subform %}
+                    <td>
+                    <div id="cluster_field_{{ field.id_for_label }}">
+                        {% if field.label != 'Id' %}<b>{{ field.label_tag }}</b>{% endif %}
+                        {{ field }}<br/>{{ field.errors }}
+                    </div>                    
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+<h2>Graph Data</h2>
 {{ form.management_form }}
 <table border="0" id="listform_table">
     <tr class="hidden" id="empty_form_template">
@@ -107,7 +125,6 @@
         {% endfor %}
     </tr>
 {% endfor %}
-{# TODO: Make error bars conditional on dataset #}
 </table>
 <p><a href="#" onclick="addAnotherRow(); return false;">Add another graph datapoint</a></p>
 <input name="submit" type="submit" value="Save" class="button"/>

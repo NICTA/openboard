@@ -141,8 +141,8 @@ class GraphDefinition(models.Model):
         result = {}
         result["value"] = gd.value
         result["dataset"] = gd.dataset
-        if self.use_clusters() and not self.dynamic_clusters:
-            result["cluster"] = gd.cluster
+        if self.use_clusters(): 
+            result["cluster"] = gd.get_cluster()
         else:
             result["horiz_value"] = gd.horiz_value()
         if gd.dataset.use_error_bars:

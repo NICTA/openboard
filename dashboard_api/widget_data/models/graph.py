@@ -61,6 +61,11 @@ class GraphData(models.Model):
     horiz_timeval = models.TimeField(blank=True, null=True)
     objects = GraphDataQuerySet.as_manager()
     last_updated = models.DateTimeField(auto_now=True)
+    def set_cluster(self, cluster):
+        if self.graph.dynamic_clusters:
+            self.dynamic_cluster = cluster
+        else:
+            self.cluster = cluster
     def get_cluster(self):
         if self.graph.dynamic_clusters:
             return self.dynamic_cluster
