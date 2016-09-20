@@ -308,9 +308,7 @@ def edit_graph(request, widget_url, label, tile_url, pval_id=None):
                         gd.err_valmin = fd.get("err_valmin")
                         gd.err_valmax = fd.get("err_valmax")
                         if g.use_clusters():
-                            # Lookup?
-                            gd.cluster = fd["cluster"]
-                        # Lookup?
+                            gd.set_cluster(fd["cluster"])
                         gd.dataset = fd["dataset"]
                         if g.graph_type == g.LINE:
                             if g.horiz_axis_type == g.NUMERIC:
