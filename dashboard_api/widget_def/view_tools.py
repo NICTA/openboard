@@ -14,6 +14,7 @@
 
 import json
 import decimal
+import types
 
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
@@ -28,6 +29,9 @@ class DecimalAwareEncoder(json.JSONEncoder):
     def default(self, o):
         if isinstance(o, decimal.Decimal):
             return float(o)
+        elif isinstance(o, types.GeneratorType):
+            # Limitation of json module. :(
+            return list(o)
         return super(DecimalAwareEncoder, self).default(o)
 
 def json_list(request, data, set_p3p=False):
