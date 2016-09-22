@@ -68,8 +68,8 @@ def api_get_widget_data(widget, view=None, pval=None):
         data["text_block"] = None
     return data
 
-def api_get_graph_data(widget, view, verbose=False):
-    pval = resolve_pval(widget.parametisation, view=view)
+def api_get_graph_data(widget, view=None, pval=None, verbose=False):
+    pval = resolve_pval(widget.parametisation, view=view, pval=pval)
     graph_json = {}
     for graph in GraphDefinition.objects.filter(tile__widget=widget):
         graph_json[graph.tile.url] = api_get_single_graph_data(graph, view, pval=pval, verbose=verbose)

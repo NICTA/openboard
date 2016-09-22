@@ -95,26 +95,70 @@ def import_widget_data(data):
                                     gurl,
                                     data["family"], 
                                     w["label"]))
-            clear_graph_data(graph, pval=pval)
-            for curl, name in g.get("cluster_name_overrides", {}).items():    
-                set_cluster_override(graph, curl, name, pval=pval)
+            clear_graph_data(graph, pval=pval, clusters=graph.dynamic_clusters)
+            sort_order = 1
+            for cluster in g.get("clusters", []):
+                add_graph_dyncluster(graph, cluster["label"], sort_order, cluster["name"], 
+                                cluster["hyperlink"], pval=pval)
+                sort_order += 1
             for durl, name in g.get("dataset_name_overrides", {}).items():    
                 set_dataset_override(graph, durl, name, pval=pval)
             if graph.use_clusters():
                 for curl, c in g["data"].items():
                     for dsurl, ds in c.items():
-                        add_graph_data(graph, dsurl, ds, cluster=curl, pval=pval)
+                        try:
+                            dataset = GraphDataset.objects.get(graph=graph,url=dsurl)
+                        except GraphDataset.DoesNotExist:
+                            raise ImportExportException("Dataset %s in graph %s for widget %s(%s) does not exist" % (
+                                    dsurl,
+                                    gurl,
+                                    data["family"], 
+                                    w["label"]))
+                        if dataset.use_error_bars:
+                            add_graph_data(graph, dsurl, ds["value"], cluster=curl, pval=pval, val_min=ds["min"], val_max=ds["max"])
+                        else:
+                            add_graph_data(graph, dsurl, ds, cluster=curl, pval=pval)
             else:
                 for dsurl, ds in g["data"].items():
+                    try:
+                        dataset = GraphDataset.objects.get(graph=graph,url=dsurl)
+                    except GraphDataset.DoesNotExist:
+                        raise ImportExportException("Dataset %s in graph %s for widget %s(%s) does not exist" % (
+                                dsurl,
+                                gurl,
+                                data["family"], 
+                                w["label"]))
                     for d in ds:
-                        hval = d[0]
-                        val = d[1]
+                        if dataset.use_error_bars:
+                            hval = d["horizontal_value"]
+                            val = d["value"]
+                            val_min = d["min"]
+                            val_max = d["max"]
+                        else:
+                            hval = d[0]
+                            val = d[1]
+                            val_min = None
+                            val_max = None
                         if graph.horiz_axis_type == graph.DATE:
                             hval = parse_date(hval)
                         elif graph.horiz_axis_type == graph.TIME:
                             hval = parse_time(hval)
                         elif graph.horiz_axis_type == graph.DATETIME:
                             hval = parse_datetime(hval)
-                        add_graph_data(graph, dsurl, val, horiz_value=hval, pval=pval)
-        # TODO: data["raw_data"]
+                        add_graph_data(graph, dsurl, val, horiz_value=hval, 
+                                    pval=pval, val_min=val_min, val_max=val_max)
+        for rds_url, rds_data in w["raw_datasets"].items():
+            try:
+                rds = RawDataSet.objects.get(widget=wd, url=rds_url)
+            except GraphDefinition.DoesNotExist:
+                raise ImportExportException("Raw dataset %s for widget %s(%s) does not exist" % (
+                                    rds_url,
+                                    data["family"], 
+                                    w["label"]))
+            clear_rawdataset(rds, pval=pval)
+            sort_order = 1
+            for rec in rds_data:
+                add_rawdatarecord(rds, sort_order, pval=pval, **rec)
+                sort_order += 1
     return family
+

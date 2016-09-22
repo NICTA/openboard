@@ -44,7 +44,7 @@ def export_widget_data(widget):
                         "parameters": pval.parameters(),
                         "data": api_get_widget_data(wd, pval=pval),
                         "graph_data": api_get_graph_data(wd, pval=pval),
-                        "raw_datasets": None, # TODO
+                        "raw_datasets": { rds.url: rds.json(pval=pval) for rds in wd.rawdataset_set.all() },
                     }
                     data["widgets"].append(wdata)
             else:
@@ -52,7 +52,7 @@ def export_widget_data(widget):
                     "label": wd.label,
                     "data": api_get_widget_data(wd),
                     "graph_data": api_get_graph_data(wd),
-                    "raw_datasets": None, # TODO
+                    "raw_datasets": { rds.url: rds.json() for rds in wd.rawdataset_set.all() },
                 }
                 data["widgets"].append(wdata)
     return data

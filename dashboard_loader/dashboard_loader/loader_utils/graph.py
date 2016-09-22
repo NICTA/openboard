@@ -14,6 +14,8 @@
 
 import decimal
 
+from django.core.exceptions import ObjectDoesNotExist
+
 from widget_def.models import GraphDefinition, GraphDataset, GraphCluster, GraphClusterBase
 from widget_data.models import GraphData, DynamicGraphCluster, GraphDatasetData
 
@@ -120,8 +122,11 @@ Raise a LoaderException on error, or if the provided arguments are not valid for
             raise LoaderException("Must supply cluster for data for graph %s" % graph.tile.url)   
         elif not isinstance(cluster, GraphClusterBase):
             try:
-                cluster = GraphCluster.objects.get(graph=graph, url=cluster)
-            except GraphCluster.DoesNotExist:
+                if graph.dynamic_clusters:
+                    cluster = DynamicGraphCluster.objects.get(graph=graph, url=cluster, param_value=pval)
+                else:
+                    cluster = GraphCluster.objects.get(graph=graph, url=cluster)
+            except ObjectDoesNotExist:
                 raise LoaderException("Cluster %s for graph %s does not exist" % (str(cluster), graph.tile.url))
         if graph.dynamic_clusters:
             gd.dynamic_cluster = cluster
