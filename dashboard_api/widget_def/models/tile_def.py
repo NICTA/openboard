@@ -255,7 +255,7 @@ class TileDefinition(models.Model):
             t.main_stat_count = data["main_stat_count"]
         t.expansion = data["expansion"]
         t.aspect = data.get("expansion", 1)
-        t.list_label_widh = data.get("list_label_width")
+        t.list_label_width = data.get("list_label_width")
         t.template = data.get("template")
         t.columns = data.get("columns")
         t.sort_order = data["sort_order"]
