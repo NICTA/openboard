@@ -57,14 +57,14 @@ class WidgetView(models.Model):
     external_url = models.URLField(null=True, blank=True, help_text="If not null, then this Widget View is not hosted locally, but is merely a placeholder for a view hosted by another Openboard instance, and this is the API root URL for that external Openboard instance.")
     view_type = models.ForeignKey(ViewType, help_text="The type of WidgetView")
     sort_order = models.IntegerField(help_text="WidgetViews are sorted by parent, then by this field")
-    requires_authentication = models.BooleanField(default=False, help_text="If true then authentication is required to access this view. Note that authentication is not supported acroess externally hosted WidgetViews.")
+    requires_authentication = models.BooleanField(default=False, help_text="If true then authentication is required to access this view. Note that authentication is not supported across externally hosted WidgetViews.")
     geo_window = models.ForeignKey("GeoWindow", null=True, blank=True, help_text="A geospatial window - a rectangle that defines the initial viewing area for geodatasets under this WidgetView.  A WidgetView with a non-null geowindow may contain GeoDatasets as well as widgets.")
     class Meta:
         unique_together=[
             ("parent", "name"),
             ("parent", "sort_order"),
         ]
-        ordering=["sort_order"]
+        ordering=["parent__label", "sort_order"]
     def save(self, *args, **kwargs):
         if self.external_url == "":
             self.external_url = None

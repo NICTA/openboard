@@ -5,7 +5,8 @@
             "data": {
                 "widget_last_updated": "2015-08-18T23:30:11+0000", 
                 "actual_frequency": "Last Year", 
-                "statistics": {
+                "text_block": null,
+                "data": {
                     "moria": {
                         "icon": {
                             "alt_text": "Orcs", 
@@ -80,14 +81,16 @@
                     }
                 }
             }, 
-            "graph_data": {}
+            "graph_data": {},
+            "raw_datasets": {}
         }, 
         {
             "label": "gondor:year",
             "data": {
                 "widget_last_updated": "2015-08-19T00:20:29+0000", 
                 "actual_frequency": "Last Year", 
-                "statistics": {
+                "text_block": null,
+                "data": {
                     "dol_amroth": {
                         "value": "Imrahil", 
                         "traffic_light": "prince"
@@ -120,7 +123,8 @@
                     ]
                 }
             }, 
-            "graph_data": {}
+            "graph_data": {},
+            "raw_datasets": {}
         }
     ], 
     "family": "national_leadership"

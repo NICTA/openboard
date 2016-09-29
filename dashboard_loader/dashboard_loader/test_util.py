@@ -47,3 +47,25 @@ class DashboardTransactionTestCase(TransactionTestCase):
             call_command('import_widget_data', *self.widget_data,
                         **{'verbosity': 0})
 
+def json_equal(a, b, w, trace=[], ignore_keys=[]):
+    if type(a) != type(b):
+        raise Exception("Type mismatch:", w, type(a), type(b), trace)
+    elif type(a) == list:
+        if len(a) != len(b):
+            raise Exception("Length mismatch:", w, len(a), len(b))
+        for i in range(len(a)):
+            if not json_equal(a[i], b[i], w, trace + [i], ignore_keys):
+                raise Exception("element mismatch:", w, a[i], b[i], trace, i)
+        return True
+    elif type(b) == dict:
+        if len(a) != len(b):
+            raise Exception("Length mismatch:", w, len(a), len(b), a.keys(), b.keys(), trace)
+        for key in a.keys():
+            if key in ignore_keys:
+                pass
+            elif not json_equal(a[key], b[key], w, trace + [key], ignore_keys):
+                raise Exception("element mismatch:", w, a[key], b[key], trace, key)
+        return True
+    else:
+        return a == b
+

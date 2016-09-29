@@ -26,6 +26,7 @@
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 
+                            "traffic_light_automation": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -47,6 +48,7 @@
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 
+                            "traffic_light_automation": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -59,7 +61,8 @@
                     ], 
                     "list_label_width": null, 
                     "url": "rings-all-year-main", 
-                    "tile_type": 1, 
+                    "tile_type": 20, 
+                    "main_stat_count": 1,
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -82,6 +85,7 @@
                             "name_as_label": true, 
                             "trend": false, 
                             "traffic_light_scale": null, 
+                            "traffic_light_automation": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -98,12 +102,13 @@
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
-                    "columns": null
+                    "columns": 1
                 }
             ], 
             "about": "<p>a Test Widget</p>", 
             "sort_order": 200, 
             "deexpansion_hint": "Show less", 
+            "parametisation": null,
             "default_frequency_text": "Annual",
             "views": [
                 {

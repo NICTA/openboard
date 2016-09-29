@@ -12,12 +12,15 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+import json
 from django.test import TestCase
 
 from django.contrib.auth.models import User, AnonymousUser
-from dashboard_loader.test_util import DashboardTransactionTestCase
+from dashboard_loader.test_util import DashboardTransactionTestCase, json_equal
 from widget_data.api import *
 from widget_def.models import WidgetView
+from dashboard_api.management.import_export import export_widget_data
+from widget_def.view_utils import jsonize
 
 # Create your tests here.
 
@@ -54,4 +57,16 @@ class WidgetDataTests(DashboardTransactionTestCase):
         widget = get_declared_widget(widget_url, view)
         self.assertIsNotNone(widget)
         return api_get_widget_data(widget, view)
+    def test_dump_widget_data(self):
+        widget_data_sets = [
+            ("national_leadership", 'test_exports/d_national_leadership.json',),
+            ('race_rings', 'test_exports/d_race_rings.json',),
+        ]
+        for url, fn in widget_data_sets:
+            fp = open(fn)
+            file_dump = json.load(fp)
+            raw_dump = export_widget_data(url)
+            json_dump = jsonize(raw_dump)
+            cooked_json = json.loads(json_dump)
+            self.assertTrue(json_equal(file_dump, cooked_json, url, ignore_keys=[ "widget_last_updated", ]))
 
