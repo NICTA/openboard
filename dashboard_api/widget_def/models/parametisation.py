@@ -72,31 +72,33 @@ class Parametisation(models.Model):
             return
         keys = self.keys()
         if view.viewproperty_set.filter(key__in=keys).count() < len(keys):
-            pvs = list(view.parametisationvalue_set.all())
-            view.parametisationvalue_set.clear()
-            for pv in pvs:
+            # View does not have properties for all of this Parametisation's keys:
+            # Remove any pvals for this Parametisation and View.  Cleanup any resulting unused pvals.
+            for pv in view.parametisationvalue_set.filter(param=self):
+                pv.views.remove(view)
                 if pv.views.count() == 0:
                     pv.delete()
             return
         try:
+            # Get existing pval for this param and view.
             pv = view.parametisationvalue_set.get(param=self)
         except ParametisationValue.DoesNotExist:
+            # Doesn't have one yet.
+            # Check if any existing pvals match.
             for pv in self.parametisationvalue_set.all():
                 if pv.matches(view):
+                    # Match find, attach the view and exist.
                     pv.views.add(view)
                     return
+            # Create one with no parameters
             pv = ParametisationValue(param=self)
             pv.save()
-
+        # OK, so we have a view and a pval which may or may not match.
         pv_params = pv.parameters()
         v_params  = view.properties()
         for key in keys:
-            if key not in v_params:
-                pv.views.remove(view)
-                if pv.views.count() == 0:
-                    pv.delete()
-                return
             if key not in pv_params:
+                # pval doesn't have the key. Better add it in then!
                 prop = view.viewproperty_set.get(key=key)
                 pkv = ParameterValue(
                         pv=pv,
@@ -109,23 +111,14 @@ class Parametisation(models.Model):
                         )
                 pkv.save()
             elif pv_params[key] != v_params[key]:
+                # Both view and pval have the key - but the values don't match!
+                # Remove view from pval, and delete pval if ref count is zero.
                 pv.views.remove(view)
                 if pv.views.count() == 0:
                     pv.delete()
+                # Start again so we can create a new pval (or recycle)
+                self.update(view)
                 return
-        pv = ParametisationValue(param=self)
-        pv.save()
-        for prop in view.viewproperty_set.filter(key__in=keys):
-            pkv = ParameterValue(
-                        pv=pv,
-                        key=prop.key,
-                        property_type=prop.property_type,
-                        intval=prop.intval,
-                        decval=prop.decval,
-                        strval=prop.strval,
-                        boolval=prop.boolval
-                        )
-            pkv.save()
     @classmethod
     def update_all(cls, view=None):
         """
@@ -183,7 +176,7 @@ class ParametisationValue(models.Model):
     def matches_parameters(self, params):
         """Tests whether a given set of parameters (as an associative array) matches that of this ParametisationValue"""
         my_params = self.parameters()
-        for k in params:
+        for k in self.param.keys():
             if k not in my_params:
                 return False
             v = my_params[k]
