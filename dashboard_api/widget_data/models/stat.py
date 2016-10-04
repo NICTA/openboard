@@ -66,7 +66,7 @@ class StatisticData(models.Model):
             return self.strval
     def __unicode__(self):
         if self.param_value:
-            return "<Data for %s (%s)>" % unicode(self.statistic, repr(self.param_value.parameters()))
+            return "<Data for %s (%s)>" % (unicode(self.statistic), repr(self.param_value.parameters()))
         else:
             return "<Data for %s>" % unicode(self.statistic)
 

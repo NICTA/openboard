@@ -254,7 +254,7 @@ class TileDefinition(models.Model):
         elif t.tile_type == cls.MAIN_STAT:
             t.main_stat_count = data["main_stat_count"]
         t.expansion = data["expansion"]
-        t.aspect = data.get("expansion", 1)
+        t.aspect = data.get("aspect", 1)
         t.list_label_width = data.get("list_label_width")
         t.template = data.get("template")
         t.columns = data.get("columns")

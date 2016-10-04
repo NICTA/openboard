@@ -100,6 +100,7 @@ class APIWidgetTests(DashboardTransactionTestCase):
         'test_exports/tlc_std-3-code.json', 
         'test_exports/w_national_leadership.json', 
         'test_exports/w_race_rings.json',
+        'test_exports/w_rivers.json',
     ]
 
     def test_get_widgets_1(self):
@@ -110,7 +111,7 @@ class APIWidgetTests(DashboardTransactionTestCase):
         widgets_3 = self.get_view_by_label("tall_frt_lgondor_migration")
         self.assertEqual(len(widgets_3["widgets"]), 1)
         widgets_4 = self.get_view_by_label("tall_fyear_lgondor_migration")
-        self.assertEqual(len(widgets_4["widgets"]), 1)
+        self.assertEqual(len(widgets_4["widgets"]), 2)
         widgets_5 = self.get_view_by_label("tmen_frt_lgondor_migration")
         self.assertEqual(len(widgets_5["widgets"]), 1)
         widgets_6 = self.get_view_by_label("tmen_fyear_lgondor_migration")
@@ -126,6 +127,7 @@ class APIWidgetTests(DashboardTransactionTestCase):
         widgets = [
             ('national_leadership', 'test_exports/w_national_leadership.json', ),
             ('race_rings', 'test_exports/w_race_rings.json',),
+            ('rivers', 'test_exports/w_rivers.json',),
         ]
         for url, fn in widgets:
             fp = open(fn)
