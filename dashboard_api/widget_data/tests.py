@@ -40,10 +40,12 @@ class WidgetDataTests(DashboardTransactionTestCase):
         'test_exports/tlc_std-3-code.json', 
         'test_exports/w_national_leadership.json', 
         'test_exports/w_race_rings.json',
+        'test_exports/w_rivers.json',
     ]
     widget_data = [
         'test_exports/d_national_leadership.json', 
         'test_exports/d_race_rings.json',
+        'test_exports/d_rivers.json',
     ]
     def test_get_widget_data(self):
         data = self.call_get_widget_data("national_leadership", "tall_fyear_lall_migration")
@@ -61,6 +63,7 @@ class WidgetDataTests(DashboardTransactionTestCase):
         widget_data_sets = [
             ("national_leadership", 'test_exports/d_national_leadership.json',),
             ('race_rings', 'test_exports/d_race_rings.json',),
+            ('rivers', 'test_exports/d_rivers.json',),
         ]
         for url, fn in widget_data_sets:
             fp = open(fn)
