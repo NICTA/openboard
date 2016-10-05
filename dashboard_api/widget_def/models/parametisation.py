@@ -70,6 +70,15 @@ class Parametisation(models.Model):
                 if pv.views.count() == 0:
                     pv.delete()
             return
+        if view.widgets.filter(definition__parametisation=self).count() == 0:
+            # This view has no declared widgets for this parametisation, so remove any
+            # pvals for this parametisation and view, and cleanup any resulting unused pvals,
+            # and bail.
+            for pv in view.parametisationvalue_set.filter(param=self):
+                pv.views.remove(view)
+                if pv.views.count() == 0:
+                    pv.delete()
+            return
         keys = self.keys()
         if view.viewproperty_set.filter(key__in=keys).count() < len(keys):
             # View does not have properties for all of this Parametisation's keys:
@@ -93,6 +102,7 @@ class Parametisation(models.Model):
             # Create one with no parameters
             pv = ParametisationValue(param=self)
             pv.save()
+            pv.views.add(view)
         # OK, so we have a view and a pval which may or may not match.
         pv_params = pv.parameters()
         v_params  = view.properties()
@@ -190,7 +200,9 @@ class ParametisationValue(models.Model):
         return self.matches_parameters(view.properties())
     def __unicode__(self):
         return "%s: %s" % (unicode(self.param), ", ".join([ unicode(pv) for pv in self.parametervalue_set.all() ]))
-    
+    class Meta:
+        ordering=("param", "id")
+
 class ParameterValue(models.Model):
     """
     Holds a single parameter value as part of a :model:`ParametisationValue`

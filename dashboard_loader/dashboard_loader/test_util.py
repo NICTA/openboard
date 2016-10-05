@@ -52,7 +52,7 @@ def json_equal(a, b, w, trace=[], ignore_keys=[]):
         raise Exception("Type mismatch:", w, type(a), type(b), trace)
     elif type(a) == list:
         if len(a) != len(b):
-            raise Exception("Length mismatch:", w, len(a), len(b))
+            raise Exception("Length mismatch:", w, len(a), len(b), trace)
         for i in range(len(a)):
             if not json_equal(a[i], b[i], w, trace + [i], ignore_keys):
                 raise Exception("element mismatch:", w, a[i], b[i], trace, i)
