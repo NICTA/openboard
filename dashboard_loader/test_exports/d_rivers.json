@@ -3,72 +3,6 @@
         {
             "graph_data": {}, 
             "data": {
-                "widget_last_updated": "2016-10-03T23:17:00+0000", 
-                "actual_frequency": "Annual", 
-                "data": {
-                    "total_avg_discharge": {
-                        "value": 2900.0
-                    }, 
-                    "maj_river_count": {
-                        "value": 10
-                    }, 
-                    "maj_river_list": []
-                }, 
-                "text_block": "<p>This is the text block,</p>\r\n<p><i>(The text block, the text block)</i></p>\r\n<p>Oh, this is the text block, the text block for all of Middle Earth.</p>"
-            }, 
-            "raw_datasets": {}, 
-            "parameters": {
-                "location": "Middle Earth"
-            }, 
-            "label": "rivers"
-        }, 
-        {
-            "graph_data": {}, 
-            "data": {
-                "widget_last_updated": "2016-10-03T23:21:47+0000", 
-                "actual_frequency": "Annual", 
-                "data": {
-                    "total_avg_discharge": {
-                        "value": 400.0
-                    }, 
-                    "maj_river_count": {
-                        "value": 4
-                    }, 
-                    "maj_river_list": []
-                }, 
-                "text_block": "<p>This is the text block,</p>\r\n<p><i>(The text block, the text block)</i></p>\r\n<p>This the text block, the text block for Gondor which has no king, and NEEDS no king.</p>"
-            }, 
-            "raw_datasets": {}, 
-            "parameters": {
-                "location": "Gondor"
-            }, 
-            "label": "rivers"
-        }, 
-        {
-            "graph_data": {}, 
-            "data": {
-                "widget_last_updated": "2016-10-03T23:24:10+0000", 
-                "actual_frequency": "Annual", 
-                "data": {
-                    "total_avg_discharge": {
-                        "value": 1600.0
-                    }, 
-                    "maj_river_count": {
-                        "value": 2
-                    }, 
-                    "maj_river_list": []
-                }, 
-                "text_block": "<p>This is the text block,</p>\r\n<p><i>(The text block, the text block)</i></p>\r\n<p>Oh, this is the text block, the text block for Rhovanion, also known as Wilderland.</p>"
-            }, 
-            "raw_datasets": {}, 
-            "parameters": {
-                "location": "Rhovanion"
-            }, 
-            "label": "rivers"
-        }, 
-        {
-            "graph_data": {}, 
-            "data": {
                 "widget_last_updated": "2016-10-03T23:29:42+0000", 
                 "actual_frequency": "Annual", 
                 "data": {
@@ -98,6 +32,70 @@
             "raw_datasets": {}, 
             "parameters": {
                 "location": "Arnor"
+            }, 
+            "label": "rivers"
+        },
+        {
+            "graph_data": {}, 
+            "data": {
+                "widget_last_updated": "2016-10-03T23:21:47+0000", 
+                "actual_frequency": "Annual", 
+                "data": {
+                    "total_avg_discharge": {
+                        "value": 400.0
+                    }, 
+                    "maj_river_count": {
+                        "value": 4
+                    }, 
+                    "maj_river_list": [
+                        {
+                            "value": "Letnui"
+                        },
+                        {
+                            "value": "Morthond"
+                        },
+                        {
+                            "value": "Ringlo"
+                        },
+                        {
+                            "value": "Gilrain"
+                        }
+                    ]
+                }, 
+                "text_block": "<p>This is the text block,</p>\r\n<p><i>(The text block, the text block)</i></p>\r\n<p>This the text block, the text block for Gondor which has no king, and NEEDS no king.</p>"
+            }, 
+            "raw_datasets": {}, 
+            "parameters": {
+                "location": "Gondor"
+            }, 
+            "label": "rivers"
+        }, 
+        {
+            "graph_data": {}, 
+            "data": {
+                "widget_last_updated": "2016-10-03T23:24:10+0000", 
+                "actual_frequency": "Annual", 
+                "data": {
+                    "total_avg_discharge": {
+                        "value": 1600.0
+                    }, 
+                    "maj_river_count": {
+                        "value": 2
+                    }, 
+                    "maj_river_list": [
+                        {
+                            "value": "Anduin (The Great River)"
+                        },
+                        {
+                            "value": "Celduin (River Running)"
+                        }
+                    ]
+                }, 
+                "text_block": "<p>This is the text block,</p>\r\n<p><i>(The text block, the text block)</i></p>\r\n<p>Oh, this is the text block, the text block for Rhovanion, also known as Wilderland.</p>"
+            }, 
+            "raw_datasets": {}, 
+            "parameters": {
+                "location": "Rhovanion"
             }, 
             "label": "rivers"
         }

@@ -158,10 +158,7 @@ Raises LoaderException if the requested Statistic does not exist or is not a lis
     else:
         if pval:
             raise LoaderException("Parameter values provided to clear_statistic_list for a non-parametised widget")
-    if pval:
-        stat.statisticlistitem_set.all().delete()
-    else:
-        stat.statisticlistitem_set.filter(param_value=pval).delete()
+    stat.statisticlistitem_set.filter(param_value=pval).delete()
     
 def add_statistic_list_item(widget_url, widget_label,
                 statistic_url, 
