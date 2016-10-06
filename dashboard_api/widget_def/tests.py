@@ -118,11 +118,26 @@ class APIWidgetTests(DashboardTransactionTestCase):
         self.assertEqual(len(widgets_6["widgets"]), 1)
         widgets_7 = self.get_view_by_label("telves_fyear_lgondor_migration")
         self.assertEqual(len(widgets_7["widgets"]), 0)
-
+    def test_parametised_widgets(self):
+        view = self.get_view_by_label("tall_fyear_lgondor_migration")
+        self.assertEqual(len(view["crumbs"]), 3) 
+        self.assertEqual(len(view["properties"]), 3) 
+        self.assertEqual(view["properties"]["location"], "Gondor") 
+        w = view["widgets"][1]
+        self.assertEqual(w["label"], "rivers")
+        self.assertEqual(w["name"], "Gondor Rivers")
+        self.assertEqual(w["about"], "<p>Summary data about the rivers of Gondor.</p>")
+        view = self.get_view_by_label("tall_fyear_larnor_migration")
+        self.assertEqual(len(view["crumbs"]), 3) 
+        self.assertEqual(len(view["properties"]), 3) 
+        self.assertEqual(view["properties"]["location"], "Arnor") 
+        w = view["widgets"][0]
+        self.assertEqual(w["label"], "rivers")
+        self.assertEqual(w["name"], "Arnor Rivers")
+        self.assertEqual(w["about"], "<p>Summary data about the rivers of Arnor.</p>")
     def get_view_by_label(self, lbl):
         view = WidgetView.objects.get(label=lbl)
         return api_get_view(view)
-
     def test_dump_widgets(self):
         widgets = [
             ('national_leadership', 'test_exports/w_national_leadership.json', ),
