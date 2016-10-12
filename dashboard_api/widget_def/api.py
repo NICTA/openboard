@@ -64,7 +64,7 @@ def api_get_map_layers(view, hierarchical=False):
         elif len(menu) == 0:
             raise Http404("No map datasets defined for this view")
     else:
-        decls = GeoDatasetDeclaration.objects.filter(view=view)
+        decls = ViewGeoDatasetDeclaration.objects.filter(view=view)
         for decl in decls:
             menu.append(decl.__getstate__())
     return {
