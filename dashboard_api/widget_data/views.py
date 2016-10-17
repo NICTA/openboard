@@ -19,110 +19,82 @@ from django.conf import settings
 
 from widget_def.models import TileDefinition
 from widget_def.view_utils import json_list, get_view_from_request, redirect_for_external_view
+from widget_def.view_utils import OpenboardAPIView, OpenboardAPIException
 from widget_data.api import *
 
 # views.
 
-def get_widget_data(request, widget_url):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    widget = get_declared_widget(widget_url, view)
-    if widget:
-        return json_list(request, api_get_widget_data(widget, view))
-    else:
-        return HttpResponseNotFound("This Widget does not exist")
+class GetWidgetDataView(OpenboardAPIView):
+    lookup_view = True
+    lookup_widget = True
+    def api_method(self, request):
+        return api_get_widget_data(self.widget, self.view)
 
-def get_graph_data(request, widget_url):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    widget = get_declared_widget(widget_url, view)
-    if not widget:
-        return HttpResponseNotFound("This Widget does not exist")
-    form = request.GET.get("form", "terse")
-    if form == "terse":
-        verbose = False
-    elif form == "verbose":
-        verbose = True
-    else:
-        return HttpResponseNotFound("Unknown form requested.")
-    return json_list(request, api_get_graph_data(widget, view=view, verbose=verbose))
+class GraphViewBase(OpenboardAPIView):
+    lookup_view = True
+    def check_request(self, request):
+        form = request.GET.get("form", "terse")
+        if form == "terse":
+            self.verbose = False
+        elif form == "verbose":
+            self.verbose = True
+        else:
+            raise OpenboardAPIException(HttpResponseNotFound("<p><b>Unknown form requested.</b></p>"))
+ 
+class GetGraphDataView(GraphViewBase):
+    lookup_widget = True
+    def api_method(self, request):
+        return api_get_graph_data(self.widget, 
+                            view=self.view, 
+                            verbose=self.verbose)
 
-def get_single_graph_data(request, widget_url, tile_url):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    graph = get_graph(view, widget_url, tile_url)
-    if not graph:
-        return HttpResponseNotFound("This Graph does not exist")
-    form = request.GET.get("form", "terse")
-    if form == "terse":
-        verbose = False
-    elif form == "verbose":
-        verbose = True
-    else:
-        return HttpResponseNotFound("Unknown form requested.")
-    return json_list(request, api_get_single_graph_data(graph, view=view, verbose=verbose))
+class GetSingleGraphDataView(GraphViewBase):
+    def check_request(self, request):
+        self.graph = get_graph(view, self.kwargs.get(self.view, "widget_url"), self.kwargs.get("tile_url"))
+        if not graph:
+            raise OpenboardAPIException(HttpResponseNotFound("<p><b>This graph does not exist.</b></p>"))
+        super(GraphViewBase, self).check_request(request)
+    def api_method(self, request):
+        return api_get_single_graph_data(self.widget, 
+                            view=self.view, 
+                            verbose=self.verbose)
 
-def get_raw_data(request, widget_url, rds_url):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    widget = get_declared_widget(widget_url, view)
-    if not widget:
-        return HttpResponseNotFound("This Widget does not exist")
-    return api_get_raw_data(widget, request, rds_url)
+class GetRawDataView(OpenboardAPIView):
+    lookup_view = True
+    lookup_widget = True
+    def api_method(self, request):
+        return api_get_raw_data(self.widget, request, self.kwargs.get("rds_url"))
 
-def get_widget_map_data(request, widget_url, tile_url, geo_dataset_url):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    widget = get_declared_widget(widget_url, view)
-    try:
-        tile = TileDefinition.objects.get(widget=widget, url=tile_url, tile_type=TileDefinition.MAP)
-    except TileDefinition.DoesNotExist:
-        return HttpResponseNotFound("Map tile %s does not exist" % tile_url)
-    try:
-        ds = tile.geo_datasets.get(url=geo_dataset_url)
-    except GeoDataset.DoesNotExist:
-        return HttpResponseNotFound("Map layer %s does not exist" % geo_dataset_url)
-    window = tile.geo_window
-    return api_geo_dataset(request, ds, window)
+class MapDataViewBase(OpenboardAPIView):
+    lookup_view = True
+    def check_request(self, request):
+        if not self.window or self.window.view_override:
+            view_window = self.view.geo_window
+            if not view_window and not self.window:
+                raise OpenboardAPIException("No geowindow defined for this request")
+            elif view_window:
+                self.window = view_window
+    def api_method(self, request):
+        return api_geo_dataset(request, self.dataset, self.window)
 
-def get_map_data(request, geo_dataset_url):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    ds = get_declared_geodataset(geo_dataset_url, view)
-    if ds is None:
-        return HttpResponseNotFound("Map layer %s does not exist" % geo_dataset_url)
-    if not location.geo_window:
-        return HttpResponseNotFound("No Geo Window defined for location %s" % location.url)
-    window = location.geo_window
-    return api_geo_dataset(request, ds, window)
+class GetWidgetMapDataView(MapDataViewBase):
+    lookup_widget = True
+    def check_request(self, request):
+        try:
+            tile = TileDefinition.objects.get(widget=widget, url=tile_url, tile_type=TileDefinition.MAP)
+        except TileDefinition.DoesNotExist:
+            raise OpenboardAPIException(HttpResponseNotFound("Map tile %s does not exist" % tile_url))
+        try:
+            self.dataset = tile.geo_datasets.get(url=geo_dataset_url)
+        except GeoDataset.DoesNotExist:
+            raise OpenboardAPIException(HttpResponseNotFound("Map layer %s does not exist" % geo_dataset_url))
+        self.window = tile.geo_window
+        super(GetWidgetMapDataView, self).check_request(self, request)
+
+class GetMapDataView(MapDataViewBase):
+    def check_request(self, request):
+        self.dataset = get_declared_geodataset(self.kwargs("geo_dataset_url"), view)
+        if self.dataset is None:
+            raise OpenboardAPIException(HttpResponseNotFound("Map layer %s does not exist" % kwarg.get("geo_dataset_url")))
+        super(GetWidgetMapDataView, self).check_request(self, request)
 

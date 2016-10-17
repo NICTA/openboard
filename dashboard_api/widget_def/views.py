@@ -24,7 +24,7 @@ from widget_def.view_utils import OpenboardAPIView, OpenboardAPIException
 # Views
 
 class GetTopLevelView(OpenboardAPIView):
-    def api_method(self, request, **kwargs):
+    def api_method(self, request):
         return api_get_top_level_views(request.user)
 
 class GetIconLibrariesView(OpenboardAPIView):
@@ -34,34 +34,33 @@ class GetIconLibrariesView(OpenboardAPIView):
 class GetViewView(OpenboardAPIView):
     lookup_view = True
     lookup_view_explicit_label = True
-    def api_method(self, request, view, **kwargs):
-        return api_get_view(view)
+    def api_method(self, request):
+        return api_get_view(self.view)
 
 class MapViewBase(OpenboardAPIView):
     lookup_view = True
-    def check_view(self, view):
-        if not view.geo_window:
-            raise OpenAPIException(HttpResponseNotFound(u"<p><b>No Geo-window defined for view %s</b></p>" % view.label))
+    def check_view(self):
+        if not self.view.geo_window:
+            raise OpenAPIException(HttpResponseNotFound(u"<p><b>No Geo-window defined for view %s</b></p>" % self.view.label))
 
 class GetMapLayers(MapViewBase):
-    def api_method(self, request, view, **kwargs):
+    def api_method(self, request):
         hierarchical = request.GET.get("hierarchical")
         if hierarchical in ("", None, "0"):
             hierarchical = False
         else:
             hierarchical = True
-        return api_get_map_layers(view, hierarchical)
+        return api_get_map_layers(self.view, hierarchical)
 
 class GetTerriaInitView(MapViewBase):
     lookup_view_explicit_label = True
-    def api_method(self, request, view, **kwargs):
+    def api_method(self, request):
         shown_urls = self.kwargs.get("shown_urls", "")
         if shown_urls: 
             shown = shown_urls.split("/")
         else:
             shown = []
-        print shown
-        return api_get_terria_init(view, shown)
+        return api_get_terria_init(self.view, shown)
 
 # Authentication views
 
@@ -94,7 +93,7 @@ class APILoginView(GetPostEquivView):
         if not user.is_active:
             raise OpenboardAPIException("User is inactive")
         login(request, user)
-    def api_method(self, request, **kwargs):
+    def api_method(self, request):
         return request.session.session_key
 
 class APILogoutView(OpenboardAPIView):
@@ -103,7 +102,7 @@ class APILogoutView(OpenboardAPIView):
     def check_request(self, request):
         if request.user.is_authenticated():
             logout(request)
-    def api_method(self,request, **kwargs):
+    def api_method(self,request):
         return []
 
 class APIChangePasswordView(GetPostEquivView):
@@ -118,6 +117,6 @@ class APIChangePasswordView(GetPostEquivView):
         user.set_password(new_password)
         user.save()
         login(request, user)
-    def api_method(self, request, **kwargs):
+    def api_method(self, request):
         return []
 

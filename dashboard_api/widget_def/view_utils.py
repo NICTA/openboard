@@ -35,6 +35,22 @@ def get_view_from_label(request, label):
     except WidgetView.DoesNotExist:
         raise Http404("<p><b>View %s does not exist</b></p>" % label)
 
+def get_declared_widget(widget_url, view):
+    try:
+        decl = ViewWidgetDeclaration.objects.get(view=view,
+                                definition__family__url=widget_url)
+        return decl.definition
+    except ViewWidgetDeclaration.DoesNotExist:
+        return None
+
+def get_declared_geodataset(url, view):
+    try:
+        decl = ViewGeoDatasetDeclaration.objects.get(view=view,
+                                dataset__url=url)
+        return decl.dataset
+    except ViewGeoDatasetDeclaration.DoesNotExist:
+        return None
+
 class OpenboardAPIException(Exception):
     def __init__(self, response):
         if isinstance(response, HttpResponse):
@@ -45,11 +61,12 @@ class OpenboardAPIException(Exception):
 class OpenboardAPIView(View):
     http_method_names =  [ 'get', ]
     lookup_view = False
+    lookup_widget = False
     lookup_view_explicit_label = False
     set_p3p = False
-    def api_method(self, request, **kwargs):
+    def api_method(self, request):
         return {}
-    def check_view(self, view):
+    def check_view(self):
         pass
     def check_request(self, request):
         pass
@@ -70,14 +87,21 @@ class OpenboardAPIView(View):
                 return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
             if v.external_url:
                 return redirect_for_external_view(request, v)
+            self.view = v
         else:
-            v = None
+            self.view = None
+        if self.lookup_widget:
+            self.widget = get_declared_widget(kwargs.get("widget_url",""), self.view)
+            if not self.widget:
+                return HttpResponseNotFound("<p><b>Widget %s does not exist in View %s</b></p>" % (kwargs.get("widget_url"), self.view.label))        
+        self.args = args
+        self.kwargs = kwargs
         try:
-            if v:
-                self.check_view(v)
+            if self.view:
+                self.check_view()
             self.check_request(request)
         except OpenboardAPIException, e:
             return e.response
-        json_data = self.api_method(request, view=v)
+        json_data = self.api_method(request)
         return json_list(request, json_data, set_p3p=self.set_p3p)
 

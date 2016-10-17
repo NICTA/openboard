@@ -18,7 +18,7 @@ from django.apps import apps
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData
 
 from widget_def.models.parametisation import Parametisation
-from widget_def.view_utils import max_with_nulls
+from widget_def.view_tools import max_with_nulls
 from widget_def.parametisation import parametise_label, resolve_pval, ParametisationException
 
 # Create your models here.
