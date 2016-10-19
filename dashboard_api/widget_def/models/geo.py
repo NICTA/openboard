@@ -22,7 +22,7 @@ from django.contrib.gis.geos import Point, Polygon
 import django.contrib.gis.gdal.geometries as geoms
 
 from dashboard_api.validators import validate_html_colour
-from widget_def.view_utils import csv_escape, max_with_nulls
+from widget_def.view_tools import csv_escape, max_with_nulls
 from widget_def.models import TileDefinition, WidgetView
 from widget_data.models import GeoFeature, GeoProperty
 from widget_def.parametisation import parametise_label

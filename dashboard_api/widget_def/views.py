@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,110 +15,108 @@
 from urllib import urlencode
 
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect
+from django.http.response import HttpResponseNotFound
 from django.conf import settings
 
-
-from widget_def.models import WidgetView
 from widget_def.api import *
-from widget_def.view_utils import json_list, redirect_for_external_view
-from widget_def.view_utils import get_view_from_label, get_view_from_request
+from widget_def.view_utils import OpenboardAPIView, OpenboardAPIException
 
 # Views
 
-def get_top_level_views(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    return json_list(request, api_get_top_level_views(request.user))
+class GetTopLevelView(OpenboardAPIView):
+    def api_method(self, request):
+        return api_get_top_level_views(request.user)
 
-def get_icon_libraries(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    return json_list(request, api_get_icon_libraries())
+class GetIconLibrariesView(OpenboardAPIView):
+    def api_method(self, request, **kwargs):
+        return api_get_icon_libraries()
 
-def get_view(request, view_label):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    v = get_view_from_label(request, view_label)
-    if not v:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if v.external_url:
-        return redirect_for_external_view(request, v)
-    return json_list(request, api_get_view(v))
+class GetViewView(OpenboardAPIView):
+    lookup_view = True
+    lookup_view_explicit_label = True
+    def api_method(self, request):
+        return api_get_view(self.view)
 
-def get_map_layers(request):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_request(request)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    hierarchical = request.GET.get("hierarchical")
-    if hierarchical in ("", None, "0"):
-        hierarchical = False
-    else:
-        hierarchical = True
-    return json_list(request, api_get_map_layers(view, hierarchical))
+class MapViewBase(OpenboardAPIView):
+    lookup_view = True
+    def check_view(self):
+        if not self.view.geo_window:
+            raise OpenAPIException(HttpResponseNotFound(u"<p><b>No Geo-window defined for view %s</b></p>" % self.view.label))
 
-def get_terria_init(request, view_label, shown_urls=""):
-    if not settings.PUBLIC_API_ACCESS and not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    view = get_view_from_label(request, view_label)
-    if view is None:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    if view.external_url:
-        return redirect_for_external_view(request, view)
-    if not view.geo_window:
-        return HttpResponseNotFound("No Geo-window defined for view %s" % view_label)
-    if shown_urls:
-        shown = shown_urls.split("/")
-    else:
-        shown = []
-    return json_list(request, api_get_terria_init(view, shown))
+class GetMapLayers(MapViewBase):
+    def api_method(self, request):
+        hierarchical = request.GET.get("hierarchical")
+        if hierarchical in ("", None, "0"):
+            hierarchical = False
+        else:
+            hierarchical = True
+        return api_get_map_layers(self.view, hierarchical)
+
+class GetTerriaInitView(MapViewBase):
+    lookup_view_explicit_label = True
+    def api_method(self, request):
+        shown_urls = self.kwargs.get("shown_urls", "")
+        if shown_urls: 
+            shown = shown_urls.split("/")
+        else:
+            shown = []
+        return api_get_terria_init(self.view, shown)
 
 # Authentication views
 
-def api_login(request):
-    username = request.POST.get('username')
-    if not username:
-        username = request.GET.get('username')
-    password = request.POST.get('password')
-    if not password:
-        password = request.GET.get('password')
-    if username and password:
+class GetPostEquivView(OpenboardAPIView):
+    post_args = {}
+    http_method_names = [ 'get', 'post', ]
+    def post(self, request, *args, **kwargs):
+        self.post_args = request.POST
+        return self.get(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        self.get_args = request.GET
+        return super(GetPostEquivView, self).get(request, *args, **kwargs)
+    def get_http_arg(self, key):
+        val = self.post_args.get(key)
+        if not val:
+            val = self.get_args.get(key)
+        return val
+
+class APILoginView(GetPostEquivView):
+    def check_perms(self, request):
+        return True
+    def check_request(self, request):
+        username = self.get_http_arg("username")
+        password = self.get_http_arg("password")
+        if not username or not password:
+            raise OpenboardAPIException("Username and password not supplied")
         user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return json_list(request, request.session.session_key, set_p3p=True)
-            else:
-                return HttpResponseForbidden("User is inactive")
-        else:
-            return HttpResponseForbidden("Bad username or password")
-    else:
-        return HttpResponseForbidden("Username and password not supplied")
+        if user is None:
+            raise OpenboardAPIException("Bad username or password")
+        if not user.is_active:
+            raise OpenboardAPIException("User is inactive")
+        login(request, user)
+    def api_method(self, request):
+        return request.session.session_key
 
-def api_logout(request):
-    if request.user.is_authenticated():
-        logout(request)
-    return json_list(request, [])
+class APILogoutView(OpenboardAPIView):
+    def check_perms(self, request):
+        return True
+    def check_request(self, request):
+        if request.user.is_authenticated():
+            logout(request)
+    def api_method(self,request):
+        return []
 
-def api_change_password(request):
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
-    old_password = request.POST.get('old_password')
-    if not old_password:
-        old_password = request.GET.get('old_password')
-    new_password = request.POST.get('new_password')
-    if not new_password:
-        new_password = request.GET.get('new_password')
-    user = authenticate(username=request.user.username, password=old_password)
-    if user:
+class APIChangePasswordView(GetPostEquivView):
+    def check_perms(self, request):
+        return request.user.is_authenticated()
+    def check_request(self, request):
+        old_password = self.get_http_arg("old_password")
+        new_password = self.get_http_arg("new_password")
+        user = authenticate(username=request.user.username, password=old_password)
+        if not user:
+            raise OpenboardAPIException("Access forbidden")
         user.set_password(new_password)
         user.save()
         login(request, user)
-        return json_list(request, [])
-    else:
-        return HttpResponseForbidden("<p><b>Access forbidden</b></p>")
+    def api_method(self, request):
+        return []
 

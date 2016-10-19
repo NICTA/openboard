@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ admin.site.site_url = settings.ADMIN_SITE_URL
 
 urlpatterns = [
     # Views for manually maintaining data
-    url(r'^login$', views.login_view, name='login'),
+    url(r'^login$', views.LoginView.as_view(), name='login'),
     url(r'^logout$', views.logout_view, name='logout'),
-    url(r'^$', views.list_widgets, name='list_widget_data'),
-    url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)$', views.list_widget_params, name="list_widget_params"),
+    url(r'^$', views.ListWidgetsView.as_view(), name='list_widget_data'),
+    url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)$', views.ListWidgetParamsView.as_view(), name="list_widget_params"),
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)$', views.view_widget, name="view_widget_data"),
     url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<pval_id>[^/]+)$', views.view_widget, name="view_parametised_widget_data"),
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<stat_url>[^/]*)$', views.edit_stat, name="edit_stat"),
@@ -38,8 +38,8 @@ urlpatterns = [
 
     # Views for maintaining users
     url(r'^users/$', views.maintain_users, name="maintain_users"),
-    url(r'^users/add_new$', views.add_user, name="add_user"),
-    url(r'^users/(?P<username>[^/]+)$', views.edit_user, name="edit_user"),
+    url(r'^users/add_new$', views.AddUserView.as_view(), name="add_user"),
+    url(r'^users/(?P<username>[^/]+)$', views.EditUserView.as_view(), name="edit_user"),
     url(r'^users/(?P<username>[^/]+)/(?P<action>[^/]+)$', views.user_action, name="user_action"),
 
     # Admin views (For modifying widget definitions, adding new widgets, etc.)

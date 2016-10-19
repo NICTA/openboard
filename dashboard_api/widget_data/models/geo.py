@@ -18,7 +18,7 @@ import decimal
 from django.apps import apps
 from django.contrib.gis.db import models
 
-from widget_def.view_utils import csv_escape
+from widget_def.view_tools import csv_escape
 
 class GeoFeature(models.Model):
     dataset = models.ForeignKey("widget_def.GeoDataset")
