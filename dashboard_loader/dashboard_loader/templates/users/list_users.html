@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% comment %}
 
-   Copyright 2015 NICTA
+   Copyright 2015, 2016 CSIRO
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@
             <a href="{% url "user_action" username=u.username action="deactivate" %}">Deactivate</a><br/>
             {% else %}
             <a href="{% url "user_action" username=u.username action="activate" %}">Activate</a><br/>
-            <a href="{% url "user_action" username=u.username action="delete" %}">Delete</a><br/>
+            <a href="{% url "user_action" username=u.username action="delete" %}" onclick="return confirm('Are you sure you want to permanently delete user {{ u.username }}?');">Delete</a><br/>
             {% endif %}
         </td>
     <tr>

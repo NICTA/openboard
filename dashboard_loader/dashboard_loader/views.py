@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,11 +13,17 @@
 #   limitations under the License.
 
 from django import forms
-from django.http import HttpResponseNotFound, HttpResponseForbidden
+from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic.edit import FormView
+from django.views.generic.base import RedirectView
+from django.views.generic.list import ListView
+from django.utils.decorators import method_decorator
+from django.core.exceptions import PermissionDenied
 
 from widget_def.models import WidgetDefinition, Statistic, TrafficLightScaleCode, IconCode, GraphDefinition, ParametisationValue
 from widget_data.models import WidgetData, StatisticData, StatisticListItem, GraphData, DynamicGraphCluster
@@ -33,30 +39,31 @@ class LoginForm(forms.Form):
     username = forms.CharField(max_length=255, label="User name")
     password = forms.CharField(max_length=255, widget=forms.widgets.PasswordInput)
 
-def login_view(request):
+class LoginView(FormView):
+    template_name = 'login.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('list_widget_data')
     error = None
-    next_url = request.GET.get("next")
-    if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
+    def form_valid(self, form):
+        username = self.request.POST["username"]
+        password = self.request.POST["password"]
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
+                login(self.request, user)
+                next_url = self.request.GET.get("next")
                 if next_url:
-                    return redirect(next_url)
-                else:
-                    return redirect("list_widget_data")
+                    self.success_url = next_url
+                return super(LoginView, self).form_valid(form)
             else:
-                 error = "Sorry, that account has been deactivated"
+                 self.error = "Sorry, that account has been deactivated"
         else:
-             error = "Invalid login"
-    form = LoginForm()
-    return render(request, "login.html", {
-            "next": next_url,
-            "form": form,
-            "error": error,
-            })
+             self.error = "Invalid login"
+        return self.form_invalid(form)
+    def get_context_data(self, **kwargs):
+        kwargs["next"] = self.request.GET.get("next")
+        kwargs["error"] = self.error
+        return super(LoginView, self).get_context_data(**kwargs)
 
 @login_required
 def logout_view(request):
@@ -64,52 +71,49 @@ def logout_view(request):
     return redirect("login")
 
 # Data Editing Views
-@login_required
-def list_widgets(request):
-    editable_widgets = get_editable_widgets_for_user(request.user)
-    uploaders = get_uploaders_for_user(request.user)
-    if request.user.has_perm("auth.add_user"):
-        can_edit_users = True
-    else:
-        can_edit_users = False
-    if request.user.is_staff:
-        can_use_admin = True
-    else:
-        can_use_admin = False
-    if not editable_widgets and not uploaders and not can_edit_users:
-        return HttpResponseForbidden("You do not have permission to edit or upload any dashboard data")
-    return render(request, "widget_data/list_widgets.html", {
-            "widgets": editable_widgets,
-            "uploaders": uploaders,
-            "can_edit_users": can_edit_users,
-            "can_use_admin": can_use_admin,
-            })
+@method_decorator(login_required, name="dispatch")
+class ListWidgetsView(ListView):
+    template_name = "widget_data/list_widgets.html"
+    def get_queryset(self):
+        return get_editable_widgets_for_user(self.request.user)
+    def get_context_data(self, **kwargs):
+        kwargs = super(ListWidgetsView, self).get_context_data(**kwargs)
+        kwargs["widgets"] = kwargs["object_list"]
+        kwargs["uploaders"] = get_uploaders_for_user(self.request.user)
+        kwargs["can_edit_users"] = self.request.user.has_perm("auth.add_user")
+        kwargs["can_use_admin"] = self.request.user.is_staff
+        if not kwargs["widgets"] and not kwargs["uploaders"] and not kwargs["can_edit_users"] and not kwargs["can_use_admin"]:
+            raise PermissionDenied("You do not have permission to edit or upload any dashboard data")
+        return kwargs
 
-@login_required
-def list_widget_params(request, widget_url, label):
-    try:
-        w = WidgetDefinition.objects.get(family__url=widget_url, 
-                    label=label)
-    except WidgetDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Widget Definition does not exist")
-    if not user_has_edit_permission(request.user, w):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    if not w.parametisation:
-       return redirect("list_widget_data")
-    pvals = []
-    keys = w.parametisation.keys()
-    for pval in w.parametisation.parametisationvalue_set.all():
-        parameters = pval.parameters()
-        pvals.append({
-                "pval": pval,
-                "parameters": [ parameters[k] for k in keys ],
-                "last_updated": w.data_last_updated(pval=pval),
-                }) 
-    return render(request, "widget_data/list_parametisations.html", {
-            "keys": keys,
-            "widget": w,
-            "pvals": pvals,
-            })
+@method_decorator(login_required, name="dispatch")
+class ListWidgetParamsView(ListView):
+    template_name = "widget_data/list_parametisations.html"
+    def get_queryset(self):
+        try:
+            self.widget = WidgetDefinition.objects.get(family__url=self.kwargs["widget_url"], 
+                        label=self.kwargs["label"])
+        except WidgetDefinition.DoesNotExist:
+            raise Http404("This Widget Definition does not exist")
+        if not user_has_edit_permission(self.request.user, self.widget):
+            raise PermissionDenied("You do not have permission to edit the data for this widget")
+        if not self.widget.parametisation:
+            raise PermissionDenied("This widget is not a parametised widget")
+        return self.widget.parametisation.keys()
+    def get_context_data(self, **kwargs):
+        kwargs = super(ListWidgetParamsView, self).get_context_data(**kwargs)
+        kwargs["keys"] = kwargs["object_list"]
+        pvals = []
+        for pval in self.widget.parametisation.parametisationvalue_set.all():
+            parameters = pval.parameters()
+            pvals.append({
+                    "pval": pval,
+                    "parameters": [ parameters[k] for k in kwargs["keys"] ],
+                    "last_updated": self.widget.data_last_updated(pval=pval),
+                    }) 
+        kwargs["pvals"] = pvals
+        kwargs["widget"] = self.widget
+        return kwargs
 
 class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
@@ -407,13 +411,9 @@ def handle_uploaded_file(uploader, uploaded_file, freq_display=None):
         return [ "Upload Error: %s" % unicode(e) ]
 
 @login_required
+@permission_required('auth.add_user', raise_exception=True)
 def maintain_users(request):
-    if not request.user.has_perm("auth.add_user"):
-        return HttpResponseForbidden("You do not have permission to maintain users")
-    users = User.objects.all()
-    return render(request, "users/list_users.html", {
-            "users": users,
-            })
+    return render(request, "users/list_users.html", {"users": User.objects.all()})
 
 class AddUserForm(forms.Form):
     PASSWD_AUTO = "2"
@@ -463,33 +463,32 @@ class AddUserForm(forms.Form):
                 self.add_error("password2", "Passwords do not match")
         return data
 
-@login_required
-def add_user(request):
-    if not request.user.has_perm("auth.add_user"):
-        return HttpResponseForbidden("You do not have permission to maintain users")
-    if request.method == "POST":
-        form = AddUserForm(request.POST)
+@method_decorator([ 
+                    login_required, 
+                    permission_required('auth.add_user', raise_exception=True) 
+            ], name="dispatch")
+class AddUserView(FormView):
+    template_name = "users/add_user.html"
+    success_url = reverse_lazy('maintain_users')
+    form_class=AddUserForm
+    def post(self, request, *args, **kwargs):
         if request.POST.get("cancel"):
-            return redirect("maintain_users")
-        if form.is_valid():
-            data = form.cleaned_data
-            user = User()
-            user.username = data["username"]
-            user.first_name = data["first_name"]
-            user.last_name = data["last_name"]
-            user.email = data["email"]
-            user.is_active = bool(data.get("is_active"))
-            if data["mode_password"] == EditUserForm.PASSWD_MANUAL_RESET:
-                user.set_password(data["password1"])
-            user.save()
-            for grp in data["groups"]:
-                user.groups.add(grp)
-            return redirect("maintain_users")
-    else:
-        form = AddUserForm()
-    return render(request, "users/add_user.html", {
-            'form': form,
-            })
+            return HttpResponseRedirect(self.get_success_url())
+        return super(AddUserView, self).post(request, *args, **kwargs)
+    def form_valid(self, form):
+        data = form.cleaned_data
+        user = User()
+        user.username = data["username"]
+        user.first_name = data["first_name"]
+        user.last_name = data["last_name"]
+        user.email = data["email"]
+        user.is_active = bool(data.get("is_active"))
+        if data["mode_password"] == AddUserForm.PASSWD_MANUAL:
+            user.set_password(data["password1"])
+        user.save()
+        for grp in data["groups"]:
+            user.groups.add(grp)
+        return super(AddUserView, self).form_valid(form)
 
 class EditUserForm(forms.Form):
     PASSWD_UNCHANGED = "1"
@@ -545,43 +544,50 @@ class EditUserForm(forms.Form):
                 self.add_error("password2", "Passwords do not match")
         return data
 
-@login_required
-def edit_user(request, username):
-    if not request.user.has_perm("auth.add_user"):
-        return HttpResponseForbidden("You do not have permission to maintain users")
-    try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return HttpResponseForbidden("User does not exist")
-    if request.method == "POST":
-        form = EditUserForm(request.POST)
+@method_decorator([ 
+                    login_required, 
+                    permission_required('auth.add_user', raise_exception=True) 
+            ], name="dispatch")
+class EditUserView(FormView):
+    template_name = "users/edit_user.html"
+    success_url = reverse_lazy('maintain_users')
+    form_class=EditUserForm
+    def common_startup(self, request, username, *args, **kwargs):
+        try:
+            self.user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise Http404("User does not exist")
+    def get_initial(self):
+        return self.user
+    def get_context_data(self, **kwargs):
+        kwargs["u"] = self.user
+        return super(EditUserView, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
+        self.common_startup(request, *args, **kwargs)
+        return super(EditUserView, self).get(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
         if request.POST.get("cancel"):
-            return redirect("maintain_users")
-        if form.is_valid():
-            data = form.cleaned_data
-            user.first_name = data["first_name"]
-            user.last_name = data["last_name"]
-            user.email = data["email"]
-            user.is_active = bool(data.get("is_active"))
-            user.save()
-            user.groups.clear()
-            for grp in data["groups"]:
-                user.groups.add(grp)
-            if data["mode_password"] == EditUserForm.PASSWD_MANUAL_RESET:
-                user.set_password(data["password1"])
-                user.save()
-            return redirect("maintain_users")
-    else:
-        form = EditUserForm(initial=user)
-    return render(request, "users/edit_user.html", {
-            'u': user,
-            'form': form,
-            })
-        
+            return HttpResponseRedirect(self.get_success_url())
+        self.common_startup(request, *args, **kwargs)
+        return super(EditUserView, self).post(request, *args, **kwargs)
+    def form_valid(self, form):
+        data = form.cleaned_data
+        self.user.first_name = data["first_name"]
+        self.user.last_name = data["last_name"]
+        self.user.email = data["email"]
+        self.user.is_active = bool(data.get("is_active"))
+        self.user.save()
+        self.user.groups.clear()
+        for grp in data["groups"]:
+            self.user.groups.add(grp)
+        if data["mode_password"] == EditUserForm.PASSWD_MANUAL_RESET:
+            self.user.set_password(data["password1"])
+            self.user.save()
+        return super(EditUserView, self).form_valid(form)
+
 @login_required
+@permission_required('auth.add_user', raise_exception=True)
 def user_action(request, username, action):
-    if not request.user.has_perm("auth.add_user"):
-        return HttpResponseForbidden("You do not have permission to maintain users")
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:
@@ -599,3 +605,4 @@ def user_action(request, username, action):
     else:
         return HttpResponseForbidden("Action %s not supported" % action)
     return redirect("maintain_users")
+
