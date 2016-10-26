@@ -15,12 +15,12 @@
 from django import forms
 from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponseForbidden, Http404
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic.edit import FormView
-from django.views.generic.base import RedirectView
+from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
@@ -119,289 +119,344 @@ class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
     text_block=forms.CharField(widget=forms.Textarea(attrs={"rows": 9, "cols": 50 }), required=False)
 
-@login_required
-def view_widget(request, widget_url, label, pval_id=None):
-    try:
-        w = WidgetDefinition.objects.get(family__url=widget_url, 
-                    label=label)
-    except WidgetDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Widget Definition does not exist")
-    if not user_has_edit_permission(request.user, w):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    if w.parametisation and not pval_id:
-        return HttpResponseNotFound("This Widget Definition is parametised")
-    if not w.parametisation:
-        pval = None
-    else:
+def do_common_startup(func):
+    def func_out(self, request, *args, **kwargs):
+        self.common_startup(request, *args, **kwargs)
+        return func(self, request, *args, **kwargs)
+    return func_out
+
+class InitialisableFormView(FormView):
+    def common_startup(self, request, *args, **kwargs):
+       return
+    @do_common_startup
+    def get(self, request, *args, **kwargs):
+        return super(InitialisableFormView, self).get(request, *args, **kwargs)
+    @do_common_startup
+    def post(self, request, *args, **kwargs):
+        return super(InitialisableFormView, self).post(request, *args, **kwargs)
+    def get_reset_form(self):
+        kwargs = self.get_form_kwargs()
+        if "data" in kwargs:
+            del kwargs["data"]
+        if "files" in kwargs:
+            del kwargs["files"]
+        return self.get_form_class()(**kwargs)
+
+@method_decorator(login_required, name="dispatch")
+class ViewWidgetView(InitialisableFormView):
+    template_name = "widget_data/view_widget.html"
+    form_class=WidgetDataForm
+    def common_startup(self, request, *args, **kwargs):
         try:
-            pval = ParametisationValue.objects.get(pk=pval_id)
-        except ParametisationValue.DoesNotExist:
-            return HttpResponseNotFound("This parameter value set does not exist")
-    edit_all = user_has_edit_all_permission(request.user, w)
-    if edit_all:
-        statistics = Statistic.objects.filter(tile__widget=w)
-    else:
-        statistics = Statistic.objects.filter(editable=True,tile__widget=w)
-    stats = []
-    for s in statistics:
-        try:
-            data = StatisticData.objects.get(statistic=s, param_value=pval)
-        except StatisticData.DoesNotExist:
-            data = None
-        listdata = StatisticListItem.objects.filter(statistic=s, param_value=pval)
-        stats.append({
-                "statistic": s,
-                "data_last_updated": s.data_last_updated(pval=pval),
-                "data": data,
-                "listdata": listdata,
-            })
-    graphs = []
-    for graph in GraphDefinition.objects.filter(tile__widget=w):
-        data = graph.get_data(pval=pval)
-        graphs.append({
-                "graph": graph,
-                "data_last_updated": graph.data_last_updated(pval=pval),
-                "data": data
+            self.widget = WidgetDefinition.objects.get(family__url=kwargs["widget_url"], 
+                        label=kwargs["label"])
+        except WidgetDefinition.DoesNotExist:
+            raise Http404("This Widget Definition does not exist")
+        if not user_has_edit_permission(request.user, self.widget):
+            raise PermissionDenied("You do not have permission to edit the data for this widget")
+        if self.widget.parametisation and not kwargs.get("pval_id"):
+            raise Http404("This Widget Definition is parametised")
+        if not self.widget.parametisation:
+            self.pval = None
+        else:
+            try:
+                self.pval = ParametisationValue.objects.get(pk=pval_id)
+            except ParametisationValue.DoesNotExist:
+                raise Http404("This parameter value set does not exist")
+        return
+    def get_stats(self):
+        if user_has_edit_all_permission(self.request.user, self.widget):
+            statistics = Statistic.objects.filter(tile__widget=self.widget)
+        else:
+            statistics = Statistic.objects.filter(editable=True,tile__widget=self.widget)
+        stats = []
+        for s in statistics:
+            try:
+                data = StatisticData.objects.get(statistic=s, param_value=self.pval)
+            except StatisticData.DoesNotExist:
+                data = None
+            listdata = StatisticListItem.objects.filter(statistic=s, param_value=self.pval)
+            stats.append({
+                    "statistic": s,
+                    "data_last_updated": s.data_last_updated(pval=self.pval),
+                    "data": data,
+                    "listdata": listdata,
                 })
-    if request.method == "POST":
-        form = WidgetDataForm(request.POST)
-        if form.is_valid():
-            set_actual_frequency_display_text(w.url(), w.label,
-                        form.cleaned_data["actual_frequency_display_text"], pval=pval)
-            set_text_block(w.url(), w.label,
-                        form.cleaned_data["text_block"], pval=pval)
-    else:
-        wd = w.widget_data(pval=pval)
+        return stats
+    def get_graphs(self):
+        graphs = []
+        for graph in GraphDefinition.objects.filter(tile__widget=self.widget):
+            data = graph.get_data(pval=self.pval)
+            graphs.append({
+                    "graph": graph,
+                    "data_last_updated": graph.data_last_updated(pval=self.pval),
+                    "data": data
+                    })
+        return graphs
+    def get_initial(self):
+        wd = self.widget.widget_data(pval=self.pval)
         if wd:
             text = wd.text_block
         else:
             text = ""
-        form = WidgetDataForm(initial={
-                "actual_frequency_display_text": w.actual_frequency_display(wd=wd),
+        return {
+                "actual_frequency_display_text": self.widget.actual_frequency_display(wd=wd),
                 "text_block": text,
-                })
-    return render(request, "widget_data/view_widget.html", {
-            "pval": pval,
-            "widget": w,
-            "stats": stats,
-            "graphs": graphs,
-            "form": form,
-            })
-
-@login_required
-def edit_stat(request, widget_url, label, stat_url, pval_id=None):
-    try:
-        s = get_statistic(widget_url, label, stat_url)
-    except LoaderException:
-        return HttpResponseNotFound("This Statistic does not exist")
-    if not user_has_edit_permission(request.user, s.tile.widget):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    if not s.editable and not user_has_edit_all_permission(request.user, s.tile.widget):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    if s.tile.widget.parametisation and not pval_id:
-        return HttpResponseNotFound("This Widget Definition is parametised")
-    if not s.tile.widget.parametisation:
-        pval = None
-    else:
-        try:
-            pval = ParametisationValue.objects.get(pk=pval_id)
-        except ParametisationValue.DoesNotExist:
-            return HttpResponseNotFound("This parameter value set does not exist")
-    form_class = get_form_class_for_statistic(s)
-    if s.is_data_list():
-        form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
+        }
+    def get_context_data(self, **kwargs):
+        kwargs["pval"] = self.pval
+        kwargs["widget"] = self.widget
+        kwargs["stats"] = self.get_stats()
+        kwargs["graphs"] = self.get_graphs()
+        return super(ViewWidgetView, self).get_context_data(**kwargs)
+    def form_valid(self, form):
+        set_actual_frequency_display_text(self.widget.url(), self.widget.label,
+                        form.cleaned_data["actual_frequency_display_text"], pval=self.pval)
+        set_text_block(self.widget.url(), self.widget.label,
+                    form.cleaned_data["text_block"], pval=self.pval)
+        # No redirect on success, so call down to super.form_invalid instead.
+        return super(ViewWidgetView, self).form_invalid(form)
+ 
+@method_decorator(login_required, name="dispatch")
+class EditStatView(InitialisableFormView):
+    template_name = "widget_data/edit_widget.html"
     redirect_out = False
-    if request.method == 'POST':
-        if request.POST.get("submit") or request.POST.get("submit_stay"):
-            form = form_class(request.POST)
-            if form.is_valid():
-                if s.is_data_list():
-                    clear_statistic_list(s, pval=pval)
-                    for subform in form:
-                        fd = subform.cleaned_data
-                        if fd and not fd.get("DELETE"):
-                            add_stat_list_item(s, fd["value"], fd["sort_order"], pval,
-                                        fd.get("datetime"), fd.get("level"), fd.get("date"), fd.get("label"),
-                                        fd.get("traffic_light_code"), fd.get("icon_code"),
-                                        fd.get("trend"), fd.get("url"))
-                    if request.POST.get("submit"):
-                        redirect_out=True
-                    else:
-                        form = form_class(initial=s.initial_form_data(pval))
-                else:
-                    fd = form.cleaned_data
-                    set_stat_data(s, fd.get("value"), pval,
-                                    fd.get("traffic_light_code"), fd.get("icon_code"), 
-                                    fd.get("trend"), fd.get("label"))
-                    redirect_out=True
-        elif request.POST.get("cancel"):
-            redirect_out=True
-        elif not s.is_data_list() and request.POST.get("delete"):
-            clear_statistic_data(s)
-            redirect_out=True
-        else:
-            form = form_class(initial=s.initial_form_data(pval))
-    else:
-        form = form_class(initial=s.initial_form_data(pval))
-
-    if redirect_out:
-        if pval:
-            return redirect("view_parametised_widget_data", 
-                    widget_url=s.tile.widget.family.url, 
-                    label=s.tile.widget.label,
-                    pval_id=pval_id)
-        else:
-            return redirect("view_widget_data", 
-                widget_url=s.tile.widget.family.url, 
-                label=s.tile.widget.label)
-
-    return render(request, "widget_data/edit_widget.html", {
-                "pval": pval,
-                "widget": s.tile.widget,
-                "statistic": s,
-                "form": form
-                })
-
-@login_required
-def edit_graph(request, widget_url, label, tile_url, pval_id=None):
-    try:
-        w = WidgetDefinition.objects.get(family__url=widget_url, 
-                        label=label)
-    except WidgetDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Widget Definition does not exist")
-    if not user_has_edit_permission(request.user, w):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    try:
-        g = GraphDefinition.objects.get(tile__widget=w, tile__url=tile_url)
-    except GraphDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Graph does not exist")
-    if not g.widget().parametisation:
-        pval = None
-    else:
+    def get_form_class(self):
+        form_class = get_form_class_for_statistic(self.stat)
+        if self.stat.is_data_list():
+            form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=4)
+        return form_class
+    def common_startup(self, request, *args, **kwargs):
         try:
-            pval = ParametisationValue.objects.get(pk=pval_id)
-        except ParametisationValue.DoesNotExist:
-            return HttpResponseNotFound("This parameter value set does not exist")
-
-    form_class = get_form_class_for_graph(g, pval=pval)
-    form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=10)
-    overrides_form_class = get_override_form_class_for_graph(g)
-    overrides_form = None
-    if g.dynamic_clusters:
-        dyncluster_form_class = forms.modelformset_factory(DynamicGraphCluster, form=DynamicGraphClusterForm, can_delete=True, extra=3)
-    else:
-        dyncluster_form_class = None
-    dyncluster_form = None
-    return_redirect = False
-    if request.method == 'POST':
+            self.stat = get_statistic(kwargs["widget_url"], kwargs["label"], kwargs["stat_url"])
+        except LoaderException:
+            raise Http404("This Statistic does not exist")
+        if not user_has_edit_permission(request.user, self.stat.tile.widget):
+            raise PermissionDenied("You do not have permission to edit the data for this widget")
+        if not self.stat.editable and not user_has_edit_all_permission(request.user, self.stat.tile.widget):
+            raise PermissionDenied("You do not have permission to edit the data for this widget")
+        if self.stat.tile.widget.parametisation and not kwargs.get("pval_id"):
+            raise Http404("This Widget Definition is parametised")
+        if not self.stat.tile.widget.parametisation:
+            self.pval = None
+        else:
+            try:
+                self.pval = ParametisationValue.objects.get(pk=kwargs.get("pval_id"))
+            except ParametisationValue.DoesNotExist:
+                raise Http404("This parameter value set does not exist")
+        return 
+    def get_success_url(self):
+        if self.pval:
+            return reverse("view_parametised_widget_data", 
+                    kwargs = {
+                        "widget_url": self.stat.tile.widget.family.url, 
+                        "label": self.stat.tile.widget.label,
+                        "pval_id": self.pval.id,
+                    })
+        else:
+            return reverse("view_widget_data", 
+                kwargs = {
+                    "widget_url": self.stat.tile.widget.family.url, 
+                    "label": self.stat.tile.widget.label,
+                })
+    def get_context_data(self, **kwargs):
+        kwargs["pval"] = self.pval
+        kwargs["widget"] = self.stat.tile.widget
+        kwargs["statistic"] = self.stat
+        return super(EditStatView, self).get_context_data(**kwargs)
+    def get_initial(self):
+        return self.stat.initial_form_data(self.pval)
+    def post(self, request, *args, **kwargs):
         if request.POST.get("submit") or request.POST.get("submit_stay"):
-            form = form_class(request.POST)
-            if overrides_form_class:
-                overrides_form = overrides_form_class(request.POST)
-            if dyncluster_form_class:
-                dyncluster_form = dyncluster_form_class(request.POST, queryset=DynamicGraphCluster.objects.filter(graph=g, param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
-            if form.is_valid() and (not overrides_form or overrides_form.is_valid()) and (not dyncluster_form or dyncluster_form.is_valid()):
-                clear_graph_data(g, pval=pval)
-                if dyncluster_form:
-                    dyncluster_form.save()
-                for subform in form:
-                    fd = subform.cleaned_data
-                    if fd and not fd.get("DELETE"):
-                        gd = GraphData(graph=g, param_value=pval)
-                        gd.value = fd["value"]
-                        gd.err_valmin = fd.get("err_valmin")
-                        gd.err_valmax = fd.get("err_valmax")
-                        if g.use_clusters():
-                            gd.set_cluster(fd["cluster"])
-                        gd.dataset = fd["dataset"]
-                        if g.graph_type == g.LINE:
-                            if g.horiz_axis_type == g.NUMERIC:
-                                gd.horiz_numericval = fd["horiz_value"]
-                            elif g.horiz_axis_type == g.DATE:
-                                gd.horiz_dateval = fd["horiz_value"]
-                            elif g.horiz_axis_type == g.TIME:
-                                gd.horiz_timeval = fd["horiz_value"]
-                            elif g.horiz_axis_type == g.TIME:
-                                gd.horiz_dateval = fd["horiz_value"].date()
-                                gd.horiz_timeval = fd["horiz_value"].time()
-                        gd.save()
-                if overrides_form:
-                    fod = overrides_form.cleaned_data
+            return super(EditStatView, self).post(request, *args, **kwargs)
+        self.common_startup(request, *args, **kwargs)
+        if request.POST.get("cancel"):
+            self.redirect_out=True
+        elif not self.stat.is_data_list() and request.POST.get("delete"):
+            clear_statistic_data(self.stat)
+            self.redirect_out=True
+        if self.redirect_out:
+            return super(EditStatView, self).form_valid(None)
+        else:
+            return self.form_invalid(self.get_reset_form())
+    def form_valid(self, form):
+        if self.stat.is_data_list():
+            clear_statistic_list(self.stat, pval=pval)
+            for subform in form:
+                fd = subform.cleaned_data
+                if fd and not fd.get("DELETE"):
+                    add_stat_list_item(self.stat, fd["value"], fd["sort_order"], self.pval,
+                                fd.get("datetime"), fd.get("level"), fd.get("date"), fd.get("label"),
+                                fd.get("traffic_light_code"), fd.get("icon_code"),
+                                fd.get("trend"), fd.get("url"))
+            if request.POST.get("submit"):
+                redirect_out=True
+            else:
+                form = self.get_reset_form()
+        else:
+            fd = form.cleaned_data
+            set_stat_data(self.stat, fd.get("value"), self.pval,
+                            fd.get("traffic_light_code"), fd.get("icon_code"), 
+                            fd.get("trend"), fd.get("label"))
+            redirect_out=True
+        if self.redirect_out:
+            return super(EditStatView, self).form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+def do_common_return(func):
+    def func_out(self, request, *args, **kwargs):
+        func(self, request, *args, **kwargs)
+        return self.common_return(request)
+    return func_out
+
+def do_common_wrappers(func):
+    return do_common_return(do_common_startup(func))
+
+@method_decorator(login_required, name="dispatch")
+class EditGraphView(TemplateResponseMixin, ContextMixin, View):
+    template_name = "widget_data/edit_graph.html"
+    def common_startup(self, request, *args, **kwargs):
+        try:
+            self.widget = WidgetDefinition.objects.get(family__url=kwargs["widget_url"], 
+                            label=kwargs["label"])
+        except WidgetDefinition.DoesNotExist:
+            raise Http404("This Widget Definition does not exist")
+        if not user_has_edit_permission(request.user, self.widget):
+            raise PermissionDenied("You do not have permission to edit the data for this widget")
+        try:
+            self.graph = GraphDefinition.objects.get(tile__widget=self.widget, tile__url=kwargs["tile_url"])
+        except GraphDefinition.DoesNotExist:
+            raise Http404("This Graph does not exist")
+        if not self.widget.parametisation:
+            self.pval = None
+        else:
+            try:
+                self.pval = ParametisationValue.objects.get(pk=kwargs["pval_id"])
+            except ParametisationValue.DoesNotExist:
+                raise PermissionDenied("This parameter value set does not exist")
+        self.form_class = get_form_class_for_graph(self.graph, pval=self.pval)
+        self.form_class = forms.formsets.formset_factory(self.form_class, can_delete=True, extra=10)
+        self.overrides_form_class = get_override_form_class_for_graph(self.graph)
+        if self.graph.dynamic_clusters:
+            self.dyncluster_form_class = forms.modelformset_factory(DynamicGraphCluster, form=DynamicGraphClusterForm, can_delete=True, extra=3)
+        else:
+            self.dyncluster_form_class = None
+        self.overrides_form = None
+        self.dyncluster_form = None
+        self.return_redirect = False
+    def reset_forms(self):
+        self.form = self.form_class(initial=self.graph.initial_form_data(self.pval))
+        if self.overrides_form_class:
+            self.overrides_form = self.overrides_form_class(initial=self.graph.initial_override_form_data(self.pval))
+        if self.dyncluster_form_class:
+            self.dyncluster_form = self.dyncluster_form_class(queryset=self.graph.dynamicgraphcluster_set.filter(param_value=self.pval), 
+                                        prefix="clusters", 
+                                        form_kwargs={"graph": self.graph, "pval": self.pval})
+    @do_common_wrappers
+    def get(self, request, *args, **kwargs):
+        self.reset_forms()
+    def process_subform(self, subform):
+        fd = subform.cleaned_data
+        if fd and not fd.get("DELETE") and not subform.is_blank(fd):
+            gd = GraphData(graph=self.graph, param_value=self.pval)
+            gd.value = fd["value"]
+            gd.err_valmin = fd.get("err_valmin")
+            gd.err_valmax = fd.get("err_valmax")
+            if self.graph.use_clusters():
+                gd.set_cluster(fd["cluster"])
+            gd.dataset = fd["dataset"]
+            if self.graph.graph_type == self.graph.LINE:
+                if self.graph.horiz_axis_type == self.graph.NUMERIC:
+                    gd.horiz_numericval = fd["horiz_value"]
+                elif self.graph.horiz_axis_type == self.graph.DATE:
+                    gd.horiz_dateval = fd["horiz_value"]
+                elif self.graph.horiz_axis_type == self.graph.TIME:
+                    gd.horiz_timeval = fd["horiz_value"]
+                elif self.graph.horiz_axis_type == self.graph.TIME:
+                    gd.horiz_dateval = fd["horiz_value"].date()
+                    gd.horiz_timeval = fd["horiz_value"].time()
+            gd.save()
+    @do_common_wrappers
+    def post(self, request, *args, **kwargs):
+        if request.POST.get("submit") or request.POST.get("submit_stay"):
+            self.form = self.form_class(request.POST)
+            if self.overrides_form_class:
+                self.overrides_form = self.overrides_form_class(request.POST)
+            if self.dyncluster_form_class:
+                self.dyncluster_form = self.dyncluster_form_class(request.POST, 
+                            queryset=DynamicGraphCluster.objects.filter(graph=self.graph, param_value=self.pval), 
+                            prefix="clusters", 
+                            form_kwargs={"graph": self.graph, "pval": self.pval})
+            if self.form.is_valid() and (not self.overrides_form or self.overrides_form.is_valid()) and (not self.dyncluster_form or self.dyncluster_form.is_valid()):
+                clear_graph_data(self.graph, pval=self.pval)
+                if self.dyncluster_form:
+                    self.dyncluster_form.save()
+                for subform in self.form:
+                    self.process_subform(subform)
+                if self.overrides_form:
+                    fod = self.overrides_form.cleaned_data
                     for fldname, fldval in fod.items():
                         ov_type, ov_url = fldname.split("_", 1)
-                        if ov_type == 'cluster':
-                            set_cluster_override(g, ov_url, fldval, pval=pval)
-                        else:
-                            set_dataset_override(g, ov_url, fldval, pval=pval)
+                        set_dataset_override(self.graph, ov_url, fldval, pval=self.pval)
                 if request.POST.get("submit"):
-                    return_redirect=True
+                    self.return_redirect=True
                 else:
-                    form = form_class(initial=g.initial_form_data(pval))
-                    if overrides_form_class:
-                        overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
-                    if dyncluster_form_class:
-                        dyncluster_form = dyncluster_form_class(queryset=g.dynamicgraphcluster_set.filter(param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
+                    self.reset_forms()
         elif request.POST.get("cancel"):
-            return_redirect=True
-        else:
-            form = form_class(initial=g.initial_form_data(pval))
-            if overrides_form_class:
-                overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
-            if dyncluster_form_class:
-                dyncluster_form = dyncluster_form_class(queryset=g.dynamicgraphcluster_set.filter(param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
-    else:
-        form = form_class(initial=g.initial_form_data(pval))
-        if overrides_form_class:
-            overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
-        if dyncluster_form_class:
-            dyncluster_form = dyncluster_form_class(queryset=g.dynamicgraphcluster_set.filter(param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
-    if return_redirect:
-        if pval:
-            return redirect("view_parametised_widget_data", 
-                        widget_url=w.family.url, 
-                        label=label, pval_id=pval_id)
-        else: 
-            return redirect("view_widget_data", 
-                        widget_url=w.family.url, 
-                        label=label)
-    return render(request, "widget_data/edit_graph.html", {
-                "widget": w,
-                "pval": pval,
-                "graph": g,
-                "form": form,
-                "overrides_form": overrides_form,
-                "dyncluster_form": dyncluster_form,
-                })
+            self.return_redirect=True
+    def common_return(self, request):
+        if self.return_redirect:
+            if self.pval:
+                return redirect("view_parametised_widget_data", 
+                            widget_url=self.widget.family.url, 
+                            label=self.widget.label, pval_id=self.pval.id)
+            else: 
+                return redirect("view_widget_data", 
+                            widget_url=self.widget.family.url, 
+                            label=self.widget.label)
+        return self.render_to_response(self.get_context_data())
+    def get_context_data(self, **kwargs):
+        kwargs["widget"] =  self.widget
+        kwargs["pval"] = self.pval
+        kwargs["graph"] =  self.graph
+        kwargs["form"] = self.form
+        kwargs["overrides_form"] = self.overrides_form
+        kwargs["dyncluster_form"] = self.dyncluster_form
+        return super(EditGraphView, self).get_context_data(**kwargs)
 
 class UploadForm(forms.Form):
     new_actual_frequency_display_value=forms.CharField(max_length=60, required=False)
     file=forms.FileField()
-
-@login_required
-def upload(request, uploader_app):
-    try:
-        uploader = Uploader.objects.get(app=uploader_app)
-    except Uploader.DoesNotExist:
-        return HttpResponseNotFound("This uploader does not exist")
-    if not user_has_uploader_permission(request.user, uploader):
-        return HttpResponseForbidden("You do not have permission to upload data for this uploader")
-    fmt = get_update_format(uploader_app)
-    messages = []
-    if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            messages = handle_uploaded_file(uploader, request.FILES["file"], 
-                    form.cleaned_data["new_actual_frequency_display_value"])
-            form = UploadForm()
-    else:
-        form = UploadForm()
-    return render(request, "widget_data/upload_data.html", {
-            "uploader": uploader,
-            "format": fmt,
-            "num_sheets": len(fmt["sheets"]),
-            "messages": messages,
-            "form": form,
-            })
+        
+@method_decorator(login_required, name="dispatch")
+class UploadView(InitialisableFormView):
+    template_name = "widget_data/upload_data.html"
+    form_class    = UploadForm
+    def common_startup(self, request, *args, **kwargs):
+        try:
+            self.uploader = Uploader.objects.get(app=kwargs["uploader_app"])
+        except Uploader.DoesNotExist:
+            raise Http404("This uploader does not exist")
+        if not user_has_uploader_permission(request.user, self.uploader):
+            raise PermissionDenied("You do not have permission to upload data for this uploader")
+        self.fmt = get_update_format(kwargs["uploader_app"])
+        self.messages = []
+    def form_valid(self, form):
+        self.messages = self.handle_uploaded_file(form.cleaned_data["new_actual_frequency_display_value"])
+        return self.form_invalid(self, self.get_reset_form())
+    def get_context_data(self, **kwargs):
+        kwargs["uploader"] = self.uploader
+        kwargs["format"] = self.fmt
+        kwargs["num_sheets"] = len(self.fmt["sheets"])
+        kwargs["messages"] = self.messages
+        return super(UploadView, self).get_context_data(**kwargs)
+    def handle_uploaded_file(self, freq_display=None):
+        try:
+            return do_upload(self.uploader, self.request.FILES["file"], 
+                        actual_freq_display=freq_display, verbosity=3)
+        except LoaderException, e:
+            return [ "Upload Error: %s" % unicode(e) ]
 
 def handle_uploaded_file(uploader, uploaded_file, freq_display=None):
     try:
@@ -548,7 +603,7 @@ class EditUserForm(forms.Form):
                     login_required, 
                     permission_required('auth.add_user', raise_exception=True) 
             ], name="dispatch")
-class EditUserView(FormView):
+class EditUserView(InitialisableFormView):
     template_name = "users/edit_user.html"
     success_url = reverse_lazy('maintain_users')
     form_class=EditUserForm
@@ -562,13 +617,9 @@ class EditUserView(FormView):
     def get_context_data(self, **kwargs):
         kwargs["u"] = self.user
         return super(EditUserView, self).get_context_data(**kwargs)
-    def get(self, request, *args, **kwargs):
-        self.common_startup(request, *args, **kwargs)
-        return super(EditUserView, self).get(request, *args, **kwargs)
     def post(self, request, *args, **kwargs):
         if request.POST.get("cancel"):
             return HttpResponseRedirect(self.get_success_url())
-        self.common_startup(request, *args, **kwargs)
         return super(EditUserView, self).post(request, *args, **kwargs)
     def form_valid(self, form):
         data = form.cleaned_data

@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015, 2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ def get_form_class_for_statistic(stat):
         def clean_check_date(self, data):
             if not data["DELETE"]:
                 if not data["date"]:
-                    self.add_error("datetime", "This field is required")
+                    self.add_error("date", "This field is required")
             return data
         clean_checks.append(clean_check_date)
     elif stat.use_datetimekey():
@@ -208,13 +208,31 @@ def get_form_class_for_graph(graph, pval=None):
     form_fields["error_bar_datasets"] = error_bar_datasets
     if graph.use_clusters():
         if graph.dynamic_clusters:
-            form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.dynamicgraphcluster_set.filter(param_value=pval), to_field_name="url", required=True)
+            form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.dynamicgraphcluster_set.filter(param_value=pval), to_field_name="url", required=False)
         else:
-            form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.graphcluster_set.all(), to_field_name="url", required=True)
+            form_fields["cluster"] = forms.ModelChoiceField(queryset=graph.graphcluster_set.all(), to_field_name="url", required=False)
+        def clean_check_cluster(self, data):
+            if not data["DELETE"] and not self.is_blank(data):
+                if not data["cluster"]:
+                    self.add_error("cluster", "This field is required")
+            return data
+        clean_checks.append(clean_check_cluster)
         field_count += 1
-    form_fields["dataset"] = forms.ModelChoiceField(queryset=graph.graphdataset_set.all(), to_field_name="url", required=True)
+    form_fields["dataset"] = forms.ModelChoiceField(queryset=graph.graphdataset_set.all(), to_field_name="url", required=False)
+    def clean_check_dataset(self, data):
+        if not data["DELETE"] and not self.is_blank(data):
+            if not data["dataset"]:
+                self.add_error("dataset", "This field is required")
+        return data
+    clean_checks.append(clean_check_dataset)
     field_count += 1
-    form_fields["value"] = forms.DecimalField(required=True, decimal_places=4)
+    form_fields["value"] = forms.DecimalField(required=False, decimal_places=4)
+    def clean_check_value(self, data):
+        if not data["DELETE"] and not self.is_blank(data):
+            if data["value"] is None:
+                self.add_error("value", "This field is required")
+        return data
+    clean_checks.append(clean_check_value)
     field_count += 1
     if graph.use_numeric_axes():
         form_fields["err_valmin"] = forms.DecimalField(label="Min", required=False, decimal_places=4)
@@ -223,7 +241,13 @@ def get_form_class_for_graph(graph, pval=None):
         field_count += 2
     if graph.graph_type == graph.LINE:
         if graph.horiz_axis_type == graph.NUMERIC:
-            form_fields["horiz_value"] = forms.DecimalField(required=True, decimal_places=4)
+            form_fields["horiz_value"] = forms.DecimalField(required=False, decimal_places=4)
+            def clean_check_hvalue(self, data):
+                if not data["DELETE"] and not self.is_blank(data):
+                    if data["horiz_value"] is None:
+                        self.add_error("horiz_value", "This field is required")
+                return data
+            clean_checks.append(clean_check_hvalue)
         elif graph.horiz_axis_type == graph.DATE:
             form_fields["horiz_value"] = forms.DateField(required=True, widget=SelectDateWidget(years=range(2000,datetime.date.today().year+5)))
         elif graph.horiz_axis_type == graph.TIME:
@@ -235,6 +259,20 @@ def get_form_class_for_graph(graph, pval=None):
     form_fields["clean"] = clean
     form_fields["clean_checks"] = clean_checks
     form_fields["hidable_fields"] = ["Min", "Max"]
+    def is_blank(self, data):
+        if not data.get("cluster") and not data.get("dataset") and data.get("value") is None:
+            if graph.graph_type == graph.LINE:
+                if graph.horiz_axis_type == graph.NUMERIC:
+                    return data["horiz_value"] is None
+                elif graph.horiz_axis_type == graph.DATE:
+                    return data["horiz_value"] == datetime.date(2000, 1, 1)
+                elif graph.horiz_axis_type == graph.TIME:
+                    return data["horiz_value"] == datetime.time(0, 0, 0)
+                elif graph.horiz_axis_type == graph.DATETIME:
+                    return data["horiz_value"] == datetime.datetime(2000, 0, 0, 0, 0, 0)
+            return True
+        return False
+    form_fields["is_blank"] = is_blank
     return type(str("Graph_%s_Form" % graph.tile.url), (forms.Form,), 
                         form_fields)  
 
