@@ -31,9 +31,9 @@ urlpatterns = [
     url(r'^widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<stat_url>[^/]*)$', views.EditStatView.as_view(), name="edit_stat"),
     url(r'^parametised_widgets/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<pval_id>[^/]+)/(?P<stat_url>[^/]+)$', views.EditStatView.as_view(), name="edit_parametised_stat"),
     url(r'^graphs/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<tile_url>[^/]+)$', 
-                        views.edit_graph, name="edit_graph"),
+                        views.EditGraphView.as_view(), name="edit_graph"),
     url(r'^graphs/(?P<widget_url>[^/]+)/(?P<label>[^/]+)/(?P<tile_url>[^/]+)/(?P<pval_id>[^/]+)$', 
-                        views.edit_graph, name="edit_parametised_graph"),
+                        views.EditGraphView.as_view(), name="edit_parametised_graph"),
     url(r'^upload/(?P<uploader_app>[^/]+)$', views.UploadView.as_view(), name="upload_data"),
 
     # Views for maintaining users

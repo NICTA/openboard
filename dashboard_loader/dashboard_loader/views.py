@@ -20,7 +20,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required, permission_required
 from django.views.generic.edit import FormView
-from django.views.generic.base import RedirectView
+from django.views.generic.base import View, TemplateResponseMixin, ContextMixin
 from django.views.generic.list import ListView
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
@@ -119,14 +119,20 @@ class WidgetDataForm(forms.Form):
     actual_frequency_display_text=forms.CharField(max_length=60)
     text_block=forms.CharField(widget=forms.Textarea(attrs={"rows": 9, "cols": 50 }), required=False)
 
+def do_common_startup(func):
+    def func_out(self, request, *args, **kwargs):
+        self.common_startup(request, *args, **kwargs)
+        return func(self, request, *args, **kwargs)
+    return func_out
+
 class InitialisableFormView(FormView):
     def common_startup(self, request, *args, **kwargs):
        return
+    @do_common_startup
     def get(self, request, *args, **kwargs):
-        self.common_startup(request, *args, **kwargs)
         return super(InitialisableFormView, self).get(request, *args, **kwargs)
+    @do_common_startup
     def post(self, request, *args, **kwargs):
-        self.common_startup(request, *args, **kwargs)
         return super(InitialisableFormView, self).post(request, *args, **kwargs)
     def get_reset_form(self):
         kwargs = self.get_form_kwargs()
@@ -298,116 +304,126 @@ class EditStatView(InitialisableFormView):
         else:
             return self.form_invalid(form)
 
-@login_required
-def edit_graph(request, widget_url, label, tile_url, pval_id=None):
-    try:
-        w = WidgetDefinition.objects.get(family__url=widget_url, 
-                        label=label)
-    except WidgetDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Widget Definition does not exist")
-    if not user_has_edit_permission(request.user, w):
-        return HttpResponseForbidden("You do not have permission to edit the data for this widget")
-    try:
-        g = GraphDefinition.objects.get(tile__widget=w, tile__url=tile_url)
-    except GraphDefinition.DoesNotExist:
-        return HttpResponseNotFound("This Graph does not exist")
-    if not g.widget().parametisation:
-        pval = None
-    else:
-        try:
-            pval = ParametisationValue.objects.get(pk=pval_id)
-        except ParametisationValue.DoesNotExist:
-            return HttpResponseNotFound("This parameter value set does not exist")
+def do_common_return(func):
+    def func_out(self, request, *args, **kwargs):
+        func(self, request, *args, **kwargs)
+        return self.common_return(request)
+    return func_out
 
-    form_class = get_form_class_for_graph(g, pval=pval)
-    form_class = forms.formsets.formset_factory(form_class, can_delete=True, extra=10)
-    overrides_form_class = get_override_form_class_for_graph(g)
-    overrides_form = None
-    if g.dynamic_clusters:
-        dyncluster_form_class = forms.modelformset_factory(DynamicGraphCluster, form=DynamicGraphClusterForm, can_delete=True, extra=3)
-    else:
-        dyncluster_form_class = None
-    dyncluster_form = None
-    return_redirect = False
-    if request.method == 'POST':
+def do_common_wrappers(func):
+    return do_common_return(do_common_startup(func))
+
+@method_decorator(login_required, name="dispatch")
+class EditGraphView(TemplateResponseMixin, ContextMixin, View):
+    template_name = "widget_data/edit_graph.html"
+    def common_startup(self, request, *args, **kwargs):
+        try:
+            self.widget = WidgetDefinition.objects.get(family__url=kwargs["widget_url"], 
+                            label=kwargs["label"])
+        except WidgetDefinition.DoesNotExist:
+            raise Http404("This Widget Definition does not exist")
+        if not user_has_edit_permission(request.user, self.widget):
+            raise PermissionDenied("You do not have permission to edit the data for this widget")
+        try:
+            self.graph = GraphDefinition.objects.get(tile__widget=self.widget, tile__url=kwargs["tile_url"])
+        except GraphDefinition.DoesNotExist:
+            raise Http404("This Graph does not exist")
+        if not self.widget.parametisation:
+            self.pval = None
+        else:
+            try:
+                self.pval = ParametisationValue.objects.get(pk=kwargs["pval_id"])
+            except ParametisationValue.DoesNotExist:
+                raise PermissionDenied("This parameter value set does not exist")
+        self.form_class = get_form_class_for_graph(self.graph, pval=self.pval)
+        self.form_class = forms.formsets.formset_factory(self.form_class, can_delete=True, extra=10)
+        self.overrides_form_class = get_override_form_class_for_graph(self.graph)
+        if self.graph.dynamic_clusters:
+            self.dyncluster_form_class = forms.modelformset_factory(DynamicGraphCluster, form=DynamicGraphClusterForm, can_delete=True, extra=3)
+        else:
+            self.dyncluster_form_class = None
+        self.overrides_form = None
+        self.dyncluster_form = None
+        self.return_redirect = False
+    def reset_forms(self):
+        self.form = self.form_class(initial=self.graph.initial_form_data(self.pval))
+        if self.overrides_form_class:
+            self.overrides_form = self.overrides_form_class(initial=self.graph.initial_override_form_data(self.pval))
+        if self.dyncluster_form_class:
+            self.dyncluster_form = self.dyncluster_form_class(queryset=self.graph.dynamicgraphcluster_set.filter(param_value=self.pval), 
+                                        prefix="clusters", 
+                                        form_kwargs={"graph": self.graph, "pval": self.pval})
+    @do_common_wrappers
+    def get(self, request, *args, **kwargs):
+        self.reset_forms()
+    def process_subform(self, subform):
+        fd = subform.cleaned_data
+        if fd and not fd.get("DELETE") and not subform.is_blank(fd):
+            gd = GraphData(graph=self.graph, param_value=self.pval)
+            gd.value = fd["value"]
+            gd.err_valmin = fd.get("err_valmin")
+            gd.err_valmax = fd.get("err_valmax")
+            if self.graph.use_clusters():
+                gd.set_cluster(fd["cluster"])
+            gd.dataset = fd["dataset"]
+            if self.graph.graph_type == self.graph.LINE:
+                if self.graph.horiz_axis_type == self.graph.NUMERIC:
+                    gd.horiz_numericval = fd["horiz_value"]
+                elif self.graph.horiz_axis_type == self.graph.DATE:
+                    gd.horiz_dateval = fd["horiz_value"]
+                elif self.graph.horiz_axis_type == self.graph.TIME:
+                    gd.horiz_timeval = fd["horiz_value"]
+                elif self.graph.horiz_axis_type == self.graph.TIME:
+                    gd.horiz_dateval = fd["horiz_value"].date()
+                    gd.horiz_timeval = fd["horiz_value"].time()
+            gd.save()
+    @do_common_wrappers
+    def post(self, request, *args, **kwargs):
         if request.POST.get("submit") or request.POST.get("submit_stay"):
-            form = form_class(request.POST)
-            if overrides_form_class:
-                overrides_form = overrides_form_class(request.POST)
-            if dyncluster_form_class:
-                dyncluster_form = dyncluster_form_class(request.POST, queryset=DynamicGraphCluster.objects.filter(graph=g, param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
-            if form.is_valid() and (not overrides_form or overrides_form.is_valid()) and (not dyncluster_form or dyncluster_form.is_valid()):
-                clear_graph_data(g, pval=pval)
-                if dyncluster_form:
-                    dyncluster_form.save()
-                for subform in form:
-                    fd = subform.cleaned_data
-                    if fd and not fd.get("DELETE"):
-                        gd = GraphData(graph=g, param_value=pval)
-                        gd.value = fd["value"]
-                        gd.err_valmin = fd.get("err_valmin")
-                        gd.err_valmax = fd.get("err_valmax")
-                        if g.use_clusters():
-                            gd.set_cluster(fd["cluster"])
-                        gd.dataset = fd["dataset"]
-                        if g.graph_type == g.LINE:
-                            if g.horiz_axis_type == g.NUMERIC:
-                                gd.horiz_numericval = fd["horiz_value"]
-                            elif g.horiz_axis_type == g.DATE:
-                                gd.horiz_dateval = fd["horiz_value"]
-                            elif g.horiz_axis_type == g.TIME:
-                                gd.horiz_timeval = fd["horiz_value"]
-                            elif g.horiz_axis_type == g.TIME:
-                                gd.horiz_dateval = fd["horiz_value"].date()
-                                gd.horiz_timeval = fd["horiz_value"].time()
-                        gd.save()
-                if overrides_form:
-                    fod = overrides_form.cleaned_data
+            self.form = self.form_class(request.POST)
+            if self.overrides_form_class:
+                self.overrides_form = self.overrides_form_class(request.POST)
+            if self.dyncluster_form_class:
+                self.dyncluster_form = self.dyncluster_form_class(request.POST, 
+                            queryset=DynamicGraphCluster.objects.filter(graph=self.graph, param_value=self.pval), 
+                            prefix="clusters", 
+                            form_kwargs={"graph": self.graph, "pval": self.pval})
+            if self.form.is_valid() and (not self.overrides_form or self.overrides_form.is_valid()) and (not self.dyncluster_form or self.dyncluster_form.is_valid()):
+                clear_graph_data(self.graph, pval=self.pval)
+                if self.dyncluster_form:
+                    self.dyncluster_form.save()
+                for subform in self.form:
+                    self.process_subform(subform)
+                if self.overrides_form:
+                    fod = self.overrides_form.cleaned_data
                     for fldname, fldval in fod.items():
                         ov_type, ov_url = fldname.split("_", 1)
-                        if ov_type == 'cluster':
-                            set_cluster_override(g, ov_url, fldval, pval=pval)
-                        else:
-                            set_dataset_override(g, ov_url, fldval, pval=pval)
+                        set_dataset_override(self.graph, ov_url, fldval, pval=self.pval)
                 if request.POST.get("submit"):
-                    return_redirect=True
+                    self.return_redirect=True
                 else:
-                    form = form_class(initial=g.initial_form_data(pval))
-                    if overrides_form_class:
-                        overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
-                    if dyncluster_form_class:
-                        dyncluster_form = dyncluster_form_class(queryset=g.dynamicgraphcluster_set.filter(param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
+                    self.reset_forms()
         elif request.POST.get("cancel"):
-            return_redirect=True
-        else:
-            form = form_class(initial=g.initial_form_data(pval))
-            if overrides_form_class:
-                overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
-            if dyncluster_form_class:
-                dyncluster_form = dyncluster_form_class(queryset=g.dynamicgraphcluster_set.filter(param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
-    else:
-        form = form_class(initial=g.initial_form_data(pval))
-        if overrides_form_class:
-            overrides_form = overrides_form_class(initial=g.initial_override_form_data(pval))
-        if dyncluster_form_class:
-            dyncluster_form = dyncluster_form_class(queryset=g.dynamicgraphcluster_set.filter(param_value=pval), prefix="clusters", form_kwargs={"graph": g, "pval": pval})
-    if return_redirect:
-        if pval:
-            return redirect("view_parametised_widget_data", 
-                        widget_url=w.family.url, 
-                        label=label, pval_id=pval_id)
-        else: 
-            return redirect("view_widget_data", 
-                        widget_url=w.family.url, 
-                        label=label)
-    return render(request, "widget_data/edit_graph.html", {
-                "widget": w,
-                "pval": pval,
-                "graph": g,
-                "form": form,
-                "overrides_form": overrides_form,
-                "dyncluster_form": dyncluster_form,
-                })
+            self.return_redirect=True
+    def common_return(self, request):
+        if self.return_redirect:
+            if self.pval:
+                return redirect("view_parametised_widget_data", 
+                            widget_url=self.widget.family.url, 
+                            label=self.widget.label, pval_id=self.pval.id)
+            else: 
+                return redirect("view_widget_data", 
+                            widget_url=self.widget.family.url, 
+                            label=self.widget.label)
+        return self.render_to_response(self.get_context_data())
+    def get_context_data(self, **kwargs):
+        kwargs["widget"] =  self.widget
+        kwargs["pval"] = self.pval
+        kwargs["graph"] =  self.graph
+        kwargs["form"] = self.form
+        kwargs["overrides_form"] = self.overrides_form
+        kwargs["dyncluster_form"] = self.dyncluster_form
+        return super(EditGraphView, self).get_context_data(**kwargs)
 
 class UploadForm(forms.Form):
     new_actual_frequency_display_value=forms.CharField(max_length=60, required=False)
