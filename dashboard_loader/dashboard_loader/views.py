@@ -444,7 +444,7 @@ class UploadView(InitialisableFormView):
         self.messages = []
     def form_valid(self, form):
         self.messages = self.handle_uploaded_file(form.cleaned_data["new_actual_frequency_display_value"])
-        return self.form_invalid(self, self.get_reset_form())
+        return self.form_invalid(self.get_reset_form())
     def get_context_data(self, **kwargs):
         kwargs["uploader"] = self.uploader
         kwargs["format"] = self.fmt
