@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -37,6 +37,16 @@ class WidgetViewAdmin(admin.ModelAdmin):
     inlines = [ ViewPropertyInline, ViewWidgetDeclInline ]
 
 admin.site.register(WidgetView, WidgetViewAdmin)
+
+class ViewFamilyMemberInline(admin.TabularInline):
+    model = ViewFamilyMember
+
+# @admin.register(ViewFamily)
+class ViewFamilyAdmin(admin.ModelAdmin):
+    list_display = ['label', 'name',]
+    inlines = [ ViewFamilyMemberInline ]
+
+admin.site.register(ViewFamily, ViewFamilyAdmin)
 
 class ParametisationKeyInline(admin.TabularInline):
     model=ParametisationKey

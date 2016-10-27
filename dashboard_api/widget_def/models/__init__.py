@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from reference import Category, Subcategory
-from views import ViewType, WidgetView, ViewProperty
+from views import ViewType, WidgetView, ViewProperty, ViewFamily, ViewFamilyMember
 from widget_family import WidgetFamily
 from parametisation import Parametisation, ParametisationKey, ParametisationValue, ParameterValue, ViewDoesNotHaveAllKeys
 from widget_definition import WidgetDefinition

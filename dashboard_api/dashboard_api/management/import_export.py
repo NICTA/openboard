@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation, ViewFamily
 from widget_def.models.reference import AllCategories
 from widget_data.api import *
 
@@ -143,6 +143,14 @@ def export_parametisation(p):
 
 def export_categories():
     return Category().export_all()
+
+def export_view_family(vf):
+    if not isinstance(vf, ViewFamily):
+        try:
+            vf = ViewFamily.objects.get(label=vf)
+        except ViewFamily.DoesNotExist:
+            raise ImportExportException('ViewFamily "%s" does not exist' % vf)
+    return vf.export()
             
 def import_class(data):
     if data.get("children") is not None:
@@ -169,6 +177,8 @@ def import_class(data):
         return GeoWindow
     elif data.get("keys"):
         return Parametisation
+    elif data.get("family"):
+        return ViewFamily
     else:
         raise ImportExportException("Unrecognised import class")
 
