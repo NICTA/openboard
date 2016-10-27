@@ -98,6 +98,11 @@ class WidgetView(models.Model):
             "properties": { p.key: p.value() for p in self.viewproperty_set.all() },
             "widgets": [ decl.__getstate__() for decl in self.widgets.all() ], 
         }
+        other_menus = []
+        for vfm in self.viewfamilymember_set.order_by("family"):
+            other_menus.append(vfm.family.__getstate__(self))
+        if other_menus:
+            data["other_menus"] = other_menus
         if self.view_type.show_children:
             data["children"] = [ c.desc() for c in self.children.all() ]
         if self.view_type.show_siblings:
@@ -239,4 +244,81 @@ class ViewProperty(models.Model):
             vp.strval = data["value"]
         vp.save()
         return vp
+
+class ViewFamily(models.Model):
+    """
+    A ViewFamily is a set of :model:`widget_def.WidgetView`s that are related across hierarchical boundaries.
+
+    They are used to represent secondary menus that may cut across the main view hierarchy.
+    """
+    name = models.CharField(max_length=120, null=True, blank=True, help_text="The display name for the secondary menu")
+    label = models.SlugField(unique=True, help_text="The symbolic label for the view, as used in the API.")
+    sort_order = models.IntegerField(unique=True, help_text="The secondary menus for a view are sorted by this field")
+    class Meta:
+        ordering = ('sort_order', )
+    def __unicode__(self):
+        return "ViewFamily %s" % self.label
+    def export(self):
+        return {
+            "name": self.name,
+            "family": self.label,
+            "sort_order": self.sort_order,
+            "members": [ fm.export() for fm in self.viewfamilymember_set.all() ],
+        }
+    @classmethod
+    def import_data(cls, data):
+        fam, created = ViewFamily.objects.get_or_create(label=data["family"], defaults={"name": data["name"], "sort_order": data["sort_order"]})
+        members = []
+        for m in data["members"]:
+            vfm = ViewFamilyMember.import_data(fam, m)
+            members.append(vfm.view.label)
+        for vfm in self.viewfamilymember_set.all():
+            if vfm.view.label not in members:
+                vfm.delete()
+        return fam
+    def __getstate__(self, enclosing_view):
+        return {
+            "name": self.name,
+            "members": [ vfm.__getstate__(enclosing_view) for vfm in self.viewfamilymember_set.all() ]
+        }
+
+class ViewFamilyMember(models.Model):
+    """
+    Marks a :model:`widget_def.WidgetView` as belonging to a :model:`widget_def.ViewFamily`.
+    """
+    family = models.ForeignKey(ViewFamily, help_text="The family belonged to")
+    view = models.ForeignKey(WidgetView, help_text="The view belonging to")
+    name = models.CharField(max_length=120, help_text="How this view is labeled in the family menu.")
+    sort_order = models.IntegerField(help_text="How the views are sorted within the family")
+    class Meta:
+        unique_together=[
+            ('family', 'view'),
+            ('family', 'name'),
+            ('family', 'sort_order'),
+        ]
+        ordering= ('family', 'sort_order')
+    def __unicode__(self):
+        return "%s (%s)" % (self.family.label, self.name)
+    def export(self):
+        return { 
+            "view": self.view.label,
+            "name": self.name,
+            "sort_order": self.sort_order
+        }
+    @classmethod
+    def import_data(cls, family, data):
+        view = WidgetView.objects.get(label=data["view"])
+        vfm, created = cls.objects.get_or_create(view=view, family=family, defaults={"name": self.name, "sort_order": self.sort_order })
+        return vfm
+    def __getstate__(self, from_view):
+        if from_view == self.view:
+            return {
+                "menu_entry": self.name,
+                "view": "self",
+            }
+        else:
+            return {
+                "menu_entry": self.name,
+                "view": self.view.desc(),
+            }
 
