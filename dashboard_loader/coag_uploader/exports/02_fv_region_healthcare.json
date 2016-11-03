@@ -1,0 +1,53 @@
+{
+    "members": [
+        {
+            "sort_order": 100, 
+            "name": "NATIONAL", 
+            "view": "healthcare"
+        }, 
+        {
+            "sort_order": 200, 
+            "name": "ACT", 
+            "view": "healthcare_act"
+        }, 
+        {
+            "sort_order": 300, 
+            "name": "NSW", 
+            "view": "healthcare_nsw"
+        }, 
+        {
+            "sort_order": 400, 
+            "name": "NT", 
+            "view": "healthcare_nt"
+        }, 
+        {
+            "sort_order": 500, 
+            "name": "SA", 
+            "view": "healthcare_sa"
+        }, 
+        {
+            "sort_order": 600, 
+            "name": "QLD", 
+            "view": "healthcare_qld"
+        }, 
+        {
+            "sort_order": 700, 
+            "name": "TAS", 
+            "view": "healthcare_tas"
+        }, 
+        {
+            "sort_order": 800, 
+            "name": "VIC", 
+            "view": "healthcare_vic"
+        }, 
+        {
+            "sort_order": 900, 
+            "name": "WA", 
+            "view": "healthcare_wa"
+        }
+    ], 
+    "sort_order": 500, 
+    "name": "", 
+    "family": "region_healthcare"
+}
+

@@ -1,0 +1,53 @@
+{
+    "members": [
+        {
+            "sort_order": 100, 
+            "name": "NATIONAL", 
+            "view": "disability"
+        }, 
+        {
+            "sort_order": 200, 
+            "name": "ACT", 
+            "view": "disability_act"
+        }, 
+        {
+            "sort_order": 300, 
+            "name": "NSW", 
+            "view": "disability_nsw"
+        }, 
+        {
+            "sort_order": 400, 
+            "name": "NT", 
+            "view": "disability_nt"
+        }, 
+        {
+            "sort_order": 500, 
+            "name": "SA", 
+            "view": "disability_sa"
+        }, 
+        {
+            "sort_order": 600, 
+            "name": "QLD", 
+            "view": "disability_qld"
+        }, 
+        {
+            "sort_order": 700, 
+            "name": "TAS", 
+            "view": "disability_tas"
+        }, 
+        {
+            "sort_order": 800, 
+            "name": "VIC", 
+            "view": "disability_vic"
+        }, 
+        {
+            "sort_order": 900, 
+            "name": "WA", 
+            "view": "disability_wa"
+        }
+    ], 
+    "sort_order": 600, 
+    "name": "", 
+    "family": "region_disability"
+}
+

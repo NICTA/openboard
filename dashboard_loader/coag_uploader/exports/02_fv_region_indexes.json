@@ -1,0 +1,53 @@
+{
+    "members": [
+        {
+            "sort_order": 100, 
+            "name": "NATIONAL", 
+            "view": "aus"
+        }, 
+        {
+            "sort_order": 200, 
+            "name": "ACT", 
+            "view": "act"
+        }, 
+        {
+            "sort_order": 300, 
+            "name": "NSW", 
+            "view": "nsw"
+        }, 
+        {
+            "sort_order": 400, 
+            "name": "NT", 
+            "view": "nt"
+        }, 
+        {
+            "sort_order": 500, 
+            "name": "SA", 
+            "view": "sa"
+        }, 
+        {
+            "sort_order": 600, 
+            "name": "QLD", 
+            "view": "qld"
+        }, 
+        {
+            "sort_order": 700, 
+            "name": "VIC", 
+            "view": "vic"
+        }, 
+        {
+            "sort_order": 800, 
+            "name": "TAS", 
+            "view": "tas"
+        }, 
+        {
+            "sort_order": 900, 
+            "name": "WA", 
+            "view": "wa"
+        }
+    ], 
+    "sort_order": 100, 
+    "name": "", 
+    "family": "region_indexes"
+}
+
