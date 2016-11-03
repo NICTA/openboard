@@ -272,7 +272,7 @@ class ViewFamily(models.Model):
         for m in data["members"]:
             vfm = ViewFamilyMember.import_data(fam, m)
             members.append(vfm.view.label)
-        for vfm in self.viewfamilymember_set.all():
+        for vfm in fam.viewfamilymember_set.all():
             if vfm.view.label not in members:
                 vfm.delete()
         return fam
@@ -308,7 +308,7 @@ class ViewFamilyMember(models.Model):
     @classmethod
     def import_data(cls, family, data):
         view = WidgetView.objects.get(label=data["view"])
-        vfm, created = cls.objects.get_or_create(view=view, family=family, defaults={"name": self.name, "sort_order": self.sort_order })
+        vfm, created = cls.objects.get_or_create(view=view, family=family, defaults={"name": data["name"], "sort_order": data["sort_order"] })
         return vfm
     def __getstate__(self, from_view):
         if from_view == self.view:
