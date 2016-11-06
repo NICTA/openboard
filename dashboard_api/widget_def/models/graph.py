@@ -317,8 +317,8 @@ class GraphDefinition(models.Model):
             self.use_secondary_numeric_axis = False
         if not self.use_clusters() or self.dynamic_clusters:
             self.graphcluster_set.all().delete()
-            if not self.use_clusters():
-                self.cluster_label = None
+            if not self.cluster_label:
+                self.cluster_label = "cluster"
         else:
             self.horiz_axis_label = None
             self.horiz_axis_type = 0
