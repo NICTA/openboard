@@ -2,7 +2,7 @@
     "category": "education", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase Year 12 or equivalent attainment rate",
+    "subtitle": "Increase Year 12 or equivalent attainment rate", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "yr12-education-hero", 
@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 50, 
-                    "aspect": 0, 
+                    "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "education-yr12-agreement-summary", 
@@ -25,7 +25,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 100, 
-                    "aspect": 0, 
+                    "aspect": 1, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -172,7 +172,7 @@
                     "expansion": false, 
                     "main_stat_count": 1, 
                     "sort_order": 200, 
-                    "aspect": 0, 
+                    "aspect": 2, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -208,7 +208,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 300, 
-                    "aspect": 0, 
+                    "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "education-yr12-hero-graph", 
@@ -268,7 +268,7 @@
             "views": [
                 {
                     "sort_order": 200, 
-                    "view": "home"
+                    "view": "aus"
                 }
             ], 
             "default_frequency_text": "Annual", 
@@ -282,7 +282,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0",
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
     "name": "Education"
 }
 

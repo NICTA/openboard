@@ -12,7 +12,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 50, 
-                    "aspect": 0, 
+                    "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing-rs-agreement-summary", 
@@ -25,7 +25,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 100, 
-                    "aspect": 0, 
+                    "aspect": 1, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -172,7 +172,7 @@
                     "expansion": false, 
                     "main_stat_count": 1, 
                     "sort_order": 200, 
-                    "aspect": 0, 
+                    "aspect": 2, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -208,7 +208,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 300, 
-                    "aspect": 0, 
+                    "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing-rs-hero-graph", 
@@ -270,7 +270,7 @@
                     "child_view": "housing", 
                     "sort_order": 100, 
                     "child_view_text": "View All National Affordable Housing Agreement", 
-                    "view": "home"
+                    "view": "aus"
                 }
             ], 
             "default_frequency_text": "Biannual", 

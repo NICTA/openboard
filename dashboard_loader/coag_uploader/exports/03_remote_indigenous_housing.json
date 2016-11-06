@@ -13,7 +13,7 @@
                     "expansion": false, 
                     "main_stat_count": 1, 
                     "sort_order": 100, 
-                    "aspect": 0, 
+                    "aspect": 1, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -49,7 +49,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 200, 
-                    "aspect": 0, 
+                    "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_remote_indigenous_summary_graph", 
@@ -74,18 +74,17 @@
                                 "url": "new", 
                                 "hyperlink": "", 
                                 "sort_order": 100, 
-                                "dynamic_label": false, 
                                 "label": "New"
                             }, 
                             {
                                 "url": "refurbished", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
-                                "dynamic_label": false, 
                                 "label": "Refurbished"
                             }
                         ], 
                         "cluster_label": "Capital Works", 
+                        "dynamic_clusters": false, 
                         "horiz_axis_type": 0, 
                         "datasets": [
                             {
@@ -181,7 +180,7 @@
                 {
                     "expansion": true, 
                     "sort_order": 400, 
-                    "aspect": 1, 
+                    "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_remote_indigenous_details", 
@@ -194,7 +193,7 @@
                 {
                     "expansion": true, 
                     "sort_order": 500, 
-                    "aspect": 1, 
+                    "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_remote_indigenous_detail_graph", 
@@ -219,46 +218,41 @@
                                 "url": "nsw", 
                                 "hyperlink": "", 
                                 "sort_order": 100, 
-                                "dynamic_label": false, 
                                 "label": "NSW"
                             }, 
                             {
                                 "url": "qld", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
-                                "dynamic_label": false, 
                                 "label": "Qld"
                             }, 
                             {
                                 "url": "wa", 
                                 "hyperlink": "", 
                                 "sort_order": 300, 
-                                "dynamic_label": false, 
                                 "label": "WA"
                             }, 
                             {
                                 "url": "sa", 
                                 "hyperlink": "", 
                                 "sort_order": 400, 
-                                "dynamic_label": false, 
                                 "label": "SA"
                             }, 
                             {
                                 "url": "tas", 
                                 "hyperlink": "", 
                                 "sort_order": 500, 
-                                "dynamic_label": false, 
                                 "label": "Tas"
                             }, 
                             {
                                 "url": "nt", 
                                 "hyperlink": "", 
                                 "sort_order": 600, 
-                                "dynamic_label": false, 
                                 "label": "NT"
                             }
                         ], 
                         "cluster_label": "State", 
+                        "dynamic_clusters": false, 
                         "horiz_axis_type": 0, 
                         "datasets": [
                             {

@@ -13,7 +13,7 @@
                     "expansion": false, 
                     "main_stat_count": 1, 
                     "sort_order": 100, 
-                    "aspect": 0, 
+                    "aspect": 1, 
                     "statistics": [
                         {
                             "num_precision": null, 
@@ -49,7 +49,7 @@
                 {
                     "expansion": false, 
                     "sort_order": 200, 
-                    "aspect": 0, 
+                    "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_homelessness_npa_summary_graph", 
@@ -62,7 +62,7 @@
                             "point_colour_map": null, 
                             "lines": 0, 
                             "points": 0, 
-                            "rotates": false
+                            "rotates": true
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
@@ -187,7 +187,7 @@
                 {
                     "expansion": true, 
                     "sort_order": 400, 
-                    "aspect": 1, 
+                    "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_homelessness_npa_details", 
@@ -200,7 +200,7 @@
                 {
                     "expansion": true, 
                     "sort_order": 500, 
-                    "aspect": 1, 
+                    "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
                     "url": "housing_homelessness_npa_detail_graph", 
@@ -213,7 +213,7 @@
                             "point_colour_map": null, 
                             "lines": 0, 
                             "points": 0, 
-                            "rotates": false
+                            "rotates": true
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
@@ -321,7 +321,7 @@
                         }
                     ], 
                     "filename": "housing_homelessness_npa_data.csv"
-                },
+                }, 
                 {
                     "url": "data_table", 
                     "name": "Homelessness NPA Data Table", 

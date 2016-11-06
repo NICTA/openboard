@@ -1,0 +1,9 @@
+{
+    "url": "state_param", 
+    "keys": [
+        "state_abbrev", 
+        "state_name"
+    ], 
+    "name": "Parametisation by state"
+}
+
