@@ -38,6 +38,9 @@ hero_widgets = {
     "skills": [
             "cert3-skills-hero",
     ],
+    "health": [
+            "life_expectancy-health-hero",        
+    ]
 }
 
 def column_labels(mini, maxi):
@@ -75,7 +78,7 @@ def all_rows_found(rows):
             return False
     return True
 
-def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}):
+def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, multi_year=False):
     messages = []
     if verbosity > 2:
         messages.append("Loading %s Data: %s" % (data_category, dataset))
@@ -89,6 +92,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
             raise LoaderException("No State Columns found in worksheet '%s'" % sheet_name)
     year = 0
     isfy = False
+    myr = 1
     rows = {}
     for fld in first_cell_rows.keys():
         rows[fld] = 0
@@ -110,7 +114,10 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     break
             if not first_cell_matched:
                 try:
-                    (year, isfy) = parse_year(first_cell)
+                    if multi_year:
+                        (year, myr) = parse_multiyear(first_cell)
+                    else:
+                        (year, isfy) = parse_year(first_cell)
                     zero_all_rows(rows)
                 except:
                     pass
@@ -126,7 +133,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
 
                 if year and all_rows_found(rows):
                     for state, scol in state_cols.items():
-                        defaults = { "financial_year": isfy }
+                        defaults = { "financial_year": isfy, "multi_year": myr }
                         for fld, frow in rows.items():
                             rawval = sheet["%s%d" % (scol, frow)].value
                             if fld in transforms:
