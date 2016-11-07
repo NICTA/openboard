@@ -40,6 +40,9 @@ hero_widgets = {
     ],
     "health": [
             "life_expectancy-health-hero",        
+    ],
+    "disability": [
+            "social_participation-disability-hero",
     ]
 }
 
@@ -694,4 +697,11 @@ def load_skills_vet_employment(wb, verbosity):
                         }))
     return messages
 
+def indicator_tlc_trend(ref_val, val):
+    if ref_val < val:
+        return ("improving", 1)
+    elif ref_val > val:
+        return ("negative_change", -1)
+    else:
+        return ("no_improvement", 0)
 
