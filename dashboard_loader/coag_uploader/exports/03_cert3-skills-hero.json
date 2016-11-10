@@ -108,6 +108,7 @@
             ], 
             "views": [
                 {
+                    "child_view": "skills", 
                     "sort_order": 300, 
                     "view": "aus"
                 }

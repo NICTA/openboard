@@ -108,6 +108,7 @@
             ], 
             "views": [
                 {
+                    "child_view": "education", 
                     "sort_order": 200, 
                     "view": "aus"
                 }

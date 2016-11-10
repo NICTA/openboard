@@ -2,7 +2,7 @@
     "category": "disability", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Participation in social and community activities",
+    "subtitle": "Participation in social and community activities", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "social_participation-disability-hero", 
@@ -108,6 +108,7 @@
             ], 
             "views": [
                 {
+                    "child_view": "disability", 
                     "sort_order": 500, 
                     "view": "aus"
                 }
@@ -123,7 +124,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4430.0",
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4430.0", 
     "name": "Disability"
 }
 

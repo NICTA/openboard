@@ -81,7 +81,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -121,7 +121,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -161,7 +161,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -249,7 +249,7 @@
                         }
                     ], 
                     "label": "indigenous_act"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -266,7 +266,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "ACT", 
@@ -279,7 +279,7 @@
                         }
                     ], 
                     "label": "infrastructure_act"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -296,7 +296,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "ACT", 
@@ -402,7 +402,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "NSW", 
@@ -437,7 +437,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -477,7 +477,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -565,7 +565,7 @@
                         }
                     ], 
                     "label": "indigenous_nsw"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -582,7 +582,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "NSW", 
@@ -595,7 +595,7 @@
                         }
                     ], 
                     "label": "infrastructure_nsw"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -612,7 +612,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "NSW", 
@@ -713,7 +713,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -753,7 +753,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -793,7 +793,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -881,7 +881,7 @@
                         }
                     ], 
                     "label": "indigenous_nt"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -898,7 +898,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "NT", 
@@ -911,7 +911,7 @@
                         }
                     ], 
                     "label": "infrastructure_nt"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -928,7 +928,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "NT", 
@@ -1029,7 +1029,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -1069,7 +1069,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -1109,7 +1109,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -1197,7 +1197,7 @@
                         }
                     ], 
                     "label": "indigenous_sa"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -1214,7 +1214,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "SA", 
@@ -1227,7 +1227,7 @@
                         }
                     ], 
                     "label": "infrastructure_sa"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -1244,7 +1244,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "SA", 
@@ -1345,7 +1345,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -1385,7 +1385,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -1425,7 +1425,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -1513,7 +1513,7 @@
                         }
                     ], 
                     "label": "indigenous_qld"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -1530,7 +1530,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "Queensland", 
@@ -1543,7 +1543,7 @@
                         }
                     ], 
                     "label": "infrastructure_qld"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -1560,7 +1560,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "Queensland", 
@@ -1661,7 +1661,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -1701,7 +1701,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -1741,7 +1741,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -1829,7 +1829,7 @@
                         }
                     ], 
                     "label": "indigenous_vic"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -1846,7 +1846,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "Victoria", 
@@ -1859,7 +1859,7 @@
                         }
                     ], 
                     "label": "infrastructure_vic"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -1876,7 +1876,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "Victoria", 
@@ -1977,7 +1977,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -2010,14 +2010,9 @@
                     "properties": [
                         {
                             "type": 1, 
-                            "value": "<p>The objective of the National Agreement for Skills and Workforce Development (NASWD) is a vocational education and\r\ntraining (VET) system that:</p>\r\n<ol type=\"a\">\r\n<li>delivers a productive and highly skilled workforce;</li>\r\n<li>enables all working age Australians to develop the skills and qualifications needed to participate effectively\r\nin the labour market and contribute to Australia\u2019s economic future; and</li>\r\n<li>supports increased rates of workforce participation.</li>\r\n</ol>\r\n<p>To achieve this objective, the three outcomes the agreement seeks to achieve are:</p>\r\n<ol type=\"a\">\r\n<li>the skill levels of the working age population are increased to meet the changing needs of the economy;</li>\r\n<li> all working age Australians have the opportunity to develop skills; and</li>\r\n<li> training delivers the skills and capabilities needed for improved economic participation for working age\r\nAustralians.</li>\r\n</ol>\r\n<p>We assess COAG\u2019s performance against the two benchmarks identified in the NASWD, and supplement this with an\r\nindication of how effectively VET is translating into improved employment outcomes for graduates.</p>\r\n<p><i>See also: National Education Agreement and National Education Reform Agreement on page 22 for assessment of similar\r\nbenchmarks.</i></p>", 
-                            "key": "objective"
-                        }, 
-                        {
-                            "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -2032,6 +2027,11 @@
                             "type": 1, 
                             "value": "Tas", 
                             "key": "state_abbrev"
+                        }, 
+                        {
+                            "type": 1, 
+                            "value": "<p>The objective of the National Agreement for Skills and Workforce Development (NASWD) is a vocational education and\r\ntraining (VET) system that:</p>\r\n<ol type=\"a\">\r\n<li>delivers a productive and highly skilled workforce;</li>\r\n<li>enables all working age Australians to develop the skills and qualifications needed to participate effectively\r\nin the labour market and contribute to Australia\u2019s economic future; and</li>\r\n<li>supports increased rates of workforce participation.</li>\r\n</ol>\r\n<p>To achieve this objective, the three outcomes the agreement seeks to achieve are:</p>\r\n<ol type=\"a\">\r\n<li>the skill levels of the working age population are increased to meet the changing needs of the economy;</li>\r\n<li> all working age Australians have the opportunity to develop skills; and</li>\r\n<li> training delivers the skills and capabilities needed for improved economic participation for working age\r\nAustralians.</li>\r\n</ol>\r\n<p>We assess COAG\u2019s performance against the two benchmarks identified in the NASWD, and supplement this with an\r\nindication of how effectively VET is translating into improved employment outcomes for graduates.</p>\r\n<p><i>See also: National Education Agreement and National Education Reform Agreement on page 22 for assessment of similar\r\nbenchmarks.</i></p>", 
+                            "key": "objective"
                         }
                     ], 
                     "label": "skills_tas"
@@ -2057,7 +2057,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -2145,7 +2145,7 @@
                         }
                     ], 
                     "label": "indigenous_tas"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -2162,7 +2162,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "Tasmania", 
@@ -2175,7 +2175,7 @@
                         }
                     ], 
                     "label": "infrastructure_tas"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -2192,7 +2192,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "Tasmania", 
@@ -2293,7 +2293,7 @@
                             "type": 1, 
                             "value": "<p>There are two National Partnership Agreements related to education in Australia:</p>\r\n\r\n<p><b>National Partnership Agreement on Universal Access to Early Childhood Education</b></p>\r\n<p>The objective of this Agreement is to provide universal access to quality early childhood programmes for children in the year before full-time school for 600 hours per year, delivered by a qualified early childhood teacher who meets National Quality Framework (NQF) requirements, and with a focus on participation by vulnerable and disadvantaged children.</p>\r\n<p>The enrolment performance indicator has been chosen for assessment as it can be appropriately compared across the years and is a headline indicator of the National Partnership.</p>\r\n\r\n<p><b>National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care</b></p>\r\n<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that 'by 2020 all children have the best start in life to create a better future for themselves, and for the nation'.</p>\r\n<p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children\u2019s Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p>\r\n<p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Education Agreement / National Education Reform Agreement", 
@@ -2333,7 +2333,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement on Skills Reform</b></p>\r\n<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017. This assessment is of state, territory and Commonwealth achievement up to 31 December 2013.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Agreement for Skills and Workforce Development", 
@@ -2373,7 +2373,7 @@
                             "type": 1, 
                             "value": "<p><b>The National Partnership Agreement Supporting National Mental Health Reform</b></p>\r\n<p>This National Partnership Agreement Supporting National Mental Health Reform provides funding to the states and territories to deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness. It was signed on 13 April 2012 and will cease on 30 June 2016. A total of 20 projects have been funded, with each state/territory implementing between one and four discrete projects. This assessment is of state, territory and Commonwealth achievement up to April 2015.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "National Healthcare Agreement", 
@@ -2461,7 +2461,7 @@
                         }
                     ], 
                     "label": "indigenous_wa"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 700, 
@@ -2478,7 +2478,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "WA", 
@@ -2491,7 +2491,7 @@
                         }
                     ], 
                     "label": "infrastructure_wa"
-                },
+                }, 
                 {
                     "requires_authentication": false, 
                     "sort_order": 800, 
@@ -2508,7 +2508,7 @@
                             "type": 1, 
                             "value": "<p><b>National Partnership Agreement on Land Transport Infrastructure Projects</b></p>\r\n<p>The National Partnership Agreement on Land Transport Infrastructure Projects (NPALTIP) is designed to contribute to a safe, sustainable national transport system that enhances connectivity and supports economic opportunity.</p>\r\n<p>The NPALTIP was finalised in October 2014. It follows on from, and includes transitional projects started under, the National Partnership Agreement on Implementation of Major Infrastructure Projects and the National Partnership Agreement on Implementation of the Nation Building Program 2009-2014. Agreed projects are included in the Schedules of Works.</p>", 
                             "key": "partnership_agreements"
-                        },
+                        }, 
                         {
                             "type": 1, 
                             "value": "WA", 

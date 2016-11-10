@@ -106,7 +106,13 @@
                     "columns": null
                 }
             ], 
-            "views": [], 
+            "views": [
+                {
+                    "child_view": "housing", 
+                    "sort_order": 110, 
+                    "view": "aus"
+                }
+            ], 
             "default_frequency_text": "Irregular", 
             "raw_data_sets": [], 
             "sort_order": 120, 

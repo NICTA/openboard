@@ -193,7 +193,7 @@
                             "point_colour_map": null, 
                             "lines": 1, 
                             "points": 0, 
-                            "rotates": false
+                            "rotates": true
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
