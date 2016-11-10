@@ -24,28 +24,6 @@ from widget_def.models import Parametisation, ParametisationValue
 from coag_uploader.models import *
 from django.template import Template, Context
 
-hero_widgets = {
-    "housing": [ 
-            "rentalstress-housing-hero", 
-            "homelessness-housing-hero", 
-            "indigenous_homeownership-housing-hero", 
-            "indigenous_overcrowding-housing-hero", 
-            "indigenous_remote-housing-hero", 
-    ],
-    "education": [
-            "yr12-education-hero",
-    ],
-    "skills": [
-            "cert3-skills-hero",
-    ],
-    "health": [
-            "life_expectancy-health-hero",        
-    ],
-    "disability": [
-            "social_participation-disability-hero",
-    ]
-}
-
 def column_labels(mini, maxi):
     labels=[]
     alphabet = [ chr(i) for i in range(ord('A'), ord('A') + 26) ]
@@ -593,12 +571,8 @@ txt_block_template = Template("""<div class="coag_description">
     </div>
 </div>""")
 
-def update_stats(desc, section, hero_indicator_url, benchmark, wurl_hero, wlbl_hero, wurl, wlbl, verbosity):
+def update_stats(desc, benchmark, wurl_hero, wlbl_hero, wurl, wlbl, verbosity):
     messages = []
-    for w in hero_widgets[section]:
-        set_statistic_data(w, w, hero_indicator_url, None, 
-                    traffic_light_code=desc["status"]["tlc"],
-                    icon_code=desc["status"]["icon"])
     if wurl_hero:
         set_statistic_data(wurl_hero, wlbl_hero,
                     "status_header",

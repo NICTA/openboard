@@ -22,7 +22,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_homelessness_npa_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data_nostate, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data_nostate, update_stats
 from django.template import Template, Context
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -94,8 +94,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity)
         )
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, 
-                            "housing", "npa_homelessness", indicators,
+        messages.extend(update_stats(desc, indicators,
                             None, None,
                             "housing_homelessness_npa", "housing_homelessness_npa",
                             verbosity))

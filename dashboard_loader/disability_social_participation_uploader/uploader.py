@@ -21,7 +21,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from disability_social_participation_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -85,8 +85,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 {}, {"percentage": "%", "uncertainty": "+",},
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, 
-                                "disability", "social_participation", indicators,
+        messages.extend(update_stats(desc, indicators,
                                 "social_participation-disability-hero", "social_participation-disability-hero", 
                                 None, None,
                                 verbosity))

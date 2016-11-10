@@ -23,7 +23,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_indigenous_homeownership_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
 from django.template import Template, Context
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -88,8 +88,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, 
-                            "housing", "indigenous_ownership", benchmark,
+        messages.extend(update_stats(desc, benchmark,
                             "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero",
                             "housing_indigenous_homeownership", "housing_indigenous_homeownership",
                             verbosity))

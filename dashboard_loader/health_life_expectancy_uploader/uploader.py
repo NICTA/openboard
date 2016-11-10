@@ -21,7 +21,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from health_life_expectancy_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, hero_widgets, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -85,8 +85,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 {}, {"males": "Males", "females": "Females",},
                                 verbosity, multi_year=True))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, 
-                                "health", "life_expectancy", indicators,
+        messages.extend(update_stats(desc, indicators,
                                 "life_expectancy-health-hero", "life_expectancy-health-hero", 
                                 None, None,
                                 verbosity))
