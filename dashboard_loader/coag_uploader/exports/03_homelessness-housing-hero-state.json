@@ -120,41 +120,49 @@
                 {
                     "child_view": "housing_act", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
                     "child_view": "housing_nsw", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
                     "child_view": "housing_nt", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
                     "child_view": "housing_sa", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
                     "child_view": "housing_qld", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
                     "child_view": "housing_vic", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
                     "child_view": "housing_tas", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
                     "child_view": "housing_wa", 
                     "sort_order": 105, 
+                    "child_view_text": "See all", 
                     "view": "wa"
                 }
             ], 

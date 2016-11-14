@@ -120,41 +120,49 @@
                 {
                     "child_view": "skills_act", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
                     "child_view": "skills_nsw", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
                     "child_view": "skills_nt", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
                     "child_view": "skills_sa", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
                     "child_view": "skills_qld", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
                     "child_view": "skills_vic", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
                     "child_view": "skills_tas", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
                     "child_view": "skills_wa", 
                     "sort_order": 300, 
+                    "child_view_text": "See all", 
                     "view": "wa"
                 }
             ], 

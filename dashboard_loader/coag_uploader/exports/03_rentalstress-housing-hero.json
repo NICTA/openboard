@@ -110,7 +110,7 @@
                 {
                     "child_view": "housing", 
                     "sort_order": 100, 
-                    "child_view_text": "View All National Affordable Housing Agreement", 
+                    "child_view_text": "See all", 
                     "view": "aus"
                 }
             ], 
