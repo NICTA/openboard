@@ -111,6 +111,7 @@ class RawDataSet(models.Model):
         unique_together = [ ('widget', 'url') ,
                             ('widget', 'name') ,
         ]
+        ordering = ('widget', 'url')
 
 class RawDataSetColumn(models.Model):
     """A column in a :model:`widget_def.RawDataSet`"""

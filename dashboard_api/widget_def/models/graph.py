@@ -528,7 +528,7 @@ class GraphDisplayOptions(models.Model):
         do.stacked = data["stacked"]
         do.shaded = data["shaded"]
         do.single_graph = data["single_graph"]
-        do.rotates = data.get("single_graph", False)
+        do.rotates = data.get("rotates", False)
         if data["point_colour_map"]:
             do.point_colour_map = PointColourMap.objects.get(label=data["point_colour_map"])
         else:
