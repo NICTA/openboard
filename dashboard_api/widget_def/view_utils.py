@@ -103,5 +103,8 @@ class OpenboardAPIView(View):
         except OpenboardAPIException, e:
             return e.response
         json_data = self.api_method(request)
-        return json_list(request, json_data, set_p3p=self.set_p3p)
+        if isinstance(json_data, HttpResponse):
+            return json_data
+        else:
+            return json_list(request, json_data, set_p3p=self.set_p3p)
 

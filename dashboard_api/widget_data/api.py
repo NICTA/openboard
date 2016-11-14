@@ -199,8 +199,8 @@ def api_get_raw_data(widget, request, rds_url, view=None, pval=None):
     except RawDataSet.DoesNotExist:
         return HttpResponseNotFound("This Raw Data Set does not exist")
     pval = resolve_pval(rds.widget.parametisation, view=view, pval=pval)
-    if "format" in request.GET and request.GET["format"] != "csv":
-        return json_list(request, rds.json(pval=pval))
+    if request.GET.get("format", "csv") != "csv":
+        return rds.json(pval=pval)
     response = HttpResponse()    
     response['content-type'] = 'application/csv'
     response['content-disposition'] = 'attachment; filename=%s' % rds.filename
