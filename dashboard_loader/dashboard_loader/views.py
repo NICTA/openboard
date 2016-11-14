@@ -160,7 +160,7 @@ class ViewWidgetView(InitialisableFormView):
             self.pval = None
         else:
             try:
-                self.pval = ParametisationValue.objects.get(pk=pval_id)
+                self.pval = ParametisationValue.objects.get(pk=kwargs["pval_id"])
             except ParametisationValue.DoesNotExist:
                 raise Http404("This parameter value set does not exist")
         return
