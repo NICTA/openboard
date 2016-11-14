@@ -38,7 +38,7 @@ class ViewWidgetDeclaration(models.Model):
         if self.child_view:
             wstate["child_view"] = self.child_view.label
             if self.child_view_text:
-                wstate["child_view"] = self.child_view_text
+                wstate["child_view_text"] = self.child_view_text
         return wstate
     def export(self):
         data = {
