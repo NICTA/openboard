@@ -1,0 +1,53 @@
+{
+    "members": [
+        {
+            "sort_order": 100, 
+            "name": "All", 
+            "view": "nt"
+        }, 
+        {
+            "sort_order": 200, 
+            "name": "Housing", 
+            "view": "housing_nt"
+        }, 
+        {
+            "sort_order": 300, 
+            "name": "Education", 
+            "view": "education_nt"
+        }, 
+        {
+            "sort_order": 400, 
+            "name": "Skills", 
+            "view": "skills_nt"
+        }, 
+        {
+            "sort_order": 500, 
+            "name": "Healthcare", 
+            "view": "healthcare_nt"
+        }, 
+        {
+            "sort_order": 600, 
+            "name": "Disability", 
+            "view": "disability_nt"
+        }, 
+        {
+            "sort_order": 700, 
+            "name": "Indigenous", 
+            "view": "indigenous_nt"
+        }, 
+        {
+            "sort_order": 800, 
+            "name": "Infrastructure", 
+            "view": "infrastructure_nt"
+        }, 
+        {
+            "sort_order": 900, 
+            "name": "Legal Assistance", 
+            "view": "legal_assistance_nt"
+        }
+    ], 
+    "sort_order": 1800, 
+    "name": "", 
+    "family": "category_nt"
+}
+

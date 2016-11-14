@@ -3,7 +3,7 @@
     "sort_order": 10, 
     "name": "Aust", 
     "view_type": {
-        "show_children": true, 
+        "show_children": false, 
         "name": "COAG Index View", 
         "show_siblings": false
     }, 
@@ -14,7 +14,7 @@
             "sort_order": 10, 
             "name": "ACT", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -25,9 +25,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -65,9 +65,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -105,9 +105,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -145,9 +145,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -185,9 +185,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -220,9 +220,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -255,9 +255,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -285,9 +285,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -330,7 +330,7 @@
             "sort_order": 20, 
             "name": "NSW", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -341,9 +341,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -381,9 +381,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -421,9 +421,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -461,9 +461,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -501,9 +501,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -536,9 +536,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -571,9 +571,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -601,9 +601,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -646,7 +646,7 @@
             "sort_order": 30, 
             "name": "NT", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -657,9 +657,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -697,9 +697,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -737,9 +737,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -777,9 +777,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -817,9 +817,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -852,9 +852,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -887,9 +887,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -917,9 +917,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -962,7 +962,7 @@
             "sort_order": 40, 
             "name": "SA", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -973,9 +973,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1013,9 +1013,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1053,9 +1053,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1093,9 +1093,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1133,9 +1133,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1168,9 +1168,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1203,9 +1203,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1233,9 +1233,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1278,7 +1278,7 @@
             "sort_order": 50, 
             "name": "Qld", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -1289,9 +1289,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1329,9 +1329,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1369,9 +1369,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1409,9 +1409,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1449,9 +1449,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1484,9 +1484,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1519,9 +1519,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1549,9 +1549,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1594,7 +1594,7 @@
             "sort_order": 60, 
             "name": "Vic", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -1605,9 +1605,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1645,9 +1645,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1685,9 +1685,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1725,9 +1725,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1765,9 +1765,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1800,9 +1800,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1835,9 +1835,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1865,9 +1865,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1910,7 +1910,7 @@
             "sort_order": 70, 
             "name": "Tas", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -1921,9 +1921,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -1961,9 +1961,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2001,9 +2001,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2041,9 +2041,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2081,9 +2081,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2116,9 +2116,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2151,9 +2151,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2181,9 +2181,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2226,7 +2226,7 @@
             "sort_order": 80, 
             "name": "WA", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "COAG Index View", 
                 "show_siblings": false
             }, 
@@ -2237,9 +2237,9 @@
                     "sort_order": 100, 
                     "name": "Housing", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2277,9 +2277,9 @@
                     "sort_order": 200, 
                     "name": "Education", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2317,9 +2317,9 @@
                     "sort_order": 300, 
                     "name": "Skills", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2357,9 +2357,9 @@
                     "sort_order": 400, 
                     "name": "Healthcare", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2397,9 +2397,9 @@
                     "sort_order": 500, 
                     "name": "Disability", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2432,9 +2432,9 @@
                     "sort_order": 600, 
                     "name": "Indigenous", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2467,9 +2467,9 @@
                     "sort_order": 700, 
                     "name": "Infrastructure", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2497,9 +2497,9 @@
                     "sort_order": 800, 
                     "name": "Legal Assistance", 
                     "view_type": {
-                        "show_children": true, 
+                        "show_children": false, 
                         "name": "Main COAG View", 
-                        "show_siblings": true
+                        "show_siblings": false
                     }, 
                     "external_url": null, 
                     "children": [], 
@@ -2542,9 +2542,9 @@
             "sort_order": 100, 
             "name": "Housing", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2572,9 +2572,9 @@
             "sort_order": 200, 
             "name": "Education", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2602,9 +2602,9 @@
             "sort_order": 300, 
             "name": "Skills", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2632,9 +2632,9 @@
             "sort_order": 400, 
             "name": "Healthcare", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2662,9 +2662,9 @@
             "sort_order": 500, 
             "name": "Disability", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2687,9 +2687,9 @@
             "sort_order": 600, 
             "name": "Indigenous", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2712,9 +2712,9 @@
             "sort_order": 700, 
             "name": "Infrastructure", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 
@@ -2732,9 +2732,9 @@
             "sort_order": 800, 
             "name": "Legal Assistance", 
             "view_type": {
-                "show_children": true, 
+                "show_children": false, 
                 "name": "Main COAG View", 
-                "show_siblings": true
+                "show_siblings": false
             }, 
             "external_url": null, 
             "children": [], 

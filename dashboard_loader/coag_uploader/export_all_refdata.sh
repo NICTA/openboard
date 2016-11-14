@@ -23,6 +23,16 @@ python manage.py export_view_family --settings=dashboard_loader.settings_coag re
 python manage.py export_view_family --settings=dashboard_loader.settings_coag region_infrastructure > coag_uploader/exports/02_fv_region_infrastructure.json
 python manage.py export_view_family --settings=dashboard_loader.settings_coag region_legal_assistance > coag_uploader/exports/02_fv_region_legal_assistance.json
 
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_indexes > coag_uploader/exports/02_fv_category_indexes.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_nsw > coag_uploader/exports/02_fv_category_nsw.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_vic > coag_uploader/exports/02_fv_category_vic.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_qld > coag_uploader/exports/02_fv_category_qld.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_wa > coag_uploader/exports/02_fv_category_wa.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_sa > coag_uploader/exports/02_fv_category_sa.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_tas > coag_uploader/exports/02_fv_category_tas.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_act > coag_uploader/exports/02_fv_category_act.json
+python manage.py export_view_family --settings=dashboard_loader.settings_coag category_nt > coag_uploader/exports/02_fv_category_nt.json
+
 echo "Exporting Parametisations..."
 python manage.py export_parametisation --settings=dashboard_loader.settings_coag state_param > coag_uploader/exports/02_state_param.json
 
