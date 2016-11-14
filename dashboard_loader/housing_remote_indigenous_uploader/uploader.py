@@ -24,6 +24,7 @@ from coag_uploader.models import *
 from housing_remote_indigenous_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
 from django.template import Template, Context
+from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -93,7 +94,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
                             "indigenous_remote-housing-hero", "indigenous_remote-housing-hero", 
-                            None, None,
+                            "indigenous_remote-housing-hero-state", "indigenous_remote-housing-hero-state", 
                             "housing_remote_indigenous", "housing_remote_indigenous", 
                             None, None,
                             verbosity))
@@ -101,6 +102,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "indigenous_remote-housing-hero", 
                     "indigenous_remote-housing-hero", 
                     "housing-rih-hero-graph"))
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            messages.extend(update_summary_graph_data(
+                        "indigenous_remote-housing-hero-state", 
+                        "indigenous_remote-housing-hero-state", 
+                        "housing-rih-hero-graph",
+                        pval=pval))
         messages.extend(update_summary_graph_data(
                     "housing_remote_indigenous", 
                     "housing_remote_indigenous", 
@@ -128,16 +136,27 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
-def update_summary_graph_data(wurl, wlbl, graph_lbl):
+def update_summary_graph_data(wurl, wlbl, graph_lbl, pval=None):
     messages = []
     g = get_graph(wurl, wlbl, graph_lbl)
-    clear_graph_data(g)
-    add_graph_data(g, "benchmark", 4200, cluster="new")
-    add_graph_data(g, "benchmark", 4800, cluster="refurbished")
+    clear_graph_data(g, pval=pval)
+    add_graph_data(g, "benchmark", 4200, cluster="new", pval=pval)
+    add_graph_data(g, "benchmark", 4800, cluster="refurbished", pval=pval)
     data = HousingRemoteIndigenousData.objects.filter(state=AUS).order_by("year").last()
-    add_graph_data(g, "year", data.new_houses, cluster="new")
-    add_graph_data(g, "year", data.refurbishments, cluster="refurbished")
-    set_dataset_override(g, "year", data.year_display())
+    add_graph_data(g, "year", data.new_houses, cluster="new", pval=pval)
+    add_graph_data(g, "year", data.refurbishments, cluster="refurbished", pval=pval)
+    if pval:
+        set_dataset_override(g, "year", "National (%s)" % data.year_display())
+        state_num = state_map[pval.parameters()["state_abbrev"]]
+        data = HousingRemoteIndigenousData.objects.filter(state=state_num).order_by("year").last()
+        if data is None:
+            clear_graph_data(g, pval=pval)
+            return messages
+        add_graph_data(g, "year_state", data.new_houses, cluster="new", pval=pval)
+        add_graph_data(g, "year_state", data.refurbishments, cluster="refurbished", pval=pval)
+        set_dataset_override(g, "year_state", "%s (%s)" % (data.state_display(), data.year_display()))
+    else:
+        set_dataset_override(g, "year", data.year_display())
     return messages
 
 def update_detail_graph_data():

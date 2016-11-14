@@ -24,6 +24,7 @@ from coag_uploader.models import *
 from housing_indigenous_overcrowding_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
 from django.template import Template, Context
+from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -85,11 +86,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None, IndigenousOvercrowdingData,
                                 {}, {"percentage": "%", "uncertainty": "+",},
                                 verbosity)
-                )
+        )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
                             "indigenous_overcrowding-housing-hero", "indigenous_overcrowding-housing-hero", 
-                            None, None,
+                            "indigenous_overcrowding-housing-hero-state", "indigenous_overcrowding-housing-hero-state", 
                             "housing_indigenous_overcrowding", "housing_indigenous_overcrowding", 
                             None, None,
                             verbosity))
@@ -104,7 +105,24 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             benchmark_gen=lambda init: Decimal(0.8)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
-                )
+        )
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                update_graph_data(
+                            "indigenous_overcrowding-housing-hero-state", "indigenous_overcrowding-housing-hero-state",
+                            "housing-ioc-hero-graph",
+                            IndigenousOvercrowdingData, "percentage",
+                            [ AUS, state_num ],
+                            benchmark_start=2008,
+                            benchmark_end=2017.5,
+                            benchmark_gen=lambda init: Decimal(0.8)*init,
+                            use_error_bars=False,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
+
         messages.extend(
                 update_graph_data(
                             "housing_indigenous_overcrowding", "housing_indigenous_overcrowding",

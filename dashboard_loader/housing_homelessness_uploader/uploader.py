@@ -24,6 +24,8 @@ from coag_uploader.models import *
 from housing_homelessness_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
 from django.template import Template, Context
+from widget_def.models import Parametisation
+
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -93,7 +95,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
                             "homelessness-housing-hero", "homelessness-housing-hero", 
-                            None, None,
+                            "homelessness-housing-hero-state", "homelessness-housing-hero-state", 
                             "housing_homelessness", "housing_homelessness", 
                             None, None,
                             verbosity))
@@ -109,6 +111,22 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
+        p =  Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                update_graph_data(
+                            "homelessness-housing-hero-state", "homelessness-housing-hero-state",
+                            "housing-hln-hero-graph",
+                            HousingHomelessData, "homeless_persons",
+                            [ AUS, state_num ],
+                            benchmark_start=2006,
+                            benchmark_end=2013,
+                            benchmark_gen=lambda init: Decimal(0.93) * init,
+                            use_error_bars=False,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
         messages.extend(
                 update_graph_data(
                             "housing_homelessness", "housing_homelessness",

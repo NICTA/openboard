@@ -23,6 +23,7 @@ from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_rentalstress_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -84,11 +85,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None, HousingRentalStressData,
                                 {}, {"percentage": "%", "uncertainty": "+",},
                                 verbosity)
-                )
+        )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
                                 "rentalstress-housing-hero", "rentalstress-housing-hero",  
-                                None, None,
+                                "rentalstress-housing-hero-state", "rentalstress-housing-hero-state",  
                                 "housing_rentalstress", "housing_rentalstress",  
                                 None, None,
                                 verbosity))
@@ -103,7 +104,23 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             benchmark_gen=lambda init: Decimal(0.9)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
-                )
+        )
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                update_graph_data(
+                                "rentalstress-housing-hero-state", "rentalstress-housing-hero-state",
+                                "housing-rs-hero-graph",
+                                HousingRentalStressData, "percentage",
+                                [ AUS, state_num ],
+                                benchmark_start=2007.5,
+                                benchmark_end=2015.5,
+                                benchmark_gen=lambda init: Decimal(0.9)*init,
+                                use_error_bars=False,
+                                verbosity=verbosity,
+                                pval=pval)
+            )
         messages.extend(
                 update_graph_data(
                             "housing_rentalstress", "housing_rentalstress",
@@ -115,7 +132,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             benchmark_gen=lambda init: Decimal(0.9)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
-                )
+        )
         messages.extend(
                 update_graph_data(
                             "housing_rentalstress", "housing_rentalstress",
