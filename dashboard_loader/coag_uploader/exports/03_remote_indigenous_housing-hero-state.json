@@ -1,11 +1,11 @@
 {
-    "category": "skills", 
+    "category": "housing", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Halve proportion of Australians without Certificate Level III and above", 
+    "source_url_text": "Australian Government", 
+    "subtitle": "Remote Indigenous Housing", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "cert3-skills-hero-state", 
+    "url": "indigenous_remote-housing-hero-state", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-header", 
+                    "url": "housing-rih-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,47 +52,60 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-graph", 
+                    "url": "housing-rih-hero-graph", 
                     "graph": {
-                        "numeric_axis_always_show_zero": false, 
+                        "numeric_axis_always_show_zero": true, 
                         "display_options": {
                             "shaded": false, 
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 1, 
+                            "lines": 0, 
                             "points": 0, 
                             "rotates": false
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
+                        "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
-                        "dataset_label": "dataset", 
-                        "clusters": [], 
-                        "cluster_label": "cluster", 
+                        "dataset_label": "year", 
+                        "clusters": [
+                            {
+                                "url": "new", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "New"
+                            }, 
+                            {
+                                "url": "refurbished", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "label": "Refurbished"
+                            }
+                        ], 
+                        "cluster_label": "Capital Works", 
                         "dynamic_clusters": false, 
-                        "horiz_axis_type": 2, 
+                        "horiz_axis_type": 0, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
-                                "dynamic_label": false, 
-                                "label": "National"
+                                "url": "year", 
+                                "colour": "blue-solid-bar", 
+                                "dynamic_label": true, 
+                                "label": "Year (Nat)"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "state", 
-                                "colour": "purple-solid", 
-                                "dynamic_label": false, 
-                                "label": "{{ state_abbrev }}"
+                                "url": "year_state", 
+                                "colour": "purple-solid-bar", 
+                                "dynamic_label": true, 
+                                "label": "Year ({{ state_abbrev }}"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
@@ -100,13 +113,13 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "green-dotted", 
+                                "colour": "blue-dashed-line", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
-                        "graph_type": 1, 
+                        "numeric_axis_label": "", 
+                        "graph_type": 2, 
                         "heading": ""
                     }, 
                     "tile_type": 6, 
@@ -118,58 +131,58 @@
             ], 
             "views": [
                 {
-                    "child_view": "skills_act", 
-                    "sort_order": 300, 
+                    "child_view": "housing_act", 
+                    "sort_order": 500, 
                     "view": "act"
                 }, 
                 {
-                    "child_view": "skills_nsw", 
-                    "sort_order": 300, 
+                    "child_view": "housing_nsw", 
+                    "sort_order": 500, 
                     "view": "nsw"
                 }, 
                 {
-                    "child_view": "skills_nt", 
-                    "sort_order": 300, 
+                    "child_view": "housing_nt", 
+                    "sort_order": 500, 
                     "view": "nt"
                 }, 
                 {
-                    "child_view": "skills_sa", 
-                    "sort_order": 300, 
+                    "child_view": "housing_sa", 
+                    "sort_order": 500, 
                     "view": "sa"
                 }, 
                 {
-                    "child_view": "skills_qld", 
-                    "sort_order": 300, 
+                    "child_view": "housing_qld", 
+                    "sort_order": 500, 
                     "view": "qld"
                 }, 
                 {
-                    "child_view": "skills_vic", 
-                    "sort_order": 300, 
+                    "child_view": "housing_vic", 
+                    "sort_order": 500, 
                     "view": "vic"
                 }, 
                 {
-                    "child_view": "skills_tas", 
-                    "sort_order": 300, 
+                    "child_view": "housing_tas", 
+                    "sort_order": 500, 
                     "view": "tas"
                 }, 
                 {
-                    "child_view": "skills_wa", 
-                    "sort_order": 300, 
+                    "child_view": "housing_wa", 
+                    "sort_order": 500, 
                     "view": "wa"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 302, 
+            "sort_order": 152, 
             "expansion_hint": "", 
-            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020", 
-            "refresh_rate": 3850, 
-            "label": "cert3-skills-hero-state", 
-            "parametisation": "state_param", 
+            "about": "<p>4,200 new houses to be delivered by 2018; 4,800 refurbishments to be delivered by\r\n2014</p>", 
+            "refresh_rate": 4000, 
+            "label": "indigenous_remote-housing-hero-state", 
+            "parametisation": "state_param",
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
-    "name": "Skills"
+    "source_url": "https://www.dpmc.gov.au/indigenous-affairs/housing/national-partnership-agreement-remote-indigenous-housing-nparih", 
+    "name": "Housing"
 }
 

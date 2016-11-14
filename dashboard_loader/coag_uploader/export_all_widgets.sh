@@ -8,6 +8,13 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag indigen
 python manage.py export_widget --settings=dashboard_loader.settings_coag homelessness-housing-hero > coag_uploader/exports/03_homelessness-housing-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag rentalstress-housing-hero > coag_uploader/exports/03_rentalstress-housing-hero.json
 
+echo "Exporting Housing Hero Widgets (Parametised by State)"
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_remote-housing-hero-state > coag_uploader/exports/03_remote_indigenous_housing-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_overcrowding-housing-hero-state > coag_uploader/exports/03_indigenous_overcrowding-housing-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_homeownership-housing-hero-state > coag_uploader/exports/03_indigenous_homeownership-housing-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag homelessness-housing-hero-state > coag_uploader/exports/03_homelessness-housing-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag rentalstress-housing-hero-state > coag_uploader/exports/03_rentalstress-housing-hero-state.json
+
 # Education Hero Widgets
 echo "Exporting Education Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero > coag_uploader/exports/03_yr12-education-hero.json

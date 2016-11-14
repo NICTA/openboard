@@ -1,11 +1,11 @@
 {
-    "category": "skills", 
+    "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Halve proportion of Australians without Certificate Level III and above", 
+    "subtitle": "Reduce homelessness", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "cert3-skills-hero-state", 
+    "url": "homelessness-housing-hero-state", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-header", 
+                    "url": "housing-hln-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +52,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-graph", 
+                    "url": "housing-hln-hero-graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "australia", 
-                                "colour": "green-solid", 
+                                "colour": "aqua", 
                                 "dynamic_label": false, 
                                 "label": "National"
                             }, 
@@ -90,7 +90,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "state", 
-                                "colour": "purple-solid", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "{{ state_abbrev }}"
                             }, 
@@ -100,12 +100,12 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "green-dotted", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -118,58 +118,58 @@
             ], 
             "views": [
                 {
-                    "child_view": "skills_act", 
-                    "sort_order": 300, 
+                    "child_view": "housing_act", 
+                    "sort_order": 105, 
                     "view": "act"
                 }, 
                 {
-                    "child_view": "skills_nsw", 
-                    "sort_order": 300, 
+                    "child_view": "housing_nsw", 
+                    "sort_order": 105, 
                     "view": "nsw"
                 }, 
                 {
-                    "child_view": "skills_nt", 
-                    "sort_order": 300, 
+                    "child_view": "housing_nt", 
+                    "sort_order": 105, 
                     "view": "nt"
                 }, 
                 {
-                    "child_view": "skills_sa", 
-                    "sort_order": 300, 
+                    "child_view": "housing_sa", 
+                    "sort_order": 105, 
                     "view": "sa"
                 }, 
                 {
-                    "child_view": "skills_qld", 
-                    "sort_order": 300, 
+                    "child_view": "housing_qld", 
+                    "sort_order": 105, 
                     "view": "qld"
                 }, 
                 {
-                    "child_view": "skills_vic", 
-                    "sort_order": 300, 
+                    "child_view": "housing_vic", 
+                    "sort_order": 105, 
                     "view": "vic"
                 }, 
                 {
-                    "child_view": "skills_tas", 
-                    "sort_order": 300, 
+                    "child_view": "housing_tas", 
+                    "sort_order": 105, 
                     "view": "tas"
                 }, 
                 {
-                    "child_view": "skills_wa", 
-                    "sort_order": 300, 
+                    "child_view": "housing_wa", 
+                    "sort_order": 105, 
                     "view": "wa"
                 }
             ], 
-            "default_frequency_text": "Annual", 
+            "default_frequency_text": "Five yearly", 
             "raw_data_sets": [], 
-            "sort_order": 302, 
+            "sort_order": 112, 
             "expansion_hint": "", 
-            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020", 
-            "refresh_rate": 3850, 
-            "label": "cert3-skills-hero-state", 
-            "parametisation": "state_param", 
+            "about": "<p>From 2006 to 2013, a 7% reduction nationally in the number of homeless Australians.</p>", 
+            "refresh_rate": 3600, 
+            "label": "homelessness-housing-hero-state", 
+            "parametisation": "state_param",
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
-    "name": "Skills"
+    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200", 
+    "name": "Housing"
 }
 
