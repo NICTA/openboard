@@ -178,7 +178,7 @@
             "about": "<p>4,200 new houses to be delivered by 2018; 4,800 refurbishments to be delivered by\r\n2014</p>", 
             "refresh_rate": 4000, 
             "label": "indigenous_remote-housing-hero-state", 
-            "parametisation": "state_param",
+            "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 

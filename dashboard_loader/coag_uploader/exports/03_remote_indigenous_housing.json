@@ -296,37 +296,6 @@
             "default_frequency_text": "Annual", 
             "raw_data_sets": [
                 {
-                    "url": "housing_indigenous_remote", 
-                    "name": "Remote Indigenous Housing Data", 
-                    "columns": [
-                        {
-                            "url": "year", 
-                            "sort_order": 10, 
-                            "heading": "Year", 
-                            "description": "The calendar or financial year each row describes."
-                        }, 
-                        {
-                            "url": "jurisdiction", 
-                            "sort_order": 20, 
-                            "heading": "Jurisdiction", 
-                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
-                        }, 
-                        {
-                            "url": "new", 
-                            "sort_order": 30, 
-                            "heading": "New Houses", 
-                            "description": "Number of new houses completed since 2008."
-                        }, 
-                        {
-                            "url": "refurbished", 
-                            "sort_order": 40, 
-                            "heading": "Refurbished Houses", 
-                            "description": "Number of refurbishments completed since 2008."
-                        }
-                    ], 
-                    "filename": "coag_remote_indigenous_housing_data.csv"
-                }, 
-                {
                     "url": "data_table", 
                     "name": "Remote Indigenous Housing Data Table", 
                     "columns": [
@@ -419,6 +388,37 @@
                             "sort_order": 150, 
                             "heading": "Aust| Refurbishments", 
                             "description": ""
+                        }
+                    ], 
+                    "filename": "coag_remote_indigenous_housing_data.csv"
+                }, 
+                {
+                    "url": "housing_indigenous_remote", 
+                    "name": "Remote Indigenous Housing Data", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 20, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "new", 
+                            "sort_order": 30, 
+                            "heading": "New Houses", 
+                            "description": "Number of new houses completed since 2008."
+                        }, 
+                        {
+                            "url": "refurbished", 
+                            "sort_order": 40, 
+                            "heading": "Refurbished Houses", 
+                            "description": "Number of refurbishments completed since 2008."
                         }
                     ], 
                     "filename": "coag_remote_indigenous_housing_data.csv"

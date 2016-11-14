@@ -326,43 +326,6 @@
             "default_frequency_text": "Five yearly", 
             "raw_data_sets": [
                 {
-                    "url": "housing_homelessness", 
-                    "name": "Homelessness Data", 
-                    "columns": [
-                        {
-                            "url": "jurisdiction", 
-                            "sort_order": 10, 
-                            "heading": "Jurisdiction", 
-                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia.\r\n\r\nA special jurisdiction is \"benchmark\" which describes the national benchmark target"
-                        }, 
-                        {
-                            "url": "year", 
-                            "sort_order": 20, 
-                            "heading": "Year", 
-                            "description": "The calendar or financial year each row describes."
-                        }, 
-                        {
-                            "url": "number_homeless_persons", 
-                            "sort_order": 300, 
-                            "heading": "Number of homeless persons", 
-                            "description": "The number of homeless people. A person is considered to be homeless if they are staying (1) in improvised dwellings, tents, or sleeping out; (2) in supported accommodation for the homeless; (3) temporarily with other households; (4) in boarding houses; (5) in other temporary lodging; or (6) in \"severely\" crowded dwellings."
-                        }, 
-                        {
-                            "url": "proportion_national_total", 
-                            "sort_order": 400, 
-                            "heading": "Proportion of national total", 
-                            "description": "The proportion (%) of the national total homeless count this jurisdication contributes to."
-                        }, 
-                        {
-                            "url": "rate_per_10k", 
-                            "sort_order": 500, 
-                            "heading": "Rate per 10,000 of the population", 
-                            "description": "The number of homeless people per 10,000 of the population."
-                        }
-                    ], 
-                    "filename": "coag_housing_homelessness_data.csv"
-                }, 
-                {
                     "url": "data_table", 
                     "name": "Homelessness Data Table", 
                     "columns": [
@@ -536,6 +499,43 @@
                         }
                     ], 
                     "filename": "homelessness_data_table.csv"
+                }, 
+                {
+                    "url": "housing_homelessness", 
+                    "name": "Homelessness Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia.\r\n\r\nA special jurisdiction is \"benchmark\" which describes the national benchmark target"
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "number_homeless_persons", 
+                            "sort_order": 300, 
+                            "heading": "Number of homeless persons", 
+                            "description": "The number of homeless people. A person is considered to be homeless if they are staying (1) in improvised dwellings, tents, or sleeping out; (2) in supported accommodation for the homeless; (3) temporarily with other households; (4) in boarding houses; (5) in other temporary lodging; or (6) in \"severely\" crowded dwellings."
+                        }, 
+                        {
+                            "url": "proportion_national_total", 
+                            "sort_order": 400, 
+                            "heading": "Proportion of national total", 
+                            "description": "The proportion (%) of the national total homeless count this jurisdication contributes to."
+                        }, 
+                        {
+                            "url": "rate_per_10k", 
+                            "sort_order": 500, 
+                            "heading": "Rate per 10,000 of the population", 
+                            "description": "The number of homeless people per 10,000 of the population."
+                        }
+                    ], 
+                    "filename": "coag_housing_homelessness_data.csv"
                 }
             ], 
             "sort_order": 1100, 

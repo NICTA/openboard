@@ -89,7 +89,7 @@
                                 "sort_order": 200, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "australia", 
+                                "url": "state", 
                                 "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "{{ state_abbrev }}"
@@ -165,7 +165,7 @@
             "about": "<p>From 2008 to 2017/18, a 10% reduction nationally in the proportion of low-income Indigenous households owning or purchasing a home.</p>", 
             "refresh_rate": 3600, 
             "label": "indigenous_homeownership-housing-hero-state", 
-            "parametisation": "state_param",
+            "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 

@@ -286,8 +286,8 @@
             "default_frequency_text": "Annual", 
             "raw_data_sets": [
                 {
-                    "url": "housing_homelessness_npa_data", 
-                    "name": "Homelessness NPA Data", 
+                    "url": "data_table", 
+                    "name": "Homelessness NPA Data Table", 
                     "columns": [
                         {
                             "url": "year", 
@@ -323,8 +323,8 @@
                     "filename": "housing_homelessness_npa_data.csv"
                 }, 
                 {
-                    "url": "data_table", 
-                    "name": "Homelessness NPA Data Table", 
+                    "url": "housing_homelessness_npa_data", 
+                    "name": "Homelessness NPA Data", 
                     "columns": [
                         {
                             "url": "year", 

@@ -165,7 +165,7 @@
             "about": "<p>From 2006 to 2013, a 7% reduction nationally in the number of homeless Australians.</p>", 
             "refresh_rate": 3600, 
             "label": "homelessness-housing-hero-state", 
-            "parametisation": "state_param",
+            "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
