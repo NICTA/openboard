@@ -22,6 +22,7 @@ from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from skills_cert3_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -88,7 +89,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
                                 "cert3-skills-hero", "cert3-skills-hero", 
-                                None, None,
+                                "cert3-skills-hero-state", "cert3-skills-hero-state",
+                                None, None, None, None,
                                 verbosity))
         messages.extend(
                 update_graph_data(
@@ -102,10 +104,26 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
-
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                update_graph_data(
+                            "cert3-skills-hero-state", "cert3-skills-hero-state",
+                            "skills-cert3-hero-graph",
+                            SkillsCert3Data, "percentage",
+                            [ AUS, state_num ],
+                            benchmark_start=2009,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: Decimal(0.5) * init,
+                            use_error_bars=False,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
     except LoaderException, e:
         raise e
     except Exception, e:
-        raise LoaderException("Invalid file: %s" % unicode(e))
+        raise
+# raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 

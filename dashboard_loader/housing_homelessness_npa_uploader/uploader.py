@@ -95,8 +95,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         )
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, indicators,
+                            None, None, 
                             None, None,
-                            "housing_homelessness_npa", "housing_homelessness_npa",
+                            "housing_homelessness_npa", "housing_homelessness_npa", 
+                            None, None,
                             verbosity))
         messages.extend(update_my_graph_data("housing_homelessness_npa", "housing_homelessness_npa",
                             "housing_homelessness_npa_summary_graph", include_all_years=False))

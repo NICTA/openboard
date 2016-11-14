@@ -87,7 +87,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, indicators,
                                 "life_expectancy-health-hero", "life_expectancy-health-hero", 
-                                None, None,
+                                None, None, 
+                                None,None,
+                                None,None,
                                 verbosity))
         earliest_aust = HealthLifeExpectancyData.objects.filter(state=AUS).order_by("year").first()
         latest_aust = HealthLifeExpectancyData.objects.filter(state=AUS).order_by("year").last()

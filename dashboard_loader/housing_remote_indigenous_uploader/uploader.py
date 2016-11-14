@@ -92,8 +92,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
-                            "indigenous_remote-housing-hero", "indigenous_remote-housing-hero",
-                            "housing_remote_indigenous", "housing_remote_indigenous",
+                            "indigenous_remote-housing-hero", "indigenous_remote-housing-hero", 
+                            None, None,
+                            "housing_remote_indigenous", "housing_remote_indigenous", 
+                            None, None,
                             verbosity))
         messages.extend(update_summary_graph_data(
                     "indigenous_remote-housing-hero", 

@@ -502,10 +502,11 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
                             benchmark_end=None,
                             benchmark_gen=lambda x: x,
                             use_error_bars=False,
-                            verbosity=0):
+                            verbosity=0,
+                            pval=None):
     messages=[]
     g = get_graph(wurl, wlbl, graphlbl)
-    clear_graph_data(g)
+    clear_graph_data(g, pval=pval)
     if jurisdictions:
         qry = model.objects.filter(state__in=jurisdictions)
     else:
@@ -522,16 +523,24 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
         if use_error_bars:
             kwargs["val_min"] = value-o.uncertainty
             kwargs["val_max"] = value+o.uncertainty
-        add_graph_data(g, o.state_display().lower(),
+        if pval is not None and o.state != AUS:
+            dataset_url = "state"
+        else:
+            dataset_url = o.state_display().lower()
+        if pval is not None:
+            kwargs["pval"] = pval
+        add_graph_data(g, dataset_url,
                 value,
                 **kwargs)
     if benchmark_init is not None and benchmark_final is not None :
         add_graph_data(g, "benchmark",
                     benchmark_init,
-                    horiz_value=float_year_as_date(benchmark_start))
+                    horiz_value=float_year_as_date(benchmark_start),
+                    pval=pval)
         add_graph_data(g, "benchmark",
                     benchmark_final,
-                    horiz_value=float_year_as_date(benchmark_end))
+                    horiz_value=float_year_as_date(benchmark_end),
+                    pval=pval)
     if verbosity > 1:
         messages.append("Graph %s updated" % graphlbl)
     return messages
@@ -571,7 +580,12 @@ txt_block_template = Template("""<div class="coag_description">
     </div>
 </div>""")
 
-def update_stats(desc, benchmark, wurl_hero, wlbl_hero, wurl, wlbl, verbosity):
+def update_stats(desc, benchmark, 
+                wurl_hero, wlbl_hero, 
+                wurl_hero_state, wlbl_hero_state,
+                wurl, wlbl, 
+                wurl_state, wlbl_state,
+                verbosity):
     messages = []
     if wurl_hero:
         set_statistic_data(wurl_hero, wlbl_hero,
@@ -581,6 +595,18 @@ def update_stats(desc, benchmark, wurl_hero, wlbl_hero, wurl, wlbl, verbosity):
                     icon_code=desc["status"]["icon"])
         set_actual_frequency_display_text(wurl_hero, wlbl_hero,
                     "%s" % unicode(desc["updated"]))
+    if wurl_hero_state:
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            set_statistic_data(wurl_hero_state, wlbl_hero_state,
+                        "status_header",
+                        desc["status"]["short"],
+                        traffic_light_code=desc["status"]["tlc"],
+                        icon_code=desc["status"]["icon"],
+                        pval=pval)
+            set_actual_frequency_display_text(wurl_hero_state, wlbl_hero_state,
+                        "%s" % unicode(desc["updated"]),
+                        pval=pval)
     if wurl:
         set_statistic_data(wurl, wlbl,
                         "status_header",
@@ -602,6 +628,34 @@ def update_stats(desc, benchmark, wurl_hero, wlbl_hero, wurl, wlbl, verbosity):
                     txt_block_template.render(Context({ 
                                     "benchmark": benchmark, 
                                     "desc": desc })))
+    if wurl_state:
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            set_statistic_data(wurl_state, wlbl_state,
+                            "status_header",
+                            desc["status"]["short"],
+                            traffic_light_code=desc["status"]["tlc"],
+                            icon_code=desc["status"]["icon"],
+                            pval=pval)
+            set_statistic_data(wurl_state, wlbl_state,
+                            "status_short",
+                            desc["status"]["short"],
+                            traffic_light_code=desc["status"]["tlc"],
+                            icon_code=desc["status"]["icon"],
+                            pval=pval)
+            set_statistic_data(wurl_state, wlbl_state,
+                            "status_long",
+                            desc["status"]["long"],
+                            traffic_light_code=desc["status"]["tlc"],
+                            pval=pval)
+            set_actual_frequency_display_text(wurl_state, wlbl_state,
+                        "Updated: %s" % unicode(desc["updated"]),
+                        pval=pval)
+            set_text_block(wurl_state, wlbl_state,
+                        txt_block_template.render(Context({ 
+                                        "benchmark": benchmark, 
+                                        "desc": desc })),
+                        pval=pval)
     if verbosity > 1:
         messages.append("Stats updated")
     return messages
