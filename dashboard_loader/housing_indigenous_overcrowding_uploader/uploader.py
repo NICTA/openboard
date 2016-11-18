@@ -92,7 +92,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "indigenous_overcrowding-housing-hero", "indigenous_overcrowding-housing-hero", 
                             "indigenous_overcrowding-housing-hero-state", "indigenous_overcrowding-housing-hero-state", 
                             "housing_indigenous_overcrowding", "housing_indigenous_overcrowding", 
-                            None, None,
+                            "housing_indigenous_overcrowding_state", "housing_indigenous_overcrowding_state", 
                             verbosity))
         messages.extend(
                 update_graph_data(
@@ -122,7 +122,6 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             verbosity=verbosity,
                             pval=pval)
             )
-
         messages.extend(
                 update_graph_data(
                             "housing_indigenous_overcrowding", "housing_indigenous_overcrowding",
@@ -162,6 +161,51 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "uncertainty": "error",
                                 })
                 )
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                    update_graph_data(
+                                "housing_indigenous_overcrowding_state", "housing_indigenous_overcrowding_state",
+                                "housing_indigenous_overcrowding_summary_graph",
+                                IndigenousOvercrowdingData, "percentage",
+                                [ AUS, state_num ],
+                                benchmark_start=2008,
+                                benchmark_end=2017.5,
+                                benchmark_gen=lambda init: Decimal(0.8)*init,
+                                use_error_bars=False,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    update_graph_data(
+                                "housing_indigenous_overcrowding_state", "housing_indigenous_overcrowding_state",
+                                "housing_indigenous_overcrowding_detail_graph",
+                                IndigenousOvercrowdingData, "percentage",
+                                benchmark_start=2008,
+                                benchmark_end=2017.5,
+                                benchmark_gen=lambda init: Decimal(0.8)*init,
+                                use_error_bars=True,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    populate_raw_data("housing_indigenous_overcrowding_state", "housing_indigenous_overcrowding_state",
+                                    "housing_indigenous_overcrowding", IndigenousOvercrowdingData,
+                                    {
+                                        "percentage": "indigenous_overcrowding",
+                                        "uncertainty": "uncertainty",
+                                    },
+                                    pval=pval)
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data("housing_indigenous_overcrowding_state", "housing_indigenous_overcrowding_state",
+                                    "data_table", IndigenousOvercrowdingData,
+                                    {
+                                        "percentage": "percent",
+                                        "uncertainty": "error",
+                                    },
+                                    pval=pval)
+                    )
     except LoaderException, e:
         raise e
     except Exception, e:

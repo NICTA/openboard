@@ -91,7 +91,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "rentalstress-housing-hero", "rentalstress-housing-hero",  
                                 "rentalstress-housing-hero-state", "rentalstress-housing-hero-state",  
                                 "housing_rentalstress", "housing_rentalstress",  
-                                None, None,
+                                "housing_rentalstress_state", "housing_rentalstress_state",
                                 verbosity))
         messages.extend(
                 update_graph_data(
@@ -160,6 +160,49 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "uncertainty": "error",
                                 })
                 )
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                update_graph_data(
+                            "housing_rentalstress_state", "housing_rentalstress_state",
+                            "housing_rentalstress_summary_graph",
+                            HousingRentalStressData, "percentage",
+                            [ AUS, state_num],
+                            benchmark_start=2007.5,
+                            benchmark_end=2015.5,
+                            benchmark_gen=lambda init: Decimal(0.9)*init,
+                            use_error_bars=False,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
+            messages.extend(
+                    update_graph_data(
+                                "housing_rentalstress_state", "housing_rentalstress_state",
+                                "housing_rentalstress_detail_graph",
+                                HousingRentalStressData, "percentage",
+                                benchmark_start=2007.5,
+                                benchmark_end=2015.5,
+                                benchmark_gen=lambda init: Decimal(0.9)*init,
+                                use_error_bars=True,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    populate_raw_data("housing_rentalstress", "housing_rentalstress",
+                                    "housing_rentalstress", HousingRentalStressData,
+                                    {
+                                        "percentage": "percentage_rental_stress",
+                                        "uncertainty": "uncertainty",
+                                    }, pval=pval)
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data("housing_rentalstress", "housing_rentalstress",
+                                    "data_table", HousingRentalStressData,
+                                    {
+                                        "percentage": "percent",
+                                        "uncertainty": "error",
+                                    }, pval=pval)
+                    )
     except LoaderException, e:
         raise e
     except Exception, e:

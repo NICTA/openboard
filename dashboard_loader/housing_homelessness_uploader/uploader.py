@@ -97,7 +97,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "homelessness-housing-hero", "homelessness-housing-hero", 
                             "homelessness-housing-hero-state", "homelessness-housing-hero-state", 
                             "housing_homelessness", "housing_homelessness", 
-                            None, None,
+                            "housing_homelessness_state", "housing_homelessness_state", 
                             verbosity))
         messages.extend(
                 update_graph_data(
@@ -168,6 +168,53 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "rate_per_10k": "rate10k",
                             })
                 )
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                    update_graph_data(
+                                "housing_homelessness_state", "housing_homelessness_state",
+                                "housing_homelessness_summary_graph",
+                                HousingHomelessData, "homeless_persons",
+                                [ AUS, state_num ],
+                                benchmark_start=2006,
+                                benchmark_end=2013,
+                                benchmark_gen=lambda init: Decimal(0.93)*init,
+                                use_error_bars=False,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    update_graph_data(
+                                "housing_homelessness_state", "housing_homelessness_state",
+                                "housing_homelessness_detail_graph",
+                                HousingHomelessData, "homeless_persons",
+                                benchmark_start=2006,
+                                benchmark_end=2013,
+                                benchmark_gen=lambda init: Decimal(0.93)*init,
+                                use_error_bars=False,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    populate_raw_data("housing_homelessness_state", "housing_homelessness_state",
+                                "housing_homelessness", HousingHomelessData,
+                                {
+                                    "homeless_persons": "number_homeless_persons",
+                                    "percent_of_national": "proportion_national_total",
+                                    "rate_per_10k": "rate_per_10k",
+                                },
+                                pval=pval)
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data("housing_homelessness_state", "housing_homelessness_state",
+                                "data_table", HousingHomelessData,
+                                {
+                                    "homeless_persons": "persons",
+                                    "percent_of_national": "proportion",
+                                    "rate_per_10k": "rate10k",
+                                },
+                                pval=pval)
+                    )
     except LoaderException, e:
         raise e
     except Exception, e:

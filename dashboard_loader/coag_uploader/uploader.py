@@ -444,10 +444,10 @@ def load_benchmark_description(wb, sheetname, indicator=False):
     return desc
 
 def populate_raw_data(widget_url, label, rds_url,
-                    model, field_map):
+                    model, field_map, pval=None):
     messages = []
     rds = get_rawdataset(widget_url, label, rds_url)
-    clear_rawdataset(rds)
+    clear_rawdataset(rds, pval=pval)
     sort_order = 1
     for obj in model.objects.all().order_by("state", "year", "financial_year"):
         kwargs = {
@@ -456,18 +456,22 @@ def populate_raw_data(widget_url, label, rds_url,
         }
         for model_field, rds_field in field_map.items():
             kwargs[rds_field] = unicode(getattr(obj, model_field))
+        if pval:
+            kwargs["pval"] = pval
         add_rawdatarecord(rds, sort_order, **kwargs)
         sort_order += 1
     return messages
 
 def populate_crosstab_raw_data(widget_url, label, rds_url,
-                    model, field_map):
+                    model, field_map, pval=None):
     messages = []
     rds = get_rawdataset(widget_url, label, rds_url)
-    clear_rawdataset(rds)
+    clear_rawdataset(rds, pval=pval)
     sort_order = 1
     kwargs = {}
     kwargs["year"] = None
+    if pval:
+        kwargs["pval"] = pval
     for obj in model.objects.all().order_by("year", "financial_year", "state"):
         if obj.year_display() != kwargs["year"]:
             add_rawdatarecord(rds, sort_order, **kwargs)
@@ -477,7 +481,7 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
         jurisdiction = obj.state_display().lower()
         for model_field, rds_field in field_map.items():
             kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
-    add_rawdatarecord(rds, sort_order, **kwargs)
+        add_rawdatarecord(rds, sort_order, **kwargs)
     return messages
 
 def populate_raw_data_nostate(widget_url, label, rds_url,
@@ -523,7 +527,7 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
         if use_error_bars:
             kwargs["val_min"] = value-o.uncertainty
             kwargs["val_max"] = value+o.uncertainty
-        if pval is not None and o.state != AUS:
+        if jurisdictions and o.state != AUS:
             dataset_url = "state"
         else:
             dataset_url = o.state_display().lower()
@@ -542,7 +546,10 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
                     horiz_value=float_year_as_date(benchmark_end),
                     pval=pval)
     if verbosity > 1:
-        messages.append("Graph %s updated" % graphlbl)
+        if pval:
+            messages.append("Graph %s (%s) updated" % (graphlbl, pval.parameters()["state_abbrev"]))
+        else:
+            messages.append("Graph %s updated" % graphlbl)
     return messages
 
 txt_block_template = Template("""<div class="coag_description">
@@ -633,13 +640,13 @@ def update_stats(desc, benchmark,
         for pval in p.parametisationvalue_set.all():
             set_statistic_data(wurl_state, wlbl_state,
                             "status_header",
-                            desc["status"]["short"],
+                            "Nationally - " + desc["status"]["short"],
                             traffic_light_code=desc["status"]["tlc"],
                             icon_code=desc["status"]["icon"],
                             pval=pval)
             set_statistic_data(wurl_state, wlbl_state,
                             "status_short",
-                            desc["status"]["short"],
+                            "Nationally - " + desc["status"]["short"],
                             traffic_light_code=desc["status"]["tlc"],
                             icon_code=desc["status"]["icon"],
                             pval=pval)

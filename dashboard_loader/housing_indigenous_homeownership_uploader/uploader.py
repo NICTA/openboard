@@ -94,7 +94,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero", 
                             "indigenous_homeownership-housing-hero-state", "indigenous_homeownership-housing-hero-state", 
                             "housing_indigenous_homeownership", "housing_indigenous_homeownership", 
-                            None, None,
+                            "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state", 
                             verbosity))
         messages.extend(
                 update_graph_data(
@@ -163,6 +163,51 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "uncertainty": "error",
                                 })
                 )
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(
+                    update_graph_data(
+                                "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state",
+                                "housing_indigenous_homeownership_summary_graph",
+                                IndigenousHomeOwnershipData, "percentage",
+                                [ AUS, state_num ],
+                                benchmark_start=2008,
+                                benchmark_end=2017.5,
+                                benchmark_gen=lambda init: Decimal(0.9)*init,
+                                use_error_bars=False,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    update_graph_data(
+                                "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state",
+                                "housing_indigenous_homeownership_detail_graph",
+                                IndigenousHomeOwnershipData, "percentage",
+                                benchmark_start=2008,
+                                benchmark_end=2017.5,
+                                benchmark_gen=lambda init: Decimal(0.9)*init,
+                                use_error_bars=True,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    populate_raw_data("housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state",
+                                    "housing_indigenous_homeownership", IndigenousHomeOwnershipData,
+                                    {
+                                        "percentage": "indigenous_home_ownership_rate",
+                                        "uncertainty": "uncertainty",
+                                    },
+                                    pval=pval)
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data("housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state",
+                                    "data_table", IndigenousHomeOwnershipData,
+                                    {
+                                        "percentage": "percent",
+                                        "uncertainty": "error",
+                                    },
+                                    pval=pval)
+                    )
     except LoaderException, e:
         raise e
     except Exception, e:
