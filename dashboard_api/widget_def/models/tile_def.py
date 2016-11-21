@@ -232,11 +232,17 @@ class TileDefinition(models.Model):
         if self.geo_window:
             exp["geo_window"] = self.geo_window.name
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
-            g = self.graphdefinition
-            exp["graph"] = g.export()
+            try:
+                g = self.graphdefinition
+                exp["graph"] = g.export()
+            except models.ObjectDoesNotExist:
+                exp["graph"] = None
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
-            g = self.griddefinition
-            exp["grid"] = g.export()
+            try:
+                g = self.griddefinition
+                exp["grid"] = g.export()
+            except models.ObjectDoesNotExist:
+                exp["grid"] = None
         return exp
     @classmethod
     def import_data(cls, widget, data):
