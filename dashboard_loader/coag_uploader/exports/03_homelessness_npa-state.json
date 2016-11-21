@@ -505,6 +505,26 @@
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "alone_state", 
+                                "colour": "dark_green", 
+                                "dynamic_label": false, 
+                                "label": "Young people presenting alone ({{ state_abbrev }})"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "alone_aust", 
+                                "colour": "light_green", 
+                                "dynamic_label": false, 
+                                "label": "Young people presenting alone (Nationally)"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 

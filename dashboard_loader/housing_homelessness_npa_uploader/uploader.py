@@ -187,6 +187,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.extend(update_mygraph_data("housing_homelessness_npa_state", "housing_homelessness_npa_state",
                                 "housing_homelessness_npa_detail_graph_2",
                                 include_violence = True, 
+                                include_alone = True, 
                                 state=state_num,
                                 pval=pval))
             messages.extend(populate_raw_data(
