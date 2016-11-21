@@ -1,0 +1,131 @@
+{
+    "category": "housing", 
+    "edit_all_groups": [], 
+    "source_url_text": "AIHW", 
+    "subtitle": "NPA on Homelessness", 
+    "subcategory": "summary", 
+    "groups": [], 
+    "url": "homelessness_npa-housing-hero", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "housing-hln_npa-hero-header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 300, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing-hln_npa-hero-graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "measure", 
+                        "clusters": [], 
+                        "cluster_label": "year", 
+                        "dynamic_clusters": true, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "accommodation", 
+                                "colour": "dark_green", 
+                                "dynamic_label": false, 
+                                "label": "Accommodation needs met"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "services", 
+                                "colour": "light_green", 
+                                "dynamic_label": false, 
+                                "label": "Need for services met"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "child_view": "housing", 
+                    "sort_order": 125, 
+                    "child_view_text": "see all", 
+                    "view": "aus"
+                }
+            ], 
+            "default_frequency_text": "annual", 
+            "raw_data_sets": [], 
+            "sort_order": 160, 
+            "expansion_hint": "", 
+            "about": "<p>all states and territories to direct at least 25 per cent of total matched funding over two years towards the priority areas of homelessness services focusing on women and children experiencing domestic and family violence and young people who are homeless or at risk of homelessness.</p>", 
+            "refresh_rate": 3000, 
+            "label": "homelessness_npa-housing-hero", 
+            "parametisation": null, 
+            "deexpansion_hint": ""
+        }
+    ], 
+    "source_url": "https://www.aihw.gov.au/",
+    "name": "Housing"
+}
+

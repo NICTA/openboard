@@ -2,6 +2,7 @@
 
 # Housing Hero Widgets
 echo "Exporting Housing Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag homelessness_npa-housing-hero > coag_uploader/exports/03_homelessness_npa-housing-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_remote-housing-hero > coag_uploader/exports/03_remote_indigenous_housing-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_overcrowding-housing-hero > coag_uploader/exports/03_indigenous_overcrowding-housing-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_homeownership-housing-hero > coag_uploader/exports/03_indigenous_homeownership-housing-hero.json
@@ -9,6 +10,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag homeles
 python manage.py export_widget --settings=dashboard_loader.settings_coag rentalstress-housing-hero > coag_uploader/exports/03_rentalstress-housing-hero.json
 
 echo "Exporting Housing Hero Widgets (Parametised by State)"
+python manage.py export_widget --settings=dashboard_loader.settings_coag homelessness_npa-housing-hero-state > coag_uploader/exports/03_homelessness_npa-housing-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_remote-housing-hero-state > coag_uploader/exports/03_remote_indigenous_housing-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_overcrowding-housing-hero-state > coag_uploader/exports/03_indigenous_overcrowding-housing-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_homeownership-housing-hero-state > coag_uploader/exports/03_indigenous_homeownership-housing-hero-state.json

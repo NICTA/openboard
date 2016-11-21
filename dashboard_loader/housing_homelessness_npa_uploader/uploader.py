@@ -24,6 +24,7 @@ from coag_uploader.models import *
 from housing_homelessness_npa_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
 from django.template import Template, Context
+from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -122,14 +123,18 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, benchmark,
-                            None, None, 
-                            None, None,
+                            "homelessness_npa-housing-hero", "homelessness_npa-housing-hero", 
+                            "homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state", 
                             "housing_homelessness_npa", "housing_homelessness_npa", 
                             None, None,
                             verbosity))
         messages.extend(update_progress(verbosity=verbosity))
         messages.extend(update_mygraph_data("housing_homelessness_npa", "housing_homelessness_npa",
                             "housing_homelessness_npa_summary_graph", 
+                            include_accom = True, include_services=True,
+                            include_all_years=False))
+        messages.extend(update_mygraph_data("homelessness_npa-housing-hero", "homelessness_npa-housing-hero",
+                            "housing-hln_npa-hero-graph", 
                             include_accom = True, include_services=True,
                             include_all_years=False))
         messages.extend(update_mygraph_data("housing_homelessness_npa", "housing_homelessness_npa",
@@ -160,6 +165,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "accommodation_needs_met": "accommodation",
                     "clients_exp_violence": "violence",
                 }))
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(update_mygraph_data("homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state",
+                                "housing-hln_npa-hero-graph", 
+                                include_accom = True, 
+                                include_all_years=False,
+                                state=state_num,
+                                pval=pval))
+            
     except LoaderException, e:
         raise e
 #   except Exception, e:
@@ -201,35 +216,52 @@ def update_progress(verbosity=0):
 
 def update_mygraph_data(wurl, wlbl, graph_lbl, 
         include_accom=False, include_services=False, include_violence=False, include_alone=False, 
-        include_all_years=True, state=0):
+        include_all_years=True, state=0, pval=None):
     messages = []
     if not (include_accom or include_services or include_violence or include_alone):
         raise LoaderException("Must include at least one metric in graph")
     g = get_graph(wurl, wlbl, graph_lbl)
-    clear_graph_data(g, clusters=True)
+    clear_graph_data(g, clusters=True, pval=pval)
     clusters = {}
     distys = HousingHomelessnessNpaData.objects.filter(state=AUS).order_by('year', 'financial_year').distinct('year', 'financial_year')
     if not include_all_years:
         miny = distys.first().year_display()
         maxy = distys.last().year_display()
-        clusters[miny] = add_graph_dyncluster(g, miny, 10, miny)
-        clusters[maxy] = add_graph_dyncluster(g, maxy, 20, maxy)
+        clusters[miny] = add_graph_dyncluster(g, miny, 10, miny, pval=pval)
+        clusters[maxy] = add_graph_dyncluster(g, maxy, 20, maxy, pval=pval)
     else:
         sort_order = 10
         for d in distys:
             disp = d.year_display()
-            clusters[disp] = add_graph_dyncluster(g, disp, sort_order, disp) 
+            clusters[disp] = add_graph_dyncluster(g, disp, sort_order, disp, pval=pval) 
             sort_order += 10
-    for dat in HousingHomelessnessNpaData.objects.filter(state=AUS).all():
-        if dat.year_display() in clusters:
-            cluster = clusters[dat.year_display()]
-            if include_accom:
-                add_graph_data(g, "accommodation", dat.accommodation_needs_met, cluster=cluster)
-            if include_services:
-                add_graph_data(g, "services", dat.service_needs_met, cluster=cluster)
-            if include_violence:
-                add_graph_data(g, "violence", dat.clients_exp_violence, cluster=cluster)
-            if include_alone:
-                add_graph_data(g, "alone", dat.young_presenting_alone, cluster=cluster)
+    if state:
+        for dat in HousingHomelessnessNpaData.objects.filter(state__in=(AUS, state)):
+            if dat.year_display() in clusters:
+                cluster = clusters[dat.year_display()]
+                if dat.state == AUS:
+                    suffix = "_aust"
+                else:
+                    suffix = "_state"
+                if include_accom:
+                    add_graph_data(g, "accommodation" + suffix, dat.accommodation_needs_met, cluster=cluster, pval=pval)
+                if include_services:
+                    add_graph_data(g, "services" + suffix, dat.service_needs_met, cluster=cluster, pval=pval)
+                if include_violence:
+                    add_graph_data(g, "violence" + suffix, dat.clients_exp_violence, cluster=cluster, pval=pval)
+                if include_alone:
+                    add_graph_data(g, "alone" + suffix, dat.young_presenting_alone, cluster=cluster, pval=pval)
+    else:
+        for dat in HousingHomelessnessNpaData.objects.filter(state=AUS):
+            if dat.year_display() in clusters:
+                cluster = clusters[dat.year_display()]
+                if include_accom:
+                    add_graph_data(g, "accommodation", dat.accommodation_needs_met, cluster=cluster)
+                if include_services:
+                    add_graph_data(g, "services", dat.service_needs_met, cluster=cluster)
+                if include_violence:
+                    add_graph_data(g, "violence", dat.clients_exp_violence, cluster=cluster)
+                if include_alone:
+                    add_graph_data(g, "alone", dat.young_presenting_alone, cluster=cluster)
     return messages
 
