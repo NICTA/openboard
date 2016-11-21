@@ -126,9 +126,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "homelessness_npa-housing-hero", "homelessness_npa-housing-hero", 
                             "homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state", 
                             "housing_homelessness_npa", "housing_homelessness_npa", 
-                            None, None,
+                            "housing_homelessness_npa_state", "housing_homelessness_npa_state", 
                             verbosity))
-        messages.extend(update_progress(verbosity=verbosity))
+        messages.extend(update_progress("housing_homelessness_npa", "housing_homelessness_npa", verbosity=verbosity))
         messages.extend(update_mygraph_data("housing_homelessness_npa", "housing_homelessness_npa",
                             "housing_homelessness_npa_summary_graph", 
                             include_accom = True, include_services=True,
@@ -168,20 +168,62 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
+            # TODO  Update progress grid for state widget.
+            messages.extend(update_progress("housing_homelessness_npa_state", "housing_homelessness_npa_state",
+                        jurisdictions=[ state_num, AUS ],
+                        pval=pval,
+                        verbosity=verbosity))
             messages.extend(update_mygraph_data("homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state",
                                 "housing-hln_npa-hero-graph", 
                                 include_accom = True, 
                                 include_all_years=False,
                                 state=state_num,
                                 pval=pval))
-            
+            messages.extend(update_mygraph_data("housing_homelessness_npa_state", "housing_homelessness_npa_state",
+                                "housing_homelessness_npa_detail_graph_1",
+                                include_accom = True, 
+                                state=state_num,
+                                pval=pval))
+            messages.extend(update_mygraph_data("housing_homelessness_npa_state", "housing_homelessness_npa_state",
+                                "housing_homelessness_npa_detail_graph_2",
+                                include_violence = True, 
+                                state=state_num,
+                                pval=pval))
+            messages.extend(populate_raw_data(
+                    "housing_homelessness_npa_state", "housing_homelessness_npa_state",
+                    "housing_homelessness_npa_data",
+                    HousingHomelessnessNpaData, {
+                        "accommodation_needs_met": "accommodation",
+                        "service_needs_met": "services",
+                        "clients_exp_violence": "violence",
+                        "young_presenting_alone": "alone",
+                    },
+                    pval=pval))
+            messages.extend(populate_crosstab_raw_data(
+                    "housing_homelessness_npa_state", "housing_homelessness_npa_state",
+                    "data_table",
+                    HousingHomelessnessNpaData, {
+                        "accommodation_needs_met": "accommodation",
+                        "service_needs_met": "services",
+                        "clients_exp_violence": "violence",
+                        "young_presenting_alone": "alone",
+                    },
+                    field_map_states={
+                        "accommodation_needs_met": "accommodation",
+                        "clients_exp_violence": "violence",
+                    },
+                    pval=pval))
     except LoaderException, e:
         raise e
 #   except Exception, e:
 #        raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
-def update_progress(verbosity=0):
+def update_progress(widget_url, widget_lbl, jurisdictions=None, pval=None, verbosity=0):
+    if jurisdictions:
+        my_jurisdictions = jurisdictions
+    else:
+        my_jurisdictions=[NSW, VIC, QLD, WA, SA, TAS, ACT, NT, AUS]
     messages = []
     suffixes = {
         NSW: '_nsw',
@@ -206,12 +248,35 @@ def update_progress(verbosity=0):
         NOT_STARTED: "no",
         NOT_APPLICABLE: "unknown"
     }
-    for prog in HousingHomelessnessNpaProgress.objects.all():
-        set_statistic_data("housing_homelessness_npa", "housing_homelessness_npa",
-                                "plan1" + suffixes[prog.state],
+    for prog in HousingHomelessnessNpaProgress.objects.filter(state__in=my_jurisdictions):
+        if jurisdictions and prog.state != AUS:
+            suffix = "_state"
+        else:
+            suffix = suffixes[prog.state]
+        set_statistic_data(widget_url, widget_lbl,
+                                "plan1" + suffix,
                                 prog.plan1,
                                 traffic_light_code=progress_tlc[prog.plan1],
-                                icon_code=progress_icon[prog.plan1])
+                                icon_code=progress_icon[prog.plan1],
+                                pval=pval)
+        set_statistic_data(widget_url, widget_lbl,
+                                "plan2" + suffix,
+                                prog.plan2,
+                                traffic_light_code=progress_tlc[prog.plan2],
+                                icon_code=progress_icon[prog.plan2],
+                                pval=pval)
+        set_statistic_data(widget_url, widget_lbl,
+                                "update" + suffix,
+                                prog.update,
+                                traffic_light_code=progress_tlc[prog.update],
+                                icon_code=progress_icon[prog.update],
+                                pval=pval)
+        set_statistic_data(widget_url, widget_lbl,
+                                "matched_funding" + suffix,
+                                prog.matched_funding,
+                                traffic_light_code=progress_tlc[prog.matched_funding],
+                                icon_code=progress_icon[prog.matched_funding],
+                                pval=pval)
     return messages
 
 def update_mygraph_data(wurl, wlbl, graph_lbl, 

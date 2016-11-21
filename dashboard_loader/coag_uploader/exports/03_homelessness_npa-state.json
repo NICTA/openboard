@@ -1,0 +1,763 @@
+{
+    "category": "housing", 
+    "edit_all_groups": [], 
+    "source_url_text": "AIHW", 
+    "subtitle": "Homelessness", 
+    "subcategory": "national partnership agreement", 
+    "groups": [], 
+    "url": "housing_homelessness_npa_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "measure", 
+                        "clusters": [], 
+                        "cluster_label": "year", 
+                        "dynamic_clusters": true, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "accommodation_state", 
+                                "colour": "dark_greeen", 
+                                "dynamic_label": false, 
+                                "label": "Accommodation needs met ({{ state_abbrev }}"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "accommodation_aust", 
+                                "colour": "light_green", 
+                                "dynamic_label": false, 
+                                "label": "Accommodation needs met (Nationally)"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "grid": {
+                        "corner_label": "Progress", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "plan1_state",
+                                    "plan1_aust"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Part 1 of Project plans submitted to C'wealth"
+                            }, 
+                            {
+                                "statistics": [
+                                    "plan2_state",
+                                    "plan2_aust"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Part 2 of Project plans submitted to C'wealth"
+                            }, 
+                            {
+                                "statistics": [
+                                    "update_state",
+                                    "update_aust"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Update C'wealth on assessment of progress"
+                            }, 
+                            {
+                                "statistics": [
+                                    "matched_funding_state",
+                                    "matched_funding_aust"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "At least 25% of total funding matched"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "sort_order": 900, 
+                                "label": "C'wealth"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "plan1_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "plan2_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 110
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "update_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 120
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "matched_funding_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 130
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "plan1_aust", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 900
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "plan2_aust", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 910
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "update_aust", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 920
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "matched_funding_aust", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 930
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_progress_grid", 
+                    "tile_type": 9, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 600, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_detail_graph_1", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "measure", 
+                        "clusters": [], 
+                        "cluster_label": "year", 
+                        "dynamic_clusters": true, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "accommodation_state", 
+                                "colour": "dark_greeen", 
+                                "dynamic_label": false, 
+                                "label": "Accommodation needs met ({{ state_abbrev }})"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "accommodation_aust", 
+                                "colour": "light_green", 
+                                "dynamic_label": false, 
+                                "label": "Accommodation needs met (Nationally)"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 700, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "housing_homelessness_npa_detail_graph_2", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "measure", 
+                        "clusters": [], 
+                        "cluster_label": "year", 
+                        "dynamic_clusters": true, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "violence_state", 
+                                "colour": "dark_blue", 
+                                "dynamic_label": false, 
+                                "label": "Clients experiencing family and domestic violence ({{ state_abbrev }})"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "violence_aust", 
+                                "colour": "light_blue", 
+                                "dynamic_label": false, 
+                                "label": "Clients experiencing family and domestic violence (Nationally)"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 160, 
+                    "view": "housing_act"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_nsw"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_nt"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_qld"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_sa"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_tas"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_vic"
+                },
+                {
+                    "sort_order": 160, 
+                    "view": "housing_wa"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Homelessness NPA Data Table", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_accommodation", 
+                            "sort_order": 100, 
+                            "heading": "NSW | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in NSW with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "nsw_violence", 
+                            "sort_order": 120, 
+                            "heading": "NSW | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in NSW experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "vic_accommodation", 
+                            "sort_order": 200, 
+                            "heading": "Vic | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in Victoria with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "vic_violence", 
+                            "sort_order": 220, 
+                            "heading": "Vic | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in Victoria experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "qld_accommodation", 
+                            "sort_order": 300, 
+                            "heading": "Qld | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in Queensland with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "qld_violence", 
+                            "sort_order": 320, 
+                            "heading": "Qld | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in Queensland experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "wa_accommodation", 
+                            "sort_order": 400, 
+                            "heading": "WA | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in WA with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "wa_violence", 
+                            "sort_order": 420, 
+                            "heading": "WA | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in WA experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "sa_accommodation", 
+                            "sort_order": 500, 
+                            "heading": "SA | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in SA with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "sa_violence", 
+                            "sort_order": 520, 
+                            "heading": "WA | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in SA experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "tas_accommodation", 
+                            "sort_order": 600, 
+                            "heading": "Tas | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in Tasmania with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "tas_violence", 
+                            "sort_order": 620, 
+                            "heading": "Tas | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in Tasmania experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "act_accommodation", 
+                            "sort_order": 700, 
+                            "heading": "ACT | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in the ACT with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "act_violence", 
+                            "sort_order": 720, 
+                            "heading": "ACT | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in the ACT experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "nt_accommodation", 
+                            "sort_order": 800, 
+                            "heading": "NT | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients in NT with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "nt_violence", 
+                            "sort_order": 820, 
+                            "heading": "NT | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients in NT experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "australia_accommodation", 
+                            "sort_order": 900, 
+                            "heading": "Aust | Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients nationally with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "australia_services", 
+                            "sort_order": 910, 
+                            "heading": "Aust | Need for services met", 
+                            "description": "Proportion of specialist homelessness services clients nationally with needs for other services (non-accommodation) met."
+                        }, 
+                        {
+                            "url": "australia_violence", 
+                            "sort_order": 920, 
+                            "heading": "Aust | Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients nationally experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "australia_alone", 
+                            "sort_order": 930, 
+                            "heading": "Aust | Young people presenting alone", 
+                            "description": "Proportion of young clients (15-24 years old) of specialist homelessness services presenting alone nationally.\r\n\r\n(A proportion of young clients presenting alone also experienced domestic and family violence.)"
+                        }
+                    ], 
+                    "filename": "housing_homelessness_npa_data.csv"
+                }, 
+                {
+                    "url": "housing_homelessness_npa_data", 
+                    "name": "Homelessness NPA Data", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 100, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 150, 
+                            "heading": "Jurisdication", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "accommodation", 
+                            "sort_order": 200, 
+                            "heading": "Accommodation needs met", 
+                            "description": "Proportion of specialist homelessness services clients with needs for accommodation met."
+                        }, 
+                        {
+                            "url": "services", 
+                            "sort_order": 300, 
+                            "heading": "Need for services met", 
+                            "description": "Proportion of specialist homelessness services clients with needs for other services (non-accommodation) met."
+                        }, 
+                        {
+                            "url": "violence", 
+                            "sort_order": 400, 
+                            "heading": "Clients experiencing family and domestic violence", 
+                            "description": "Proportion of specialist homelessness services clients experiencing family and domestic violence."
+                        }, 
+                        {
+                            "url": "alone", 
+                            "sort_order": 500, 
+                            "heading": "Young people presenting alone", 
+                            "description": "Proportion of young clients (15-24 years old) of specialist homelessness services presenting alone.\r\n\r\n(A proportion of young clients presenting alone also experienced domestic and family violence.)"
+                        }
+                    ], 
+                    "filename": "housing_homelessness_npa_data.csv"
+                }
+            ], 
+            "sort_order": 6600, 
+            "expansion_hint": "View more", 
+            "about": "<p>All states and territories to direct at least 25 per cent of total matched funding over two years towards the priority areas of homelessness services focusing on women and children experiencing domestic and family violence and young people who are homeless or at risk of homelessness.</p>", 
+            "refresh_rate": 3000, 
+            "label": "housing_homelessness_npa_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.aihw.gov.au/", 
+    "name": "Homelessness"
+}
+
