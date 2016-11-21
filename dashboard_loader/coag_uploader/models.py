@@ -47,6 +47,37 @@ state_map = {
     'Aust': AUS,
 }
 
+COMPLETED = 1
+IN_PROGRESS = 2
+NOT_APPLICABLE = 3
+NOT_STARTED = 4
+
+progresses = [
+    (COMPLETED, "Completed"),
+    (IN_PROGRESS, "In progress"),
+    (NOT_APPLICABLE, "Not applicable"),
+    (NOT_STARTED, "Not started"),
+]
+
+progress_map = {
+    'Completed': COMPLETED,
+    'completed': COMPLETED,
+    'COMPLETED': COMPLETED,
+    'In progress': IN_PROGRESS,
+    'In Progress': IN_PROGRESS,
+    'in progress': IN_PROGRESS,
+    'IN PROGRESS': IN_PROGRESS,
+    'Not applicable': NOT_APPLICABLE,
+    'Not Applicable': NOT_APPLICABLE,
+    'not applicable': NOT_APPLICABLE,
+    'NOT APPLICABLE': NOT_APPLICABLE,
+    'N/A': NOT_APPLICABLE,
+    'Not started': NOT_STARTED,
+    'Not Started': NOT_STARTED,
+    'not started': NOT_STARTED,
+    'NOT STARTED': NOT_STARTED,
+}
+
 def fy_display(fy_starting):
     return "%d-%02d" % (fy_starting, (fy_starting+1)%100)
 
@@ -93,8 +124,16 @@ def float_year_as_date(fy):
     else:
         return date(iy, 7, 1)
 
-class CoagDataBase(models.Model):
+class CoagProgressBase(models.Model):
     state = models.SmallIntegerField(choices=states)
+    def state_display(self):
+        return state_dict[self.state]
+    class Meta:
+        unique_together = [ ("state", ), ]
+        abstract = True
+
+
+class CoagDataBase(CoagProgressBase):
     year=models.SmallIntegerField()
     financial_year=models.BooleanField()
     multi_year=models.IntegerField(default=1)
@@ -119,8 +158,6 @@ class CoagDataBase(models.Model):
             return date(self.year + self.multi_year - 1, 1, 1)
         else:
             return date(self.year, 1, 1)
-    def state_display(self):
-        return state_dict[self.state]
     def save(self, *args, **kwargs):
         if self.financial_year and self.multi_year > 1:
             raise Exception("COAG datapoint cannot cover multiple financial years")

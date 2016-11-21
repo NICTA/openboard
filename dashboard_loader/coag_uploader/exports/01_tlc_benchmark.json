@@ -44,6 +44,11 @@
             "colour": "grey3", 
             "sort_order": 420, 
             "value": "mixed_results"
+        }, 
+        {
+            "colour": "grey4", 
+            "sort_order": 430, 
+            "value": "not_applicable"
         }
     ], 
     "scale_name": "Benchmark Scale"

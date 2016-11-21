@@ -59,7 +59,7 @@ def all_rows_found(rows):
             return False
     return True
 
-def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, multi_year=False):
+def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, use_dates=True, multi_year=False):
     messages = []
     if verbosity > 2:
         messages.append("Loading %s Data: %s" % (data_category, dataset))
@@ -85,6 +85,8 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
         except IndexError:
             break
         if first_cell:
+            if isinstance(first_cell, unicode):
+                first_cell = first_cell.strip()
             if first_cell == abort_on:
                 break
             first_cell_matched = False
@@ -93,7 +95,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     first_cell_matched=True
                     rows[fld] = row
                     break
-            if not first_cell_matched:
+            if not first_cell_matched and use_dates:
                 try:
                     if multi_year:
                         (year, myr) = parse_multiyear(first_cell)
@@ -102,19 +104,23 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     zero_all_rows(rows)
                 except:
                     pass
-        if year:
+        if year or not use_dates:
             for col in column_labels(2, sheet.max_column):
                 if col in state_cols.values():
                     break
                 cval = sheet["%s%d" % (col, row)].value
+                if isinstance(cval, unicode):
+                    cval = cval.strip()
                 for fld, icr in intermediate_cell_rows.items():
                     if cval == icr:
                         rows[fld]=row
                         break
-
-                if year and all_rows_found(rows):
+                if all_rows_found(rows):
                     for state, scol in state_cols.items():
-                        defaults = { "financial_year": isfy, "multi_year": myr }
+                        if use_dates:
+                            defaults = { "financial_year": isfy, "multi_year": myr }
+                        else:
+                            defaults = {}
                         for fld, frow in rows.items():
                             rawval = sheet["%s%d" % (scol, frow)].value
                             if fld in transforms:
@@ -123,10 +129,10 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                                 defaults[fld] = rawval
                         for def_fld, def_val in fld_defaults.items():
                             defaults[def_fld] = def_val
-                        obj, created = model.objects.update_or_create(
-                                    state=state,
-                                    year=year,
-                                    defaults=defaults)
+                        kwargs = { "state": state, "defaults": defaults }
+                        if use_dates:
+                            kwargs["year"] = year
+                        obj, created = model.objects.update_or_create(**kwargs)
                     zero_all_rows(rows)
         row += 1
     return messages
@@ -463,8 +469,10 @@ def populate_raw_data(widget_url, label, rds_url,
     return messages
 
 def populate_crosstab_raw_data(widget_url, label, rds_url,
-                    model, field_map, pval=None):
+                    model, field_map, field_map_states=None, pval=None):
     messages = []
+    if field_map_states is None:
+        field_map_states = field_map
     rds = get_rawdataset(widget_url, label, rds_url)
     clear_rawdataset(rds, pval=pval)
     sort_order = 1
@@ -479,7 +487,11 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
             kwargs = {}
             kwargs["year"] = obj.year_display()
         jurisdiction = obj.state_display().lower()
-        for model_field, rds_field in field_map.items():
+        if obj.state == AUS:
+            used_map = field_map
+        else:
+            used_map = field_map_states
+        for model_field, rds_field in used_map.items():
             kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
         add_rawdatarecord(rds, sort_order, **kwargs)
     return messages

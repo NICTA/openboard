@@ -22,7 +22,14 @@ from coag_uploader.models import *
 
 class HousingHomelessnessNpaData(CoagDataBase):
     accommodation_needs_met = models.DecimalField(max_digits=4, decimal_places=1)
-    service_needs_met       = models.DecimalField(max_digits=4, decimal_places=1)
+    service_needs_met       = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
     clients_exp_violence    = models.DecimalField(max_digits=4, decimal_places=1)
-    young_presenting_alone  = models.DecimalField(max_digits=4, decimal_places=1)
+    young_presenting_alone  = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True)
+
+
+class HousingHomelessnessNpaProgress(CoagProgressBase):
+    plan1 = models.SmallIntegerField(choices=progresses)
+    plan2 = models.SmallIntegerField(choices=progresses)
+    update = models.SmallIntegerField(choices=progresses)
+    matched_funding = models.SmallIntegerField(choices=progresses)
 
