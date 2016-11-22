@@ -186,7 +186,7 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "plan1_state",
+                                    "plan1_state", 
                                     "plan1_aust"
                                 ], 
                                 "sort_order": 100, 
@@ -194,7 +194,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "plan2_state",
+                                    "plan2_state", 
                                     "plan2_aust"
                                 ], 
                                 "sort_order": 200, 
@@ -202,7 +202,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "update_state",
+                                    "update_state", 
                                     "update_aust"
                                 ], 
                                 "sort_order": 300, 
@@ -210,7 +210,7 @@
                             }, 
                             {
                                 "statistics": [
-                                    "matched_funding_state",
+                                    "matched_funding_state", 
                                     "matched_funding_aust"
                                 ], 
                                 "sort_order": 400, 
@@ -522,7 +522,7 @@
                                 "colour": "light_green", 
                                 "dynamic_label": false, 
                                 "label": "Young people presenting alone (Nationally)"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -559,31 +559,31 @@
                 {
                     "sort_order": 160, 
                     "view": "housing_act"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_nsw"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_nt"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_qld"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_sa"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_tas"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_vic"
-                },
+                }, 
                 {
                     "sort_order": 160, 
                     "view": "housing_wa"
