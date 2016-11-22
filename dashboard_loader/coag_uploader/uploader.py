@@ -312,6 +312,16 @@ def load_benchmark_description(wb, sheetname, indicator=False):
         "other_indicators": "other",
         "influences": "influences",
         "notes": "notes",
+        "nsw": "nsw",
+        "vic": "vic",
+        "qld": "qld",
+        "wa": "wa",
+        "sa": "sa",
+        "tas": "tas",
+        "act": "act",
+        "nt": "nt",
+        "australia": "australia",
+        "aust": "australia",
     }
     benchmark_statuses = {
         "achieved": {
@@ -443,6 +453,11 @@ def load_benchmark_description(wb, sheetname, indicator=False):
         elif key == "other":
             desc["other"] = []
             append_to = desc["other"]
+            key = None
+        elif key in ("nsw", "vic", "qld", "wa", "sa", "tas", 
+                        "act", "nt", "australia"):
+            desc[key] = []
+            append_to = desc[key]
             key = None
         if not key:
             append_to.append(value)
@@ -588,6 +603,11 @@ txt_block_template = Template("""<div class="coag_description">
                 {{ other_elem }}
             </p>
         {% endfor %}
+        {% if state_content %}
+            {% for sc_elem in state_content %}
+                <p>{{ sc_elem }}</p>
+            {% endfor %}
+        {% endif %}
     </div>
     <div class="coag_desc_notes">'
         <p>Notes:</p>
@@ -646,7 +666,9 @@ def update_stats(desc, benchmark,
         set_text_block(wurl, wlbl,
                     txt_block_template.render(Context({ 
                                     "benchmark": benchmark, 
-                                    "desc": desc })))
+                                    "desc": desc,
+                                    "state": "Australia",
+                                    "state_content": desc.get("australia") })))
     if wurl_state:
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
@@ -670,10 +692,13 @@ def update_stats(desc, benchmark,
             set_actual_frequency_display_text(wurl_state, wlbl_state,
                         "Updated: %s" % unicode(desc["updated"]),
                         pval=pval)
+            st_abbrev = pval.parameters()["state_abbrev"]
             set_text_block(wurl_state, wlbl_state,
                         txt_block_template.render(Context({ 
                                         "benchmark": benchmark, 
-                                        "desc": desc })),
+                                        "desc": desc,
+                                        "state": st_abbrev,
+                                        "state_content": desc.get(st_abbrev.lower()) })),
                         pval=pval)
     if verbosity > 1:
         messages.append("Stats updated")

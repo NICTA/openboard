@@ -54,6 +54,8 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag housing
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_indigenous_homeownership_state > coag_uploader/exports/03_indigenous_homeownership-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_rentalstress_state > coag_uploader/exports/03_rentalstress-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_homelessness_state > coag_uploader/exports/03_homelessness-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag housing_homelessness_npa_state > coag_uploader/exports/03_homelessness_npa-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag housing_remote_indigenous_state > coag_uploader/exports/03_remote_indigenous_housing-state.json
 
 # Education Detail Widgets
 # Skills Detail Widgets

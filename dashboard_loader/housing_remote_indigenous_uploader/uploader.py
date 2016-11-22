@@ -1,4 +1,4 @@
-#   Copyright 2016 Data61
+#   Copyright 2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -96,19 +96,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "indigenous_remote-housing-hero", "indigenous_remote-housing-hero", 
                             "indigenous_remote-housing-hero-state", "indigenous_remote-housing-hero-state", 
                             "housing_remote_indigenous", "housing_remote_indigenous", 
-                            None, None,
+                            "housing_remote_indigenous_state", "housing_remote_indigenous_state", 
                             verbosity))
         messages.extend(update_summary_graph_data(
                     "indigenous_remote-housing-hero", 
                     "indigenous_remote-housing-hero", 
                     "housing-rih-hero-graph"))
-        p = Parametisation.objects.get(url="state_param")
-        for pval in p.parametisationvalue_set.all():
-            messages.extend(update_summary_graph_data(
-                        "indigenous_remote-housing-hero-state", 
-                        "indigenous_remote-housing-hero-state", 
-                        "housing-rih-hero-graph",
-                        pval=pval))
         messages.extend(update_summary_graph_data(
                     "housing_remote_indigenous", 
                     "housing_remote_indigenous", 
@@ -130,6 +123,36 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "refurbishments": "refurbished",
                             })
                 )
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            messages.extend(update_summary_graph_data(
+                        "indigenous_remote-housing-hero-state", 
+                        "indigenous_remote-housing-hero-state", 
+                        "housing-rih-hero-graph",
+                        pval=pval))
+            messages.extend(update_summary_graph_data(
+                        "housing_remote_indigenous_state", 
+                        "housing_remote_indigenous_state", 
+                        "housing_remote_indigenous_summary_graph", 
+                        pval=pval))
+            messages.extend(update_detail_state_graph_data(pval))
+            messages.extend(
+                    populate_raw_data("housing_remote_indigenous", "housing_remote_indigenous",
+                                "housing_indigenous_remote", HousingRemoteIndigenousData,
+                                {
+                                    "new_houses": "new",
+                                    "refurbishments": "refurbished",
+                                }, pval=pval)
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data("housing_remote_indigenous", "housing_remote_indigenous",
+                                "data_table", HousingRemoteIndigenousData,
+                                {
+                                    "new_houses": "new",
+                                    "refurbishments": "refurbished",
+                                }, pval=pval)
+                    )
     except LoaderException, e:
         raise e
     except Exception, e:
@@ -145,18 +168,18 @@ def update_summary_graph_data(wurl, wlbl, graph_lbl, pval=None):
     data = HousingRemoteIndigenousData.objects.filter(state=AUS).order_by("year").last()
     add_graph_data(g, "year", data.new_houses, cluster="new", pval=pval)
     add_graph_data(g, "year", data.refurbishments, cluster="refurbished", pval=pval)
+    yr = data.year_display()
     if pval:
-        set_dataset_override(g, "year", "National (%s)" % data.year_display())
-        state_num = state_map[pval.parameters()["state_abbrev"]]
+        set_dataset_override(g, "year", "%s (National)" % data.year_display())
+        state_abbrev = pval.parameters()["state_abbrev"]
+        state_num = state_map[state_abbrev]
         data = HousingRemoteIndigenousData.objects.filter(state=state_num).order_by("year").last()
-        if data is None:
-            clear_graph_data(g, pval=pval)
-            return messages
-        add_graph_data(g, "year_state", data.new_houses, cluster="new", pval=pval)
-        add_graph_data(g, "year_state", data.refurbishments, cluster="refurbished", pval=pval)
-        set_dataset_override(g, "year_state", "%s (%s)" % (data.state_display(), data.year_display()))
+        if data is not None:
+            add_graph_data(g, "year_state", data.new_houses, cluster="new", pval=pval)
+            add_graph_data(g, "year_state", data.refurbishments, cluster="refurbished", pval=pval)
+        set_dataset_override(g, "year_state", "%s (%s)" % (yr, state_abbrev))
     else:
-        set_dataset_override(g, "year", data.year_display())
+        set_dataset_override(g, "year", yr)
     return messages
 
 def update_detail_graph_data():
@@ -171,5 +194,27 @@ def update_detail_graph_data():
         year = data.year
         add_graph_data(g, "new", data.new_houses, cluster=data.state_display().lower())
         add_graph_data(g, "refurbished", data.refurbishments, cluster=data.state_display().lower())
+    return messages
+
+def update_detail_state_graph_data(pval):
+    messages = []
+    state_abbrev = pval.parameters()["state_abbrev"]
+    state_num = state_map[state_abbrev]
+    g = get_graph("housing_remote_indigenous_state", "housing_remote_indigenous_state",
+                        "housing_remote_indigenous_detail_graph")
+    clear_graph_data(g, pval=pval)
+    year = 0
+    add_graph_data(g, "new", 4200, cluster="benchmark", pval=pval)
+    add_graph_data(g, "refurbished", 4800, cluster="benchmark", pval=pval)
+    for data in HousingRemoteIndigenousData.objects.filter(state__in=[AUS, state_num]).order_by("-year"):
+        if year and year != data.year:
+            break
+        year = data.year
+        if data.state == AUS:
+            cluster = "australia"
+        else:
+            cluster = "state"
+        add_graph_data(g, "new", data.new_houses, cluster=cluster, pval=pval)
+        add_graph_data(g, "refurbished", data.refurbishments, cluster=cluster, pval=pval)
     return messages
 

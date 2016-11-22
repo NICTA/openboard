@@ -1,4 +1,4 @@
-#   Copyright 2016 Data61
+#   Copyright 2016 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -168,7 +168,6 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
-            # TODO  Update progress grid for state widget.
             messages.extend(update_progress("housing_homelessness_npa_state", "housing_homelessness_npa_state",
                         jurisdictions=[ state_num, AUS ],
                         pval=pval,
