@@ -93,6 +93,8 @@ class WidgetView(models.Model):
         data = {
             "crumbs": self.crumbs(),
             "type": self.view_type.name,
+            "label": self.label,
+            "name": self.name,
             "show_children": self.view_type.show_children,
             "show_siblings": self.view_type.show_siblings,
             "properties": { p.key: p.value() for p in self.viewproperty_set.all() },

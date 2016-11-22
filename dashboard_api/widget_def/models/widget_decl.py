@@ -35,6 +35,7 @@ class ViewWidgetDeclaration(models.Model):
         ordering = ("view", "sort_order")
     def __getstate__(self):
         wstate = self.definition.__getstate__(self.view)
+        wstate["current_view"] = self.view.label
         if self.child_view:
             wstate["child_view"] = self.child_view.label
             if self.child_view_text:
