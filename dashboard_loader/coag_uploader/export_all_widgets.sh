@@ -21,6 +21,9 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag rentals
 echo "Exporting Education Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero > coag_uploader/exports/03_yr12-education-hero.json
 
+echo "Exporting Education Hero Widgets (Parametised by State)"
+python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero-state > coag_uploader/exports/03_yr12-education-hero-state.json
+
 # Skills Hero Widgets
 echo "Exporting Skills Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag cert3-skills-hero > coag_uploader/exports/03_cert3-skills-hero.json
