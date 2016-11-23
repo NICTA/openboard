@@ -99,7 +99,7 @@
                     "name": "national agreement"
                 }
             ], 
-            "name": "Indigenous", 
+            "name": "indigenous", 
             "aspect": 1
         }, 
         {
@@ -114,7 +114,7 @@
                     "name": "national partnership agreement"
                 }
             ], 
-            "name": "Infrastructure", 
+            "name": "infrastructure", 
             "aspect": 1
         }, 
         {
@@ -129,7 +129,7 @@
                     "name": "national partnership agreement"
                 }
             ], 
-            "name": "Legal Assistance", 
+            "name": "legal assistance", 
             "aspect": 1
         }
     ]
