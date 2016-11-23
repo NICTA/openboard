@@ -639,7 +639,7 @@ def update_stats(desc, benchmark,
         for pval in p.parametisationvalue_set.all():
             set_statistic_data(wurl_hero_state, wlbl_hero_state,
                         "status_header",
-                        desc["status"]["short"],
+                        "Nationally - " + desc["status"]["short"],
                         traffic_light_code=desc["status"]["tlc"],
                         icon_code=desc["status"]["icon"],
                         pval=pval)
