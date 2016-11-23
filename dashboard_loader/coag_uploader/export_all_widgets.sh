@@ -46,6 +46,12 @@ echo "Exporting Disability Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag social_participation-disability-hero-state > coag_uploader/exports/03_social_participation-disability-hero-state.json
 
 # Indigenous Hero Widgets       wdef sort_order 1000, 1005, ... 1100, 1105, ...
+echo "Exporting Indigenous Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag child_mortality-indigenous-hero > coag_uploader/exports/03_child_mortality-indigenous-hero.json
+
+echo "Exporting Indigenous Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag child_mortality-indigenous-hero-state > coag_uploader/exports/03_child_mortality-indigenous-hero-state.json
+
 # Infrastructure Hero Widgets   wdef sort_order 1200, 1205, ... 1300, 1305, ...
 # Legal Assistance Hero Widgets wdef sort_order 1400, 1405, ... 1500, 1505, ...
 
