@@ -82,7 +82,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
         graph_json["data"] = []
     else:
         if graph.use_clusters():
-            for cluster in graph.clusters():
+            for cluster in graph.clusters(pval):
                 graph_json["data"][cluster.url] = {}
         else:
             for dataset in graph.graphdataset_set.all():
@@ -159,9 +159,9 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
         }
     if graph.use_clusters() and graph.dynamic_clusters:
         if graph.is_histogram():
-            graph_json["clusters"] = [ c.__getstate__(view) for c in graph.clusters() ]
+            graph_json["clusters"] = [ c.__getstate__(view) for c in graph.clusters(pval) ]
         else:
-            graph_json["pies"] = [ c.__getstate__(view) for c in graph.clusters() ]
+            graph_json["pies"] = [ c.__getstate__(view) for c in graph.clusters(pval) ]
     overrides = get_graph_overrides(graph.graphdataset_set, GraphDatasetData, "dataset", pval)
     if overrides:
         graph_json["dataset_name_overrides"] = overrides
