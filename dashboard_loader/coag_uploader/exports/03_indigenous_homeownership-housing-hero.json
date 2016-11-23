@@ -116,7 +116,7 @@
             ], 
             "default_frequency_text": "Irregular", 
             "raw_data_sets": [], 
-            "sort_order": 120, 
+            "sort_order": 10, 
             "expansion_hint": "", 
             "about": "<p>From 2008 to 2017/18, a 10% reduction nationally in the proportion of low-income Indigenous households owning or purchasing a home.</p>", 
             "refresh_rate": 3600, 

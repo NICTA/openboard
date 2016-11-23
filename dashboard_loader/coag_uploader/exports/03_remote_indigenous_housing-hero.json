@@ -129,7 +129,7 @@
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 150, 
+            "sort_order": 25, 
             "expansion_hint": "", 
             "about": "<p>4,200 new houses to be delivered by 2018; 4,800 refurbishments to be delivered by\r\n2014</p>", 
             "refresh_rate": 4000, 

@@ -22,6 +22,8 @@ from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from disability_social_participation_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from widget_def.models import Parametisation
+
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -87,7 +89,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, indicators,
                                 "social_participation-disability-hero", "social_participation-disability-hero", 
-                                None, None,
+                                "social_participation-disability-hero-state", "social_participation-disability-hero-state", 
                                 None, None,
                                 None, None,
                                 verbosity))
@@ -107,6 +109,43 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         traffic_light_code=tlc,
                         trend=trend,
                         label=latest_aust.year_display())
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            earliest_state = DisabilitySocialParticipationData.objects.filter(state=state_num).order_by("year").first()
+            latest_state = DisabilitySocialParticipationData.objects.filter(state=state_num).order_by("year").last()
+            tlc_state, trend_state = indicator_tlc_trend(earliest_state.percentage, latest_state.percentage)
+
+            set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
+                            'ref_year',
+                            earliest_aust.year_display(),
+                            pval=pval)
+            set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
+                            'curr_year',
+                            latest_aust.year_display(),
+                            pval=pval)
+            set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
+                            'ref_participation',
+                            earliest_aust.percentage,
+                            traffic_light_code=tlc,
+                            pval=pval)
+            set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
+                            'curr_participation',
+                            latest_aust.percentage,
+                            traffic_light_code=tlc,
+                            trend=trend,
+                            pval=pval)
+            set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
+                            'ref_participation_state',
+                            earliest_state.percentage,
+                            traffic_light_code=tlc_state,
+                            pval=pval)
+            set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
+                            'curr_participation_state',
+                            latest_state.percentage,
+                            traffic_light_code=tlc_state,
+                            trend=trend_state,
+                            pval=pval)
     except LoaderException, e:
         raise e
     except Exception, e:

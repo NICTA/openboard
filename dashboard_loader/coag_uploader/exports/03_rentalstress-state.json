@@ -516,7 +516,7 @@
                     "filename": "coag_housing_rental_stress_data.csv"
                 }
             ], 
-            "sort_order": 1500, 
+            "sort_order": 2100, 
             "expansion_hint": "View more", 
             "about": "<p>The objective of the National Affordable Housing Agreement (NAHA) is \u2019...that all Australians have access to affordable,\r\nsafe and sustainable housing that contributes to social and economic participation\u2019 (COAG, 2009a). The NAHA aims to\r\ncontribute to the following outcomes:</p>\r\n<ol>\r\n<li>people who are homeless or at risk of homelessness achieve sustainable housing and social inclusion;</li>\r\n<li>people are able to rent housing that meets their needs;</li>\r\n<li>people can purchase affordable housing;</li>\r\n<li>people have access to housing through an efficient and responsive housing market;</li>\r\n<li>Indigenous people have the same housing opportunities (in relation to homelessness services, housing rental,\r\nhousing purchase and access to housing through an efficient and responsive housing market) as other\r\nAustralians; and</li>\r\n<li>Indigenous people have improved housing amenity and reduced overcrowding, particularly in remote areas\r\nand discrete communities.</li>\r\n</ol>\r\n<p><b>Benchmark 1</b>: From 2007\u201308 to 2015\u201316, a 10% reduction nationally in the proportion of low-income\r\nrenter households in rental stress.</p>", 
             "refresh_rate": 3600, 

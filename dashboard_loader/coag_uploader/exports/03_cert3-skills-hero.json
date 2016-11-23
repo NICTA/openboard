@@ -116,7 +116,7 @@
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 300, 
+            "sort_order": 400, 
             "expansion_hint": "", 
             "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020", 
             "refresh_rate": 3850, 

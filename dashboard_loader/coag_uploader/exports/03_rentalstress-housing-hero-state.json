@@ -168,7 +168,7 @@
             ], 
             "default_frequency_text": "Biannual", 
             "raw_data_sets": [], 
-            "sort_order": 102, 
+            "sort_order": 100, 
             "expansion_hint": "", 
             "about": "<p>From 2007/08 to 2015/16, a 10% reduction nationally in the proportion of low-income renter households in rental stress.</p>", 
             "refresh_rate": 3600, 

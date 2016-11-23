@@ -116,7 +116,7 @@
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 400, 
+            "sort_order": 600, 
             "expansion_hint": "", 
             "about": "<p>Improve the life expectancy for Australian men and women.</p>", 
             "refresh_rate": 3900, 

@@ -444,7 +444,7 @@
                     "filename": "coag_remote_indigenous_housing_data.csv"
                 }
             ], 
-            "sort_order": 6500, 
+            "sort_order": 2125, 
             "expansion_hint": "View more", 
             "about": "<p>The National Partnership Agreement on Remote Indigenous Housing (NPARIH) aims to address significant overcrowding,\r\nhomelessness, poor housing conditions and the severe housing shortage in remote Indigenous communities. NPARIH\u2019s\r\ncapital works programme is the key output to address these outcomes.</p>\r\n<p>A new Remote Housing Strategy is being negotiated to replace the NPARIH.</p>\r\n<p><b>Benchmark 1</b>: 4200 new houses to be delivered by 2018; 4800 refurbishments to be delivered by 2014.</p>", 
             "refresh_rate": 4000, 
