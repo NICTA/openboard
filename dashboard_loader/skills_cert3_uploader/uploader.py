@@ -123,7 +123,6 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     except LoaderException, e:
         raise e
     except Exception, e:
-        raise
-# raise LoaderException("Invalid file: %s" % unicode(e))
+        raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
