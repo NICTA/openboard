@@ -22,6 +22,7 @@ from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from health_life_expectancy_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
 # If the groups do not exist they are created on registration.
@@ -87,7 +88,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, indicators,
                                 "life_expectancy-health-hero", "life_expectancy-health-hero", 
-                                None, None, 
+                                "life_expectancy-health-hero-state", "life_expectancy-health-hero-state", 
                                 None,None,
                                 None,None,
                                 verbosity))
@@ -106,6 +107,37 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         latest_aust.females,
                         traffic_light_code=female_tlc,
                         trend=female_trend)
+        p = Parametisation.objects.get(url="state_param")
+        for pval in p.parametisationvalue_set.all():
+            state_num = state_map[pval.parameters()["state_abbrev"]]
+            earliest_state = HealthLifeExpectancyData.objects.filter(state=state_num).order_by("year").first()
+            latest_state = HealthLifeExpectancyData.objects.filter(state=state_num).order_by("year").last()
+            male_state_tlc, male_state_trend = indicator_tlc_trend(earliest_state.males, latest_state.males)
+            female_state_tlc, female_state_trend = indicator_tlc_trend(earliest_state.females, latest_state.females)
+            set_statistic_data('life_expectancy-health-hero-state', 'life_expectancy-health-hero-state',
+                            'men_life_exp',
+                            latest_aust.males,
+                            traffic_light_code=male_tlc,
+                            trend=male_trend,
+                            pval=pval)
+            set_statistic_data('life_expectancy-health-hero-state', 'life_expectancy-health-hero-state',
+                            'women_life_exp',
+                            latest_aust.females,
+                            traffic_light_code=female_tlc,
+                            trend=female_trend,
+                            pval=pval)
+            set_statistic_data('life_expectancy-health-hero-state', 'life_expectancy-health-hero-state',
+                            'men_life_exp_state',
+                            latest_state.males,
+                            traffic_light_code=male_state_tlc,
+                            trend=male_state_trend,
+                            pval=pval)
+            set_statistic_data('life_expectancy-health-hero-state', 'life_expectancy-health-hero-state',
+                            'women_life_exp_state',
+                            latest_state.females,
+                            traffic_light_code=female_state_tlc,
+                            trend=female_state_trend,
+                            pval=pval)
     except LoaderException, e:
         raise e
     except Exception, e:

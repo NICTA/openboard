@@ -35,6 +35,9 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag cert3-s
 echo "Exporting Health Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero > coag_uploader/exports/03_life_expectancy-health-hero.json
 
+echo "Exporting Health Hero Widgets (Parametised by State)"
+python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_life_expectancy-health-hero-state.json
+
 # Disability Hero Widgets
 echo "Exporting Disability Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag social_participation-disability-hero > coag_uploader/exports/03_social_participation-disability-hero.json

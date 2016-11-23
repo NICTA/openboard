@@ -122,43 +122,43 @@
                     "sort_order": 200, 
                     "child_view_text": "See all", 
                     "view": "act"
-                },
+                }, 
                 {
                     "child_view": "education_nsw", 
                     "sort_order": 200, 
                     "child_view_text": "See all", 
                     "view": "nsw"
-                },
+                }, 
                 {
                     "child_view": "education_nt", 
                     "sort_order": 200, 
                     "child_view_text": "See all", 
                     "view": "nt"
-                },
-                {
-                    "child_view": "education_qld", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "qld"
-                },
+                }, 
                 {
                     "child_view": "education_sa", 
                     "sort_order": 200, 
                     "child_view_text": "See all", 
                     "view": "sa"
-                },
+                }, 
                 {
-                    "child_view": "education_tas", 
+                    "child_view": "education_qld", 
                     "sort_order": 200, 
                     "child_view_text": "See all", 
-                    "view": "tas"
-                },
+                    "view": "qld"
+                }, 
                 {
                     "child_view": "education_vic", 
                     "sort_order": 200, 
                     "child_view_text": "See all", 
                     "view": "vic"
-                },
+                }, 
+                {
+                    "child_view": "education_tas", 
+                    "sort_order": 200, 
+                    "child_view_text": "See all", 
+                    "view": "tas"
+                }, 
                 {
                     "child_view": "education_wa", 
                     "sort_order": 200, 
@@ -173,7 +173,7 @@
             "about": "<p>Lift the Year 12 or equivalent or Certificate III attainment rate to 90 per cent by 2020.</p>", 
             "refresh_rate": 3900, 
             "label": "yr12-education-hero-state", 
-            "parametisation": "state_param",
+            "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
