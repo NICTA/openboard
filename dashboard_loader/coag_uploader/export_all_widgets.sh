@@ -53,6 +53,12 @@ echo "Exporting Indigenous Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag child_mortality-indigenous-hero-state > coag_uploader/exports/03_child_mortality-indigenous-hero-state.json
 
 # Infrastructure Hero Widgets   wdef sort_order 1200, 1205, ... 1300, 1305, ...
+echo "Exporting Infrastructure Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag projects-infrastructure-hero > coag_uploader/exports/03_projects-infrastructure-hero.json
+
+echo "Exporting Infrastructure Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag projects-infrastructure-hero-state > coag_uploader/exports/03_projects-infrastructure-hero-state.json
+
 # Legal Assistance Hero Widgets wdef sort_order 1400, 1405, ... 1500, 1505, ...
 
 

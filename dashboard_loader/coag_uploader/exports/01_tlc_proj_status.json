@@ -1,0 +1,31 @@
+{
+    "codes": [
+        {
+            "colour": "green", 
+            "sort_order": 100, 
+            "value": "completed"
+        }, 
+        {
+            "colour": "pale_green", 
+            "sort_order": 200, 
+            "value": "in_progress"
+        }, 
+        {
+            "colour": "blue", 
+            "sort_order": 300, 
+            "value": "not_due_to_commence"
+        }, 
+        {
+            "colour": "red", 
+            "sort_order": 400, 
+            "value": "not_completed_overdue"
+        }, 
+        {
+            "colour": "grey", 
+            "sort_order": 500, 
+            "value": "not_applicable"
+        }
+    ], 
+    "scale_name": "Project Status Scale"
+}
+

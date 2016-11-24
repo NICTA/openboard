@@ -1,0 +1,153 @@
+{
+    "category": "infrastructure", 
+    "edit_all_groups": [], 
+    "source_url_text": "infrastructure.gov.au", 
+    "subtitle": "Road and rail projects", 
+    "subcategory": "summary", 
+    "groups": [], 
+    "url": "projects-infrastructure-hero", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure-projects-hero-header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 2, 
+                    "sort_order": 300, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Completed", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "completed", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null,
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Underway", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "underway", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null,
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Pending", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "pending", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null,
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure-projects-hero-stats", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "child_view": "infrastructure", 
+                    "sort_order": 700, 
+                    "child_view_text": "See all", 
+                    "view": "aus"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [], 
+            "sort_order": 1200, 
+            "expansion_hint": "", 
+            "about": "<p>Contribute to a safe, sustainable national transport system.</p>", 
+            "refresh_rate": 3900, 
+            "label": "projects-infrastructure-hero", 
+            "parametisation": null, 
+            "deexpansion_hint": ""
+        }
+    ], 
+    "source_url": "http://infrastructure.gov.au",
+    "name": "Infrastructure"
+}
+

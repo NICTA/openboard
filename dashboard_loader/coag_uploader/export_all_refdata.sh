@@ -5,6 +5,7 @@ python manage.py export_iconlibrary --settings=dashboard_loader.settings_coag in
 
 python manage.py export_trafficlightscale --settings=dashboard_loader.settings_coag "Benchmark Scale" > coag_uploader/exports/01_tlc_benchmark.json
 python manage.py export_trafficlightscale --settings=dashboard_loader.settings_coag "Indicator Scale" > coag_uploader/exports/01_tlc_indicator.json
+python manage.py export_trafficlightscale --settings=dashboard_loader.settings_coag "Project Status Scale" > coag_uploader/exports/01_tlc_proj_status.json
 
 echo "Exporting Views..."
 python manage.py export_view --settings=dashboard_loader.settings_coag aus > coag_uploader/exports/01_views.json
