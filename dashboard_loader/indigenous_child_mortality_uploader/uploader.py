@@ -171,7 +171,7 @@ def update_my_hero_graph(verbosity):
                             "indigenous-child_mortality-hero-graph")
     clear_graph_data(g)
     for i in IndigenousChildMortalityNationalData.objects.order_by("year"):
-        add_graph_data(g, "indigenous", i.indigenous, horiz_value=i.year)
-        add_graph_data(g, "non_indigenous", i.non_indigenous, horiz_value=i.year)
+        add_graph_data(g, "indigenous", i.indigenous, horiz_value=i.year_as_date())
+        add_graph_data(g, "non_indigenous", i.non_indigenous, horiz_value=i.year_as_date())
     return messages
 

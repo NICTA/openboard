@@ -1,11 +1,11 @@
 {
-    "category": "infrastructure", 
+    "category": "legal assistance", 
     "edit_all_groups": [], 
-    "source_url_text": "infrastructure.gov.au", 
-    "subtitle": "Road and rail projects", 
+    "source_url_text": "www.ag.gov.au", 
+    "subtitle": "Increase delivery of legal aid commissions by 2015", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "projects-infrastructure-hero-state", 
+    "url": "total_svc-legal-hero-state", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "infrastructure-projects-hero-header", 
+                    "url": "legal-total_svc-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -55,16 +55,16 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "completed_state", 
-                                    "underway_state"
+                                    "benchmark_state", 
+                                    "achievement_state"
                                 ], 
                                 "sort_order": 100, 
                                 "label": "{{ state_param }}"
                             }, 
                             {
                                 "statistics": [
-                                    "completed", 
-                                    "underway"
+                                    "benchmark", 
+                                    "achievement"
                                 ], 
                                 "sort_order": 200, 
                                 "label": "Nationally"
@@ -73,11 +73,11 @@
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": "Completed"
+                                "label": "Benchmark"
                             }, 
                             {
                                 "sort_order": 200, 
-                                "label": "Underway"
+                                "label": "Achievement"
                             }
                         ], 
                         "show_row_headers": true
@@ -85,18 +85,18 @@
                     "aspect": 3, 
                     "statistics": [
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "completed_state", 
+                            "url": "benchmark_state", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": null, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -107,18 +107,18 @@
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "underway_state", 
+                            "url": "achievement_state", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
+                            "trend": true, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -129,18 +129,18 @@
                             "sort_order": 200
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "completed", 
+                            "url": "benchmark", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": null, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -151,18 +151,18 @@
                             "sort_order": 300
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "underway", 
+                            "url": "achievement", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
+                            "trend": true, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -174,7 +174,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "infrastructure-projects-hero-stats", 
+                    "url": "legal-total_svc-hero-stats", 
                     "tile_type": 9, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -184,66 +184,66 @@
             ], 
             "views": [
                 {
-                    "child_view": "infrastructure_act", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_act", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
-                    "child_view": "infrastructure_nsw", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_nsw", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
-                    "child_view": "infrastructure_nt", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_nt", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
-                    "child_view": "infrastructure_sa", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_sa", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
-                    "child_view": "infrastructure_qld", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_qld", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
-                    "child_view": "infrastructure_vic", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_vic", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
-                    "child_view": "infrastructure_tas", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_tas", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
-                    "child_view": "infrastructure_wa", 
-                    "sort_order": 700, 
+                    "child_view": "legal_assistance_wa", 
+                    "sort_order": 800, 
                     "child_view_text": "See all", 
                     "view": "wa"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 1300, 
+            "sort_order": 1500, 
             "expansion_hint": "", 
-            "about": "<p>Contribute to a safe, sustainable national transport system.</p>", 
-            "refresh_rate": 3900, 
-            "label": "projects-infrastructure-hero-state", 
+            "about": "<p>25% increase in the total number of services delivered by legal aid commissions.</p>", 
+            "refresh_rate": 3850, 
+            "label": "total_svc-legal-hero-state", 
             "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://infrastructure.gov.au", 
-    "name": "Infrastructure"
+    "source_url": "http://www.ag.gov.au", 
+    "name": "Legal Assistance"
 }
 

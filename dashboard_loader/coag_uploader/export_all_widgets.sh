@@ -60,6 +60,11 @@ echo "Exporting Infrastructure Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag projects-infrastructure-hero-state > coag_uploader/exports/03_projects-infrastructure-hero-state.json
 
 # Legal Assistance Hero Widgets wdef sort_order 1400, 1405, ... 1500, 1505, ...
+echo "Exporting Legal Assistance Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag total_svc-legal-hero > coag_uploader/exports/03_total_svc-legal-hero.json
+
+echo "Exporting Legal Assistance Hero Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag total_svc-legal-hero-state > coag_uploader/exports/03_total_svc-legal-hero-state.json
 
 
 # Housing Detail Widgets  wdef sort_order 2000, 2005, ... 2100, 2105, ...

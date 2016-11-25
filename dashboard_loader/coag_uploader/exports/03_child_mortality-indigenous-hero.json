@@ -72,7 +72,7 @@
                         "clusters": [], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
-                        "horiz_axis_type": 1, 
+                        "horiz_axis_type": 2, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
