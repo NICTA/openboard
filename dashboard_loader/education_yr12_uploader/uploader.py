@@ -120,8 +120,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_stats(desc, benchmark,
                                 "yr12-education-hero", "yr12-education-hero", 
                                 "yr12-education-hero-state", "yr12-education-hero-state", 
-                                None, None,
-                                None, None,
+                                "education_yr12", "education_yr12", 
+                                "education_yr12_state", "education_yr12_state",
                                 verbosity))
         messages.extend(
                 update_graph_data(
@@ -131,9 +131,48 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2006,
                             benchmark_end=2020,
-                            benchmark_gen=lambda init: 0.9,
+                            benchmark_gen=lambda init: 90.0,
                             use_error_bars=False,
                             verbosity=verbosity)
+                )
+        messages.extend(
+                update_graph_data(
+                            "education_yr12", "education_yr12", 
+                            "education_yr12_summary_graph",
+                            EducationYr12Cert3AttainmentData, "percentage",
+                            [ AUS, ],
+                            benchmark_start=2006,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: 90.0,
+                            use_error_bars=False,
+                            verbosity=verbosity)
+        )
+        messages.extend(
+                update_graph_data(
+                            "education_yr12", "education_yr12", 
+                            "education_yr12_detail_graph",
+                            EducationYr12Cert3AttainmentData, "percentage",
+                            benchmark_start=2006,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: 90.0,
+                            use_error_bars=True,
+                            verbosity=verbosity)
+                )
+        messages.extend(
+                populate_raw_data("education_yr12", "education_yr12", 
+                                "education_year12", EducationYr12Cert3AttainmentData,
+                                {
+                                    "percentage": "percentage_yr12_attainment",
+                                    "uncertainty": "uncertainty",
+                                })
+                )
+        messages.extend(
+                populate_crosstab_raw_data("education_yr12", "education_yr12", 
+                                "data_table", EducationYr12Cert3AttainmentData,
+                                {
+                                    "percentage": "percent",
+                                    "uncertainty": "error",
+                                })
                 )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
@@ -146,10 +185,51 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 [ AUS, state_num ],
                                 benchmark_start=2006,
                                 benchmark_end=2020,
-                                benchmark_gen=lambda init: 0.9,
+                                benchmark_gen=lambda init: 90.0,
                                 use_error_bars=False,
                                 verbosity=verbosity,
                                 pval=pval)
+                    )
+            messages.extend(
+                    update_graph_data(
+                                "education_yr12_state", "education_yr12_state", 
+                                "education_yr12_summary_graph",
+                                EducationYr12Cert3AttainmentData, "percentage",
+                                [ AUS, state_num ],
+                                benchmark_start=2006,
+                                benchmark_end=2020,
+                                benchmark_gen=lambda init: 90.0,
+                                use_error_bars=False,
+                                verbosity=verbosity,
+                                pval=pval)
+            )
+            messages.extend(
+                    update_graph_data(
+                                "education_yr12_state", "education_yr12_state", 
+                                "education_yr12_detail_graph",
+                                EducationYr12Cert3AttainmentData, "percentage",
+                                benchmark_start=2006,
+                                benchmark_end=2020,
+                                benchmark_gen=lambda init: 90.0,
+                                use_error_bars=True,
+                                verbosity=verbosity,
+                                pval=pval)
+                    )
+            messages.extend(
+                    populate_raw_data("education_yr12_state", "education_yr12_state", 
+                                    "education_year12", EducationYr12Cert3AttainmentData,
+                                    {
+                                        "percentage": "percentage_yr12_attainment",
+                                        "uncertainty": "uncertainty",
+                                    })
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data("education_yr12_state", "education_yr12_state", 
+                                    "data_table", EducationYr12Cert3AttainmentData,
+                                    {
+                                        "percentage": "percent",
+                                        "uncertainty": "error",
+                                    })
                     )
     except LoaderException, e:
         raise e
