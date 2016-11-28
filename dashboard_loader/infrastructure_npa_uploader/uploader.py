@@ -148,11 +148,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             verbosity))
         aust_sums = InfrastructureProjectCounts.objects.aggregate(Sum('completed'), Sum('underway'), Sum('pending'))
         set_statistic_data("projects-infrastructure-hero", "projects-infrastructure-hero",
-                            "pending", float(aust_sums["pending__sum"]))
+                            "pending", float(aust_sums["pending__sum"]),
+                            traffic_light_code=desc["status"]["tlc"])
         set_statistic_data("projects-infrastructure-hero", "projects-infrastructure-hero",
-                            "completed", float(aust_sums["completed__sum"]))
+                            "completed", float(aust_sums["completed__sum"]),
+                            traffic_light_code=desc["status"]["tlc"])
         set_statistic_data("projects-infrastructure-hero", "projects-infrastructure-hero",
-                            "underway", float(aust_sums["underway__sum"]))
+                            "underway", float(aust_sums["underway__sum"]),
+                            traffic_light_code=desc["status"]["tlc"])
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -160,18 +163,22 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data(
                         "projects-infrastructure-hero-state", "projects-infrastructure-hero-state",
                         "completed", float(aust_sums["completed__sum"]),
+                        traffic_light_code=desc["status"]["tlc"],
                         pval=pval)
             set_statistic_data(
                         "projects-infrastructure-hero-state", "projects-infrastructure-hero-state",
                         "underway", float(aust_sums["underway__sum"]),
+                        traffic_light_code=desc["status"]["tlc"],
                         pval=pval)
             set_statistic_data(
                         "projects-infrastructure-hero-state", "projects-infrastructure-hero-state",
                         "completed_state", float(state_counts.completed),
+                        traffic_light_code=desc["status"]["tlc"],
                         pval=pval)
             set_statistic_data(
                         "projects-infrastructure-hero-state", "projects-infrastructure-hero-state",
                         "underway_state", float(state_counts.underway),
+                        traffic_light_code=desc["status"]["tlc"],
                         pval=pval)
     except LoaderException, e:
         raise e
