@@ -2,10 +2,10 @@
     "category": "education", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase Year 12 or equivalent attainment rate (2015 benchmark)", 
+    "subtitle": "Increase participation in post-school education, training or employment", 
     "subcategory": "national agreement", 
     "groups": [], 
-    "url": "education_yr12_2015_state", 
+    "url": "education_participation", 
     "definitions": [
         {
             "tiles": [
@@ -27,7 +27,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education_yr12_2015_header", 
+                    "url": "education_participation_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -48,68 +48,58 @@
                 }, 
                 {
                     "expansion": false, 
+                    "main_stat_count": 2, 
                     "sort_order": 200, 
                     "aspect": 3, 
-                    "statistics": [], 
-                    "list_label_width": null, 
-                    "url": "education_yr12_2015_summary_graph", 
-                    "graph": {
-                        "numeric_axis_always_show_zero": false, 
-                        "display_options": {
-                            "shaded": false, 
-                            "stacked": false, 
-                            "single_graph": true, 
-                            "point_colour_map": null, 
-                            "lines": 1, 
-                            "points": 0, 
-                            "rotates": false
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Reference Year", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "reference", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": false, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
                         }, 
-                        "secondary_numeric_axis_label": null, 
-                        "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
-                        "use_secondary_numeric_axis": false, 
-                        "dataset_label": "dataset", 
-                        "clusters": [], 
-                        "cluster_label": "cluster", 
-                        "dynamic_clusters": false, 
-                        "horiz_axis_type": 2, 
-                        "datasets": [
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 100, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
-                                "dynamic_label": false, 
-                                "label": "National"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 200, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "state", 
-                                "colour": "purple-solid", 
-                                "dynamic_label": false, 
-                                "label": "{{ state_abbrev }}"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 300, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "benchmark", 
-                                "colour": "green-dotted", 
-                                "dynamic_label": false, 
-                                "label": "Benchmark"
-                            }
-                        ], 
-                        "numeric_axis_label": "%", 
-                        "graph_type": 1, 
-                        "heading": ""
-                    }, 
-                    "tile_type": 6, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Latest Year", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "latest", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": false, 
+                            "trend": true, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education-participation-summary", 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -133,7 +123,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -155,7 +145,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -167,7 +157,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education_yr12_2015_status", 
+                    "url": "education_participation_status", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -180,7 +170,7 @@
                     "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "education_yr12_2015_details", 
+                    "url": "education_participation_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -193,7 +183,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "education_yr12_2015_detail_graph", 
+                    "url": "education_participation_detail_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -218,7 +208,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
                                 "colour": "blue", 
@@ -228,7 +218,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "vic", 
                                 "colour": "red", 
@@ -238,7 +228,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "qld", 
                                 "colour": "pale_green", 
@@ -248,7 +238,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "wa", 
                                 "colour": "purple", 
@@ -258,7 +248,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "sa", 
                                 "colour": "pale_blue", 
@@ -268,7 +258,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 600, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "tas", 
                                 "colour": "orange", 
@@ -278,7 +268,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 700, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "act", 
                                 "colour": "dark_blue", 
@@ -288,7 +278,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 800, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nt", 
                                 "colour": "brown", 
@@ -298,22 +288,12 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 900, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "australia", 
                                 "colour": "dark_green", 
                                 "dynamic_label": false, 
                                 "label": "National"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 1000, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "benchmark", 
-                                "colour": "green-dotted", 
-                                "dynamic_label": false, 
-                                "label": "Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "%", 
@@ -329,43 +309,15 @@
             ], 
             "views": [
                 {
-                    "sort_order": 105, 
-                    "view": "education_act"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_nsw"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_nt"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_qld"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_sa"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_tas"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_vic"
-                }, 
-                {
-                    "sort_order": 105, 
-                    "view": "education_wa"
+                    "sort_order": 120, 
+                    "view": "education"
                 }
             ], 
-            "default_frequency_text": "Updated: 2015", 
+            "default_frequency_text": "Five yearly (Census)", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Year 12 Attainment", 
+                    "name": "Post-School Participation", 
                     "columns": [
                         {
                             "url": "year", 
@@ -374,119 +326,203 @@
                             "description": "The financial or calendar year."
                         }, 
                         {
-                            "url": "nsw_percent", 
+                            "url": "nsw_full_study", 
                             "sort_order": 20, 
-                            "heading": "NSW | %", 
+                            "heading": "NSW | Full Time Study (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nsw_error", 
+                            "url": "nsw_full_work", 
                             "sort_order": 30, 
-                            "heading": "NSW | \u00b1", 
+                            "heading": "NSW | Full Time Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_percent", 
+                            "url": "nsw_study_work", 
                             "sort_order": 40, 
-                            "heading": "Vic | %", 
+                            "heading": "NSW | Study and Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_error", 
+                            "url": "nsw_not_fully_engaged", 
                             "sort_order": 50, 
-                            "heading": "Vic | \u00b1", 
+                            "heading": "NSW | Not Fully Engaged (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_percent", 
+                            "url": "vic_full_study", 
                             "sort_order": 60, 
-                            "heading": "Qld | %", 
+                            "heading": "Vic | Full Time Study (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_error", 
+                            "url": "vic_full_work", 
                             "sort_order": 70, 
-                            "heading": "Qld | \u00b1", 
+                            "heading": "Vic | Full Time Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_percent", 
+                            "url": "vic_study_work", 
                             "sort_order": 80, 
-                            "heading": "WA | %", 
+                            "heading": "Vic | Study and Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_error", 
+                            "url": "vic_not_fully_engaged", 
                             "sort_order": 90, 
-                            "heading": "WA | \u00b1", 
+                            "heading": "Vic | Not Fully Engaged (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_percent", 
+                            "url": "qld_full_study", 
                             "sort_order": 100, 
-                            "heading": "SA | %", 
+                            "heading": "Qld | Full Time Study (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_error", 
+                            "url": "qld_full_work", 
                             "sort_order": 110, 
-                            "heading": "SA | \u00b1", 
+                            "heading": "Qld | Full Time Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_percent", 
+                            "url": "qld_study_work", 
                             "sort_order": 120, 
-                            "heading": "Tas | %", 
+                            "heading": "Qld | Study and Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_error", 
+                            "url": "qld_not_fully_engaged", 
                             "sort_order": 130, 
-                            "heading": "Tas | \u00b1", 
+                            "heading": "Qld | Not Fully Engaged (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_percent", 
+                            "url": "wa_full_study", 
                             "sort_order": 140, 
-                            "heading": "ACT | %", 
+                            "heading": "WA | Full Time Study (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_error", 
+                            "url": "wa_full_work", 
                             "sort_order": 150, 
-                            "heading": "ACT | \u00b1", 
+                            "heading": "WA | Full Time Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_percent", 
+                            "url": "wa_study_work", 
                             "sort_order": 160, 
-                            "heading": "NT | %", 
+                            "heading": "WA | Study and Work (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_error", 
+                            "url": "wa_not_fully_engaged", 
                             "sort_order": 170, 
-                            "heading": "NT | \u00b1", 
+                            "heading": "WA | Not Fully Engaged (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_percent", 
+                            "url": "sa_full_study", 
                             "sort_order": 180, 
-                            "heading": "Aust | %", 
+                            "heading": "SA | Full Time Study (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_error", 
+                            "url": "sa_full_work", 
                             "sort_order": 190, 
-                            "heading": "Aust | \u00b1", 
+                            "heading": "SA | Full Time Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_study_work", 
+                            "sort_order": 200, 
+                            "heading": "SA | Study and Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_not_fully_engaged", 
+                            "sort_order": 210, 
+                            "heading": "SA | Not Fully Engaged (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_full_study", 
+                            "sort_order": 220, 
+                            "heading": "Tas | Full Time Study (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_full_work", 
+                            "sort_order": 230, 
+                            "heading": "Tas | Full Time Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_study_work", 
+                            "sort_order": 240, 
+                            "heading": "Tas | Study and Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_not_fully_engaged", 
+                            "sort_order": 250, 
+                            "heading": "Tas | Not Fully Engaged (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_full_study", 
+                            "sort_order": 260, 
+                            "heading": "ACT | Full Time Study (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_full_work", 
+                            "sort_order": 270, 
+                            "heading": "ACT | Full Time Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_study_work", 
+                            "sort_order": 280, 
+                            "heading": "ACT | Study and Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_not_fully_engaged", 
+                            "sort_order": 290, 
+                            "heading": "ACT | Not Fully Engaged (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_full_study", 
+                            "sort_order": 300, 
+                            "heading": "Aust | Full Time Study (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_full_work", 
+                            "sort_order": 310, 
+                            "heading": "Aust | Full Time Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_study_work", 
+                            "sort_order": 320, 
+                            "heading": "Aust | Study and Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_not_fully_engaged", 
+                            "sort_order": 330, 
+                            "heading": "Aust | Not Fully Engaged (%)", 
                             "description": ""
                         }
                     ], 
-                    "filename": "year12_data_table.csv"
+                    "filename": "education_participation_data_table.csv"
                 }, 
                 {
-                    "url": "education_year12", 
-                    "name": "Year 12 Attainment Data", 
+                    "url": "education_participation", 
+                    "name": "Post-School Participation Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -501,31 +537,43 @@
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
-                            "url": "percentage_yr12_attainment", 
+                            "url": "percentage_full_time_study", 
                             "sort_order": 30, 
-                            "heading": "Year 12 (or equivalent) attainment rate (%)", 
-                            "description": "The proportion of those aged 20-24 years who have completed year 12 (or equivalent) or Certificate II or above (%)."
+                            "heading": "Proportion in full-time study (%)", 
+                            "description": "The proportion of school leavers aged 17-24 years enrolled in full-time study (%)."
                         }, 
                         {
-                            "url": "uncertainty", 
+                            "url": "percentage_full_time_work", 
                             "sort_order": 40, 
-                            "heading": "Uncertainty", 
-                            "description": "The uncertainty in the main percentage figure."
+                            "heading": "Proportion in full-time employment (%)", 
+                            "description": "The proportion of school leavers aged 17-24 years engaged in full-time work (%)."
+                        }, 
+                        {
+                            "url": "percentage_study_work", 
+                            "sort_order": 50, 
+                            "heading": "Proportion in combination of study and work (%)", 
+                            "description": "The proportion of school leavers aged 17-24 years engaged in both study and work (%)."
+                        }, 
+                        {
+                            "url": "percentage_not_fully_engaged", 
+                            "sort_order": 60, 
+                            "heading": "Proportion in not fully engaged in is study or work (%)", 
+                            "description": "The proportion of school leavers aged 17-24 years not fully engaged in study or work (%)."
                         }
                     ], 
-                    "filename": "coag_education_year12_2015_data.csv"
+                    "filename": "coag_education_participation_data.csv"
                 }
             ], 
-            "sort_order": 2305, 
+            "sort_order": 2220, 
             "expansion_hint": "View more", 
-            "about": "<p>Lift the Year 12 or equivalent or Certificate II attainment rate to 90 per cent by 2015.</p>", 
-            "refresh_rate": 3450, 
-            "label": "education_yr12_2015_state", 
-            "parametisation": "state_param", 
+            "about": "<p>Increase the proportion of young people participating in post-school education, training or employment.</p>", 
+            "refresh_rate": 3520, 
+            "label": "education_participation", 
+            "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
-    "name": "Year 12 Attainment"
+    "source_url": "http://www.abs.gov.au", 
+    "name": "Post-School Participation"
 }
 

@@ -2,7 +2,7 @@
     "category": "education", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase Year 12 or equivalent attainment rate (2015 benchmark)",
+    "subtitle": "Increase Year 12 or equivalent attainment rate (2015 benchmark)", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "education_yr12_2015", 
@@ -487,7 +487,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0",
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
     "name": "Year 12 Attainment"
 }
 

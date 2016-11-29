@@ -22,9 +22,13 @@ echo "Exporting Education Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero > coag_uploader/exports/03_yr12-education-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12_2015-education-hero > coag_uploader/exports/03_yr12_2015-education-hero.json
 
+python manage.py export_widget --settings=dashboard_loader.settings_coag participation-education-hero > coag_uploader/exports/03_participation-education-hero.json
+
 echo "Exporting Education Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero-state > coag_uploader/exports/03_yr12-education-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12_2015-education-hero-state > coag_uploader/exports/03_yr12_2015-education-hero-state.json
+
+python manage.py export_widget --settings=dashboard_loader.settings_coag participation-education-hero-state > coag_uploader/exports/03_participation-education-hero-state.json
 
 # Skills Hero Widgets  wdef sort_order 400, 405, ... 500, 505, ...
 echo "Exporting Skills Hero Widgets"
@@ -86,18 +90,22 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag housing
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_homelessness_npa_state > coag_uploader/exports/03_homelessness_npa-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_remote_indigenous_state > coag_uploader/exports/03_remote_indigenous_housing-state.json
 
-# Education Detail Widgets   wdef sort_order 2200, 2005, ... 2300, 2105, ...
+# Education Detail Widgets   wdef sort_order 2200, 2205, ... 2300, 2305, ...
 echo "Exporting Eduation Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015 > coag_uploader/exports/03_yr12_2015.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015 > coag_uploader/exports/03_yr12_2015.json
+
+python manage.py export_widget --settings=dashboard_loader.settings_coag education_participation > coag_uploader/exports/03_participation.json
 
 echo "Exporting Education State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015_state > coag_uploader/exports/03_yr12_2015-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015_state > coag_uploader/exports/03_yr12_2015-state.json
 
-# Skills Detail Widgets      wdef sort_order 2400, 2205, ... 2500, 2305, ...
-# Health Detail Widgets      wdef sort_order 2600, 2405, ... 2700, 2505, ...
-# Disability Detail Widgets  wdef sort_order 2800, 2605, ... 2900, 2705, ...
+python manage.py export_widget --settings=dashboard_loader.settings_coag education_participation_state > coag_uploader/exports/03_participation-state.json
+
+# Skills Detail Widgets      wdef sort_order 2400, 2405, ... 2500, 2505, ...
+# Health Detail Widgets      wdef sort_order 2600, 2605, ... 2700, 2705, ...
+# Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 # Indigenous Detail Widgets      wdef sort_order 3000, 3005, ... 3100, 3105, ...
 # Infrastructure Detail Widgets  wdef sort_order 3200, 3205, ... 3300, 3305, ...
 # Legal Assistance Detail Widgets  wdef sort_order 3400, 3405, ... 3500, 3505, ...

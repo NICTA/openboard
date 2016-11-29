@@ -546,6 +546,8 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
     benchmark_final = None
     for o in qry:
         value = getattr(o,field)
+        if callable(value):
+            value = value()
         if o.state == AUS and o.float_year() == benchmark_start:
             benchmark_init = value
             benchmark_final = benchmark_gen(benchmark_init)
