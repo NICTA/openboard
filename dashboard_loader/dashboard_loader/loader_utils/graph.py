@@ -77,7 +77,7 @@ def set_dataset_override(graph, dataset, display_name, pval=None):
         try:
             dataset = GraphDataset.objects.get(graph=graph, url=dataset)
         except GraphDataset.DoesNotExist:
-            raise LoaderException("Dataset %s for graph %s does not exist" % (str(cluster), graph.tile.url))
+            raise LoaderException("Dataset %s for graph %s does not exist" % (str(dataset), graph.tile.url))
     (dd, created) = GraphDatasetData.objects.get_or_create(dataset=dataset, param_value=pval, defaults={'display_name': display_name})
     if not created:
         dd.display_name = display_name

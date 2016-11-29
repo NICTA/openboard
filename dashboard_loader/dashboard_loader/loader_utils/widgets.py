@@ -103,15 +103,15 @@ LoaderException is raised.
     if not data:
         data = StatisticData(statistic=stat, param_value=pval)
     if not stat.name_as_label and not label:
-        raise LoaderException("Must provide a label for statistic %s" % statistic_url)
+        raise LoaderException("Must provide a label for statistic %s" % stat.url)
     else:
         data.label = label
     if stat.trend and trend is None:
-        raise LoaderException("Must provide a trend for statistic %s" % statistic_url)
+        raise LoaderException("Must provide a trend for statistic %s" % stat.url)
     else:
         data.trend = trend
     if stat.traffic_light_scale and not traffic_light_code:
-        raise LoaderException("Must provide a traffic light code for statistic %s" % statistic_url)
+        raise LoaderException("Must provide a traffic light code for statistic %s" % stat.url)
     if stat.traffic_light_scale and isinstance(traffic_light_code, TrafficLightScaleCode):
         tlc = traffic_light_code
     elif stat.traffic_light_scale:
@@ -120,7 +120,7 @@ LoaderException is raised.
         tlc = None
     data.traffic_light_code = tlc
     if stat.icon_library and not icon_code:
-        raise LoaderException("Must provide a icon code for statistic %s" % statistic_url)
+        raise LoaderException("Must provide a icon code for statistic %s" % stat.url)
     if stat.icon_library and isinstance(icon_code, IconCode):
         ic = icon_code
     elif stat.icon_library:
