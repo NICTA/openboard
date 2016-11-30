@@ -1,0 +1,151 @@
+{
+    "category": "education", 
+    "edit_all_groups": [], 
+    "source_url_text": "ACARA",
+    "subtitle": "Australian students meeting National Minimum Standards for literacy", 
+    "subcategory": "summary", 
+    "groups": [], 
+    "url": "naplan_lit-education-hero", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education-naplan_lit-hero-header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 300, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education-naplan_lit-hero-graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year3", 
+                                "colour": "green", 
+                                "dynamic_label": false, 
+                                "label": "Year 3"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year5", 
+                                "colour": "blue", 
+                                "dynamic_label": false, 
+                                "label": "Year 5"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year7", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Year 7"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year9", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Year 9"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "child_view": "education", 
+                    "sort_order": 210, 
+                    "child_view_text": "See all", 
+                    "view": "aus"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [], 
+            "sort_order": 210, 
+            "expansion_hint": "", 
+            "about": "<p>The National Assessment Program—Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5–19 year old population.</p>",
+            "refresh_rate": 3820, 
+            "label": "naplan_lit-education-hero", 
+            "parametisation": null, 
+            "deexpansion_hint": ""
+        }
+    ], 
+    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education",
+    "name": "Education"
+}
+

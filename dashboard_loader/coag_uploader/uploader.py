@@ -299,7 +299,7 @@ def calculate_indicator(desire_increase,
                     new[1], 20, label=display_float_year(new[0]))
     return messages
 
-def load_benchmark_description(wb, sheetname, indicator=False):
+def load_benchmark_description(wb, sheetname, indicator=False, additional_lookups={}):
     key_lookup = {
         "status": "status",
         "updated": "updated",
@@ -419,6 +419,7 @@ def load_benchmark_description(wb, sheetname, indicator=False):
         statuses = indicator_statuses
     else:
         statuses = benchmark_statuses
+    key_lookup.update(additional_lookups)
     while True:
         try:
             rawkey = sheet["A%d" % row].value
@@ -453,6 +454,10 @@ def load_benchmark_description(wb, sheetname, indicator=False):
         elif key == "other":
             desc["other"] = []
             append_to = desc["other"]
+            key = None
+        elif key in additional_lookups.keys():
+            desc[key_lookup[key]] = []
+            append_to = desc[key_lookup[key]]
             key = None
         elif key in ("nsw", "vic", "qld", "wa", "sa", "tas", 
                         "act", "nt", "australia"):
@@ -589,6 +594,9 @@ txt_block_template = Template("""<div class="coag_description">
         {% for body_elem in desc.body %}
             <p>{{ body_elem }}</p>
         {% endfor %}
+        {% for body_elem in additional_body %}
+            <p>{{ body_elem }}</p>
+        {% endfor %}
         {% for inf_elem in desc.influences %}
             <p>
                 {% if forloop.first %}
@@ -626,7 +634,8 @@ def update_stats(desc, benchmark,
                 wurl_hero_state, wlbl_hero_state,
                 wurl, wlbl, 
                 wurl_state, wlbl_state,
-                verbosity):
+                verbosity=0,
+                additional_desc_body="additional_body"):
     messages = []
     if wurl_hero:
         set_statistic_data(wurl_hero, wlbl_hero,
@@ -668,6 +677,7 @@ def update_stats(desc, benchmark,
         set_text_block(wurl, wlbl,
                     txt_block_template.render(Context({ 
                                     "benchmark": benchmark, 
+                                    "additional_body": desc.get(additional_desc_body),
                                     "desc": desc,
                                     "state": "Australia",
                                     "state_content": desc.get("australia") })))
@@ -698,6 +708,7 @@ def update_stats(desc, benchmark,
             set_text_block(wurl_state, wlbl_state,
                         txt_block_template.render(Context({ 
                                         "benchmark": benchmark, 
+                                        "additional_body": desc.get(additional_desc_body),
                                         "desc": desc,
                                         "state": st_abbrev,
                                         "state_content": desc.get(st_abbrev.lower()) })),

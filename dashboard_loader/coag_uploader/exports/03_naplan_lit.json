@@ -1,0 +1,514 @@
+{
+    "category": "education", 
+    "edit_all_groups": [], 
+    "source_url_text": "ACARA",
+    "subtitle": "Australian students meeting National Minimum Standards for literacy", 
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "education_naplan_lit", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education_naplan_lit_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education_naplan_lit_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year3", 
+                                "colour": "green", 
+                                "dynamic_label": false, 
+                                "label": "Year 3"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year5", 
+                                "colour": "blue", 
+                                "dynamic_label": false, 
+                                "label": "Year 5"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year7", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Year 7"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year9", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Year 9"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education_naplan_lit_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education_naplan_lit_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education_naplan_lit_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year3", 
+                                "colour": "green", 
+                                "dynamic_label": false, 
+                                "label": "Year 3"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year5", 
+                                "colour": "blue", 
+                                "dynamic_label": false, 
+                                "label": "Year 5"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year7", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Year 7"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year9", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Year 9"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": "Proportion of Australian students meeting national minimum standard"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "sort_order": 600, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education_naplan_lit_avgscore_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year3", 
+                                "colour": "green", 
+                                "dynamic_label": false, 
+                                "label": "Year 3"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year5", 
+                                "colour": "blue", 
+                                "dynamic_label": false, 
+                                "label": "Year 5"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year7", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Year 7"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year9", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Year 9"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 1, 
+                        "heading": "National average reading score"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 110, 
+                    "view": "education"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "NAPLAN Literacy", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        },  
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 20, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia.\r\n\r\nA special jurisdiction is \"benchmark\" which describes the national benchmark target"
+                        }, 
+                        {
+                            "url": "yr3_avg_score", 
+                            "sort_order": 30, 
+                            "heading": "Year 3 | Average Score", 
+                            "description": "The average year 3 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr3_nms", 
+                            "sort_order": 40, 
+                            "heading": "Year 3 | proportion meeting NMS", 
+                            "description": "The proportion of year 3 students at or above the national minimum standard in reading"
+                        },
+                        {
+                            "url": "yr5_avg_score", 
+                            "sort_order": 50, 
+                            "heading": "Year 5 | Average Score", 
+                            "description": "The average year 5 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr5_nms", 
+                            "sort_order": 60, 
+                            "heading": "Year 5 | proportion meeting NMS", 
+                            "description": "The proportion of year 5 students at or above the national minimum standard in reading"
+                        },
+                        {
+                            "url": "yr7_avg_score", 
+                            "sort_order": 70, 
+                            "heading": "Year 7 | Average Score", 
+                            "description": "The average year 7 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr7_nms", 
+                            "sort_order": 80, 
+                            "heading": "Year 7 | proportion meeting NMS", 
+                            "description": "The proportion of year 7 students at or above the national minimum standard in reading"
+                        },
+                        {
+                            "url": "yr9_avg_score", 
+                            "sort_order": 90, 
+                            "heading": "Year 7 | Average Score", 
+                            "description": "The average year 9 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr9_nms", 
+                            "sort_order": 100, 
+                            "heading": "Year 9 | proportion meeting NMS", 
+                            "description": "The proportion of year 9 students at or above the national minimum standard in reading"
+                        }
+                    ], 
+                    "filename": "naplan_literacy_data_table.csv"
+                },
+                {
+                    "url": "education_naplan_lit", 
+                    "name": "NAPLAN Literacy Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia.\r\n\r\nA special jurisdiction is \"benchmark\" which describes the national benchmark target"
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "yr3_avg_score", 
+                            "sort_order": 30, 
+                            "heading": "Year 3 Average Score, reading", 
+                            "description": "The average year 3 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr5_avg_score", 
+                            "sort_order": 40, 
+                            "heading": "Year 5 Average Score, reading", 
+                            "description": "The average year 5 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr7_avg_score", 
+                            "sort_order": 50, 
+                            "heading": "Year 7 Average Score, reading", 
+                            "description": "The average year 7 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr9_avg_score", 
+                            "sort_order": 60, 
+                            "heading": "Year 9 Average Score, reading", 
+                            "description": "The average year 9 NAPLAN Reading score"
+                        },
+                        {
+                            "url": "yr3_nms", 
+                            "sort_order": 70, 
+                            "heading": "Year 3 proportion at or above NMS, reading", 
+                            "description": "The proportion of year 3 students at or above the national minimum standard in reading (%)"
+                        },
+                        {
+                            "url": "yr5_nms", 
+                            "sort_order": 80, 
+                            "heading": "Year 5 proportion at or above NMS, reading", 
+                            "description": "The proportion of year 5 students at or above the national minimum standard in reading (%)"
+                        },
+                        {
+                            "url": "yr7_nms", 
+                            "sort_order": 90, 
+                            "heading": "Year 7 proportion at or above NMS, reading", 
+                            "description": "The proportion of year 7 students at or above the national minimum standard in reading (%)"
+                        },
+                        {
+                            "url": "yr9_nms", 
+                            "sort_order": 100, 
+                            "heading": "Year 9 proportion at or above NMS, reading", 
+                            "description": "The proportion of year 9 students at or above the national minimum standard in reading (%)"
+                        }
+                    ], 
+                    "filename": "coag_education_naplan_literacy_data.csv"
+                }
+            ], 
+            "sort_order": 2210, 
+            "expansion_hint": "View more", 
+            "about": "<p>The National Assessment Program—Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5–19 year old population.</p>",
+            "refresh_rate": 3820, 
+            "label": "education_naplan_lit", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education",
+    "name": "Education"
+}
+
