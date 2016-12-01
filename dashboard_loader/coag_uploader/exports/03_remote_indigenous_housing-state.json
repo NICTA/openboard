@@ -95,7 +95,7 @@
                                 "url": "year", 
                                 "colour": "blue-solid-bar", 
                                 "dynamic_label": true, 
-                                "label": "Year (National)"
+                                "label": "Year (Aust)"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
@@ -234,7 +234,7 @@
                                 "url": "australia", 
                                 "hyperlink": "", 
                                 "sort_order": 200, 
-                                "label": "National"
+                                "label": "Aust"
                             }, 
                             {
                                 "url": "benchmark", 

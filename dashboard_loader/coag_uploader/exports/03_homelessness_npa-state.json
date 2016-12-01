@@ -92,7 +92,7 @@
                                 "url": "accommodation_aust", 
                                 "colour": "light_green", 
                                 "dynamic_label": false, 
-                                "label": "Accommodation needs met (Nationally)"
+                                "label": "Accommodation needs met (Aust)"
                             }
                         ], 
                         "numeric_axis_label": "%", 
@@ -462,7 +462,7 @@
                                 "url": "accommodation_aust", 
                                 "colour": "light_green", 
                                 "dynamic_label": false, 
-                                "label": "Accommodation needs met (Nationally)"
+                                "label": "Accommodation needs met (Aust)"
                             }
                         ], 
                         "numeric_axis_label": "%", 
@@ -521,7 +521,7 @@
                                 "url": "alone_aust", 
                                 "colour": "light_green", 
                                 "dynamic_label": false, 
-                                "label": "Young people presenting alone (Nationally)"
+                                "label": "Young people presenting alone (Aust)"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
@@ -541,7 +541,7 @@
                                 "url": "violence_aust", 
                                 "colour": "light_blue", 
                                 "dynamic_label": false, 
-                                "label": "Clients experiencing family and domestic violence (Nationally)"
+                                "label": "Clients experiencing family and domestic violence (Aust)"
                             }
                         ], 
                         "numeric_axis_label": "%", 

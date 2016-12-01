@@ -100,7 +100,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         wb = load_workbook(fh, read_only=True)
         messages.extend(
                 load_state_grid(wb, "Data1",
-                                "Indigenous", "Child Mortality (National data)",
+                                "Indigenous", "Child Mortality (Aust data)",
                                 None, IndigenousChildMortalityNationalData,
                                 {}, {
                                         "indigenous": "Indigenous deaths per 100,000", 

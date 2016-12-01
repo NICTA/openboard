@@ -59,7 +59,7 @@
                                     "women_life_exp_state"
                                 ], 
                                 "sort_order": 100, 
-                                "label": "{{ state_param }}"
+                                "label": "{{ state_abbrev }}"
                             }, 
                             {
                                 "statistics": [
@@ -67,7 +67,7 @@
                                     "women_life_exp"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "Nationally"
+                                "label": "Aust"
                             }
                         ], 
                         "columns": [

@@ -6,44 +6,44 @@
             "view": "housing"
         }, 
         {
-            "sort_order": 200, 
-            "name": "ACT", 
-            "view": "housing_act"
-        }, 
-        {
-            "sort_order": 300, 
+            "sort_order": 205, 
             "name": "NSW", 
             "view": "housing_nsw"
         }, 
         {
-            "sort_order": 400, 
-            "name": "NT", 
-            "view": "housing_nt"
-        }, 
-        {
-            "sort_order": 500, 
-            "name": "SA", 
-            "view": "housing_sa"
-        }, 
-        {
-            "sort_order": 600, 
-            "name": "QLD", 
-            "view": "housing_qld"
-        }, 
-        {
-            "sort_order": 700, 
-            "name": "TAS", 
-            "view": "housing_tas"
-        }, 
-        {
-            "sort_order": 800, 
+            "sort_order": 305, 
             "name": "VIC", 
             "view": "housing_vic"
         }, 
         {
-            "sort_order": 900, 
+            "sort_order": 405, 
+            "name": "QLD", 
+            "view": "housing_qld"
+        }, 
+        {
+            "sort_order": 505, 
             "name": "WA", 
             "view": "housing_wa"
+        }, 
+        {
+            "sort_order": 605, 
+            "name": "SA", 
+            "view": "housing_sa"
+        }, 
+        {
+            "sort_order": 705, 
+            "name": "TAS", 
+            "view": "housing_tas"
+        }, 
+        {
+            "sort_order": 805, 
+            "name": "ACT", 
+            "view": "housing_act"
+        }, 
+        {
+            "sort_order": 905, 
+            "name": "NT", 
+            "view": "housing_nt"
         }
     ], 
     "sort_order": 200, 

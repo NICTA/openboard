@@ -67,7 +67,7 @@
                                     "latest_state"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "{{ state_param }}"
+                                "label": "{{ state_abbrev }}"
                             }, 
                             {
                                 "statistics": [
@@ -75,7 +75,7 @@
                                     "latest"
                                 ], 
                                 "sort_order": 300, 
-                                "label": "Nationally"
+                                "label": "Aust"
                             }
                         ], 
                         "columns": [

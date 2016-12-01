@@ -170,7 +170,7 @@ def update_summary_graph_data(wurl, wlbl, graph_lbl, pval=None):
     add_graph_data(g, "year", data.refurbishments, cluster="refurbished", pval=pval)
     yr = data.year_display()
     if pval:
-        set_dataset_override(g, "year", "%s (National)" % data.year_display())
+        set_dataset_override(g, "year", "%s (Aust)" % data.year_display())
         state_abbrev = pval.parameters()["state_abbrev"]
         state_num = state_map[state_abbrev]
         data = HousingRemoteIndigenousData.objects.filter(state=state_num).order_by("year").last()

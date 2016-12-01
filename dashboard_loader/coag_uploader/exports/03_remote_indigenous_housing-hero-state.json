@@ -95,7 +95,7 @@
                                 "url": "year", 
                                 "colour": "blue-solid-bar", 
                                 "dynamic_label": true, 
-                                "label": "Year (National)"
+                                "label": "Year (Aust)"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 

@@ -1,11 +1,11 @@
 {
     "category": "education", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase Year 12 or equivalent attainment rate", 
+    "source_url_text": "ACARA",
+    "subtitle": "Australian students meeting National Minimum Standards for numeracy", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "yr12-education-hero-state", 
+    "url": "naplan_num-education-hero", 
     "definitions": [
         {
             "tiles": [
@@ -27,7 +27,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
+                            "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education-yr12-hero-header", 
+                    "url": "education-naplan_num-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +52,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "education-yr12-hero-graph", 
+                    "url": "education-naplan_num-hero-graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -79,30 +79,40 @@
                                 "sort_order": 100, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
+                                "url": "year3", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
-                                "label": "Aust"
+                                "label": "Year 3"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "state", 
-                                "colour": "purple-solid", 
+                                "url": "year5", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
-                                "label": "{{ state_abbrev }}"
-                            }, 
+                                "label": "Year 5"
+                            },
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "benchmark", 
-                                "colour": "green-dotted", 
+                                "url": "year7", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
-                                "label": "Benchmark"
+                                "label": "Year 7"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "year9", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Year 9"
                             }
                         ], 
                         "numeric_axis_label": "%", 
@@ -118,66 +128,24 @@
             ], 
             "views": [
                 {
-                    "child_view": "education_act", 
-                    "sort_order": 200, 
+                    "child_view": "education", 
+                    "sort_order": 215, 
                     "child_view_text": "See all", 
-                    "view": "act"
-                }, 
-                {
-                    "child_view": "education_nsw", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "nsw"
-                }, 
-                {
-                    "child_view": "education_nt", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "nt"
-                }, 
-                {
-                    "child_view": "education_sa", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "sa"
-                }, 
-                {
-                    "child_view": "education_qld", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "qld"
-                }, 
-                {
-                    "child_view": "education_vic", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "vic"
-                }, 
-                {
-                    "child_view": "education_tas", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "tas"
-                }, 
-                {
-                    "child_view": "education_wa", 
-                    "sort_order": 200, 
-                    "child_view_text": "See all", 
-                    "view": "wa"
+                    "view": "aus"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 300, 
+            "sort_order": 215, 
             "expansion_hint": "", 
-            "about": "<p>Lift the Year 12 or equivalent or Certificate III attainment rate to 90 per cent by 2020.</p>", 
-            "refresh_rate": 3900, 
-            "label": "yr12-education-hero-state", 
-            "parametisation": "state_param", 
+            "about": "<p>The National Assessment Program—Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5–19 year old population.</p>",
+            "refresh_rate": 3820, 
+            "label": "naplan_num-education-hero", 
+            "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
+    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education",
     "name": "Education"
 }
 

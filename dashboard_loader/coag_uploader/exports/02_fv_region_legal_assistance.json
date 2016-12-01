@@ -6,44 +6,44 @@
             "view": "legal_assistance"
         }, 
         {
-            "sort_order": 200, 
-            "name": "ACT", 
-            "view": "legal_assistance_act"
-        }, 
-        {
-            "sort_order": 300, 
+            "sort_order": 205, 
             "name": "NSW", 
             "view": "legal_assistance_nsw"
         }, 
         {
-            "sort_order": 400, 
-            "name": "NT", 
-            "view": "legal_assistance_nt"
-        }, 
-        {
-            "sort_order": 500, 
-            "name": "SA", 
-            "view": "legal_assistance_sa"
-        }, 
-        {
-            "sort_order": 600, 
-            "name": "QLD", 
-            "view": "legal_assistance_qld"
-        }, 
-        {
-            "sort_order": 700, 
-            "name": "TAS", 
-            "view": "legal_assistance_tas"
-        }, 
-        {
-            "sort_order": 800, 
+            "sort_order": 305, 
             "name": "VIC", 
             "view": "legal_assistance_vic"
         }, 
         {
-            "sort_order": 900, 
+            "sort_order": 405, 
+            "name": "QLD", 
+            "view": "legal_assistance_qld"
+        }, 
+        {
+            "sort_order": 505, 
             "name": "WA", 
             "view": "legal_assistance_wa"
+        }, 
+        {
+            "sort_order": 605, 
+            "name": "SA", 
+            "view": "legal_assistance_sa"
+        }, 
+        {
+            "sort_order": 705, 
+            "name": "TAS", 
+            "view": "legal_assistance_tas"
+        }, 
+        {
+            "sort_order": 805, 
+            "name": "ACT", 
+            "view": "legal_assistance_act"
+        }, 
+        {
+            "sort_order": 905, 
+            "name": "NT", 
+            "view": "legal_assistance_nt"
         }
     ], 
     "sort_order": 900, 

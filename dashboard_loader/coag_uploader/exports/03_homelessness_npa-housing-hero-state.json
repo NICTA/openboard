@@ -92,7 +92,7 @@
                                 "url": "accommodation_aust", 
                                 "colour": "light_green", 
                                 "dynamic_label": false, 
-                                "label": "Accommodation needs met (Nationally)"
+                                "label": "Accommodation needs met (Aust)"
                             }
                         ], 
                         "numeric_axis_label": "%", 

@@ -195,8 +195,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     ) 
     except LoaderException, e:
         raise e
-#except Exception, e:
-#        raise LoaderException("Invalid file: %s" % unicode(e))
+    except Exception, e:
+        raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
 def update_my_state_graph(wurl, wlbl, graph, 

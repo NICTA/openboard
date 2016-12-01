@@ -59,7 +59,7 @@
                                     "achievement_state"
                                 ], 
                                 "sort_order": 100, 
-                                "label": "{{ state_param }}"
+                                "label": "{{ state_abbrev }}"
                             }, 
                             {
                                 "statistics": [
@@ -67,7 +67,7 @@
                                     "achievement"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "Nationally"
+                                "label": "Aust"
                             }
                         ], 
                         "columns": [

@@ -22,14 +22,14 @@ echo "Exporting Education Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero > coag_uploader/exports/03_yr12-education-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12_2015-education-hero > coag_uploader/exports/03_yr12_2015-education-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag naplan_lit-education-hero > coag_uploader/exports/03_naplan_lit-education-hero.json
-
+python manage.py export_widget --settings=dashboard_loader.settings_coag naplan_num-education-hero > coag_uploader/exports/03_naplan_num-education-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag participation-education-hero > coag_uploader/exports/03_participation-education-hero.json
 
 echo "Exporting Education Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12-education-hero-state > coag_uploader/exports/03_yr12-education-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag yr12_2015-education-hero-state > coag_uploader/exports/03_yr12_2015-education-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag naplan_lit-education-hero-state > coag_uploader/exports/03_naplan_lit-education-hero-state.json
-
+python manage.py export_widget --settings=dashboard_loader.settings_coag naplan_num-education-hero-state > coag_uploader/exports/03_naplan_num-education-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag participation-education-hero-state > coag_uploader/exports/03_participation-education-hero-state.json
 
 # Skills Hero Widgets  wdef sort_order 400, 405, ... 500, 505, ...
@@ -97,14 +97,14 @@ echo "Exporting Eduation Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015 > coag_uploader/exports/03_yr12_2015.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015 > coag_uploader/exports/03_yr12_2015.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_lit > coag_uploader/exports/03_naplan_lit-education.json
-
+python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_num > coag_uploader/exports/03_naplan_num-education.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_participation > coag_uploader/exports/03_participation.json
 
 echo "Exporting Education State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015_state > coag_uploader/exports/03_yr12_2015-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015_state > coag_uploader/exports/03_yr12_2015-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_lit_state > coag_uploader/exports/03_naplan_lit-education-state.json
-
+python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_num_state > coag_uploader/exports/03_naplan_num-education-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_participation_state > coag_uploader/exports/03_participation-state.json
 
 # Skills Detail Widgets      wdef sort_order 2400, 2405, ... 2500, 2505, ...

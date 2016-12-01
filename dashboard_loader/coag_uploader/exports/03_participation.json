@@ -293,7 +293,7 @@
                                 "url": "australia", 
                                 "colour": "dark_green", 
                                 "dynamic_label": false, 
-                                "label": "National"
+                                "label": "Aust"
                             }
                         ], 
                         "numeric_axis_label": "%", 

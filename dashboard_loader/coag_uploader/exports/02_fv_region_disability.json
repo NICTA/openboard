@@ -6,44 +6,44 @@
             "view": "disability"
         }, 
         {
-            "sort_order": 200, 
-            "name": "ACT", 
-            "view": "disability_act"
-        }, 
-        {
-            "sort_order": 300, 
+            "sort_order": 205, 
             "name": "NSW", 
             "view": "disability_nsw"
         }, 
         {
-            "sort_order": 400, 
-            "name": "NT", 
-            "view": "disability_nt"
-        }, 
-        {
-            "sort_order": 500, 
-            "name": "SA", 
-            "view": "disability_sa"
-        }, 
-        {
-            "sort_order": 600, 
-            "name": "QLD", 
-            "view": "disability_qld"
-        }, 
-        {
-            "sort_order": 700, 
-            "name": "TAS", 
-            "view": "disability_tas"
-        }, 
-        {
-            "sort_order": 800, 
+            "sort_order": 305, 
             "name": "VIC", 
             "view": "disability_vic"
         }, 
         {
-            "sort_order": 900, 
+            "sort_order": 405, 
+            "name": "QLD", 
+            "view": "disability_qld"
+        }, 
+        {
+            "sort_order": 505, 
             "name": "WA", 
             "view": "disability_wa"
+        }, 
+        {
+            "sort_order": 605, 
+            "name": "SA", 
+            "view": "disability_sa"
+        }, 
+        {
+            "sort_order": 705, 
+            "name": "TAS", 
+            "view": "disability_tas"
+        }, 
+        {
+            "sort_order": 805, 
+            "name": "ACT", 
+            "view": "disability_act"
+        }, 
+        {
+            "sort_order": 905, 
+            "name": "NT", 
+            "view": "disability_nt"
         }
     ], 
     "sort_order": 600, 

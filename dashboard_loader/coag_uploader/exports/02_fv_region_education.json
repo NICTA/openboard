@@ -6,44 +6,44 @@
             "view": "education"
         }, 
         {
-            "sort_order": 200, 
-            "name": "ACT", 
-            "view": "education_act"
-        }, 
-        {
-            "sort_order": 300, 
+            "sort_order": 205, 
             "name": "NSW", 
             "view": "education_nsw"
         }, 
         {
-            "sort_order": 400, 
-            "name": "NT", 
-            "view": "education_nt"
-        }, 
-        {
-            "sort_order": 500, 
-            "name": "QLD", 
-            "view": "education_qld"
-        }, 
-        {
-            "sort_order": 600, 
-            "name": "SA", 
-            "view": "education_sa"
-        }, 
-        {
-            "sort_order": 700, 
-            "name": "TAS", 
-            "view": "education_tas"
-        }, 
-        {
-            "sort_order": 800, 
+            "sort_order": 305, 
             "name": "VIC", 
             "view": "education_vic"
         }, 
         {
-            "sort_order": 900, 
+            "sort_order": 405, 
+            "name": "QLD", 
+            "view": "education_qld"
+        }, 
+        {
+            "sort_order": 505, 
             "name": "WA", 
             "view": "education_wa"
+        }, 
+        {
+            "sort_order": 605, 
+            "name": "SA", 
+            "view": "education_sa"
+        }, 
+        {
+            "sort_order": 705, 
+            "name": "TAS", 
+            "view": "education_tas"
+        }, 
+        {
+            "sort_order": 805, 
+            "name": "ACT", 
+            "view": "education_act"
+        }, 
+        {
+            "sort_order": 905, 
+            "name": "NT", 
+            "view": "education_nt"
         }
     ], 
     "sort_order": 300, 

@@ -82,7 +82,7 @@
                                 "url": "australia", 
                                 "colour": "amber", 
                                 "dynamic_label": false, 
-                                "label": "National"
+                                "label": "Australia"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
@@ -293,7 +293,7 @@
                                 "url": "australia", 
                                 "colour": "dark_green", 
                                 "dynamic_label": false, 
-                                "label": "National"
+                                "label": "Aust"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 

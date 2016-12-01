@@ -182,129 +182,24 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "education_naplan_lit_state", "education_naplan_lit_state",
                                 verbosity,
                                 additional_desc_body="literacy"))
-        messages.extend(
-                update_naplan_graph_data(
-                            "naplan_lit-education-hero", "naplan_lit-education-hero", 
-                            "education-naplan_lit-hero-graph",
-                            EducationNaplanData, 
-                            { 
-                                "year3": "year3_lit_nms",
-                                "year5": "year5_lit_nms",
-                                "year7": "year7_lit_nms",
-                                "year9": "year9_lit_nms",
-                            },
-                            AUS,
-                            verbosity=verbosity)
-        )
-        messages.extend(
-                update_naplan_graph_data(
-                            "education_naplan_lit", "education_naplan_lit", 
-                            "education_naplan_lit_summary_graph",
-                            EducationNaplanData, 
-                            { 
-                                "year3": "year3_lit_nms",
-                                "year5": "year5_lit_nms",
-                                "year7": "year7_lit_nms",
-                                "year9": "year9_lit_nms",
-                            },
-                            AUS,
-                            verbosity=verbosity)
-        )
-        messages.extend(
-                update_naplan_graph_data(
-                            "education_naplan_lit", "education_naplan_lit", 
-                            "education_naplan_lit_detail_graph",
-                            EducationNaplanData, 
-                            { 
-                                "year3": "year3_lit_nms",
-                                "year5": "year5_lit_nms",
-                                "year7": "year7_lit_nms",
-                                "year9": "year9_lit_nms",
-                            },
-                            AUS,
-                            verbosity=verbosity)
-        )
-        messages.extend(
-                update_naplan_graph_data(
-                            "education_naplan_lit", "education_naplan_lit", 
-                            "education_naplan_lit_avgscore_graph",
-                            EducationNaplanData, 
-                            { 
-                                "year3": "year3_lit_score",
-                                "year5": "year5_lit_score",
-                                "year7": "year7_lit_score",
-                                "year9": "year9_lit_score",
-                            },
-                            AUS,
-                            verbosity=verbosity)
-        )
+        messages.extend(update_stats(desc, indicators_num,
+                                "naplan_num-education-hero", "naplan_num-education-hero", 
+                                "naplan_num-education-hero-state", "naplan_num-education-hero-state", 
+                                "education_naplan_num", "education_naplan_num",
+                                "education_naplan_num_state", "education_naplan_num_state",
+                                verbosity,
+                                additional_desc_body="numeracy"))
+        messages.extend(update_naplan_graphs("lit", AUS, verbosity))
+        messages.extend(update_naplan_graphs("num", AUS, verbosity))
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
-            messages.extend(
-                    update_naplan_graph_data(
-                                "naplan_lit-education-hero-state", "naplan_lit-education-hero-state", 
-                                "education-naplan_lit-hero-graph",
-                                EducationNaplanData, 
-                                { 
-                                    "year3": "year3_lit_nms",
-                                    "year5": "year5_lit_nms",
-                                    "year7": "year7_lit_nms",
-                                    "year9": "year9_lit_nms",
-                                },
-                                state_num,
-                                verbosity=verbosity,
-                                pval=pval)
-            )
-            messages.extend(
-                    update_naplan_graph_data(
-                                "education_naplan_lit_state", "education_naplan_lit_state", 
-                                "education_naplan_lit_summary_graph",
-                                EducationNaplanData, 
-                                { 
-                                    "year3": "year3_lit_nms",
-                                    "year5": "year5_lit_nms",
-                                    "year7": "year7_lit_nms",
-                                    "year9": "year9_lit_nms",
-                                },
-                                state_num,
-                                verbosity=verbosity,
-                                pval=pval)
-            )
-            messages.extend(
-                    update_naplan_graph_data(
-                                "education_naplan_lit_state", "education_naplan_lit_state", 
-                                "education_naplan_lit_detail_graph",
-                                EducationNaplanData, 
-                                { 
-                                    "year3": "year3_lit_nms",
-                                    "year5": "year5_lit_nms",
-                                    "year7": "year7_lit_nms",
-                                    "year9": "year9_lit_nms",
-                                },
-                                state_num,
-                                verbosity=verbosity,
-                                pval=pval)
-            )
-            messages.extend(
-                    update_naplan_graph_data(
-                                "education_naplan_lit_state", "education_naplan_lit_state", 
-                                "education_naplan_lit_avgscore_graph",
-                                EducationNaplanData, 
-                                { 
-                                    "year3": "year3_lit_score",
-                                    "year5": "year5_lit_score",
-                                    "year7": "year7_lit_score",
-                                    "year9": "year9_lit_score",
-                                },
-                                state_num,
-                                verbosity=verbosity,
-                                pval=pval)
-            )
+            messages.extend(update_naplan_graphs("lit", state_num, verbosity, pval=pval))
+            messages.extend(update_naplan_graphs("num", state_num, verbosity, pval=pval))
     except LoaderException, e:
         raise e
-#except Exception, e:
-#        raise LoaderException("Invalid file: %s" % unicode(e))
+    except Exception, e:
+        raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
 def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbosity=0, pval=None):
@@ -315,5 +210,43 @@ def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbos
     for o in qry:
         for ds, fld in fields.items():
             add_graph_data(g, ds, getattr(o, fld), horiz_value=o.year_as_date(), pval=pval)
+    return messages
+
+
+def update_naplan_graphs(metric_abbrev, state, verbosity=0, pval=None):
+    messages = []
+    for wurl, graph in [
+                    ("naplan_%s-education-hero" % metric_abbrev, "education-naplan_%s-hero-graph" % metric_abbrev),
+                    ("education_naplan_%s" % metric_abbrev, "education_naplan_%s_summary_graph" % metric_abbrev),
+                    ("education_naplan_%s" % metric_abbrev, "education_naplan_%s_detail_graph" % metric_abbrev),
+                ]:
+        messages.extend(
+                update_naplan_graph_data(wurl, wurl, graph,
+                            EducationNaplanData, 
+                            { 
+                                "year3": "year3_%s_nms" % metric_abbrev,
+                                "year5": "year5_%s_nms" % metric_abbrev,
+                                "year7": "year7_%s_nms" % metric_abbrev,
+                                "year9": "year9_%s_nms" % metric_abbrev,
+                            },
+                            state,
+                            verbosity=verbosity,
+                            pval=pval)
+        )
+    messages.extend(
+                update_naplan_graph_data(
+                            "education_naplan_%s" % metric_abbrev, "education_naplan_%s" % metric_abbrev, 
+                            "education_naplan_%s_avgscore_graph" % metric_abbrev,
+                            EducationNaplanData, 
+                            { 
+                                "year3": "year3_%s_score" % metric_abbrev,
+                                "year5": "year5_%s_score" % metric_abbrev,
+                                "year7": "year7_%s_score" % metric_abbrev,
+                                "year9": "year9_%s_score" % metric_abbrev,
+                            },
+                            state,
+                            verbosity=verbosity,
+                            pval=pval)
+    )
     return messages
 
