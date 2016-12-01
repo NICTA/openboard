@@ -92,7 +92,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         latest_aust = LegalAssistTotalServices.objects.filter(state=AUS).order_by("year").last()
         aust_change, aust_tlc, aust_trend = change_tlc_trend(earliest_aust.total_svcs_delivered, latest_aust.total_svcs_delivered)
         set_statistic_data("total_svc-legal-hero", "total_svc-legal-hero",
-                        "benchmark", 25.0, traffic_light_code="achieved")
+                        "benchmark", 25.0, traffic_light_code="achieved", trend=1)
         set_statistic_data("total_svc-legal-hero", "total_svc-legal-hero",
                         "achievement", aust_change, traffic_light_code=aust_tlc,
                         trend=aust_trend)
@@ -103,14 +103,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             latest_state = LegalAssistTotalServices.objects.filter(state=state_num).order_by("year").last()
             state_change, state_tlc, state_trend = change_tlc_trend(earliest_state.total_svcs_delivered, latest_state.total_svcs_delivered)
             set_statistic_data("total_svc-legal-hero-state", "total_svc-legal-hero-state",
-                        "benchmark", 25.0, traffic_light_code="achieved", 
+                        "benchmark", 25.0, traffic_light_code="achieved", trend=1,
                         pval=pval)
             set_statistic_data("total_svc-legal-hero-state", "total_svc-legal-hero-state",
                         "achievement", aust_change, traffic_light_code=aust_tlc,
                         trend=aust_trend, 
                         pval=pval)
             set_statistic_data("total_svc-legal-hero-state", "total_svc-legal-hero-state",
-                        "benchmark_state", 25.0, traffic_light_code="achieved", 
+                        "benchmark_state", 25.0, traffic_light_code="achieved", trend=1,
                         pval=pval)
             set_statistic_data("total_svc-legal-hero-state", "total_svc-legal-hero-state",
                         "achievement_state", state_change, traffic_light_code=state_tlc,
