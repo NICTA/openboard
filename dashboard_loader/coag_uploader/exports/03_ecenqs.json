@@ -1,0 +1,546 @@
+{
+    "category": "education", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.acecqa.gov.au",
+    "subtitle": "Australian early childhood education and care services meeting the National Quality Standard", 
+    "subcategory": "national partnership agreement", 
+    "groups": [], 
+    "url": "education_ecenqs", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education_ecenqs_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 2, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "reference", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": false, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "meeting_nqs", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": false, 
+                            "trend": true, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education-ecenqs-summary-stats", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "education_ecenqs_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education_ecenqs_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "education_ecenqs_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null,
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Year", 
+                        "clusters": [
+                            {
+                                "url": "nsw", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "url": "vic", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "url": "qld", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "url": "wa", 
+                                "hyperlink": "", 
+                                "sort_order": 400, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "url": "sa", 
+                                "hyperlink": "", 
+                                "sort_order": 500, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "url": "tas", 
+                                "hyperlink": "", 
+                                "sort_order": 600, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "url": "act", 
+                                "hyperlink": "", 
+                                "sort_order": 700, 
+                                "label": "ACT"
+                            },
+                            {
+                                "url": "nt", 
+                                "hyperlink": "", 
+                                "sort_order": 800, 
+                                "label": "NT"
+                            },
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 900, 
+                                "label": "Aust"
+                            }
+                        ],
+                        "cluster_label": "State", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "reference", 
+                                "colour": "green", 
+                                "dynamic_label": true, 
+                                "label": "Reference Year"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "latest", 
+                                "colour": "blue", 
+                                "dynamic_label": true, 
+                                "label": "Latest Year"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 125, 
+                    "view": "education"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Early Childhood National Quality Standard", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        },  
+                        {
+                            "url": "nsw_meeting", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Meeting NQS", 
+                            "description": "Proportion of Services in NSW meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "nsw_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "NSW | Working towards", 
+                            "description": "Proportion of Services in NSW working towards NQS (%)"
+                        },
+                        {
+                            "url": "nsw_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "NSW | No rating", 
+                            "description": "Proportion of Services in NSW with no NQS rating (%)"
+                        },
+                        {
+                            "url": "vic_meeting", 
+                            "sort_order": 30, 
+                            "heading": "Vic | Meeting NQS", 
+                            "description": "Proportion of Services in Vic meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "vic_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "Vic | Working towards", 
+                            "description": "Proportion of Services in Vic working towards NQS (%)"
+                        },
+                        {
+                            "url": "vic_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "Vic | No rating", 
+                            "description": "Proportion of Services in Vic with no NQS rating (%)"
+                        },
+                        {
+                            "url": "qld_meeting", 
+                            "sort_order": 30, 
+                            "heading": "Qld | Meeting NQS", 
+                            "description": "Proportion of Services in Qld meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "qld_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "Qld | Working towards", 
+                            "description": "Proportion of Services in Qld working towards NQS (%)"
+                        },
+                        {
+                            "url": "qld_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "Qld | No rating", 
+                            "description": "Proportion of Services in Qld with no NQS rating (%)"
+                        },
+                        {
+                            "url": "wa_meeting", 
+                            "sort_order": 30, 
+                            "heading": "WA | Meeting NQS", 
+                            "description": "Proportion of Services in WA meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "wa_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "WA | Working towards", 
+                            "description": "Proportion of Services in WA working towards NQS (%)"
+                        },
+                        {
+                            "url": "wa_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "WA | No rating", 
+                            "description": "Proportion of Services in WA with no NQS rating (%)"
+                        },
+                        {
+                            "url": "sa_meeting", 
+                            "sort_order": 30, 
+                            "heading": "SA | Meeting NQS", 
+                            "description": "Proportion of Services in SA meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "sa_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "SA | Working towards", 
+                            "description": "Proportion of Services in SA working towards NQS (%)"
+                        },
+                        {
+                            "url": "sa_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "SA | No rating", 
+                            "description": "Proportion of Services in SA with no NQS rating (%)"
+                        },
+                        {
+                            "url": "tas_meeting", 
+                            "sort_order": 30, 
+                            "heading": "Tas | Meeting NQS", 
+                            "description": "Proportion of Services in Tas meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "tas_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "Tas | Working towards", 
+                            "description": "Proportion of Services in Tas working towards NQS (%)"
+                        },
+                        {
+                            "url": "tas_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "Tas | No rating", 
+                            "description": "Proportion of Services in Tas with no NQS rating (%)"
+                        },
+                        {
+                            "url": "act_meeting", 
+                            "sort_order": 30, 
+                            "heading": "ACT | Meeting NQS", 
+                            "description": "Proportion of Services in ACT meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "act_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "ACT | Working towards", 
+                            "description": "Proportion of Services in ACT working towards NQS (%)"
+                        },
+                        {
+                            "url": "act_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "ACT | No rating", 
+                            "description": "Proportion of Services in ACT with no NQS rating (%)"
+                        },
+                        {
+                            "url": "nt_meeting", 
+                            "sort_order": 30, 
+                            "heading": "NT | Meeting NQS", 
+                            "description": "Proportion of Services in NT meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "nt_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "NT | Working towards", 
+                            "description": "Proportion of Services in NT working towards NQS (%)"
+                        },
+                        {
+                            "url": "nt_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "NT | No rating", 
+                            "description": "Proportion of Services in NT with no NQS rating (%)"
+                        },
+                        {
+                            "url": "nt_meeting", 
+                            "sort_order": 30, 
+                            "heading": "NT | Meeting NQS", 
+                            "description": "Proportion of Services in NT meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "nt_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "NT | Working towards", 
+                            "description": "Proportion of Services in NT working towards NQS (%)"
+                        },
+                        {
+                            "url": "nt_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "NT | No rating", 
+                            "description": "Proportion of Services in NT with no NQS rating (%)"
+                        },
+                        {
+                            "url": "australia_meeting", 
+                            "sort_order": 30, 
+                            "heading": "Aust | Meeting NQS", 
+                            "description": "Proportion of Services nationally meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "australia_working_towards", 
+                            "sort_order": 40, 
+                            "heading": "Aust | Working towards", 
+                            "description": "Proportion of Services nationally working towards NQS (%)"
+                        },
+                        {
+                            "url": "australia_no_rating", 
+                            "sort_order": 50, 
+                            "heading": "Aust | No rating", 
+                            "description": "Proportion of Services nationally with no NQS rating (%)"
+                        }
+                    ], 
+                    "filename": "early_childhood_nqs_data_table.csv"
+                },
+                {
+                    "url": "education_ecenqs", 
+                    "name": "Early Childhood National Quality Standard Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia.\r\n\r\nA special jurisdiction is \"benchmark\" which describes the national benchmark target"
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "meeting", 
+                            "sort_order": 30, 
+                            "heading": "Meeting NQS or higher rating (%)", 
+                            "description": "Proportion of Services meeting NQS or higher rating (%)"
+                        },
+                        {
+                            "url": "working_towards", 
+                            "sort_order": 40, 
+                            "heading": "Working towards NQS (%)", 
+                            "description": "Proportion of Services working towards NQS (%)"
+                        },
+                        {
+                            "url": "no_rating", 
+                            "sort_order": 50, 
+                            "heading": "No rating (%)", 
+                            "description": "Proportion of Services with no NQS rating (%)"
+                        }
+                    ], 
+                    "filename": "coag_education_earlychildhood_nqs_data.csv"
+                }
+            ], 
+            "sort_order": 2225, 
+            "expansion_hint": "View more", 
+            "about": "<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that &quot;by 2020 all children have the best start in life to create a better future for themselves, and for the nation&quot;.</p><p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children's Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p><p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>",
+            "refresh_rate": 3870, 
+            "label": "education_ecenqs", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.acecqa.gov.au/national-quality-framework/national-quality-framework-snapshots",
+    "name": "Education"
+}
+
