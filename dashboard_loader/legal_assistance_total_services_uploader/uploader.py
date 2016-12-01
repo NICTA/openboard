@@ -125,8 +125,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
 def change_tlc_trend(ref, end):
     diff = end-ref
     trend = diff / abs(diff)
-    change = float(diff)/float(end)
-    if change >= 0.25:
+    change = float(diff)/float(end)*100.0
+    if change >= 25.0:
         tlc = "achieved"
     else:
         tlc = "not_met"
