@@ -204,6 +204,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
 
 def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbosity=0, pval=None):
     messages = []
+    if verbosity > 2:
+        messages.append("Updating graph %s:%s (%d)" % (wurl, graph, state_num))
     g = get_graph(wurl, wlbl, graph)
     clear_graph_data(g, pval=pval)
     qry = model.objects.filter(state=state_num)
@@ -215,10 +217,18 @@ def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbos
 
 def update_naplan_graphs(metric_abbrev, state, verbosity=0, pval=None):
     messages = []
+    if verbosity > 2:
+        messages.append("Updating graphs for %s, %d" % (metric_abbrev, state))
+    if pval:
+        hero_suffix="-state"
+        detl_suffix="_state"
+    else:
+        hero_suffix=""
+        detl_suffix=""
     for wurl, graph in [
-                    ("naplan_%s-education-hero" % metric_abbrev, "education-naplan_%s-hero-graph" % metric_abbrev),
-                    ("education_naplan_%s" % metric_abbrev, "education_naplan_%s_summary_graph" % metric_abbrev),
-                    ("education_naplan_%s" % metric_abbrev, "education_naplan_%s_detail_graph" % metric_abbrev),
+                    ("naplan_%s-education-hero%s" % (metric_abbrev,hero_suffix), "education-naplan_%s-hero-graph" % metric_abbrev),
+                    ("education_naplan_%s%s" % (metric_abbrev,detl_suffix), "education_naplan_%s_summary_graph" % metric_abbrev),
+                    ("education_naplan_%s%s" % (metric_abbrev,detl_suffix), "education_naplan_%s_detail_graph" % metric_abbrev),
                 ]:
         messages.extend(
                 update_naplan_graph_data(wurl, wurl, graph,
@@ -235,7 +245,8 @@ def update_naplan_graphs(metric_abbrev, state, verbosity=0, pval=None):
         )
     messages.extend(
                 update_naplan_graph_data(
-                            "education_naplan_%s" % metric_abbrev, "education_naplan_%s" % metric_abbrev, 
+                            "education_naplan_%s%s" % (metric_abbrev, detl_suffix), 
+                            "education_naplan_%s%s" % (metric_abbrev, detl_suffix), 
                             "education_naplan_%s_avgscore_graph" % metric_abbrev,
                             EducationNaplanData, 
                             { 
