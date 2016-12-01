@@ -126,7 +126,7 @@ def change_tlc_trend(ref, end):
     diff = end-ref
     trend = diff / abs(diff)
     change = float(diff)/float(end)
-    if change >= 25.0:
+    if change >= 0.25:
         tlc = "achieved"
     else:
         tlc = "not_met"
