@@ -149,7 +149,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data(
                             'participation-education-hero-state', 'participation-education-hero-state',
                             'latest_state', state_latest.engaged(),
-                            traffic_light_code=aust_tlc,
+                            traffic_light_code=state_tlc,
                             trend=state_trend,
                             pval=pval)
             set_statistic_data(

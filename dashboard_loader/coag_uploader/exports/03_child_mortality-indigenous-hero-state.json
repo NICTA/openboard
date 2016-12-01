@@ -51,7 +51,7 @@
                     "sort_order": 300, 
                     "grid": {
                         "corner_label": "Deaths per 100k", 
-                        "show_column_headers": false, 
+                        "show_column_headers": true, 
                         "rows": [
                             {
                                 "statistics": [
