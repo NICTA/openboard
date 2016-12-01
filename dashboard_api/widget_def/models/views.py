@@ -310,7 +310,9 @@ class ViewFamilyMember(models.Model):
     @classmethod
     def import_data(cls, family, data):
         view = WidgetView.objects.get(label=data["view"])
-        vfm, created = cls.objects.get_or_create(view=view, family=family, defaults={"name": data["name"], "sort_order": data["sort_order"] })
+        vfm, created = cls.objects.update_or_create(view=view, family=family, defaults={"name": data["name"], "sort_order": data["sort_order"] })
+        if not created:
+            vf
         return vfm
     def __getstate__(self, from_view):
         if from_view == self.view:
