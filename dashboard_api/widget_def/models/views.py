@@ -269,7 +269,7 @@ class ViewFamily(models.Model):
         }
     @classmethod
     def import_data(cls, data):
-        fam, created = ViewFamily.objects.get_or_create(label=data["family"], defaults={"name": data["name"], "sort_order": data["sort_order"]})
+        fam, created = ViewFamily.objects.update_or_create(label=data["family"], defaults={"name": data["name"], "sort_order": data["sort_order"]})
         members = []
         for m in data["members"]:
             vfm = ViewFamilyMember.import_data(fam, m)
