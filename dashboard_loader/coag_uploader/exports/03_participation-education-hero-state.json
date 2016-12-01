@@ -237,49 +237,49 @@
             "views": [
                 {
                     "child_view": "education_act", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
                     "child_view": "education_nsw", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
                     "child_view": "education_nt", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
                     "child_view": "education_sa", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
                     "child_view": "education_qld", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
                     "child_view": "education_vic", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
                     "child_view": "education_tas", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
                     "child_view": "education_wa", 
-                    "sort_order": 420, 
+                    "sort_order": 220, 
                     "child_view_text": "See all", 
                     "view": "wa"
                 }
