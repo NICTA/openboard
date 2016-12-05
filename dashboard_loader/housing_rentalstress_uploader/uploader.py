@@ -22,7 +22,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_rentalstress_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_state_stats, update_stats
 from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -93,6 +93,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "housing_rentalstress", "housing_rentalstress",  
                                 "housing_rentalstress_state", "housing_rentalstress_state",
                                 verbosity))
+        messages.extend(update_state_stats(
+                                "rentalstress-housing-hero-state", "rentalstress-housing-hero-state",  
+                                "housing_rentalstress_state", "housing_rentalstress_state",
+                                HousingRentalStressData, "percentage", "uncertainty",
+                                want_increase=False,
+                                verbosity=verbosity))
         messages.extend(
                 update_graph_data(
                             "rentalstress-housing-hero", "rentalstress-housing-hero",

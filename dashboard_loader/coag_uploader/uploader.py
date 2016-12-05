@@ -299,6 +299,101 @@ def calculate_indicator(desire_increase,
                     new[1], 20, label=display_float_year(new[0]))
     return messages
 
+benchmark_statuses = {
+    "achieved": {
+        "short": "Achieved",
+        "long": "The final assessment date for the benchmark has passed. The benchmark was met.",
+        "tlc": "achieved",
+        "icon": "yes",
+    },
+    "on_track": {
+        "short": "On track",
+        "long": "The final assessment date for this benchmark is in the future. On the basis of results so far, the benchmark is on track to be met.",
+        "tlc": "on_track",
+        "icon": "yes",
+    },
+    "likely_to_have_been_met": {
+        "short": "Likely to have been met",
+        "long": "The due date for the benchmark assessment has passed, but we do not yet have data to assess results at that date. On the basis of the available data, the benchmark is likely to have been met.",
+        "tlc": "likely_to_have_been_met",
+        "icon": "yes",
+    },
+    "unlikely_to_have_been_met": {
+        "short": "Unlikely to have been met",
+        "long": "The due date for the benchmark assessment has passed, but we do not yet have data to assess results at that date. On the basis of the available data, the benchmark is unlikely to have been met.",
+        "tlc": "unlikely_to_have_been_met",
+        "icon": "warning",
+    },
+    "not_on_track": {
+        "short": "Not on track",
+        "long": "The final assessment date for this benchmark is in the future. On the basis of results so far, the benchmark is not on track to be met.",
+        "tlc": "on_track",
+        "icon": "warning",
+    },
+    "not_met": {
+        "short": "Not met",
+        "long": "The final assessment date for the benchmark is has passed. The benchmark was not met.",
+        "tlc": "not_met",
+        "icon": "no",
+    },
+    "new_benchmark": {
+        "short": "New benchmark",
+        "long": "There is no time series data available for this benchmark yet, so it is not possible to assess progress at this point.",
+        "tlc": "new_benchmark",
+        "icon": "unknown",
+    },
+    "revised_benchmark": {
+        "short": "Revised benchmark",
+        "long": "An agreement has been reached to replace a previous benchmark.",
+        "tlc": "revised_benchmark",
+        "icon": "unknown",
+    },
+    "mixed_results": {
+        "short": "Mixed Results",
+        "long": "This benchmark includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
+        "tlc": "mixed_results",
+        "icon": "unknown",
+    },
+}
+indicator_statuses = {
+    "improving": {
+        "short": "Improving",
+        "long": "There has been a noticable improvement on this measure.",
+        "tlc": "improving",
+        "icon": "yes",
+    },
+    "no_improvement": {
+        "short": "No Improvement",
+        "long": "There has been no noticable change across this measure.",
+        "tlc": "no_improvement",
+        "icon": "warning",
+    },
+    "negative_change": {
+        "short": "Negative change",
+        "long": "There has been a noticable worsening on this measure.",
+        "tlc": "negative_change",
+        "icon": "no",
+    },
+    "mixed_results": {
+        "short": "Mixed results",
+        "long": "This indicator includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
+        "tlc": "mixed_results",
+        "icon": "unknown",
+    },
+    "new_indicator": {
+        "short": "New indicator",
+        "long": "There is no time series data available for this indicator yet, so it is not possible to assess progress at this point.",
+        "tlc": "new_indicator",
+        "icon": "unknown",
+    },
+    "no_data": {
+        "short": "No data",
+        "long": "There is no data available for this indicator, so it is not possible to assess progress.",
+        "tlc": "no_data",
+        "icon": "unknown",
+    },
+}
+
 def load_benchmark_description(wb, sheetname, indicator=False, additional_lookups={}):
     key_lookup = {
         "status": "status",
@@ -322,94 +417,6 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
         "nt": "nt",
         "australia": "australia",
         "aust": "australia",
-    }
-    benchmark_statuses = {
-        "achieved": {
-            "short": "Achieved",
-            "long": "The final assessment date for the benchmark has passed. The benchmark was met.",
-            "tlc": "achieved",
-            "icon": "yes",
-        },
-        "on_track": {
-            "short": "On track",
-            "long": "The final assessment date for this benchmark is in the future. On the basis of results so far, the benchmark is on track to be met.",
-            "tlc": "on_track",
-            "icon": "yes",
-        },
-        "likely_to_have_been_met": {
-            "short": "Likely to have been met",
-            "long": "The due date for the benchmark assessment has passed, but we do not yet have data to assess results at that date. On the basis of the available data, the benchmark is likely to have been met.",
-            "tlc": "likely_to_have_been_met",
-            "icon": "yes",
-        },
-        "unlikely_to_have_been_met": {
-            "short": "Unlikely to have been met",
-            "long": "The due date for the benchmark assessment has passed, but we do not yet have data to assess results at that date. On the basis of the available data, the benchmark is unlikely to have been met.",
-            "tlc": "unlikely_to_have_been_met",
-            "icon": "warning",
-        },
-        "not_on_track": {
-            "short": "Not on track",
-            "long": "The final assessment date for this benchmark is in the future. On the basis of results so far, the benchmark is not on track to be met.",
-            "tlc": "on_track",
-            "icon": "warning",
-        },
-        "not_met": {
-            "short": "Not met",
-            "long": "The final assessment date for the benchmark is has passed. The benchmark was not met.",
-            "tlc": "not_met",
-            "icon": "no",
-        },
-        "new_benchmark": {
-            "short": "New benchmark",
-            "long": "There is no time series data available for this benchmark yet, so it is not possible to assess progress at this point.",
-            "tlc": "new_benchmark",
-            "icon": "unknown",
-        },
-        "revised_benchmark": {
-            "short": "Revised benchmark",
-            "long": "An agreement has been reached to replace a previous benchmark.",
-            "tlc": "revised_benchmark",
-            "icon": "unknown",
-        },
-        "mixed_results": {
-            "short": "Mixed Results",
-            "long": "This benchmark includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
-            "tlc": "mixed_results",
-            "icon": "unknown",
-        },
-    }
-    indicator_statuses = {
-        "improving": {
-            "short": "Improving",
-            "long": "There has been a noticable improvement on this measure.",
-            "tlc": "improving",
-            "icon": "yes",
-        },
-        "no_improvement": {
-            "short": "No Improvement",
-            "long": "There has been no noticable change across this measure.",
-            "tlc": "no_improvement",
-            "icon": "warning",
-        },
-        "negative_change": {
-            "short": "Negative change",
-            "long": "There has been a noticable worsening on this measure.",
-            "tlc": "negative_change",
-            "icon": "no",
-        },
-        "mixed_results": {
-            "short": "Mixed results",
-            "long": "This indicator includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
-            "tlc": "mixed_results",
-            "icon": "unknown",
-        },
-        "new_indicator": {
-            "short": "New indicator",
-            "long": "There is no time series data available for this indicator yet, so it is not possible to assess progress at this point.",
-            "tlc": "new_indicator",
-            "icon": "unknown",
-        },
     }
     sheet = wb[sheetname]
     desc = {}
@@ -715,6 +722,61 @@ def update_stats(desc, benchmark,
                         pval=pval)
     if verbosity > 1:
         messages.append("Stats updated")
+    return messages
+
+def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
+                    model, field, uncertainty_field, 
+                    want_increase=True,
+                    verbosity=0):
+    messages = []
+    p = Parametisation.objects.get(url="state_param")
+    for pval in p.parametisationvalue_set.all():
+        state_abbrev = pval.parameters()["state_abbrev"]
+        state_num = state_map[state_abbrev]
+        qry = model.objects.filter(state=state_num).order_by("year")
+        try:
+            reference = qry.first()
+            measure = qry.last()
+            if reference == measure:
+                status = indicator_statuses["new_indicator"]
+                messages.append("%s: New indicator" % state_abbrev)
+            else:
+                val_1 = getattr(reference, field)
+                val_2 = getattr(measure, field)
+                diff = val_2 - val_1
+                if uncertainty_field:
+                    err_1 = getattr(reference, uncertainty_field)
+                    err_2 = getattr(measure, uncertainty_field)
+                    total_err = err_1 + err_2
+                else:
+                    total_err = Decimal("0.0")
+                if abs(diff) < total_err or diff.is_zero():
+                    status = indicator_statuses["no_improvement"]
+                elif want_increase and diff == abs(diff) or not want_increase and diff != abs(diff):
+                    status = indicator_statuses["improving"]
+                else:
+                    status = indicator_statuses["negative_change"]
+                if verbosity > 2:
+                    if want_increase:
+                        wim = "(want increase)"
+                    else:
+                        wim = "(want decrease)"
+                    messages.append("%s: Comparing %f to %f totalerror=%f %s: %s" % (state_abbrev, float(val_1), float(val_2), float(total_err), wim, status["short"]))
+        except model.DoesNotExist:
+            messages.append("%s: No data" % state_abbrev)
+            status = indicator_statuses["no_data"]
+        set_statistic_data(wurl_hero, wlbl_hero,
+                            "status_header_state",
+                            state_abbrev + " - " + status["short"],
+                            traffic_light_code=status["tlc"],
+                            icon_code=status["icon"],
+                            pval=pval)
+        set_statistic_data(wurl_dtl, wlbl_dtl,
+                        "status_short_state",
+                        state_abbrev + " - " + status["short"],
+                        traffic_light_code=status["tlc"],
+                        icon_code=status["icon"],
+                        pval=pval)
     return messages
 
 def load_skills_qualifications(wb, verbosity):
