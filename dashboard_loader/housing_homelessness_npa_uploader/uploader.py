@@ -179,6 +179,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 state=state_num,
                                 pval=pval))
             messages.extend(update_mygraph_data("housing_homelessness_npa_state", "housing_homelessness_npa_state",
+                            "housing_homelessness_npa_summary_graph", 
+                            include_accom = True, include_services=False,
+                            state=state_num,
+                            include_all_years=False,
+                            pval=pval))
+            messages.extend(update_mygraph_data("housing_homelessness_npa_state", "housing_homelessness_npa_state",
                                 "housing_homelessness_npa_detail_graph_1",
                                 include_accom = True, 
                                 state=state_num,
@@ -215,8 +221,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     pval=pval))
     except LoaderException, e:
         raise e
-    except Exception, e:
-        raise LoaderException("Invalid file: %s" % unicode(e))
+# except Exception, e:
+#        raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
 def update_progress(widget_url, widget_lbl, jurisdictions=None, pval=None, verbosity=0):
