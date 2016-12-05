@@ -657,7 +657,7 @@ def update_stats(desc, benchmark,
         for pval in p.parametisationvalue_set.all():
             set_statistic_data(wurl_hero_state, wlbl_hero_state,
                         "status_header",
-                        "Nationally - " + desc["status"]["short"],
+                        "Australia - " + desc["status"]["short"],
                         traffic_light_code=desc["status"]["tlc"],
                         icon_code=desc["status"]["icon"],
                         pval=pval)
@@ -693,13 +693,13 @@ def update_stats(desc, benchmark,
         for pval in p.parametisationvalue_set.all():
             set_statistic_data(wurl_state, wlbl_state,
                             "status_header",
-                            "Nationally - " + desc["status"]["short"],
+                            "Australia - " + desc["status"]["short"],
                             traffic_light_code=desc["status"]["tlc"],
                             icon_code=desc["status"]["icon"],
                             pval=pval)
             set_statistic_data(wurl_state, wlbl_state,
                             "status_short",
-                            "Nationally - " + desc["status"]["short"],
+                            "Australia - " + desc["status"]["short"],
                             traffic_light_code=desc["status"]["tlc"],
                             icon_code=desc["status"]["icon"],
                             pval=pval)
