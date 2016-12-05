@@ -93,7 +93,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year", 
-                                "colour": "blue-solid-bar", 
+                                "colour": "green-solid", 
                                 "dynamic_label": true, 
                                 "label": "Year (Aust)"
                             }, 
@@ -103,7 +103,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year_state", 
-                                "colour": "purple-solid-bar", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": true, 
                                 "label": "Year ({{ state_abbrev }})"
                             }, 
@@ -113,7 +113,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "blue-dotted-line", 
+                                "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
@@ -253,7 +253,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "new", 
-                                "colour": "green", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "New"
                             }, 
@@ -263,7 +263,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "refurbished", 
-                                "colour": "blue", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Refurbished"
                             }

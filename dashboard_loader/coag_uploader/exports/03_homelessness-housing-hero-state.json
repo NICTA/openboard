@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "australia", 
-                                "colour": "aqua", 
+                                "colour": "green-solid", 
                                 "dynamic_label": false, 
                                 "label": "Aust"
                             }, 
@@ -90,7 +90,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "state", 
-                                "colour": "purple", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "{{ state_abbrev }}"
                             }, 
@@ -100,7 +100,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "green", 
+                                "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }

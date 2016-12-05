@@ -1,7 +1,7 @@
 {
     "category": "education", 
     "edit_all_groups": [], 
-    "source_url_text": "ACARA",
+    "source_url_text": "ACARA", 
     "subtitle": "Australian students meeting National Minimum Standards for literacy", 
     "subcategory": "national agreement", 
     "groups": [], 
@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year3", 
-                                "colour": "green", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Year 3"
                             }, 
@@ -90,10 +90,10 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year5", 
-                                "colour": "blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Year 5"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -103,7 +103,7 @@
                                 "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Year 7"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
@@ -231,7 +231,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year3", 
-                                "colour": "green", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Year 3"
                             }, 
@@ -241,10 +241,10 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year5", 
-                                "colour": "blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Year 5"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -254,7 +254,7 @@
                                 "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Year 7"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
@@ -275,7 +275,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
@@ -310,7 +310,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year3", 
-                                "colour": "green", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Year 3"
                             }, 
@@ -320,10 +320,10 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year5", 
-                                "colour": "blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Year 5"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -333,7 +333,7 @@
                                 "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Year 7"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
@@ -373,7 +373,7 @@
                             "sort_order": 10, 
                             "heading": "Year", 
                             "description": "The calendar or financial year each row describes."
-                        },  
+                        }, 
                         {
                             "url": "jurisdiction", 
                             "sort_order": 20, 
@@ -385,43 +385,43 @@
                             "sort_order": 30, 
                             "heading": "Year 3 | Average Score", 
                             "description": "The average year 3 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr3_nms", 
                             "sort_order": 40, 
                             "heading": "Year 3 | proportion meeting NMS", 
                             "description": "The proportion of year 3 students at or above the national minimum standard in reading"
-                        },
+                        }, 
                         {
                             "url": "yr5_avg_score", 
                             "sort_order": 50, 
                             "heading": "Year 5 | Average Score", 
                             "description": "The average year 5 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr5_nms", 
                             "sort_order": 60, 
                             "heading": "Year 5 | proportion meeting NMS", 
                             "description": "The proportion of year 5 students at or above the national minimum standard in reading"
-                        },
+                        }, 
                         {
                             "url": "yr7_avg_score", 
                             "sort_order": 70, 
                             "heading": "Year 7 | Average Score", 
                             "description": "The average year 7 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr7_nms", 
                             "sort_order": 80, 
                             "heading": "Year 7 | proportion meeting NMS", 
                             "description": "The proportion of year 7 students at or above the national minimum standard in reading"
-                        },
+                        }, 
                         {
                             "url": "yr9_avg_score", 
                             "sort_order": 90, 
                             "heading": "Year 7 | Average Score", 
                             "description": "The average year 9 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr9_nms", 
                             "sort_order": 100, 
@@ -430,7 +430,7 @@
                         }
                     ], 
                     "filename": "naplan_literacy_data_table.csv"
-                },
+                }, 
                 {
                     "url": "education_naplan_lit", 
                     "name": "NAPLAN Literacy Data", 
@@ -452,43 +452,43 @@
                             "sort_order": 30, 
                             "heading": "Year 3 Average Score, reading", 
                             "description": "The average year 3 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr5_avg_score", 
                             "sort_order": 40, 
                             "heading": "Year 5 Average Score, reading", 
                             "description": "The average year 5 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr7_avg_score", 
                             "sort_order": 50, 
                             "heading": "Year 7 Average Score, reading", 
                             "description": "The average year 7 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr9_avg_score", 
                             "sort_order": 60, 
                             "heading": "Year 9 Average Score, reading", 
                             "description": "The average year 9 NAPLAN Reading score"
-                        },
+                        }, 
                         {
                             "url": "yr3_nms", 
                             "sort_order": 70, 
                             "heading": "Year 3 proportion at or above NMS, reading", 
                             "description": "The proportion of year 3 students at or above the national minimum standard in reading (%)"
-                        },
+                        }, 
                         {
                             "url": "yr5_nms", 
                             "sort_order": 80, 
                             "heading": "Year 5 proportion at or above NMS, reading", 
                             "description": "The proportion of year 5 students at or above the national minimum standard in reading (%)"
-                        },
+                        }, 
                         {
                             "url": "yr7_nms", 
                             "sort_order": 90, 
                             "heading": "Year 7 proportion at or above NMS, reading", 
                             "description": "The proportion of year 7 students at or above the national minimum standard in reading (%)"
-                        },
+                        }, 
                         {
                             "url": "yr9_nms", 
                             "sort_order": 100, 
@@ -501,14 +501,14 @@
             ], 
             "sort_order": 2210, 
             "expansion_hint": "View more", 
-            "about": "<p>The National Assessment Program—Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5–19 year old population.</p>",
+            "about": "<p>The National Assessment Program\u2014Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5\u201319 year old population.</p>", 
             "refresh_rate": 3820, 
             "label": "education_naplan_lit", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education",
+    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education", 
     "name": "Education"
 }
 

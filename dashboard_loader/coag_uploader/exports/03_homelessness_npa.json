@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation", 
-                                "colour": "dark_greeen", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met"
                             }, 
@@ -90,7 +90,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "services", 
-                                "colour": "light_green", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Need for services met"
                             }
@@ -1122,7 +1122,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation", 
-                                "colour": "dark_greeen", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met"
                             }, 
@@ -1132,7 +1132,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "services", 
-                                "colour": "light_green", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Need for services met"
                             }
@@ -1181,7 +1181,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "violence", 
-                                "colour": "dark_blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Clients experiencing family and domestic violence"
                             }, 
@@ -1191,7 +1191,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "alone", 
-                                "colour": "light_blue", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Young people presenting alone"
                             }

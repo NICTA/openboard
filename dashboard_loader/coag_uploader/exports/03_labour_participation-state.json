@@ -2,7 +2,7 @@
     "category": "disability", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase labour force participation of people with disability",
+    "subtitle": "Increase labour force participation of people with disability", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "disability_labour_participation_state", 
@@ -231,7 +231,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "vic", 
-                                "colour": "green-solid", 
+                                "colour": "orange-solid", 
                                 "dynamic_label": false, 
                                 "label": "Vic"
                             }, 
@@ -241,7 +241,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "qld", 
-                                "colour": "orange-solid", 
+                                "colour": "pale_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "Qld"
                             }, 
@@ -251,7 +251,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "wa", 
-                                "colour": "pale_blue-solid", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "WA"
                             }, 
@@ -261,7 +261,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "sa", 
-                                "colour": "purple-solid", 
+                                "colour": "gold-solid", 
                                 "dynamic_label": false, 
                                 "label": "SA"
                             }, 
@@ -271,7 +271,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "tas", 
-                                "colour": "gold-solid", 
+                                "colour": "dark_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "Tas"
                             }, 
@@ -281,7 +281,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "dark_blue-solid", 
+                                "colour": "dark_green-solid", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
@@ -480,7 +480,7 @@
                             "sort_order": 190, 
                             "heading": "Aust | Males | \u00b1", 
                             "description": ""
-                        },
+                        }, 
                         {
                             "url": "australia_females_percent", 
                             "sort_order": 200, 
@@ -492,7 +492,7 @@
                             "sort_order": 210, 
                             "heading": "Aust | Females | \u00b1", 
                             "description": ""
-                        },
+                        }, 
                         {
                             "url": "australia_percent", 
                             "sort_order": 220, 
@@ -535,7 +535,7 @@
                             "sort_order": 40, 
                             "heading": "Uncertainty", 
                             "description": "The uncertainty in the main disabled labour force participation percentage figure."
-                        },
+                        }, 
                         {
                             "url": "disabled_male_labour_force_participation", 
                             "sort_order": 50, 
@@ -547,7 +547,7 @@
                             "sort_order": 60, 
                             "heading": "Uncertainty", 
                             "description": "The uncertainty in the disabled labour force participation (males) percentage figure."
-                        },
+                        }, 
                         {
                             "url": "disabled_female_labour_force_participation", 
                             "sort_order": 70, 

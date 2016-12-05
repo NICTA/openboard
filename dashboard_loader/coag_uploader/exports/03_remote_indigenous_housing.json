@@ -93,7 +93,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year", 
-                                "colour": "blue-solid-bar", 
+                                "colour": "purple", 
                                 "dynamic_label": true, 
                                 "label": "Year"
                             }, 
@@ -103,7 +103,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "blue-dotted-line", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
@@ -261,7 +261,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "new", 
-                                "colour": "green", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "New"
                             }, 
@@ -271,7 +271,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "refurbished", 
-                                "colour": "blue", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Refurbished"
                             }

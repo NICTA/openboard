@@ -1,7 +1,7 @@
 {
     "category": "education", 
     "edit_all_groups": [], 
-    "source_url_text": "ACARA",
+    "source_url_text": "ACARA", 
     "subtitle": "{{ state_abbrev }} students meeting National Minimum Standards for literacy", 
     "subcategory": "summary", 
     "groups": [], 
@@ -93,7 +93,7 @@
                                 "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Year 5"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -103,7 +103,7 @@
                                 "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Year 7"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
@@ -180,14 +180,14 @@
             "raw_data_sets": [], 
             "sort_order": 310, 
             "expansion_hint": "", 
-            "about": "<p>The National Assessment Program—Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5–19 year old population.</p>",
+            "about": "<p>The National Assessment Program\u2014Literacy and Numeracy (NAPLAN) measures proportions of children in Years 3, 5, 7 and 9 meeting national minimum standards (NMS) and their average scores. Tracking the proportion of students meeting the NMS shows the performance of low achieving students over time. The average score is a measure of achievement and is an indication of the performance of the students, school, jurisdiction and the system as a whole. Results for the Northern Territory may reflect, in part, a high proportion of disadvantaged Indigenous students. In the Northern Territory, Indigenous children made up 44 per cent of the 5\u201319 year old population.</p>", 
             "refresh_rate": 3820, 
             "label": "naplan_lit-education-hero-state", 
             "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education",
+    "source_url": "http://www.pc.gov.au/research/ongoing/report-on-government-services/2016/childcare-education-and-training/school-education", 
     "name": "Education"
 }
 

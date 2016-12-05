@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation_state", 
-                                "colour": "dark_greeen", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met ({{ state_abbrev }}"
                             }, 
@@ -90,7 +90,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation_aust", 
-                                "colour": "light_green", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met (Aust)"
                             }
@@ -450,7 +450,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation_state", 
-                                "colour": "dark_greeen", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met ({{ state_abbrev }})"
                             }, 
@@ -460,7 +460,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation_aust", 
-                                "colour": "light_green", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met (Aust)"
                             }
@@ -509,7 +509,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "alone_state", 
-                                "colour": "dark_green", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Young people presenting alone ({{ state_abbrev }})"
                             }, 
@@ -519,7 +519,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "alone_aust", 
-                                "colour": "light_green", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Young people presenting alone (Aust)"
                             }, 
@@ -529,7 +529,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "violence_state", 
-                                "colour": "dark_blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Clients experiencing family and domestic violence ({{ state_abbrev }})"
                             }, 
@@ -539,7 +539,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "violence_aust", 
-                                "colour": "light_blue", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Clients experiencing family and domestic violence (Aust)"
                             }

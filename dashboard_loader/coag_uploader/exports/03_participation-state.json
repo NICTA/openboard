@@ -352,7 +352,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "reference", 
-                                "colour": "blue", 
+                                "colour": "orange", 
                                 "dynamic_label": true, 
                                 "label": "Reference Year"
                             }, 
@@ -362,7 +362,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "latest_year", 
-                                "colour": "green", 
+                                "colour": "purple", 
                                 "dynamic_label": true, 
                                 "label": "Latest Year"
                             }

@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "indigenous", 
-                                "colour": "green", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Indigenous"
                             }, 
@@ -90,7 +90,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "non_indigenous", 
-                                "colour": "blue", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Non-Indigenous"
                             }

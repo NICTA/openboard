@@ -93,7 +93,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year", 
-                                "colour": "blue-solid-bar", 
+                                "colour": "green-solid-bar", 
                                 "dynamic_label": true, 
                                 "label": "Year (Aust)"
                             }, 
@@ -113,7 +113,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "blue-dashed-line", 
+                                "colour": "green-dashed-line", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }

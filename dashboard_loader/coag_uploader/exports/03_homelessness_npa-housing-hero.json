@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation", 
-                                "colour": "dark_green", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met"
                             }, 
@@ -90,7 +90,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "services", 
-                                "colour": "light_green", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Need for services met"
                             }

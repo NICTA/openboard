@@ -1,7 +1,7 @@
 {
     "category": "education", 
     "edit_all_groups": [], 
-    "source_url_text": "www.acecqa.gov.au",
+    "source_url_text": "www.acecqa.gov.au", 
     "subtitle": "{{ state_abbrev}} early childhood education and care services meeting the National Quality Standard", 
     "subcategory": "summary", 
     "groups": [], 
@@ -45,7 +45,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": false, 
                     "sort_order": 300, 
@@ -288,14 +288,14 @@
             "raw_data_sets": [], 
             "sort_order": 325, 
             "expansion_hint": "", 
-            "about": "<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that &quot;by 2020 all children have the best start in life to create a better future for themselves, and for the nation&quot;.</p><p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children's Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p><p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>",
+            "about": "<p>In 2009, the Commonwealth, states and territories committed to increasing their focus on children in their early years to ensure the wellbeing of children throughout their lives and to deliver the vision of the Early Childhood Development Strategy endorsed by COAG that &quot;by 2020 all children have the best start in life to create a better future for themselves, and for the nation&quot;.</p><p>The National Partnership Agreement on the National Quality Agenda for Early Childhood Education and Care contributes to achieving these agreed outcomes by establishing a National Quality Framework (NQF) for early childhood education and care, jointly governed by the Commonwealth, states and territories and assisted by a national body, the Australian Children's Education and Care Quality Authority. The NQF aims to provide efficient and effective regulation of early childhood education and care service and improve the quality of service delivery.</p><p>Services covered by the NQF in all states and territories are assessed and rated against the National Quality Standard (NQS). The NQS sets standards for service quality and requires NQF regulated education and care services, including those in schools, to focus on continuous improvement and consistency.</p>", 
             "refresh_rate": 3870, 
             "label": "ecenqs-education-hero-state", 
             "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.acecqa.gov.au/national-quality-framework/national-quality-framework-snapshots",
+    "source_url": "http://www.acecqa.gov.au/national-quality-framework/national-quality-framework-snapshots", 
     "name": "Education"
 }
 

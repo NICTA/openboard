@@ -211,7 +211,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
-                                "colour": "blue", 
+                                "colour": "blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "NSW"
                             }, 
@@ -221,7 +221,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "vic", 
-                                "colour": "red", 
+                                "colour": "orange-solid", 
                                 "dynamic_label": false, 
                                 "label": "Vic"
                             }, 
@@ -231,7 +231,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "qld", 
-                                "colour": "pale_green", 
+                                "colour": "pale_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "Qld"
                             }, 
@@ -241,7 +241,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "wa", 
-                                "colour": "purple", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "WA"
                             }, 
@@ -251,7 +251,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "sa", 
-                                "colour": "pale_blue", 
+                                "colour": "gold-solid", 
                                 "dynamic_label": false, 
                                 "label": "SA"
                             }, 
@@ -261,7 +261,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "tas", 
-                                "colour": "orange", 
+                                "colour": "dark_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "Tas"
                             }, 
@@ -271,7 +271,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "dark_blue", 
+                                "colour": "dark_green-solid", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
@@ -281,7 +281,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nt", 
-                                "colour": "brown", 
+                                "colour": "brown-solid", 
                                 "dynamic_label": false, 
                                 "label": "NT"
                             }, 
@@ -291,7 +291,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "australia", 
-                                "colour": "dark_green", 
+                                "colour": "green-solid", 
                                 "dynamic_label": false, 
                                 "label": "Aust"
                             }, 
@@ -301,7 +301,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "grey", 
+                                "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
