@@ -109,7 +109,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
+                            benchmark_gen=lambda init: Decimal(1.1)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
@@ -124,7 +124,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, state_num ],
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
+                            benchmark_gen=lambda init: Decimal(1.1)*init,
                             use_error_bars=False,
                             verbosity=verbosity,
                             pval=pval)
@@ -137,7 +137,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
+                            benchmark_gen=lambda init: Decimal(1.1)*init,
                             use_error_bars=False,
                             verbosity=verbosity)
                 )
@@ -148,7 +148,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             IndigenousHomeOwnershipData, "percentage",
                             benchmark_start=2008,
                             benchmark_end=2017.5,
-                            benchmark_gen=lambda init: Decimal(0.9)*init,
+                            benchmark_gen=lambda init: Decimal(1.1)*init,
                             use_error_bars=True,
                             verbosity=verbosity)
                 )
@@ -178,7 +178,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 [ AUS, state_num ],
                                 benchmark_start=2008,
                                 benchmark_end=2017.5,
-                                benchmark_gen=lambda init: Decimal(0.9)*init,
+                                benchmark_gen=lambda init: Decimal(1.1)*init,
                                 use_error_bars=False,
                                 verbosity=verbosity,
                                 pval=pval)
@@ -190,7 +190,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 IndigenousHomeOwnershipData, "percentage",
                                 benchmark_start=2008,
                                 benchmark_end=2017.5,
-                                benchmark_gen=lambda init: Decimal(0.9)*init,
+                                benchmark_gen=lambda init: Decimal(1.1)*init,
                                 use_error_bars=True,
                                 verbosity=verbosity,
                                 pval=pval)

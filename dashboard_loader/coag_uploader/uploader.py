@@ -727,44 +727,54 @@ def update_stats(desc, benchmark,
 def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     model, field, uncertainty_field, 
                     want_increase=True,
+                    override_status=None,
                     verbosity=0):
     messages = []
     p = Parametisation.objects.get(url="state_param")
     for pval in p.parametisationvalue_set.all():
         state_abbrev = pval.parameters()["state_abbrev"]
         state_num = state_map[state_abbrev]
-        qry = model.objects.filter(state=state_num).order_by("year")
-        try:
-            reference = qry.first()
-            measure = qry.last()
-            if reference == measure:
-                status = indicator_statuses["new_indicator"]
-                messages.append("%s: New indicator" % state_abbrev)
-            else:
-                val_1 = getattr(reference, field)
-                val_2 = getattr(measure, field)
-                diff = val_2 - val_1
-                if uncertainty_field:
-                    err_1 = getattr(reference, uncertainty_field)
-                    err_2 = getattr(measure, uncertainty_field)
-                    total_err = err_1 + err_2
+        if override_status:
+            status = indicator_statuses[override_status]
+        else:
+            qry = model.objects.filter(state=state_num).order_by("year")
+            try:
+                reference = qry.first()
+                measure = qry.last()
+                if reference == measure:
+                    status = indicator_statuses["new_indicator"]
+                    messages.append("%s: New indicator" % state_abbrev)
                 else:
-                    total_err = Decimal("0.0")
-                if abs(diff) < total_err or diff.is_zero():
-                    status = indicator_statuses["no_improvement"]
-                elif want_increase and diff == abs(diff) or not want_increase and diff != abs(diff):
-                    status = indicator_statuses["improving"]
-                else:
-                    status = indicator_statuses["negative_change"]
-                if verbosity > 2:
-                    if want_increase:
-                        wim = "(want increase)"
+                    val_1 = getattr(reference, field)
+                    val_2 = getattr(measure, field)
+                    if callable(val_1):
+                        val_1 = val_1()
+                    if callable(val_2):
+                        val_2 = val_2()
+                    diff = val_2 - val_1
+                    if isinstance(diff, float):
+                        diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
+                    if uncertainty_field:
+                        err_1 = getattr(reference, uncertainty_field)
+                        err_2 = getattr(measure, uncertainty_field)
+                        total_err = err_1 + err_2
                     else:
-                        wim = "(want decrease)"
-                    messages.append("%s: Comparing %f to %f totalerror=%f %s: %s" % (state_abbrev, float(val_1), float(val_2), float(total_err), wim, status["short"]))
-        except model.DoesNotExist:
-            messages.append("%s: No data" % state_abbrev)
-            status = indicator_statuses["no_data"]
+                        total_err = Decimal("0.0")
+                    if abs(diff) < total_err or diff.is_zero():
+                        status = indicator_statuses["no_improvement"]
+                    elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
+                        status = indicator_statuses["improving"]
+                    else:
+                        status = indicator_statuses["negative_change"]
+                    if verbosity > 2:
+                        if want_increase:
+                            wim = "(want increase)"
+                        else:
+                            wim = "(want decrease)"
+                        messages.append("%s: Comparing %f to %f totalerror=%f %s: %s" % (state_abbrev, float(val_1), float(val_2), float(total_err), wim, status["short"]))
+            except model.DoesNotExist:
+                messages.append("%s: No data" % state_abbrev)
+                status = indicator_statuses["no_data"]
         set_statistic_data(wurl_hero, wlbl_hero,
                             "status_header_state",
                             state_abbrev + " - " + status["short"],

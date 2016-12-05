@@ -17,7 +17,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from education_naplan_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, indicator_tlc_trend
 from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -189,6 +189,18 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "education_naplan_num_state", "education_naplan_num_state",
                                 verbosity,
                                 additional_desc_body="numeracy"))
+        messages.extend(update_state_stats(
+                                "naplan_lit-education-hero-state", "naplan_lit-education-hero-state", 
+                                "education_naplan_lit_state", "education_naplan_lit_state",
+                                None, None, None,
+                                override_status="mixed_results",
+                                verbosity=verbosity))
+        messages.extend(update_state_stats(
+                                "naplan_num-education-hero-state", "naplan_num-education-hero-state", 
+                                "education_naplan_num_state", "education_naplan_num_state",
+                                None, None, None,
+                                override_status="mixed_results",
+                                verbosity=verbosity))
         messages.extend(update_naplan_graphs("lit", AUS, verbosity))
         messages.extend(update_naplan_graphs("num", AUS, verbosity))
         p = Parametisation.objects.get(url="state_param")

@@ -24,6 +24,11 @@
             "colour": "grey2", 
             "sort_order": 500, 
             "value": "new_indicator"
+        }, 
+        {
+            "colour": "grey3", 
+            "sort_order": 600, 
+            "value": "no_data"
         }
     ], 
     "scale_name": "Indicator Scale"

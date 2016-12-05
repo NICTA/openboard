@@ -17,7 +17,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from education_ecenqs_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, indicator_tlc_trend
 from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -93,6 +93,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "education_ecenqs", "education_ecenqs",
                                 "education_ecenqs_state", "education_ecenqs_state",
                                 verbosity))
+        messages.extend(update_state_stats(
+                                "ecenqs-education-hero-state", "ecenqs-education-hero-state", 
+                                "education_ecenqs_state", "education_ecenqs_state",
+                                EducationEceNqsData, "meeting_nqs_pct", None,
+                                verbosity=verbosity))
         aust_data = get_values(AUS)
         set_statistic_data("ecenqs-education-hero", "ecenqs-education-hero", 
                     "reference",
