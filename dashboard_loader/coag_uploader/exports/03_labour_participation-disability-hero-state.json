@@ -1,0 +1,183 @@
+{
+    "category": "disability", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Increase labour force participation of people with disability",
+    "subcategory": "summary", 
+    "groups": [], 
+    "url": "labour_participation-disability-hero-state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "disability-labour_participation-hero-header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 300, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "disability-labour_participation-hero-graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "child_view": "disability_act", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "act"
+                }, 
+                {
+                    "child_view": "disability_nsw", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "nsw"
+                }, 
+                {
+                    "child_view": "disability_nt", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "nt"
+                }, 
+                {
+                    "child_view": "disability_sa", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "sa"
+                }, 
+                {
+                    "child_view": "disability_qld", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "qld"
+                }, 
+                {
+                    "child_view": "disability_vic", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "vic"
+                }, 
+                {
+                    "child_view": "disability_tas", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "tas"
+                }, 
+                {
+                    "child_view": "disability_wa", 
+                    "sort_order": 500, 
+                    "child_view_text": "See all", 
+                    "view": "wa"
+                }
+            ], 
+            "default_frequency_text": "Biannual", 
+            "raw_data_sets": [], 
+            "sort_order": 900, 
+            "expansion_hint": "", 
+            "about": "<p>Between 2009 and 2018, there will be a 5% national increase in the proportion of people with disability participating in the labour force.</p>", 
+            "refresh_rate": 3610, 
+            "label": "labour_participation-disability-hero-state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": ""
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4430.0", 
+    "name": "Disability"
+}
+

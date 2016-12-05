@@ -237,56 +237,56 @@
             "views": [
                 {
                     "child_view": "disability_act", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
                     "child_view": "disability_nsw", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
                     "child_view": "disability_nt", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
                     "child_view": "disability_sa", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
                     "child_view": "disability_qld", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
                     "child_view": "disability_vic", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
                     "child_view": "disability_tas", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
                     "child_view": "disability_wa", 
-                    "sort_order": 500, 
+                    "sort_order": 505, 
                     "child_view_text": "See all", 
                     "view": "wa"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 900, 
+            "sort_order": 905, 
             "expansion_hint": "", 
             "about": "<p>Improve the social and community participation of people with disability.</p>", 
             "refresh_rate": 3900, 
