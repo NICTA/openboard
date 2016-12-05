@@ -22,7 +22,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_homelessness_npa_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats
 from django.template import Template, Context
 from widget_def.models import Parametisation
 
@@ -128,6 +128,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "housing_homelessness_npa", "housing_homelessness_npa", 
                             "housing_homelessness_npa_state", "housing_homelessness_npa_state", 
                             verbosity))
+        messages.extend(update_state_stats(
+                            "homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state", 
+                            "housing_homelessness_npa_state", "housing_homelessness_npa_state", 
+                            HousingHomelessnessNpaData, "accommodation_needs_met", None,
+                            verbosity=verbosity))
         messages.extend(update_progress("housing_homelessness_npa", "housing_homelessness_npa", verbosity=verbosity))
         messages.extend(update_mygraph_data("housing_homelessness_npa", "housing_homelessness_npa",
                             "housing_homelessness_npa_summary_graph", 
@@ -261,25 +266,25 @@ def update_progress(widget_url, widget_lbl, jurisdictions=None, pval=None, verbo
             suffix = suffixes[prog.state]
         set_statistic_data(widget_url, widget_lbl,
                                 "plan1" + suffix,
-                                prog.plan1,
+                                progress_dict[prog.plan1],
                                 traffic_light_code=progress_tlc[prog.plan1],
                                 icon_code=progress_icon[prog.plan1],
                                 pval=pval)
         set_statistic_data(widget_url, widget_lbl,
                                 "plan2" + suffix,
-                                prog.plan2,
+                                progress_dict[prog.plan2],
                                 traffic_light_code=progress_tlc[prog.plan2],
                                 icon_code=progress_icon[prog.plan2],
                                 pval=pval)
         set_statistic_data(widget_url, widget_lbl,
                                 "update" + suffix,
-                                prog.update,
+                                progress_dict[prog.update],
                                 traffic_light_code=progress_tlc[prog.update],
                                 icon_code=progress_icon[prog.update],
                                 pval=pval)
         set_statistic_data(widget_url, widget_lbl,
                                 "matched_funding" + suffix,
-                                prog.matched_funding,
+                                progress_dict[prog.matched_funding],
                                 traffic_light_code=progress_tlc[prog.matched_funding],
                                 icon_code=progress_icon[prog.matched_funding],
                                 pval=pval)

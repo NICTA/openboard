@@ -93,7 +93,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year", 
-                                "colour": "green-solid-bar", 
+                                "colour": "green-solid", 
                                 "dynamic_label": true, 
                                 "label": "Year"
                             }, 
@@ -103,7 +103,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
-                                "colour": "green-dashed-line", 
+                                "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }

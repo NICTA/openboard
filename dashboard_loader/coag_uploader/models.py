@@ -58,6 +58,7 @@ progresses = [
     (NOT_APPLICABLE, "Not applicable"),
     (NOT_STARTED, "Not started"),
 ]
+progress_dict = dict(progresses)
 
 progress_map = {
     'Completed': COMPLETED,

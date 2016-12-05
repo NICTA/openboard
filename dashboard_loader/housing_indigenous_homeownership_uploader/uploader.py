@@ -23,7 +23,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from housing_indigenous_homeownership_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_crosstab_raw_data, populate_raw_data, update_stats, update_state_stats
 from django.template import Template, Context
 from widget_def.models import Parametisation
 
@@ -96,6 +96,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "housing_indigenous_homeownership", "housing_indigenous_homeownership", 
                             "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state", 
                             verbosity))
+        messages.extend(update_state_stats(
+                            "indigenous_homeownership-housing-hero-state", "indigenous_homeownership-housing-hero-state", 
+                            "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state", 
+                            IndigenousHomeOwnershipData, "percentage", "uncertainty",
+                            verbosity=verbosity))
         messages.extend(
                 update_graph_data(
                             "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero",
