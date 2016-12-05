@@ -182,7 +182,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "housing_rentalstress_status", 
+                    "url": "housing_rentalstress_status_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
