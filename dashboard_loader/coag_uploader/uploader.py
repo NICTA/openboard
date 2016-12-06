@@ -787,6 +787,12 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         traffic_light_code=status["tlc"],
                         icon_code=status["icon"],
                         pval=pval)
+        set_statistic_data(wurl_dtl, wlbl_dtl,
+                        "status_header_state",
+                        state_abbrev + " - " + status["short"],
+                        traffic_light_code=status["tlc"],
+                        icon_code=status["icon"],
+                        pval=pval)
     return messages
 
 def load_skills_qualifications(wb, verbosity):
