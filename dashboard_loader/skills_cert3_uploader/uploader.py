@@ -21,7 +21,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from skills_cert3_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats
 from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -92,6 +92,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "cert3-skills-hero-state", "cert3-skills-hero-state",
                                 None, None, None, None,
                                 verbosity))
+        messages.extend(update_state_stats(
+                                "cert3-skills-hero-state", "cert3-skills-hero-state",
+                                None, None,
+                                SkillsCert3Data, "percentage", "uncertainty",
+                                want_increase=False,
+                                verbosity=verbosity))
         messages.extend(
                 update_graph_data(
                             "cert3-skills-hero", "cert3-skills-hero",

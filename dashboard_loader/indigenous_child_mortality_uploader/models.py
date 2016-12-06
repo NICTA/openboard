@@ -12,4 +12,6 @@ class IndigenousChildMortalityNationalData(CoagDataBase):
 class IndigenousChildMortalityStateData(CoagDataBase):
     indigenous=models.DecimalField(max_digits=5, decimal_places=1)
     non_indigenous=models.DecimalField(max_digits=5, decimal_places=1)
+    def gap(self):
+        return self.nonindigenous - self.indigenous
 

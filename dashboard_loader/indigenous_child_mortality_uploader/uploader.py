@@ -21,7 +21,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from indigenous_child_mortality_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats
 from widget_def.models import Parametisation
 
 
@@ -125,6 +125,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             None, None,
                             None, None,
                             verbosity))
+        messages.extend(update_state_stats(
+                            "child_mortality-indigenous-hero-state", "child_mortality-indigenous-hero-state", 
+                            None, None,
+                            IndigenousChildMortalityStateData, "gap", None,
+                            want_increase=False,
+                            verbosity=verbosity))
         messages.extend(
                  update_my_hero_graph(verbosity=verbosity)
                 )
