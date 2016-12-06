@@ -13,6 +13,8 @@
 #   limitations under the License.
 
 from django.conf.urls import include, url
+from django.views.decorators.cache import cache_page
+
 from widget_def import views as wdef_views
 from widget_data import views as wdata_views
 
@@ -27,7 +29,7 @@ urlpatterns = [
     url(r'^icons/$', wdef_views.GetIconLibrariesView.as_view(), name='get_icon_libraries'),
 
     # Main API view for obtaining view definition (including widgets)
-    url(r'^view/(?P<view_label>[^/]+)$', wdef_views.GetViewView.as_view(), name='get_view'),
+    url(r'^view/(?P<view_label>[^/]+)$', cache_page(60*20)(wdef_views.GetViewView.as_view()), name='get_view'),
 
     # Get Map Layers API view
     url(r'^map_layers/$', wdef_views.GetMapLayers.as_view(), name='get_map_layers'),
