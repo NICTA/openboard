@@ -96,7 +96,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "social_participation-disability-hero-state", "social_participation-disability-hero-state", 
                                 None, None,
-                                DisabilitySocialParticipationData, "percentage", "uncertainty",
+                                DisabilitySocialParticipationData, [("percentage", "uncertainty",),],
                                 verbosity=verbosity))
         earliest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").first()
         latest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").last()

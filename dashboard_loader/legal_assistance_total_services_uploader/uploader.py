@@ -91,7 +91,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "total_svc-legal-hero-state", "total_svc-legal-hero-state", 
                                 None,None,
-                                LegalAssistTotalServices, "total_svcs_delivered", None,
+                                LegalAssistTotalServices, [("total_svcs_delivered", None,),],
                                 verbosity=verbosity))
         earliest_aust = LegalAssistTotalServices.objects.filter(state=AUS).order_by("year").first()
         latest_aust = LegalAssistTotalServices.objects.filter(state=AUS).order_by("year").last()

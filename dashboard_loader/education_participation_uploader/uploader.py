@@ -96,7 +96,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "participation-education-hero-state", "participation-education-hero-state", 
                                 "education_participation_state", "education_participation_state",
-                                EducationParticipationData, "engaged", None,
+                                EducationParticipationData, [("engaged", None,),],
                                 verbosity=verbosity))
         aust_q = EducationParticipationData.objects.filter(state=AUS).order_by("year")
         aust_ref = aust_q.first()

@@ -102,7 +102,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "homelessness-housing-hero-state", "homelessness-housing-hero-state", 
                             "housing_homelessness_state", "housing_homelessness_state", 
-                            HousingHomelessData, "rate_per_10k", None,
+                            HousingHomelessData, [ ("rate_per_10k", None,), ],
                             want_increase=False,
                             verbosity=verbosity))
         messages.extend(

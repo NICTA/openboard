@@ -96,7 +96,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "rentalstress-housing-hero-state", "rentalstress-housing-hero-state",  
                                 "housing_rentalstress_state", "housing_rentalstress_state",
-                                HousingRentalStressData, "percentage", "uncertainty",
+                                HousingRentalStressData, [ ( "percentage", "uncertainty",),],
                                 want_increase=False,
                                 verbosity=verbosity))
         messages.extend(

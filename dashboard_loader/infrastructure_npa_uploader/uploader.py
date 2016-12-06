@@ -149,7 +149,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "projects-infrastructure-hero-state", "projects-infrastructure-hero-state", 
                             None, None,
-                            None, None, None,
+                            None, [],
                             override_status="no_data",
                             verbosity=verbosity))
         aust_sums = InfrastructureProjectCounts.objects.aggregate(Sum('completed'), Sum('underway'), Sum('pending'))

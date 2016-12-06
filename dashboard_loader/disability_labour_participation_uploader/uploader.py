@@ -103,7 +103,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "labour_participation-disability-hero-state", "labour_participation-disability-hero-state",  
                                 "disability_labour_participation_state", "disability_labour_participation_state",
-                                DisabilityLabourParticipation, "percentage", "uncertainty",
+                                DisabilityLabourParticipation, [("percentage", "uncertainty",),],
                                 verbosity=verbosity))
         messages.extend(
                 update_gender_graph(

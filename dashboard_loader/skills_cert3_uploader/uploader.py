@@ -95,7 +95,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "cert3-skills-hero-state", "cert3-skills-hero-state",
                                 None, None,
-                                SkillsCert3Data, "percentage", "uncertainty",
+                                SkillsCert3Data, [("percentage", "uncertainty",),],
                                 want_increase=False,
                                 verbosity=verbosity))
         messages.extend(

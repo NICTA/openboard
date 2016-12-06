@@ -126,7 +126,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "yr12-education-hero-state", "yr12-education-hero-state", 
                                 "education_yr12_state", "education_yr12_state",
-                                EducationYr12Cert3AttainmentData, "percentage", "uncertainty",
+                                EducationYr12Cert3AttainmentData, [("percentage", "uncertainty",),],
                                 verbosity=verbosity))
         messages.extend(
                 update_graph_data(

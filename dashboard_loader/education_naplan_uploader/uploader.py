@@ -192,14 +192,30 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "naplan_lit-education-hero-state", "naplan_lit-education-hero-state", 
                                 "education_naplan_lit_state", "education_naplan_lit_state",
-                                None, None, None,
-                                override_status="mixed_results",
+                                EducationNaplanData, [
+                                        ( "year3_lit_nms", None), 
+                                        ( "year5_lit_nms", None), 
+                                        ( "year7_lit_nms", None), 
+                                        ( "year9_lit_nms", None), 
+                                        ( "year3_lit_score", None), 
+                                        ( "year5_lit_score", None), 
+                                        ( "year7_lit_score", None), 
+                                        ( "year9_lit_score", None), 
+                                ],
                                 verbosity=verbosity))
         messages.extend(update_state_stats(
                                 "naplan_num-education-hero-state", "naplan_num-education-hero-state", 
                                 "education_naplan_num_state", "education_naplan_num_state",
-                                None, None, None,
-                                override_status="mixed_results",
+                                EducationNaplanData, [
+                                        ( "year3_num_nms", None), 
+                                        ( "year5_num_nms", None), 
+                                        ( "year7_num_nms", None), 
+                                        ( "year9_num_nms", None), 
+                                        ( "year3_num_score", None), 
+                                        ( "year5_num_score", None), 
+                                        ( "year7_num_score", None), 
+                                        ( "year9_num_score", None), 
+                                ],
                                 verbosity=verbosity))
         messages.extend(update_naplan_graphs("lit", AUS, verbosity))
         messages.extend(update_naplan_graphs("num", AUS, verbosity))

@@ -99,7 +99,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "indigenous_homeownership-housing-hero-state", "indigenous_homeownership-housing-hero-state", 
                             "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state", 
-                            IndigenousHomeOwnershipData, "percentage", "uncertainty",
+                            IndigenousHomeOwnershipData, [ ("percentage", "uncertainty",), ],
                             verbosity=verbosity))
         messages.extend(
                 update_graph_data(

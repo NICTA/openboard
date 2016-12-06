@@ -131,7 +131,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state", 
                             "housing_homelessness_npa_state", "housing_homelessness_npa_state", 
-                            HousingHomelessnessNpaData, "accommodation_needs_met", None,
+                            HousingHomelessnessNpaData, [ ("accommodation_needs_met", None,), ],
                             verbosity=verbosity))
         messages.extend(update_progress("housing_homelessness_npa", "housing_homelessness_npa", verbosity=verbosity))
         messages.extend(update_mygraph_data("housing_homelessness_npa", "housing_homelessness_npa",

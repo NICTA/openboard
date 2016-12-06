@@ -91,7 +91,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "life_expectancy-health-hero-state", "life_expectancy-health-hero-state", 
                                 None,None,
-                                HealthLifeExpectancyData, "avg", None,
+                                HealthLifeExpectancyData, [ 
+                                        ("males", None,),
+                                        ("females", None,),
+                                ],
                                 verbosity=verbosity))
         earliest_aust = HealthLifeExpectancyData.objects.filter(state=AUS).order_by("year").first()
         latest_aust = HealthLifeExpectancyData.objects.filter(state=AUS).order_by("year").last()

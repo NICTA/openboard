@@ -128,7 +128,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "child_mortality-indigenous-hero-state", "child_mortality-indigenous-hero-state", 
                             None, None,
-                            IndigenousChildMortalityStateData, "gap", None,
+                            IndigenousChildMortalityStateData, [("gap", None,),],
                             want_increase=False,
                             verbosity=verbosity))
         messages.extend(

@@ -96,7 +96,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "ecenqs-education-hero-state", "ecenqs-education-hero-state", 
                                 "education_ecenqs_state", "education_ecenqs_state",
-                                EducationEceNqsData, "meeting_nqs_pct", None,
+                                EducationEceNqsData, [ ("meeting_nqs_pct", None,),],
                                 verbosity=verbosity))
         aust_data = get_values(AUS)
         set_statistic_data("ecenqs-education-hero", "ecenqs-education-hero", 

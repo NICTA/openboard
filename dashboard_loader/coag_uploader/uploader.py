@@ -725,7 +725,7 @@ def update_stats(desc, benchmark,
     return messages
 
 def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
-                    model, field, uncertainty_field, 
+                    model, fields,
                     want_increase=True,
                     override_status=None,
                     verbosity=0):
@@ -741,41 +741,47 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
             reference = qry.first()
             measure = qry.last()
             if reference is None:
-                messages.append("%s: No data" % state_abbrev)
+                if verbosity > 1:
+                    messages.append("%s: No data" % state_abbrev)
                 status = indicator_statuses["no_data"]
             elif reference == measure:
                 status = indicator_statuses["new_indicator"]
-                messages.append("%s: New indicator" % state_abbrev)
+                if verbosity > 1:
+                    messages.append("%s: New indicator" % state_abbrev)
             else:
-                val_1 = getattr(reference, field)
-                val_2 = getattr(measure, field)
-                if callable(val_1):
-                    val_1 = val_1()
-                if callable(val_2):
-                    val_2 = val_2()
-                diff = val_2 - val_1
-                if isinstance(diff, float):
-                    diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
-                if isinstance(diff, int):
-                    diff = Decimal(diff)
-                if uncertainty_field:
-                    err_1 = getattr(reference, uncertainty_field)
-                    err_2 = getattr(measure, uncertainty_field)
-                    total_err = err_1 + err_2
-                else:
-                    total_err = Decimal("0.0")
-                if abs(diff) < total_err or diff.is_zero():
-                    status = indicator_statuses["no_improvement"]
-                elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
-                    status = indicator_statuses["improving"]
-                else:
-                    status = indicator_statuses["negative_change"]
-                if verbosity > 2:
-                    if want_increase:
-                        wim = "(want increase)"
+                statuses = []
+                for field, uncertainty_field in fields:
+                    val_1 = getattr(reference, field)
+                    val_2 = getattr(measure, field)
+                    if callable(val_1):
+                        val_1 = val_1()
+                    if callable(val_2):
+                        val_2 = val_2()
+                    diff = val_2 - val_1
+                    if isinstance(diff, float):
+                        diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
+                    if isinstance(diff, int):
+                        diff = Decimal(diff)
+                    if uncertainty_field:
+                        err_1 = getattr(reference, uncertainty_field)
+                        err_2 = getattr(measure, uncertainty_field)
+                        total_err = err_1 + err_2
                     else:
-                        wim = "(want decrease)"
-                    messages.append("%s: Comparing %f to %f totalerror=%f %s: %s" % (state_abbrev, float(val_1), float(val_2), float(total_err), wim, status["short"]))
+                        total_err = Decimal("0.0")
+                    if abs(diff) < total_err or diff.is_zero():
+                        statuses.append("no_improvement")
+                    elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
+                        statuses.append("improving")
+                    else:
+                        statuses.append("negative_change")
+                st_so_far = None
+                for st in statuses:
+                    if not st_so_far:
+                        st_so_far = st
+                    elif st_so_far != st:
+                        st_so_far = "mixed_results"
+                        break
+                status = indicator_statuses[st_so_far]
         if wurl_hero:
             set_statistic_data(wurl_hero, wlbl_hero,
                             "status_header_state",
