@@ -719,6 +719,7 @@ class GraphDataset(models.Model):
                 state["use_secondary_vertical_axis"] = self.use_secondary_numeric_axis
             else:
                 state["use_secondary_numeric_axis"] = self.use_secondary_numeric_axis
+        if self.graph.use_numeric_axes():
             state["use_error_bars"] = self.use_error_bars
         return state
 
