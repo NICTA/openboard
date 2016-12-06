@@ -22,7 +22,7 @@ from django.db.models import Sum
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from infrastructure_npa_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats
 from widget_def.models import Parametisation
 
 
@@ -146,6 +146,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             None, None,
                             None, None,
                             verbosity))
+        messages.extend(update_state_stats(
+                            "projects-infrastructure-hero-state", "projects-infrastructure-hero-state", 
+                            None, None,
+                            None, None, None,
+                            override_status="improving",
+                            verbosity=verbosity))
         aust_sums = InfrastructureProjectCounts.objects.aggregate(Sum('completed'), Sum('underway'), Sum('pending'))
         set_statistic_data("projects-infrastructure-hero", "projects-infrastructure-hero",
                             "pending", float(aust_sums["pending__sum"]),

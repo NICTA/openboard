@@ -17,7 +17,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from health_life_expectancy_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, indicator_tlc_trend
 from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -88,11 +88,15 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None,None,
                                 None,None,
                                 verbosity))
+        messages.extend(update_state_stats(
+                                "life_expectancy-health-hero-state", "life_expectancy-health-hero-state", 
+                                None,None,
+                                HealthLifeExpectancyData, "avg", None,
+                                verbosity=verbosity))
         earliest_aust = HealthLifeExpectancyData.objects.filter(state=AUS).order_by("year").first()
         latest_aust = HealthLifeExpectancyData.objects.filter(state=AUS).order_by("year").last()
         male_tlc, male_trend = indicator_tlc_trend(earliest_aust.males, latest_aust.males)
         female_tlc, female_trend = indicator_tlc_trend(earliest_aust.females, latest_aust.females)
-
         set_statistic_data('life_expectancy-health-hero', 'life_expectancy-health-hero',
                         'men_life_exp',
                         latest_aust.males,

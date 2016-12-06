@@ -754,6 +754,8 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     diff = val_2 - val_1
                     if isinstance(diff, float):
                         diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
+                    if isinstance(diff, int):
+                        diff = Decimal(diff)
                     if uncertainty_field:
                         err_1 = getattr(reference, uncertainty_field)
                         err_2 = getattr(measure, uncertainty_field)
@@ -775,19 +777,21 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
             except model.DoesNotExist:
                 messages.append("%s: No data" % state_abbrev)
                 status = indicator_statuses["no_data"]
-        set_statistic_data(wurl_hero, wlbl_hero,
+        if wurl_hero:
+            set_statistic_data(wurl_hero, wlbl_hero,
                             "status_header_state",
                             state_abbrev + " - " + status["short"],
                             traffic_light_code=status["tlc"],
                             icon_code=status["icon"],
                             pval=pval)
-        set_statistic_data(wurl_dtl, wlbl_dtl,
+        if wurl_dtl:
+            set_statistic_data(wurl_dtl, wlbl_dtl,
                         "status_short_state",
                         state_abbrev + " - " + status["short"],
                         traffic_light_code=status["tlc"],
                         icon_code=status["icon"],
                         pval=pval)
-        set_statistic_data(wurl_dtl, wlbl_dtl,
+            set_statistic_data(wurl_dtl, wlbl_dtl,
                         "status_header_state",
                         state_abbrev + " - " + status["short"],
                         traffic_light_code=status["tlc"],

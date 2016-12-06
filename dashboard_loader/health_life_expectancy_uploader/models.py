@@ -14,6 +14,7 @@
 
 
 from __future__ import unicode_literals
+from decimal import Decimal
 
 from django.db import models
 from coag_uploader.models import *
@@ -23,4 +24,5 @@ from coag_uploader.models import *
 class HealthLifeExpectancyData(CoagDataBase):
     males = models.DecimalField(max_digits=4, decimal_places=1)
     females = models.DecimalField(max_digits=4, decimal_places=1)
-
+    def avg(self):
+        return ( self.males + self.females ) / Decimal("2.000")

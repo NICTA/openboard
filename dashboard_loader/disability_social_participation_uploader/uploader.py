@@ -21,7 +21,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from disability_social_participation_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, indicator_tlc_trend
 from widget_def.models import Parametisation
 
 
@@ -93,6 +93,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None, None,
                                 None, None,
                                 verbosity))
+        messages.extend(update_state_stats(
+                                "social_participation-disability-hero-state", "social_participation-disability-hero-state", 
+                                None, None,
+                                DisabilitySocialParticipationData, "percentage", "uncertainty",
+                                verbosity=verbosity))
         earliest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").first()
         latest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").last()
         tlc, trend = indicator_tlc_trend(earliest_aust.percentage, latest_aust.percentage)

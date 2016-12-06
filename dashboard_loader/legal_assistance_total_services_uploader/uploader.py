@@ -16,7 +16,7 @@ from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from legal_assistance_total_services_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, indicator_tlc_trend
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, indicator_tlc_trend
 from widget_def.models import Parametisation
 
 # These are the names of the groups that have permission to upload data for this uploader.
@@ -88,6 +88,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None,None,
                                 None,None,
                                 verbosity))
+        messages.extend(update_state_stats(
+                                "total_svc-legal-hero-state", "total_svc-legal-hero-state", 
+                                None,None,
+                                LegalAssistTotalServices, "total_svcs_delivered", None,
+                                verbosity=verbosity))
         earliest_aust = LegalAssistTotalServices.objects.filter(state=AUS).order_by("year").first()
         latest_aust = LegalAssistTotalServices.objects.filter(state=AUS).order_by("year").last()
         aust_change, aust_tlc, aust_trend = change_tlc_trend(earliest_aust.total_svcs_delivered, latest_aust.total_svcs_delivered)
