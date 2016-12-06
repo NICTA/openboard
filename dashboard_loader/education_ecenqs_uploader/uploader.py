@@ -226,4 +226,6 @@ def populate_graph(wurl, graph, ref_year, latest_year, pval=None):
         else:
             continue
         add_graph_data(g, ds, o.meeting_nqs_pct(), cluster=o.state_display().lower(), pval=pval)
+    set_dataset_override(g, "reference", unicode(ref_year), pval=pval)
+    set_dataset_override(g, "latest", unicode(latest_year), pval=pval)
     return messages

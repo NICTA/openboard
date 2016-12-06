@@ -98,7 +98,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag housing
 
 # Education Detail Widgets   wdef sort_order 2200, 2205, ... 2300, 2305, ...
 echo "Exporting Eduation Detail Widgets"
-python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015 > coag_uploader/exports/03_yr12_2015.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12 > coag_uploader/exports/03_yr12.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015 > coag_uploader/exports/03_yr12_2015.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_lit > coag_uploader/exports/03_naplan_lit.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_num > coag_uploader/exports/03_naplan_num.json
@@ -106,7 +106,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag educati
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_ecenqs > coag_uploader/exports/03_ecenqs.json
 
 echo "Exporting Education State Detail Widgets"
-python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015_state > coag_uploader/exports/03_yr12_2015-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_state > coag_uploader/exports/03_yr12-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_yr12_2015_state > coag_uploader/exports/03_yr12_2015-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_lit_state > coag_uploader/exports/03_naplan_lit-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_naplan_num_state > coag_uploader/exports/03_naplan_num-state.json

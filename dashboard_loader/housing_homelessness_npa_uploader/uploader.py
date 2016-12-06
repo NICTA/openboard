@@ -73,7 +73,7 @@ file_format = {
         ],
 }
 
-benchmark = "All states and territories to direct at least 25 per cent of total matched funding over two years towards the priority areas of homelessness services focusing on women and children experiencing domestic and family violence and young people who are homeless or at risk of homelessness."
+benchmark = "Increase proportion of specialist homelessness services clients with needs for accommodation met"
 
 def na_to_null(din):
     if isinstance(din,unicode) and din.strip() == u'N/A':
@@ -121,7 +121,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "matched_funding": lambda x: progress_map[x.strip()],
                         })
         )
-        desc = load_benchmark_description(wb, "Description")
+        desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, benchmark,
                             "homelessness_npa-housing-hero", "homelessness_npa-housing-hero", 
                             "homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state", 
