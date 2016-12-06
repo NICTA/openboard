@@ -80,6 +80,13 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
+
 ROOT_URLCONF = 'dashboard_api.urls'
 
 WSGI_APPLICATION = 'dashboard_api.wsgi.application'
