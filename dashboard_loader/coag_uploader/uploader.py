@@ -626,7 +626,7 @@ txt_block_template = Template("""<div class="coag_description">
             {% endfor %}
         {% endif %}
     </div>
-    <div class="coag_desc_notes">'
+    <div class="coag_desc_notes">
         <p>Notes:</p>
         <ol>
             {% for note in desc.notes %}
