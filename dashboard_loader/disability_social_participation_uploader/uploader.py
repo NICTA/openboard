@@ -90,12 +90,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_stats(desc, indicators,
                                 "social_participation-disability-hero", "social_participation-disability-hero", 
                                 "social_participation-disability-hero-state", "social_participation-disability-hero-state", 
-                                None, None,
-                                None, None,
+                                "disability_social_participation", "disability_social_participation",
+                                "disability_social_participation_state", "disability_social_participation_state",
                                 verbosity))
         messages.extend(update_state_stats(
                                 "social_participation-disability-hero-state", "social_participation-disability-hero-state", 
-                                None, None,
+                                "disability_social_participation_state", "disability_social_participation_state",
                                 DisabilitySocialParticipationData, [("percentage", "uncertainty",),],
                                 verbosity=verbosity))
         earliest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").first()
@@ -114,6 +114,27 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         traffic_light_code=tlc,
                         trend=trend,
                         label=latest_aust.year_display())
+
+        set_statistic_data("disability_social_participation", "disability_social_participation",
+                        'ref_participation',
+                        earliest_aust.percentage,
+                        traffic_light_code=tlc,
+                        label=earliest_aust.year_display()
+                        )
+        set_statistic_data("disability_social_participation", "disability_social_participation",
+                        'curr_participation',
+                        latest_aust.percentage,
+                        traffic_light_code=tlc,
+                        trend=trend,
+                        label=latest_aust.year_display())
+        messages.extend(
+                update_graph_data(
+                            "disability_social_participation", "disability_social_participation",
+                            "disability_social_participation_detail_graph",
+                            DisabilitySocialParticipationData, "percentage",
+                            use_error_bars=True,
+                            verbosity=verbosity)
+        )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -151,6 +172,46 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             traffic_light_code=tlc_state,
                             trend=trend_state,
                             pval=pval)
+
+            set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
+                            'ref_year',
+                            earliest_aust.year_display(),
+                            pval=pval)
+            set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
+                            'curr_year',
+                            latest_aust.year_display(),
+                            pval=pval)
+            set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
+                            'ref_participation',
+                            earliest_aust.percentage,
+                            traffic_light_code=tlc,
+                            pval=pval)
+            set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
+                            'curr_participation',
+                            latest_aust.percentage,
+                            traffic_light_code=tlc,
+                            trend=trend,
+                            pval=pval)
+            set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
+                            'ref_participation_state',
+                            earliest_state.percentage,
+                            traffic_light_code=tlc_state,
+                            pval=pval)
+            set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
+                            'curr_participation_state',
+                            latest_state.percentage,
+                            traffic_light_code=tlc_state,
+                            trend=trend_state,
+                            pval=pval)
+            messages.extend(
+                    update_graph_data(
+                            "disability_social_participation_state", "disability_social_participation_state",
+                            "disability_social_participation_detail_graph",
+                            DisabilitySocialParticipationData, "percentage",
+                            use_error_bars=True,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
     except LoaderException, e:
         raise e
     except Exception, e:

@@ -118,9 +118,11 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag educati
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 echo "Exporting Disability Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_labour_participation > coag_uploader/exports/03_labour_participation.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag disability_social_participation > coag_uploader/exports/03_social_participation.json
 
 echo "Exporting Disability State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_labour_participation_state > coag_uploader/exports/03_labour_participation-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag disability_social_participation_state > coag_uploader/exports/03_social_participation-state.json
 
 # Indigenous Detail Widgets      wdef sort_order 3000, 3005, ... 3100, 3105, ...
 # Infrastructure Detail Widgets  wdef sort_order 3200, 3205, ... 3300, 3305, ...
