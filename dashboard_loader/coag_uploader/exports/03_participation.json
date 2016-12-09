@@ -494,26 +494,50 @@
                             "description": ""
                         }, 
                         {
-                            "url": "australia_full_study", 
+                            "url": "nt_full_study", 
                             "sort_order": 300, 
+                            "heading": "NT | Full Time Study (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_full_work", 
+                            "sort_order": 310, 
+                            "heading": "NT | Full Time Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_study_work", 
+                            "sort_order": 320, 
+                            "heading": "NT | Study and Work (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_not_fully_engaged", 
+                            "sort_order": 330, 
+                            "heading": "NT | Not Fully Engaged (%)", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_full_study", 
+                            "sort_order": 340, 
                             "heading": "Aust | Full Time Study (%)", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_full_work", 
-                            "sort_order": 310, 
+                            "sort_order": 350, 
                             "heading": "Aust | Full Time Work (%)", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_study_work", 
-                            "sort_order": 320, 
+                            "sort_order": 360, 
                             "heading": "Aust | Study and Work (%)", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_not_fully_engaged", 
-                            "sort_order": 330, 
+                            "sort_order": 370, 
                             "heading": "Aust | Not Fully Engaged (%)", 
                             "description": ""
                         }

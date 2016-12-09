@@ -537,10 +537,10 @@
                             "description": "The proportion of females with disability aged 15-64 years participating in the labour force (%)."
                         }, 
                         {
-                            "url": "male_uncertainty", 
+                            "url": "female_uncertainty", 
                             "sort_order": 80, 
                             "heading": "Uncertainty", 
-                            "description": "The uncertainty in the disabled labour force participation (males) percentage figure."
+                            "description": "The uncertainty in the disabled labour force participation (females) percentage figure."
                         }
                     ], 
                     "filename": "coag_disability_labour_participation_data.csv"

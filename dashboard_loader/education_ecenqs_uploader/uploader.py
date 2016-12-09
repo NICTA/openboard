@@ -122,6 +122,24 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     traffic_light_code=aust_data["tlc"],
                     trend=aust_data["trend"])
         messages.extend(populate_graph("education_ecenqs", "education_ecenqs_detail_graph", aust_data["ref"]["obj"].year, aust_data["latest"]["obj"].year))
+        messages.extend(
+                populate_raw_data("education_ecenqs", "education_ecenqs",
+                                "education_ecenqs", EducationEceNqsData,
+                                {
+                                    "meeting_nqs": "meeting",
+                                    "working_towards": "working_towards",
+                                    "no_rating": "no_rating",
+                                })
+                )
+        messages.extend(
+                populate_crosstab_raw_data("education_ecenqs", "education_ecenqs",
+                                "data_table", EducationEceNqsData,
+                                {
+                                    "meeting_nqs": "meeting",
+                                    "working_towards": "working_towards",
+                                    "no_rating": "no_rating",
+                                })
+                )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -189,6 +207,24 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.extend(populate_graph("education_ecenqs_state", "education_ecenqs_detail_graph", 
                             aust_data["ref"]["obj"].year, aust_data["latest"]["obj"].year, 
                             pval=pval))
+            messages.extend(
+                    populate_raw_data("education_ecenqs_state", "education_ecenqs_state",
+                                    "education_ecenqs", EducationEceNqsData,
+                                    {
+                                        "meeting_nqs": "meeting",
+                                        "working_towards": "working_towards",
+                                        "no_rating": "no_rating",
+                                    }, pval=pval)
+            )
+            messages.extend(
+                    populate_crosstab_raw_data("education_ecenqs_state", "education_ecenqs_state",
+                                    "data_table", EducationEceNqsData,
+                                    {
+                                        "meeting_nqs": "meeting",
+                                        "working_towards": "working_towards",
+                                        "no_rating": "no_rating",
+                                    }, pval=pval)
+            )
     except LoaderException, e:
         raise e
     except Exception, e:

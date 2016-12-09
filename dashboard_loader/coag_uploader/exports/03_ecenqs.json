@@ -311,20 +311,164 @@
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
-                            "url": "australia_meeting", 
+                            "url": "nsw_meeting", 
                             "sort_order": 30, 
+                            "heading": "NSW | Meeting NQS", 
+                            "description": "Proportion of Services nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "nsw_no_rating", 
+                            "sort_order": 40, 
+                            "heading": "NSW | No rating", 
+                            "description": "Proportion of Services nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "nsw_working_towards", 
+                            "sort_order": 50, 
+                            "heading": "NSW | Working towards", 
+                            "description": "Proportion of Services nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "vic_meeting", 
+                            "sort_order": 60, 
+                            "heading": "Vic | Meeting NQS", 
+                            "description": "Proportion of Services nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "vic_working_towards", 
+                            "sort_order": 70, 
+                            "heading": "Vic | Working towards", 
+                            "description": "Proportion of Services nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "vic_no_rating", 
+                            "sort_order": 80, 
+                            "heading": "Vic | No rating", 
+                            "description": "Proportion of Services nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "qld_meeting", 
+                            "sort_order": 90, 
+                            "heading": "Qld | Meeting NQS", 
+                            "description": "Proportion of Serqldes nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "qld_working_towards", 
+                            "sort_order": 100, 
+                            "heading": "Qld | Working towards", 
+                            "description": "Proportion of Serqldes nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "qld_no_rating", 
+                            "sort_order": 110, 
+                            "heading": "Qld | No rating", 
+                            "description": "Proportion of Serqldes nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "wa_meeting", 
+                            "sort_order": 120, 
+                            "heading": "WA | Meeting NQS", 
+                            "description": "Proportion of Serwaes nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "wa_working_towards", 
+                            "sort_order": 130, 
+                            "heading": "WA | Working towards", 
+                            "description": "Proportion of Serwaes nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "wa_no_rating", 
+                            "sort_order": 140, 
+                            "heading": "WA | No rating", 
+                            "description": "Proportion of Serwaes nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "sa_meeting", 
+                            "sort_order": 150, 
+                            "heading": "SA | Meeting NQS", 
+                            "description": "Proportion of Serwaes nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "sa_working_towards", 
+                            "sort_order": 160, 
+                            "heading": "SA | Working towards", 
+                            "description": "Proportion of Serwaes nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "sa_no_rating", 
+                            "sort_order": 170, 
+                            "heading": "SA | No rating", 
+                            "description": "Proportion of Serwaes nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "tas_meeting", 
+                            "sort_order": 180, 
+                            "heading": "Tas | Meeting NQS", 
+                            "description": "Proportion of Serwaes nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "tas_working_towards", 
+                            "sort_order": 190, 
+                            "heading": "Tas | Working towards", 
+                            "description": "Proportion of Serwaes nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "tas_no_rating", 
+                            "sort_order": 200, 
+                            "heading": "Tas | No rating", 
+                            "description": "Proportion of Serwaes nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "act_meeting", 
+                            "sort_order": 210, 
+                            "heading": "ACT | Meeting NQS", 
+                            "description": "Proportion of Serwaes nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "act_working_towards", 
+                            "sort_order": 220, 
+                            "heading": "ACT | Working towards", 
+                            "description": "Proportion of Serwaes nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "act_no_rating", 
+                            "sort_order": 230, 
+                            "heading": "ACT | No rating", 
+                            "description": "Proportion of Serwaes nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "nt_meeting", 
+                            "sort_order": 240, 
+                            "heading": "NT | Meeting NQS", 
+                            "description": "Proportion of Serwaes nationally meeting NQS or higher rating (%)"
+                        }, 
+                        {
+                            "url": "nt_working_towards", 
+                            "sort_order": 250, 
+                            "heading": "NT | Working towards", 
+                            "description": "Proportion of Serwaes nationally working towards NQS (%)"
+                        }, 
+                        {
+                            "url": "nt_no_rating", 
+                            "sort_order": 260, 
+                            "heading": "NT | No rating", 
+                            "description": "Proportion of Serwaes nationally with no NQS rating (%)"
+                        },
+                        {
+                            "url": "australia_meeting", 
+                            "sort_order": 270, 
                             "heading": "Aust | Meeting NQS", 
                             "description": "Proportion of Services nationally meeting NQS or higher rating (%)"
                         }, 
                         {
                             "url": "australia_working_towards", 
-                            "sort_order": 40, 
+                            "sort_order": 280, 
                             "heading": "Aust | Working towards", 
                             "description": "Proportion of Services nationally working towards NQS (%)"
                         }, 
                         {
                             "url": "australia_no_rating", 
-                            "sort_order": 50, 
+                            "sort_order": 290, 
                             "heading": "Aust | No rating", 
                             "description": "Proportion of Services nationally with no NQS rating (%)"
                         }

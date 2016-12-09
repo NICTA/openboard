@@ -128,6 +128,26 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             use_error_bars=False,
                             verbosity=verbosity)
         )
+        messages.extend(
+                populate_raw_data('education_participation', 'education_participation',
+                                "education_participation", EducationParticipationData,
+                                {
+                                    "study": "percentage_full_time_study",
+                                    "work": "percentage_full_time_work",
+                                    "study_work": "percentage_study_work",
+                                    "not_engaged": "percentage_not_fully_engaged",
+                                })
+        )
+        messages.extend(
+                populate_crosstab_raw_data('education_participation', 'education_participation',
+                                "data_table", EducationParticipationData,
+                                {
+                                    "study": "full_study",
+                                    "work": "full_work",
+                                    "study_work": "study_work",
+                                    "not_engaged": "not_fully_engaged",
+                                })
+        )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -198,6 +218,26 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             pval, 
                             verbosity)
                     ) 
+            messages.extend(
+                populate_raw_data('education_participation', 'education_participation',
+                                "education_participation", EducationParticipationData,
+                                {
+                                    "study": "percentage_full_time_study",
+                                    "work": "percentage_full_time_work",
+                                    "study_work": "percentage_study_work",
+                                    "not_engaged": "percentage_not_fully_engaged",
+                                }, pval=pval)
+            )
+            messages.extend(
+                populate_crosstab_raw_data('education_participation', 'education_participation',
+                                "data_table", EducationParticipationData,
+                                {
+                                    "study": "full_study",
+                                    "work": "full_work",
+                                    "study_work": "study_work",
+                                    "not_engaged": "not_fully_engaged",
+                                }, pval=pval)
+            )
     except LoaderException, e:
         raise e
     except Exception, e:

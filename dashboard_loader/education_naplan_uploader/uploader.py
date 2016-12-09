@@ -219,11 +219,71 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity=verbosity))
         messages.extend(update_naplan_graphs("lit", AUS, verbosity))
         messages.extend(update_naplan_graphs("num", AUS, verbosity))
+        messages.extend(
+                populate_raw_data(
+                    "education_naplan_lit", "education_naplan_lit",
+                    "education_naplan_lit", EducationNaplanData,
+                    {
+                        "year3_lit_score": "yr3_avg_score",
+                        "year5_lit_score": "yr5_avg_score",
+                        "year7_lit_score": "yr7_avg_score",
+                        "year9_lit_score": "yr9_avg_score",
+                        "year3_lit_nms": "yr3_nms",
+                        "year5_lit_nms": "yr5_nms",
+                        "year7_lit_nms": "yr7_nms",
+                        "year9_lit_nms": "yr9_nms",
+                    })
+        )
+        messages.extend(
+                populate_raw_data(
+                    "education_naplan_num", "education_naplan_num",
+                    "education_naplan_num", EducationNaplanData,
+                    {
+                        "year3_num_score": "yr3_avg_score",
+                        "year5_num_score": "yr5_avg_score",
+                        "year7_num_score": "yr7_avg_score",
+                        "year9_num_score": "yr9_avg_score",
+                        "year3_num_nms": "yr3_nms",
+                        "year5_num_nms": "yr5_nms",
+                        "year7_num_nms": "yr7_nms",
+                        "year9_num_nms": "yr9_nms",
+                    })
+        )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
             messages.extend(update_naplan_graphs("lit", state_num, verbosity, pval=pval))
             messages.extend(update_naplan_graphs("num", state_num, verbosity, pval=pval))
+            messages.extend(
+                        populate_raw_data(
+                            "education_naplan_lit", "education_naplan_lit",
+                            "education_naplan_lit", EducationNaplanData,
+                            {
+                                "year3_lit_score": "yr3_avg_score",
+                                "year5_lit_score": "yr5_avg_score",
+                                "year7_lit_score": "yr7_avg_score",
+                                "year9_lit_score": "yr9_avg_score",
+                                "year3_lit_nms": "yr3_nms",
+                                "year5_lit_nms": "yr5_nms",
+                                "year7_lit_nms": "yr7_nms",
+                                "year9_lit_nms": "yr9_nms",
+                            }, pval=pval)
+            )
+            messages.extend(
+                        populate_raw_data(
+                            "education_naplan_num", "education_naplan_num",
+                            "education_naplan_num", EducationNaplanData,
+                            {
+                                "year3_num_score": "yr3_avg_score",
+                                "year5_num_score": "yr5_avg_score",
+                                "year7_num_score": "yr7_avg_score",
+                                "year9_num_score": "yr9_avg_score",
+                                "year3_num_nms": "yr3_nms",
+                                "year5_num_nms": "yr5_nms",
+                                "year7_num_nms": "yr7_nms",
+                                "year9_num_nms": "yr9_nms",
+                            }, pval=pval)
+            )
     except LoaderException, e:
         raise e
     except Exception, e:
