@@ -1,0 +1,605 @@
+{
+    "category": "disability", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Decrease proportion of people with disability needing more formal assistance", 
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "disability_more_assist_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Australia"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_status_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "disability_more_assist_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 1000, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 110, 
+                    "view": "disability_act"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_nsw"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_nt"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_qld"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_sa"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_tas"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_vic"
+                }, 
+                {
+                    "sort_order": 110, 
+                    "view": "disability_wa"
+                }
+            ], 
+            "default_frequency_text": "Updated: 2015", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Disabled Need For Assistance", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_percent", 
+                            "sort_order": 20, 
+                            "heading": "NSW | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_error", 
+                            "sort_order": 30, 
+                            "heading": "NSW | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_percent", 
+                            "sort_order": 40, 
+                            "heading": "Vic | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_error", 
+                            "sort_order": 50, 
+                            "heading": "Vic | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_percent", 
+                            "sort_order": 60, 
+                            "heading": "Qld | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_error", 
+                            "sort_order": 70, 
+                            "heading": "Qld | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_percent", 
+                            "sort_order": 80, 
+                            "heading": "WA | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_error", 
+                            "sort_order": 90, 
+                            "heading": "WA | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_percent", 
+                            "sort_order": 100, 
+                            "heading": "SA | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_error", 
+                            "sort_order": 110, 
+                            "heading": "SA | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_percent", 
+                            "sort_order": 120, 
+                            "heading": "Tas | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_error", 
+                            "sort_order": 130, 
+                            "heading": "Tas | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_percent", 
+                            "sort_order": 140, 
+                            "heading": "ACT | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_error", 
+                            "sort_order": 150, 
+                            "heading": "ACT | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_percent", 
+                            "sort_order": 160, 
+                            "heading": "NT | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_error", 
+                            "sort_order": 170, 
+                            "heading": "NT | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_percent", 
+                            "sort_order": 220, 
+                            "heading": "Aust | %", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_error", 
+                            "sort_order": 230, 
+                            "heading": "Aust | \u00b1", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "disabled_more_assist_data_table.csv"
+                }, 
+                {
+                    "url": "disability_more_assist", 
+                    "name": "Disability Need for Formal Assistance Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "disabled_need_more_assist", 
+                            "sort_order": 30, 
+                            "heading": "Need more assistance (%)", 
+                            "description": "The proportion of people with disability aged 0-64 years who need more formal assistance than they are currently receiving (%)."
+                        }, 
+                        {
+                            "url": "uncertainty", 
+                            "sort_order": 40, 
+                            "heading": "Uncertainty", 
+                            "description": "The uncertainty in the main disabled need more assistance percentage figure."
+                        }
+                    ], 
+                    "filename": "coag_disability_need_more_assistance_data.csv"
+                }
+            ], 
+            "sort_order": 2910, 
+            "expansion_hint": "View more", 
+            "about": "<p>Between 2009 and 2018, there will be a five percentage point national decrease in the proportion of people with disability who report a need for more formal assistance.</p>", 
+            "refresh_rate": 3440, 
+            "label": "disability_more_assist_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4430.0", 
+    "name": "Need for Formal Assistance"
+}
+

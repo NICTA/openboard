@@ -72,7 +72,7 @@ file_format = {
         ],
 }
 
-indicators = "Increase the proportion of people with disabilirt participating in social and community activities"
+indicators = "Increase the proportion of people with disability participating in social and community activities"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []

@@ -52,10 +52,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag life_ex
 echo "Exporting Disability Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag labour_participation-disability-hero > coag_uploader/exports/03_labour_participation-disability-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag social_participation-disability-hero > coag_uploader/exports/03_social_participation-disability-hero.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag more_assist-disability-hero > coag_uploader/exports/03_more_assist-disability-hero.json
 
 echo "Exporting Disability Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag labour_participation-disability-hero-state > coag_uploader/exports/03_labour_participation-disability-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag social_participation-disability-hero-state > coag_uploader/exports/03_social_participation-disability-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag more_assist-disability-hero-state > coag_uploader/exports/03_more_assist-disability-hero-state.json
 
 # Indigenous Hero Widgets       wdef sort_order 1000, 1005, ... 1100, 1105, ...
 echo "Exporting Indigenous Hero Widgets"
@@ -119,10 +121,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag educati
 echo "Exporting Disability Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_labour_participation > coag_uploader/exports/03_labour_participation.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_social_participation > coag_uploader/exports/03_social_participation.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag disability_more_assist > coag_uploader/exports/03_more_assist.json
 
 echo "Exporting Disability State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_labour_participation_state > coag_uploader/exports/03_labour_participation-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_social_participation_state > coag_uploader/exports/03_social_participation-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag disability_more_assist_state > coag_uploader/exports/03_more_assist-state.json
 
 # Indigenous Detail Widgets      wdef sort_order 3000, 3005, ... 3100, 3105, ...
 # Infrastructure Detail Widgets  wdef sort_order 3200, 3205, ... 3300, 3305, ...
