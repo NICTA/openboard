@@ -135,6 +135,24 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             use_error_bars=True,
                             verbosity=verbosity)
         )
+        messages.extend(
+                populate_raw_data(
+                            "disability_social_participation", "disability_social_participation", 
+                            "disability_social_participation", DisabilitySocialParticipationData, 
+                                {
+                                    "percentage": "disabled_social_participation",
+                                    "uncertainty": "uncertainty",
+                                })
+                )
+        messages.extend(
+                populate_crosstab_raw_data(
+                            "disability_social_participation", "disability_social_participation", 
+                                "data_table", DisabilitySocialParticipationData, 
+                                {
+                                    "percentage": "percent",
+                                    "uncertainty": "error",
+                                })
+                )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -210,6 +228,26 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             DisabilitySocialParticipationData, "percentage",
                             use_error_bars=True,
                             verbosity=verbosity,
+                            pval=pval)
+            )
+            messages.extend(
+                populate_raw_data(
+                            "disability_social_participation_state", "disability_social_participation_state",
+                            "disability_social_participation", DisabilitySocialParticipationData, 
+                            {
+                                "percentage": "disabled_social_participation",
+                                "uncertainty": "uncertainty",
+                            },
+                            pval=pval)
+            )
+            messages.extend(
+                populate_crosstab_raw_data(
+                            "disability_social_participation_state", "disability_social_participation_state",
+                            "data_table", DisabilitySocialParticipationData, 
+                            {
+                                "percentage": "percent",
+                                "uncertainty": "error",
+                            },
                             pval=pval)
             )
     except LoaderException, e:

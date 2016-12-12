@@ -134,6 +134,36 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             use_error_bars=True,
                             verbosity=verbosity)
         )
+        messages.extend(
+                populate_raw_data(
+                            "disability_labour_participation", "disability_labour_participation", 
+                            "disability_labour_participation", DisabilityLabourParticipation, 
+                                {
+                                    "percentage": "disabled_labour_force_participation",
+                                    "uncertainty": "uncertainty",
+                                    "percentage_male": "disabled_male_labour_force_participation",
+                                    "uncertainty_male": "uncertainty",
+                                    "percentage_female": "disabled_female_labour_force_participation",
+                                    "uncertainty_female": "uncertainty",
+                                })
+                )
+        messages.extend(
+                populate_crosstab_raw_data(
+                            "disability_labour_participation", "disability_labour_participation", 
+                                "data_table", DisabilityLabourParticipation, 
+                                {
+                                    "percentage": "percent",
+                                    "uncertainty": "error",
+                                    "percentage_male": "males_percent",
+                                    "uncertainty_male": "males_error",
+                                    "percentage_female": "females_percent",
+                                    "uncertainty_female": "females_error",
+                                },
+                                field_map_states = {
+                                    "percentage": "percent",
+                                    "uncertainty": "error",
+                                })
+                )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -175,7 +205,36 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity=verbosity,
                                 pval=pval)
             )
-                
+            messages.extend(
+                    populate_raw_data(
+                                "disability_labour_participation", "disability_labour_participation", 
+                                "disability_labour_participation", DisabilityLabourParticipation, 
+                                    {
+                                        "percentage": "disabled_labour_force_participation",
+                                        "uncertainty": "uncertainty",
+                                        "percentage_male": "disabled_male_labour_force_participation",
+                                        "uncertainty_male": "uncertainty",
+                                        "percentage_female": "disabled_female_labour_force_participation",
+                                        "uncertainty_female": "uncertainty",
+                                    }, pval=pval)
+                    )
+            messages.extend(
+                    populate_crosstab_raw_data(
+                                "disability_labour_participation", "disability_labour_participation", 
+                                    "data_table", DisabilityLabourParticipation, 
+                                    {
+                                        "percentage": "percent",
+                                        "uncertainty": "error",
+                                        "percentage_male": "males_percent",
+                                        "uncertainty_male": "males_error",
+                                        "percentage_female": "females_percent",
+                                        "uncertainty_female": "females_error",
+                                    },
+                                    field_map_states = {
+                                        "percentage": "percent",
+                                        "uncertainty": "error",
+                                    }, pval=pval)
+                    )
     except LoaderException, e:
         raise e
     except Exception, e:
