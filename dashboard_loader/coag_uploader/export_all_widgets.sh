@@ -116,6 +116,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag educati
 python manage.py export_widget --settings=dashboard_loader.settings_coag education_ecenqs_state > coag_uploader/exports/03_ecenqs-state.json
 
 # Skills Detail Widgets      wdef sort_order 2400, 2405, ... 2500, 2505, ...
+echo "Exporting Skills Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag skills_cert3 > coag_uploader/exports/03_cert3.json
+
+echo "Exporting Skills Detail Widgets (Parametised by State)"
+python manage.py export_widget --settings=dashboard_loader.settings_coag skills_cert3_state > coag_uploader/exports/03_cert3-state.json
+
 # Health Detail Widgets      wdef sort_order 2600, 2605, ... 2700, 2705, ...
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 echo "Exporting Disability Detail Widgets"

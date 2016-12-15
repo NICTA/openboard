@@ -90,11 +90,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_stats(desc, benchmark,
                                 "cert3-skills-hero", "cert3-skills-hero", 
                                 "cert3-skills-hero-state", "cert3-skills-hero-state",
-                                None, None, None, None,
+                                "skills_cert3", "skills_cert3",
+                                "skills_cert3_state", "skills_cert3_state",
                                 verbosity))
         messages.extend(update_state_stats(
                                 "cert3-skills-hero-state", "cert3-skills-hero-state",
-                                None, None,
+                                "skills_cert3_state", "skills_cert3_state",
                                 SkillsCert3Data, [("percentage", "uncertainty",),],
                                 want_increase=False,
                                 verbosity=verbosity))
@@ -109,6 +110,47 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             benchmark_gen=lambda init: Decimal(0.5) * init,
                             use_error_bars=False,
                             verbosity=verbosity)
+                )
+        messages.extend(
+                update_graph_data(
+                            "skills_cert3", "skills_cert3", 
+                            "skills_cert3_summary_graph",
+                            SkillsCert3Data, "percentage",
+                            [ AUS, ],
+                            benchmark_start=2009,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: Decimal(0.5) * init,
+                            use_error_bars=False,
+                            verbosity=verbosity)
+                )
+        messages.extend(
+                update_graph_data(
+                            "skills_cert3", "skills_cert3", 
+                            "skills_cert3_detail_graph",
+                            SkillsCert3Data, "percentage",
+                            benchmark_start=2009,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: Decimal(0.5) * init,
+                            use_error_bars=True,
+                            verbosity=verbosity)
+                )
+        messages.extend(
+                populate_raw_data(
+                                "skills_cert3", "skills_cert3", 
+                                "skills_cert3", SkillsCert3Data,
+                                {
+                                    "percentage": "percentage_cert3",
+                                    "uncertainty": "uncertainty",
+                                })
+                )
+        messages.extend(
+                populate_crosstab_raw_data(
+                                "skills_cert3", "skills_cert3", 
+                                "data_table", SkillsCert3Data,
+                                {
+                                    "percentage": "percent",
+                                    "uncertainty": "error",
+                                })
                 )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
@@ -125,6 +167,49 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             use_error_bars=False,
                             verbosity=verbosity,
                             pval=pval)
+            )
+            messages.extend(
+                    update_graph_data(
+                            "skills_cert3_state", "skills_cert3_state", 
+                            "skills_cert3_summary_graph",
+                            SkillsCert3Data, "percentage",
+                            [ AUS, state_num ],
+                            benchmark_start=2009,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: Decimal(0.5) * init,
+                            use_error_bars=False,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
+            messages.extend(
+                    update_graph_data(
+                            "skills_cert3_state", "skills_cert3_state", 
+                            "skills_cert3_detail_graph",
+                            SkillsCert3Data, "percentage",
+                            benchmark_start=2009,
+                            benchmark_end=2020,
+                            benchmark_gen=lambda init: Decimal(0.5) * init,
+                            use_error_bars=True,
+                            verbosity=verbosity,
+                            pval=pval)
+            )
+            messages.extend(
+                    populate_raw_data(
+                            "skills_cert3_state", "skills_cert3_state", 
+                            "skills_cert3", SkillsCert3Data,
+                            {
+                                "percentage": "percentage_cert3",
+                                "uncertainty": "uncertainty",
+                            }, pval=pval)
+            )
+            messages.extend(
+                    populate_crosstab_raw_data(
+                            "skills_cert3_state", "skills_cert3_state", 
+                            "data_table", SkillsCert3Data,
+                            {
+                                "percentage": "percent",
+                                "uncertainty": "error",
+                            }, pval=pval)
             )
     except LoaderException, e:
         raise e
