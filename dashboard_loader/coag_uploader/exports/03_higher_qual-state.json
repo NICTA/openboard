@@ -292,7 +292,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
                                 "colour": "blue-solid", 
@@ -302,7 +302,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "vic", 
                                 "colour": "orange-solid", 
@@ -312,7 +312,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "qld", 
                                 "colour": "pale_blue-solid", 
@@ -322,7 +322,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "wa", 
                                 "colour": "purple-solid", 
@@ -332,7 +332,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "sa", 
                                 "colour": "gold-solid", 
@@ -342,7 +342,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 600, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "tas", 
                                 "colour": "dark_blue-solid", 
@@ -352,7 +352,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 700, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "act", 
                                 "colour": "dark_green-solid", 
@@ -362,7 +362,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 800, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nt", 
                                 "colour": "brown-solid", 
@@ -372,7 +372,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 900, 
-                                "use_error_bars": true, 
+                                "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "australia", 
                                 "colour": "green-solid", 

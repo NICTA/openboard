@@ -129,7 +129,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             benchmark_start=2009,
                             benchmark_end=2020,
                             benchmark_gen=lambda init: Decimal(2) * init,
-                            use_error_bars=True,
+                            use_error_bars=False,
                             verbosity=verbosity)
                 )
         messages.extend(
@@ -156,7 +156,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             state_num = state_map[pval.parameters()["state_abbrev"]]
             messages.extend(
                 update_graph_data(
-                        "higher_qual-skills-hero", "higher_qual-skills-hero",
+                        "higher_qual-skills-hero-state", "higher_qual-skills-hero-state",
                         "skills-higher_qual-hero-graph",
                         SkillsHigherQualificationsData, "total",
                         [ AUS, state_num ],
@@ -169,7 +169,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                 update_graph_data(
-                        "skills_higher_qual", "skills_higher_qual", 
+                        "skills_higher_qual_state", "skills_higher_qual_state", 
                         "skills_higher_qual_summary_graph",
                         SkillsHigherQualificationsData, "total",
                         [ AUS, state_num ],
@@ -182,19 +182,19 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                 update_graph_data(
-                        "skills_higher_qual", "skills_higher_qual", 
+                        "skills_higher_qual_state", "skills_higher_qual_state", 
                         "skills_higher_qual_detail_graph",
                         SkillsHigherQualificationsData, "total",
                         benchmark_start=2009,
                         benchmark_end=2020,
                         benchmark_gen=lambda init: Decimal(2) * init,
-                        use_error_bars=True,
+                        use_error_bars=False,
                         verbosity=verbosity,
                         pval=pval)
             )
             messages.extend(
                 populate_raw_data(
-                            "skills_higher_qual", "skills_higher_qual", 
+                            "skills_higher_qual_state", "skills_higher_qual_state", 
                             "skills_higher_qual", SkillsHigherQualificationsData, 
                             {
                                 "diplomas": "diploma",
@@ -204,7 +204,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                 populate_crosstab_raw_data(
-                            "skills_higher_qual", "skills_higher_qual", 
+                            "skills_higher_qual_state", "skills_higher_qual_state", 
                             "data_table", SkillsHigherQualificationsData, 
                             {
                                 "diplomas": "diploma",
