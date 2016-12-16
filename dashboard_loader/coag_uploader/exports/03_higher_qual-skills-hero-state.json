@@ -1,14 +1,51 @@
 {
     "category": "skills", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Halve proportion of Australians without Certificate Level III and above", 
+    "source_url_text": "www.ncver.edu.au", 
+    "subtitle": "Double the number of higher level qualification completions nationally between 2009 and 2020", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "cert3-skills-hero", 
+    "url": "higher_qual-skills-hero-state", 
     "definitions": [
         {
             "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "skills-higher_qual-hero-header-state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
                 {
                     "expansion": false, 
                     "main_stat_count": 1, 
@@ -39,7 +76,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-header", 
+                    "url": "skills-higher_qual-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +89,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-graph", 
+                    "url": "skills-higher_qual-hero-graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -89,13 +126,23 @@
                                 "sort_order": 200, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -108,24 +155,66 @@
             ], 
             "views": [
                 {
-                    "child_view": "skills", 
-                    "sort_order": 300, 
+                    "child_view": "skills_act", 
+                    "sort_order": 305, 
                     "child_view_text": "See all", 
-                    "view": "aus"
+                    "view": "act"
+                }, 
+                {
+                    "child_view": "skills_nsw", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "nsw"
+                }, 
+                {
+                    "child_view": "skills_nt", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "nt"
+                }, 
+                {
+                    "child_view": "skills_sa", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "sa"
+                }, 
+                {
+                    "child_view": "skills_qld", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "qld"
+                }, 
+                {
+                    "child_view": "skills_vic", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "vic"
+                }, 
+                {
+                    "child_view": "skills_tas", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "tas"
+                }, 
+                {
+                    "child_view": "skills_wa", 
+                    "sort_order": 305, 
+                    "child_view_text": "See all", 
+                    "view": "wa"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 400, 
+            "sort_order": 505, 
             "expansion_hint": "", 
-            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020</p>", 
-            "refresh_rate": 3850, 
-            "label": "cert3-skills-hero", 
-            "parametisation": null, 
+            "about": "<p>Double the number of higher level qualification completions (diploma and advanced diploma) nationally between 2009 and 2020</p>", 
+            "refresh_rate": 3330, 
+            "label": "higher_qual-skills-hero-state", 
+            "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
+    "source_url": "http://www.ncver.edu.au", 
     "name": "Skills"
 }
 

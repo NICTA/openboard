@@ -551,7 +551,7 @@
                             "sort_order": 40, 
                             "heading": "NSW | No rating", 
                             "description": "Proportion of Services nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "nsw_working_towards", 
                             "sort_order": 50, 
@@ -575,7 +575,7 @@
                             "sort_order": 80, 
                             "heading": "Vic | No rating", 
                             "description": "Proportion of Services nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "qld_meeting", 
                             "sort_order": 90, 
@@ -593,7 +593,7 @@
                             "sort_order": 110, 
                             "heading": "Qld | No rating", 
                             "description": "Proportion of Serqldes nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "wa_meeting", 
                             "sort_order": 120, 
@@ -611,7 +611,7 @@
                             "sort_order": 140, 
                             "heading": "WA | No rating", 
                             "description": "Proportion of Serwaes nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "sa_meeting", 
                             "sort_order": 150, 
@@ -629,7 +629,7 @@
                             "sort_order": 170, 
                             "heading": "SA | No rating", 
                             "description": "Proportion of Serwaes nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "tas_meeting", 
                             "sort_order": 180, 
@@ -647,7 +647,7 @@
                             "sort_order": 200, 
                             "heading": "Tas | No rating", 
                             "description": "Proportion of Serwaes nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "act_meeting", 
                             "sort_order": 210, 
@@ -665,7 +665,7 @@
                             "sort_order": 230, 
                             "heading": "ACT | No rating", 
                             "description": "Proportion of Serwaes nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "nt_meeting", 
                             "sort_order": 240, 
@@ -683,7 +683,7 @@
                             "sort_order": 260, 
                             "heading": "NT | No rating", 
                             "description": "Proportion of Serwaes nationally with no NQS rating (%)"
-                        },
+                        }, 
                         {
                             "url": "australia_meeting", 
                             "sort_order": 270, 

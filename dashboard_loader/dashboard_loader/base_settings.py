@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'education_participation_uploader',
     'education_ecenqs_uploader',
     'skills_cert3_uploader',
+    'skills_higher_qual_uploader',
     'health_life_expectancy_uploader',
     'disability_labour_participation_uploader',
     'disability_social_participation_uploader',

@@ -1,11 +1,11 @@
 {
     "category": "skills", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Halve proportion of Australians without Certificate Level III and above", 
+    "source_url_text": "www.ncver.edu.au", 
+    "subtitle": "Double the number of higher level qualification completions nationally between 2009 and 2020", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "cert3-skills-hero", 
+    "url": "higher_qual-skills-hero", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-header", 
+                    "url": "skills-higher_qual-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +52,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills-cert3-hero-graph", 
+                    "url": "skills-higher_qual-hero-graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -95,7 +95,7 @@
                                 "label": "Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -109,23 +109,23 @@
             "views": [
                 {
                     "child_view": "skills", 
-                    "sort_order": 300, 
+                    "sort_order": 305, 
                     "child_view_text": "See all", 
                     "view": "aus"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 400, 
+            "sort_order": 405, 
             "expansion_hint": "", 
-            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020</p>", 
-            "refresh_rate": 3850, 
-            "label": "cert3-skills-hero", 
+            "about": "<p>Double the number of higher level qualification completions (diploma and advanced diploma) nationally between 2009 and 2020</p>", 
+            "refresh_rate": 3330, 
+            "label": "higher_qual-skills-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
+    "source_url": "http://www.ncver.edu.au", 
     "name": "Skills"
 }
 

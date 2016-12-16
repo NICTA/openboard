@@ -207,7 +207,7 @@
             "raw_data_sets": [], 
             "sort_order": 500, 
             "expansion_hint": "", 
-            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020", 
+            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020</p>", 
             "refresh_rate": 3850, 
             "label": "cert3-skills-hero-state", 
             "parametisation": "state_param", 

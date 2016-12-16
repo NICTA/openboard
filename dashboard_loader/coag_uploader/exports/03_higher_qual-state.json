@@ -1,14 +1,51 @@
 {
     "category": "skills", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Halve proportion of Australians without Certificate Level III and above", 
+    "source_url_text": "www.ncver.edu.au", 
+    "subtitle": "Double the number of higher level qualification completions nationally between 2009 and 2020", 
     "subcategory": "national agreement", 
     "groups": [], 
-    "url": "skills_cert3", 
+    "url": "skills_higher_qual_state", 
     "definitions": [
         {
             "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "skills_higher_qual_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
                 {
                     "expansion": false, 
                     "main_stat_count": 1, 
@@ -39,7 +76,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills_cert3_header", 
+                    "url": "skills_higher_qual_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +89,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills_cert3_summary_graph", 
+                    "url": "skills_higher_qual_summary_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -89,6 +126,16 @@
                                 "sort_order": 200, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
@@ -100,6 +147,43 @@
                         "heading": ""
                     }, 
                     "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "skills_higher_qual_status_state", 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -157,7 +241,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills_cert3_status", 
+                    "url": "skills_higher_qual_status", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -170,7 +254,7 @@
                     "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills_cert3_details", 
+                    "url": "skills_higher_qual_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -183,7 +267,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills_cert3_detail_graph", 
+                    "url": "skills_higher_qual_detail_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -271,7 +355,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "brown-solid", 
+                                "colour": "dark_green-solid", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
@@ -281,7 +365,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nt", 
-                                "colour": "dark_green-solid", 
+                                "colour": "brown-solid", 
                                 "dynamic_label": false, 
                                 "label": "NT"
                             }, 
@@ -319,15 +403,43 @@
             ], 
             "views": [
                 {
-                    "sort_order": 100, 
-                    "view": "skills"
+                    "sort_order": 105, 
+                    "view": "skills_act"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_nsw"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_nt"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_qld"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_sa"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_tas"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_vic"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "skills_wa"
                 }
             ], 
             "default_frequency_text": "Updated: 2015", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Certificate III", 
+                    "name": "Higher Qualifications", 
                     "columns": [
                         {
                             "url": "year", 
@@ -336,119 +448,119 @@
                             "description": "The financial or calendar year."
                         }, 
                         {
-                            "url": "nsw_percent", 
+                            "url": "nsw_diploma", 
                             "sort_order": 20, 
-                            "heading": "NSW | %", 
+                            "heading": "NSW | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "nsw_error", 
+                            "url": "nsw_adv_diploma", 
                             "sort_order": 30, 
-                            "heading": "NSW | \u00b1", 
+                            "heading": "NSW | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_percent", 
+                            "url": "vic_diploma", 
                             "sort_order": 40, 
-                            "heading": "Vic | %", 
+                            "heading": "Vic | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_error", 
+                            "url": "vic_adv_diploma", 
                             "sort_order": 50, 
-                            "heading": "Vic | \u00b1", 
+                            "heading": "Vic | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_percent", 
+                            "url": "qld_diploma", 
                             "sort_order": 60, 
-                            "heading": "Qld | %", 
+                            "heading": "Qld | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_error", 
+                            "url": "qld_adv_diploma", 
                             "sort_order": 70, 
-                            "heading": "Qld | \u00b1", 
+                            "heading": "Qld | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_percent", 
+                            "url": "wa_diploma", 
                             "sort_order": 80, 
-                            "heading": "WA | %", 
+                            "heading": "WA | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_error", 
+                            "url": "wa_adv_diploma", 
                             "sort_order": 90, 
-                            "heading": "WA | \u00b1", 
+                            "heading": "WA | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_percent", 
+                            "url": "sa_diploma", 
                             "sort_order": 100, 
-                            "heading": "SA | %", 
+                            "heading": "SA | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_error", 
+                            "url": "sa_adv_diploma", 
                             "sort_order": 110, 
-                            "heading": "SA | \u00b1", 
+                            "heading": "SA | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_percent", 
+                            "url": "tas_diploma", 
                             "sort_order": 120, 
-                            "heading": "Tas | %", 
+                            "heading": "Tas | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_error", 
+                            "url": "tas_adv_diploma", 
                             "sort_order": 130, 
-                            "heading": "Tas | \u00b1", 
+                            "heading": "Tas | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_percent", 
+                            "url": "act_diploma", 
                             "sort_order": 140, 
-                            "heading": "ACT | %", 
+                            "heading": "ACT | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_error", 
+                            "url": "act_adv_diploma", 
                             "sort_order": 150, 
-                            "heading": "ACT | \u00b1", 
+                            "heading": "ACT | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_percent", 
+                            "url": "nt_diploma", 
                             "sort_order": 160, 
-                            "heading": "NT | %", 
+                            "heading": "NT | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_error", 
+                            "url": "nt_adv_diploma", 
                             "sort_order": 170, 
-                            "heading": "NT | \u00b1", 
+                            "heading": "NT | Adv. Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_percent", 
+                            "url": "australia_diploma", 
                             "sort_order": 180, 
-                            "heading": "Aust | %", 
+                            "heading": "Aust | Dip.", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_error", 
+                            "url": "australia_adv_diploma", 
                             "sort_order": 190, 
-                            "heading": "Aust | \u00b1", 
+                            "heading": "Aust | Adv. Dip.", 
                             "description": ""
                         }
                     ], 
-                    "filename": "certificate3_data_table.csv"
+                    "filename": "higher_qualifications_data_table.csv"
                 }, 
                 {
-                    "url": "skills_cert3", 
-                    "name": "Certificate III Data", 
+                    "url": "skills_higher_qual", 
+                    "name": "Higher Qualifications Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -463,31 +575,37 @@
                             "description": "The calendar or financial year each row describes."
                         }, 
                         {
-                            "url": "percentage_cert3", 
+                            "url": "diploma", 
                             "sort_order": 30, 
-                            "heading": "People without Certificate III or above qualifications (%)", 
-                            "description": "Proportion of people aged 20-64 without qualifications at the Certificate III level or above (%)"
+                            "heading": "Diplomas", 
+                            "description": "Number of diploma qualifications completed by students)"
                         }, 
                         {
-                            "url": "uncertainty", 
+                            "url": "advanced_diploma", 
                             "sort_order": 40, 
-                            "heading": "Uncertainty", 
-                            "description": "The uncertainty in the main percentage figure."
+                            "heading": "Adv Diplomas", 
+                            "description": "Number of advanced diploma qualifications completed by students"
+                        }, 
+                        {
+                            "url": "total", 
+                            "sort_order": 50, 
+                            "heading": "Total", 
+                            "description": "The total number of higher level qualifications completed by students"
                         }
                     ], 
-                    "filename": "coag_skills_certificate3_data.csv"
+                    "filename": "coag_skills_higher_qualifications_data.csv"
                 }
             ], 
-            "sort_order": 2400, 
+            "sort_order": 2505, 
             "expansion_hint": "View more", 
-            "about": "<p>Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020</p>", 
-            "refresh_rate": 3850, 
-            "label": "skills_cert3", 
-            "parametisation": null, 
+            "about": "<p>Double the number of higher level qualification completions (diploma and advanced diploma) nationally between 2009 and 2020</p>", 
+            "refresh_rate": 3330, 
+            "label": "skills_higher_qual_state", 
+            "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/6227.0", 
-    "name": "Certificate III"
+    "source_url": "http://www.ncver.edu.au", 
+    "name": "Higher Qualification Completions"
 }
 
