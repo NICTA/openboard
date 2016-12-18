@@ -84,8 +84,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Skills", "Improved Employment Status",
                                 None, SkillsImprovedEmployData,
                                 {}, {"percentage": "%", "uncertainty": "+",},
-                                verbosity,
-                                transforms={ "percentage": lambda x: 100.0-x, }))
+                                verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, indicator,
                                 "improved_employ-skills-hero", "improved_employ-skills-hero", 
