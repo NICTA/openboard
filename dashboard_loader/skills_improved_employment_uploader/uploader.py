@@ -96,7 +96,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "improved_employ-skills-hero-state", "improved_employ-skills-hero-state",
                                 "skills_improved_employ_state", "skills_improved_employ_state",
                                 SkillsImprovedEmployData, [("percentage", "uncertainty",),],
-                                want_increase=False,
+                                want_increase=True,
                                 verbosity=verbosity))
         messages.extend(
                 update_graph_data(
