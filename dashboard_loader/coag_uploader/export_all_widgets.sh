@@ -38,10 +38,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag ecenqs-
 echo "Exporting Skills Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag cert3-skills-hero > coag_uploader/exports/03_cert3-skills-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag higher_qual-skills-hero > coag_uploader/exports/03_higher_qual-skills-hero.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag improve_employ-skills-hero > coag_uploader/exports/03_improve_employ-skills-hero.json
 
 echo "Exporting Skills Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag cert3-skills-hero-state > coag_uploader/exports/03_cert3-skills-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag higher_qual-skills-hero-state > coag_uploader/exports/03_higher_qual-skills-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag improve_employ-skills-hero-state > coag_uploader/exports/03_improve_employ-skills-hero-state.json
 
 # Health Hero Widgets wdef sort_order 600, 605, ... 700, 705, ...
 echo "Exporting Health Hero Widgets"
@@ -121,10 +123,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag educati
 echo "Exporting Skills Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag skills_cert3 > coag_uploader/exports/03_cert3.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag skills_higher_qual > coag_uploader/exports/03_higher_qual.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag skills_improve_employ > coag_uploader/exports/03_improve_employ.json
 
 echo "Exporting Skills Detail Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag skills_cert3_state > coag_uploader/exports/03_cert3-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag skills_higher_qual_state > coag_uploader/exports/03_higher_qual-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag skills_improve_employ_state > coag_uploader/exports/03_improve_employ-state.json
 
 # Health Detail Widgets      wdef sort_order 2600, 2605, ... 2700, 2705, ...
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...

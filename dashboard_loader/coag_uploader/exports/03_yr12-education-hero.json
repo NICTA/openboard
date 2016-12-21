@@ -2,7 +2,7 @@
     "category": "education", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase Year 12 or equivalent attainment rate", 
+    "subtitle": "Increase Year 12 or equivalent (Cert III) attainment rate", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "yr12-education-hero", 
@@ -92,7 +92,7 @@
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "Benchmark"
+                                "label": "National Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "%", 

@@ -92,7 +92,7 @@
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "Benchmark"
+                                "label": "National Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "people", 
@@ -303,7 +303,7 @@
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "Benchmark"
+                                "label": "National Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "people", 

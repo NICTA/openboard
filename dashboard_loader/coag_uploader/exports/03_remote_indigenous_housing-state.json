@@ -152,7 +152,7 @@
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "Benchmark"
+                                "label": "National Benchmark (2014 refurbished; 2018 new)"
                             }
                         ], 
                         "numeric_axis_label": "", 
@@ -314,7 +314,7 @@
                                 "url": "benchmark", 
                                 "hyperlink": "", 
                                 "sort_order": 300, 
-                                "label": "Benchmark"
+                                "label": "National Benchmark (2014 refurbished; 2018 new)"
                             }
                         ], 
                         "cluster_label": "State", 

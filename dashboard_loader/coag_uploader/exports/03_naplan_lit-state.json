@@ -2,7 +2,7 @@
     "category": "education", 
     "edit_all_groups": [], 
     "source_url_text": "ACARA", 
-    "subtitle": "{{ state_abbrev }} students meeting National Minimum Standards for literacy", 
+    "subtitle": "{{ state_abbrev }} students meeting National Minimum Standards for reading", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "education_naplan_lit_state", 
@@ -531,7 +531,7 @@
                             "description": "The proportion of year 9 students at or above the national minimum standard in reading"
                         }
                     ], 
-                    "filename": "naplan_literacy_data_table.csv"
+                    "filename": "naplan_reading_data_table.csv"
                 }, 
                 {
                     "url": "education_naplan_lit", 
@@ -598,7 +598,7 @@
                             "description": "The proportion of year 9 students at or above the national minimum standard in reading (%)"
                         }
                     ], 
-                    "filename": "coag_education_naplan_literacy_data.csv"
+                    "filename": "coag_education_naplan_reading_data.csv"
                 }
             ], 
             "sort_order": 2310, 

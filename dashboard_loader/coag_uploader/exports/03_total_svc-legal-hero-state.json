@@ -109,8 +109,8 @@
                         ], 
                         "columns": [
                             {
-                                "sort_order": 100, 
-                                "label": "Benchmark"
+                                "sort_order": 101, 
+                                "label": "National Benchmark"
                             }, 
                             {
                                 "sort_order": 200, 
