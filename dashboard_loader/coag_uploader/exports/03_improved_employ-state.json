@@ -127,7 +127,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "state", 
-                                "colour": "purple-solid", 
+                                "colour": "{{ colour }}-solid", 
                                 "dynamic_label": false, 
                                 "label": "{{ state_abbrev }}"
                             }

@@ -140,7 +140,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "year_state", 
-                                "colour": "purple-solid", 
+                                "colour": "{{ colour }}-solid", 
                                 "dynamic_label": true, 
                                 "label": "Year ({{ state_abbrev }})"
                             }, 

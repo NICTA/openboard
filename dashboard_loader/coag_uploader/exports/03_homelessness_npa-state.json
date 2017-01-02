@@ -117,7 +117,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation_state", 
-                                "colour": "orange", 
+                                "colour": "{{ colour }}", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met ({{ state_abbrev }}"
                             }, 
@@ -127,7 +127,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "accommodation_aust", 
-                                "colour": "purple", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Accommodation needs met (Aust)"
                             }
