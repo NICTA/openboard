@@ -666,12 +666,12 @@ class GraphDataset(models.Model):
     # Lines, Bars, or Sectors
     graph=models.ForeignKey(GraphDefinition, help_text="The graph the dataset belongs to")
     url=models.SlugField(verbose_name="label", help_text="A short symbolic label for the dataset, as used in the API.")
-    label=models.CharField(verbose_name="name", max_length=80, help_text="A longer human-readable description of the dataset.")
+    label=models.CharField(verbose_name="name", max_length=80, help_text="A longer human-readable description of the dataset. (May be parametised)")
     dynamic_label=models.BooleanField(default=False, help_text="If false, the name (label) of the dataset is used. If true, this may be over-ridden by a dynamic value supplied with the data for the graph.")
-    colour = models.CharField(max_length=50, help_text="The colour of the dataset. Interpretation is implementation-specific. Typically a word colour hint rather than an explicit rgb value.")
+    colour = models.CharField(max_length=50, help_text="The colour of the dataset. Interpretation is implementation-specific. Typically a word colour hint rather than an explicit rgb value. (May be parametised)")
     use_secondary_numeric_axis = models.BooleanField(default=False, help_text="If true, data for this dataset are plotted against the graph's secondary numeric axis (which obviously must be defined). Not supported for pie charts.")
     use_error_bars = models.BooleanField(default=False, help_text="If true the data for this dataset will be accompanied by an upper and lower uncertainty limit, which may be plotted as error-bars. Not supported for pie charts.")
-    hyperlink=models.URLField(blank=True, null=True, help_text="An optional external URL for this dataset to link to.")
+    hyperlink=models.URLField(blank=True, null=True, help_text="An optional external URL for this dataset to link to. (May be parametised)")
     sort_order=models.IntegerField(help_text="How to sort this dataset within the graph.")
     class Meta:
         unique_together = [("graph", "url"), ("graph", "sort_order"), ("graph", "label")]
@@ -710,7 +710,7 @@ class GraphDataset(models.Model):
         state = {
             "label": self.url,
             "name": parametise_label(self.graph.tile.widget, view, self.label),
-            "colour": self.colour,
+            "colour": parametise_label(self.graph.tile.widget, view, self.colour),
             "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
             "dynamic_name_display": self.dynamic_label,
         }
