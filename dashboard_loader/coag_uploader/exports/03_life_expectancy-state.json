@@ -1,11 +1,11 @@
 {
-    "category": "education", 
+    "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase participation in post-school education, training or employment", 
+    "subtitle": "Life expectancy in years", 
     "subcategory": "national agreement", 
     "groups": [], 
-    "url": "education_participation_state", 
+    "url": "health_life_expectancy_state", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education_participation_header_state", 
+                    "url": "health_life_expectancy_header_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -76,7 +76,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education_participation_header", 
+                    "url": "health_life_expectancy_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -92,37 +92,29 @@
                         "rows": [
                             {
                                 "statistics": [
-                                    "ref_year", 
-                                    "curr_year"
+                                    "men_life_exp_state", 
+                                    "women_life_exp_state"
                                 ], 
                                 "sort_order": 100, 
-                                "label": ""
-                            }, 
-                            {
-                                "statistics": [
-                                    "reference_state", 
-                                    "latest_state"
-                                ], 
-                                "sort_order": 200, 
                                 "label": "{{ state_abbrev }}"
                             }, 
                             {
                                 "statistics": [
-                                    "reference", 
-                                    "latest"
+                                    "men_life_exp", 
+                                    "women_life_exp"
                                 ], 
-                                "sort_order": 300, 
+                                "sort_order": 200, 
                                 "label": "Aust"
                             }
                         ], 
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": "Reference Year"
+                                "label": "Men"
                             }, 
                             {
                                 "sort_order": 200, 
-                                "label": "Latest Year"
+                                "label": "Women"
                             }
                         ], 
                         "show_row_headers": true
@@ -130,66 +122,22 @@
                     "aspect": 3, 
                     "statistics": [
                         {
-                            "num_precision": null, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "numbered_list": false, 
-                            "hyperlinkable": false, 
-                            "url": "ref_year", 
-                            "traffic_light_automation": null, 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": null, 
-                            "unit_signed": false, 
-                            "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": null, 
-                            "rotates": false, 
-                            "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 10
-                        }, 
-                        {
-                            "num_precision": null, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "numbered_list": false, 
-                            "hyperlinkable": false, 
-                            "url": "curr_year", 
-                            "traffic_light_automation": null, 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": null, 
-                            "unit_underfix": null, 
-                            "unit_signed": false, 
-                            "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": null, 
-                            "rotates": false, 
-                            "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 20
-                        }, 
-                        {
                             "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "reference_state", 
+                            "url": "men_life_exp_state", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
+                            "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -201,7 +149,7 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "latest_state", 
+                            "url": "women_life_exp_state", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -211,7 +159,7 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -223,17 +171,17 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "reference", 
+                            "url": "men_life_exp", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
+                            "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -245,7 +193,7 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "latest", 
+                            "url": "women_life_exp", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -255,7 +203,7 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "%", 
+                            "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -263,7 +211,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education-participation-summary", 
+                    "url": "health-life_expectancy-summary", 
                     "tile_type": 9, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -300,7 +248,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education_participation_status_state", 
+                    "url": "health_life_expectancy_status_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -359,7 +307,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education_participation_status", 
+                    "url": "health_life_expectancy_status", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -372,7 +320,7 @@
                     "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "education_participation_details", 
+                    "url": "health_life_expectancy_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -385,7 +333,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "education_participation_detail_graph", 
+                    "url": "health_life_expectancy_male_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": true, 
                         "display_options": {
@@ -393,57 +341,243 @@
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 0, 
+                            "lines": 1, 
                             "points": 0, 
                             "rotates": false
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": null, 
+                        "horiz_axis_label": "", 
                         "use_secondary_numeric_axis": false, 
-                        "dataset_label": "dataset", 
-                        "clusters": [
-                            {
-                                "url": "state", 
-                                "hyperlink": "", 
-                                "sort_order": 10, 
-                                "label": "{{ state_abbrev }}"
-                            }, 
-                            {
-                                "url": "australia", 
-                                "hyperlink": "", 
-                                "sort_order": 20, 
-                                "label": "National"
-                            }
-                        ], 
+                        "dataset_label": "Jurisdiction", 
+                        "clusters": [], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
-                        "horiz_axis_type": 0, 
+                        "horiz_axis_type": 2, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "reference", 
-                                "colour": "orange", 
-                                "dynamic_label": true, 
-                                "label": "Reference Year"
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "latest_year", 
-                                "colour": "purple", 
-                                "dynamic_label": true, 
-                                "label": "Latest Year"
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
-                        "graph_type": 2, 
-                        "heading": ""
+                        "numeric_axis_label": "Years", 
+                        "graph_type": 1, 
+                        "heading": "Average Life Expectancy for Men"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "sort_order": 600, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_life_expectancy_female_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Jurisdiction", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "numeric_axis_label": "Years", 
+                        "graph_type": 1, 
+                        "heading": "Average Life Expectancy for Women"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
@@ -451,46 +585,47 @@
                     "template": null, 
                     "columns": null
                 }
+
             ], 
             "views": [
                 {
-                    "sort_order": 120, 
-                    "view": "education_act"
+                    "sort_order": 100, 
+                    "view": "healthcare_act"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_nsw"
+                    "sort_order": 100, 
+                    "view": "healthcare_nsw"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_nt"
+                    "sort_order": 100, 
+                    "view": "healthcare_nt"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_qld"
+                    "sort_order": 100, 
+                    "view": "healthcare_qld"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_sa"
+                    "sort_order": 100, 
+                    "view": "healthcare_sa"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_tas"
+                    "sort_order": 100, 
+                    "view": "healthcare_tas"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_vic"
+                    "sort_order": 100, 
+                    "view": "healthcare_vic"
                 }, 
                 {
-                    "sort_order": 120, 
-                    "view": "education_wa"
+                    "sort_order": 100, 
+                    "view": "healthcare_wa"
                 }
             ], 
-            "default_frequency_text": "Five yearly (Census)", 
+            "default_frequency_text": "Annual", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Post-School Participation", 
+                    "name": "Average Life Expectancy in years", 
                     "columns": [
                         {
                             "url": "year", 
@@ -499,227 +634,119 @@
                             "description": "The financial or calendar year."
                         }, 
                         {
-                            "url": "nsw_full_study", 
+                            "url": "nsw_males", 
                             "sort_order": 20, 
-                            "heading": "NSW | Full Time Study (%)", 
+                            "heading": "NSW | Men", 
                             "description": ""
                         }, 
                         {
-                            "url": "nsw_full_work", 
+                            "url": "nsw_females", 
                             "sort_order": 30, 
-                            "heading": "NSW | Full Time Work (%)", 
+                            "heading": "NSW | Women", 
                             "description": ""
                         }, 
                         {
-                            "url": "nsw_study_work", 
-                            "sort_order": 40, 
-                            "heading": "NSW | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "nsw_not_fully_engaged", 
-                            "sort_order": 50, 
-                            "heading": "NSW | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "vic_full_study", 
+                            "url": "vic_males", 
                             "sort_order": 60, 
-                            "heading": "Vic | Full Time Study (%)", 
+                            "heading": "Vic | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "vic_full_work", 
+                            "url": "vic_females", 
                             "sort_order": 70, 
-                            "heading": "Vic | Full Time Work (%)", 
+                            "heading": "Vic | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "vic_study_work", 
-                            "sort_order": 80, 
-                            "heading": "Vic | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "vic_not_fully_engaged", 
-                            "sort_order": 90, 
-                            "heading": "Vic | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "qld_full_study", 
+                            "url": "qld_males", 
                             "sort_order": 100, 
-                            "heading": "Qld | Full Time Study (%)", 
+                            "heading": "Qld | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "qld_full_work", 
+                            "url": "qld_females", 
                             "sort_order": 110, 
-                            "heading": "Qld | Full Time Work (%)", 
+                            "heading": "Qld | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "qld_study_work", 
-                            "sort_order": 120, 
-                            "heading": "Qld | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "qld_not_fully_engaged", 
-                            "sort_order": 130, 
-                            "heading": "Qld | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "wa_full_study", 
+                            "url": "wa_males", 
                             "sort_order": 140, 
-                            "heading": "WA | Full Time Study (%)", 
+                            "heading": "WA | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "wa_full_work", 
+                            "url": "wa_females", 
                             "sort_order": 150, 
-                            "heading": "WA | Full Time Work (%)", 
+                            "heading": "WA | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "wa_study_work", 
-                            "sort_order": 160, 
-                            "heading": "WA | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "wa_not_fully_engaged", 
-                            "sort_order": 170, 
-                            "heading": "WA | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "sa_full_study", 
+                            "url": "sa_males", 
                             "sort_order": 180, 
-                            "heading": "SA | Full Time Study (%)", 
+                            "heading": "SA | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "sa_full_work", 
+                            "url": "sa_females", 
                             "sort_order": 190, 
-                            "heading": "SA | Full Time Work (%)", 
+                            "heading": "SA | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "sa_study_work", 
-                            "sort_order": 200, 
-                            "heading": "SA | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "sa_not_fully_engaged", 
-                            "sort_order": 210, 
-                            "heading": "SA | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "tas_full_study", 
+                            "url": "tas_males", 
                             "sort_order": 220, 
-                            "heading": "Tas | Full Time Study (%)", 
+                            "heading": "Tas | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "tas_full_work", 
+                            "url": "tas_females", 
                             "sort_order": 230, 
-                            "heading": "Tas | Full Time Work (%)", 
+                            "heading": "Tas | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "tas_study_work", 
-                            "sort_order": 240, 
-                            "heading": "Tas | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "tas_not_fully_engaged", 
-                            "sort_order": 250, 
-                            "heading": "Tas | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "act_full_study", 
+                            "url": "act_males", 
                             "sort_order": 260, 
-                            "heading": "ACT | Full Time Study (%)", 
+                            "heading": "ACT | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "act_full_work", 
+                            "url": "act_females", 
                             "sort_order": 270, 
-                            "heading": "ACT | Full Time Work (%)", 
+                            "heading": "ACT | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "act_study_work", 
-                            "sort_order": 280, 
-                            "heading": "ACT | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "act_not_fully_engaged", 
-                            "sort_order": 290, 
-                            "heading": "ACT | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "nt_full_study", 
+                            "url": "nt_males", 
                             "sort_order": 300, 
-                            "heading": "NT | Full Time Study (%)", 
+                            "heading": "NT | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "nt_full_work", 
+                            "url": "nt_females", 
                             "sort_order": 310, 
-                            "heading": "NT | Full Time Work (%)", 
+                            "heading": "NT | Women",
                             "description": ""
                         }, 
                         {
-                            "url": "nt_study_work", 
-                            "sort_order": 320, 
-                            "heading": "NT | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "nt_not_fully_engaged", 
-                            "sort_order": 330, 
-                            "heading": "NT | Not Fully Engaged (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "australia_full_study", 
+                            "url": "australia_males", 
                             "sort_order": 340, 
-                            "heading": "Aust | Full Time Study (%)", 
+                            "heading": "Aust | Men",
                             "description": ""
                         }, 
                         {
-                            "url": "australia_full_work", 
+                            "url": "australia_females", 
                             "sort_order": 350, 
-                            "heading": "Aust | Full Time Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "australia_study_work", 
-                            "sort_order": 360, 
-                            "heading": "Aust | Study and Work (%)", 
-                            "description": ""
-                        }, 
-                        {
-                            "url": "australia_not_fully_engaged", 
-                            "sort_order": 370, 
-                            "heading": "Aust | Not Fully Engaged (%)", 
+                            "heading": "Aust | Women",
                             "description": ""
                         }
                     ], 
-                    "filename": "education_participation_data_table.csv"
+                    "filename": "health_life_expectancy_data_table.csv"
                 }, 
                 {
-                    "url": "education_participation", 
-                    "name": "Post-School Participation Data", 
+                    "url": "health_life_expectancy", 
+                    "name": "Life Expectancy Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -731,46 +758,34 @@
                             "url": "year", 
                             "sort_order": 20, 
                             "heading": "Year", 
-                            "description": "The calendar or financial year each row describes."
+                            "description": "The year range each row is averaged over."
                         }, 
                         {
-                            "url": "percentage_full_time_study", 
+                            "url": "years_males", 
                             "sort_order": 30, 
-                            "heading": "Proportion in full-time study (%)", 
-                            "description": "The proportion of school leavers aged 17-24 years enrolled in full-time study (%)."
+                            "heading": "Males", 
+                            "description": "The average life expectancy of men in years."
                         }, 
                         {
                             "url": "percentage_full_time_work", 
                             "sort_order": 40, 
-                            "heading": "Proportion in full-time employment (%)", 
-                            "description": "The proportion of school leavers aged 17-24 years engaged in full-time work (%)."
-                        }, 
-                        {
-                            "url": "percentage_study_work", 
-                            "sort_order": 50, 
-                            "heading": "Proportion in combination of study and work (%)", 
-                            "description": "The proportion of school leavers aged 17-24 years engaged in both study and work (%)."
-                        }, 
-                        {
-                            "url": "percentage_not_fully_engaged", 
-                            "sort_order": 60, 
-                            "heading": "Proportion in not fully engaged in is study or work (%)", 
-                            "description": "The proportion of school leavers aged 17-24 years not fully engaged in study or work (%)."
+                            "heading": "Females",
+                            "description": "The average life expectancy of women in years."
                         }
                     ], 
-                    "filename": "coag_education_participation_data.csv"
+                    "filename": "coag_health_life_expectancy_data.csv"
                 }
             ], 
-            "sort_order": 2320, 
+            "sort_order": 2700, 
             "expansion_hint": "View more", 
-            "about": "<p>Increase the proportion of young people participating in post-school education, training or employment.</p>", 
-            "refresh_rate": 3520, 
-            "label": "education_participation_state", 
+            "about": "<p>Improve the life expectancy for Australian men and women.</p>", 
+            "refresh_rate": 3900, 
+            "label": "health_life_expectancy_state",
             "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au", 
-    "name": "Post-School Participation"
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/3302.0.55.001", 
+    "name": "Life Expectancy"
 }
 

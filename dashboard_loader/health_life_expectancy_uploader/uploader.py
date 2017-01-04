@@ -85,12 +85,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_stats(desc, indicators,
                                 "life_expectancy-health-hero", "life_expectancy-health-hero", 
                                 "life_expectancy-health-hero-state", "life_expectancy-health-hero-state", 
-                                None,None,
-                                None,None,
+                                "health_life_expectancy", "health_life_expectancy",
+                                "health_life_expectancy_state", "health_life_expectancy_state",
                                 verbosity))
         messages.extend(update_state_stats(
                                 "life_expectancy-health-hero-state", "life_expectancy-health-hero-state", 
-                                None,None,
+                                "health_life_expectancy_state", "health_life_expectancy_state",
                                 HealthLifeExpectancyData, [ 
                                         ("males", None,),
                                         ("females", None,),
@@ -110,6 +110,30 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         latest_aust.females,
                         traffic_light_code=female_tlc,
                         trend=female_trend)
+        set_statistic_data('health_life_expectancy', 'health_life_expectancy',
+                        'men_life_exp',
+                        latest_aust.males,
+                        traffic_light_code=male_tlc,
+                        trend=male_trend)
+        set_statistic_data('health_life_expectancy', 'health_life_expectancy',
+                        'women_life_exp',
+                        latest_aust.females,
+                        traffic_light_code=female_tlc,
+                        trend=female_trend)
+        messages.extend(
+                update_graph_data(
+                        'health_life_expectancy', 'health_life_expectancy',
+                        'health_life_expectancy_female_graph',
+                        HealthLifeExpectancyData, "females",
+                        verbosity=verbosity)
+        )
+        messages.extend(
+                update_graph_data(
+                        'health_life_expectancy', 'health_life_expectancy',
+                        'health_life_expectancy_female_graph',
+                        HealthLifeExpectancyData, "females",
+                        verbosity=verbosity)
+        )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -141,6 +165,46 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             traffic_light_code=female_state_tlc,
                             trend=female_state_trend,
                             pval=pval)
+            set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
+                            'men_life_exp',
+                            latest_aust.males,
+                            traffic_light_code=male_tlc,
+                            trend=male_trend,
+                            pval=pval)
+            set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
+                            'women_life_exp',
+                            latest_aust.females,
+                            traffic_light_code=female_tlc,
+                            trend=female_trend,
+                            pval=pval)
+            set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
+                            'men_life_exp_state',
+                            latest_state.males,
+                            traffic_light_code=male_state_tlc,
+                            trend=male_state_trend,
+                            pval=pval)
+            set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
+                            'women_life_exp_state',
+                            latest_state.females,
+                            traffic_light_code=female_state_tlc,
+                            trend=female_state_trend,
+                            pval=pval)
+            messages.extend(
+                    update_graph_data(
+                            'health_life_expectancy_state', 'health_life_expectancy_state',
+                            'health_life_expectancy_female_graph',
+                            HealthLifeExpectancyData, "females",
+                            verbosity=verbosity,
+                            pval=pval)
+            )
+            messages.extend(
+                    update_graph_data(
+                            'health_life_expectancy_state', 'health_life_expectancy_state',
+                            'health_life_expectancy_female_graph',
+                            HealthLifeExpectancyData, "females",
+                            verbosity=verbosity,
+                            pval=pval)
+            )
     except LoaderException, e:
         raise e
     except Exception, e:

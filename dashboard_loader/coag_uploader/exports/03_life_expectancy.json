@@ -1,0 +1,612 @@
+{
+    "category": "health", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Life expectancy in years", 
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "health_life_expectancy", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_life_expectancy_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 2, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Men", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "men_life_exp", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": true, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Women", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "women_life_exp", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": true, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health-life_expectancy-summary", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_life_expectancy_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_life_expectancy_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_life_expectancy_male_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Jurisdiction", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "numeric_axis_label": "Years", 
+                        "graph_type": 1, 
+                        "heading": "Average Life Expectancy for Men"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "sort_order": 600, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_life_expectancy_female_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Jurisdiction", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "numeric_axis_label": "Years", 
+                        "graph_type": 1, 
+                        "heading": "Average Life Expectancy for Women"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 100, 
+                    "view": "healthcare"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Average Life Expectancy in years", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_males", 
+                            "sort_order": 20, 
+                            "heading": "NSW | Men", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_females", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Women", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_males", 
+                            "sort_order": 60, 
+                            "heading": "Vic | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_females", 
+                            "sort_order": 70, 
+                            "heading": "Vic | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_males", 
+                            "sort_order": 100, 
+                            "heading": "Qld | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_females", 
+                            "sort_order": 110, 
+                            "heading": "Qld | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_males", 
+                            "sort_order": 140, 
+                            "heading": "WA | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_females", 
+                            "sort_order": 150, 
+                            "heading": "WA | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_males", 
+                            "sort_order": 180, 
+                            "heading": "SA | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_females", 
+                            "sort_order": 190, 
+                            "heading": "SA | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_males", 
+                            "sort_order": 220, 
+                            "heading": "Tas | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_females", 
+                            "sort_order": 230, 
+                            "heading": "Tas | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_males", 
+                            "sort_order": 260, 
+                            "heading": "ACT | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_females", 
+                            "sort_order": 270, 
+                            "heading": "ACT | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_males", 
+                            "sort_order": 300, 
+                            "heading": "NT | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_females", 
+                            "sort_order": 310, 
+                            "heading": "NT | Women",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_males", 
+                            "sort_order": 340, 
+                            "heading": "Aust | Men",
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_females", 
+                            "sort_order": 350, 
+                            "heading": "Aust | Women",
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "health_life_expectancy_data_table.csv"
+                }, 
+                {
+                    "url": "health_life_expectancy", 
+                    "name": "Life Expectancy Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The year range each row is averaged over."
+                        }, 
+                        {
+                            "url": "years_males", 
+                            "sort_order": 30, 
+                            "heading": "Males", 
+                            "description": "The average life expectancy of men in years."
+                        }, 
+                        {
+                            "url": "percentage_full_time_work", 
+                            "sort_order": 40, 
+                            "heading": "Females",
+                            "description": "The average life expectancy of women in years."
+                        }
+                    ], 
+                    "filename": "coag_health_life_expectancy_data.csv"
+                }
+            ], 
+            "sort_order": 2600, 
+            "expansion_hint": "View more", 
+            "about": "<p>Improve the life expectancy for Australian men and women.</p>", 
+            "refresh_rate": 3900, 
+            "label": "health_life_expectancy",
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/3302.0.55.001", 
+    "name": "Life Expectancy"
+}
+

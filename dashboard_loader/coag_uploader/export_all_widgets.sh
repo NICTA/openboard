@@ -131,6 +131,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag skills_
 python manage.py export_widget --settings=dashboard_loader.settings_coag skills_improve_employ_state > coag_uploader/exports/03_improve_employ-state.json
 
 # Health Detail Widgets      wdef sort_order 2600, 2605, ... 2700, 2705, ...
+echo "Exporting Health Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy > coag_uploader/exports/03_life_expectancy.json
+
+echo "Exporting Health State Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy_state > coag_uploader/exports/03_life_expectancy-state.json
+
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 echo "Exporting Disability Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_labour_participation > coag_uploader/exports/03_labour_participation.json
