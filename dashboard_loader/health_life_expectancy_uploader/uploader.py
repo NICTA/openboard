@@ -123,8 +123,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(
                 update_graph_data(
                         'health_life_expectancy', 'health_life_expectancy',
-                        'health_life_expectancy_female_graph',
-                        HealthLifeExpectancyData, "females",
+                        'health_life_expectancy_male_graph',
+                        HealthLifeExpectancyData, "males",
                         verbosity=verbosity)
         )
         messages.extend(
@@ -192,8 +192,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.extend(
                     update_graph_data(
                             'health_life_expectancy_state', 'health_life_expectancy_state',
-                            'health_life_expectancy_female_graph',
-                            HealthLifeExpectancyData, "females",
+                            'health_life_expectancy_male_graph',
+                            HealthLifeExpectancyData, "males",
                             verbosity=verbosity,
                             pval=pval)
             )
