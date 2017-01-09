@@ -218,7 +218,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
-                                "colour": "blue-solid", 
+                                "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "NSW"
                             }, 
@@ -228,7 +228,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "vic", 
-                                "colour": "orange-solid", 
+                                "colour": "orange", 
                                 "dynamic_label": false, 
                                 "label": "Vic"
                             }, 
@@ -238,7 +238,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "qld", 
-                                "colour": "pale_blue-solid", 
+                                "colour": "pale_blue", 
                                 "dynamic_label": false, 
                                 "label": "Qld"
                             }, 
@@ -248,7 +248,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "wa", 
-                                "colour": "purple-solid", 
+                                "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "WA"
                             }, 
@@ -258,7 +258,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "sa", 
-                                "colour": "gold-solid", 
+                                "colour": "gold", 
                                 "dynamic_label": false, 
                                 "label": "SA"
                             }, 
@@ -268,7 +268,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "tas", 
-                                "colour": "dark_blue-solid", 
+                                "colour": "dark_blue", 
                                 "dynamic_label": false, 
                                 "label": "Tas"
                             }, 
@@ -278,7 +278,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "dark_green-solid", 
+                                "colour": "dark_green", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
@@ -288,7 +288,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nt", 
-                                "colour": "brown-solid", 
+                                "colour": "brown", 
                                 "dynamic_label": false, 
                                 "label": "NT"
                             }, 
@@ -298,7 +298,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "australia", 
-                                "colour": "green-solid", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Aust"
                             }, 
