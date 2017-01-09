@@ -49,10 +49,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag improve
 echo "Exporting Health Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero > coag_uploader/exports/03_life_expectancy-health-hero.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag diabetes-health-hero > coag_uploader/exports/03_diabetes-health-hero.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag healthyweight-health-hero > coag_uploader/exports/03_healthyweight-health-hero.json 
 
 echo "Exporting Health Hero Widgets (Parametised by State)"
-python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_diabetes-health-hero-state.json
-python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_diabetes-health-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_life_expectancy-health-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag diabetes-health-hero-state > coag_uploader/exports/03_diabetes-health-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag healthyweight-health-hero-state > coag_uploader/exports/03_healthyweight-health-hero-state.json
 
 # Disability Hero Widgets wdef sort_order 800, 805, ... 900, 905, ...
 echo "Exporting Disability Hero Widgets"
@@ -136,10 +138,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag skills_
 echo "Exporting Health Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy > coag_uploader/exports/03_life_expectancy.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_diabetes > coag_uploader/exports/03_diabetes.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_healthyweight > coag_uploader/exports/03_healthyweight.json
 
 echo "Exporting Health State Detail Widgets"
-python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy_state > coag_uploader/exports/03_diabetes-state.json
-python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy_state > coag_uploader/exports/03_diabetes-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy_state > coag_uploader/exports/03_life_expectancy-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_diabetes_state > coag_uploader/exports/03_diabetes-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_healthyweight_state > coag_uploader/exports/03_healthyweight-state.json
 
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 echo "Exporting Disability Detail Widgets"
