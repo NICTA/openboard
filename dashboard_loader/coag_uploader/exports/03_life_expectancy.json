@@ -305,7 +305,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
@@ -469,97 +469,97 @@
                         {
                             "url": "vic_males", 
                             "sort_order": 60, 
-                            "heading": "Vic | Men",
+                            "heading": "Vic | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "vic_females", 
                             "sort_order": 70, 
-                            "heading": "Vic | Women",
+                            "heading": "Vic | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "qld_males", 
                             "sort_order": 100, 
-                            "heading": "Qld | Men",
+                            "heading": "Qld | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "qld_females", 
                             "sort_order": 110, 
-                            "heading": "Qld | Women",
+                            "heading": "Qld | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "wa_males", 
                             "sort_order": 140, 
-                            "heading": "WA | Men",
+                            "heading": "WA | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "wa_females", 
                             "sort_order": 150, 
-                            "heading": "WA | Women",
+                            "heading": "WA | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "sa_males", 
                             "sort_order": 180, 
-                            "heading": "SA | Men",
+                            "heading": "SA | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "sa_females", 
                             "sort_order": 190, 
-                            "heading": "SA | Women",
+                            "heading": "SA | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "tas_males", 
                             "sort_order": 220, 
-                            "heading": "Tas | Men",
+                            "heading": "Tas | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "tas_females", 
                             "sort_order": 230, 
-                            "heading": "Tas | Women",
+                            "heading": "Tas | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "act_males", 
                             "sort_order": 260, 
-                            "heading": "ACT | Men",
+                            "heading": "ACT | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "act_females", 
                             "sort_order": 270, 
-                            "heading": "ACT | Women",
+                            "heading": "ACT | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "nt_males", 
                             "sort_order": 300, 
-                            "heading": "NT | Men",
+                            "heading": "NT | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "nt_females", 
                             "sort_order": 310, 
-                            "heading": "NT | Women",
+                            "heading": "NT | Women", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_males", 
                             "sort_order": 340, 
-                            "heading": "Aust | Men",
+                            "heading": "Aust | Men", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_females", 
                             "sort_order": 350, 
-                            "heading": "Aust | Women",
+                            "heading": "Aust | Women", 
                             "description": ""
                         }
                     ], 
@@ -590,7 +590,7 @@
                         {
                             "url": "percentage_full_time_work", 
                             "sort_order": 40, 
-                            "heading": "Females",
+                            "heading": "Females", 
                             "description": "The average life expectancy of women in years."
                         }
                     ], 
@@ -601,7 +601,7 @@
             "expansion_hint": "View more", 
             "about": "<p>Improve the life expectancy for Australian men and women.</p>", 
             "refresh_rate": 3900, 
-            "label": "health_life_expectancy",
+            "label": "health_life_expectancy", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }

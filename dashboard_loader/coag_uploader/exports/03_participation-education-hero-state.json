@@ -189,10 +189,10 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "%", 
+                            "unit_prefix": "", 
                             "sort_order": 100
                         }, 
                         {
@@ -211,10 +211,10 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "%", 
+                            "unit_prefix": "", 
                             "sort_order": 200
                         }, 
                         {

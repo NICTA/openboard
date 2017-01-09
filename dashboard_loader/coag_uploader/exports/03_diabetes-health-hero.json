@@ -1,11 +1,11 @@
 {
-    "category": "education", 
+    "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Participation in post-school education, training or employment", 
+    "subtitle": "Prevalence of Type 2 Diabetes", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "participation-education-hero", 
+    "url": "diabetes-health-hero", 
     "definitions": [
         {
             "tiles": [
@@ -27,7 +27,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education-participation-hero-header", 
+                    "url": "health-diabetes-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -55,16 +55,16 @@
                         {
                             "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "Reference Year", 
+                            "name": "2023 National Benchmark", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "reference", 
+                            "url": "benchmark", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
-                            "name_as_label": false, 
+                            "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -77,16 +77,16 @@
                         {
                             "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "Latest Year", 
+                            "name": "Prevalence", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "latest", 
+                            "url": "prevalence", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": false, 
-                            "trend": true, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -98,7 +98,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "education-participation-hero-stats", 
+                    "url": "health-diabetes-hero-stats", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -108,24 +108,24 @@
             ], 
             "views": [
                 {
-                    "child_view": "education", 
-                    "sort_order": 220, 
+                    "child_view": "healthcare", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "aus"
                 }
             ], 
-            "default_frequency_text": "Five yearly (Census)", 
+            "default_frequency_text": "Three yearly", 
             "raw_data_sets": [], 
-            "sort_order": 620, 
+            "sort_order": 605, 
             "expansion_hint": "", 
-            "about": "<p>Increase the proportion of young people participating in post-school education, training or employment.</p>", 
-            "refresh_rate": 5200, 
-            "label": "participation-education-hero", 
+            "about": "<p>Reduce the age-adjusted prevalence rate for Type 2 diabetes to 2000 levels by 2023.</p>", 
+            "refresh_rate": 3370, 
+            "label": "diabetes-health-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
     "source_url": "http://www.abs.gov.au", 
-    "name": "Education"
+    "name": "Health"
 }
 

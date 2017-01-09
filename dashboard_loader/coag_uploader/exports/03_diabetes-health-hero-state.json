@@ -1,11 +1,11 @@
 {
-    "category": "infrastructure", 
+    "category": "health", 
     "edit_all_groups": [], 
-    "source_url_text": "infrastructure.gov.au", 
-    "subtitle": "Road and rail projects", 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Prevalence of Type 2 Diabetes", 
     "subcategory": "summary", 
     "groups": [], 
-    "url": "projects-infrastructure-hero-state", 
+    "url": "diabetes-health-hero-state", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "infrastructure-projects-hero-header_state", 
+                    "url": "health-diabetes-hero-header_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -76,7 +76,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "infrastructure-projects-hero-header", 
+                    "url": "health-diabetes-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -85,49 +85,17 @@
                 }, 
                 {
                     "expansion": false, 
+                    "main_stat_count": 3,
                     "sort_order": 300, 
-                    "grid": {
-                        "corner_label": "", 
-                        "show_column_headers": true, 
-                        "rows": [
-                            {
-                                "statistics": [
-                                    "completed_state", 
-                                    "underway_state"
-                                ], 
-                                "sort_order": 100, 
-                                "label": "{{ state_abbrev }}"
-                            }, 
-                            {
-                                "statistics": [
-                                    "completed", 
-                                    "underway"
-                                ], 
-                                "sort_order": 200, 
-                                "label": "Aust"
-                            }
-                        ], 
-                        "columns": [
-                            {
-                                "sort_order": 100, 
-                                "label": "Completed"
-                            }, 
-                            {
-                                "sort_order": 200, 
-                                "label": "Underway"
-                            }
-                        ], 
-                        "show_row_headers": true
-                    }, 
                     "aspect": 3, 
                     "statistics": [
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "2023 National Benchmark", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "completed_state", 
+                            "url": "benchmark", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -137,19 +105,19 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "National", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "underway_state", 
+                            "url": "prevalence", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -159,19 +127,19 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 200
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "{{ state_abbrev }}", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "underway", 
+                            "url": "prevalence_state", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -181,29 +149,7 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 300
-                        }, 
-                        {
-                            "num_precision": 0, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "numbered_list": false, 
-                            "hyperlinkable": false, 
-                            "url": "completed", 
-                            "traffic_light_automation": null, 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale", 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -211,8 +157,8 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "infrastructure-projects-hero-stats", 
-                    "tile_type": 9, 
+                    "url": "health-diabetes-hero-stats", 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -221,66 +167,66 @@
             ], 
             "views": [
                 {
-                    "child_view": "infrastructure_act", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_act", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
-                    "child_view": "infrastructure_nsw", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_nsw", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
-                    "child_view": "infrastructure_nt", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_nt", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
-                    "child_view": "infrastructure_sa", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_sa", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
-                    "child_view": "infrastructure_qld", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_qld", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
-                    "child_view": "infrastructure_vic", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_vic", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
-                    "child_view": "infrastructure_tas", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_tas", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
-                    "child_view": "infrastructure_wa", 
-                    "sort_order": 700, 
+                    "child_view": "healthcare_wa", 
+                    "sort_order": 405, 
                     "child_view_text": "See all", 
                     "view": "wa"
                 }
             ], 
-            "default_frequency_text": "Annual", 
+            "default_frequency_text": "Three yearly", 
             "raw_data_sets": [], 
-            "sort_order": 1300, 
+            "sort_order": 705, 
             "expansion_hint": "", 
-            "about": "<p>Contribute to a safe, sustainable national transport system.</p>", 
-            "refresh_rate": 3900, 
-            "label": "projects-infrastructure-hero-state", 
+            "about": "<p>Reduce the age-adjusted prevalence rate for Type 2 diabetes to 2000 levels by 2023.</p>", 
+            "refresh_rate": 3370, 
+            "label": "diabetes-health-hero-state", 
             "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://infrastructure.gov.au", 
-    "name": "Infrastructure"
+    "source_url": "http://www.abs.gov.au", 
+    "name": "Health"
 }
 

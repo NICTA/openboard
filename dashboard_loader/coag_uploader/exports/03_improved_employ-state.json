@@ -415,7 +415,7 @@
                     "view": "skills_wa"
                 }
             ], 
-            "default_frequency_text": "Annual",
+            "default_frequency_text": "Annual", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
@@ -572,14 +572,14 @@
             ], 
             "sort_order": 2510, 
             "expansion_hint": "View more", 
-            "about": "<p>Improve the proportion of VET graduates with improved employment status after training</p>",
+            "about": "<p>Improve the proportion of VET graduates with improved employment status after training</p>", 
             "refresh_rate": 3420, 
             "label": "skills_improved_employ_state", 
             "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.ncver.edu.au",
+    "source_url": "http://www.ncver.edu.au", 
     "name": "Improved Employment Status"
 }
 

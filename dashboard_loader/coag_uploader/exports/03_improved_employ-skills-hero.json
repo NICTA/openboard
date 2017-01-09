@@ -108,14 +108,14 @@
             "raw_data_sets": [], 
             "sort_order": 410, 
             "expansion_hint": "", 
-            "about": "<p>Improve the proportion of VET graduates with improved employment status after training</p>",
+            "about": "<p>Improve the proportion of VET graduates with improved employment status after training</p>", 
             "refresh_rate": 3420, 
             "label": "improved_employ-skills-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.ncver.edu.au",
+    "source_url": "http://www.ncver.edu.au", 
     "name": "Skills"
 }
 

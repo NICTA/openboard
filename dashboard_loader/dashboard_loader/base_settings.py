@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'skills_higher_qual_uploader',
     'skills_improved_employment_uploader',
     'health_life_expectancy_uploader',
+    'health_diabetes_uploader',
     'disability_labour_participation_uploader',
     'disability_social_participation_uploader',
     'disability_more_assist_uploader',

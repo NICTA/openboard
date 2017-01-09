@@ -1,11 +1,11 @@
 {
-    "category": "skills", 
+    "category": "health", 
     "edit_all_groups": [], 
-    "source_url_text": "www.ncver.gov.au", 
-    "subtitle": "Increase proportion of VET graduates with improved employment after training", 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Reduce the age-adjusted prevalence rate for Type 2 diabetes", 
     "subcategory": "national agreement", 
     "groups": [], 
-    "url": "skills_improved_employ", 
+    "url": "health_diabetes", 
     "definitions": [
         {
             "tiles": [
@@ -27,7 +27,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills_improved_employ_header", 
+                    "url": "health_diabetes_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -48,48 +48,58 @@
                 }, 
                 {
                     "expansion": false, 
+                    "main_stat_count": 2, 
                     "sort_order": 200, 
                     "aspect": 3, 
-                    "statistics": [], 
-                    "list_label_width": null, 
-                    "url": "skills_improved_employ_summary_graph", 
-                    "graph": {
-                        "numeric_axis_always_show_zero": false, 
-                        "display_options": {
-                            "shaded": false, 
-                            "stacked": false, 
-                            "single_graph": true, 
-                            "point_colour_map": null, 
-                            "lines": 1, 
-                            "points": 0, 
-                            "rotates": false
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "2023 National Benchmark", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "benchmark", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
                         }, 
-                        "secondary_numeric_axis_label": null, 
-                        "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
-                        "use_secondary_numeric_axis": false, 
-                        "dataset_label": "dataset", 
-                        "clusters": [], 
-                        "cluster_label": "cluster", 
-                        "dynamic_clusters": false, 
-                        "horiz_axis_type": 2, 
-                        "datasets": [
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 100, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
-                                "dynamic_label": false, 
-                                "label": "Australia"
-                            }
-                        ], 
-                        "numeric_axis_label": "%", 
-                        "graph_type": 1, 
-                        "heading": ""
-                    }, 
-                    "tile_type": 6, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "Prevalence", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "prevalence", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": false, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health-diabetes-summary", 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -113,7 +123,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -135,7 +145,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -147,7 +157,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "skills_improved_employ_status", 
+                    "url": "health_diabetes_status", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -160,7 +170,7 @@
                     "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills_improved_employ_details", 
+                    "url": "health_diabetes_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -173,27 +183,34 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "skills_improved_employ_detail_graph", 
+                    "url": "health_diabetes_detail_graph", 
                     "graph": {
-                        "numeric_axis_always_show_zero": false, 
+                        "numeric_axis_always_show_zero": true, 
                         "display_options": {
                             "shaded": false, 
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 1, 
+                            "lines": 0, 
                             "points": 0, 
                             "rotates": false
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
+                        "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "dataset", 
-                        "clusters": [], 
+                        "clusters": [
+                            {
+                                "url": "diabetes_prevalence", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "Aged standardised diabetes prevalance"
+                            }
+                        ], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
-                        "horiz_axis_type": 2, 
+                        "horiz_axis_type": 0, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
@@ -261,7 +278,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "brown-solid", 
+                                "colour": "dark_green-solid", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
@@ -271,7 +288,7 @@
                                 "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nt", 
-                                "colour": "dark_green-solid", 
+                                "colour": "brown-solid", 
                                 "dynamic_label": false, 
                                 "label": "NT"
                             }, 
@@ -284,10 +301,20 @@
                                 "colour": "green-solid", 
                                 "dynamic_label": false, 
                                 "label": "Aust"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 1000, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "2023 National Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "%", 
-                        "graph_type": 1, 
+                        "graph_type": 2, 
                         "heading": ""
                     }, 
                     "tile_type": 6, 
@@ -299,136 +326,136 @@
             ], 
             "views": [
                 {
-                    "sort_order": 110, 
-                    "view": "skills"
+                    "sort_order": 105, 
+                    "view": "healthcare"
                 }
             ], 
-            "default_frequency_text": "Annual", 
+            "default_frequency_text": "Three yearly", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Improved Employment Status", 
+                    "name": "Age-Standardised Type 2 Diabetes Prevalence", 
                     "columns": [
                         {
                             "url": "year", 
                             "sort_order": 10, 
                             "heading": "Year", 
-                            "description": "The financial or calendar year."
+                            "description": "The year range."
                         }, 
                         {
-                            "url": "nsw_percent", 
+                            "url": "nsw_prevalence", 
                             "sort_order": 20, 
-                            "heading": "NSW | %", 
+                            "heading": "NSW | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nsw_error", 
+                            "url": "nsw_uncertainty", 
                             "sort_order": 30, 
                             "heading": "NSW | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_percent", 
-                            "sort_order": 40, 
-                            "heading": "Vic | %", 
+                            "url": "vic_prevalence", 
+                            "sort_order": 60, 
+                            "heading": "Vic | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_error", 
-                            "sort_order": 50, 
+                            "url": "vic_uncertainty", 
+                            "sort_order": 70, 
                             "heading": "Vic | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_percent", 
-                            "sort_order": 60, 
-                            "heading": "Qld | %", 
+                            "url": "qld_prevalence", 
+                            "sort_order": 100, 
+                            "heading": "Qld | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_error", 
-                            "sort_order": 70, 
+                            "url": "qld_uncertainty", 
+                            "sort_order": 110, 
                             "heading": "Qld | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_percent", 
-                            "sort_order": 80, 
-                            "heading": "WA | %", 
+                            "url": "wa_prevalence", 
+                            "sort_order": 140, 
+                            "heading": "WA | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_error", 
-                            "sort_order": 90, 
+                            "url": "wa_uncertainty", 
+                            "sort_order": 150, 
                             "heading": "WA | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_percent", 
-                            "sort_order": 100, 
-                            "heading": "SA | %", 
+                            "url": "sa_prevalence", 
+                            "sort_order": 180, 
+                            "heading": "SA | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_error", 
-                            "sort_order": 110, 
+                            "url": "sa_uncertainty", 
+                            "sort_order": 190, 
                             "heading": "SA | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_percent", 
-                            "sort_order": 120, 
-                            "heading": "Tas | %", 
+                            "url": "tas_prevalence", 
+                            "sort_order": 220, 
+                            "heading": "Tas | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_error", 
-                            "sort_order": 130, 
+                            "url": "tas_uncertainty", 
+                            "sort_order": 230, 
                             "heading": "Tas | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_percent", 
-                            "sort_order": 140, 
-                            "heading": "ACT | %", 
+                            "url": "act_prevalence", 
+                            "sort_order": 260, 
+                            "heading": "ACT | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_error", 
-                            "sort_order": 150, 
+                            "url": "act_uncertainty", 
+                            "sort_order": 270, 
                             "heading": "ACT | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_percent", 
-                            "sort_order": 160, 
-                            "heading": "NT | %", 
+                            "url": "nt_prevalence", 
+                            "sort_order": 300, 
+                            "heading": "NT | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_error", 
-                            "sort_order": 170, 
+                            "url": "nt_uncertainty", 
+                            "sort_order": 310, 
                             "heading": "NT | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_percent", 
-                            "sort_order": 180, 
-                            "heading": "Aust | %", 
+                            "url": "australia_prevalence", 
+                            "sort_order": 340, 
+                            "heading": "Aust | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_error", 
-                            "sort_order": 190, 
+                            "url": "australia_uncertainty", 
+                            "sort_order": 350, 
                             "heading": "Aust | \u00b1", 
                             "description": ""
                         }
                     ], 
-                    "filename": "improved_employment_data_table.csv"
+                    "filename": "health_diabetes_data_table.csv"
                 }, 
                 {
-                    "url": "skills_improved_employ", 
-                    "name": "Improved Employment Status Data", 
+                    "url": "health_diabetes", 
+                    "name": "Diabetes Prevalence Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -440,34 +467,34 @@
                             "url": "year", 
                             "sort_order": 20, 
                             "heading": "Year", 
-                            "description": "The calendar or financial year each row describes."
+                            "description": "The year range each row describes."
                         }, 
                         {
-                            "url": "percentage_improved_employment", 
+                            "url": "percentage_diabetes_prevalence", 
                             "sort_order": 30, 
-                            "heading": "People with improved employment status (%)", 
-                            "description": "Proportion of VET graduates with improved employment status after training (%)"
+                            "heading": "Age-standardised Type 2 Diabetes Prevalence (%)", 
+                            "description": "Age-standardised proportion of persons aged 25 and over with Type 2 Diabetes (%)"
                         }, 
                         {
                             "url": "uncertainty", 
                             "sort_order": 40, 
-                            "heading": "Uncertainty", 
-                            "description": "The uncertainty in the main percentage figure."
+                            "heading": "95% confidence interval", 
+                            "description": "The uncertainty in the main percentage prevalence figure."
                         }
                     ], 
-                    "filename": "coag_skills_improved_employment_data.csv"
+                    "filename": "coag_health_diabetes_data.csv"
                 }
             ], 
-            "sort_order": 2410, 
+            "sort_order": 2605, 
             "expansion_hint": "View more", 
-            "about": "<p>Improve the proportion of VET graduates with improved employment status after training</p>", 
-            "refresh_rate": 3420, 
-            "label": "skills_improved_employ", 
+            "about": "<p>Reduce the age-adjusted prevalence rate for Type 2 diabetes to 2000 levels by 2023.</p>", 
+            "refresh_rate": 3370, 
+            "label": "health_diabetes", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.ncver.edu.au", 
-    "name": "Improved Employment Status"
+    "source_url": "http://www.abs.gov.au", 
+    "name": "Diabetes Prevalence"
 }
 

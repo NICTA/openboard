@@ -2,10 +2,10 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Life expectancy in years", 
+    "subtitle": "Reduce the age-adjusted prevalence rate for Type 2 diabetes", 
     "subcategory": "national agreement", 
     "groups": [], 
-    "url": "health_life_expectancy_state", 
+    "url": "health_diabetes_state", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health_life_expectancy_header_state", 
+                    "url": "health_diabetes_header_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -64,7 +64,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -76,7 +76,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health_life_expectancy_header", 
+                    "url": "health_diabetes_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -85,59 +85,27 @@
                 }, 
                 {
                     "expansion": false, 
+                    "main_stat_count": 3,
                     "sort_order": 200, 
-                    "grid": {
-                        "corner_label": "", 
-                        "show_column_headers": false, 
-                        "rows": [
-                            {
-                                "statistics": [
-                                    "men_life_exp_state", 
-                                    "women_life_exp_state"
-                                ], 
-                                "sort_order": 100, 
-                                "label": "{{ state_abbrev }}"
-                            }, 
-                            {
-                                "statistics": [
-                                    "men_life_exp", 
-                                    "women_life_exp"
-                                ], 
-                                "sort_order": 200, 
-                                "label": "Aust"
-                            }
-                        ], 
-                        "columns": [
-                            {
-                                "sort_order": 100, 
-                                "label": "Men"
-                            }, 
-                            {
-                                "sort_order": 200, 
-                                "label": "Women"
-                            }
-                        ], 
-                        "show_row_headers": true
-                    }, 
                     "aspect": 3, 
                     "statistics": [
                         {
                             "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "2023 National Benchmark", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "men_life_exp_state", 
+                            "url": "benchmark", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": true, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -146,20 +114,20 @@
                         {
                             "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "National", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "women_life_exp_state", 
+                            "url": "prevalence", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
-                            "name_as_label": true, 
-                            "trend": true, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "name_as_label": false, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
@@ -168,51 +136,29 @@
                         {
                             "num_precision": 1, 
                             "icon_library": null, 
-                            "name": "", 
+                            "name": "{{ state_abbrev }}", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "women_life_exp", 
+                            "url": "prevalence_state", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
-                            "name_as_label": true, 
-                            "trend": true, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "name_as_label": false, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 300
-                        }, 
-                        {
-                            "num_precision": 1, 
-                            "icon_library": null, 
-                            "name": "", 
-                            "numbered_list": false, 
-                            "hyperlinkable": false, 
-                            "url": "men_life_exp", 
-                            "traffic_light_automation": null, 
-                            "footer": false, 
-                            "editable": true, 
-                            "name_as_label": true, 
-                            "trend": true, 
-                            "traffic_light_scale": "Indicator Scale", 
-                            "unit_underfix": "", 
-                            "unit_signed": false, 
-                            "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
-                            "rotates": false, 
-                            "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 300
-                        }
+                        } 
                     ], 
                     "list_label_width": null, 
-                    "url": "health-life_expectancy-summary", 
-                    "tile_type": 9, 
+                    "url": "health-diabetes-summary", 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
@@ -248,7 +194,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health_life_expectancy_status_state", 
+                    "url": "health_diabetes_status_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -273,7 +219,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -295,7 +241,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Indicator Scale", 
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": null, 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -307,7 +253,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health_life_expectancy_status", 
+                    "url": "health_diabetes_status", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -320,7 +266,7 @@
                     "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_life_expectancy_details", 
+                    "url": "health_diabetes_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -333,7 +279,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_life_expectancy_male_graph", 
+                    "url": "health_diabetes_detail_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": true, 
                         "display_options": {
@@ -341,24 +287,31 @@
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 1, 
+                            "lines": 0, 
                             "points": 0, 
                             "rotates": false
                         }, 
                         "secondary_numeric_axis_label": null, 
                         "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
+                        "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
-                        "dataset_label": "Jurisdiction", 
-                        "clusters": [], 
+                        "dataset_label": "dataset", 
+                        "clusters": [
+                            {
+                                "url": "diabetes_prevalence", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "Aged standardised diabetes prevalance"
+                            }
+                        ], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
-                        "horiz_axis_type": 2, 
+                        "horiz_axis_type": 0, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 100, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
                                 "colour": "blue-solid", 
@@ -368,7 +321,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "vic", 
                                 "colour": "orange-solid", 
@@ -378,7 +331,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "qld", 
                                 "colour": "pale_blue-solid", 
@@ -388,7 +341,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "wa", 
                                 "colour": "purple-solid", 
@@ -398,7 +351,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "sa", 
                                 "colour": "gold-solid", 
@@ -408,7 +361,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 600, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "tas", 
                                 "colour": "dark_blue-solid", 
@@ -418,7 +371,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 700, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "act", 
                                 "colour": "dark_green-solid", 
@@ -428,7 +381,7 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 800, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "nt", 
                                 "colour": "brown-solid", 
@@ -438,146 +391,27 @@
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 900, 
-                                "use_error_bars": false, 
+                                "use_error_bars": true, 
                                 "hyperlink": "", 
                                 "url": "australia", 
                                 "colour": "green-solid", 
                                 "dynamic_label": false, 
                                 "label": "Aust"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 1000, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "2023 National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "Years", 
-                        "graph_type": 1, 
-                        "heading": "Average Life Expectancy for Men"
-                    }, 
-                    "tile_type": 6, 
-                    "geo_datasets": [], 
-                    "geo_window": null, 
-                    "template": null, 
-                    "columns": null
-                }, 
-                {
-                    "expansion": true, 
-                    "sort_order": 600, 
-                    "aspect": 3, 
-                    "statistics": [], 
-                    "list_label_width": null, 
-                    "url": "health_life_expectancy_female_graph", 
-                    "graph": {
-                        "numeric_axis_always_show_zero": true, 
-                        "display_options": {
-                            "shaded": false, 
-                            "stacked": false, 
-                            "single_graph": true, 
-                            "point_colour_map": null, 
-                            "lines": 1, 
-                            "points": 0, 
-                            "rotates": false
-                        }, 
-                        "secondary_numeric_axis_label": null, 
-                        "secondary_numeric_axis_always_show_zero": true, 
-                        "horiz_axis_label": "", 
-                        "use_secondary_numeric_axis": false, 
-                        "dataset_label": "Jurisdiction", 
-                        "clusters": [], 
-                        "cluster_label": "cluster", 
-                        "dynamic_clusters": false, 
-                        "horiz_axis_type": 2, 
-                        "datasets": [
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 100, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "nsw", 
-                                "colour": "blue-solid", 
-                                "dynamic_label": false, 
-                                "label": "NSW"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 200, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "vic", 
-                                "colour": "orange-solid", 
-                                "dynamic_label": false, 
-                                "label": "Vic"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 300, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "qld", 
-                                "colour": "pale_blue-solid", 
-                                "dynamic_label": false, 
-                                "label": "Qld"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 400, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "wa", 
-                                "colour": "purple-solid", 
-                                "dynamic_label": false, 
-                                "label": "WA"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 500, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "sa", 
-                                "colour": "gold-solid", 
-                                "dynamic_label": false, 
-                                "label": "SA"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 600, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "tas", 
-                                "colour": "dark_blue-solid", 
-                                "dynamic_label": false, 
-                                "label": "Tas"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 700, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "act", 
-                                "colour": "dark_green-solid", 
-                                "dynamic_label": false, 
-                                "label": "ACT"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 800, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "nt", 
-                                "colour": "brown-solid", 
-                                "dynamic_label": false, 
-                                "label": "NT"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 900, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
-                                "dynamic_label": false, 
-                                "label": "Aust"
-                            }
-                        ], 
-                        "numeric_axis_label": "Years", 
-                        "graph_type": 1, 
-                        "heading": "Average Life Expectancy for Women"
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
@@ -585,38 +419,39 @@
                     "template": null, 
                     "columns": null
                 }
+
             ], 
             "views": [
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_act"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_nsw"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_nt"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_qld"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_sa"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_tas"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_vic"
                 }, 
                 {
-                    "sort_order": 100, 
+                    "sort_order": 105, 
                     "view": "healthcare_wa"
                 }
             ], 
@@ -624,128 +459,128 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Average Life Expectancy in years", 
+                    "name": "Age-Standardised Type 2 Diabetes Prevalence", 
                     "columns": [
                         {
                             "url": "year", 
                             "sort_order": 10, 
                             "heading": "Year", 
-                            "description": "The financial or calendar year."
+                            "description": "The year range."
                         }, 
                         {
-                            "url": "nsw_males", 
+                            "url": "nsw_prevalence", 
                             "sort_order": 20, 
-                            "heading": "NSW | Men", 
+                            "heading": "NSW | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nsw_females", 
+                            "url": "nsw_uncertainty", 
                             "sort_order": 30, 
-                            "heading": "NSW | Women", 
+                            "heading": "NSW | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_males", 
+                            "url": "vic_prevalence", 
                             "sort_order": 60, 
-                            "heading": "Vic | Men", 
+                            "heading": "Vic | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "vic_females", 
+                            "url": "vic_uncertainty", 
                             "sort_order": 70, 
-                            "heading": "Vic | Women", 
+                            "heading": "Vic | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_males", 
+                            "url": "qld_prevalence", 
                             "sort_order": 100, 
-                            "heading": "Qld | Men", 
+                            "heading": "Qld | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "qld_females", 
+                            "url": "qld_uncertainty", 
                             "sort_order": 110, 
-                            "heading": "Qld | Women", 
+                            "heading": "Qld | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_males", 
+                            "url": "wa_prevalence", 
                             "sort_order": 140, 
-                            "heading": "WA | Men", 
+                            "heading": "WA | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "wa_females", 
+                            "url": "wa_uncertainty", 
                             "sort_order": 150, 
-                            "heading": "WA | Women", 
+                            "heading": "WA | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_males", 
+                            "url": "sa_prevalence", 
                             "sort_order": 180, 
-                            "heading": "SA | Men", 
+                            "heading": "SA | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "sa_females", 
+                            "url": "sa_uncertainty", 
                             "sort_order": 190, 
-                            "heading": "SA | Women", 
+                            "heading": "SA | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_males", 
+                            "url": "tas_prevalence", 
                             "sort_order": 220, 
-                            "heading": "Tas | Men", 
+                            "heading": "Tas | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "tas_females", 
+                            "url": "tas_uncertainty", 
                             "sort_order": 230, 
-                            "heading": "Tas | Women", 
+                            "heading": "Tas | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_males", 
+                            "url": "act_prevalence", 
                             "sort_order": 260, 
-                            "heading": "ACT | Men", 
+                            "heading": "ACT | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "act_females", 
+                            "url": "act_uncertainty", 
                             "sort_order": 270, 
-                            "heading": "ACT | Women", 
+                            "heading": "ACT | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_males", 
+                            "url": "nt_prevalence", 
                             "sort_order": 300, 
-                            "heading": "NT | Men", 
+                            "heading": "NT | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "nt_females", 
+                            "url": "nt_uncertainty", 
                             "sort_order": 310, 
-                            "heading": "NT | Women", 
+                            "heading": "NT | \u00b1", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_males", 
+                            "url": "australia_prevalence", 
                             "sort_order": 340, 
-                            "heading": "Aust | Men", 
+                            "heading": "Aust | Diabetes Prevalence (%)", 
                             "description": ""
                         }, 
                         {
-                            "url": "australia_females", 
+                            "url": "australia_uncertainty", 
                             "sort_order": 350, 
-                            "heading": "Aust | Women", 
+                            "heading": "Aust | \u00b1", 
                             "description": ""
                         }
                     ], 
-                    "filename": "health_life_expectancy_data_table.csv"
+                    "filename": "health_diabetes_data_table.csv"
                 }, 
                 {
-                    "url": "health_life_expectancy", 
-                    "name": "Life Expectancy Data", 
+                    "url": "health_diabetes", 
+                    "name": "Diabetes Prevalence Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -757,34 +592,34 @@
                             "url": "year", 
                             "sort_order": 20, 
                             "heading": "Year", 
-                            "description": "The year range each row is averaged over."
+                            "description": "The year range each row describes."
                         }, 
                         {
-                            "url": "years_males", 
+                            "url": "percentage_diabetes_prevalence", 
                             "sort_order": 30, 
-                            "heading": "Males", 
-                            "description": "The average life expectancy of men in years."
+                            "heading": "Age-standardised Type 2 Diabetes Prevalence (%)", 
+                            "description": "Age-standardised proportion of persons aged 25 and over with Type 2 Diabetes (%)"
                         }, 
                         {
-                            "url": "percentage_full_time_work", 
+                            "url": "uncertainty", 
                             "sort_order": 40, 
-                            "heading": "Females", 
-                            "description": "The average life expectancy of women in years."
+                            "heading": "95% confidence interval", 
+                            "description": "The uncertainty in the main percentage prevalence figure."
                         }
                     ], 
-                    "filename": "coag_health_life_expectancy_data.csv"
+                    "filename": "coag_health_diabetes_data.csv"
                 }
             ], 
-            "sort_order": 2700, 
+            "sort_order": 2705, 
             "expansion_hint": "View more", 
-            "about": "<p>Improve the life expectancy for Australian men and women.</p>", 
-            "refresh_rate": 3900, 
-            "label": "health_life_expectancy_state", 
+            "about": "<p>Reduce the age-adjusted prevalence rate for Type 2 diabetes to 2000 levels by 2023.</p>", 
+            "refresh_rate": 3370, 
+            "label": "health_diabetes_state", 
             "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/3302.0.55.001", 
-    "name": "Life Expectancy"
+    "source_url": "http://www.abs.gov.au", 
+    "name": "Diabetes Prevalence"
 }
 
