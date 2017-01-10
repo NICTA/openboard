@@ -323,7 +323,7 @@
             ], 
             "default_frequency_text": "Five yearly (Census)", 
             "raw_data_sets": [], 
-            "sort_order": 720, 
+            "sort_order": 320, 
             "expansion_hint": "", 
             "about": "<p>Increase the proportion of young people participating in post-school education, training or employment.</p>", 
             "refresh_rate": 5200, 

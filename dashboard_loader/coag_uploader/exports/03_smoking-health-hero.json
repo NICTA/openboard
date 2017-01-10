@@ -1,0 +1,131 @@
+{
+    "category": "health", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Reduce national smoking rate",
+    "subcategory": "summary", 
+    "groups": [], 
+    "url": "smoking-health-hero", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health-smoking-hero-header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 300, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health-smoking-hero-graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Australia"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "National Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "child_view": "healthcare", 
+                    "sort_order": 420, 
+                    "child_view_text": "See all", 
+                    "view": "aus"
+                }
+            ], 
+            "default_frequency_text": "Five-yearly", 
+            "raw_data_sets": [], 
+            "sort_order": 620, 
+            "expansion_hint": "", 
+            "about": "<p>By 2018, reduce the national smoking rate to 10 per cent of the population.</p>",
+            "refresh_rate": 3830, 
+            "label": "smoking-health-hero", 
+            "parametisation": null, 
+            "deexpansion_hint": ""
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au",
+    "name": "Health"
+}
+
