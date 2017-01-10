@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'health_life_expectancy_uploader',
     'health_diabetes_uploader',
     'health_healthyweight_uploader',
+    'health_childhealthyweight_uploader',
     'disability_labour_participation_uploader',
     'disability_social_participation_uploader',
     'disability_more_assist_uploader',

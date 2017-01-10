@@ -2,13 +2,50 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase adults at a healthy body weight",
+    "subtitle": "Increase children at a healthy body weight",
     "subcategory": "summary", 
     "groups": [], 
-    "url": "healthyweight-health-hero", 
+    "url": "childweight-health-hero-state", 
     "definitions": [
         {
             "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health-childweight-hero-header-state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
                 {
                     "expansion": false, 
                     "main_stat_count": 1, 
@@ -18,7 +55,7 @@
                         {
                             "num_precision": null, 
                             "icon_library": "indicator_benchmark_icons", 
-                            "name": "", 
+                            "name": "Nationally", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
                             "url": "status_header", 
@@ -39,7 +76,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health-healthyweight-hero-header", 
+                    "url": "health-childweight-hero-header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +89,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health-healthyweight-hero-graph", 
+                    "url": "health-childweight-hero-graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -82,11 +119,21 @@
                                 "url": "australia", 
                                 "colour": "green-solid", 
                                 "dynamic_label": false, 
-                                "label": "Australia"
+                                "label": "Aust"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "{{ colour }}-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
@@ -108,20 +155,62 @@
             ], 
             "views": [
                 {
-                    "child_view": "healthcare", 
-                    "sort_order": 410, 
+                    "child_view": "healthcare_act", 
+                    "sort_order": 415, 
                     "child_view_text": "See all", 
-                    "view": "aus"
+                    "view": "act"
+                }, 
+                {
+                    "child_view": "healthcare_nsw", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "nsw"
+                }, 
+                {
+                    "child_view": "healthcare_nt", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "nt"
+                }, 
+                {
+                    "child_view": "healthcare_sa", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "sa"
+                }, 
+                {
+                    "child_view": "healthcare_qld", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "qld"
+                }, 
+                {
+                    "child_view": "healthcare_vic", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "vic"
+                }, 
+                {
+                    "child_view": "healthcare_tas", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "tas"
+                }, 
+                {
+                    "child_view": "healthcare_wa", 
+                    "sort_order": 415, 
+                    "child_view_text": "See all", 
+                    "view": "wa"
                 }
             ], 
             "default_frequency_text": "Five-yearly", 
             "raw_data_sets": [], 
-            "sort_order": 610, 
+            "sort_order": 715, 
             "expansion_hint": "", 
-            "about": "<p>By 2018, increase by five percentage points the proportion of Australian adults at a healthy body weight, over the 2009 baseline.</p>", 
-            "refresh_rate": 3410, 
-            "label": "healthyweight-health-hero", 
-            "parametisation": null, 
+            "about": "<p>By 2018, increase by five percentage points the proportion of Australian children at a healthy body weight, over the 2009 baseline.</p>", 
+            "refresh_rate": 3530, 
+            "label": "childweight-health-hero-state", 
+            "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
