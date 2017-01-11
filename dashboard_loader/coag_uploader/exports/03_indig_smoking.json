@@ -2,10 +2,10 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce national smoking rate",
+    "subtitle": "Reduce indigenous smoking rate",
     "subcategory": "national agreement", 
     "groups": [], 
-    "url": "health_smoking", 
+    "url": "health_indig_smoking", 
     "definitions": [
         {
             "tiles": [
@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health_smoking_header", 
+                    "url": "health_indig_smoking_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -52,7 +52,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_smoking_summary_graph", 
+                    "url": "health_indig_smoking_summary_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -157,7 +157,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "health_smoking_status", 
+                    "url": "health_indig_smoking_status", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -170,7 +170,7 @@
                     "aspect": 2, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_smoking_details", 
+                    "url": "health_indig_smoking_details", 
                     "tile_type": 19, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -183,7 +183,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_smoking_detail_graph", 
+                    "url": "health_indig_smoking_detail_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": true, 
                         "display_options": {
@@ -319,7 +319,7 @@
             ], 
             "views": [
                 {
-                    "sort_order": 120, 
+                    "sort_order": 125, 
                     "view": "healthcare"
                 }
             ], 
@@ -327,7 +327,7 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Rate of adults who are current daily smokers", 
+                    "name": "Rate of indigenous adults who are current daily smokers",
                     "columns": [
                         {
                             "url": "year", 
@@ -444,11 +444,11 @@
                             "description": ""
                         }
                     ], 
-                    "filename": "adult_smoking_data_table.csv"
+                    "filename": "indigenous_smoking_data_table.csv"
                 }, 
                 {
-                    "url": "health_smoking", 
-                    "name": "Rate of adults who are daily smokers", 
+                    "url": "health_indig_smoking", 
+                    "name": "Adults at a Healthy Weight Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -465,8 +465,8 @@
                         {
                             "url": "percentage_smokers", 
                             "sort_order": 30, 
-                            "heading": "Proportion of adults who smoke daily (%)", 
-                            "description": "Proportion of adult Australians who are currently daily smokers. (%)"
+                            "heading": "Proportion of indigenous adults who smoke daily (%)", 
+                            "description": "Proportion of indigenous adults who are current daily smokers (%)"
                         }, 
                         {
                             "url": "uncertainty", 
@@ -475,19 +475,19 @@
                             "description": "The uncertainty in the main percentage smoking rate figure."
                         }
                     ], 
-                    "filename": "coag_health_smoking_data.csv"
+                    "filename": "coag_health_indigenous_smoking_data.csv"
                 }
             ], 
-            "sort_order": 2620, 
+            "sort_order": 2625, 
             "expansion_hint": "View more", 
-            "about": "<p>By 2018, reduce the national smoking rate to 10 per cent of the population.</p>",
-            "refresh_rate": 3830, 
-            "label": "health_smoking", 
+            "about": "<p>By 2018, halve the Indigenous smoking rate, over the 2009 baseline.</p>",
+            "refresh_rate": 3720, 
+            "label": "health_indig_smoking", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
-    "name": "National Smoking Rate"
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4727.0.55.001",
+    "name": "Indigenous Smoking Rate"
 }
 

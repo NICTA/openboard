@@ -566,7 +566,7 @@
                             "url": "jurisdiction", 
                             "sort_order": 10, 
                             "heading": "Jurisdiction", 
-                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia.\r\n\r\nA special jurisdiction is \"benchmark\" which describes the national benchmark target"
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
                         }, 
                         {
                             "url": "year", 
