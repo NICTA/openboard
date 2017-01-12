@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 from openpyxl import load_workbook
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
-from education_participation_uploader.models import *
+from health_edwait_uploader.models import *
 from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, indicator_tlc_trend
 from widget_def.models import Parametisation
 
@@ -36,13 +36,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("Full-time study", "Full-time work", "Combination of study and work", "Not fully engaged")'),
+                            ('B', 'Row Discriminator ("%")',),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Quartets of rows per year, one for engagement category'),
+                            ('...', 'Rows per year'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -67,7 +67,7 @@ file_format = {
         ],
 }
 
-indicators = "Improve the proportion of young people participating in post-school education, training or employment"
+indicators = "Increase the proportion of patients treated within national benchmarks for emergency department waiting time"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -77,165 +77,150 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         wb = load_workbook(fh, read_only=True)
         messages.extend(
                 load_state_grid(wb, "Data",
-                                "Education", "Post-school participation",
-                                None, EducationParticipationData,
+                                "Health", "Emergency Dept waiting times",
+                                None, HealthEmergencyWaitData,
                                 {}, {
-                                    "study": "Full-time study", 
-                                    "work": "Full-time work",
-                                    "study_work": "Combination of study and work",
-                                    "not_engaged": "Not fully engaged",
+                                    "treated_ontime": "%",
                                 },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, indicators,
-                                "participation-education-hero", "participation-education-hero", 
-                                "participation-education-hero-state", "participation-education-hero-state", 
-                                "education_participation", "education_participation",
-                                "education_participation_state", "education_participation_state",
+                                "edwait-health-hero", "edwait-health-hero", 
+                                "edwait-health-hero-state", "edwait-health-hero-state", 
+                                "health_edwait", "health_edwait",
+                                "health_edwait_state", "health_edwait_state",
                                 verbosity))
         messages.extend(update_state_stats(
-                                "participation-education-hero-state", "participation-education-hero-state", 
-                                "education_participation_state", "education_participation_state",
-                                EducationParticipationData, [("engaged", None,),],
+                                "edwait-health-hero-state", "edwait-health-hero-state", 
+                                "health_edwait_state", "health_edwait_state",
+                                HealthEmergencyWaitData, [("treated_ontime", None,),],
                                 verbosity=verbosity))
-        aust_q = EducationParticipationData.objects.filter(state=AUS).order_by("year")
+        aust_q = HealthEmergencyWaitData.objects.filter(state=AUS).order_by("year")
         aust_ref = aust_q.first()
         aust_latest = aust_q.last()
-        aust_tlc, aust_trend = indicator_tlc_trend(aust_ref.engaged(), aust_latest.engaged())
-        set_statistic_data('participation-education-hero', 'participation-education-hero',
-                        'reference', aust_ref.engaged(),
+        aust_tlc, aust_trend = indicator_tlc_trend(aust_ref.treated_ontime, aust_latest.treated_ontime)
+        set_statistic_data('edwait-health-hero', 'edwait-health-hero',
+                        'reference', aust_ref.treated_ontime,
                         label=aust_ref.year_display(),
                         traffic_light_code=aust_tlc)
-        set_statistic_data('participation-education-hero', 'participation-education-hero',
-                        'latest', aust_latest.engaged(),
+        set_statistic_data('edwait-health-hero', 'edwait-health-hero',
+                        'latest', aust_latest.treated_ontime,
                         traffic_light_code=aust_tlc,
                         label=aust_latest.year_display(),
                         trend=aust_trend)
-        set_statistic_data('education_participation', 'education_participation',
-                        'reference', aust_ref.engaged(),
+        set_statistic_data("health_edwait", "health_edwait",
+                        'reference', aust_ref.treated_ontime,
                         label=aust_ref.year_display(),
                         traffic_light_code=aust_tlc)
-        set_statistic_data('education_participation', 'education_participation',
-                        'latest', aust_latest.engaged(),
+        set_statistic_data("health_edwait", "health_edwait",
+                        'latest', aust_latest.treated_ontime,
                         traffic_light_code=aust_tlc,
                         label=aust_latest.year_display(),
                         trend=aust_trend)
         messages.extend(
                 update_graph_data(
-                            'education_participation', 'education_participation',
-                            "education_participation_detail_graph",
-                            EducationParticipationData, "engaged",
+                            "health_edwait", "health_edwait",
+                            "health_edwait_detail_graph",
+                            HealthEmergencyWaitData, "treated_ontime",
                             use_error_bars=False,
                             verbosity=verbosity)
         )
         messages.extend(
-                populate_raw_data('education_participation', 'education_participation',
-                                "education_participation", EducationParticipationData,
+                populate_raw_data("health_edwait", "health_edwait",
+                                "health_edwait", HealthEmergencyWaitData, 
                                 {
-                                    "study": "percentage_full_time_study",
-                                    "work": "percentage_full_time_work",
-                                    "study_work": "percentage_study_work",
-                                    "not_engaged": "percentage_not_fully_engaged",
+                                    "treated_ontime": "percentage_ontime",
                                 })
         )
         messages.extend(
-                populate_crosstab_raw_data('education_participation', 'education_participation',
-                                "data_table", EducationParticipationData,
+                populate_crosstab_raw_data("health_edwait", "health_edwait",
+                                "data_table", HealthEmergencyWaitData,
                                 {
-                                    "study": "full_study",
-                                    "work": "full_work",
-                                    "study_work": "study_work",
-                                    "not_engaged": "not_fully_engaged",
+                                    "treated_ontime": "percent",
                                 })
         )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
-            state_q = EducationParticipationData.objects.filter(state=state_num).order_by("year")
+            state_q = HealthEmergencyWaitData.objects.filter(state=state_num).order_by("year")
             state_ref = state_q.first()
             state_latest = state_q.last()
-            state_tlc, state_trend = indicator_tlc_trend(state_ref.engaged(), state_latest.engaged())
+            state_tlc, state_trend = indicator_tlc_trend(state_ref.treated_ontime, state_latest.treated_ontime)
             set_statistic_data(
-                            'participation-education-hero-state', 'participation-education-hero-state',
-                            'reference', aust_ref.engaged(),
+                            "edwait-health-hero-state", "edwait-health-hero-state", 
+                            'reference', aust_ref.treated_ontime,
                             traffic_light_code=aust_tlc,
                             pval=pval)
             set_statistic_data(
-                            'participation-education-hero-state', 'participation-education-hero-state',
-                            'latest', aust_latest.engaged(),
+                            "edwait-health-hero-state", "edwait-health-hero-state", 
+                            'latest', aust_latest.treated_ontime,
                             traffic_light_code=aust_tlc,
                             trend=aust_trend,
                             pval=pval)
             set_statistic_data(
-                            'participation-education-hero-state', 'participation-education-hero-state',
-                            'reference_state', state_ref.engaged(),
+                            "edwait-health-hero-state", "edwait-health-hero-state", 
+                            'reference_state', state_ref.treated_ontime,
                             traffic_light_code=state_tlc,
                             pval=pval)
             set_statistic_data(
-                            'participation-education-hero-state', 'participation-education-hero-state',
-                            'latest_state', state_latest.engaged(),
+                            "edwait-health-hero-state", "edwait-health-hero-state", 
+                            'latest_state', state_latest.treated_ontime,
                             traffic_light_code=state_tlc,
                             trend=state_trend,
                             pval=pval)
             set_statistic_data(
-                            'participation-education-hero-state', 'participation-education-hero-state',
+                            "edwait-health-hero-state", "edwait-health-hero-state", 
                             'ref_year', state_ref.year_display(),
                             pval=pval)
             set_statistic_data(
-                            'participation-education-hero-state', 'participation-education-hero-state',
+                            "edwait-health-hero-state", "edwait-health-hero-state", 
                             'curr_year', state_latest.year_display(),
                             pval=pval)
-            set_statistic_data('education_participation_state', 'education_participation_state',
-                            'reference', aust_ref.engaged(),
+            set_statistic_data("health_edwait_state", "health_edwait_state",
+                            'reference', aust_ref.treated_ontime,
                             traffic_light_code=aust_tlc,
                             pval=pval)
-            set_statistic_data('education_participation_state', 'education_participation_state',
-                            'latest', aust_latest.engaged(),
+            set_statistic_data("health_edwait_state", "health_edwait_state",
+                            'latest', aust_latest.treated_ontime,
                             traffic_light_code=aust_tlc,
                             trend=aust_trend,
                             pval=pval)
-            set_statistic_data('education_participation_state', 'education_participation_state',
-                            'reference_state', state_ref.engaged(),
+            set_statistic_data("health_edwait_state", "health_edwait_state",
+                            'reference_state', state_ref.treated_ontime,
                             traffic_light_code=state_tlc,
                             pval=pval)
-            set_statistic_data('education_participation_state', 'education_participation_state',
-                            'latest_state', state_latest.engaged(),
+            set_statistic_data("health_edwait_state", "health_edwait_state",
+                            'latest_state', state_latest.treated_ontime,
                             traffic_light_code=aust_tlc,
                             trend=state_trend,
                             pval=pval)
-            set_statistic_data('education_participation_state', 'education_participation_state',
+            set_statistic_data("health_edwait_state", "health_edwait_state",
                             'ref_year', state_ref.year_display(),
                             pval=pval)
-            set_statistic_data('education_participation_state', 'education_participation_state',
+            set_statistic_data("health_edwait_state", "health_edwait_state",
                             'curr_year', state_latest.year_display(),
                             pval=pval)
             messages.extend(
                     update_my_state_graph(
-                            'education_participation_state', 'education_participation_state',
-                            'education_participation_detail_graph',
+                            "health_edwait_state", "health_edwait_state",
+                            'health_edwait_detail_graph',
                             aust_ref, aust_latest, 'australia',
                             state_ref, state_latest, 'state',
                             pval, 
                             verbosity)
                     ) 
             messages.extend(
-                populate_raw_data('education_participation_state', 'education_participation_state',
-                                "education_participation", EducationParticipationData,
+                populate_raw_data("health_edwait_state", "health_edwait_state",
+                                "health_edwait", HealthEmergencyWaitData, 
                                 {
-                                    "study": "percentage_full_time_study",
-                                    "work": "percentage_full_time_work",
-                                    "study_work": "percentage_study_work",
-                                    "not_engaged": "percentage_not_fully_engaged",
+                                    "treated_ontime": "percentage_ontime",
                                 }, pval=pval)
             )
             messages.extend(
-                populate_crosstab_raw_data('education_participation_state', 'education_participation_state',
-                                "data_table", EducationParticipationData,
+                populate_crosstab_raw_data("health_edwait_state", "health_edwait_state",
+                                "data_table", HealthEmergencyWaitData,
                                 {
-                                    "study": "full_study",
-                                    "work": "full_work",
-                                    "study_work": "study_work",
-                                    "not_engaged": "not_fully_engaged",
+                                    "treated_ontime": "percent",
                                 }, pval=pval)
             )
     except LoaderException, e:
@@ -250,10 +235,10 @@ def update_my_state_graph(wurl, wlbl, graph,
     messages = []
     g = get_graph(wurl, wlbl, graph)
     clear_graph_data(g, pval=pval)
-    add_graph_data(g, 'reference', aref.engaged(), cluster=acluster, pval=pval)
-    add_graph_data(g, 'latest_year', alat.engaged(), cluster=acluster, pval=pval)
-    add_graph_data(g, 'reference', sref.engaged(), cluster=scluster, pval=pval)
-    add_graph_data(g, 'latest_year', slat.engaged(), cluster=scluster, pval=pval)
+    add_graph_data(g, 'reference', aref.treated_ontime, cluster=acluster, pval=pval)
+    add_graph_data(g, 'latest_year', alat.treated_ontime, cluster=acluster, pval=pval)
+    add_graph_data(g, 'reference', sref.treated_ontime, cluster=scluster, pval=pval)
+    add_graph_data(g, 'latest_year', slat.treated_ontime, cluster=scluster, pval=pval)
 
     set_dataset_override(g, "reference", aref.year_display(), pval=pval)
     set_dataset_override(g, "latest_year", alat.year_display(), pval=pval)
