@@ -408,6 +408,7 @@ indicator_statuses = {
 
 def load_benchmark_description(wb, sheetname, indicator=False, additional_lookups={}):
     key_lookup = {
+        "measure": "measure",
         "benchmark": "measure",
         "indicator": "measure",
         "benchmark/indicator": "measure",

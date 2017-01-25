@@ -20,7 +20,7 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class IndigenousHomeOwnershipData(CoagPercentageUncertaintyDataBase):
+class IndigenousHomeOwnershipData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
 
 

@@ -43,13 +43,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion of households owning a home (%)", "Confidence Interval" or "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty, and one for RSE. May include optional National Benchmark row.'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -62,6 +62,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -74,8 +76,6 @@ file_format = {
         ],
 }
 
-benchmark = "From 2008 to 2017-18, a 10% reduction nationally in the proportion of Indigenous households owning or purchasing a home"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -86,11 +86,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Housing", "Indigenous Home-Ownership",
                                 None, IndigenousHomeOwnershipData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, 
+                                {
+                                    "percentage": "Proportion of households owning a home (%)", 
+                                    "uncertainty": "Confidence Interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                             "indigenous_homeownership-housing-hero", "indigenous_homeownership-housing-hero", 
                             "indigenous_homeownership-housing-hero-state", "indigenous_homeownership-housing-hero-state", 
                             "housing_indigenous_homeownership", "housing_indigenous_homeownership", 
@@ -99,7 +104,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "indigenous_homeownership-housing-hero-state", "indigenous_homeownership-housing-hero-state", 
                             "housing_indigenous_homeownership_state", "housing_indigenous_homeownership_state", 
-                            IndigenousHomeOwnershipData, [ ("percentage", "uncertainty",), ],
+                            IndigenousHomeOwnershipData, 
+                            [ ("percentage", "uncertainty", "rse"), ],
                             verbosity=verbosity))
         messages.extend(
                 update_graph_data(

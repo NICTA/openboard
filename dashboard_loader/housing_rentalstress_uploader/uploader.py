@@ -40,13 +40,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Low income households in rental stress (%)", "Confidence Interval", or "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty, and one for RSE. May include optional National Benchmark row.'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -70,8 +72,6 @@ file_format = {
             }
         ],
 }
-
-benchmark = "From 2007-08 to 2015-16, a 10% reduction nationally in the proportion of low-income renter households in rental stress"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
