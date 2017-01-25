@@ -42,12 +42,15 @@ file_format = {
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
                             ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion of indigenous households living in overcrowded conditions (%)", "Confidence Interval", or "RSE")'),
+
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty, and one for RSE. May include optional National Benchmark row.'),
+
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -60,6 +63,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -72,8 +77,6 @@ file_format = {
         ],
 }
 
-benchmark = "From 2008 to 2017-18, a 20% reduction nationally in the proportion of Indigenous households living in overcrowded conditions"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -84,11 +87,15 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Housing", "Indigenous Overcrowding",
                                 None, IndigenousOvercrowdingData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of indigenous households living in overcrowded conditions (%)", 
+                                    "uncertainty": "Confidence Interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                             "indigenous_overcrowding-housing-hero", "indigenous_overcrowding-housing-hero", 
                             "indigenous_overcrowding-housing-hero-state", "indigenous_overcrowding-housing-hero-state", 
                             "housing_indigenous_overcrowding", "housing_indigenous_overcrowding", 
@@ -97,7 +104,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                             "indigenous_overcrowding-housing-hero-state", "indigenous_overcrowding-housing-hero-state", 
                             "housing_indigenous_overcrowding_state", "housing_indigenous_overcrowding_state", 
-                            IndigenousOvercrowdingData, [ ("percentage", "uncertainty",), ],
+                            IndigenousOvercrowdingData, 
+                            [ ("percentage", "uncertainty", "rse"), ],
                             want_increase=False,
                             verbosity=verbosity))
         messages.extend(

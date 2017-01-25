@@ -21,6 +21,6 @@ from coag_uploader.models import *
 # Create your models here.
 
 
-class IndigenousOvercrowdingData(CoagPercentageUncertaintyDataBase):
+class IndigenousOvercrowdingData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
 
