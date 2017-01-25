@@ -20,5 +20,6 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class HousingRentalStressData(CoagPercentageUncertaintyDataBase):
+class HousingRentalStressData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
+

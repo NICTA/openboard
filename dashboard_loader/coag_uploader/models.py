@@ -175,28 +175,7 @@ class CoagPercentageUncertaintyDataBase(CoagDataBase):
     class Meta(CoagDataBase.Meta):
         abstract = True
 
-class QualificationsData(CoagPercentageUncertaintyDataBase):
+class CoagStdErrMixin(models.Model):
+    rse = models.DecimalField(max_digits=3, decimal_places=1)
     class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
-class HigherQualificationsData(CoagDataBase):
-    diploma=models.IntegerField()
-    adv_diploma=models.IntegerField()
-    total=models.IntegerField()
-    def save(self, *args, **kwargs):
-        self.total = self.diploma + self.adv_diploma
-        super(HigherQualificationsData, self).save(*args, **kwargs)
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
-class ImprovedVetGraduatesData(CoagPercentageUncertaintyDataBase):
-    class Meta:
-        unique_together = [
-            ("state", "year"),
-        ]
-
-
+        abstract=True

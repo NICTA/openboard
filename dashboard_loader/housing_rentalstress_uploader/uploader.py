@@ -83,11 +83,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Housing", "Rental Stress",
                                 None, HousingRentalStressData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, 
+                                {
+                                    "percentage": "Low income households in rental stress (%)", 
+                                    "uncertainty": "Confidence Interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "rentalstress-housing-hero", "rentalstress-housing-hero",  
                                 "rentalstress-housing-hero-state", "rentalstress-housing-hero-state",  
                                 "housing_rentalstress", "housing_rentalstress",  

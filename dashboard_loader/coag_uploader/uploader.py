@@ -396,6 +396,11 @@ indicator_statuses = {
 
 def load_benchmark_description(wb, sheetname, indicator=False, additional_lookups={}):
     key_lookup = {
+        "benchmark": "measure",
+        "indicator": "measure",
+        "benchmark/indicator": "measure",
+        "benchmark/ indicator": "measure",
+        "short title": "short_title",
         "status": "status",
         "updated": "updated",
         "desc body": "body",
@@ -446,6 +451,10 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
             desc["status"] = status
         elif key == "updated":
             desc["updated"] = value
+        elif key == "measure":
+            desc["measure"] = value
+        elif key == "short_title":
+            desc["short_title"] = value
         elif key == "body":
             desc["body"] = []
             append_to = desc["body"]
@@ -683,7 +692,7 @@ def update_stats(desc, benchmark,
                     "Updated: %s" % unicode(desc["updated"]))
         set_text_block(wurl, wlbl,
                     txt_block_template.render(Context({ 
-                                    "benchmark": benchmark, 
+                                    "benchmark": desc.get("measure", benchmark), 
                                     "additional_body": desc.get(additional_desc_body),
                                     "desc": desc,
                                     "state": "Australia",
@@ -750,7 +759,13 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     messages.append("%s: New indicator" % state_abbrev)
             else:
                 statuses = []
-                for field, uncertainty_field in fields:
+                for flds in fields:
+                    field = flds[0]
+                    uncertainty_field = flds[1]
+                    if len(flds) > 2:
+                        rse_field = flds[2]
+                    else:
+                        rse_field = None
                     val_1 = getattr(reference, field)
                     val_2 = getattr(measure, field)
                     if callable(val_1):
@@ -762,18 +777,33 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
                     if isinstance(diff, int):
                         diff = Decimal(diff)
-                    if uncertainty_field:
-                        err_1 = getattr(reference, uncertainty_field)
-                        err_2 = getattr(measure, uncertainty_field)
-                        total_err = err_1 + err_2
+                    if rse_field:
+                        err_1 = float(getattr(reference, rse_field)) / 100.0
+                        err_2 = float(getattr(measure, rse_field)) / 100.0
+                        val_1r = float(val_1) / 100.0
+                        val_2r = float(val_2) / 100.0
+                        significance = sqrt(pow(val_1r * err_1, 2.0) + pow(val_2r * err_2, 2.0))
+                        test_stat = float(diff)/100.0/significance
+                        significant = abs(test_stat) > 1.96
+                        if not significant:
+                            statuses.append("no_improvement")
+                        elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
+                            statuses.append("improving")
+                        else:
+                            statuses.append("negative_change")
                     else:
-                        total_err = Decimal("0.0")
-                    if abs(diff) < total_err or diff.is_zero():
-                        statuses.append("no_improvement")
-                    elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
-                        statuses.append("improving")
-                    else:
-                        statuses.append("negative_change")
+                        if uncertainty_field:
+                            err_1 = getattr(reference, uncertainty_field)
+                            err_2 = getattr(measure, uncertainty_field)
+                            total_err = err_1 + err_2
+                        else:
+                            total_err = Decimal("0.0")
+                        if abs(diff) < total_err or diff.is_zero():
+                            statuses.append("no_improvement")
+                        elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
+                            statuses.append("improving")
+                        else:
+                            statuses.append("negative_change")
                 st_so_far = None
                 for st in statuses:
                     if not st_so_far:
@@ -802,71 +832,6 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         traffic_light_code=status["tlc"],
                         icon_code=status["icon"],
                         pval=pval)
-    return messages
-
-def load_skills_qualifications(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "5 NASWD",
-                        "Skills", "Without Cert III Qualifications",
-                        "Notes:", QualificationsData,
-                        { "uncertainty": "95 per cent confidence interval"}, 
-                        { "percentage": "%"}, verbosity,
-                        transforms={ "percentage": lambda x: 100.0-x, }))
-    messages.extend(calculate_benchmark(2009.0, 2020.0,
-                            -0.5, False,
-                            QualificationsData, "percentage",
-                            "qualifications", "qualifications",
-                            verbosity))
-    messages.extend(populate_raw_data("qualifications", "qualifications",
-                        "qualifications_data", 
-                        QualificationsData,
-                        {
-                            "percentage": "unqualified_percentage",
-                            "uncertainty": "uncertainty",
-                        }))
-    return messages
-
-def load_skills_higher_qualifications(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "6 NASWD",
-                        "Skills", "Higher Qualifications",
-                        "Notes:", HigherQualificationsData,
-                        { "diploma": "Diploma", "adv_diploma": "Advanced Diploma"}, 
-                        {}, verbosity))
-    messages.extend(calculate_benchmark(2009.0, 2020.0,
-                            1, True,
-                            HigherQualificationsData, "total",
-                            "higher_qualifications", "higher_qualifications",
-                            verbosity))
-    messages.extend(populate_raw_data("higher_qualifications", 
-                        "higher_qualifications",
-                        "higher_qualifications_data", 
-                        HigherQualificationsData,
-                        {
-                            "diploma": "diplomas",
-                            "adv_diploma": "advanced_diplomas",
-                            "total": "total",
-                        }))
-    return messages
-
-def load_skills_vet_employment(wb, verbosity):
-    messages = []
-    messages.extend(load_state_grid(wb, "7 NASWD",
-                        "Skills", "VET Graduates with Improved Employment",
-                        "Source: ", ImprovedVetGraduatesData,
-                        { "uncertainty": "95 per cent confidence interval"}, 
-                        { "percentage": "%"}, verbosity))
-    messages.extend(calculate_indicator(True,
-                    ImprovedVetGraduatesData, "percentage",
-                    "vet_employment", "vet_employment", verbosity))
-    messages.extend(populate_raw_data("vet_employment", 
-                        "vet_employment",
-                        "vet_employment_data", 
-                        ImprovedVetGraduatesData,
-                        {
-                            "percentage": "vet_grad_improvement",
-                            "uncertainty": "uncertainty",
-                        }))
     return messages
 
 def indicator_tlc_trend(ref_val, val):
