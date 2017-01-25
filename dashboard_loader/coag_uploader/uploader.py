@@ -15,6 +15,7 @@
 
 import datetime
 import csv
+import math
 from scipy import stats
 from decimal import Decimal, ROUND_HALF_UP
 import re
@@ -98,10 +99,21 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
             if not first_cell_matched and use_dates:
                 try:
                     if multi_year:
-                        (year, myr) = parse_multiyear(first_cell)
+                        (_year, _myr) = parse_multiyear(first_cell)
                     else:
-                        (year, isfy) = parse_year(first_cell)
-                    zero_all_rows(rows)
+                        (_year, _isfy) = parse_year(first_cell)
+                    new_year = False
+                    if _year != year:
+                         year = _year
+                         new_year = True
+                    if _myr != myr:
+                         myr = _myr
+                         new_year = True
+                    if _isfy != isfy:
+                         isfy = _isfy
+                         new_year = True
+                    if new_year:
+                        zero_all_rows(rows)
                 except:
                     pass
         if year or not use_dates:
@@ -782,7 +794,10 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         err_2 = float(getattr(measure, rse_field)) / 100.0
                         val_1r = float(val_1) / 100.0
                         val_2r = float(val_2) / 100.0
-                        significance = sqrt(pow(val_1r * err_1, 2.0) + pow(val_2r * err_2, 2.0))
+                        significance = math.sqrt(
+                                    math.pow(val_1r * err_1, 2) 
+                                    + math.pow(val_2r * err_2, 2)
+                        )
                         test_stat = float(diff)/100.0/significance
                         significant = abs(test_stat) > 1.96
                         if not significant:
