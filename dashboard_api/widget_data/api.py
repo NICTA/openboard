@@ -21,7 +21,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 
 from widget_data.models import GeoProperty, GraphDatasetData
 from widget_def.models import *
-from widget_def.view_utils import update_maxmin, json_list
+from widget_def.view_utils import update_graph_maxmin, update_maxmin, json_list
 from widget_def.parametisation import resolve_pval, parametise_label
 
 def get_declared_widget(widget_url, view):
@@ -96,10 +96,10 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
     for gd in graph.get_data(pval=pval):
         if graph.use_numeric_axes():
             if graph.use_secondary_numeric_axis and gd.dataset.use_secondary_numeric_axis:
-                (numeric2_min, numeric2_max)=update_maxmin(gd.value, 
+                (numeric2_min, numeric2_max)=update_graph_maxmin(gd, 
                             numeric2_min, numeric2_max)
             else:
-                (numeric_min, numeric_max)=update_maxmin(gd.value, 
+                (numeric_min, numeric_max)=update_graph_maxmin(gd, 
                             numeric_min, numeric_max)
         if not graph.use_clusters():
             (horiz_min, horiz_max) = update_maxmin(gd.horiz_value(),

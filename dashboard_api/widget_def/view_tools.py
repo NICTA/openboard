@@ -61,6 +61,18 @@ def update_maxmin(value, _min, _max):
         _max = max(value, _max)
     return (_min, _max)
 
+def update_graph_maxmin(graphdatum, _min, _max):
+    if graphdatum.dataset.use_error_bars:
+        if _min is None:
+            _min = graphdatum.err_valmin
+            _max = graphdatum.err_valmax
+        else:
+            _min = min(graphdatum.err_valmin, _min)
+            _max = max(graphdatum.err_valmax, _max)
+        return (_min, _max)
+    else:
+        return update_maxmin(graphdatum.value, _min, _max)
+
 def csv_escape(s):
     out = s.replace('"', '""')
     if '"' in out or ',' in out:
