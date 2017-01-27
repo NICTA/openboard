@@ -73,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "From 2008, 4200 new houses to be delivered by 2018; and 4800 refurbishments to be delivered by 2014"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -86,13 +84,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Housing", "Remote Indigenous Housing",
                                 None, HousingRemoteIndigenousData,
                                 {}, {
-                                    "new_houses": "New", 
+                                    "new_houses": "New houses", 
                                     "refurbishments": "Refurbishments",
                                 },
                                 verbosity)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                             "indigenous_remote-housing-hero", "indigenous_remote-housing-hero", 
                             "indigenous_remote-housing-hero-state", "indigenous_remote-housing-hero-state", 
                             "housing_remote_indigenous", "housing_remote_indigenous", 

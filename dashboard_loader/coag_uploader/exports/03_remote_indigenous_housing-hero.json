@@ -122,7 +122,7 @@
             "views": [
                 {
                     "child_view": "housing", 
-                    "sort_order": 120, 
+                    "sort_order": 130, 
                     "child_view_text": "See all", 
                     "view": "aus"
                 }
