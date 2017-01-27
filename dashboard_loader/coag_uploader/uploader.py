@@ -75,6 +75,8 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
     year = 0
     isfy = False
     myr = 1
+    _isfy = False
+    _myr = 1
     rows = {}
     for fld in first_cell_rows.keys():
         rows[fld] = 0
@@ -104,14 +106,14 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         (_year, _isfy) = parse_year(first_cell)
                     new_year = False
                     if _year != year:
-                         year = _year
-                         new_year = True
+                        year = _year
+                        new_year = True
                     if _myr != myr:
-                         myr = _myr
-                         new_year = True
+                        myr = _myr
+                        new_year = True
                     if _isfy != isfy:
-                         isfy = _isfy
-                         new_year = True
+                        isfy = _isfy
+                        new_year = True
                     if new_year:
                         zero_all_rows(rows)
                 except:
