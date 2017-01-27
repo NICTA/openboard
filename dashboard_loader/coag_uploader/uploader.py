@@ -493,7 +493,7 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
             desc[key] = []
             append_to = desc[key]
             key = None
-        if not key:
+        if not key and value:
             append_to.append(value)
         row += 1
     return desc
