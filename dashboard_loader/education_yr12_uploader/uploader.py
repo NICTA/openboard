@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -37,10 +37,10 @@ file_format = {
     "format": "xlsx",
     "sheets": [
             {
-                "name": "Data1",
+                "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion compeleted Y12 or Cert III (%)", "Confidence interval", "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
@@ -50,26 +50,6 @@ file_format = {
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
-                    'Contains Survey of Education and Work data',
-                    'Data in this worksheet may be overridden by data in worksheet Data2',
-                ],
-            },
-            {
-                "name": "Data2",
-                "cols": [ 
-                            ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (Always %)'),
-                            ('...', 'Column per state + Aust'),
-                        ],
-                "rows": [
-                            ('1', "Heading row"),
-                            ('2', "State Heading row"),
-                            ('...', 'One Row per year, containing percentage attainment'),
-                        ],
-                "notes": [
-                    'Blank rows and columns ignored',
-                    'Contains Census data',
-                    'Data in this worksheet take precedence over data in worksheet Data1'
                 ],
             },
             {
@@ -91,7 +71,6 @@ file_format = {
         ],
 }
 
-benchmark = "Lift the Year 12 or equivalent or Certificate III attainment rate to 90% by 2020"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -100,24 +79,18 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
         messages.extend(
-                load_state_grid(wb, "Data1",
+                load_state_grid(wb, "Data",
                                 "Education", "Year 12/Cert 3 Attainment (SEW data)",
                                 None, EducationYr12Cert3AttainmentData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion completed Y12 or Cert III (%)", 
+                                    "uncertainty": "Confidence interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity)
                 )
-        messages.extend(
-                load_state_grid(wb, "Data2",
-                                "Education", "Year 12/Cert 3 Attainment (Census data)",
-                                None, EducationYr12Cert3AttainmentData,
-                                {}, {"percentage": "%", },
-                                verbosity,
-                                fld_defaults={
-                                    "uncertainty": 0.0,
-                                })
-                )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "yr12-education-hero", "yr12-education-hero", 
                                 "yr12-education-hero-state", "yr12-education-hero-state", 
                                 "education_yr12", "education_yr12", 
@@ -134,7 +107,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "education-yr12-hero-graph",
                             EducationYr12Cert3AttainmentData, "percentage",
                             [ AUS, ],
-                            benchmark_start=2006,
+                            benchmark_start=2007,
                             benchmark_end=2020,
                             benchmark_gen=lambda init: 90.0,
                             use_error_bars=False,
@@ -146,7 +119,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "education_yr12_summary_graph",
                             EducationYr12Cert3AttainmentData, "percentage",
                             [ AUS, ],
-                            benchmark_start=2006,
+                            benchmark_start=2007,
                             benchmark_end=2020,
                             benchmark_gen=lambda init: 90.0,
                             use_error_bars=False,
@@ -157,7 +130,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "education_yr12", "education_yr12", 
                             "education_yr12_detail_graph",
                             EducationYr12Cert3AttainmentData, "percentage",
-                            benchmark_start=2006,
+                            benchmark_start=2007,
                             benchmark_end=2020,
                             benchmark_gen=lambda init: 90.0,
                             use_error_bars=True,
@@ -188,7 +161,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "education-yr12-hero-graph",
                                 EducationYr12Cert3AttainmentData, "percentage",
                                 [ AUS, state_num ],
-                                benchmark_start=2006,
+                                benchmark_start=2007,
                                 benchmark_end=2020,
                                 benchmark_gen=lambda init: 90.0,
                                 use_error_bars=False,
@@ -201,7 +174,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "education_yr12_summary_graph",
                                 EducationYr12Cert3AttainmentData, "percentage",
                                 [ AUS, state_num ],
-                                benchmark_start=2006,
+                                benchmark_start=2007,
                                 benchmark_end=2020,
                                 benchmark_gen=lambda init: 90.0,
                                 use_error_bars=False,
@@ -213,7 +186,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "education_yr12_state", "education_yr12_state", 
                                 "education_yr12_detail_graph",
                                 EducationYr12Cert3AttainmentData, "percentage",
-                                benchmark_start=2006,
+                                benchmark_start=2007,
                                 benchmark_end=2020,
                                 benchmark_gen=lambda init: 90.0,
                                 use_error_bars=True,
