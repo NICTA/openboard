@@ -40,7 +40,7 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator ("Proportion compeleted Y12 or Cer II (%)", "Confidence interval", "RSE")'),
+                            ('B', 'Row Discriminator ("Proportion compeleted Y12 or Cert II (%)", "Confidence interval", "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
@@ -84,7 +84,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Education", "Year 12/Cert 2 Attainment",
                                 None, EducationYr12Cert2AttainmentData,
                                 {}, {
-                                    "percentage": "Proportion completed Y12 of Cert II (%)", 
+                                    "percentage": "Proportion completed Y12 or Cert II (%)", 
                                     "uncertainty": "Confidence Interval",
                                     "rse": "RSE",
                                 },
