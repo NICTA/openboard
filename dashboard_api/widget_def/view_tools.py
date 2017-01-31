@@ -34,7 +34,7 @@ class DecimalAwareEncoder(json.JSONEncoder):
             return list(o)
         return super(DecimalAwareEncoder, self).default(o)
 
-def json_list(request, data, set_p3p=False):
+def json_list(request, data, set_p3p=False, nocache=False):
     fmt = request.GET.get("format", "json")
     if fmt == "html":
         dump = jsonize(data, True)
@@ -44,6 +44,9 @@ def json_list(request, data, set_p3p=False):
         response = HttpResponse(dump, content_type='application/json')
         if set_p3p:
             response["p3p"] = 'CP="This is not a P3P policy!"'
+        if nocache:
+            response["Cache-Control"] = 'No-store'
+            response["Pragma"] = 'no-cache'
         return response
 
 def jsonize(data, html=False):

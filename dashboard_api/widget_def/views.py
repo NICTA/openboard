@@ -80,6 +80,8 @@ class GetPostEquivView(OpenboardAPIView):
         return val
 
 class APILoginView(GetPostEquivView):
+    nocache=True
+    setp3p=True
     def check_perms(self, request):
         return True
     def check_request(self, request):
@@ -106,6 +108,7 @@ class APILogoutView(OpenboardAPIView):
         return []
 
 class APIChangePasswordView(GetPostEquivView):
+    nocache=True
     def check_perms(self, request):
         return request.user.is_authenticated()
     def check_request(self, request):
