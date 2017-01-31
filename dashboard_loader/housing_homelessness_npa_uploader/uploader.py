@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -73,13 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "Increase proportion of specialist homelessness services clients with needs for accommodation met"
-
-def na_to_null(din):
-    if isinstance(din,unicode) and din.strip() == u'N/A':
-            return None
-    return din
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -96,11 +89,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "clients_exp_violence": "Clients experiencing family and domestic violence",
                                     "young_presenting_alone": "Young people presenting alone",
                                 },
-                                verbosity=verbosity,
-                                transforms = {
-                                    "service_needs_met": na_to_null,
-                                    "young_presenting_alone": na_to_null,
-                                })
+                                verbosity=verbosity)
         )
         messages.extend(
                 load_state_grid(wb, "Progress",
@@ -122,7 +111,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         })
         )
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                             "homelessness_npa-housing-hero", "homelessness_npa-housing-hero", 
                             "homelessness_npa-housing-hero-state", "homelessness_npa-housing-hero-state", 
                             "housing_homelessness_npa", "housing_homelessness_npa", 

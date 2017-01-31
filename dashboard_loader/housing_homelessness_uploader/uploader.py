@@ -1,4 +1,4 @@
-#   Copyright 2016 Data61
+#   Copyright 2016,2017 Data61
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -73,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "From 2006 to 2013, a 7% reduction nationally in the number of homeless Australians"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -93,7 +91,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                             "homelessness-housing-hero", "homelessness-housing-hero", 
                             "homelessness-housing-hero-state", "homelessness-housing-hero-state", 
                             "housing_homelessness", "housing_homelessness", 

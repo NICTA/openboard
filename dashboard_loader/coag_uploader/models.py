@@ -55,7 +55,7 @@ NOT_STARTED = 4
 progresses = [
     (COMPLETED, "Completed"),
     (IN_PROGRESS, "In progress"),
-    (NOT_APPLICABLE, "Not applicable"),
+    (NOT_APPLICABLE, "N/A"),
     (NOT_STARTED, "Not started"),
 ]
 progress_dict = dict(progresses)
