@@ -64,6 +64,7 @@ class OpenboardAPIView(View):
     lookup_widget = False
     lookup_view_explicit_label = False
     set_p3p = False
+    nocache = False
     def api_method(self, request):
         return {}
     def check_view(self):
@@ -106,5 +107,5 @@ class OpenboardAPIView(View):
         if isinstance(json_data, HttpResponse):
             return json_data
         else:
-            return json_list(request, json_data, set_p3p=self.set_p3p)
+            return json_list(request, json_data, set_p3p=self.set_p3p, nocache=self.nocache)
 
