@@ -85,7 +85,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None, EducationYr12Cert2AttainmentData,
                                 {}, {
                                     "percentage": "Proportion completed Y12 or Cert II (%)", 
-                                    "uncertainty": "Confidence Interval",
+                                    "uncertainty": "Confidence interval",
                                     "rse": "RSE",
                                 },
                                 verbosity)
