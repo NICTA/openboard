@@ -62,6 +62,20 @@ class GetTerriaInitView(MapViewBase):
             shown = []
         return api_get_terria_init(self.view, shown)
 
+# Generic Property views
+
+class ListPropertyGroups(OpenboardAPIView):
+    def api_method(self, request):
+        return api_list_property_groups()
+
+class GetPropertyGroup(OpenboardAPIView):
+    def api_method(self, request):
+        return api_get_property_group(self.kwargs["property_group_label"])
+
+class GetProperty(OpenboardAPIView):
+    def api_method(self, request):
+        return api_get_property(self.kwargs["property_group_label"], self.kwargs["property_key"])
+
 # Authentication views
 
 class GetPostEquivView(OpenboardAPIView):

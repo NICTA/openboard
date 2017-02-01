@@ -24,6 +24,12 @@ urlpatterns = [
     url(r'^logout/$', wdef_views.APILogoutView.as_view(), name='logout'),
     url(r'^change_password/$', wdef_views.APIChangePasswordView.as_view(), name='change_password'),
 
+    # Generic Property API views
+
+    url(r'^properties$', wdef_views.ListPropertyGroups.as_view(), name="list_property_groups"),
+    url(r'^properties/(?P<property_group_label>[^/]+)$', wdef_views.GetPropertyGroup.as_view(), name="get_property_group"),
+    url(r'^properties/(?P<property_group_label>[^/]+)/(?P<property_key>[^/]+)$', wdef_views.GetProperty.as_view(), name="get_property"),
+
     # Simple list API views
     url(r'^top_level_views$', wdef_views.GetTopLevelView.as_view(), name='get_top_level_views'),
     url(r'^icons/$', wdef_views.GetIconLibrariesView.as_view(), name='get_icon_libraries'),
