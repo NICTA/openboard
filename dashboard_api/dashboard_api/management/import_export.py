@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation, ViewFamily
+from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation, ViewFamily, PropertyGroup
 from widget_def.models.reference import AllCategories
 from widget_data.api import *
 
@@ -151,6 +151,20 @@ def export_view_family(vf):
         except ViewFamily.DoesNotExist:
             raise ImportExportException('ViewFamily "%s" does not exist' % vf)
     return vf.export()
+
+def export_property_group(pg):
+    if not isinstance(pg, PropertyGroup):
+        try:
+            pg = PropertyGroup.objects.get(label=pg)
+        except PropertyGroup.DoesNotExist:
+            raise ImportExportException('PropertyGroup "%s" does not exist' % pg)
+    return pg.export()
+
+def export_all_property_groups():
+    return {
+        "type": "PropertyGroup",
+        "exports": [ pg.export() for pg in PropertyGroup.objects.all() ]
+    }
             
 def import_class(data):
     if data.get("children") is not None:
@@ -179,6 +193,8 @@ def import_class(data):
         return Parametisation
     elif data.get("family"):
         return ViewFamily
+    elif data.get("properties") or data.get("type") == "PropertyGroup":
+        return PropertyGroup
     else:
         raise ImportExportException("Unrecognised import class")
 
