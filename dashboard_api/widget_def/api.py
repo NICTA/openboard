@@ -154,3 +154,25 @@ def catalog_entry(ds, view, shown=[]):
     entry["url"] = url
     return entry
 
+def api_list_property_groups():
+    return [ group.getindex() for group in PropertyGroup.objects.all() ]
+
+def api_get_property_group(grp):
+    try:
+        group = PropertyGroup.objects.get(label=grp)
+    except PropertyGroup.DoesNotExist:
+        raise Http404("This Property Group does not exist")
+    return group.__getstate__()
+
+def api_get_property(grp, key):
+    try:
+        group = PropertyGroup.objects.get(label=grp)
+    except PropertyGroup.DoesNotExist:
+        raise Http404("This Property Group does not exist")
+    try:
+        prop = group.property_set.get(key=key)
+    except Property.DoesNotExist:
+        raise Http404("This Property does not exist in this Property Group")
+    return prop.value
+
+

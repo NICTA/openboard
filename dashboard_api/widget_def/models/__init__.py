@@ -12,6 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+from properties import PropertyGroup, Property
 from reference import Category, Subcategory
 from views import ViewType, WidgetView, ViewProperty, ViewFamily, ViewFamilyMember
 from widget_family import WidgetFamily
@@ -26,4 +27,3 @@ from graph import PointColourMap, PointColourRange, GraphDisplayOptions, GraphDe
 from grid import GridDefinition, GridColumn, GridRow, GridStatistic 
 from rawdata import RawDataSet, RawDataSetColumn
 from geo import GeoWindow, GeoColourScale, GeoColourPoint, GeoDataset, ViewGeoDatasetDeclaration,GeoPropertyDefinition
-

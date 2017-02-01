@@ -18,6 +18,17 @@ from widget_def.models import *
 
 # Register your models here.
 
+class PropertyInline(admin.TabularInline):
+    model=Property
+    extras=2
+
+# @admin.register(PropertyGroup)
+class PropertyGroupAdmin(admin.ModelAdmin):
+    inlines = [ PropertyInline ]
+    list_display = ['name', 'label']
+
+admin.site.register(PropertyGroup, PropertyGroupAdmin)
+
 # @admin.register(ViewType)
 class ViewTypeAdmin(admin.ModelAdmin):
     list_display = ['name']
