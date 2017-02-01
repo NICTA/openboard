@@ -67,8 +67,6 @@ file_format = {
         ],
 }
 
-indicators = "Improve the proportion of young people participating in post-school education, training or employment"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -80,14 +78,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Education", "Post-school participation",
                                 None, EducationParticipationData,
                                 {}, {
-                                    "study": "Full-time study", 
-                                    "work": "Full-time work",
-                                    "study_work": "Combination of study and work",
-                                    "not_engaged": "Not fully engaged",
+                                    "study": "Full-time study proportion (%)", 
+                                    "work": "Full-time work proportion (%)",
+                                    "study_work": "Combination of study and work proportion (%)",
+                                    "not_engaged": "Not fully engaged proportion (%)",
                                 },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, indicators,
+        messages.extend(update_stats(desc, None,
                                 "participation-education-hero", "participation-education-hero", 
                                 "participation-education-hero-state", "participation-education-hero-state", 
                                 "education_participation", "education_participation",
