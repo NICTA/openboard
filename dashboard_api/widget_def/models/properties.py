@@ -29,13 +29,18 @@ class PropertyGroup(models.Model):
         }
     @classmethod
     def import_data(cls, data):
+        if data.get("type"):
+            output = []
+            for pg in data["exports"]:
+                output.append(cls.import_data(pg))
+            return output
         try:
             pg = cls.objects.get(label=data["label"])
         except cls.DoesNotExist:
             pg = cls(label=data["label"])
         pg.name = data["name"]
         pg.save()
-        pg.property_set.delete()
+        pg.property_set.all().delete()
         for pd in data["properties"]:
             Property.import_data(pg, pd)
         return pg
