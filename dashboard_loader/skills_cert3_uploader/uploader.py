@@ -40,13 +40,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion without qualifications (%)", "Confidence Interval", "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Pair of rows per year, one for percentage, one for uncertainty and one for RSE'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -71,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "Halve the proportion of Australians nationally aged 20-64 without qualifications at Certificate III level and above between 2009 and 2020"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -83,11 +83,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Skills", "Certificate 3",
                                 None, SkillsCert3Data,
-                                {}, {"percentage": "%", "uncertainty": "+",},
-                                verbosity,
-                                transforms={ "percentage": lambda x: 100.0-x, }))
+                                {}, {
+                                    "percentage": "Proportion without qualifications (%)", 
+                                    "uncertainty": "Confidence Interval",
+                                    "rse": "RSE",
+                                },
+                                verbosity))
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "cert3-skills-hero", "cert3-skills-hero", 
                                 "cert3-skills-hero-state", "cert3-skills-hero-state",
                                 "skills_cert3", "skills_cert3",
@@ -96,7 +99,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "cert3-skills-hero-state", "cert3-skills-hero-state",
                                 "skills_cert3_state", "skills_cert3_state",
-                                SkillsCert3Data, [("percentage", "uncertainty",),],
+                                SkillsCert3Data, [
+                                    ("percentage", "uncertainty", "rse"),
+                                ],
                                 want_increase=False,
                                 verbosity=verbosity))
         messages.extend(

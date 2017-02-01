@@ -34,64 +34,68 @@ file_format = {
     "format": "xlsx",
     "sheets": [
             {
-                "name": "Data1",
+                "name": "Mean reading",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("Year 3", "Year 5", "Year 7", "Year 9")'),
+                            ('B', 'Row Discriminator - statistic type ("Mean scale score, reading", "Confidence interval", "RSE")'),
+                            ('C', 'Row Discriminator - school year ("Year 3", "Year 5", "Year 7", "Year 9")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Quartets of rows per year, average score in reading per NAPLAN school year'),
+                            ('...', '12 rows per year for each possible combination of row discriminators'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
                 ],
             },
             {
-                "name": "Data2",
+                "name": "NMS reading",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("Year 3", "Year 5", "Year 7", "Year 9")'),
+                            ('B', 'Row Discriminator - statistic type ("Proportion at or above the national minimum standard in literacy", "Confidence interval", "RSE")'),
+                            ('C', 'Row Discriminator - school year ("Year 3", "Year 5", "Year 7", "Year 9")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Quartets of rows per year, proportion meeting minimum reading standard per NAPLAN school year'),
+                            ('...', '12 rows per year for each possible combination of row discriminators'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
                 ],
             },
             {
-                "name": "Data3",
+                "name": "Mean numeracy",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("Year 3", "Year 5", "Year 7", "Year 9")'),
+                            ('B', 'Row Discriminator - statistic type ("Mean scale score, numeracy", "Confidence interval", "RSE")'),
+                            ('C', 'Row Discriminator - school year ("Year 3", "Year 5", "Year 7", "Year 9")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Quartets of rows per year, average score in numeracy per NAPLAN school year'),
+                            ('...', '12 rows per year for each possible combination of row discriminators'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
                 ],
             },
             {
-                "name": "Data4",
+                "name": "NMS numeracy",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("Year 3", "Year 5", "Year 7", "Year 9")'),
+                            ('B', 'Row Discriminator - statistic type ("Proportion at or above the national minimum standard in numeracy", "Confidence interval", "RSE")'),
+                            ('C', 'Row Discriminator - school year ("Year 3", "Year 5", "Year 7", "Year 9")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Quartets of rows per year, proportion meeting minimum maths standard per NAPLAN school year'),
+                            ('...', '12 rows per year for each possible combination of row discriminators'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',

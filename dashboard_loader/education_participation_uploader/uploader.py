@@ -36,7 +36,7 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("Full-time study", "Full-time work", "Combination of study and work", "Not fully engaged")'),
+                            ('B', 'Row Discriminator ("Full-time study proportion (%)", "Full-time work proportion (%)", "Combination of study and work proportion (%)", "Not fully engaged proportion (%)")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
@@ -55,6 +55,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark - N.B. This will be applied to both the numeracy and literacy widgets if supplied'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of indicator status description. One paragraph per line.'),
