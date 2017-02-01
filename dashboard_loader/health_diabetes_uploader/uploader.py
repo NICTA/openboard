@@ -40,13 +40,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year range e.g. 2011-12 or 2011-13'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion of persons aged 25 and over with type 2 diabetes (%)", "Confidence interval", "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty and one for standard error'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -71,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "Reduce the age-adjusted prevalence rate for Type 2 diabetes to 2000 levels by 2023"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -83,12 +83,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Health", "Diabetes",
                                 None, HealthDiabetesData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of persons aged 25 and over with type 2 diabetes (%)", 
+                                    "uncertainty": "Confidence interval",
+                                    "rse": "RSE",
+                                },
                                 multi_year=True,
                                 verbosity=verbosity)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "diabetes-health-hero", "diabetes-health-hero",  
                                 "diabetes-health-hero-state", "diabetes-health-hero-state",  
                                 "health_diabetes", "health_diabetes",  
@@ -97,7 +101,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "diabetes-health-hero-state", "diabetes-health-hero-state",  
                                 "health_diabetes_state", "health_diabetes_state",
-                                HealthDiabetesData, [ ( "percentage", "uncertainty",),],
+                                HealthDiabetesData, [ 
+                                    ( "percentage", "uncertainty", "rse" ),
+                                ],
                                 override_status="new_indicator",
                                 verbosity=verbosity))
         latest_aust = HealthDiabetesData.objects.filter(state=AUS).order_by("year").last()

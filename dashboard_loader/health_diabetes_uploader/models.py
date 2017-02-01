@@ -20,5 +20,5 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class HealthDiabetesData(CoagPercentageUncertaintyDataBase):
+class HealthDiabetesData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
