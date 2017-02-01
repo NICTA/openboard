@@ -40,13 +40,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion of graduates with improved employment status (%)", "Confidence interval", "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty and one for RSE'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of indicator status description. One paragraph per line.'),
@@ -71,8 +73,6 @@ file_format = {
         ],
 }
 
-indicator = "Increase the proportion of VET graduates with improved employment status after training"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -83,10 +83,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Skills", "Improved Employment Status",
                                 None, SkillsImprovedEmployData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of graduates with improved employment status (%)", 
+                                    "uncertainty": "Confidence interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, indicator,
+        messages.extend(update_stats(desc, None,
                                 "improved_employ-skills-hero", "improved_employ-skills-hero", 
                                 "improved_employ-skills-hero-state", "improved_employ-skills-hero-state",
                                 "skills_improved_employ", "skills_improved_employ",
@@ -95,7 +99,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "improved_employ-skills-hero-state", "improved_employ-skills-hero-state",
                                 "skills_improved_employ_state", "skills_improved_employ_state",
-                                SkillsImprovedEmployData, [("percentage", "uncertainty",),],
+                                SkillsImprovedEmployData, [
+                                    ("percentage", "uncertainty", "rse"),
+                                ],
                                 want_increase=True,
                                 verbosity=verbosity))
         messages.extend(

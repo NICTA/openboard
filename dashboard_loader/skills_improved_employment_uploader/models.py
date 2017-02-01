@@ -20,6 +20,6 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class SkillsImprovedEmployData(CoagPercentageUncertaintyDataBase):
+class SkillsImprovedEmployData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
 
