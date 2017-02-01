@@ -60,8 +60,16 @@ def all_rows_found(rows):
             return False
     return True
 
+def listify(x):
+    if isinstance(x, basestring):
+        return [ x, ]
+    else:
+        return x
+
 def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, use_dates=True, multi_year=False):
     messages = []
+    if first_cell_rows:
+        raise LoaderException("first_cell_rows no longer supported")
     if verbosity > 2:
         messages.append("Loading %s Data: %s" % (data_category, dataset))
     sheet = wb[sheet_name]
@@ -78,8 +86,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
     _isfy = False
     _myr = 1
     rows = {}
-    for fld in first_cell_rows.keys():
-        rows[fld] = 0
+    records_written = 0
     for fld in intermediate_cell_rows.keys():
         rows[fld] = 0
     while True:
@@ -92,13 +99,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                 first_cell = first_cell.strip()
             if first_cell == abort_on:
                 break
-            first_cell_matched = False
-            for fld, fcr in first_cell_rows.items():
-                if first_cell == fcr:
-                    first_cell_matched=True
-                    rows[fld] = row
-                    break
-            if not first_cell_matched and use_dates:
+            if use_dates:
                 try:
                     if multi_year:
                         (_year, _myr) = parse_multiyear(first_cell)
@@ -118,6 +119,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         zero_all_rows(rows)
                 except:
                     pass
+        matches = []
         if year or not use_dates:
             for col in column_labels(2, sheet.max_column):
                 if col in state_cols.values():
@@ -126,7 +128,17 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                 if isinstance(cval, unicode):
                     cval = cval.strip()
                 for fld, icr in intermediate_cell_rows.items():
-                    if cval == icr:
+                    icr = listify(icr)
+                    for icri in icr:
+                        if cval == icri:
+                            matches.append(icri)
+                            break
+                    full_match = True
+                    for icri in icr:
+                        if icri not in matches:
+                            full_match = False
+                            break
+                    if full_match:
                         rows[fld]=row
                         break
                 if all_rows_found(rows):
@@ -147,8 +159,11 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         if use_dates:
                             kwargs["year"] = year
                         obj, created = model.objects.update_or_create(**kwargs)
+                        records_written += 1
                     zero_all_rows(rows)
         row += 1
+    if verbosity > 1:
+        messages.append("Records written: %d" % records_written)
     return messages
 
 def flt_year_equal(y1,y2):

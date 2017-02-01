@@ -122,53 +122,93 @@ indicators_lit = "Improve the literacy achievement of Year 3,5,7 and 9 students 
 indicators_num = "Improve the numeracy achievement of Year 3,5,7 and 9 students in national testing"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-    messages = []
-    try:
+        messages = []
+#    try:
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
         messages.extend(
-                load_state_grid(wb, "Data1",
-                                "Education", "NAPLAN Reading Avg Score",
+                load_state_grid(wb, "Mean reading",
+                                "Education", "NAPLAN Reading Mean Score",
                                 None, EducationNaplanData,
                                 {}, {
-                                    "year3_lit_score": "Year 3", 
-                                    "year5_lit_score": "Year 5",
-                                    "year7_lit_score": "Year 7",
-                                    "year9_lit_score": "Year 9",
+                                    "year3_lit_score": ("Year 3", "Mean scale score, reading"),
+                                    "year5_lit_score": ("Year 5", "Mean scale score, reading"),
+                                    "year7_lit_score": ("Year 7", "Mean scale score, reading"),
+                                    "year9_lit_score": ("Year 9", "Mean scale score, reading"),
+
+                                    "year3_lit_score_uncertainty": ("Year 3", "Confidence interval"),
+                                    "year5_lit_score_uncertainty": ("Year 5", "Confidence interval"),
+                                    "year7_lit_score_uncertainty": ("Year 7", "Confidence interval"),
+                                    "year9_lit_score_uncertainty": ("Year 9", "Confidence interval"),
+
+                                    "year3_lit_score_rse": ("Year 3", "RSE"),
+                                    "year5_lit_score_rse": ("Year 5", "RSE"),
+                                    "year7_lit_score_rse": ("Year 7", "RSE"),
+                                    "year9_lit_score_rse": ("Year 9", "RSE"),
                                 },
                                 verbosity))
         messages.extend(
-                load_state_grid(wb, "Data2",
+                load_state_grid(wb, "NMS reading",
                                 "Education", "NAPLAN Reading NMS",
                                 None, EducationNaplanData,
                                 {}, {
-                                    "year3_lit_nms": "Year 3", 
-                                    "year5_lit_nms": "Year 5",
-                                    "year7_lit_nms": "Year 7",
-                                    "year9_lit_nms": "Year 9",
+                                    "year3_lit_nms": ("Year 3", "Proportion at or above the national minimum standard in literacy"),
+                                    "year5_lit_nms": ("Year 5", "Proportion at or above the national minimum standard in literacy"),
+                                    "year7_lit_nms": ("Year 7", "Proportion at or above the national minimum standard in literacy"),
+                                    "year9_lit_nms": ("Year 9", "Proportion at or above the national minimum standard in literacy"),
+
+                                    "year3_lit_nms_uncertainty": ("Year 3", "Confidence interval"),
+                                    "year5_lit_nms_uncertainty": ("Year 5", "Confidence interval"),
+                                    "year7_lit_nms_uncertainty": ("Year 7", "Confidence interval"),
+                                    "year9_lit_nms_uncertainty": ("Year 9", "Confidence interval"),
+
+                                    "year3_lit_nms_rse": ("Year 3", "RSE"),
+                                    "year5_lit_nms_rse": ("Year 5", "RSE"),
+                                    "year7_lit_nms_rse": ("Year 7", "RSE"),
+                                    "year9_lit_nms_rse": ("Year 9", "RSE"),
                                 },
                                 verbosity))
         messages.extend(
-                load_state_grid(wb, "Data3",
-                                "Education", "NAPLAN Numeracy Avg Score",
+                load_state_grid(wb, "Mean numeracy",
+                                "Education", "NAPLAN Numeracy Mean Score",
                                 None, EducationNaplanData,
                                 {}, {
-                                    "year3_num_score": "Year 3", 
-                                    "year5_num_score": "Year 5",
-                                    "year7_num_score": "Year 7",
-                                    "year9_num_score": "Year 9",
+                                    "year3_num_score": ("Year 3", "Mean scale score, numeracy"),
+                                    "year5_num_score": ("Year 5", "Mean scale score, numeracy"),
+                                    "year7_num_score": ("Year 7", "Mean scale score, numeracy"),
+                                    "year9_num_score": ("Year 9", "Mean scale score, numeracy"),
+
+                                    "year3_num_score_uncertainty": ("Year 3", "Confidence interval"),
+                                    "year5_num_score_uncertainty": ("Year 5", "Confidence interval"),
+                                    "year7_num_score_uncertainty": ("Year 7", "Confidence interval"),
+                                    "year9_num_score_uncertainty": ("Year 9", "Confidence interval"),
+
+                                    "year3_num_score_rse": ("Year 3", "RSE"),
+                                    "year5_num_score_rse": ("Year 5", "RSE"),
+                                    "year7_num_score_rse": ("Year 7", "RSE"),
+                                    "year9_num_score_rse": ("Year 9", "RSE"),
                                 },
                                 verbosity))
         messages.extend(
-                load_state_grid(wb, "Data4",
+                load_state_grid(wb, "NMS numeracy",
                                 "Education", "NAPLAN Numeracy NMS",
                                 None, EducationNaplanData,
                                 {}, {
-                                    "year3_num_nms": "Year 3", 
-                                    "year5_num_nms": "Year 5",
-                                    "year7_num_nms": "Year 7",
-                                    "year9_num_nms": "Year 9",
+                                    "year3_num_nms": ("Year 3", "Proportion at or above the national minimum standard in numeracy"),
+                                    "year5_num_nms": ("Year 5", "Proportion at or above the national minimum standard in numeracy"),
+                                    "year7_num_nms": ("Year 7", "Proportion at or above the national minimum standard in numeracy"),
+                                    "year9_num_nms": ("Year 9", "Proportion at or above the national minimum standard in numeracy"),
+
+                                    "year3_num_nms_uncertainty": ("Year 3", "Confidence interval"),
+                                    "year5_num_nms_uncertainty": ("Year 5", "Confidence interval"),
+                                    "year7_num_nms_uncertainty": ("Year 7", "Confidence interval"),
+                                    "year9_num_nms_uncertainty": ("Year 9", "Confidence interval"),
+
+                                    "year3_num_nms_rse": ("Year 3", "RSE"),
+                                    "year5_num_nms_rse": ("Year 5", "RSE"),
+                                    "year7_num_nms_rse": ("Year 7", "RSE"),
+                                    "year9_num_nms_rse": ("Year 9", "RSE"),
                                 },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True, additional_lookups={
@@ -193,28 +233,28 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "naplan_lit-education-hero-state", "naplan_lit-education-hero-state", 
                                 "education_naplan_lit_state", "education_naplan_lit_state",
                                 EducationNaplanData, [
-                                        ( "year3_lit_nms", None), 
-                                        ( "year5_lit_nms", None), 
-                                        ( "year7_lit_nms", None), 
-                                        ( "year9_lit_nms", None), 
-                                        ( "year3_lit_score", None), 
-                                        ( "year5_lit_score", None), 
-                                        ( "year7_lit_score", None), 
-                                        ( "year9_lit_score", None), 
+                                        ( "year3_lit_nms", "year3_lit_nms_uncertainty", "year3_lit_nms_rse"), 
+                                        ( "year5_lit_nms", "year5_lit_nms_uncertainty", "year5_lit_nms_rse"), 
+                                        ( "year7_lit_nms", "year7_lit_nms_uncertainty", "year7_lit_nms_rse"), 
+                                        ( "year9_lit_nms", "year9_lit_nms_uncertainty", "year9_lit_nms_rse"), 
+                                        ( "year3_lit_score", "year3_lit_score_uncertainty", "year3_lit_score_rse"), 
+                                        ( "year5_lit_score", "year5_lit_score_uncertainty", "year5_lit_score_rse"), 
+                                        ( "year7_lit_score", "year7_lit_score_uncertainty", "year7_lit_score_rse"), 
+                                        ( "year9_lit_score", "year9_lit_score_uncertainty", "year9_lit_score_rse"), 
                                 ],
                                 verbosity=verbosity))
         messages.extend(update_state_stats(
                                 "naplan_num-education-hero-state", "naplan_num-education-hero-state", 
                                 "education_naplan_num_state", "education_naplan_num_state",
                                 EducationNaplanData, [
-                                        ( "year3_num_nms", None), 
-                                        ( "year5_num_nms", None), 
-                                        ( "year7_num_nms", None), 
-                                        ( "year9_num_nms", None), 
-                                        ( "year3_num_score", None), 
-                                        ( "year5_num_score", None), 
-                                        ( "year7_num_score", None), 
-                                        ( "year9_num_score", None), 
+                                        ( "year3_num_nms", "year3_num_nms_uncertainty", "year3_num_nms_rse"), 
+                                        ( "year5_num_nms", "year5_num_nms_uncertainty", "year5_num_nms_rse"), 
+                                        ( "year7_num_nms", "year7_num_nms_uncertainty", "year7_num_nms_rse"), 
+                                        ( "year9_num_nms", "year9_num_nms_uncertainty", "year9_num_nms_rse"), 
+                                        ( "year3_num_score", "year3_num_score_uncertainty", "year3_num_score_rse"), 
+                                        ( "year5_num_score", "year5_num_score_uncertainty", "year5_num_score_rse"), 
+                                        ( "year7_num_score", "year7_num_score_uncertainty", "year7_num_score_rse"), 
+                                        ( "year9_num_score", "year9_num_score_uncertainty", "year9_num_score_rse"), 
                                 ],
                                 verbosity=verbosity))
         messages.extend(update_naplan_graphs("lit", AUS, verbosity))
@@ -284,11 +324,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "year9_num_nms": "yr9_nms",
                             }, pval=pval)
             )
-    except LoaderException, e:
-        raise e
-    except Exception, e:
-        raise LoaderException("Invalid file: %s" % unicode(e))
-    return messages
+#   except LoaderException, e:
+#        raise e
+#    except Exception, e:
+#        raise LoaderException("Invalid file: %s" % unicode(e))
+        return messages
 
 def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbosity=0, pval=None):
     messages = []
