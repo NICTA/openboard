@@ -108,6 +108,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of indicator status description. One paragraph per line.'),

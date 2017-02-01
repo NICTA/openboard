@@ -40,13 +40,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator ("Dip" or "Adv Dip")'),
+                            ('B', 'Row Discriminator ("Diploma (no.)" or "Advanced Diploma (no.)")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for the number of diplomas (Dip) and one for the number of advanced diplomas (Adv Dip)'),
+                            ('...', 'Pair of rows per year, one for the number of diplomas (Dip) and one for the number of advanced diplomas (Adv Dip).  A total row may be present, but will not be read (total is calculated)'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -71,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "Double the number of higher level qualification completions (diploma and advanced diploma) nationally between 2009 and 2020"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -83,10 +83,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Skills", "Higher Qualifications",
                                 None, SkillsHigherQualificationsData,
-                                {}, {"diplomas": "Dip", "adv_diplomas": "Adv Dip",},
+                                {}, {
+                                    "diplomas": "Diploma (no.)", 
+                                    "adv_diplomas": "Advanced Diploma (no.)",
+                                },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "higher_qual-skills-hero", "higher_qual-skills-hero", 
                                 "higher_qual-skills-hero-state", "higher_qual-skills-hero-state",
                                 "skills_higher_qual", "skills_higher_qual",
