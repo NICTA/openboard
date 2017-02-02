@@ -61,7 +61,6 @@ file_format = {
                 "rows": [
                             ('Measure', 'Full description of benchmark'),
                             ('Short Title', 'Short widget title (not used)'),
-
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),

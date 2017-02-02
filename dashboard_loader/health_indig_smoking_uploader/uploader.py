@@ -40,13 +40,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion of Indigenous adults who are current daily smokers (%)", "Confidence Interval", or "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty, and one for RSE. May include optional National Benchmark row.'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -71,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "By 2018, halve the Indigenous smoking rate, over the 2009 baseline"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -83,12 +83,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Health", "Indigenous Smoking Rate",
                                 None, HealthIndigenousSmokingData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of Indigenous adults who are current daily smokers (%)", 
+                                    "uncertainty": "Confidence Interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity=verbosity,
                                 multi_year=True)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "indig_smoking-health-hero", "indig_smoking-health-hero",  
                                 "indig_smoking-health-hero-state", "indig_smoking-health-hero-state",  
                                 "health_indig_smoking", "health_indig_smoking",  
@@ -97,7 +101,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "indig_smoking-health-hero-state", "indig_smoking-health-hero-state",  
                                 "health_indig_smoking_state", "health_indig_smoking_state",
-                                HealthIndigenousSmokingData, [ ( "percentage", "uncertainty",),],
+                                HealthIndigenousSmokingData, [ 
+                                    ( "percentage", "uncertainty", "rse" ),
+                                ],
                                 want_increase=False,
                                 verbosity=verbosity))
         messages.extend(

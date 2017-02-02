@@ -20,6 +20,6 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class HealthIndigenousSmokingData(CoagPercentageUncertaintyDataBase):
+class HealthIndigenousSmokingData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
 
