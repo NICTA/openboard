@@ -155,7 +155,7 @@ def catalog_entry(ds, view, shown=[]):
     return entry
 
 def api_list_property_groups():
-    return [ group.getindex() for group in PropertyGroup.objects.all() ]
+    return [ group.__getstate__() for group in PropertyGroup.objects.all() ]
 
 def api_get_property_group(grp):
     try:
