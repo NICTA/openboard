@@ -36,7 +36,7 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year range e.g. 2007-09 or 2007-2009'),
-                            ('B', 'Row Discriminator ("%")',),
+                            ('B', 'Row Discriminator ("Patients treated within national benchmarks for emergency department waiting time (%)")',),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
@@ -55,6 +55,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of indicator status description. One paragraph per line.'),
@@ -67,8 +69,6 @@ file_format = {
         ],
 }
 
-indicators = "Increase the proportion of patients treated within national benchmarks for emergency department waiting time"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -80,11 +80,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Health", "Emergency Dept waiting times",
                                 None, HealthEmergencyWaitData,
                                 {}, {
-                                    "treated_ontime": "%",
+                                    "treated_ontime": "Patients treated within national benchmarks for emergency department waiting time (%)",
                                 },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, indicators,
+        messages.extend(update_stats(desc, None,
                                 "edwait-health-hero", "edwait-health-hero", 
                                 "edwait-health-hero-state", "edwait-health-hero-state", 
                                 "health_edwait", "health_edwait",
