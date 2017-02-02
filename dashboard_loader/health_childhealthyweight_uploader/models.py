@@ -20,6 +20,6 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class HealthChildHealthyWeightData(CoagPercentageUncertaintyDataBase):
+class HealthChildHealthyWeightData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
 

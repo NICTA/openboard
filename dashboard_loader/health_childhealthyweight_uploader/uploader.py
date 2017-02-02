@@ -40,13 +40,14 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator (% or +)'),
+                            ('B', 'Row Discriminator ("Proportion of children at a normal weight", "Confidence interval", or "RSE")'),
+
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (+)'),
+                            ('...', 'Triplets of rows per year, one for percentage, one for uncertainty, and one for RSE. May include optional National Benchmark row.'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -59,6 +60,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -71,8 +74,6 @@ file_format = {
         ],
 }
 
-benchmark = "By 2018, increase by five percentage points the proportion of Australian children at a healthy body weight, over the 2009 baseline"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -83,12 +84,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Health", "Child Healthy Weight",
                                 None, HealthChildHealthyWeightData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of children at a normal weight", 
+                                    "uncertainty": "Confidence interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity=verbosity,
                                 multi_year=True)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "childweight-health-hero", "childweight-health-hero",  
                                 "childweight-health-hero-state", "childweight-health-hero-state",  
                                 "health_childweight", "health_childweight",  
@@ -97,7 +102,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "childweight-health-hero-state", "childweight-health-hero-state",  
                                 "health_childweight_state", "health_childweight_state",
-                                HealthChildHealthyWeightData, [ ( "percentage", "uncertainty",),],
+                                HealthChildHealthyWeightData, [ 
+                                    ( "percentage", "uncertainty", "rse" ),
+                                ],
                                 want_increase=True,
                                 verbosity=verbosity))
         messages.extend(
