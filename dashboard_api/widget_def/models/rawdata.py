@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -102,7 +102,7 @@ class RawDataSet(models.Model):
         pval = resolve_pval(self.widget.parametisation, view=view)
         writer.write(self.csv_header(view))
         if pval:
-            for rec in self.rawdatarecord_set.all(param_value=pval):
+            for rec in self.rawdatarecord_set.filter(param_value=pval):
                 writer.write(rec.csv)
         else:
             for rec in self.rawdatarecord_set.all():
