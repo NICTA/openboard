@@ -67,8 +67,6 @@ file_format = {
         ],
 }
 
-indicators = "Improve life expectancy for Australian men and women"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -82,7 +80,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 {}, {"males": "Males", "females": "Females",},
                                 verbosity, multi_year=True))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, indicators,
+        messages.extend(update_stats(desc, None,
                                 "life_expectancy-health-hero", "life_expectancy-health-hero", 
                                 "life_expectancy-health-hero-state", "life_expectancy-health-hero-state", 
                                 "health_life_expectancy", "health_life_expectancy",
