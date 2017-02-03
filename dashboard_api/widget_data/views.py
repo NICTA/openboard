@@ -63,7 +63,7 @@ class GetRawDataView(OpenboardAPIView):
     lookup_view = True
     lookup_widget = True
     def api_method(self, request):
-        return api_get_raw_data(self.widget, request, self.kwargs.get("rds_url"))
+        return api_get_raw_data(self.widget, request, self.kwargs.get("rds_url"), view=self.view)
 
 class MapDataViewBase(OpenboardAPIView):
     lookup_view = True
