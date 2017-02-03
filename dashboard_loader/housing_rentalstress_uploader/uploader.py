@@ -202,7 +202,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 pval=pval)
                     )
             messages.extend(
-                    populate_raw_data("housing_rentalstress", "housing_rentalstress",
+                    populate_raw_data("housing_rentalstress_state", "housing_rentalstress_state",
                                     "housing_rentalstress", HousingRentalStressData,
                                     {
                                         "percentage": "percentage_rental_stress",
@@ -210,7 +210,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     }, pval=pval)
                     )
             messages.extend(
-                    populate_crosstab_raw_data("housing_rentalstress", "housing_rentalstress",
+                    populate_crosstab_raw_data("housing_rentalstress_state", "housing_rentalstress_state",
                                     "data_table", HousingRentalStressData,
                                     {
                                         "percentage": "percent",

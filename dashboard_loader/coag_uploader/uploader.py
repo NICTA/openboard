@@ -548,10 +548,13 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
         kwargs["pval"] = pval
     for obj in model.objects.all().order_by("year", "financial_year", "state"):
         if obj.year_display() != kwargs["year"]:
-            add_rawdatarecord(rds, sort_order, **kwargs)
-            sort_order += 1
+            if kwargs["year"]:
+                add_rawdatarecord(rds, sort_order, **kwargs)
+                sort_order += 1
             kwargs = {}
             kwargs["year"] = obj.year_display()
+            if pval:
+                kwargs["pval"] = pval
         jurisdiction = obj.state_display().lower()
         if obj.state == AUS:
             used_map = field_map
@@ -559,7 +562,7 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
             used_map = field_map_states
         for model_field, rds_field in used_map.items():
             kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
-        add_rawdatarecord(rds, sort_order, **kwargs)
+    add_rawdatarecord(rds, sort_order, **kwargs)
     return messages
 
 def populate_raw_data_nostate(widget_url, label, rds_url,
