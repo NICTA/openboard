@@ -766,8 +766,8 @@
                             "description": "The average life expectancy of men in years."
                         }, 
                         {
-                            "url": "percentage_full_time_work", 
-                            "sort_order": 40, 
+                            "url": "years_females", 
+                            "sort_order": 35, 
                             "heading": "Females", 
                             "description": "The average life expectancy of women in years."
                         }

@@ -132,6 +132,26 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         HealthLifeExpectancyData, "females",
                         verbosity=verbosity)
         )
+        messages.extend(
+                populate_raw_data(
+                    'health_life_expectancy', 'health_life_expectancy',
+                    'health_life_expectancy', HealthLifeExpectancyData, 
+                    {
+                        "males": "years_males",
+                        "females": "years_females"
+                    }
+                )
+        )
+        messages.extend(
+                populate_crosstab_raw_data(
+                    'health_life_expectancy', 'health_life_expectancy',
+                    'data_table', HealthLifeExpectancyData, 
+                    {
+                        "males": "males",
+                        "females": "females"
+                    }
+                )
+        )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -202,6 +222,28 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             HealthLifeExpectancyData, "females",
                             verbosity=verbosity,
                             pval=pval)
+            )
+            messages.extend(
+                    populate_raw_data(
+                            'health_life_expectancy_state', 'health_life_expectancy_state',
+                            'health_life_expectancy', HealthLifeExpectancyData, 
+                            {
+                                "males": "years_males",
+                                "females": "years_females"
+                            },
+                            pval=pval
+                    )
+            )
+            messages.extend(
+                    populate_crosstab_raw_data(
+                            'health_life_expectancy_state', 'health_life_expectancy_state',
+                            'data_table', HealthLifeExpectancyData, 
+                            {
+                                "males": "males",
+                                "females": "females"
+                            },
+                            pval=pval
+                    )
             )
     except LoaderException, e:
         raise e
