@@ -203,7 +203,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     {
                                         "percentage": "percentage_yr12_attainment",
                                         "uncertainty": "uncertainty",
-                                    })
+                                    },
+                                    pval=pval)
                     )
             messages.extend(
                     populate_crosstab_raw_data("education_yr12_2015_state", "education_yr12_2015_state", 
@@ -211,7 +212,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     {
                                         "percentage": "percent",
                                         "uncertainty": "error",
-                                    })
+                                    },
+                                    pval=pval)
                     )
     except LoaderException, e:
         raise e

@@ -768,7 +768,7 @@ def update_stats(desc, benchmark,
             st_abbrev = pval.parameters()["state_abbrev"]
             set_text_block(wurl_state, wlbl_state,
                         txt_block_template.render(Context({ 
-                                        "benchmark": benchmark, 
+                                        "benchmark": desc.get("measure", benchmark), 
                                         "additional_body": desc.get(additional_desc_body),
                                         "desc": desc,
                                         "state": st_abbrev,
