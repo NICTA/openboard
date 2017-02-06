@@ -389,36 +389,48 @@ indicator_statuses = {
         "short": "Improving",
         "long": "There has been a noticable improvement on this measure.",
         "tlc": "improving",
+        "incr_trend": 1,
+        "decr_trend": -1,
         "icon": "yes",
     },
     "no_improvement": {
         "short": "No Improvement",
         "long": "There has been no noticable change across this measure.",
         "tlc": "no_improvement",
+        "incr_trend": 0,
+        "decr_trend": 0,
         "icon": "warning",
     },
     "negative_change": {
         "short": "Negative change",
         "long": "There has been a noticable worsening on this measure.",
         "tlc": "negative_change",
+        "incr_trend": -1,
+        "decr_trend": 1,
         "icon": "no",
     },
     "mixed_results": {
         "short": "Mixed results",
         "long": "This indicator includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
         "tlc": "mixed_results",
+        "incr_trend": 0,
+        "decr_trend": 0,
         "icon": "unknown",
     },
     "new_indicator": {
         "short": "New indicator",
         "long": "There is no time series data available for this indicator yet, so it is not possible to assess progress at this point.",
         "tlc": "new_indicator",
+        "incr_trend": 0,
+        "decr_trend": 0,
         "icon": "unknown",
     },
     "no_data": {
         "short": "No data",
         "long": "There is no data available for this indicator, so it is not possible to assess progress.",
         "tlc": "no_data",
+        "incr_trend": 0,
+        "decr_trend": 0,
         "icon": "unknown",
     },
 }
@@ -772,6 +784,11 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     override_status=None,
                     verbosity=0):
     messages = []
+    try:
+        if len(fields) != len(want_increase):
+            raise LoaderError("fields/want_increase array length mismatch")
+    except TypeError:
+        want_increase = [ want_increase ] * len(fields)
     p = Parametisation.objects.get(url="state_param")
     for pval in p.parametisationvalue_set.all():
         state_abbrev = pval.parameters()["state_abbrev"]
@@ -792,7 +809,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     messages.append("%s: New indicator" % state_abbrev)
             else:
                 statuses = []
-                for flds in fields:
+                for flds, want_incr in zip(fields, want_increase):
                     field = flds[0]
                     uncertainty_field = flds[1]
                     if len(flds) > 2:
@@ -823,7 +840,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         significant = abs(test_stat) > 1.96
                         if not significant:
                             statuses.append("no_improvement")
-                        elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
+                        elif (want_incr and diff == abs(diff)) or (not want_incr and diff != abs(diff)):
                             statuses.append("improving")
                         else:
                             statuses.append("negative_change")
@@ -836,7 +853,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                             total_err = Decimal("0.0")
                         if abs(diff) < total_err or diff.is_zero():
                             statuses.append("no_improvement")
-                        elif (want_increase and diff == abs(diff)) or (not want_increase and diff != abs(diff)):
+                        elif (want_incr and diff == abs(diff)) or (not want_incr and diff != abs(diff)):
                             statuses.append("improving")
                         else:
                             statuses.append("negative_change")
@@ -870,11 +887,19 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         pval=pval)
     return messages
 
-def indicator_tlc_trend(ref_val, val):
-    if ref_val < val:
-        return ("improving", 1)
-    elif ref_val > val:
-        return ("negative_change", -1)
+def indicator_tlc_trend(ref_val, val, want_increase=True):
+    if want_increase:
+        if ref_val < val:
+            return ("improving", 1)
+        elif ref_val > val:
+            return ("negative_change", -1)
+        else:
+            return ("no_improvement", 0)
     else:
-        return ("no_improvement", 0)
+        if ref_val > val:
+            return ("improving", -1)
+        elif ref_val < val:
+            return ("negative_change", 1)
+        else:
+            return ("no_improvement", 0)
 

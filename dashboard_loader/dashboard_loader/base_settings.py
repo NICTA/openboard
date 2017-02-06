@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'health_smoking_uploader',
     'health_indig_smoking_uploader',
     'health_edwait_uploader',
+    'health_gpwait_uploader',
     'disability_labour_participation_uploader',
     'disability_social_participation_uploader',
     'disability_more_assist_uploader',
