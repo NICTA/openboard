@@ -1,0 +1,585 @@
+{
+    "category": "health", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Potentially avoidable deaths", 
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "health_avoidable_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Australia"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "{{ colour }}-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_status_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_avoidable_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "numeric_axis_label": "rate per 100k persons", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_act"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_nsw"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_nt"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_qld"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_sa"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_tas"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_vic"
+                }, 
+                {
+                    "sort_order": 145, 
+                    "view": "healthcare_wa"
+                }
+            ], 
+            "default_frequency_text": "Updated: 2015", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Potentially Avoidable Deaths", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_rate", 
+                            "sort_order": 20, 
+                            "heading": "NSW | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_error", 
+                            "sort_order": 30, 
+                            "heading": "NSW | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_rate", 
+                            "sort_order": 40, 
+                            "heading": "Vic | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_error", 
+                            "sort_order": 50, 
+                            "heading": "Vic | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_rate", 
+                            "sort_order": 60, 
+                            "heading": "Qld | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_error", 
+                            "sort_order": 70, 
+                            "heading": "Qld | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_rate", 
+                            "sort_order": 80, 
+                            "heading": "WA | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_error", 
+                            "sort_order": 90, 
+                            "heading": "WA | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_rate", 
+                            "sort_order": 100, 
+                            "heading": "SA | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_error", 
+                            "sort_order": 110, 
+                            "heading": "SA | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_rate", 
+                            "sort_order": 120, 
+                            "heading": "Tas | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_error", 
+                            "sort_order": 130, 
+                            "heading": "Tas | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_rate", 
+                            "sort_order": 140, 
+                            "heading": "ACT | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_error", 
+                            "sort_order": 150, 
+                            "heading": "ACT | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_rate", 
+                            "sort_order": 160, 
+                            "heading": "NT | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_error", 
+                            "sort_order": 170, 
+                            "heading": "NT | \u00b1", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_rate", 
+                            "sort_order": 180, 
+                            "heading": "Aust | rate per 100k", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_error", 
+                            "sort_order": 190, 
+                            "heading": "Aust | \u00b1", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "avoidable_deaths_data_table.csv"
+                }, 
+                {
+                    "url": "health_avoidable", 
+                    "name": "Potentially Avoidable Deaths Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "rate_per_100k", 
+                            "sort_order": 30, 
+                            "heading": "Rate per 100,000 people", 
+                            "description": "Age-standardised mortality rates of potentially avoidable deaths, under 75 years (per 100,000 persons)."
+                        }, 
+                        {
+                            "url": "uncertainty", 
+                            "sort_order": 40, 
+                            "heading": "Uncertainty", 
+                            "description": "The uncertainty in the main percentage of households in rental stress figure."
+                        }
+                    ], 
+                    "filename": "coag_health_avoidable_deaths_data.csv"
+                }
+            ], 
+            "sort_order": 2745, 
+            "expansion_hint": "View more", 
+            "about": "<p>Reduce potentially avoidable deaths.</p>", 
+            "refresh_rate": 3470, 
+            "label": "health_avoidable_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/3303.0",
+    "name": "Potentially Avoidable Deaths"
+}
+

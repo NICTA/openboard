@@ -89,6 +89,10 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
     records_written = 0
     for fld in intermediate_cell_rows.keys():
         rows[fld] = 0
+    if use_dates:
+        start_from_col = 2
+    else:
+        start_from_col = 1
     while True:
         try:
             first_cell=sheet["A%d" % row].value
@@ -121,7 +125,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     pass
         matches = []
         if year or not use_dates:
-            for col in column_labels(2, sheet.max_column):
+            for col in column_labels(start_from_col, sheet.max_column):
                 if col in state_cols.values():
                     break
                 cval = sheet["%s%d" % (col, row)].value

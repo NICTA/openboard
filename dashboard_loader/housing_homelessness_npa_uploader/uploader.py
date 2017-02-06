@@ -95,12 +95,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Progress",
                         "Housing", "Homelessness NPA Progress",
                         None, HousingHomelessnessNpaProgress,
-                        {
+                        {}, {
                             "plan1": "Part 1 of project plans submitted to the Commonwealth (1 July 2015)",
                             "plan2": "Part 2 of project plans submitted to the Commonwealth (1 September 2015)",
                             "update": "Update Commonwealth on assessment of progress against project plans, and provide assurance funding has been matched (1 September 2016)",
                             "matched_funding": "At least 25 per cent of total matched funding directed to addressing priority outputs",
-                        }, {},
+                        },
                         verbosity=verbosity,
                         use_dates=False,
                         transforms = {
