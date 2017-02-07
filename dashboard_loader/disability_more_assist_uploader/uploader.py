@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -41,13 +41,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator ("%" or "+")'),
+                            ('B', 'Row Discriminator ("Proportion of people with disability aged 0-64 years who need more formal assistance than they are currently receiving (%)", "Confidence interval" or "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (%)'),
+                            ('...', 'Triplets of rows per year, one for each row discriminator value. May include a "National Benchmark" row which is not read'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -60,19 +60,20 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
                             ('Influences', '"Influences" text of benchmark status description. One paragraph per line'),
                             ('Notes', 'Notes for benchmark status description.  One note per line.'),
+                            ('(State abbrev)', 'Specific notes for individual states/territories'),
                         ],
                 "notes": [
                          ],
             }
         ],
 }
-
-benchmark = "Between 2009 and 2018, there will be a five percentage point national decrease in the proportion of people with disability who report a need for more formal assistance"
 
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
@@ -85,10 +86,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Disability", "Need for More Assistance",
                                 None, DisabilityMoreAssistData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of people with disability aged 0-64 years who need more formal assistance than they are currently receiving (%)",
+                                    "uncertainty": "Confidence interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "more_assist-disability-hero", "more_assist-disability-hero", 
                                 "more_assist-disability-hero-state", "more_assist-disability-hero-state", 
                                 "disability_more_assist", "disability_more_assist",
@@ -97,7 +102,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "more_assist-disability-hero-state", "more_assist-disability-hero-state", 
                                 "disability_more_assist_state", "disability_more_assist_state",
-                                DisabilityMoreAssistData, [("percentage", "uncertainty",),],
+                                DisabilityMoreAssistData, 
+                                [
+                                    ("percentage", "uncertainty", "rse"),
+                                ],
                                 verbosity=verbosity))
         messages.extend(
                 update_graph_data(
@@ -107,7 +115,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2009,
                             benchmark_end=2018,
-                            benchmark_gen=lambda init: Decimal(0.95)*init,
+                            benchmark_gen=lambda init: init-Decimal(5),
                             use_error_bars=False,
                             verbosity=verbosity)
         )
@@ -119,7 +127,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             [ AUS, ],
                             benchmark_start=2009,
                             benchmark_end=2018,
-                            benchmark_gen=lambda init: Decimal(0.95)*init,
+                            benchmark_gen=lambda init: init-Decimal(5),
                             use_error_bars=False,
                             verbosity=verbosity)
         )
@@ -130,7 +138,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             DisabilityMoreAssistData, "percentage",
                             benchmark_start=2009,
                             benchmark_end=2018,
-                            benchmark_gen=lambda init: Decimal(0.95)*init,
+                            benchmark_gen=lambda init: init-Decimal(5),
                             use_error_bars=True,
                             verbosity=verbosity)
         )
@@ -163,7 +171,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 [ AUS, state_num ],
                                 benchmark_start=2009,
                                 benchmark_end=2018,
-                                benchmark_gen=lambda init: Decimal(0.95)*init,
+                                benchmark_gen=lambda init: init-Decimal(5),
                                 use_error_bars=False,
                                 verbosity=verbosity,
                                 pval=pval)
@@ -176,7 +184,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 [ AUS, state_num ],
                                 benchmark_start=2009,
                                 benchmark_end=2018,
-                                benchmark_gen=lambda init: Decimal(0.95)*init,
+                                benchmark_gen=lambda init: init-Decimal(5),
                                 use_error_bars=False,
                                 verbosity=verbosity,
                                 pval=pval)
@@ -188,7 +196,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 DisabilityMoreAssistData, "percentage",
                                 benchmark_start=2009,
                                 benchmark_end=2018,
-                                benchmark_gen=lambda init: Decimal(0.95)*init,
+                                benchmark_gen=lambda init: init-Decimal(5),
                                 use_error_bars=True,
                                 verbosity=verbosity,
                                 pval=pval)

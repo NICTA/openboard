@@ -20,6 +20,6 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class DisabilityMoreAssistData(CoagPercentageUncertaintyDataBase):
+class DisabilityMoreAssistData(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     pass
 
