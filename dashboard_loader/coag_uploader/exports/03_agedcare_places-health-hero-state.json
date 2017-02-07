@@ -1,0 +1,210 @@
+{
+    "category": "health", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.dss.gov.au", 
+    "subtitle": "Aged care places per 1,000 older people", 
+    "subcategory": "summary", 
+    "groups": [], 
+    "url": "agedcare-health-hero-state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health-agedcare-hero-header-state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 2, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "Nationally", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health-agedcare-hero-header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 300, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health-agedcare-hero-graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "state", 
+                                "colour": "{{ colour }}-solid", 
+                                "dynamic_label": false, 
+                                "label": "{{ state_abbrev }}"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "child_view": "healthcare_act", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "act"
+                }, 
+                {
+                    "child_view": "healthcare_nsw", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "nsw"
+                }, 
+                {
+                    "child_view": "healthcare_nt", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "nt"
+                }, 
+                {
+                    "child_view": "healthcare_sa", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "sa"
+                }, 
+                {
+                    "child_view": "healthcare_qld", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "qld"
+                }, 
+                {
+                    "child_view": "healthcare_vic", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "vic"
+                }, 
+                {
+                    "child_view": "healthcare_tas", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "tas"
+                }, 
+                {
+                    "child_view": "healthcare_wa", 
+                    "sort_order": 450, 
+                    "child_view_text": "See all", 
+                    "view": "wa"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [], 
+            "sort_order": 750, 
+            "expansion_hint": "", 
+            "about": "<p>Increase the number of aged care places per 1,000 older people.</p>", 
+            "refresh_rate": 3380, 
+            "label": "agedcare-health-hero-state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": ""
+        }
+    ], 
+    "source_url": "http://www.dss.gov.au",
+    "name": "Health"
+}
+

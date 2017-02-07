@@ -1,0 +1,662 @@
+{
+    "category": "health", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.dss.gov.au", 
+    "subtitle": "Aged care places per 1,000 older people", 
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "health_agedcare", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_agedcare_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_agedcare_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Australia"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_agedcare_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_agedcare_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_agedcare_residential_graph",
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "numeric_axis_label": "places per 1000 older persons", 
+                        "graph_type": 1, 
+                        "heading": "Residential Aged Care Places"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "sort_order": 600, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_agedcare_community_graph",
+                    "graph": {
+                        "numeric_axis_always_show_zero": false, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "colour": "pale_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "colour": "purple-solid", 
+                                "dynamic_label": false, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "colour": "gold-solid", 
+                                "dynamic_label": false, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "colour": "dark_blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 700, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "colour": "brown-solid", 
+                                "dynamic_label": false, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 800, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "colour": "dark_green-solid", 
+                                "dynamic_label": false, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 900, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "numeric_axis_label": "places per 1000 older persons", 
+                        "graph_type": 1, 
+                        "heading": "Community Aged Care Places"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 150, 
+                    "view": "healthcare"
+                }
+            ], 
+            "default_frequency_text": "Annual",
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Aged Care Places per 1,000 Older People", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_residential", 
+                            "sort_order": 20, 
+                            "heading": "NSW | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_community", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_total", 
+                            "sort_order": 40, 
+                            "heading": "NSW | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_residential", 
+                            "sort_order": 50, 
+                            "heading": "Vic | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_community", 
+                            "sort_order": 60, 
+                            "heading": "Vic | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_total", 
+                            "sort_order": 70, 
+                            "heading": "Vic | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_residential", 
+                            "sort_order": 80, 
+                            "heading": "Qld | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_community", 
+                            "sort_order": 90, 
+                            "heading": "Qld | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_total", 
+                            "sort_order": 100, 
+                            "heading": "Qld | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_residential", 
+                            "sort_order": 110, 
+                            "heading": "WA | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_community", 
+                            "sort_order": 120, 
+                            "heading": "WA | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_total", 
+                            "sort_order": 130, 
+                            "heading": "WA | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_residential", 
+                            "sort_order": 140, 
+                            "heading": "SA | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_community", 
+                            "sort_order": 150, 
+                            "heading": "SA | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_total", 
+                            "sort_order": 160, 
+                            "heading": "SA | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_residential", 
+                            "sort_order": 170, 
+                            "heading": "Tas | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_community", 
+                            "sort_order": 180, 
+                            "heading": "Tas | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_total", 
+                            "sort_order": 190, 
+                            "heading": "Tas | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_residential", 
+                            "sort_order": 200, 
+                            "heading": "ACT | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_community", 
+                            "sort_order": 210, 
+                            "heading": "ACT | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_total", 
+                            "sort_order": 220, 
+                            "heading": "ACT | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_residential", 
+                            "sort_order": 230, 
+                            "heading": "NT | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_community", 
+                            "sort_order": 240, 
+                            "heading": "NT | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_total", 
+                            "sort_order": 250, 
+                            "heading": "NT | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_residential", 
+                            "sort_order": 260, 
+                            "heading": "Aust | Residential", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_community", 
+                            "sort_order": 270, 
+                            "heading": "Aust | Community", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_total", 
+                            "sort_order": 280, 
+                            "heading": "Aust | Total", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "agedcare_data_table.csv"
+                }, 
+                {
+                    "url": "health_agedcare", 
+                    "name": "Aged Care Places Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "residential", 
+                            "sort_order": 30, 
+                            "heading": "Residential places", 
+                            "description": "Residential aged care places (per 1,000 older people)."
+                        }, 
+                        {
+                            "url": "community", 
+                            "sort_order": 40, 
+                            "heading": "Community places", 
+                            "description": "Community aged care places (per 1,000 older people)."
+                        },
+                        {
+                            "url": "total", 
+                            "sort_order": 50, 
+                            "heading": "Total aged care places", 
+                            "description": "Total aged care places (per 1,000 older people)."
+                        }
+                    ], 
+                    "filename": "coag_health_agedcare_data.csv"
+                }
+            ], 
+            "sort_order": 2650, 
+            "expansion_hint": "View more", 
+            "about": "<p>Increase the number of aged care places per 1,000 older people.</p>", 
+            "refresh_rate": 3380, 
+            "label": "health_agedcare", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.dss.gov.au",
+    "name": "Aged Care Places"
+}
+

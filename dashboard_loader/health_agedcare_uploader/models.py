@@ -20,9 +20,11 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class HealthAvoidableDeathsData(CoagDataBase, CoagStdErrMixin):
-    rate = models.DecimalField(max_digits=5, 
+class HealthAgedCareData(CoagDataBase):
+    residential = models.DecimalField(max_digits=5, 
                         decimal_places=1)
-    uncertainty = models.DecimalField(max_digits=3, 
+    community = models.DecimalField(max_digits=5, 
                         decimal_places=1)
+    def total(self):
+        return self.residential + self.community
 
