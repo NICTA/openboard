@@ -20,7 +20,7 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class DisabilityLabourParticipation(CoagPercentageUncertaintyDataBase):
+class DisabilityLabourParticipation(CoagPercentageUncertaintyDataBase, CoagStdErrMixin):
     percentage_male = models.DecimalField(max_digits=3, 
                         decimal_places=1,
                         null=True, blank=True)

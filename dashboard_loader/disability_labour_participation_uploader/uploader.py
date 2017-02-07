@@ -40,7 +40,7 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator ("%", "+", "Male%", "Male+", "Female%" or "Female+")'),
+                            ('B', 'Row Discriminator ("People with disability aged 15-64 years in the labour force (%)", "Confidence Interval", "Male (%)", "Male (Confidence Interval)", "Female (%)" or "Female (Confidence Interval)")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
@@ -59,6 +59,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Benchmark status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
@@ -71,8 +73,6 @@ file_format = {
         ],
 }
 
-benchmark = "Between 2009 and 2018, there will be a five percentage point national increase in the proportion of people with disability participating in the labour force"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -84,17 +84,18 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Disability", "Labour Force Participation",
                                 None, DisabilityLabourParticipation,
                                 {}, {
-                                    "percentage": "%", 
-                                    "uncertainty": "+",
-                                    "percentage_male": "Male%", 
-                                    "uncertainty_male": "Male+",
-                                    "percentage_female": "Female%", 
-                                    "uncertainty_female": "Female+",
+                                    "percentage": "People with disability aged 15-64 years in the labour force (%)", 
+                                    "uncertainty": "Confidence Interval", 
+                                    "rse": "RSE", 
+                                    "percentage_male": "Male (%)", 
+                                    "uncertainty_male": "Male (Confidence Interval)", 
+                                    "percentage_female": "Female (%)",
+                                    "uncertainty_female": "Female (Confidence Interval)",
                                 },
                                 verbosity)
         )
         desc = load_benchmark_description(wb, "Description")
-        messages.extend(update_stats(desc, benchmark,
+        messages.extend(update_stats(desc, None,
                                 "labour_participation-disability-hero", "labour_participation-disability-hero",  
                                 "labour_participation-disability-hero-state", "labour_participation-disability-hero-state",  
                                 "disability_labour_participation", "disability_labour_participation",  
@@ -103,14 +104,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(update_state_stats(
                                 "labour_participation-disability-hero-state", "labour_participation-disability-hero-state",  
                                 "disability_labour_participation_state", "disability_labour_participation_state",
-                                DisabilityLabourParticipation, [("percentage", "uncertainty",),],
+                                DisabilityLabourParticipation, [("percentage", "uncertainty", "rse"),],
                                 verbosity=verbosity))
         messages.extend(
                 update_gender_graph(
                             "labour_participation-disability-hero", "disability-labour_participation-hero-graph",
                             benchmark_start=2009.0,
                             benchmark_end=2018.0,
-                            benchmark_gen=lambda init: Decimal(1.05)*init,
+                            benchmark_gen=lambda init: Decimal("5.0") + init,
                             use_error_bars=False,
                             verbosity=verbosity)
         )
@@ -119,7 +120,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "disability_labour_participation", "disability_labour_participation_summary_graph",
                             benchmark_start=2009.0,
                             benchmark_end=2018.0,
-                            benchmark_gen=lambda init: Decimal(1.05)*init,
+                            benchmark_gen=lambda init: Decimal("5.0") + init,
                             use_error_bars=False,
                             verbosity=verbosity)
         )
@@ -130,7 +131,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             DisabilityLabourParticipation, "percentage",
                             benchmark_start=2009.0,
                             benchmark_end=2018.0,
-                            benchmark_gen=lambda init: Decimal(1.05)*init,
+                            benchmark_gen=lambda init: Decimal("5.0") + init,
                             use_error_bars=True,
                             verbosity=verbosity)
         )
@@ -175,7 +176,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 [ AUS, state_num ],
                                 benchmark_start=2009.0,
                                 benchmark_end=2018.0,
-                                benchmark_gen=lambda init: Decimal(1.05)*init,
+                                benchmark_gen=lambda init: Decimal("5.0") + init,
                                 use_error_bars=False,
                                 verbosity=verbosity,
                                 pval=pval)
@@ -188,7 +189,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 [ AUS, state_num ],
                                 benchmark_start=2009.0,
                                 benchmark_end=2018.0,
-                                benchmark_gen=lambda init: Decimal(1.05)*init,
+                                benchmark_gen=lambda init: Decimal("5.0") + init,
                                 use_error_bars=False,
                                 verbosity=verbosity,
                                 pval=pval)
@@ -200,7 +201,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 DisabilityLabourParticipation, "percentage",
                                 benchmark_start=2009.0,
                                 benchmark_end=2018.0,
-                                benchmark_gen=lambda init: Decimal(1.05)*init,
+                                benchmark_gen=lambda init: Decimal("5.0") + init,
                                 use_error_bars=True,
                                 verbosity=verbosity,
                                 pval=pval)
