@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -41,13 +41,13 @@ file_format = {
                 "name": "Data",
                 "cols": [ 
                             ('A', 'Year e.g. 2007-08 or 2007/08 or 2007'),
-                            ('B', 'Row Discriminator ("%" or "+")'),
+                            ('B', 'Row Discriminator ("Proportion of people with disability aged 15-64 years who have had face-to-face contact with ex-household family or friends in the previous week (%)", "Confidence interval" or "RSE")'),
                             ('...', 'Column per state + Aust'),
                         ],
                 "rows": [
                             ('1', "Heading row"),
                             ('2', "State Heading row"),
-                            ('...', 'Pair of rows per year, one for percentage (%) and one for uncertainty (%)'),
+                            ('...', 'Triplets of rows per year, one for each row discriminator value'),
                         ],
                 "notes": [
                     'Blank rows and columns ignored',
@@ -60,19 +60,20 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
+                            ('1', "Heading row"),
+                            ('2', "State Heading row"),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),
                             ('Influences', '"Influences" text of benchmark status description. One paragraph per line'),
                             ('Notes', 'Notes for benchmark status description.  One note per line.'),
+                            ('(State abbrev)', 'Specific notes for individual states/territories'),
                         ],
                 "notes": [
                          ],
             }
         ],
 }
-
-indicators = "Increase the proportion of people with disability participating in social and community activities"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
@@ -84,10 +85,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 load_state_grid(wb, "Data",
                                 "Disability", "Social Participation",
                                 None, DisabilitySocialParticipationData,
-                                {}, {"percentage": "%", "uncertainty": "+",},
+                                {}, {
+                                    "percentage": "Proportion of people with disability aged 15-64 years who have had face-to-face contact with ex-household family or friends in the previous week (%)",
+                                    "uncertainty": "Confidence interval",
+                                    "rse": "RSE",
+                                },
                                 verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, indicators,
+        messages.extend(update_stats(desc, None,
                                 "social_participation-disability-hero", "social_participation-disability-hero", 
                                 "social_participation-disability-hero-state", "social_participation-disability-hero-state", 
                                 "disability_social_participation", "disability_social_participation",
@@ -100,8 +105,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 verbosity=verbosity))
         earliest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").first()
         latest_aust = DisabilitySocialParticipationData.objects.filter(state=AUS).order_by("year").last()
-        tlc, trend = indicator_tlc_trend(earliest_aust.percentage, latest_aust.percentage)
-
+        tlc, trend = indicator_tlc_trend(earliest_aust.percentage, latest_aust.percentage,
+                                    earliest_aust.uncertainty, latest_aust.uncertainty,
+                                    earliest_aust.rse, latest_aust.rse)
         set_statistic_data('social_participation-disability-hero', 'social_participation-disability-hero',
                         'ref_participation',
                         earliest_aust.percentage,
@@ -158,8 +164,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             state_num = state_map[pval.parameters()["state_abbrev"]]
             earliest_state = DisabilitySocialParticipationData.objects.filter(state=state_num).order_by("year").first()
             latest_state = DisabilitySocialParticipationData.objects.filter(state=state_num).order_by("year").last()
-            tlc_state, trend_state = indicator_tlc_trend(earliest_state.percentage, latest_state.percentage)
-
+            tlc_state, trend_state = indicator_tlc_trend(
+                                earliest_state.percentage, latest_state.percentage,
+                                earliest_state.uncertainty, latest_state.uncertainty,
+                                earliest_state.rse, latest_state.rse)
             set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
                             'ref_year',
                             earliest_aust.year_display(),

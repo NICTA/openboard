@@ -837,36 +837,24 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
                     if isinstance(diff, int):
                         diff = Decimal(diff)
+
                     if rse_field:
-                        err_1 = float(getattr(reference, rse_field)) / 100.0
-                        err_2 = float(getattr(measure, rse_field)) / 100.0
-                        val_1r = float(val_1) / 100.0
-                        val_2r = float(val_2) / 100.0
-                        significance = math.sqrt(
-                                    math.pow(val_1r * err_1, 2) 
-                                    + math.pow(val_2r * err_2, 2)
-                        )
-                        test_stat = float(diff)/100.0/significance
-                        significant = abs(test_stat) > 1.96
-                        if not significant:
-                            statuses.append("no_improvement")
-                        elif (want_incr and diff == abs(diff)) or (not want_incr and diff != abs(diff)):
-                            statuses.append("improving")
-                        else:
-                            statuses.append("negative_change")
+                        rse_1 = getattr(reference, rse_field)
+                        rse_2 = getattr(measure, rse_field)
                     else:
-                        if uncertainty_field:
-                            err_1 = getattr(reference, uncertainty_field)
-                            err_2 = getattr(measure, uncertainty_field)
-                            total_err = err_1 + err_2
-                        else:
-                            total_err = Decimal("0.0")
-                        if abs(diff) < total_err or diff.is_zero():
-                            statuses.append("no_improvement")
-                        elif (want_incr and diff == abs(diff)) or (not want_incr and diff != abs(diff)):
-                            statuses.append("improving")
-                        else:
-                            statuses.append("negative_change")
+                        rse_1 = None
+                        rse_2 = None
+                    if uncertainty_field:
+                        uncertainty_1 = getattr(reference, uncertainty_field)
+                        uncertainty_2 = getattr(measure, uncertainty_field)
+                    else:
+                        uncertainty_1 = None
+                        uncertainty_2 = None
+                    statuses.append(indicator_status_tlc(
+                                                val_1, val_2, 
+                                                uncertainty_1, uncertainty_2, 
+                                                rse_1, rse_2, 
+                                                want_incr))
                 st_so_far = None
                 for st in statuses:
                     if not st_so_far:
@@ -897,19 +885,41 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         pval=pval)
     return messages
 
-def indicator_tlc_trend(ref_val, val, want_increase=True):
-    if want_increase:
-        if ref_val < val:
-            return ("improving", 1)
-        elif ref_val > val:
-            return ("negative_change", -1)
+def indicator_status_tlc(val_1, val_2, uncertainty_1=None, uncertainty_2=None, err_1=None, err_2=None, want_incr=True):
+    diff = val_2 - val_1
+    val_1 = float(val_1) / 100.0
+    val_2 = float(val_2) / 100.0
+    if err_1 is not None:
+        err_1 = float(err_1) / 100.0
+    if err_2 is not None:
+        err_2 = float(err_2) / 100.0
+    if err_1 is not None and err_2 is not None:
+        significance = math.sqrt(
+                    math.pow(val_1 * err_1, 2) 
+                    + math.pow(val_2 * err_2, 2)
+        )
+        test_stat = float(diff)/100.0/significance
+        significant = abs(test_stat) > 1.96
+        if not significant:
+            return "no_improvement"
+        elif (want_incr and diff == abs(diff)) or (not want_incr and diff != abs(diff)):
+            return "improving"
         else:
-            return ("no_improvement", 0)
+            return "negative_change"
+    if uncertainty_1 is not None and uncertainty_2 is not None:
+        total_uncertainty = uncertainty_1 + uncertainty_2
     else:
-        if ref_val > val:
-            return ("improving", -1)
-        elif ref_val < val:
-            return ("negative_change", 1)
-        else:
-            return ("no_improvement", 0)
+        total_uncertainty = Decimal("0.0")
+    if abs(diff) < total_uncertainty or diff.is_zero():
+        return "no_improvement"
+    elif (want_incr and diff == abs(diff)) or (not want_incr and diff != abs(diff)):
+        return "improving"
+    else:
+        return "negative_change"
+
+def indicator_tlc_trend(ref_val, val, ref_uncertainty=None, uncertainty=None, ref_rse=None, rse=None, want_increase=True):
+    direction = cmp(ref_val, val)
+    if want_increase:
+        direction *= -1
+    return (indicator_status_tlc(ref_val, val, ref_uncertainty, uncertainty, ref_rse, rse, want_increase), direction)
 
