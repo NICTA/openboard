@@ -832,12 +832,6 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         val_1 = val_1()
                     if callable(val_2):
                         val_2 = val_2()
-                    diff = val_2 - val_1
-                    if isinstance(diff, float):
-                        diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
-                    if isinstance(diff, int):
-                        diff = Decimal(diff)
-
                     if rse_field:
                         rse_1 = getattr(reference, rse_field)
                         rse_2 = getattr(measure, rse_field)
@@ -887,6 +881,11 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
 
 def indicator_status_tlc(val_1, val_2, uncertainty_1=None, uncertainty_2=None, err_1=None, err_2=None, want_incr=True):
     diff = val_2 - val_1
+    diff = val_2 - val_1
+    if isinstance(diff, float):
+        diff = Decimal(diff).quantize(Decimal('0.00001'), rounding=ROUND_HALF_UP)
+    if isinstance(diff, int):
+        diff = Decimal(diff)
     val_1 = float(val_1) / 100.0
     val_2 = float(val_2) / 100.0
     if err_1 is not None:
