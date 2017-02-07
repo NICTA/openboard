@@ -543,7 +543,10 @@ def populate_raw_data(widget_url, label, rds_url,
             "year": obj.year_display()
         }
         for model_field, rds_field in field_map.items():
-            kwargs[rds_field] = unicode(getattr(obj, model_field))
+            if callable(getattr(obj, model_field)):
+                kwargs[rds_field] = unicode(getattr(obj, model_field)())
+            else:
+                kwargs[rds_field] = unicode(getattr(obj, model_field))
         if pval:
             kwargs["pval"] = pval
         add_rawdatarecord(rds, sort_order, **kwargs)
@@ -577,7 +580,10 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
         else:
             used_map = field_map_states
         for model_field, rds_field in used_map.items():
-            kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
+            if callable(getattr(obj, model_field)):
+                kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field)())
+            else:
+                kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
     add_rawdatarecord(rds, sort_order, **kwargs)
     return messages
 
