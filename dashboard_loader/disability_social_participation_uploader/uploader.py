@@ -60,8 +60,8 @@ file_format = {
                             ('B', 'Value'),
                         ],
                 "rows": [
-                            ('1', "Heading row"),
-                            ('2', "State Heading row"),
+                            ('Measure', 'Full description of benchmark'),
+                            ('Short Title', 'Short widget title (not used)'),
                             ('Status', 'Indicator status'),
                             ('Updated', 'Year data last updated'),
                             ('Desc body', 'Body of benchmark status description. One paragraph per line.'),

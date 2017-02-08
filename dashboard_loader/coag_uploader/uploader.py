@@ -532,16 +532,21 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
     return desc
 
 def populate_raw_data(widget_url, label, rds_url,
-                    model, field_map, pval=None):
+                    model, field_map, use_dates=True, pval=None):
     messages = []
     rds = get_rawdataset(widget_url, label, rds_url)
     clear_rawdataset(rds, pval=pval)
     sort_order = 1
-    for obj in model.objects.all().order_by("state", "year", "financial_year"):
+    if use_dates:
+        order_by_args = [ "state", "year", "financial_year" ]
+    else:
+        order_by_args = [ "state", ]
+    for obj in model.objects.all().order_by(*order_by_args):
         kwargs = {
             "jurisdiction": obj.state_display(),
-            "year": obj.year_display()
         }
+        if use_dates:
+            kwargs["year"] = obj.year_display()
         for model_field, rds_field in field_map.items():
             if callable(getattr(obj, model_field)):
                 kwargs[rds_field] = unicode(getattr(obj, model_field)())
@@ -792,6 +797,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     model, fields,
                     want_increase=True,
                     override_status=None,
+                    use_benchmark_tls=False,
                     verbosity=0):
     messages = []
     try:
@@ -799,12 +805,16 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
             raise LoaderError("fields/want_increase array length mismatch")
     except TypeError:
         want_increase = [ want_increase ] * len(fields)
+    if use_benchmark_tls:
+        statuses = benchmark_statuses
+    else:
+        statuses = indicator_statuses
     p = Parametisation.objects.get(url="state_param")
     for pval in p.parametisationvalue_set.all():
         state_abbrev = pval.parameters()["state_abbrev"]
         state_num = state_map[state_abbrev]
         if override_status:
-            status = indicator_statuses[override_status]
+            status = statuses[override_status]
         else:
             qry = model.objects.filter(state=state_num).order_by("year")
             reference = qry.first()

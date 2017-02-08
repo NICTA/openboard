@@ -8,6 +8,8 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag indigen
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_homeownership-housing-hero > coag_uploader/exports/03_indigenous_homeownership-housing-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag homelessness-housing-hero > coag_uploader/exports/03_homelessness-housing-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag rentalstress-housing-hero > coag_uploader/exports/03_rentalstress-housing-hero.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag remote_condition-housing-hero > coag_uploader/exports/03_remote_condition-housing-hero.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag remote_overcrowding-housing-hero > coag_uploader/exports/03_remote_overcrowding-housing-hero.json
 
 echo "Exporting Housing Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag homelessness_npa-housing-hero-state > coag_uploader/exports/03_homelessness_npa-housing-hero-state.json
@@ -53,6 +55,10 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag healthy
 python manage.py export_widget --settings=dashboard_loader.settings_coag childweight-health-hero > coag_uploader/exports/03_childhealthyweight-health-hero.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag smoking-health-hero > coag_uploader/exports/03_smoking-health-hero.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_smoking-health-hero > coag_uploader/exports/03_indig_smoking-health-hero.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag edwait-health-hero > coag_uploader/exports/03_edwait-health-hero.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag gpwait-health-hero > coag_uploader/exports/03_gpwait-health-hero.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag avoidable-health-hero > coag_uploader/exports/03_avoidable-health-hero.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag agedcare-health-hero > coag_uploader/exports/03_agedcare_places-health-hero.json 
 
 echo "Exporting Health Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_life_expectancy-health-hero-state.json
@@ -61,6 +67,10 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag healthy
 python manage.py export_widget --settings=dashboard_loader.settings_coag childweight-health-hero-state > coag_uploader/exports/03_childweight-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag smoking-health-hero-state > coag_uploader/exports/03_smoking-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_smoking-health-hero-state > coag_uploader/exports/03_indig_smoking-health-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag edwait-health-hero-state > coag_uploader/exports/03_edwait-health-hero-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag gpwait-health-hero-state > coag_uploader/exports/03_gpwait-health-hero-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag avoidable-health-hero-state > coag_uploader/exports/03_avoidable-health-hero-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag agedcare-health-hero-state > coag_uploader/exports/03_agedcare_places-health-hero-state.json 
 
 # Disability Hero Widgets wdef sort_order 800, 805, ... 900, 905, ...
 echo "Exporting Disability Hero Widgets"
@@ -103,6 +113,8 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag housing
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_rentalstress > coag_uploader/exports/03_rentalstress.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_homelessness_npa > coag_uploader/exports/03_homelessness_npa.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_remote_indigenous > coag_uploader/exports/03_remote_indigenous_housing.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag housing_remote_condition > coag_uploader/exports/03_remote_condition.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag housing_remote_overcrowding > coag_uploader/exports/03_remote_overcrowding.json
 
 echo "Exporting Housing State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag housing_indigenous_overcrowding_state > coag_uploader/exports/03_indigenous_overcrowding-state.json
@@ -148,6 +160,10 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag health_
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_childweight > coag_uploader/exports/03_childhealthyweight.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_smoking > coag_uploader/exports/03_smoking.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_indig_smoking > coag_uploader/exports/03_indig_smoking.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_edwait > coag_uploader/exports/03_edwait.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_gpwait > coag_uploader/exports/03_gpwait.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_avoidable > coag_uploader/exports/03_avoidable.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_agedcare > coag_uploader/exports/03_agedcare_places.json 
 
 echo "Exporting Health State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy_state > coag_uploader/exports/03_life_expectancy-state.json
@@ -156,6 +172,10 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag health_
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_childweight_state > coag_uploader/exports/03_childhealthyweight-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_smoking_state > coag_uploader/exports/03_smoking-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_indig_smoking_state > coag_uploader/exports/03_indig_smoking-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_edwait_state > coag_uploader/exports/03_edwait-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_gpwait_state > coag_uploader/exports/03_gpwait-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_avoidable_state > coag_uploader/exports/03_avoidable-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_agedcare_state > coag_uploader/exports/03_agedcare_places-state.json 
 
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 echo "Exporting Disability Detail Widgets"
@@ -169,7 +189,14 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag disabil
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_more_assist_state > coag_uploader/exports/03_more_assist-state.json
 
 # Indigenous Detail Widgets      wdef sort_order 3000, 3005, ... 3100, 3105, ...
+
 # Infrastructure Detail Widgets  wdef sort_order 3200, 3205, ... 3300, 3305, ...
+echo "Exporting Infrastructure Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag infrastructure_projects > coag_uploader/exports/03_projects.json
+
+echo "Exporting Infrastructure State Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag infrastructure_projects_state > coag_uploader/exports/03_projects-state.json
+
 # Legal Assistance Detail Widgets  wdef sort_order 3400, 3405, ... 3500, 3505, ...
 
 echo "Done."

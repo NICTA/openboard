@@ -1,0 +1,620 @@
+{
+    "category": "infrastructure", 
+    "edit_all_groups": [], 
+    "source_url_text": "infrastructure.gov.au", 
+    "subtitle": "Road and rail projects", 
+    "subcategory": "national partnership agreement", 
+    "groups": [], 
+    "url": "infrastructure_projects_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure_project_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure_project_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "grid": {
+                        "corner_label": "", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "completed_state", 
+                                    "underway_state",
+                                    "pending_state"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "statistics": [
+                                    "completed", 
+                                    "underway",
+                                    "pending"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Completed"
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "label": "Underway"
+                            },
+                            {
+                                "sort_order": 300, 
+                                "label": "Pending"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "completed_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "underway_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "pending_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 250
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "underway", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "completed", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 400
+                        },
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "pending", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 500
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure-projects-summary-stats", 
+                    "tile_type": 9, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure_project_status_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure_project_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "infrastructure_project_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "Key Projects", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "key_projects", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Project Status Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 3, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "infrastructure_projects-key_statuses", 
+                    "tile_type": 10, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": 1
+                }
+
+            ], 
+            "views": [
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_act"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_nsw"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_nt"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_qld"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_sa"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_tas"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_vic"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "infrastructure_wa"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Infrastructure Projects", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 20, 
+                            "heading": "Jurisdiction", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "complete_count", 
+                            "sort_order": 30, 
+                            "heading": "Counts | Complete", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "underway_count", 
+                            "sort_order": 40, 
+                            "heading": "Counts | Underway", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "pending_count", 
+                            "sort_order": 50, 
+                            "heading": "Counts | Pending", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "total_count", 
+                            "sort_order": 60, 
+                            "heading": "Counts | Total", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "complete_cost", 
+                            "sort_order": 70, 
+                            "heading": "Cost ($) | Complete", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "underway_cost", 
+                            "sort_order": 80, 
+                            "heading": "Cost ($) | Underway", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "pending_cost", 
+                            "sort_order": 90, 
+                            "heading": "Cost ($) | Pending", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "total_cost", 
+                            "sort_order": 100, 
+                            "heading": "Cost ($) | Total", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "infrastructure_projects_data_table.csv"
+                }, 
+                {
+                    "url": "infrastructure_projects_status", 
+                    "name": "Infrastructure Key Projects Status Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction in which the project is situated."
+                        }, 
+                        {
+                            "url": "project", 
+                            "sort_order": 20, 
+                            "heading": "Key Project", 
+                            "description": "The number of completed infrastructure projects."
+                        },
+                        {
+                            "url": "milestones", 
+                            "sort_order": 30, 
+                            "heading": "Project Milestones", 
+                            "description": "Description of current project milestones."
+                        },
+                        {
+                            "url": "status", 
+                            "sort_order": 40, 
+                            "heading": "Project Status", 
+                            "description": "Current status of project."
+                        }
+                    ], 
+                    "filename": "coag_infrastructure_projects_status_data.csv"
+                },
+                {
+                    "url": "infrastructure_projects", 
+                    "name": "Infrastructure Projects Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "projects_completed", 
+                            "sort_order": 20, 
+                            "heading": "Completed Count", 
+                            "description": "The number of completed infrastructure projects."
+                        },
+                        {
+                            "url": "projects_underway", 
+                            "sort_order": 30, 
+                            "heading": "Underway Count", 
+                            "description": "The number of infrastructure projects underway."
+                        },
+                        {
+                            "url": "projects_pending", 
+                            "sort_order": 40, 
+                            "heading": "Pending Count", 
+                            "description": "The number of approved infrastructure projects awaiting commencement."
+                        },
+                        {
+                            "url": "projects_total", 
+                            "sort_order": 50, 
+                            "heading": "Total Count", 
+                            "description": "The total number of approved infrastructure projects."
+                        },
+                        {
+                            "url": "cost_completed", 
+                            "sort_order": 60, 
+                            "heading": "Completed Total Cost ($)", 
+                            "description": "The total cost of completed infrastructure projects."
+                        },
+                        {
+                            "url": "cost_underway", 
+                            "sort_order": 70, 
+                            "heading": "Underway Total Cost ($)", 
+                            "description": "The total cost of infrastructure projects underway."
+                        },
+                        {
+                            "url": "cost_pending", 
+                            "sort_order": 80, 
+                            "heading": "Pending Total Cost ($)", 
+                            "description": "The total cost of approved infrastructure projects awaiting commencement."
+                        },
+                        {
+                            "url": "cost_total", 
+                            "sort_order": 90, 
+                            "heading": "Total Cost ($)", 
+                            "description": "The total cost of approved infrastructure projects."
+                        }
+                    ], 
+                    "filename": "coag_infrastructure_projects_data.csv"
+                }
+            ], 
+            "sort_order": 3300, 
+            "expansion_hint": "View more", 
+            "about": "<p>Contribute to a safe, sustainable national transport system.</p>", 
+            "refresh_rate": 3900, 
+            "label": "infrastructure_projects_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://infrastructure.gov.au", 
+    "name": "Road and Rail Infrastructure Projects"
+}
+
