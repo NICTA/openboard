@@ -198,5 +198,10 @@ echo "Exporting Infrastructure State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag infrastructure_projects_state > coag_uploader/exports/03_projects-state.json
 
 # Legal Assistance Detail Widgets  wdef sort_order 3400, 3405, ... 3500, 3505, ...
+echo "Exporting Legal Assistance Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag legal_total_svc > coag_uploader/exports/03_total_svc.json
+
+echo "Exporting Legal Assistance Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag legal_total_svc-state > coag_uploader/exports/03_total_svc-state.json
 
 echo "Done."

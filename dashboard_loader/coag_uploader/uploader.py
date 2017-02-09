@@ -66,7 +66,7 @@ def listify(x):
     else:
         return x
 
-def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, use_dates=True, multi_year=False):
+def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, use_dates=True, multi_year=False, date_field=None, date_parser=None):
     messages = []
     if first_cell_rows:
         raise LoaderException("first_cell_rows no longer supported")
@@ -80,7 +80,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
         row += 1
         if not state_cols and row > sheet.max_row:
             raise LoaderException("No State Columns found in worksheet '%s'" % sheet_name)
-    year = 0
+    date = None
     isfy = False
     myr = 1
     _isfy = False
@@ -104,14 +104,19 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
             if first_cell == abort_on:
                 break
             if use_dates:
+                if date_parser:
+                    _date = date_parser(first_cell)
+                    if _date and _date != date:
+                        date = _date
+                        zero_all_rows(rows)
                 try:
                     if multi_year:
                         (_year, _myr) = parse_multiyear(first_cell)
                     else:
                         (_year, _isfy) = parse_year(first_cell)
                     new_year = False
-                    if _year != year:
-                        year = _year
+                    if _year != date:
+                        date = _year
                         new_year = True
                     if _myr != myr:
                         myr = _myr
@@ -124,7 +129,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                 except:
                     pass
         matches = []
-        if year or not use_dates:
+        if date or not use_dates:
             for col in column_labels(start_from_col, sheet.max_column):
                 if col in state_cols.values():
                     break
@@ -147,7 +152,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         break
                 if all_rows_found(rows):
                     for state, scol in state_cols.items():
-                        if use_dates:
+                        if use_dates and not date_field:
                             defaults = { "financial_year": isfy, "multi_year": myr }
                         else:
                             defaults = {}
@@ -160,8 +165,10 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         for def_fld, def_val in fld_defaults.items():
                             defaults[def_fld] = def_val
                         kwargs = { "state": state, "defaults": defaults }
-                        if use_dates:
-                            kwargs["year"] = year
+                        if date_field:
+                            kwargs[date_field] = date
+                        elif use_dates:
+                            kwargs["year"] = date
                         obj, created = model.objects.update_or_create(**kwargs)
                         records_written += 1
                     zero_all_rows(rows)
@@ -798,6 +805,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     want_increase=True,
                     override_status=None,
                     use_benchmark_tls=False,
+                    status_func=None,
                     verbosity=0):
     messages = []
     try:
@@ -816,7 +824,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
         if override_status:
             status = statuses[override_status]
         else:
-            qry = model.objects.filter(state=state_num).order_by("year")
+            qry = model.objects.filter(state=state_num)
             reference = qry.first()
             measure = qry.last()
             if reference is None:
@@ -827,6 +835,8 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                 status = indicator_statuses["new_indicator"]
                 if verbosity > 1:
                     messages.append("%s: New indicator" % state_abbrev)
+            elif status_func:
+                status = statuses[status_func(measure)]
             else:
                 statuses = []
                 for flds, want_incr in zip(fields, want_increase):

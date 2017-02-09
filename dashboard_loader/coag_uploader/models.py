@@ -131,6 +131,7 @@ class CoagProgressBase(models.Model):
         return state_dict[self.state]
     class Meta:
         unique_together = [ ("state", ), ]
+        ordering = ("state", )
         abstract = True
 
 
@@ -165,6 +166,22 @@ class CoagDataBase(CoagProgressBase):
         return super(CoagDataBase, self).save(*args, **kwargs)
     class Meta:
         unique_together = [ ("state", "year"), ]
+        ordering = ("year", "state")
+        abstract = True
+
+class CoagDateDataBase(CoagProgressBase):
+    start_date=models.DateField()
+    def end_date(self):
+        return self.start_date
+    def format_date(self, dt):
+        return dt.strftime("%d/%m/%Y")
+    def date_display(self):
+        return self.format_date(self.start_date)
+    def date_range_display(self):
+        return "%s to %s" % (self.format_date(self.start_date), self.format_date(self.end_date()))
+    class Meta:
+        unique_together = [ ("state", "start_date"), ]
+        ordering = ("state", "start_date")
         abstract = True
 
 class CoagPercentageUncertaintyDataBase(CoagDataBase):
