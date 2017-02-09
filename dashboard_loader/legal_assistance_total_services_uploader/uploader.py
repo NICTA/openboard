@@ -114,18 +114,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         earliest_date = LegalAssistData.objects.order_by("start_date").last().start_date
         latest_data = LegalAssistData.objects.filter(start_date=latest_date)
         earliest_data = LegalAssistData.objects.filter(start_date=earliest_date)
-        clc_states = {}
-        lac_states = {}
         ref_clc_met = 0
         ref_lac_met = 0
         for ld in earliest_data:
-            sk = state_dict[ld.state]
-            clc_states[sk] = {
-                "ref_val": ld.clc,
-            }
-            lac_states[sk] = {
-                "ref_val": ld.lac,
-            }
             if ld.meets_lac_benchmark():
                 ref_lac_met += 1
             if ld.meets_clc_benchmark():
@@ -133,28 +124,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         clc_met = 0
         lac_met = 0
         for ld in latest_data:
-            sk = state_dict[ld.state]
-            clc_states[sk]["val"] = ld.clc
-            lac_states[sk]["val"] = ld.lac
-            clc_states[sk]["tlc"] = ld.tlc_clc()
-            lac_states[sk]["tlc"] = ld.tlc_lac()
             if ld.meets_lac_benchmark():
                 lac_met += 1
             if ld.meets_clc_benchmark():
                 clc_met += 1
-        set_statistic_data("legal_total_svc", "legal_total_svc",
-                        "benchmark_lac", ld.lac_benchmark, traffic_light_code="achieved")
-        set_statistic_data("legal_total_svc", "legal_total_svc",
-                        "benchmark_clc", ld.clc_benchmark, traffic_light_code="achieved")
-        for sk in clc_states.keys():
-            trend = cmp(lac_states[sk]["val"], lac_states[sk]["ref_val"])
-            set_statistic_data("legal_total_svc", "legal_total_svc",
-                            sk.lower()+"_lac", lac_states[sk]["val"], 
-                            traffic_light_code=lac_states[sk]["tlc"], trend=trend)
-            trend = cmp(clc_states[sk]["val"], clc_states[sk]["ref_val"])
-            set_statistic_data("legal_total_svc", "legal_total_svc",
-                            sk.lower()+"_clc", clc_states[sk]["val"], 
-                            traffic_light_code=clc_states[sk]["tlc"], trend=trend)
         tlc = counts_tlc(lac_met)
         trend = cmp(lac_met, ref_lac_met)
         set_statistic_data("total_svc-legal-hero", "total_svc-legal-hero",
@@ -167,6 +140,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         "clc", clc_met, traffic_light_code=tlc, trend=trend)
         set_statistic_data("legal_total_svc", "legal_total_svc",
                         "clc", clc_met, traffic_light_code=tlc, trend=trend)
+        messages.extend(
+                populate_my_national_graph("legal_total_svc_lac_graph", 
+                                    "lac", "lac_benchmark", latest_date)
+        )
+        messages.extend(
+                populate_my_national_graph("legal_total_svc_clc_graph", 
+                                    "clc", "clc_benchmark", latest_date)
+        )
         messages.extend(
                 populate_my_raw_datasets("legal_total_svc", "legal_total_svc")
         )
@@ -214,7 +195,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         trend=clc_trend,
                         pval=pval)
             messages.extend(
-                    populate_my_graph(state_num, pval)
+                    populate_my_graph(state_num, latest_date, pval)
             )
             messages.extend(
                     populate_my_raw_datasets("legal_total_svc_state", "legal_total_svc_state", pval)
@@ -248,7 +229,7 @@ def sixmonth_parser(din):
         return None
     return datetime.date(year, month, 1)
 
-def populate_my_graph(state_num, pval):
+def populate_my_graph(state_num, latest_date, pval):
     messages = []
     g = get_graph("legal_total_svc_state", "legal_total_svc_state", 
                     "legal_total_svc_detail_graph")
@@ -259,8 +240,29 @@ def populate_my_graph(state_num, pval):
 
         add_graph_data(g, "lac-benchmark", obj.lac_benchmark, horiz_value=obj.start_date, pval=pval)
         add_graph_data(g, "clc-benchmark", obj.clc_benchmark, horiz_value=obj.start_date, pval=pval)
-        add_graph_data(g, "lac-benchmark", obj.lac_benchmark, horiz_value=obj.end_date(), pval=pval)
-        add_graph_data(g, "clc-benchmark", obj.clc_benchmark, horiz_value=obj.end_date(), pval=pval)
+        if obj.start_date != latest_date:
+            add_graph_data(g, "lac-benchmark", obj.lac_benchmark, horiz_value=obj.end_date(), pval=pval)
+            add_graph_data(g, "clc-benchmark", obj.clc_benchmark, horiz_value=obj.end_date(), pval=pval)
+    return messages
+
+def populate_my_national_graph(graph, val_fld, benchmark_fld, latest_date):
+    messages = []
+    g = get_graph("legal_total_svc", "legal_total_svc", graph)
+    clear_graph_data(g)
+    last_start_date = None
+    for obj in LegalAssistData.objects.order_by("start_date"):
+        add_graph_data(g, obj.state_display().lower(),
+                        getattr(obj, val_fld),
+                        horiz_value=obj.start_date)
+        if obj.start_date != last_start_date:
+            last_start_date = obj.start_date
+            add_graph_data(g, "benchmark",
+                        getattr(obj, benchmark_fld),
+                        horiz_value=obj.start_date)
+            if obj.start_date != latest_date:
+                add_graph_data(g, "benchmark",
+                            getattr(obj, benchmark_fld),
+                            horiz_value=obj.end_date())
     return messages
 
 def populate_my_raw_datasets(wurl, wlbl, pval=None):
