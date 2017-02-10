@@ -29,6 +29,11 @@
             "colour": "grey3", 
             "sort_order": 600, 
             "value": "no_data"
+        }, 
+        {
+            "colour": "grey4", 
+            "sort_order": 700, 
+            "value": "no_trend_data"
         }
     ], 
     "scale_name": "Indicator Scale"

@@ -174,7 +174,7 @@ class CoagDateDataBase(CoagProgressBase):
     def end_date(self):
         return self.start_date
     def format_date(self, dt):
-        return dt.strftime("%d/%m/%Y")
+        return dt.strftime("%Y-%m-%d")
     def date_display(self):
         return self.format_date(self.start_date)
     def date_range_display(self):

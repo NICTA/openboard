@@ -2,7 +2,7 @@
     "category": "indigenous", 
     "edit_all_groups": [], 
     "source_url_text": "www.aihw.gov.au", 
-    "subtitle": "Halve the gap in child mortality rates", 
+    "subtitle": "Halve the gap in mortality rates for Indigenous children", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "child_mortality-indigenous-hero-state", 
@@ -87,7 +87,7 @@
                     "expansion": false, 
                     "sort_order": 300, 
                     "grid": {
-                        "corner_label": "Deaths per 100k", 
+                        "corner_label": "Child mortality per 100k", 
                         "show_column_headers": true, 
                         "rows": [
                             {
@@ -221,12 +221,6 @@
             ], 
             "views": [
                 {
-                    "child_view": "indigenous_act", 
-                    "sort_order": 600, 
-                    "child_view_text": "See all", 
-                    "view": "act"
-                }, 
-                {
                     "child_view": "indigenous_nsw", 
                     "sort_order": 600, 
                     "child_view_text": "See all", 
@@ -251,18 +245,6 @@
                     "view": "qld"
                 }, 
                 {
-                    "child_view": "indigenous_vic", 
-                    "sort_order": 600, 
-                    "child_view_text": "See all", 
-                    "view": "vic"
-                }, 
-                {
-                    "child_view": "indigenous_tas", 
-                    "sort_order": 600, 
-                    "child_view_text": "See all", 
-                    "view": "tas"
-                }, 
-                {
                     "child_view": "indigenous_wa", 
                     "sort_order": 600, 
                     "child_view_text": "See all", 
@@ -273,7 +255,7 @@
             "raw_data_sets": [], 
             "sort_order": 1100, 
             "expansion_hint": "", 
-            "about": "<p>Halve the gap in child mortality rates.</p>", 
+            "about": "<p>Halve the gap in mortality rates for Indigenous children under five within a decade (by 2018).</p>", 
             "refresh_rate": 3900, 
             "label": "child_mortality-indigenous-hero-state", 
             "parametisation": "state_param", 

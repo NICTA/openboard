@@ -54,9 +54,9 @@ def zero_all_rows(rows):
     for k in rows.keys():
         rows[k] = 0
 
-def all_rows_found(rows):
+def all_rows_found(rows, optional_rows):
     for k in rows.keys():
-        if not rows[k]:
+        if not rows[k] and k not in optional_rows:
             return False
     return True
 
@@ -66,7 +66,7 @@ def listify(x):
     else:
         return x
 
-def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, use_dates=True, multi_year=False, date_field=None, date_parser=None):
+def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, first_cell_rows, intermediate_cell_rows, verbosity=0, transforms={}, fld_defaults={}, use_dates=True, multi_year=False, date_field=None, date_parser=None, optional_rows=[]):
     messages = []
     if first_cell_rows:
         raise LoaderException("first_cell_rows no longer supported")
@@ -150,13 +150,15 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     if full_match:
                         rows[fld]=row
                         break
-                if all_rows_found(rows):
+                if all_rows_found(rows, optional_rows):
                     for state, scol in state_cols.items():
                         if use_dates and not date_field:
                             defaults = { "financial_year": isfy, "multi_year": myr }
                         else:
                             defaults = {}
                         for fld, frow in rows.items():
+                            if not frow:
+                                continue
                             rawval = sheet["%s%d" % (scol, frow)].value
                             if fld in transforms:
                                 defaults[fld] = transforms[fld](rawval)
@@ -440,6 +442,14 @@ indicator_statuses = {
         "short": "No data",
         "long": "There is no data available for this indicator, so it is not possible to assess progress.",
         "tlc": "no_data",
+        "incr_trend": 0,
+        "decr_trend": 0,
+        "icon": "unknown",
+    },
+    "no_trend_data": {
+        "short": "No trend data",
+        "long": "There is no time-series data available for this indicator, so it is not possible to assess progress.",
+        "tlc": "no_trend_data",
         "incr_trend": 0,
         "decr_trend": 0,
         "icon": "unknown",

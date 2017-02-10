@@ -1,0 +1,623 @@
+{
+    "category": "indigenous", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.aihw.gov.au", 
+    "subtitle": "Halve the gap in mortality rates for Indigenous children", 
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "indigenous_child_mortality_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "grid": {
+                        "corner_label": "Child mortality per 100k", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "indigenous_state", 
+                                    "non_indigenous_state"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "statistics": [
+                                    "indigenous", 
+                                    "non_indigenous"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "label": "Non-Indigenous"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "indigenous_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "non_indigenous_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "indigenous", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "non_indigenous", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 400
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_summary_graph", 
+                    "tile_type": 9, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_status_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_child_mortality_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Cohort", 
+                        "clusters": [
+                            {
+                                "url": "nsw", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "url": "qld", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "url": "wa", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "url": "sa", 
+                                "hyperlink": "", 
+                                "sort_order": 400, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "url": "nt", 
+                                "hyperlink": "", 
+                                "sort_order": 500, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 600, 
+                                "label": "Total"
+                            }
+                        ], 
+                        "cluster_label": "Jurisdiction", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "blue-solid", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }
+                        ], 
+                        "numeric_axis_label": "Deaths per 100k", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 100, 
+                    "view": "indigenous_nsw"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "indigenous_nt"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "indigenous_qld"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "indigenous_sa"
+                }, 
+                {
+                    "sort_order": 100, 
+                    "view": "indigenous_wa"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Indigenous Child Mortality", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year range", 
+                            "description": "The year range each row describes."
+                        }, 
+                        {
+                            "url": "non_indigenous_rate", 
+                            "sort_order": 30, 
+                            "heading": "Non-Indigenous | Rate", 
+                            "description": "Non-Indigenous child deaths per 100,000."
+                        }, 
+                        {
+                            "url": "non_indigenous_deaths", 
+                            "sort_order": 40, 
+                            "heading": "Non-Indigenous | Deaths", 
+                            "description": "Non-Indigenous child deaths"
+                        }, 
+                        {
+                            "url": "indigenous_rate", 
+                            "sort_order": 50, 
+                            "heading": "Indigenous | Rate", 
+                            "description": "Indigenous child deaths per 100,000."
+                        }, 
+                        {
+                            "url": "indigenous_deaths", 
+                            "sort_order": 60, 
+                            "heading": "Indigenous | Deaths", 
+                            "description": "Indigenous child deaths"
+                        }, 
+                        {
+                            "url": "rate_ratio", 
+                            "sort_order": 70, 
+                            "heading": "Comparison | Rate ratio", 
+                            "description": "The mortality rate for Indigenous Australians divided by the mortality rate for non-Indigenous Australians"
+                        }, 
+                        {
+                            "url": "rate_difference", 
+                            "sort_order": 80, 
+                            "heading": "Comparison | Rate difference", 
+                            "description": "The mortality rate for Indigenous Australians minus the mortality rate for non-Indigenous Australians."
+                        }
+                    ], 
+                    "filename": "indigenous_data_table.csv"
+                }, 
+                {
+                    "url": "indigenous_child_mortality", 
+                    "name": "National Indigenous Child Mortality Data", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "non_indigenous_rate", 
+                            "sort_order": 20, 
+                            "heading": "Non-Indigenous rate", 
+                            "description": "Non-Indigenous child deaths per 100,000."
+                        }, 
+                        {
+                            "url": "indigenous_rate", 
+                            "sort_order": 30, 
+                            "heading": "Indigenous rate", 
+                            "description": "Indigenous child deaths per 100,000."
+                        }, 
+                        {
+                            "url": "indigenous_variablity_upper", 
+                            "sort_order": 40, 
+                            "heading": "Upper variability", 
+                            "description": "The upper limit of the Indigenous variability band."
+                        }, 
+                        {
+                            "url": "indigenous_variablity_lower", 
+                            "sort_order": 50, 
+                            "heading": "Lower variability", 
+                            "description": "The lower limit of the Indigenous variability band."
+                        }, 
+                        {
+                            "url": "indigenous_target", 
+                            "sort_order": 60, 
+                            "heading": "Indigenous target", 
+                            "description": "The target value for the Indigenous rate to meet the benchmark,"
+                        }, 
+                        {
+                            "url": "non_indigenous_projected", 
+                            "sort_order": 70, 
+                            "heading": "Non-Indigenous projected", 
+                            "description": "The projected value for the non-Indigenous rate given measured trends."
+                        }
+                    ], 
+                    "filename": "coag_indigenous_child_mortality_data.csv"
+                }, 
+                {
+                    "url": "indigenous_child_mortality_state", 
+                    "name": "State Indigenous Child Mortality Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year range", 
+                            "description": "The year range each row describes."
+                        }, 
+                        {
+                            "url": "non_indigenous_rate", 
+                            "sort_order": 30, 
+                            "heading": "Non-Indigenous rate", 
+                            "description": "Non-Indigenous child deaths per 100,000."
+                        }, 
+                        {
+                            "url": "non_indigenous_deaths", 
+                            "sort_order": 40, 
+                            "heading": "Non-Indigenous deaths", 
+                            "description": "Non-Indigenous child deaths"
+                        }, 
+                        {
+                            "url": "indigenous_rate", 
+                            "sort_order": 50, 
+                            "heading": "Indigenous rate", 
+                            "description": "Indigenous child deaths per 100,000."
+                        }, 
+                        {
+                            "url": "indigenous_deaths", 
+                            "sort_order": 60, 
+                            "heading": "Indigenous deaths", 
+                            "description": "Indigenous child deaths"
+                        }, 
+                        {
+                            "url": "rate_ratio", 
+                            "sort_order": 70, 
+                            "heading": "Rate ratio", 
+                            "description": "The mortality rate for Indigenous Australians divided by the mortality rate for non-Indigenous Australians"
+                        }, 
+                        {
+                            "url": "rate_difference", 
+                            "sort_order": 80, 
+                            "heading": "Rate difference", 
+                            "description": "The mortality rate for Indigenous Australians minus the mortality rate for non-Indigenous Australians."
+                        }
+                    ], 
+                    "filename": "coag_indigenous_child_mortality_data.csv"
+                }
+            ], 
+            "sort_order": 3100, 
+            "expansion_hint": "View more", 
+            "about": "<p>Halve the gap in mortality rates for Indigenous children under five within a decade (by 2018).</p>", 
+            "refresh_rate": 3900, 
+            "label": "indigenous_child_mortality_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.aihw.gov.au/deaths/aihw-deaths-data/", 
+    "name": "Indigenous Child Mortality"
+}
+

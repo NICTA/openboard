@@ -78,7 +78,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag labour_
 python manage.py export_widget --settings=dashboard_loader.settings_coag social_participation-disability-hero > coag_uploader/exports/03_social_participation-disability-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag more_assist-disability-hero > coag_uploader/exports/03_more_assist-disability-hero.json
 
-echo "Exporting Disability Hero Widgets"
+echo "Exporting Disability Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag labour_participation-disability-hero-state > coag_uploader/exports/03_labour_participation-disability-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag social_participation-disability-hero-state > coag_uploader/exports/03_social_participation-disability-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag more_assist-disability-hero-state > coag_uploader/exports/03_more_assist-disability-hero-state.json
@@ -87,21 +87,21 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag more_as
 echo "Exporting Indigenous Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag child_mortality-indigenous-hero > coag_uploader/exports/03_child_mortality-indigenous-hero.json
 
-echo "Exporting Indigenous Hero Widgets"
+echo "Exporting Indigenous Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag child_mortality-indigenous-hero-state > coag_uploader/exports/03_child_mortality-indigenous-hero-state.json
 
 # Infrastructure Hero Widgets   wdef sort_order 1200, 1205, ... 1300, 1305, ...
 echo "Exporting Infrastructure Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag projects-infrastructure-hero > coag_uploader/exports/03_projects-infrastructure-hero.json
 
-echo "Exporting Infrastructure Hero Widgets"
+echo "Exporting Infrastructure Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag projects-infrastructure-hero-state > coag_uploader/exports/03_projects-infrastructure-hero-state.json
 
 # Legal Assistance Hero Widgets wdef sort_order 1400, 1405, ... 1500, 1505, ...
 echo "Exporting Legal Assistance Hero Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag total_svc-legal-hero > coag_uploader/exports/03_total_svc-legal-hero.json
 
-echo "Exporting Legal Assistance Hero Widgets"
+echo "Exporting Legal Assistance Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag total_svc-legal-hero-state > coag_uploader/exports/03_total_svc-legal-hero-state.json
 
 
@@ -189,6 +189,12 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag disabil
 python manage.py export_widget --settings=dashboard_loader.settings_coag disability_more_assist_state > coag_uploader/exports/03_more_assist-state.json
 
 # Indigenous Detail Widgets      wdef sort_order 3000, 3005, ... 3100, 3105, ...
+echo "Exporting Indigenous Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_child_mortality > coag_uploader/exports/03_child_mortality.json
+
+echo "Exporting Indigenous State Detail Widgets"
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_child_mortality_state > coag_uploader/exports/03_child_mortality-state.json
+
 
 # Infrastructure Detail Widgets  wdef sort_order 3200, 3205, ... 3300, 3305, ...
 echo "Exporting Infrastructure Detail Widgets"
