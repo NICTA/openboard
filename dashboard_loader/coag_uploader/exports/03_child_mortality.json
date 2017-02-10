@@ -192,7 +192,7 @@
                             "single_graph": true, 
                             "point_colour_map": null, 
                             "lines": 1, 
-                            "points": 2, 
+                            "points": 0, 
                             "rotates": false
                         }, 
                         "secondary_numeric_axis_label": null, 
