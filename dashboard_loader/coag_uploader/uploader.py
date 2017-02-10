@@ -93,10 +93,40 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
         start_from_col = 2
     else:
         start_from_col = 1
+    def write_record(rows, date):
+        recs_written = 0
+        for state, scol in state_cols.items():
+            if use_dates and not date_field:
+                defaults = { "financial_year": isfy, "multi_year": myr }
+            else:
+                defaults = {}
+            for fld, frow in rows.items():
+                if not frow:
+                    continue
+                rawval = sheet["%s%d" % (scol, frow)].value
+                if fld in transforms:
+                    defaults[fld] = transforms[fld](rawval)
+                else:
+                    defaults[fld] = rawval
+            for def_fld, def_val in fld_defaults.items():
+                defaults[def_fld] = def_val
+            kwargs = { "state": state, "defaults": defaults }
+            if date_field:
+                kwargs[date_field] = date
+            elif use_dates:
+                kwargs["year"] = date
+            obj, created = model.objects.update_or_create(**kwargs)
+            recs_written += 1
+        zero_all_rows(rows)
+        return recs_written
     while True:
         try:
             first_cell=sheet["A%d" % row].value
         except IndexError:
+            if all_rows_found(rows, optional_rows):
+                records_written += write_record(rows, date)
+            else:
+                zero_all_rows(rows)
             break
         if first_cell:
             if isinstance(first_cell, unicode):
@@ -125,7 +155,10 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         isfy = _isfy
                         new_year = True
                     if new_year:
-                        zero_all_rows(rows)
+                        if all_rows_found(rows, optional_rows):
+                            records_written += write_record(rows, date)
+                        else:
+                            zero_all_rows(rows)
                 except:
                     pass
         matches = []
@@ -150,30 +183,6 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     if full_match:
                         rows[fld]=row
                         break
-                if all_rows_found(rows, optional_rows):
-                    for state, scol in state_cols.items():
-                        if use_dates and not date_field:
-                            defaults = { "financial_year": isfy, "multi_year": myr }
-                        else:
-                            defaults = {}
-                        for fld, frow in rows.items():
-                            if not frow:
-                                continue
-                            rawval = sheet["%s%d" % (scol, frow)].value
-                            if fld in transforms:
-                                defaults[fld] = transforms[fld](rawval)
-                            else:
-                                defaults[fld] = rawval
-                        for def_fld, def_val in fld_defaults.items():
-                            defaults[def_fld] = def_val
-                        kwargs = { "state": state, "defaults": defaults }
-                        if date_field:
-                            kwargs[date_field] = date
-                        elif use_dates:
-                            kwargs["year"] = date
-                        obj, created = model.objects.update_or_create(**kwargs)
-                        records_written += 1
-                    zero_all_rows(rows)
         row += 1
     if verbosity > 1:
         messages.append("Records written: %d" % records_written)
