@@ -1,0 +1,646 @@
+{
+    "category": "indigenous", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education",
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "indigenous_indig_ece_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null,
+                    "url": "indigenous_indig_ece_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null,
+                    "url": "indigenous_indig_ece_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "grid": {
+                        "corner_label": "Early Childhood Enrolement", 
+                        "show_column_headers": true, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "indigenous_state", 
+                                    "non_indigenous_state"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "statistics": [
+                                    "indigenous", 
+                                    "non_indigenous"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "label": "Non-Indigenous"
+                            }
+                        ], 
+                        "show_row_headers": true
+                    }, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "indigenous_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null,
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "non_indigenous_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "indigenous", 
+                            "traffic_light_automation": null,
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "non_indigenous", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": null, 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 400
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_ece_summary_graph", 
+                    "tile_type": 9, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Indicator Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_ece_status_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_ece_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_ece_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_ece_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Cohort", 
+                        "clusters": [
+                            {
+                                "url": "nsw", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "url": "vic", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "url": "qld", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "url": "wa", 
+                                "hyperlink": "", 
+                                "sort_order": 400, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "url": "sa", 
+                                "hyperlink": "", 
+                                "sort_order": 500, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "url": "tas", 
+                                "hyperlink": "", 
+                                "sort_order": 600, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "url": "act", 
+                                "hyperlink": "", 
+                                "sort_order": 700, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "url": "nt", 
+                                "hyperlink": "", 
+                                "sort_order": 800, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 900, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "cluster_label": "Jurisdiction", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_act"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_nsw"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_nt"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_qld"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_sa"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_tas"
+                }, 
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_vic"
+                },
+                {
+                    "sort_order": 105, 
+                    "view": "indigenous_wa"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Indigenous Early Childhood Education Enrolement", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_indigenous", 
+                            "sort_order": 20, 
+                            "heading": "NSW | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_non_indigenous", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_indigenous", 
+                            "sort_order": 40, 
+                            "heading": "Vic | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_non_indigenous", 
+                            "sort_order": 50, 
+                            "heading": "Vic | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_indigenous", 
+                            "sort_order": 60, 
+                            "heading": "Qld | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_non_indigenous", 
+                            "sort_order": 70, 
+                            "heading": "Qld | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_indigenous", 
+                            "sort_order": 80, 
+                            "heading": "WA | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_non_indigenous", 
+                            "sort_order": 90, 
+                            "heading": "WA | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_indigenous", 
+                            "sort_order": 100, 
+                            "heading": "SA | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_non_indigenous", 
+                            "sort_order": 110, 
+                            "heading": "SA | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_indigenous", 
+                            "sort_order": 120, 
+                            "heading": "Tas | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_non_indigenous", 
+                            "sort_order": 130, 
+                            "heading": "Tas | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_indigenous", 
+                            "sort_order": 140, 
+                            "heading": "ACT | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_non_indigenous", 
+                            "sort_order": 150, 
+                            "heading": "ACT | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_indigenous", 
+                            "sort_order": 160, 
+                            "heading": "NT | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_non_indigenous", 
+                            "sort_order": 170, 
+                            "heading": "NT | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_indigenous", 
+                            "sort_order": 180, 
+                            "heading": "Aust | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_non_indigenous", 
+                            "sort_order": 190, 
+                            "heading": "Aust | Non-Indigenous", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "indigenous_earlychildhood_education_data_table.csv"
+                }, 
+                {
+                    "url": "indigenous_indig_ece", 
+                    "name": "Indigenous Early Childhood Education Enrolement Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year range", 
+                            "description": "The year each row describes."
+                        }, 
+                        {
+                            "url": "indigenous", 
+                            "sort_order": 30, 
+                            "heading": "Indigenous", 
+                            "description": "Indigenous enrolement in early childhood education in the year before full time school."
+                        },
+                        {
+                            "url": "non_indigenous", 
+                            "sort_order": 40, 
+                            "heading": "Non-Indigenous", 
+                            "description": "Non-Indigenous enrolement in early childhood education in the year before full time school."
+                        } 
+                    ], 
+                    "filename": "coag_indigenous_early_childhood_education_data.csv"
+                }
+            ], 
+            "sort_order": 3105, 
+            "expansion_hint": "View more", 
+            "about": "<p>95 per cent of all Indigenous four-year-olds enrolled in early childhood education (by 2025).</p>", 
+            "refresh_rate": 3810, 
+            "label": "indigenous_indig_ece_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au",
+    "name": "Indigenous Early Childhood Education"
+}
+

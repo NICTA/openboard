@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'disability_social_participation_uploader',
     'disability_more_assist_uploader',
     'indigenous_child_mortality_uploader',
+    'indigenous_ece_uploader',
     'infrastructure_npa_uploader',
     'legal_assistance_total_services_uploader',
 
