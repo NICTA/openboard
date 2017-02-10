@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Exporting Property Groups"
+python manage.py export_property_grps --settings=dashboard_loader.settings_coag > coag_uploader/exports/01_property_groups.json
+
 echo "Exporting Icon Libraries and Traffic Light Scales..."
 python manage.py export_iconlibrary --settings=dashboard_loader.settings_coag indicator_benchmark_icons > coag_uploader/exports/01_icons_indicator_benchmark.json
 

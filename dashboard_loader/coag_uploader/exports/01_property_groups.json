@@ -1,0 +1,324 @@
+{
+    "exports": [
+        {
+            "properties": [
+                {
+                    "value": "#AA4744", 
+                    "key": "no"
+                }, 
+                {
+                    "value": "#5E5E5E", 
+                    "key": "unknown"
+                }, 
+                {
+                    "value": "#F6A623", 
+                    "key": "warning"
+                }, 
+                {
+                    "value": "#89A54E", 
+                    "key": "yes"
+                }
+            ], 
+            "name": "Traffic Light Text Colour", 
+            "label": "traffic_text"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "steelblue", 
+                    "key": "blue"
+                }, 
+                {
+                    "value": "#562b00", 
+                    "key": "brown"
+                }, 
+                {
+                    "value": "#0a1688", 
+                    "key": "dark_blue"
+                }, 
+                {
+                    "value": "#0f4017", 
+                    "key": "dark_green"
+                }, 
+                {
+                    "value": "gold", 
+                    "key": "gold"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green"
+                }, 
+                {
+                    "value": "white", 
+                    "key": "green-dashed-line"
+                }, 
+                {
+                    "value": "white", 
+                    "key": "green-dotted"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green-solid"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green-solid-bar"
+                }, 
+                {
+                    "value": "#d99694", 
+                    "key": "orange"
+                }, 
+                {
+                    "value": "#72afe2", 
+                    "key": "pale_blue"
+                }, 
+                {
+                    "value": "#800080", 
+                    "key": "purple"
+                }, 
+                {
+                    "value": "#800080", 
+                    "key": "purple-solid"
+                }, 
+                {
+                    "value": "#800080", 
+                    "key": "purple-solid-bar"
+                }
+            ], 
+            "name": "Bar Chart Fill", 
+            "label": "bar_fill"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "transparent", 
+                    "key": "blue"
+                }, 
+                {
+                    "value": "transparent", 
+                    "key": "green"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green-dotted"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green-solid"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green-solid-bar"
+                }, 
+                {
+                    "value": "#92d050", 
+                    "key": "green-solid-line"
+                }, 
+                {
+                    "value": "#d99694", 
+                    "key": "orange"
+                }, 
+                {
+                    "value": "#800080", 
+                    "key": "purple"
+                }, 
+                {
+                    "value": "#800080", 
+                    "key": "purple-solid"
+                }, 
+                {
+                    "value": "#800080", 
+                    "key": "purple-solid-bar"
+                }
+            ], 
+            "name": "Bar Chart Stroke", 
+            "label": "bar_stroke"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "#AA4744", 
+                    "key": "no"
+                }, 
+                {
+                    "value": "#5E5E5E", 
+                    "key": "unknown"
+                }, 
+                {
+                    "value": "#F6A623", 
+                    "key": "warning"
+                }, 
+                {
+                    "value": "#89A54E", 
+                    "key": "yes"
+                }
+            ], 
+            "name": "Widget Header Colour", 
+            "label": "traffic_header"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "#a06c98", 
+                    "key": "amber"
+                }, 
+                {
+                    "value": "aqua", 
+                    "key": "aqua"
+                }, 
+                {
+                    "value": "steelblue", 
+                    "key": "blue"
+                }, 
+                {
+                    "value": "#6590bb", 
+                    "key": "blue-dotted"
+                }, 
+                {
+                    "value": "#6590bb", 
+                    "key": "blue-solid"
+                }, 
+                {
+                    "value": "brown", 
+                    "key": "brown-solid"
+                }, 
+                {
+                    "value": "steelblue", 
+                    "key": "dark_blue-solid"
+                }, 
+                {
+                    "value": "#83a274", 
+                    "key": "dark_green-solid"
+                }, 
+                {
+                    "value": "#aba453", 
+                    "key": "gold-solid"
+                }, 
+                {
+                    "value": "#45bcac", 
+                    "key": "green"
+                }, 
+                {
+                    "value": "#45bcac", 
+                    "key": "green-dotted"
+                }, 
+                {
+                    "value": "#45bcac", 
+                    "key": "green-solid"
+                }, 
+                {
+                    "value": "orange", 
+                    "key": "orange"
+                }, 
+                {
+                    "value": "orange", 
+                    "key": "orange_dotted"
+                }, 
+                {
+                    "value": "orange", 
+                    "key": "orange-dotted"
+                }, 
+                {
+                    "value": "orange", 
+                    "key": "orange-solid"
+                }, 
+                {
+                    "value": "#245046", 
+                    "key": "pale_blue-solid"
+                }, 
+                {
+                    "value": "purple", 
+                    "key": "purple"
+                }, 
+                {
+                    "value": "purple", 
+                    "key": "purple-dotted"
+                }, 
+                {
+                    "value": "purple", 
+                    "key": "purple-solid"
+                }, 
+                {
+                    "value": "red", 
+                    "key": "red-dotted"
+                }
+            ], 
+            "name": "Stroke Colour", 
+            "label": "stroke_colour"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "#5a4400", 
+                    "key": "amber"
+                }, 
+                {
+                    "value": "#549409", 
+                    "key": "green"
+                }, 
+                {
+                    "value": "#549409", 
+                    "key": "green1"
+                }, 
+                {
+                    "value": "#549409", 
+                    "key": "green2"
+                }, 
+                {
+                    "value": "#616161", 
+                    "key": "grey1"
+                }, 
+                {
+                    "value": "#616161", 
+                    "key": "grey4"
+                }, 
+                {
+                    "value": "#AB4541", 
+                    "key": "red"
+                }, 
+                {
+                    "value": "#FFFF00", 
+                    "key": "yellow"
+                }
+            ], 
+            "name": "Traffic Light Foreground", 
+            "label": "traffic_fore"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "rgba(255, 193, 0, 0.5)", 
+                    "key": "amber"
+                }, 
+                {
+                    "value": "rgba(146, 208, 80, 0.26)", 
+                    "key": "green"
+                }, 
+                {
+                    "value": "rgba(195, 214, 155, 0.65)", 
+                    "key": "green1"
+                }, 
+                {
+                    "value": "rgba(195, 214, 155, 0.65)", 
+                    "key": "green2"
+                }, 
+                {
+                    "value": "rgba(0, 0, 0, 0.25)", 
+                    "key": "grey1"
+                }, 
+                {
+                    "value": "rgba(0, 0, 0, 0.25)", 
+                    "key": "grey4"
+                }, 
+                {
+                    "value": "#E5D2D1", 
+                    "key": "red"
+                }
+            ], 
+            "name": "Traffic Light Background", 
+            "label": "traffic_back"
+        }
+    ], 
+    "type": "PropertyGroup"
+}
+
