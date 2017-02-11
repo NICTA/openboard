@@ -345,13 +345,13 @@
                             "description": "Indigenous child deaths per 100,000."
                         }, 
                         {
-                            "url": "indigenous_variablity_upper", 
+                            "url": "indigenous_variability_upper", 
                             "sort_order": 40, 
                             "heading": "Upper variability", 
                             "description": "The upper limit of the Indigenous variability band."
                         },
                         {
-                            "url": "indigenous_variablity_lower", 
+                            "url": "indigenous_variability_lower", 
                             "sort_order": 50, 
                             "heading": "Lower variability", 
                             "description": "The lower limit of the Indigenous variability band."

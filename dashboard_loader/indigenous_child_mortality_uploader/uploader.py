@@ -98,8 +98,8 @@ file_format = {
 }
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-        messages = []
-#try:
+    messages = []
+    try:
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
@@ -171,6 +171,45 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "indigenous_child_mortality_detail_graph",
                     verbosity=verbosity)
         )
+        messages.extend(
+                populate_raw_data(
+                        "indigenous_child_mortality", "indigenous_child_mortality",
+                        "indigenous_child_mortality", IndigenousChildMortalityNationalData, 
+                        { 
+                            "non_indigenous": "non_indigenous_rate",
+                            "indigenous": "indigenous_rate",
+                            "variability_lower": "indigenous_variability_lower",
+                            "variability_upper": "indigenous_variability_upper",
+                            "indigenous_target": "indigenous_target",
+                            "non_indigenous_projected": "non_indigenous_projected",
+                        },
+                        use_states=False)
+        )
+        messages.extend(
+                populate_raw_data(
+                        "indigenous_child_mortality", "indigenous_child_mortality",
+                        "data_table", IndigenousChildMortalityNationalData, 
+                        { 
+                            "non_indigenous": "non_indigenous_rate",
+                            "indigenous": "indigenous_rate",
+                            "indigenous_target": "indigenous_target",
+                            "non_indigenous_projected": "non_indigenous_projected",
+                        },
+                        use_states=False)
+        )
+        messages.extend(
+                populate_raw_data(
+                        "indigenous_child_mortality", "indigenous_child_mortality",
+                        "indigenous_child_mortality_state", IndigenousChildMortalityStateData, 
+                        {
+                            "non_indigenous": "non_indigenous_rate",
+                            "non_indigenous_deaths": "non_indigenous_deaths",
+                            "indigenous": "indigenous_rate",
+                            "indigenous_deaths": "indigenous_deaths",
+                            "rate_ratio": "rate_ratio",
+                            "rate_diff": "rate_difference",
+                        })
+        )
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
@@ -229,11 +268,54 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.extend(
                     update_my_state_graph(pval, verbosity)
             )
-#    except LoaderException, e:
-#        raise e
-#    except Exception, e:
-#        raise LoaderException("Invalid file: %s" % unicode(e))
-        return messages
+            messages.extend(
+                    populate_raw_data(
+                            "indigenous_child_mortality_state", "indigenous_child_mortality_state",
+                            "indigenous_child_mortality", IndigenousChildMortalityNationalData, 
+                            { 
+                                "non_indigenous": "non_indigenous_rate",
+                                "indigenous": "indigenous_rate",
+                                "variability_lower": "indigenous_variability_lower",
+                                "variability_upper": "indigenous_variability_upper",
+                                "indigenous_target": "indigenous_target",
+                                "non_indigenous_projected": "non_indigenous_projected",
+                            },
+                            use_states=False,
+                            pval=pval)
+            )
+            messages.extend(
+                    populate_raw_data(
+                            "indigenous_child_mortality_state", "indigenous_child_mortality_state",
+                            "data_table", IndigenousChildMortalityStateData, 
+                            { 
+                                "non_indigenous": "non_indigenous_rate",
+                                "non_indigenous_deaths": "non_indigenous_deaths",
+                                "indigenous": "indigenous_rate",
+                                "indigenous_deaths": "indigenous_deaths",
+                                "rate_ratio": "rate_ratio",
+                                "rate_diff": "rate_difference",
+                            },
+                            pval=pval)
+            )
+            messages.extend(
+                    populate_raw_data(
+                            "indigenous_child_mortality_state", "indigenous_child_mortality_state",
+                            "indigenous_child_mortality_state", IndigenousChildMortalityStateData, 
+                            {
+                                "non_indigenous": "non_indigenous_rate",
+                                "non_indigenous_deaths": "non_indigenous_deaths",
+                                "indigenous": "indigenous_rate",
+                                "indigenous_deaths": "indigenous_deaths",
+                                "rate_ratio": "rate_ratio",
+                                "rate_diff": "rate_difference",
+                            },
+                            pval=pval)
+            )
+    except LoaderException, e:
+        raise e
+    except Exception, e:
+        raise LoaderException("Invalid file: %s" % unicode(e))
+    return messages
 
 def update_my_national_graph(wurl, wlbl, graph, summary=False, verbosity=0):
     messages = []
