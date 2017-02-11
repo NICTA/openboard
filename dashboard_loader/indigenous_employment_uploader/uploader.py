@@ -165,8 +165,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         earliest_aust = IndigenousEmploymentData.objects.filter(state=AUS, indigenous__isnull=False).first()
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
-            latest_state = IndigenousEmploymentData.objects.filter(state=AUS, indigenous__isnull=False).last()
-            earliest_state = IndigenousEmploymentData.objects.filter(state=AUS, indigenous__isnull=False).first()
+            latest_state = IndigenousEmploymentData.objects.filter(state=state_num, indigenous__isnull=False).last()
+            earliest_state = IndigenousEmploymentData.objects.filter(state=state_num, indigenous__isnull=False).first()
             set_statistic_data(
                     "indig_employment-indigenous-hero-state", "indig_employment-indigenous-hero-state", 
                     'non_indigenous',
