@@ -253,6 +253,14 @@
                     "key": "amber"
                 }, 
                 {
+                    "value": "#5a4400", 
+                    "key": "amber1"
+                }, 
+                {
+                    "value": "#5a4400", 
+                    "key": "amber2"
+                }, 
+                {
                     "value": "#549409", 
                     "key": "green"
                 }, 
@@ -289,6 +297,14 @@
                 {
                     "value": "rgba(255, 193, 0, 0.5)", 
                     "key": "amber"
+                }, 
+                {
+                    "value": "rgba(255, 193, 0, 0.5)", 
+                    "key": "amber1"
+                }, 
+                {
+                    "value": "rgba(255, 193, 0, 0.5)", 
+                    "key": "amber2"
                 }, 
                 {
                     "value": "rgba(146, 208, 80, 0.26)", 
