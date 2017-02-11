@@ -88,7 +88,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "percent_of_national": "%",
                                     "rate_per_10k": "rate per 10k",
                                 },
-                                verbosity)
+                                verbosity=verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, None,

@@ -55,10 +55,13 @@ def zero_all_rows(rows):
         rows[k] = 0
 
 def all_rows_found(rows, optional_rows):
+    got_any = False
     for k in rows.keys():
         if not rows[k] and k not in optional_rows:
             return False
-    return True
+        if rows[k]:
+            got_any=True
+    return got_any
 
 def listify(x):
     if isinstance(x, basestring):
@@ -146,7 +149,6 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         (_year, _isfy) = parse_year(first_cell)
                     new_year = False
                     if _year != date:
-                        date = _year
                         new_year = True
                     if _myr != myr:
                         myr = _myr
@@ -159,6 +161,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                             records_written += write_record(rows, date)
                         else:
                             zero_all_rows(rows)
+                        date = _year
                 except:
                     pass
         matches = []
@@ -821,10 +824,12 @@ def update_stats(desc, benchmark,
 
 def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     model, fields,
+                    query_filter_kwargs={},
                     want_increase=True,
                     override_status=None,
                     use_benchmark_tls=False,
                     status_func=None,
+                    status_func_kwargs={},
                     verbosity=0):
     messages = []
     try:
@@ -843,7 +848,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
         if override_status:
             status = statuses[override_status]
         else:
-            qry = model.objects.filter(state=state_num)
+            qry = model.objects.filter(state=state_num, **query_filter_kwargs)
             reference = qry.first()
             measure = qry.last()
             if reference is None:
@@ -855,7 +860,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                 if verbosity > 1:
                     messages.append("%s: New indicator" % state_abbrev)
             elif status_func:
-                status = statuses[status_func(measure)]
+                status = statuses[status_func(measure, **status_func_kwargs)]
             else:
                 statuses = []
                 for flds, want_incr in zip(fields, want_increase):

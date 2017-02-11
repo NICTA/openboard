@@ -84,7 +84,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "treated_4_24h": "Four to less than 24 hours",
                                     "treated_over_24h": "24 hours or more",
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, None,
                                 "gpwait-health-hero", "gpwait-health-hero", 

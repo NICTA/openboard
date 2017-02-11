@@ -114,7 +114,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                         "underway_cost": ("Underway", "Total Project Cost"),
                                         "pending_cost": ("Pending", "Total Project Cost"),
                                     },
-                                verbosity)
+                                verbosity=verbosity)
                 )
         messages.extend(
                 load_progress_grid(wb, "Milestones",

@@ -153,7 +153,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_lit_score_rse": ("Year 7", "RSE"),
                                     "year9_lit_score_rse": ("Year 9", "RSE"),
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         messages.extend(
                 load_state_grid(wb, "NMS reading",
                                 "Education", "NAPLAN Reading NMS",
@@ -174,7 +174,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_lit_nms_rse": ("Year 7", "RSE"),
                                     "year9_lit_nms_rse": ("Year 9", "RSE"),
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         messages.extend(
                 load_state_grid(wb, "Mean numeracy",
                                 "Education", "NAPLAN Numeracy Mean Score",
@@ -195,7 +195,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_num_score_rse": ("Year 7", "RSE"),
                                     "year9_num_score_rse": ("Year 9", "RSE"),
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         messages.extend(
                 load_state_grid(wb, "NMS numeracy",
                                 "Education", "NAPLAN Numeracy NMS",
@@ -216,7 +216,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_num_nms_rse": ("Year 7", "RSE"),
                                     "year9_num_nms_rse": ("Year 9", "RSE"),
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True, additional_lookups={
                         "literacy": "literacy",
                         "numeracy": "numeracy",

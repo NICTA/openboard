@@ -87,7 +87,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "indigenous": "Indigenous",
                                     "non_indigenous": "Non-Indigenous",
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, None,
                                 "indig_ece-indigenous-hero", "indig_ece-indigenous-hero", 

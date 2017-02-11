@@ -1,0 +1,553 @@
+{
+    "category": "indigenous", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians",
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "indigenous_indig_employment", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_employment_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_employment_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "National Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_employment_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_employment_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_employment_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "green-solid", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "benchmark", 
+                                "colour": "green-dotted", 
+                                "dynamic_label": false, 
+                                "label": "National Benchmark"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 1, 
+                        "heading": "National Indigenous Employment"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "sort_order": 600, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_employment_state_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 0, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": null, 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "Cohort", 
+                        "clusters": [
+                            {
+                                "url": "nsw", 
+                                "hyperlink": "", 
+                                "sort_order": 100, 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "url": "vic", 
+                                "hyperlink": "", 
+                                "sort_order": 200, 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "url": "qld", 
+                                "hyperlink": "", 
+                                "sort_order": 300, 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "url": "wa", 
+                                "hyperlink": "", 
+                                "sort_order": 400, 
+                                "label": "WA"
+                            }, 
+                            {
+                                "url": "sa", 
+                                "hyperlink": "", 
+                                "sort_order": 500, 
+                                "label": "SA"
+                            }, 
+                            {
+                                "url": "tas", 
+                                "hyperlink": "", 
+                                "sort_order": 600, 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "url": "act", 
+                                "hyperlink": "", 
+                                "sort_order": 700, 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "url": "nt", 
+                                "hyperlink": "", 
+                                "sort_order": 800, 
+                                "label": "NT"
+                            }, 
+                            {
+                                "url": "australia", 
+                                "hyperlink": "", 
+                                "sort_order": 900, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "cluster_label": "Jurisdiction", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 0, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": true, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            }
+                        ], 
+                        "numeric_axis_label": "%", 
+                        "graph_type": 2, 
+                        "heading": "Indigenous Employment by State"
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 110, 
+                    "view": "indigenous"
+                }
+            ], 
+            "default_frequency_text": "Biennial", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Indigenous Employment", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The financial or calendar year."
+                        }, 
+                        {
+                            "url": "nsw_indigenous", 
+                            "sort_order": 20, 
+                            "heading": "NSW | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_non_indigenous", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_indigenous", 
+                            "sort_order": 40, 
+                            "heading": "Vic | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "vic_non_indigenous", 
+                            "sort_order": 50, 
+                            "heading": "Vic | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_indigenous", 
+                            "sort_order": 60, 
+                            "heading": "Qld | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_non_indigenous", 
+                            "sort_order": 70, 
+                            "heading": "Qld | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_indigenous", 
+                            "sort_order": 80, 
+                            "heading": "WA | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "wa_non_indigenous", 
+                            "sort_order": 90, 
+                            "heading": "WA | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_indigenous", 
+                            "sort_order": 100, 
+                            "heading": "SA | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_non_indigenous", 
+                            "sort_order": 110, 
+                            "heading": "SA | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_indigenous", 
+                            "sort_order": 120, 
+                            "heading": "Tas | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "tas_non_indigenous", 
+                            "sort_order": 130, 
+                            "heading": "Tas | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_indigenous", 
+                            "sort_order": 140, 
+                            "heading": "ACT | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "act_non_indigenous", 
+                            "sort_order": 150, 
+                            "heading": "ACT | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_indigenous", 
+                            "sort_order": 160, 
+                            "heading": "NT | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_non_indigenous", 
+                            "sort_order": 170, 
+                            "heading": "NT | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_indigenous", 
+                            "sort_order": 180, 
+                            "heading": "Aust | Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_non_indigenous", 
+                            "sort_order": 190, 
+                            "heading": "Aust | Non-Indigenous", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "indigenous_employment_data_table.csv"
+                }, 
+                {
+                    "url": "indigenous_indig_employment", 
+                    "name": "Indigenous Employment Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year", 
+                            "description": "The year or financial year each row describes."
+                        }, 
+                        {
+                            "url": "indigenous", 
+                            "sort_order": 30, 
+                            "heading": "Indigenous Employment (%)", 
+                            "description": "Indigenous employment rate."
+                        },
+                        {
+                            "url": "indigenous_ci", 
+                            "sort_order": 40, 
+                            "heading": "Confidence Interval (+/-)", 
+                            "description": "Indigenous employment confidence interval."
+                        }, 
+                        {
+                            "url": "non_indigenous", 
+                            "sort_order": 50, 
+                            "heading": "Non-Indigenous Employment (%)", 
+                            "description": "Non-Indigenous employment rate."
+                        } 
+                    ], 
+                    "filename": "coag_indigenous_employment_data.csv"
+                }
+            ], 
+            "sort_order": 3010, 
+            "expansion_hint": "View more", 
+            "about": "<p>Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians within a decade (by 2018)</p>",
+            "refresh_rate": 3770, 
+            "label": "indigenous_indig_employment", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.abs.gov.au", 
+    "name": "Indigenous Employment"
+}
+

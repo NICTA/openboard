@@ -91,7 +91,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "uncertainty": "Confidence interval",
                                     "rse": "RSE",
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, None,
                                 "more_assist-disability-hero", "more_assist-disability-hero", 

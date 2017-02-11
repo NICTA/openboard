@@ -82,7 +82,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 {}, {
                                     "treated_ontime": "Patients treated within national benchmarks for emergency department waiting time (%)",
                                 },
-                                verbosity))
+                                verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, None,
                                 "edwait-health-hero", "edwait-health-hero", 

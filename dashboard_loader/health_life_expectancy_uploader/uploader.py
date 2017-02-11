@@ -78,7 +78,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "Health", "Life Expectancy",
                                 None, HealthLifeExpectancyData,
                                 {}, {"males": "Males", "females": "Females",},
-                                verbosity, multi_year=True))
+                                verbosity=verbosity, multi_year=True))
         desc = load_benchmark_description(wb, "Description", indicator=True)
         messages.extend(update_stats(desc, None,
                                 "life_expectancy-health-hero", "life_expectancy-health-hero", 

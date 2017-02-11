@@ -136,7 +136,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                         "rate_ratio": ("Comparison", "Rate ratio"),
                                         "rate_diff": ("Comparison", "Rate difference"),
                                     },
-                                verbosity, multi_year=True)
+                                verbosity=verbosity, multi_year=True)
                 )
         desc = load_benchmark_description(wb, "Description")
         messages.extend(update_stats(desc, None,
