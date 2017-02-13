@@ -724,14 +724,18 @@ txt_block_template = Template("""<div class="coag_description">
             {% endfor %}
         {% endif %}
     </div>
-    <div class="coag_desc_notes">
-        <p>Notes:</p>
-        <ol>
-            {% for note in desc.notes %}
-                <li>{{ note }}</li>
-            {% endfor %}
-        </ol>
-    </div>
+    {% for note in desc.notes %}
+        {% if forloop.first %}
+            <div class="coag_desc_notes">
+                <p>Notes:</p>
+                <ol>
+        {% endif %}
+                    <li>{{ note }}</li>
+        {% if forloop.last %}
+                </ol>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>""")
 
 def update_stats(desc, benchmark, 

@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'skills_cert3_uploader',
     'skills_higher_qual_uploader',
     'skills_improved_employment_uploader',
+    'skills_reform_uploader',
     'health_life_expectancy_uploader',
     'health_diabetes_uploader',
     'health_healthyweight_uploader',

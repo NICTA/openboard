@@ -48,6 +48,10 @@
                 {
                     "sort_order": 200, 
                     "name": "national agreement"
+                }, 
+                {
+                    "sort_order": 300, 
+                    "name": "national partnership agreement"
                 }
             ], 
             "name": "skills", 
