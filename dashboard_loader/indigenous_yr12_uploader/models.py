@@ -33,4 +33,13 @@ class IndigenousYr12Data(CoagDataBase):
                 return "achieved"
             else:
                 return "on_track"
-
+    def trajectory_display(self):
+        if self.indigenous_trajectory:
+            return unicode(self.indigenous_trajectory) + u"%"
+        else:
+            return "-"
+    def attainment_display(self):
+        if self.indigenous_attainment:
+            return unicode(self.indigenous_attainment) + u"%"
+        else:
+            return "-"

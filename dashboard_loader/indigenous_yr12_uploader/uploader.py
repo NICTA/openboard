@@ -147,8 +147,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         "indigenous_yr12", "indigenous_yr12",
                         "data_table", IndigenousYr12Data, 
                         {
-                            "indigenous_attainment": "indigenous",
-                            "indigenous_trajectory": "trajectory",
+                            "attainment_display": "indigenous",
+                            "trajectory_display": "trajectory",
                         })
         )
         p = Parametisation.objects.get(url="state_param")
@@ -190,8 +190,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "indigenous_yr12_state", "indigenous_yr12_state",
                             "data_table", IndigenousYr12Data, 
                             {
-                                "indigenous_attainment": "indigenous",
-                                "indigenous_trajectory": "trajectory",
+                                "attainment_display": "indigenous",
+                                "trajectory_display": "trajectory",
                             },
                             pval=pval)
             )
