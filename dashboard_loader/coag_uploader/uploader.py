@@ -618,7 +618,8 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
                 kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field)())
             else:
                 kwargs[jurisdiction + "_" + rds_field] = unicode(getattr(obj, model_field))
-    add_rawdatarecord(rds, sort_order, **kwargs)
+    if kwargs["year"]:
+        add_rawdatarecord(rds, sort_order, **kwargs)
     return messages
 
 def populate_raw_data_nostate(widget_url, label, rds_url,
