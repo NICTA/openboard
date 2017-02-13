@@ -180,19 +180,51 @@
                 }, 
                 {
                     "value": "brown", 
+                    "key": "brown"
+                }, 
+                {
+                    "value": "brown", 
                     "key": "brown-solid"
+                }, 
+                {
+                    "value": "brown", 
+                    "key": "brown-dotted"
+                }, 
+                {
+                    "value": "steelblue", 
+                    "key": "dark_blue"
                 }, 
                 {
                     "value": "steelblue", 
                     "key": "dark_blue-solid"
                 }, 
                 {
+                    "value": "steelblue", 
+                    "key": "dark_blue-dotted"
+                }, 
+                {
+                    "value": "#83a274", 
+                    "key": "dark_green"
+                }, 
+                {
                     "value": "#83a274", 
                     "key": "dark_green-solid"
                 }, 
                 {
+                    "value": "#83a274", 
+                    "key": "dark_green-dotted"
+                }, 
+                {
+                    "value": "#aba453", 
+                    "key": "gold"
+                }, 
+                {
                     "value": "#aba453", 
                     "key": "gold-solid"
+                }, 
+                {
+                    "value": "#aba453", 
+                    "key": "gold-dotted"
                 }, 
                 {
                     "value": "#45bcac", 
@@ -212,10 +244,6 @@
                 }, 
                 {
                     "value": "orange", 
-                    "key": "orange_dotted"
-                }, 
-                {
-                    "value": "orange", 
                     "key": "orange-dotted"
                 }, 
                 {
@@ -224,7 +252,15 @@
                 }, 
                 {
                     "value": "#245046", 
+                    "key": "pale_blue"
+                }, 
+                {
+                    "value": "#245046", 
                     "key": "pale_blue-solid"
+                }, 
+                {
+                    "value": "#245046", 
+                    "key": "pale_blue-dotted"
                 }, 
                 {
                     "value": "purple", 
