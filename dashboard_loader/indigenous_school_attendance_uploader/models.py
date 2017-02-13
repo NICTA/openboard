@@ -33,4 +33,14 @@ class IndigenousSchoolAttendanceData(CoagDataBase):
                 return "achieved"
             else:
                 return "on_track"
+    def trajectory_display(self):
+        if self.indigenous_trajectory:
+            return unicode(self.indigenous_trajectory) + u"%"
+        else:
+            return "-"
+    def attendance_display(self):
+        if self.indigenous_attendance:
+            return unicode(self.indigenous_attendance) + u"%"
+        else:
+            return "-"
 
