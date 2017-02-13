@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016, 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -96,8 +96,8 @@ file_format = {
 }
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-        messages = []
-#try:
+    messages = []
+    try:
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
@@ -346,11 +346,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     use_dates=False,
                                     pval=pval)
                     )
-#    except LoaderException, e:
-#        raise e
-#    except Exception, e:
-#        raise LoaderException("Invalid file: %s" % unicode(e))
-        return messages
+    except LoaderException, e:
+        raise e
+    except Exception, e:
+        raise LoaderException("Invalid file: %s" % unicode(e))
+    return messages
 
 def load_progress_grid(wb, sheet_name, data_category, dataset, model,
                                 cell_rows, transforms={}, verbosity=0):
