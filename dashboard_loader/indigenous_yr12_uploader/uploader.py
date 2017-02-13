@@ -151,7 +151,6 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "indigenous_trajectory": "trajectory",
                         })
         )
-        return messages
         p = Parametisation.objects.get(url="state_param")
         for pval in p.parametisationvalue_set.all():
             state_num = state_map[pval.parameters()["state_abbrev"]]
