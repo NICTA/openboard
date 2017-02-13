@@ -19,11 +19,11 @@ from coag_uploader.models import *
 
 # Create your models here.
 
-class IndigenousSchoolAttendanceData(CoagDataBase):
-    indigenous_attendance=models.DecimalField(max_digits=5, decimal_places=1)
+class IndigenousYr12Data(CoagDataBase):
+    indigenous_attainment=models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
     indigenous_trajectory=models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
     def benchmark_tlc(self, complete=False):
-        if self.indigenous_trajectory > self.indigenous_attendance:
+        if self.indigenous_trajectory > self.indigenous_attainment:
             if complete:
                 return "not_met"
             else:

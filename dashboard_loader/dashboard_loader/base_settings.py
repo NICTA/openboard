@@ -89,6 +89,7 @@ INSTALLED_APPS = (
     'indigenous_ece_uploader',
     'indigenous_employment_uploader',
     'indigenous_school_attendance_uploader',
+    'indigenous_yr12_uploader',
     'infrastructure_npa_uploader',
     'legal_assistance_total_services_uploader',
 
