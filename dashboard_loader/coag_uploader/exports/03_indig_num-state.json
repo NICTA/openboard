@@ -1,0 +1,662 @@
+{
+    "category": "indigenous", 
+    "edit_all_groups": [], 
+    "source_url_text": "ACARA",
+    "subtitle": "Halve the gap for Indigenous students in numeracy",
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "indigenous_indig_num_state", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 50, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null,
+                    "url": "indigenous_indig_num_header_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null,
+                    "url": "indigenous_indig_num_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "grid": {
+                        "corner_label": "",
+                        "show_column_headers": false, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "year_3", 
+                                    "year_7"
+                                ], 
+                                "sort_order": 100, 
+                                "label": ""
+                            }, 
+                            {
+                                "statistics": [
+                                    "year_5", 
+                                    "year_9"
+                                ], 
+                                "sort_order": 200, 
+                                "label": ""
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": ""
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "label": ""
+                            }
+                        ], 
+                        "show_row_headers": false
+                    }, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "year_3", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "year_5", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "year_7", 
+                            "traffic_light_automation": null,
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "year_9", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": "", 
+                            "sort_order": 400
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous-indig_num-hero-stats", 
+                    "tile_type": 9, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 250, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "{{ state_abbrev }}", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short_state", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_num_status_state", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_num_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_num_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "grid": {
+                        "corner_label": "Year",
+                        "show_column_headers": false, 
+                        "rows": [
+                            {
+                                "statistics": [
+                                    "state_year_3", 
+                                    "australia_year_3"
+                                ], 
+                                "sort_order": 100, 
+                                "label": "Year 3"
+                            }, 
+                            {
+                                "statistics": [
+                                    "state_year_5", 
+                                    "australia_year_5"
+                                ], 
+                                "sort_order": 200, 
+                                "label": "Year 5"
+                            }, 
+                            {
+                                "statistics": [
+                                    "state_year_7", 
+                                    "australia_year_7"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Year 7"
+                            }, 
+                            {
+                                "statistics": [
+                                    "state_year_9", 
+                                    "australia_year_9"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "Year 9"
+                            }
+                        ], 
+                        "columns": [
+                            {
+                                "sort_order": 100, 
+                                "label": "{{ state_abbrev }}"
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "label": "Aust"
+                            }
+                        ], 
+                        "show_row_headers": false
+                    }, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "state_year_3", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "state_year_5", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 200
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "state_year_7", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 300
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "state_year_9", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 400
+                        }, 
+                        {
+                            "num_precision": 1,
+							"icon_library": null,
+							"name": "",
+							"numbered_list": false,
+							"hyperlinkable": false, 
+                            "url": "australia_year_3", 
+                            "traffic_light_automation": null,
+							"footer": false,
+							"editable": true,
+							"name_as_label": true,
+							"trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+							"unit_underfix": "",
+							"unit_signed": false,
+							"unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%",
+							"rotates": false,
+							"stat_type": 2,
+							"unit_prefix": "", 
+                            "sort_order": 500
+                        }, 
+                        {
+                            "num_precision": 1,
+							"icon_library": null,
+							"name": "",
+							"numbered_list": false,
+							"hyperlinkable": false, 
+                            "url": "australia_year_5", 
+                            "traffic_light_automation": null,
+							"footer": false,
+							"editable": true,
+							"name_as_label": true,
+							"trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+							"unit_underfix": "",
+							"unit_signed": false,
+							"unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%",
+							"rotates": false,
+							"stat_type": 2,
+							"unit_prefix": "", 
+                            "sort_order": 600
+                        }, 
+                        {
+                            "num_precision": 1,
+							"icon_library": null,
+							"name": "",
+							"numbered_list": false,
+							"hyperlinkable": false, 
+                            "url": "australia_year_7", 
+                            "traffic_light_automation": null,
+							"footer": false,
+							"editable": true,
+							"name_as_label": true,
+							"trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+							"unit_underfix": "",
+							"unit_signed": false,
+							"unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%",
+							"rotates": false,
+							"stat_type": 2,
+							"unit_prefix": "", 
+                            "sort_order": 700
+                        }, 
+                        {
+                            "num_precision": 1,
+							"icon_library": null,
+							"name": "",
+							"numbered_list": false,
+							"hyperlinkable": false, 
+                            "url": "australia_year_9", 
+                            "traffic_light_automation": null,
+							"footer": false,
+							"editable": true,
+							"name_as_label": true,
+							"trend": false, 
+                            "traffic_light_scale": "Benchmark Scale",
+							"unit_underfix": "",
+							"unit_signed": false,
+							"unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%",
+							"rotates": false,
+							"stat_type": 2,
+							"unit_prefix": "", 
+                            "sort_order": 800
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous-indig_num-detail-stats", 
+                    "tile_type": 9, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                } 
+            ], 
+            "views": [
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_act"
+                }, 
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_nsw"
+                }, 
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_nt"
+                }, 
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_qld"
+                }, 
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_sa"
+                }, 
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_tas"
+                }, 
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_vic"
+                },
+                {
+                    "sort_order": 130, 
+                    "view": "indigenous_wa"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "indigenous_indig_num", 
+                    "name": "Indigenous Numeracy Performance Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "year", 
+                            "sort_order": 20, 
+                            "heading": "Year range", 
+                            "description": "The year each row describes."
+                        }, 
+                        {
+                            "url": "year_level", 
+                            "sort_order": 30, 
+                            "heading": "Year Level", 
+                            "description": "The school year level assessed in this row."
+                        },
+                        {
+                            "url": "proportion_above_nms", 
+                            "sort_order": 40, 
+                            "heading": "At or above NMS (%)", 
+                            "description": "The proportion of Indigenous students at or above National Minimum Standards."
+                        }, 
+                        {
+                            "url": "confidence_interval", 
+                            "sort_order": 50, 
+                            "heading": "Confidence Interval", 
+                            "description": "The 95% confidence interval for the proportion."
+                        }, 
+                        {
+                            "url": "trajectory_point", 
+                            "sort_order": 60, 
+                            "heading": "Trajectory point", 
+                            "description": "The proportion required at this stage in order to be on track to meet the benchmark."
+                        } 
+                    ], 
+                    "filename": "coag_indigenous_numeracy_education_data.csv"
+                }
+            ], 
+            "sort_order": 3130, 
+            "expansion_hint": "View more", 
+            "about": "<p>Halve the gap for Indigenous students in numeracy within a decade (by 2018).</p>",
+            "refresh_rate": 3830, 
+            "label": "indigenous_indig_num_state", 
+            "parametisation": "state_param", 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.acara.edu.au/reporting/reporting.html",
+    "name": "Indigenous Numeracy"
+}
+

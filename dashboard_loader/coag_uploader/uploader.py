@@ -561,7 +561,8 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
     return desc
 
 def populate_raw_data(widget_url, label, rds_url,
-                    model, field_map, use_states=True, use_dates=True, pval=None):
+                    model, field_map, query_kwargs={}, 
+                    use_states=True, use_dates=True, pval=None):
     messages = []
     rds = get_rawdataset(widget_url, label, rds_url)
     clear_rawdataset(rds, pval=pval)
@@ -570,7 +571,7 @@ def populate_raw_data(widget_url, label, rds_url,
         order_by_args = [ "state", "year", "financial_year" ]
     else:
         order_by_args = [ "state", ]
-    for obj in model.objects.all().order_by(*order_by_args):
+    for obj in model.objects.filter(**query_kwargs).order_by(*order_by_args):
         kwargs = {}
         if use_states:
             kwargs["jurisdiction"] = obj.state_display()
@@ -831,6 +832,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     model, fields,
                     query_filter_kwargs={},
                     want_increase=True,
+                    combine_all=False,
                     override_status=None,
                     use_benchmark_tls=False,
                     status_func=None,
@@ -865,9 +867,26 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                 if verbosity > 1:
                     messages.append("%s: New indicator" % state_abbrev)
             elif status_func:
-                status = statuses[status_func(measure, **status_func_kwargs)]
+                if combine_all:
+                    my_statuses = []
+                    for obj in qry:
+                        status = status_func(obj, **status_func_kwargs)
+                        if status not in my_statuses:
+                           my_statuses.append(status)
+                    if len(my_statuses) == 0:
+                        if use_benchmark_tls:
+                            status = "new_benchmark"
+                        else:
+                            status = "no_data"
+                    elif len(my_statuses) == 1:
+                        status = my_statuses[0]
+                    else:
+                        status = "mixed_results"
+                    status = statuses[status]
+                else:
+                    status = statuses[status_func(measure, **status_func_kwargs)]
             else:
-                statuses = []
+                my_statuses = []
                 for flds, want_incr in zip(fields, want_increase):
                     field = flds[0]
                     uncertainty_field = flds[1]
@@ -893,13 +912,13 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     else:
                         uncertainty_1 = None
                         uncertainty_2 = None
-                    statuses.append(indicator_status_tlc(
+                    my_statuses.append(indicator_status_tlc(
                                                 val_1, val_2, 
                                                 uncertainty_1, uncertainty_2, 
                                                 rse_1, rse_2, 
                                                 want_incr))
                 st_so_far = None
-                for st in statuses:
+                for st in my_statuses:
                     if not st_so_far:
                         st_so_far = st
                     elif st_so_far != st:
