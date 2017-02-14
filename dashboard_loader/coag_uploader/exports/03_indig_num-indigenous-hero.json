@@ -59,7 +59,7 @@
                                     "year_7"
                                 ], 
                                 "sort_order": 100, 
-                                "label": ""
+                                "label": "Early"
                             }, 
                             {
                                 "statistics": [
@@ -67,17 +67,17 @@
                                     "year_9"
                                 ], 
                                 "sort_order": 200, 
-                                "label": ""
+                                "label": "Late"
                             }
                         ], 
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": ""
+                                "label": "Primary"
                             }, 
                             {
                                 "sort_order": 200, 
-                                "label": ""
+                                "label": "Secondary"
                             }
                         ], 
                         "show_row_headers": false

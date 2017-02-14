@@ -39,7 +39,7 @@
                         }
                     ], 
                     "list_label_width": null, 
-                    "url": "indigenous_indig_ece_header", 
+                    "url": "indigenous_indig_num_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -59,7 +59,7 @@
                                     "year_7"
                                 ], 
                                 "sort_order": 100, 
-                                "label": ""
+                                "label": "Early"
                             }, 
                             {
                                 "statistics": [
@@ -67,17 +67,17 @@
                                     "year_9"
                                 ], 
                                 "sort_order": 200, 
-                                "label": ""
+                                "label": "Late"
                             }
                         ], 
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": ""
+                                "label": "Primary"
                             }, 
                             {
                                 "sort_order": 200, 
-                                "label": ""
+                                "label": "Secondary"
                             }
                         ], 
                         "show_row_headers": false
@@ -258,7 +258,7 @@
                     "sort_order": 500, 
                     "grid": {
                         "corner_label": "Year",
-                        "show_column_headers": false, 
+                        "show_column_headers": true, 
                         "rows": [
                             {
                                 "statistics": [
@@ -359,7 +359,7 @@
                                 "label": "Aust"
                             }
                         ], 
-                        "show_row_headers": false
+                        "show_row_headers": true
                     }, 
                     "aspect": 3, 
                     "statistics": [
