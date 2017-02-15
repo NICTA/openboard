@@ -88,6 +88,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "uncertainty": "Confidence interval",
                                     "rse": "RSE",
                                 },
+                                fld_defaults = {
+                                    "uncertainty": Decimal("0.0"),
+                                    "rse": Decimal("0.0"),
+                                },
                                 verbosity=verbosity)
                 )
         desc = load_benchmark_description(wb, "Description")

@@ -54,10 +54,10 @@ def zero_all_rows(rows):
     for k in rows.keys():
         rows[k] = 0
 
-def all_rows_found(rows, optional_rows):
+def all_rows_found(rows, optional_rows, defaults):
     got_any = False
     for k in rows.keys():
-        if not rows[k] and k not in optional_rows:
+        if not rows[k] and k not in optional_rows and k not in defaults:
             return False
         if rows[k]:
             got_any=True
@@ -99,25 +99,34 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
     def write_record(rows, date):
         recs_written = 0
         for state, scol in state_cols.items():
+            nulldata = False
             if use_dates and not date_field:
                 defaults = { "financial_year": isfy, "multi_year": myr }
             else:
                 defaults = {}
+            for def_fld, def_val in fld_defaults.items():
+                defaults[def_fld] = def_val
             for fld, frow in rows.items():
                 if not frow:
                     continue
                 rawval = sheet["%s%d" % (scol, frow)].value
                 if fld in transforms:
-                    defaults[fld] = transforms[fld](rawval)
-                else:
+                    rawval = transforms[fld](rawval)
+                if rawval is not None or fld not in defaults:
                     defaults[fld] = rawval
-            for def_fld, def_val in fld_defaults.items():
-                defaults[def_fld] = def_val
-            kwargs = { "state": state, "defaults": defaults }
+                if defaults[fld] is None and fld not in fld_defaults and fld not in transforms:
+                    nulldata = True
+            kwargs = { "state": state }
             if date_field:
                 kwargs[date_field] = date
             elif use_dates:
                 kwargs["year"] = date
+            if nulldata:
+                delresult=model.objects.filter(**kwargs).delete()
+                if delresult[0] > 0 and verbosity > 0:
+                    messages.append("Deleted %d objects: %s" % (delresult[0], repr(delresult[1])))
+                continue
+            kwargs["defaults"] = defaults
             obj, created = model.objects.update_or_create(**kwargs)
             recs_written += 1
         zero_all_rows(rows)
@@ -126,7 +135,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
         try:
             first_cell=sheet["A%d" % row].value
         except IndexError:
-            if all_rows_found(rows, optional_rows):
+            if all_rows_found(rows, optional_rows, fld_defaults):
                 records_written += write_record(rows, date)
             else:
                 zero_all_rows(rows)
@@ -157,12 +166,12 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         isfy = _isfy
                         new_year = True
                     if new_year:
-                        if all_rows_found(rows, optional_rows):
+                        if all_rows_found(rows, optional_rows, fld_defaults):
                             records_written += write_record(rows, date)
                         else:
                             zero_all_rows(rows)
                         date = _year
-                except:
+                except Exception, e:
                     pass
         matches = []
         if date or not use_dates:
@@ -686,7 +695,7 @@ def update_graph_data(wurl, wlbl, graphlbl, model, field,
                     benchmark_final,
                     horiz_value=float_year_as_date(benchmark_end),
                     pval=pval)
-    if verbosity > 1:
+    if verbosity > 2:
         if pval:
             messages.append("Graph %s (%s) updated" % (graphlbl, pval.parameters()["state_abbrev"]))
         else:
@@ -959,11 +968,11 @@ def indicator_status_tlc(val_1, val_2, uncertainty_1=None, uncertainty_2=None, e
         diff = Decimal(diff)
     val_1 = float(val_1) / 100.0
     val_2 = float(val_2) / 100.0
-    if err_1 is not None:
+    if err_1:
         err_1 = float(err_1) / 100.0
-    if err_2 is not None:
+    if err_2:
         err_2 = float(err_2) / 100.0
-    if err_1 is not None and err_2 is not None:
+    if err_1 and err_2:
         significance = math.sqrt(
                     math.pow(val_1 * err_1, 2) 
                     + math.pow(val_2 * err_2, 2)

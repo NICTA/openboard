@@ -89,7 +89,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 None, IndigenousOvercrowdingData,
                                 {}, {
                                     "percentage": "Proportion of indigenous households living in overcrowded conditions (%)", 
-                                    "uncertainty": "Confidence Interval",
+                                    "uncertainty": "Confidence interval",
                                     "rse": "RSE",
                                 },
                                 verbosity=verbosity)

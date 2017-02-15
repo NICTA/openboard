@@ -27,10 +27,16 @@ class DisabilityLabourParticipation(CoagPercentageUncertaintyDataBase, CoagStdEr
     uncertainty_male = models.DecimalField(max_digits=3, 
                         decimal_places=1,
                         null=True, blank=True)
+    rse_male = models.DecimalField(max_digits=3, 
+                        decimal_places=1,
+                        null=True, blank=True)
     percentage_female = models.DecimalField(max_digits=3, 
                         decimal_places=1,
                         null=True, blank=True)
     uncertainty_female = models.DecimalField(max_digits=3, 
+                        decimal_places=1,
+                        null=True, blank=True)
+    rse_female = models.DecimalField(max_digits=3, 
                         decimal_places=1,
                         null=True, blank=True)
 

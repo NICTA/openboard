@@ -80,12 +80,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         wb = load_workbook(fh, read_only=True)
         messages.extend(
                 load_state_grid(wb, "Data",
-                                "Education", "Year 12/Cert 3 Attainment (SEW data)",
+                                "Education", "Year 12/Cert 3 Attainment",
                                 None, EducationYr12Cert3AttainmentData,
                                 {}, {
                                     "percentage": "Proportion completed Y12 or Cert III (%)", 
                                     "uncertainty": "Confidence interval",
                                     "rse": "RSE",
+                                },
+                                fld_defaults = {
+                                    "uncertainty": Decimal("0.0"),
+                                    "rse": Decimal("0.0"),
                                 },
                                 verbosity=verbosity)
                 )

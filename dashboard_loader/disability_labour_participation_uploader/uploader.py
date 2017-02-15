@@ -89,8 +89,18 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "rse": "RSE", 
                                     "percentage_male": "Male (%)", 
                                     "uncertainty_male": "Male (Confidence Interval)", 
+                                    "rse_male": "Male (RSE)", 
                                     "percentage_female": "Female (%)",
                                     "uncertainty_female": "Female (Confidence Interval)",
+                                    "rse_female": "Female (RSE)",
+                                },
+                                fld_defaults={
+                                    "percentage_male": None,
+                                    "percentage_female": None,
+                                    "uncertainty_male": None,
+                                    "uncertainty_female": None,
+                                    "rse_male": None,
+                                    "rse_female": None,
                                 },
                                 verbosity=verbosity)
         )
@@ -283,7 +293,7 @@ def update_gender_graph(wurl, graph,
                     benchmark_final,
                     horiz_value=float_year_as_date(benchmark_end),
                     pval=pval)
-    if verbosity > 1:
+    if verbosity > 2:
         if pval:
             messages.append("Graph %s (%s) updated" % (graph, pval.parameters()["state_abbrev"]))
         else:

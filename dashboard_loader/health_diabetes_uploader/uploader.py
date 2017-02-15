@@ -242,7 +242,7 @@ def update_my_graph_data(wurl, wlbl, graphlbl,
     gd = add_graph_data(g, "benchmark", benchmark,
                 cluster="diabetes_prevalence",
                 pval=pval)
-    if verbosity > 1:
+    if verbosity > 2:
         if pval:
             messages.append("Graph %s (%s) updated" % (graphlbl, pval.parameters()["state_abbrev"]))
         else:
