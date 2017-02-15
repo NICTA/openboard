@@ -304,7 +304,7 @@
                         {
                             "url": "nsw_indigenous_rate", 
                             "sort_order": 30, 
-                            "heading": "NSW | Non-Indigenous", 
+                            "heading": "NSW | Indigenous", 
                             "description": ""
                         }, 
                         {
@@ -316,8 +316,8 @@
                         {
                             "url": "qld_indigenous_rate", 
                             "sort_order": 50, 
-                            "heading": "Qld | Non-Indigenous", 
-                            "description": "Non-Indigenous child deaths"
+                            "heading": "Qld | Indigenous", 
+                            "description": ""
                         }, 
                         {
                             "url": "sa_non_indigenous_rate", 
@@ -328,7 +328,7 @@
                         {
                             "url": "sa_indigenous_rate", 
                             "sort_order": 70, 
-                            "heading": "SA | Non-Indigenous", 
+                            "heading": "SA | Indigenous", 
                             "description": ""
                         }, 
                         {
@@ -340,7 +340,7 @@
                         {
                             "url": "nt_indigenous_rate", 
                             "sort_order": 90, 
-                            "heading": "NT | Non-Indigenous", 
+                            "heading": "NT | Indigenous", 
                             "description": ""
                         }, 
                         {
@@ -352,7 +352,7 @@
                         {
                             "url": "australia_indigenous_rate", 
                             "sort_order": 110, 
-                            "heading": "Combined | Non-Indigenous", 
+                            "heading": "Combined | Indigenous", 
                             "description": ""
                         }
                     ], 
