@@ -394,6 +394,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise e
     except Exception, e:
         raise LoaderException("Invalid file: %s" % unicode(e))
+    return messages
 
 def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbosity=0, pval=None):
     messages = []
