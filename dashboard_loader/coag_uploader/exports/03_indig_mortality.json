@@ -1,0 +1,429 @@
+{
+    "category": "indigenous", 
+    "edit_all_groups": [], 
+    "source_url_text": "www.aihw.gov.au", 
+    "subtitle": "Close the life expectancy gap within a generation",
+    "subcategory": "national agreement", 
+    "groups": [], 
+    "url": "indigenous_indig_mortality", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_mortality_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_mortality_summary_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 2, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_mortality_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_mortality_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "indigenous_indig_mortality_detail_graph", 
+                    "graph": {
+                        "numeric_axis_always_show_zero": true, 
+                        "display_options": {
+                            "shaded": false, 
+                            "stacked": false, 
+                            "single_graph": true, 
+                            "point_colour_map": null, 
+                            "lines": 1, 
+                            "points": 0, 
+                            "rotates": false
+                        }, 
+                        "secondary_numeric_axis_label": null, 
+                        "secondary_numeric_axis_always_show_zero": true, 
+                        "horiz_axis_label": "", 
+                        "use_secondary_numeric_axis": false, 
+                        "dataset_label": "dataset", 
+                        "clusters": [], 
+                        "cluster_label": "cluster", 
+                        "dynamic_clusters": false, 
+                        "horiz_axis_type": 2, 
+                        "datasets": [
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 100, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous", 
+                                "colour": "orange", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 200, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous", 
+                                "colour": "purple", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 300, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous_variability_lower", 
+                                "colour": "red-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Variability Band (Lower)"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous_variability_upper", 
+                                "colour": "red-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Variability Band (Upper)"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 500, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous_target", 
+                                "colour": "orange-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous Rate Target"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 600, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous_projected", 
+                                "colour": "purple-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Projected Non-Indigenous Rate"
+                            }
+                        ], 
+                        "numeric_axis_label": "", 
+                        "graph_type": 1, 
+                        "heading": ""
+                    }, 
+                    "tile_type": 6, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 135, 
+                    "view": "indigenous"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Indigenous Mortality Rates (proxy measure for Life Expectancy", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year range", 
+                            "description": "The year range each row describes."
+                        }, 
+                        {
+                            "url": "nsw_non_indigenous_rate", 
+                            "sort_order": 20, 
+                            "heading": "NSW | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nsw_indigenous_rate", 
+                            "sort_order": 30, 
+                            "heading": "NSW | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_non_indigenous_rate", 
+                            "sort_order": 40, 
+                            "heading": "Qld | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "qld_indigenous_rate", 
+                            "sort_order": 50, 
+                            "heading": "Qld | Non-Indigenous", 
+                            "description": "Non-Indigenous child deaths"
+                        }, 
+                        {
+                            "url": "sa_non_indigenous_rate", 
+                            "sort_order": 60, 
+                            "heading": "SA | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "sa_indigenous_rate", 
+                            "sort_order": 70, 
+                            "heading": "SA | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_non_indigenous_rate", 
+                            "sort_order": 80, 
+                            "heading": "NT | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "nt_indigenous_rate", 
+                            "sort_order": 90, 
+                            "heading": "NT | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_non_indigenous_rate", 
+                            "sort_order": 100, 
+                            "heading": "Combined | Non-Indigenous", 
+                            "description": ""
+                        }, 
+                        {
+                            "url": "australia_indigenous_rate", 
+                            "sort_order": 110, 
+                            "heading": "Combined | Non-Indigenous", 
+                            "description": ""
+                        }
+                    ], 
+                    "filename": "indigenous_data_table.csv"
+                }, 
+                {
+                    "url": "indigenous_indig_mortality", 
+                    "name": "Indigenous Mortality Data (proxy measure for life expectancy)", 
+                    "columns": [
+                        {
+                            "url": "year", 
+                            "sort_order": 10, 
+                            "heading": "Year", 
+                            "description": "The calendar or financial year each row describes."
+                        }, 
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 20, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                        }, 
+                        {
+                            "url": "non_indigenous_rate", 
+                            "sort_order": 30, 
+                            "heading": "Non-Indigenous rate", 
+                            "description": "Non-Indigenous deaths per 100,000."
+                        }, 
+                        {
+                            "url": "indigenous_rate", 
+                            "sort_order": 40, 
+                            "heading": "Indigenous rate", 
+                            "description": "Indigenous deaths per 100,000."
+                        }, 
+                        {
+                            "url": "indigenous_variability_upper", 
+                            "sort_order": 50, 
+                            "heading": "Upper variability", 
+                            "description": "The upper limit of the Indigenous variability band."
+                        }, 
+                        {
+                            "url": "indigenous_variability_lower", 
+                            "sort_order": 60, 
+                            "heading": "Lower variability", 
+                            "description": "The lower limit of the Indigenous variability band."
+                        }, 
+                        {
+                            "url": "indigenous_target", 
+                            "sort_order": 70, 
+                            "heading": "Indigenous target", 
+                            "description": "The target value for the Indigenous rate to meet the benchmark,"
+                        }, 
+                        {
+                            "url": "non_indigenous_projected", 
+                            "sort_order": 80, 
+                            "heading": "Non-Indigenous projected", 
+                            "description": "The projected value for the non-Indigenous rate given measured trends."
+                        }
+                    ], 
+                    "filename": "coag_indigenous_mortality_data.csv"
+                }
+            ], 
+            "sort_order":3035, 
+            "expansion_hint": "View more", 
+            "about": "<p>Close the life expectancy gap within a generation (by 2031).</p>", 
+            "refresh_rate": 3920, 
+            "label": "indigenous_indig_mortality", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://www.aihw.gov.au/deaths/aihw-deaths-data/", 
+    "name": "Indigenous Life Expectancy"
+}
+

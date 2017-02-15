@@ -834,6 +834,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     want_increase=True,
                     combine_all=False,
                     override_status=None,
+                    restrict_states=None,
                     use_benchmark_tls=False,
                     status_func=None,
                     status_func_kwargs={},
@@ -852,6 +853,8 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
     for pval in p.parametisationvalue_set.all():
         state_abbrev = pval.parameters()["state_abbrev"]
         state_num = state_map[state_abbrev]
+        if restrict_states and state_num not in restrict_states:
+            continue
         if override_status:
             status = statuses[override_status]
         else:
