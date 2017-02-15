@@ -199,7 +199,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 pval=pval)
             )
             messages.extend(
-                    populate_raw_data("health_indig_smoking", "health_indig_smoking",
+                    populate_raw_data("health_indig_smoking_state", "health_indig_smoking_state",
                                 "health_indig_smoking", HealthIndigenousSmokingData, 
                                 {
                                     "percentage": "percentage_smokers",
@@ -207,7 +207,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 }, pval=pval)
             )
             messages.extend(
-                    populate_crosstab_raw_data("health_indig_smoking", "health_indig_smoking",
+                    populate_crosstab_raw_data("health_indig_smoking_state", "health_indig_smoking_state",
                                 "data_table", HealthIndigenousSmokingData, 
                                 {
                                     "percentage": "percent",

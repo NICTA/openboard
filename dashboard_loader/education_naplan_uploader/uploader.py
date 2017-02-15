@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -128,8 +128,8 @@ indicators_lit = "Improve the literacy achievement of Year 3,5,7 and 9 students 
 indicators_num = "Improve the numeracy achievement of Year 3,5,7 and 9 students in national testing"
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-        messages = []
-#    try:
+    messages = []
+    try:
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
@@ -332,7 +332,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             messages.extend(update_naplan_graphs("num", state_num, verbosity, pval=pval))
             messages.extend(
                         populate_raw_data(
-                            "education_naplan_lit", "education_naplan_lit",
+                            "education_naplan_lit_state", "education_naplan_lit_state",
                             "education_naplan_lit", EducationNaplanData,
                             {
                                 "year3_lit_score": "yr3_avg_score",
@@ -347,7 +347,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                         populate_raw_data(
-                            "education_naplan_num", "education_naplan_num",
+                            "education_naplan_num_state", "education_naplan_num_state",
                             "education_naplan_num", EducationNaplanData,
                             {
                                 "year3_num_score": "yr3_avg_score",
@@ -362,7 +362,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                         populate_raw_data(
-                            "education_naplan_lit", "education_naplan_lit",
+                            "education_naplan_lit_state", "education_naplan_lit_state",
                             "data_table", EducationNaplanData,
                             {
                                 "year3_lit_score": "yr3_avg_score",
@@ -377,7 +377,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                         populate_raw_data(
-                            "education_naplan_num", "education_naplan_num",
+                            "education_naplan_num_state", "education_naplan_num_state",
                             "data_table", EducationNaplanData,
                             {
                                 "year3_num_score": "yr3_avg_score",
@@ -390,11 +390,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "year9_num_nms": "yr9_nms",
                             }, pval=pval)
             )
-#   except LoaderException, e:
-#        raise e
-#    except Exception, e:
-#        raise LoaderException("Invalid file: %s" % unicode(e))
-        return messages
+    except LoaderException, e:
+        raise e
+    except Exception, e:
+        raise LoaderException("Invalid file: %s" % unicode(e))
 
 def update_naplan_graph_data(wurl, wlbl, graph, model, fields, state_num, verbosity=0, pval=None):
     messages = []

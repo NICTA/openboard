@@ -200,7 +200,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 pval=pval)
             )
             messages.extend(
-                    populate_raw_data("health_childweight", "health_childweight",
+                    populate_raw_data("health_childweight_state", "health_childweight_state",
                                 "health_childweight", HealthChildHealthyWeightData, 
                                 {
                                     "percentage": "percentage_healthy_weight",
@@ -208,7 +208,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 }, pval=pval)
             )
             messages.extend(
-                    populate_crosstab_raw_data("health_childweight", "health_childweight",
+                    populate_crosstab_raw_data("health_childweight_state", "health_childweight_state",
                                 "data_table", HealthChildHealthyWeightData, 
                                 {
                                     "percentage": "percent",

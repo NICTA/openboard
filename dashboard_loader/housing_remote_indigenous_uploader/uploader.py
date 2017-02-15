@@ -142,7 +142,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         pval=pval))
             messages.extend(update_detail_state_graph_data(pval))
             messages.extend(
-                    populate_raw_data("housing_remote_indigenous", "housing_remote_indigenous",
+                    populate_raw_data("housing_remote_indigenous_state", "housing_remote_indigenous_state",
                                 "housing_indigenous_remote", HousingRemoteIndigenousData,
                                 {
                                     "new_houses": "new",
@@ -150,7 +150,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 }, pval=pval)
                     )
             messages.extend(
-                    populate_crosstab_raw_data("housing_remote_indigenous", "housing_remote_indigenous",
+                    populate_crosstab_raw_data("housing_remote_indigenous_state", "housing_remote_indigenous_state",
                                 "data_table", HousingRemoteIndigenousData,
                                 {
                                     "new_houses": "new",

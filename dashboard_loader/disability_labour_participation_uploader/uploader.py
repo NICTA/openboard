@@ -208,7 +208,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             messages.extend(
                     populate_raw_data(
-                                "disability_labour_participation", "disability_labour_participation", 
+                                "disability_labour_participation_state", "disability_labour_participation_state", 
                                 "disability_labour_participation", DisabilityLabourParticipation, 
                                     {
                                         "percentage": "disabled_labour_force_participation",
@@ -221,7 +221,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     )
             messages.extend(
                     populate_crosstab_raw_data(
-                                "disability_labour_participation", "disability_labour_participation", 
+                                "disability_labour_participation_state", "disability_labour_participation_state", 
                                     "data_table", DisabilityLabourParticipation, 
                                     {
                                         "percentage": "percent",
