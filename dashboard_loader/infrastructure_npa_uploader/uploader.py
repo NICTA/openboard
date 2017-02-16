@@ -22,7 +22,7 @@ from django.db.models import Sum
 from dashboard_loader.loader_utils import *
 from coag_uploader.models import *
 from infrastructure_npa_uploader.models import *
-from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, column_labels
+from coag_uploader.uploader import load_state_grid, load_benchmark_description, update_graph_data, populate_raw_data, populate_crosstab_raw_data, update_stats, update_state_stats, column_labels, load_progress_grid
 from widget_def.models import Parametisation
 
 
@@ -351,52 +351,3 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     except Exception, e:
         raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
-
-def load_progress_grid(wb, sheet_name, data_category, dataset, model,
-                                cell_rows, transforms={}, verbosity=0):
-    messages = []
-    if verbosity > 2:
-        messages.append("Loading %s Data: %s" % (data_category, dataset))
-    sheet = wb[sheet_name]
-    row = 1
-    records_written = 0
-    column_map = {}
-    columns_mapped = False
-    model.objects.all().delete()
-    while True:
-        if not columns_mapped:
-            for col in column_labels(1, sheet.max_column):
-                try:
-                    cval = sheet["%s%d" % (col, row)].value
-                    if cval is not None:
-                        cval = cval.strip()
-                except IndexError:
-                    raise LoaderException("Sheet finished, column headings not found")
-                for k, v in cell_rows.items():
-                    if cval == v:
-                        column_map[k] = col
-            columns_mapped = True
-            for col in cell_rows.keys():
-                if col not in column_map:
-                    columns_mapped = False
-                    break
-        else:
-            kwargs = {}
-            for fldname, col in column_map.items():
-                try:
-                    cval = sheet["%s%d" % (col, row)].value
-                except IndexError:
-                    if verbosity > 1:
-                        messages.append("Records written: %d" % records_written)
-                    return messages
-                if cval is None:
-                    break
-                cval = cval.strip()
-                if fldname in transforms:
-                    cval = transforms[fldname](cval)
-                kwargs[fldname] = cval
-            if kwargs:
-                obj = model(**kwargs)
-                obj.save()
-                records_written += 1
-        row += 1

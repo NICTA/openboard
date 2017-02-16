@@ -1,0 +1,278 @@
+{
+    "category": "health", 
+    "edit_all_groups": [], 
+    "source_url_text": "coag.gov.au", 
+    "subtitle": "Mental Health Reform", 
+    "subcategory": "national partnership agreement", 
+    "groups": [], 
+    "url": "health_mental", 
+    "definitions": [
+        {
+            "tiles": [
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 100, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_header", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_mental_header", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": false, 
+                    "main_stat_count": 1, 
+                    "sort_order": 200, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": 0, 
+                            "icon_library": null, 
+                            "name": "Completed Projects", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "completed", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_mental-summary", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "main_stat_count": 1, 
+                    "sort_order": 300, 
+                    "aspect": 1, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": "indicator_benchmark_icons", 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_short", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 1, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }, 
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "status_long", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 8, 
+                            "unit_prefix": null, 
+                            "sort_order": 200
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_mental_status", 
+                    "tile_type": 20, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                }, 
+                {
+                    "expansion": true, 
+                    "sort_order": 400, 
+                    "aspect": 2, 
+                    "statistics": [], 
+                    "list_label_width": null, 
+                    "url": "health_mental_details", 
+                    "tile_type": 19, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": null
+                },
+                {
+                    "expansion": true, 
+                    "sort_order": 500, 
+                    "aspect": 3, 
+                    "statistics": [
+                        {
+                            "num_precision": null, 
+                            "icon_library": null, 
+                            "name": "MHR Projects", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "key_projects", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": null, 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": null, 
+                            "rotates": false, 
+                            "stat_type": 3, 
+                            "unit_prefix": null, 
+                            "sort_order": 100
+                        }
+                    ], 
+                    "list_label_width": null, 
+                    "url": "health_mental-key_statuses", 
+                    "tile_type": 10, 
+                    "geo_datasets": [], 
+                    "geo_window": null, 
+                    "template": null, 
+                    "columns": 1
+                }
+            ], 
+            "views": [
+                {
+                    "sort_order": 155, 
+                    "view": "healthcare"
+                }
+            ], 
+            "default_frequency_text": "Annual", 
+            "raw_data_sets": [
+                {
+                    "url": "data_table", 
+                    "name": "Mental Health Reform Project Progress", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction responsible for the project."
+                        }, 
+                        {
+                            "url": "project", 
+                            "sort_order": 20, 
+                            "heading": "Project", 
+                            "description": "The name of the project."
+                        },
+                        {
+                            "url": "progress_statement", 
+                            "sort_order": 30, 
+                            "heading": "Progress Statement", 
+                            "description": "Purpose of project."
+                        },
+                        {
+                            "url": "status", 
+                            "sort_order": 40, 
+                            "heading": "Project Status", 
+                            "description": "Current status of project."
+                        }
+                    ], 
+                    "filename": "coag_mental_health_reform_datatable.csv"
+                },
+                {
+                    "url": "mental_health", 
+                    "name": "Mental Health Reform Project Progress Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction responsible for the project."
+                        }, 
+                        {
+                            "url": "project", 
+                            "sort_order": 20, 
+                            "heading": "Project", 
+                            "description": "The name of the project."
+                        },
+                        {
+                            "url": "progress_statement", 
+                            "sort_order": 30, 
+                            "heading": "Progress Statement", 
+                            "description": "Purpose of project."
+                        },
+                        {
+                            "url": "status", 
+                            "sort_order": 40, 
+                            "heading": "Project Status", 
+                            "description": "Current status of project."
+                        }
+                    ], 
+                    "filename": "coag_mental_health_reform_data.csv"
+                }
+            ], 
+            "sort_order": 2655, 
+            "expansion_hint": "View more", 
+            "about": "<p>Deliver improved health, social, economic and housing outcomes for people with severe and persistent mental illness.</p>", 
+            "refresh_rate": 3710, 
+            "label": "health_mental", 
+            "parametisation": null, 
+            "deexpansion_hint": "View less"
+        }
+    ], 
+    "source_url": "http://wwww.coag.gov.au", 
+    "name": "Mental Health Reform"
+}
+

@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'health_gpwait_uploader',
     'health_avoidable_deaths_uploader',
     'health_agedcare_uploader',
+    'health_mental_uploader',
     'disability_labour_participation_uploader',
     'disability_social_participation_uploader',
     'disability_more_assist_uploader',

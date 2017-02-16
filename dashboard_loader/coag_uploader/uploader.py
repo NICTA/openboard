@@ -1,4 +1,4 @@
-#   Copyright 2016 NICTA
+#   Copyright 2016,2017 NICTA
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -199,6 +199,55 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
     if verbosity > 1:
         messages.append("Records written: %d" % records_written)
     return messages
+
+def load_progress_grid(wb, sheet_name, data_category, dataset, model,
+                                cell_rows, transforms={}, verbosity=0):
+    messages = []
+    if verbosity > 2:
+        messages.append("Loading %s Data: %s" % (data_category, dataset))
+    sheet = wb[sheet_name]
+    row = 1
+    records_written = 0
+    column_map = {}
+    columns_mapped = False
+    model.objects.all().delete()
+    while True:
+        if not columns_mapped:
+            for col in column_labels(1, sheet.max_column):
+                try:
+                    cval = sheet["%s%d" % (col, row)].value
+                    if cval is not None:
+                        cval = cval.strip()
+                except IndexError:
+                    raise LoaderException("Sheet finished, column headings not found")
+                for k, v in cell_rows.items():
+                    if cval == v:
+                        column_map[k] = col
+            columns_mapped = True
+            for col in cell_rows.keys():
+                if col not in column_map:
+                    columns_mapped = False
+                    break
+        else:
+            kwargs = {}
+            for fldname, col in column_map.items():
+                try:
+                    cval = sheet["%s%d" % (col, row)].value
+                except IndexError:
+                    if verbosity > 1:
+                        messages.append("Records written: %d" % records_written)
+                    return messages
+                if cval is None:
+                    break
+                cval = cval.strip()
+                if fldname in transforms:
+                    cval = transforms[fldname](cval)
+                kwargs[fldname] = cval
+            if kwargs:
+                obj = model(**kwargs)
+                obj.save()
+                records_written += 1
+        row += 1
 
 def flt_year_equal(y1,y2):
     return abs(y1-y2) < 1e-6

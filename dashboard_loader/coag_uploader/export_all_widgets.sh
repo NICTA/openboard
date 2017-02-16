@@ -61,6 +61,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag edwait-
 python manage.py export_widget --settings=dashboard_loader.settings_coag gpwait-health-hero > coag_uploader/exports/03_gpwait-health-hero.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag avoidable-health-hero > coag_uploader/exports/03_avoidable-health-hero.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag agedcare-health-hero > coag_uploader/exports/03_agedcare_places-health-hero.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag mental-health-hero > coag_uploader/exports/03_mental-health-hero.json 
 
 echo "Exporting Health Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_life_expectancy-health-hero-state.json
@@ -73,6 +74,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag edwait-
 python manage.py export_widget --settings=dashboard_loader.settings_coag gpwait-health-hero-state > coag_uploader/exports/03_gpwait-health-hero-state.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag avoidable-health-hero-state > coag_uploader/exports/03_avoidable-health-hero-state.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag agedcare-health-hero-state > coag_uploader/exports/03_agedcare_places-health-hero-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag mental-health-hero-state > coag_uploader/exports/03_mental-health-hero-state.json 
 
 # Disability Hero Widgets wdef sort_order 800, 805, ... 900, 905, ...
 echo "Exporting Disability Hero Widgets"
@@ -180,6 +182,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag health_
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_gpwait > coag_uploader/exports/03_gpwait.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_avoidable > coag_uploader/exports/03_avoidable.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_agedcare > coag_uploader/exports/03_agedcare_places.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_mental > coag_uploader/exports/03_mental.json 
 
 echo "Exporting Health State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_life_expectancy_state > coag_uploader/exports/03_life_expectancy-state.json
@@ -192,6 +195,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag health_
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_gpwait_state > coag_uploader/exports/03_gpwait-state.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_avoidable_state > coag_uploader/exports/03_avoidable-state.json 
 python manage.py export_widget --settings=dashboard_loader.settings_coag health_agedcare_state > coag_uploader/exports/03_agedcare_places-state.json 
+python manage.py export_widget --settings=dashboard_loader.settings_coag health_mental_state > coag_uploader/exports/03_mental-state.json 
 
 # Disability Detail Widgets  wdef sort_order 2800, 2805, ... 2900, 2905, ...
 echo "Exporting Disability Detail Widgets"
