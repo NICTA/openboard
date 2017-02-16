@@ -153,16 +153,23 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_lit_score_rse": ("Year 7", "RSE"),
                                     "year9_lit_score_rse": ("Year 9", "RSE"),
                                 },
+                                optional_rows=[
+                                    "year3_lit_score_uncertainty", "year5_lit_score_uncertainty",
+                                    "year7_lit_score_uncertainty", "year9_lit_score_uncertainty",
+
+                                    "year3_lit_score_rse", "year5_lit_score_rse",
+                                    "year7_lit_score_rse", "year9_lit_score_rse",
+                                ],
                                 verbosity=verbosity))
         messages.extend(
                 load_state_grid(wb, "NMS reading",
                                 "Education", "NAPLAN Reading NMS",
                                 None, EducationNaplanData,
                                 {}, {
-                                    "year3_lit_nms": ("Year 3", "Proportion at or above the national minimum standard in literacy"),
-                                    "year5_lit_nms": ("Year 5", "Proportion at or above the national minimum standard in literacy"),
-                                    "year7_lit_nms": ("Year 7", "Proportion at or above the national minimum standard in literacy"),
-                                    "year9_lit_nms": ("Year 9", "Proportion at or above the national minimum standard in literacy"),
+                                    "year3_lit_nms": ("Year 3", "Proportion at or above the national minimum standard in reading"),
+                                    "year5_lit_nms": ("Year 5", "Proportion at or above the national minimum standard in reading"),
+                                    "year7_lit_nms": ("Year 7", "Proportion at or above the national minimum standard in reading"),
+                                    "year9_lit_nms": ("Year 9", "Proportion at or above the national minimum standard in reading"),
 
                                     "year3_lit_nms_uncertainty": ("Year 3", "Confidence interval"),
                                     "year5_lit_nms_uncertainty": ("Year 5", "Confidence interval"),
@@ -174,6 +181,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_lit_nms_rse": ("Year 7", "RSE"),
                                     "year9_lit_nms_rse": ("Year 9", "RSE"),
                                 },
+                                optional_rows=[
+                                    "year3_lit_nms_uncertainty", "year5_lit_nms_uncertainty",
+                                    "year7_lit_nms_uncertainty", "year9_lit_nms_uncertainty",
+
+                                    "year3_lit_nms_rse", "year5_lit_nms_rse",
+                                    "year7_lit_nms_rse", "year9_lit_nms_rse",
+                                ],
                                 verbosity=verbosity))
         messages.extend(
                 load_state_grid(wb, "Mean numeracy",
@@ -195,6 +209,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_num_score_rse": ("Year 7", "RSE"),
                                     "year9_num_score_rse": ("Year 9", "RSE"),
                                 },
+                                optional_rows=[
+                                    "year3_num_score_uncertainty", "year5_num_score_uncertainty",
+                                    "year7_num_score_uncertainty", "year9_num_score_uncertainty",
+
+                                    "year3_num_score_rse", "year5_num_score_rse",
+                                    "year7_num_score_rse", "year9_num_score_rse",
+                                ],
                                 verbosity=verbosity))
         messages.extend(
                 load_state_grid(wb, "NMS numeracy",
@@ -216,6 +237,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                     "year7_num_nms_rse": ("Year 7", "RSE"),
                                     "year9_num_nms_rse": ("Year 9", "RSE"),
                                 },
+                                optional_rows=[
+                                    "year3_num_nms_uncertainty", "year5_num_nms_uncertainty",
+                                    "year7_num_nms_uncertainty", "year9_num_nms_uncertainty",
+
+                                    "year3_num_nms_rse", "year5_num_nms_rse",
+                                    "year7_num_nms_rse", "year9_num_nms_rse",
+                                ],
                                 verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True, additional_lookups={
                         "literacy": "literacy",
