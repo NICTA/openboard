@@ -390,9 +390,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of people with disability", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "People with disability reporting a need for more formaly assistance than they currently receive"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

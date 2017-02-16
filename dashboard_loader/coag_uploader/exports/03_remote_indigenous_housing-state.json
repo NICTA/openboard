@@ -152,7 +152,7 @@
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "National Benchmark (2014 refurbished; 2018 new)"
+                                "label": "National Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "", 
@@ -314,7 +314,7 @@
                                 "url": "benchmark", 
                                 "hyperlink": "", 
                                 "sort_order": 300, 
-                                "label": "National Benchmark (2014 refurbished; 2018 new)"
+                                "label": "National Benchmark"
                             }
                         ], 
                         "cluster_label": "State", 
@@ -342,9 +342,9 @@
                                 "label": "Refurbished"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "Number of houses delivered", 
                         "graph_type": 2, 
-                        "heading": ""
+                        "heading": "New houses and refubishments delivered under the Remote Housing Strategy"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -340,7 +340,7 @@
                                 "label": "Year 9"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of students", 
                         "graph_type": 1, 
                         "heading": "Proportion of {{ state_abbrev }} students meeting national minimum standard"
                     }, 
@@ -419,7 +419,7 @@
                                 "label": "Year 9"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "NAPLAN avg score", 
                         "graph_type": 1, 
                         "heading": "{{ state_abbrev }} average reading score"
                     }, 

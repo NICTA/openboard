@@ -296,7 +296,7 @@
                                 "label": "State Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of services", 
                         "graph_type": 1, 
                         "heading": "Legal aid commission services targetted at financially disadvantaged people"
                     },
@@ -425,7 +425,7 @@
                                 "label": "State Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of services", 
                         "graph_type": 1, 
                         "heading": "Community legal centre services targetted at financially disadvantaged people"
                     },

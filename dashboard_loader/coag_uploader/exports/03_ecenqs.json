@@ -281,9 +281,9 @@
                                 "label": "Latest Year"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of services", 
                         "graph_type": 2, 
-                        "heading": ""
+                        "heading": "Early childhood education and care services meeting or exceeding the NQS"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

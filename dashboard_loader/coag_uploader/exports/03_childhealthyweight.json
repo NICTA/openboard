@@ -306,9 +306,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of children", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Children (5-17 years) with a normal BMI (18.6-24.9)"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

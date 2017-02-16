@@ -416,9 +416,9 @@
                                 "label": "{{ state_abbrev }} Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% employed", 
                         "graph_type": 1, 
-                        "heading": "Indigenous Employment"
+                        "heading": "Indigenous Employment Rate"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

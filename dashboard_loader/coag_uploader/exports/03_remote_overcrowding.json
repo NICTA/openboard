@@ -216,9 +216,9 @@
                                 "label": "Remote Indigenous Overcrowding"
                             } 
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% Indigenous people in remote areas", 
                         "graph_type": 2, 
-                        "heading": ""
+                        "heading": "Indigenous people living in remote areas living in overcrowded housing"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

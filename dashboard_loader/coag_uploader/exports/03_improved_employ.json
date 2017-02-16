@@ -286,9 +286,9 @@
                                 "label": "Aust"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of VET graduates", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Vocational Education and Training (VET) graduates who improved their employment circumstances after graduating"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -216,9 +216,9 @@
                                 "label": "Houses of Poor Condition"
                             } 
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of remote Indigenous people", 
                         "graph_type": 2, 
-                        "heading": ""
+                        "heading": "Indigenous people 15 years and older living in remote areas and reporting major structural problems with their house"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -105,7 +105,7 @@
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "National Benchmark (2014 refurbished; 2018 new)"
+                                "label": "National Benchmark"
                             }
                         ], 
                         "numeric_axis_label": "", 

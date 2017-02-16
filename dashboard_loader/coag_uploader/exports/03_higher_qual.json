@@ -306,9 +306,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "Qualifications completed", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Diploma and Advanced Diploma completions"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

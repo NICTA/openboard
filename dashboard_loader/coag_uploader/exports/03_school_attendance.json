@@ -306,9 +306,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "Attendance rate (%)", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Student attendance rate, Years 1-10 combined"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -296,9 +296,9 @@
                                 "label": "Aust"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of school leavers", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "School leavers aged 17-24 years who are fully engaging in education, training and/or employment"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -390,9 +390,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of Indigenous households", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Indigenous households owning or purchasing a home"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -390,9 +390,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of adults", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Australians aged 20-64 without Cert III or higher"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

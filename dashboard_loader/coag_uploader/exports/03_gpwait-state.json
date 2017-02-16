@@ -446,9 +446,9 @@
                                 "label": "Aust"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of patients", 
                         "graph_type": 1, 
-                        "heading": "Patients treated within 4 hours"
+                        "heading": "Patients who waited less than 4 hours for an urgent GP appointment"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
@@ -575,9 +575,9 @@
                                 "label": "Aust"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of patients", 
                         "graph_type": 1, 
-                        "heading": "Patients not treated within 24 hours"
+                        "heading": "Patients who waited more than 24 hours for an urgent GP appointment"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

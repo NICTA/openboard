@@ -266,9 +266,9 @@
                                 "label": "Projected Non-Indigenous Rate"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "Deaths per 100k", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Child Mortality Rates"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

@@ -266,7 +266,7 @@
                                 "label": "Year 9"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of students", 
                         "graph_type": 1, 
                         "heading": "Proportion of Australian students meeting national minimum standard"
                     }, 
@@ -345,7 +345,7 @@
                                 "label": "Year 9"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "NAPLAN avg score", 
                         "graph_type": 1, 
                         "heading": "National average reading score"
                     }, 

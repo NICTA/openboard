@@ -409,9 +409,9 @@
                                 "label": "2023 National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of adults", 
                         "graph_type": 2, 
-                        "heading": ""
+                        "heading": "Age-adjusted prevalence rate for Type 2 Diabetes"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

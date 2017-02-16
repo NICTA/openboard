@@ -306,9 +306,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of adults", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Proportion of adults (18 years and over) with a normal BMI (18.5-24.9)"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

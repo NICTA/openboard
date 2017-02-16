@@ -508,9 +508,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of people with disability", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "People with disability aged 15-64 years who have had face-to-face contact with ex-household family or friends in the previous week"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

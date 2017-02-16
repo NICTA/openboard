@@ -390,9 +390,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of low-income renter households", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Low income renter households in rental stress"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

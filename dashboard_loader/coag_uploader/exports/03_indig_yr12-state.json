@@ -340,9 +340,9 @@
                                 "label": "{{ state_abbrev }} Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of Indigenous 20-24-year-olds", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Proportion of 20-24 year old Indigenous population with Year 12 or equivalent (AQF Cert II)"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

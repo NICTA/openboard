@@ -306,9 +306,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "people", 
+                        "numeric_axis_label": "homeless people", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Number of homeless people"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

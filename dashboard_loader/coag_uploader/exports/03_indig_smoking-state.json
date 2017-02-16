@@ -390,9 +390,9 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% of Indigenous adults", 
                         "graph_type": 1, 
-                        "heading": ""
+                        "heading": "Smoking rates amongst Indigenous adults"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

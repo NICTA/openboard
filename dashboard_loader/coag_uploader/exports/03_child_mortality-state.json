@@ -415,7 +415,7 @@
                         ], 
                         "numeric_axis_label": "Deaths per 100k", 
                         "graph_type": 2, 
-                        "heading": ""
+                        "heading": "Child Mortality Rates"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
