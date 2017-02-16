@@ -136,7 +136,7 @@
                     ], 
                     "list_label_width": null, 
                     "url": "health-mental-summary-stats", 
-                    "tile_type": 9, 
+                    "tile_type": 20, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
