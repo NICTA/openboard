@@ -82,7 +82,7 @@ class GraphDefinition(models.Model):
                                         tile_type__in=(TileDefinition.GRAPH, TileDefinition.GRAPH_SINGLE_STAT),
                                 ), 
                     help_text="The widget tile this graph is to be displayed in")
-    heading = models.CharField(max_length=120, blank=True, null=True, help_text="The heading for the graph, as displayed to the end-user.")
+    heading = models.CharField(max_length=180, blank=True, null=True, help_text="The heading for the graph, as displayed to the end-user.")
     graph_type = models.SmallIntegerField(choices=(
                     (LINE, graph_types[LINE]),
                     (HISTOGRAM, graph_types[HISTOGRAM]),
