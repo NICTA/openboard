@@ -23,7 +23,7 @@ def sanitise_widget_arg(widget):
     if not isinstance(widget, WidgetFamily):
         try:
             return WidgetFamily.objects.get(url=widget) 
-        except WidgetDefinition.DoesNotExist:
+        except WidgetFamily.DoesNotExist:
             raise ImportExportException("Widget Family %s does not exist" % (widget))
     return widget
 
