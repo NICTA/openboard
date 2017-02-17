@@ -393,7 +393,7 @@
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 1, 
+                            "lines": 0, 
                             "points": 0, 
                             "rotates": false
                         }, 
@@ -402,7 +402,20 @@
                         "horiz_axis_label": "", 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "dataset", 
-                        "clusters": [], 
+                        "clusters": [
+                            {
+                                "url": "australia",
+                                "hyperlink": null,
+                                "sort_order": 10,
+                                "label": "Australia"
+                            },
+                            {
+                                "url": "state",
+                                "hyperlink": null,
+                                "sort_order": 20,
+                                "label": "{{ state_abbrev }}"
+                            }
+                        ], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
                         "horiz_axis_type": 0, 
@@ -429,7 +442,7 @@
                             }
                         ], 
                         "numeric_axis_label": "% of school leavers", 
-                        "graph_type": 1, 
+                        "graph_type": 2, 
                         "heading": "School leavers aged 17-24 years who are fully engaging in education, training and/or employment"
                     }, 
                     "tile_type": 6, 
