@@ -602,9 +602,9 @@ class GraphDisplayOptions(models.Model):
         self.clean()
         if self.graph.graph_type == GraphDefinition.LINE:
             if self.lines == self.LINE_NONE and self.points == self.POINT_NONE:
-                problems.append("Graph for tile %s of widget %s is a line graph but displays neither lines nor datapoints" % (self.graph.tile.url, self.graph.widget.url()))
+                problems.append("Graph for tile %s of widget %s is a line graph but displays neither lines nor datapoints" % (self.graph.tile.url, self.graph.widget().url()))
             if self.shaded and self.lines == self.LINE_NONE:
-                problems.append("Graph for tile %s of widget %s is shaded but does not display a line to shade under" % (self.graph.tile.url, self.graph.widget.url()))
+                problems.append("Graph for tile %s of widget %s is shaded but does not display a line to shade under" % (self.graph.tile.url, self.graph.widget().url()))
             if self.point_colour_map:
                 problems.extend(self.point_colour_map.validate())
         return problems
