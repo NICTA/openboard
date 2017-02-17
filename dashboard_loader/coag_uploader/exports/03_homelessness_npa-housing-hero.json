@@ -95,7 +95,7 @@
                                 "label": "Need for services met"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% clients", 
                         "graph_type": 2, 
                         "heading": ""
                     }, 

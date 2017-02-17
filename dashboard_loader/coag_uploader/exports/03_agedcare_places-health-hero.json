@@ -85,7 +85,7 @@
                                 "label": "Australia"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "per 1k older people", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 

@@ -142,7 +142,7 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% adults", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 

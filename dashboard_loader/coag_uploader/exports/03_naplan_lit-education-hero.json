@@ -115,7 +115,7 @@
                                 "label": "Year 9"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% students", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 

@@ -132,7 +132,7 @@
                                 "label": "{{ state_abbrev }}"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "per 100k persons", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 

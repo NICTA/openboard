@@ -108,7 +108,7 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "Houses delivered", 
                         "graph_type": 2, 
                         "heading": ""
                     }, 

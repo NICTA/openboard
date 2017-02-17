@@ -105,7 +105,7 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% employed", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
