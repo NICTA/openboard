@@ -2,7 +2,7 @@
     "category": "legal assistance", 
     "edit_all_groups": [], 
     "source_url_text": "www.ag.gov.au", 
-    "subtitle": "Targeting of legal representation services to financially disadvantaged people",
+    "subtitle": "Targeting of legal representation services to financially disadvantaged people", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
     "url": "legal_total_svc_state", 
@@ -171,12 +171,12 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "achievement_lac", 
+                            "url": "benchmark_lac", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": true, 
+                            "trend": false, 
                             "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
@@ -193,12 +193,12 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "benchmark_lac", 
+                            "url": "achievement_lac", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
+                            "trend": true, 
                             "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
@@ -563,7 +563,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.ag.gov.au",
+    "source_url": "http://www.ag.gov.au", 
     "name": "Legal Assistance"
 }
 

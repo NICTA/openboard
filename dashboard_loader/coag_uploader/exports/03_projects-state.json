@@ -93,7 +93,7 @@
                             {
                                 "statistics": [
                                     "completed_state", 
-                                    "underway_state",
+                                    "underway_state", 
                                     "pending_state"
                                 ], 
                                 "sort_order": 100, 
@@ -102,7 +102,7 @@
                             {
                                 "statistics": [
                                     "completed", 
-                                    "underway",
+                                    "underway", 
                                     "pending"
                                 ], 
                                 "sort_order": 200, 
@@ -117,7 +117,7 @@
                             {
                                 "sort_order": 200, 
                                 "label": "Underway"
-                            },
+                            }, 
                             {
                                 "sort_order": 300, 
                                 "label": "Pending"
@@ -236,7 +236,7 @@
                             "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 400
-                        },
+                        }, 
                         {
                             "num_precision": 0, 
                             "icon_library": null, 
@@ -267,7 +267,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "main_stat_count": 1, 
@@ -413,7 +413,6 @@
                     "template": null, 
                     "columns": 1
                 }
-
             ], 
             "views": [
                 {
@@ -513,37 +512,6 @@
                     "filename": "infrastructure_projects_data_table.csv"
                 }, 
                 {
-                    "url": "infrastructure_projects_status", 
-                    "name": "Infrastructure Key Projects Status Data", 
-                    "columns": [
-                        {
-                            "url": "jurisdiction", 
-                            "sort_order": 10, 
-                            "heading": "Jurisdiction", 
-                            "description": "The Jurisdiction in which the project is situated."
-                        }, 
-                        {
-                            "url": "project", 
-                            "sort_order": 20, 
-                            "heading": "Key Project", 
-                            "description": "The number of completed infrastructure projects."
-                        },
-                        {
-                            "url": "milestones", 
-                            "sort_order": 30, 
-                            "heading": "Project Milestones", 
-                            "description": "Description of current project milestones."
-                        },
-                        {
-                            "url": "status", 
-                            "sort_order": 40, 
-                            "heading": "Project Status", 
-                            "description": "Current status of project."
-                        }
-                    ], 
-                    "filename": "coag_infrastructure_projects_status_data.csv"
-                },
-                {
                     "url": "infrastructure_projects", 
                     "name": "Infrastructure Projects Data", 
                     "columns": [
@@ -558,43 +526,43 @@
                             "sort_order": 20, 
                             "heading": "Completed Count", 
                             "description": "The number of completed infrastructure projects."
-                        },
+                        }, 
                         {
                             "url": "projects_underway", 
                             "sort_order": 30, 
                             "heading": "Underway Count", 
                             "description": "The number of infrastructure projects underway."
-                        },
+                        }, 
                         {
                             "url": "projects_pending", 
                             "sort_order": 40, 
                             "heading": "Pending Count", 
                             "description": "The number of approved infrastructure projects awaiting commencement."
-                        },
+                        }, 
                         {
                             "url": "projects_total", 
                             "sort_order": 50, 
                             "heading": "Total Count", 
                             "description": "The total number of approved infrastructure projects."
-                        },
+                        }, 
                         {
                             "url": "cost_completed", 
                             "sort_order": 60, 
                             "heading": "Completed Total Cost ($)", 
                             "description": "The total cost of completed infrastructure projects."
-                        },
+                        }, 
                         {
                             "url": "cost_underway", 
                             "sort_order": 70, 
                             "heading": "Underway Total Cost ($)", 
                             "description": "The total cost of infrastructure projects underway."
-                        },
+                        }, 
                         {
                             "url": "cost_pending", 
                             "sort_order": 80, 
                             "heading": "Pending Total Cost ($)", 
                             "description": "The total cost of approved infrastructure projects awaiting commencement."
-                        },
+                        }, 
                         {
                             "url": "cost_total", 
                             "sort_order": 90, 
@@ -603,6 +571,37 @@
                         }
                     ], 
                     "filename": "coag_infrastructure_projects_data.csv"
+                }, 
+                {
+                    "url": "infrastructure_projects_status", 
+                    "name": "Infrastructure Key Projects Status Data", 
+                    "columns": [
+                        {
+                            "url": "jurisdiction", 
+                            "sort_order": 10, 
+                            "heading": "Jurisdiction", 
+                            "description": "The Jurisdiction in which the project is situated."
+                        }, 
+                        {
+                            "url": "project", 
+                            "sort_order": 20, 
+                            "heading": "Key Project", 
+                            "description": "The number of completed infrastructure projects."
+                        }, 
+                        {
+                            "url": "milestones", 
+                            "sort_order": 30, 
+                            "heading": "Project Milestones", 
+                            "description": "Description of current project milestones."
+                        }, 
+                        {
+                            "url": "status", 
+                            "sort_order": 40, 
+                            "heading": "Project Status", 
+                            "description": "Current status of project."
+                        }
+                    ], 
+                    "filename": "coag_infrastructure_projects_status_data.csv"
                 }
             ], 
             "sort_order": 3300, 

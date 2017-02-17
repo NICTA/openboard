@@ -224,7 +224,7 @@
                                 "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Non-Indigenous"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -234,7 +234,7 @@
                                 "colour": "red-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Variability Band (Lower)"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
@@ -244,7 +244,7 @@
                                 "colour": "red-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Variability Band (Upper)"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500, 
@@ -254,7 +254,7 @@
                                 "colour": "orange-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Indigenous Rate Target"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 600, 
@@ -312,7 +312,7 @@
                             "sort_order": 60, 
                             "heading": "Indigenous target", 
                             "description": "The target value for the Indigenous rate to meet the benchmark,"
-                        },
+                        }, 
                         {
                             "url": "non_indigenous_projected", 
                             "sort_order": 70, 
@@ -349,19 +349,19 @@
                             "sort_order": 40, 
                             "heading": "Upper variability", 
                             "description": "The upper limit of the Indigenous variability band."
-                        },
+                        }, 
                         {
                             "url": "indigenous_variability_lower", 
                             "sort_order": 50, 
                             "heading": "Lower variability", 
                             "description": "The lower limit of the Indigenous variability band."
-                        },
+                        }, 
                         {
                             "url": "indigenous_target", 
                             "sort_order": 60, 
                             "heading": "Indigenous target", 
                             "description": "The target value for the Indigenous rate to meet the benchmark,"
-                        },
+                        }, 
                         {
                             "url": "non_indigenous_projected", 
                             "sort_order": 70, 
@@ -370,7 +370,7 @@
                         }
                     ], 
                     "filename": "coag_indigenous_child_mortality_data.csv"
-                },
+                }, 
                 {
                     "url": "indigenous_child_mortality_state", 
                     "name": "State Indigenous Child Mortality Data", 
@@ -416,7 +416,7 @@
                             "sort_order": 70, 
                             "heading": "Rate ratio", 
                             "description": "The mortality rate for Indigenous Australians divided by the mortality rate for non-Indigenous Australians"
-                        },
+                        }, 
                         {
                             "url": "rate_difference", 
                             "sort_order": 80, 
@@ -427,7 +427,7 @@
                     "filename": "coag_indigenous_child_mortality_data.csv"
                 }
             ], 
-            "sort_order":3000, 
+            "sort_order": 3000, 
             "expansion_hint": "View more", 
             "about": "<p>Halve the gap in mortality rates for Indigenous children under five within a decade (by 2018).</p>", 
             "refresh_rate": 3900, 

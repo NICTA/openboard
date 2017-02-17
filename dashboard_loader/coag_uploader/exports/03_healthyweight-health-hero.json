@@ -2,7 +2,7 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase the proportion of adults at a healthy body weight",
+    "subtitle": "Increase the proportion of adults at a healthy body weight", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "healthyweight-health-hero", 
@@ -125,7 +125,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
+    "source_url": "http://www.abs.gov.au", 
     "name": "Health"
 }
 

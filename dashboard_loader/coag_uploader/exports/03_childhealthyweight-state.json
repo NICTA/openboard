@@ -2,7 +2,7 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase the proportion of children at a healthy body weight",
+    "subtitle": "Increase the proportion of children at a healthy body weight", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "health_childweight_state", 
@@ -599,7 +599,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
+    "source_url": "http://www.abs.gov.au", 
     "name": "Child Health Weight"
 }
 

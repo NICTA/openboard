@@ -1,8 +1,8 @@
 {
     "category": "indigenous", 
     "edit_all_groups": [], 
-    "source_url_text": "ACARA",
-    "subtitle": "Close the gap for Indigenous school attendance",
+    "source_url_text": "ACARA", 
+    "subtitle": "Close the gap for Indigenous school attendance", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "school_attendance-indigenous-hero", 
@@ -47,7 +47,7 @@
                     "columns": null
                 }, 
                 {
-                    "expansion": false,
+                    "expansion": false, 
                     "sort_order": 300, 
                     "aspect": 3, 
                     "statistics": [], 
@@ -118,14 +118,14 @@
             "raw_data_sets": [], 
             "sort_order": 1015, 
             "expansion_hint": "", 
-            "about": "<p>Close the gap between Indigenous and non‑Indigenous school attendance within five years from 2014</p>",
+            "about": "<p>Close the gap between Indigenous and non\u2011Indigenous school attendance within five years from 2014</p>", 
             "refresh_rate": 3580, 
             "label": "school_attendance-indigenous-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.acara.edu.au/reporting/reporting.html",
+    "source_url": "http://www.acara.edu.au/reporting/reporting.html", 
     "name": "Indigenous"
 }
 

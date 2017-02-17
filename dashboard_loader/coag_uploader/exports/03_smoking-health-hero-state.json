@@ -2,7 +2,7 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce the rate of smoking",
+    "subtitle": "Reduce the rate of smoking", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "smoking-health-hero-state", 
@@ -207,14 +207,14 @@
             "raw_data_sets": [], 
             "sort_order": 720, 
             "expansion_hint": "", 
-            "about": "<p>By 2018, reduce the national smoking rate to 10 per cent of the population.</p>",
+            "about": "<p>By 2018, reduce the national smoking rate to 10 per cent of the population.</p>", 
             "refresh_rate": 3830, 
             "label": "smoking-health-hero-state", 
             "parametisation": "state_param", 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
+    "source_url": "http://www.abs.gov.au", 
     "name": "Health"
 }
 

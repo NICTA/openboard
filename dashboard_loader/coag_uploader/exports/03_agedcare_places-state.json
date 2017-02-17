@@ -379,7 +379,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
@@ -544,7 +544,7 @@
                     "view": "healthcare_wa"
                 }
             ], 
-            "default_frequency_text": "Annual",
+            "default_frequency_text": "Annual", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
@@ -748,7 +748,7 @@
                             "sort_order": 40, 
                             "heading": "Community places", 
                             "description": "Community aged care places (per 1,000 older people)."
-                        },
+                        }, 
                         {
                             "url": "total", 
                             "sort_order": 50, 
@@ -768,7 +768,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.dss.gov.au",
+    "source_url": "http://www.dss.gov.au", 
     "name": "Aged Care Places"
 }
 

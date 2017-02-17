@@ -154,7 +154,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 500, 
@@ -215,13 +215,13 @@
                             "sort_order": 20, 
                             "heading": "Project", 
                             "description": "The name of the project."
-                        },
+                        }, 
                         {
                             "url": "progress_statement", 
                             "sort_order": 30, 
                             "heading": "Progress Statement", 
                             "description": "Purpose of project."
-                        },
+                        }, 
                         {
                             "url": "status", 
                             "sort_order": 40, 
@@ -230,7 +230,7 @@
                         }
                     ], 
                     "filename": "coag_mental_health_reform_datatable.csv"
-                },
+                }, 
                 {
                     "url": "mental_health", 
                     "name": "Mental Health Reform Project Progress Data", 
@@ -246,13 +246,13 @@
                             "sort_order": 20, 
                             "heading": "Project", 
                             "description": "The name of the project."
-                        },
+                        }, 
                         {
                             "url": "progress_statement", 
                             "sort_order": 30, 
                             "heading": "Progress Statement", 
                             "description": "Purpose of project."
-                        },
+                        }, 
                         {
                             "url": "status", 
                             "sort_order": 40, 

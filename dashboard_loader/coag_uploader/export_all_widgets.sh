@@ -67,7 +67,7 @@ echo "Exporting Health Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag life_expectancy-health-hero-state > coag_uploader/exports/03_life_expectancy-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag diabetes-health-hero-state > coag_uploader/exports/03_diabetes-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag healthyweight-health-hero-state > coag_uploader/exports/03_healthyweight-health-hero-state.json
-python manage.py export_widget --settings=dashboard_loader.settings_coag childweight-health-hero-state > coag_uploader/exports/03_childweight-health-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag childweight-health-hero-state > coag_uploader/exports/03_childhealthyweight-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag smoking-health-hero-state > coag_uploader/exports/03_smoking-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_smoking-health-hero-state > coag_uploader/exports/03_indig_smoking-health-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag edwait-health-hero-state > coag_uploader/exports/03_edwait-health-hero-state.json 
@@ -96,6 +96,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag indig_e
 python manage.py export_widget --settings=dashboard_loader.settings_coag school_attendance-indigenous-hero > coag_uploader/exports/03_school_attendance-indigenous-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_yr12-indigenous-hero > coag_uploader/exports/03_indig_yr12-indigenous-hero.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_lit-indigenous-hero > coag_uploader/exports/03_indig_lit-indigenous-hero.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indig_num-indigenous-hero > coag_uploader/exports/03_indig_num-indigenous-hero.json
 
 echo "Exporting Indigenous Hero Widgets (Parametised by State)"
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_mortality-indigenous-hero-state > coag_uploader/exports/03_indig_mortality-indigenous-hero-state.json
@@ -105,6 +106,7 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag indig_e
 python manage.py export_widget --settings=dashboard_loader.settings_coag school_attendance-indigenous-hero-state > coag_uploader/exports/03_school_attendance-indigenous-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_yr12-indigenous-hero-state > coag_uploader/exports/03_indig_yr12-indigenous-hero-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indig_lit-indigenous-hero-state > coag_uploader/exports/03_indig_lit-indigenous-hero-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indig_num-indigenous-hero-state > coag_uploader/exports/03_indig_num-indigenous-hero-state.json
 
 # Infrastructure Hero Widgets   wdef sort_order 1200, 1205, ... 1300, 1305, ...
 echo "Exporting Infrastructure Hero Widgets"
@@ -216,7 +218,8 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag indigen
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_employment > coag_uploader/exports/03_indig_employment.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_school_attendance > coag_uploader/exports/03_school_attendance.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_yr12 > coag_uploader/exports/03_indig_yr12.json
-python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_lit > coag_uploader/exports/03_indig_lit.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_lit > coag_uploader/exports/03_indig_lit.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_num > coag_uploader/exports/03_indig_num.json
 
 echo "Exporting Indigenous State Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_mortality_state > coag_uploader/exports/03_indig_mortality-state.json
@@ -225,7 +228,8 @@ python manage.py export_widget --settings=dashboard_loader.settings_coag indigen
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_employment_state > coag_uploader/exports/03_indig_employment-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_school_attendance_state > coag_uploader/exports/03_school_attendance-state.json
 python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_yr12_state > coag_uploader/exports/03_indig_yr12-state.json
-python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_lit_state > coag_uploader/exports/03_indig_lit-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_lit_state > coag_uploader/exports/03_indig_lit-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag indigenous_indig_num_state > coag_uploader/exports/03_indig_num-state.json
 
 # Infrastructure Detail Widgets  wdef sort_order 3200, 3205, ... 3300, 3305, ...
 echo "Exporting Infrastructure Detail Widgets"
@@ -239,6 +243,6 @@ echo "Exporting Legal Assistance Detail Widgets"
 python manage.py export_widget --settings=dashboard_loader.settings_coag legal_total_svc > coag_uploader/exports/03_total_svc.json
 
 echo "Exporting Legal Assistance Detail Widgets"
-python manage.py export_widget --settings=dashboard_loader.settings_coag legal_total_svc-state > coag_uploader/exports/03_total_svc-state.json
+python manage.py export_widget --settings=dashboard_loader.settings_coag legal_total_svc_state > coag_uploader/exports/03_total_svc-state.json
 
 echo "Done."

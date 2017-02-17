@@ -2,7 +2,7 @@
     "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition",
+    "subtitle": "Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "remote_condition-housing-hero", 
@@ -64,7 +64,7 @@
                             "editable": true, 
                             "name_as_label": false, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -118,14 +118,14 @@
             "raw_data_sets": [], 
             "sort_order": 35, 
             "expansion_hint": "", 
-            "about": "<p>Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition in remote and very remote Australia.</p>",
+            "about": "<p>Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition in remote and very remote Australia.</p>", 
             "refresh_rate": 3420, 
             "label": "remote_condition-housing-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey",
+    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey", 
     "name": "Housing"
 }
 

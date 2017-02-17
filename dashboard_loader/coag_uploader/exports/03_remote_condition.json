@@ -2,7 +2,7 @@
     "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition",
+    "subtitle": "Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
     "url": "housing_remote_condition", 
@@ -64,7 +64,7 @@
                             "editable": true, 
                             "name_as_label": false, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -200,7 +200,7 @@
                         "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "dataset", 
-                        "clusters": [],
+                        "clusters": [], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": true, 
                         "horiz_axis_type": 0, 
@@ -214,7 +214,7 @@
                                 "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Houses of Poor Condition"
-                            } 
+                            }
                         ], 
                         "numeric_axis_label": "% of remote Indigenous people", 
                         "graph_type": 2, 
@@ -237,7 +237,7 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Indigenous households living in houses of poor condition in remote areas",
+                    "name": "Indigenous households living in houses of poor condition in remote areas", 
                     "columns": [
                         {
                             "url": "year", 
@@ -282,14 +282,14 @@
             ], 
             "sort_order": 2035, 
             "expansion_hint": "View more", 
-            "about": "<p>Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition in remote and very remote Australia.</p>",
+            "about": "<p>Reduce the number of Aboriginal and Torres Strait Islanders living in houses of poor condition in remote and very remote Australia.</p>", 
             "refresh_rate": 3420, 
             "label": "housing_remote_condition", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey",
+    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey", 
     "name": "Remote Houses in Poor Condition"
 }
 

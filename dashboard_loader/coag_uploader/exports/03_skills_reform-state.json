@@ -2,7 +2,7 @@
     "category": "skills", 
     "edit_all_groups": [], 
     "source_url_text": "www.education.gov.au", 
-    "subtitle": "Skills Reform",
+    "subtitle": "Skills Reform", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
     "url": "skills_reform_state", 
@@ -119,7 +119,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "main_stat_count": 1, 
@@ -338,7 +338,7 @@
                         }
                     ], 
                     "filename": "coag_skills_reform.csv"
-                },
+                }, 
                 {
                     "url": "skills_reform", 
                     "name": "Skills Reform NPA Data", 
@@ -415,14 +415,14 @@
             ], 
             "sort_order": 2515, 
             "expansion_hint": "View more", 
-            "about": "<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017.</p>",
+            "about": "<p>The Commonwealth committed $1.75 billion over five years for a National Partnership Agreement on Skills Reform (NPASR) to reform the vocational education and training system. The NPASR commenced in 2012 and expires in June 2017.</p>", 
             "refresh_rate": 3780, 
             "label": "skills_reform_state", 
             "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "https://www.education.gov.au/national-partnership-agreement-skills-reform",
+    "source_url": "https://www.education.gov.au/national-partnership-agreement-skills-reform", 
     "name": "Skills Reform"
 }
 

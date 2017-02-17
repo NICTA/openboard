@@ -2,7 +2,7 @@
     "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce overcrowding",
+    "subtitle": "Reduce overcrowding", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
     "url": "housing_remote_overcrowding", 
@@ -64,7 +64,7 @@
                             "editable": true, 
                             "name_as_label": false, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -200,7 +200,7 @@
                         "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "dataset", 
-                        "clusters": [],
+                        "clusters": [], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": true, 
                         "horiz_axis_type": 0, 
@@ -214,7 +214,7 @@
                                 "colour": "blue", 
                                 "dynamic_label": false, 
                                 "label": "Remote Indigenous Overcrowding"
-                            } 
+                            }
                         ], 
                         "numeric_axis_label": "% Indigenous people in remote areas", 
                         "graph_type": 2, 
@@ -237,7 +237,7 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Indigenous households living in overcrowded conditions in remote areas",
+                    "name": "Indigenous households living in overcrowded conditions in remote areas", 
                     "columns": [
                         {
                             "url": "year", 
@@ -289,7 +289,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey",
+    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey", 
     "name": "Remote Overcrowding"
 }
 

@@ -1,8 +1,8 @@
 {
     "category": "indigenous", 
     "edit_all_groups": [], 
-    "source_url_text": "ACARA",
-    "subtitle": "Halve the gap for Indigenous students in numeracy",
+    "source_url_text": "ACARA", 
+    "subtitle": "Halve the gap for Indigenous students in numeracy", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "indig_num-indigenous-hero", 
@@ -50,7 +50,7 @@
                     "expansion": false, 
                     "sort_order": 300, 
                     "grid": {
-                        "corner_label": "",
+                        "corner_label": "", 
                         "show_column_headers": false, 
                         "rows": [
                             {
@@ -96,7 +96,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale",
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -135,12 +135,12 @@
                             "numbered_list": false, 
                             "hyperlinkable": false, 
                             "url": "year_7", 
-                            "traffic_light_automation": null,
+                            "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale",
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -194,14 +194,14 @@
             "raw_data_sets": [], 
             "sort_order": 1030, 
             "expansion_hint": "", 
-            "about": "<p>Halve the gap for Indigenous students in numeracy within a decade (by 2018).</p>",
+            "about": "<p>Halve the gap for Indigenous students in numeracy within a decade (by 2018).</p>", 
             "refresh_rate": 3830, 
             "label": "indig_num-indigenous-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.acara.edu.au/reporting/reporting.html",
+    "source_url": "http://www.acara.edu.au/reporting/reporting.html", 
     "name": "Indigenous"
 }
 

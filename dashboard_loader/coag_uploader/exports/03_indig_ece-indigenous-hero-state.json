@@ -2,7 +2,7 @@
     "category": "indigenous", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education",
+    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "indig_ece-indigenous-hero-state", 
@@ -133,7 +133,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -172,12 +172,12 @@
                             "numbered_list": false, 
                             "hyperlinkable": false, 
                             "url": "indigenous", 
-                            "traffic_light_automation": null,
+                            "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale",
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -225,7 +225,7 @@
                     "sort_order": 605, 
                     "child_view_text": "See all", 
                     "view": "act"
-                },
+                }, 
                 {
                     "child_view": "indigenous_nsw", 
                     "sort_order": 605, 
@@ -245,10 +245,10 @@
                     "view": "sa"
                 }, 
                 {
-                    "child_view": "indigenous_tas", 
+                    "child_view": "indigenous_qld", 
                     "sort_order": 605, 
                     "child_view_text": "See all", 
-                    "view": "tas"
+                    "view": "qld"
                 }, 
                 {
                     "child_view": "indigenous_vic", 
@@ -257,10 +257,10 @@
                     "view": "vic"
                 }, 
                 {
-                    "child_view": "indigenous_qld", 
+                    "child_view": "indigenous_tas", 
                     "sort_order": 605, 
                     "child_view_text": "See all", 
-                    "view": "qld"
+                    "view": "tas"
                 }, 
                 {
                     "child_view": "indigenous_wa", 
@@ -280,7 +280,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
+    "source_url": "http://www.abs.gov.au", 
     "name": "Indigenous"
 }
 

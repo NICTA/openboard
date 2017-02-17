@@ -1,8 +1,8 @@
 {
     "category": "indigenous", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au",
-    "subtitle": "Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent",
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "indigenous_yr12", 
@@ -338,109 +338,109 @@
                         {
                             "url": "nsw_indigenous", 
                             "sort_order": 20, 
-                            "heading": "NSW | Indigenous Yr12 Attainment",
+                            "heading": "NSW | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "nsw_trajectory", 
                             "sort_order": 30, 
-                            "heading": "NSW | Trajectory",
+                            "heading": "NSW | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "vic_indigenous", 
                             "sort_order": 40, 
-                            "heading": "Vic | Indigenous Yr12 Attainment",
+                            "heading": "Vic | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "vic_trajectory", 
                             "sort_order": 50, 
-                            "heading": "Vic | Trajectory",
+                            "heading": "Vic | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "qld_indigenous", 
                             "sort_order": 60, 
-                            "heading": "Qld | Indigenous Yr12 Attainment",
+                            "heading": "Qld | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "qld_trajectory", 
                             "sort_order": 70, 
-                            "heading": "Qld | Trajectory",
+                            "heading": "Qld | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "wa_indigenous", 
                             "sort_order": 80, 
-                            "heading": "WA | Indigenous Yr12 Attainment",
+                            "heading": "WA | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "wa_trajectory", 
                             "sort_order": 90, 
-                            "heading": "WA | Trajectory",
+                            "heading": "WA | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "sa_indigenous", 
                             "sort_order": 100, 
-                            "heading": "SA | Indigenous Yr12 Attainment",
+                            "heading": "SA | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "sa_trajectory", 
                             "sort_order": 110, 
-                            "heading": "SA | Trajectory",
+                            "heading": "SA | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "tas_indigenous", 
                             "sort_order": 120, 
-                            "heading": "Tas | Indigenous Yr12 Attainment",
+                            "heading": "Tas | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "tas_trajectory", 
                             "sort_order": 130, 
-                            "heading": "Tas | Trajectory",
+                            "heading": "Tas | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "act_indigenous", 
                             "sort_order": 140, 
-                            "heading": "ACT | Indigenous Yr12 Attainment",
+                            "heading": "ACT | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "act_trajectory", 
                             "sort_order": 150, 
-                            "heading": "ACT | Trajectory",
+                            "heading": "ACT | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "nt_indigenous", 
                             "sort_order": 160, 
-                            "heading": "NT | Indigenous Yr12 Attainment",
+                            "heading": "NT | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "nt_trajectory", 
                             "sort_order": 170, 
-                            "heading": "NT | Trajectory",
+                            "heading": "NT | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_indigenous", 
                             "sort_order": 180, 
-                            "heading": "Aust | Indigenous Yr12 Attainment",
+                            "heading": "Aust | Indigenous Yr12 Attainment", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_trajectory", 
                             "sort_order": 190, 
-                            "heading": "Aust | Trajectory",
+                            "heading": "Aust | Trajectory", 
                             "description": ""
                         }
                     ], 
@@ -467,7 +467,7 @@
                             "sort_order": 30, 
                             "heading": "Indigenous yr12 attainment (%)", 
                             "description": "Proportion of the 20-24 year old Indigenous population having attained at least Year 12 or equivalent (an AQF Certificate II or above)"
-                        },
+                        }, 
                         {
                             "url": "indigenous_trajectory", 
                             "sort_order": 40, 
@@ -480,14 +480,14 @@
             ], 
             "sort_order": 3020, 
             "expansion_hint": "View more", 
-            "about": "<p>Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent attainment rates by 2020.</p>",
+            "about": "<p>Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent attainment rates by 2020.</p>", 
             "refresh_rate": 3610, 
             "label": "indigenous_yr12", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200",
+    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200", 
     "name": "Indigenous Year 12 Attainment"
 }
 

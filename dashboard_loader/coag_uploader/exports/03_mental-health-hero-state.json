@@ -84,7 +84,7 @@
                     "columns": null
                 }, 
                 {
-                    "expansion": false,
+                    "expansion": false, 
                     "main_stat_count": 2, 
                     "sort_order": 300, 
                     "aspect": 3, 

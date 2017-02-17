@@ -85,7 +85,7 @@
                 }, 
                 {
                     "expansion": false, 
-                    "main_stat_count": 3,
+                    "main_stat_count": 3, 
                     "sort_order": 200, 
                     "aspect": 3, 
                     "statistics": [
@@ -154,7 +154,7 @@
                             "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 300
-                        } 
+                        }
                     ], 
                     "list_label_width": null, 
                     "url": "health-diabetes-summary", 
@@ -419,7 +419,6 @@
                     "template": null, 
                     "columns": null
                 }
-
             ], 
             "views": [
                 {

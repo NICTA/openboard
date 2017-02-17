@@ -93,7 +93,7 @@
                             {
                                 "statistics": [
                                     "completed_state", 
-                                    "underway_state",
+                                    "underway_state", 
                                     "pending_state"
                                 ], 
                                 "sort_order": 100, 
@@ -102,7 +102,7 @@
                             {
                                 "statistics": [
                                     "completed", 
-                                    "underway",
+                                    "underway", 
                                     "pending"
                                 ], 
                                 "sort_order": 200, 
@@ -117,7 +117,7 @@
                             {
                                 "sort_order": 200, 
                                 "label": "Underway"
-                            },
+                            }, 
                             {
                                 "sort_order": 300, 
                                 "label": "Pending"
@@ -236,7 +236,7 @@
                             "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 400
-                        },
+                        }, 
                         {
                             "num_precision": 0, 
                             "icon_library": null, 

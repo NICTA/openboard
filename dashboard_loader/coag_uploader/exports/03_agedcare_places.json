@@ -173,7 +173,7 @@
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_agedcare_residential_graph",
+                    "url": "health_agedcare_residential_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -295,14 +295,14 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
                     "aspect": 3, 
                     "statistics": [], 
                     "list_label_width": null, 
-                    "url": "health_agedcare_community_graph",
+                    "url": "health_agedcare_community_graph", 
                     "graph": {
                         "numeric_axis_always_show_zero": false, 
                         "display_options": {
@@ -432,7 +432,7 @@
                     "view": "healthcare"
                 }
             ], 
-            "default_frequency_text": "Annual",
+            "default_frequency_text": "Annual", 
             "raw_data_sets": [
                 {
                     "url": "data_table", 
@@ -636,7 +636,7 @@
                             "sort_order": 40, 
                             "heading": "Community places", 
                             "description": "Community aged care places (per 1,000 older people)."
-                        },
+                        }, 
                         {
                             "url": "total", 
                             "sort_order": 50, 
@@ -656,7 +656,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.dss.gov.au",
+    "source_url": "http://www.dss.gov.au", 
     "name": "Aged Care Places"
 }
 

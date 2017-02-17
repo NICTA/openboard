@@ -2,7 +2,7 @@
     "category": "indigenous", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education",
+    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "indig_ece-indigenous-hero", 
@@ -47,7 +47,7 @@
                     "columns": null
                 }, 
                 {
-                    "expansion": false,
+                    "expansion": false, 
                     "main_stat_count": 2, 
                     "sort_order": 300, 
                     "aspect": 3, 
@@ -64,7 +64,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -125,7 +125,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
+    "source_url": "http://www.abs.gov.au", 
     "name": "Indigenous"
 }
 

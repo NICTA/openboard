@@ -2,7 +2,7 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.aihw.gov.au", 
-    "subtitle": "Waiting times for emergency hospital care",
+    "subtitle": "Waiting times for emergency hospital care", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "health_edwait_state", 
@@ -126,7 +126,7 @@
                             }
                         ], 
                         "show_row_headers": true
-                    },
+                    }, 
                     "aspect": 3, 
                     "statistics": [
                         {
@@ -223,12 +223,12 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "reference", 
+                            "url": "latest", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": false, 
+                            "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
@@ -245,12 +245,12 @@
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "latest", 
+                            "url": "reference", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
-                            "trend": true, 
+                            "trend": false, 
                             "traffic_light_scale": "Indicator Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
@@ -259,7 +259,7 @@
                             "rotates": false, 
                             "stat_type": 2, 
                             "unit_prefix": "", 
-                            "sort_order": 300
+                            "sort_order": 400
                         }
                     ], 
                     "list_label_width": null, 
@@ -490,7 +490,7 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Patients treated within national benchmarks for emergency department waiting time",
+                    "name": "Patients treated within national benchmarks for emergency department waiting time", 
                     "columns": [
                         {
                             "url": "year", 
@@ -583,14 +583,14 @@
             ], 
             "sort_order": 2735, 
             "expansion_hint": "View more", 
-            "about": "<p>Increase the proportion of patients treated within national benchmarks for emergency department waiting time.</p>",
+            "about": "<p>Increase the proportion of patients treated within national benchmarks for emergency department waiting time.</p>", 
             "refresh_rate": 3260, 
             "label": "health_edwait_state", 
             "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.aihw.gov.au/hospitals-data/national-non-admitted-patient-emergency-department-care/",
+    "source_url": "http://www.aihw.gov.au/hospitals-data/national-non-admitted-patient-emergency-department-care/", 
     "name": "Emergency Department Waiting Times"
 }
 

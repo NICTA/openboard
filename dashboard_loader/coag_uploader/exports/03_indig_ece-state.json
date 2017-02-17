@@ -2,7 +2,7 @@
     "category": "indigenous", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education",
+    "subtitle": "Increase the number of Indigenous children enrolled in early childhood education", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "indigenous_indig_ece_state", 
@@ -38,7 +38,7 @@
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": null,
+                    "list_label_width": null, 
                     "url": "indigenous_indig_ece_header_state", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
@@ -75,7 +75,7 @@
                             "sort_order": 100
                         }
                     ], 
-                    "list_label_width": null,
+                    "list_label_width": null, 
                     "url": "indigenous_indig_ece_header", 
                     "tile_type": 20, 
                     "geo_datasets": [], 
@@ -133,7 +133,7 @@
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -172,12 +172,12 @@
                             "numbered_list": false, 
                             "hyperlinkable": false, 
                             "url": "indigenous", 
-                            "traffic_light_automation": null,
+                            "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
                             "name_as_label": true, 
                             "trend": false, 
-                            "traffic_light_scale": "Benchmark Scale",
+                            "traffic_light_scale": "Benchmark Scale", 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -470,7 +470,7 @@
                 {
                     "sort_order": 105, 
                     "view": "indigenous_vic"
-                },
+                }, 
                 {
                     "sort_order": 105, 
                     "view": "indigenous_wa"
@@ -620,13 +620,13 @@
                             "sort_order": 30, 
                             "heading": "Indigenous", 
                             "description": "Indigenous enrolement in early childhood education in the year before full time school."
-                        },
+                        }, 
                         {
                             "url": "non_indigenous", 
                             "sort_order": 40, 
                             "heading": "Non-Indigenous", 
                             "description": "Non-Indigenous enrolement in early childhood education in the year before full time school."
-                        } 
+                        }
                     ], 
                     "filename": "coag_indigenous_early_childhood_education_data.csv"
                 }
@@ -640,7 +640,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au",
+    "source_url": "http://www.abs.gov.au", 
     "name": "Indigenous Early Childhood Education"
 }
 

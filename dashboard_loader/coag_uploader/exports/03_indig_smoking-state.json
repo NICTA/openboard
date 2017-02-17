@@ -2,7 +2,7 @@
     "category": "health", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce the rate of smoking amongst Indigenous Australians",
+    "subtitle": "Reduce the rate of smoking amongst Indigenous Australians", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "health_indig_smoking_state", 
@@ -439,7 +439,7 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Rate of indigenous adults who are current daily smokers",
+                    "name": "Rate of indigenous adults who are current daily smokers", 
                     "columns": [
                         {
                             "url": "year", 
@@ -592,14 +592,14 @@
             ], 
             "sort_order": 2725, 
             "expansion_hint": "View more", 
-            "about": "<p>By 2018, halve the Indigenous smoking rate, over the 2009 baseline.</p>",
+            "about": "<p>By 2018, halve the Indigenous smoking rate, over the 2009 baseline.</p>", 
             "refresh_rate": 3720, 
             "label": "health_indig_smoking_state", 
             "parametisation": "state_param", 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4727.0.55.001",
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4727.0.55.001", 
     "name": "Indigenous Smoking Rate"
 }
 

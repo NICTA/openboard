@@ -2,7 +2,7 @@
     "category": "legal assistance", 
     "edit_all_groups": [], 
     "source_url_text": "www.ag.gov.au", 
-    "subtitle": "Targeting of legal representation services to financially disadvantaged people",
+    "subtitle": "Targeting of legal representation services to financially disadvantaged people", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
     "url": "legal_total_svc", 
@@ -181,7 +181,7 @@
                     "expansion": true, 
                     "sort_order": 501, 
                     "aspect": 3, 
-                    "statistics": [],
+                    "statistics": [], 
                     "list_label_width": null, 
                     "url": "legal_total_svc_lac_graph", 
                     "graph": {
@@ -299,18 +299,18 @@
                         "numeric_axis_label": "% of services", 
                         "graph_type": 1, 
                         "heading": "Legal aid commission services targetted at financially disadvantaged people"
-                    },
+                    }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
                     "aspect": 3, 
-                    "statistics": [],
+                    "statistics": [], 
                     "list_label_width": null, 
                     "url": "legal_total_svc_clc_graph", 
                     "graph": {
@@ -428,7 +428,7 @@
                         "numeric_axis_label": "% of services", 
                         "graph_type": 1, 
                         "heading": "Community legal centre services targetted at financially disadvantaged people"
-                    },
+                    }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
                     "geo_window": null, 
@@ -564,7 +564,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.ag.gov.au",
+    "source_url": "http://www.ag.gov.au", 
     "name": "Legal Assistance"
 }
 

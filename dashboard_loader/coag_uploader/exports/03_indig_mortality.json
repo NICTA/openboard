@@ -2,7 +2,7 @@
     "category": "indigenous", 
     "edit_all_groups": [], 
     "source_url_text": "www.aihw.gov.au", 
-    "subtitle": "Close the life expectancy gap within a generation",
+    "subtitle": "Close the life expectancy gap within a generation", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "indigenous_indig_mortality", 
@@ -224,7 +224,7 @@
                                 "colour": "purple", 
                                 "dynamic_label": false, 
                                 "label": "Non-Indigenous"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 300, 
@@ -234,7 +234,7 @@
                                 "colour": "red-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Variability Band (Lower)"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 400, 
@@ -244,7 +244,7 @@
                                 "colour": "red-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Variability Band (Upper)"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 500, 
@@ -254,7 +254,7 @@
                                 "colour": "orange-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Indigenous Rate Target"
-                            },
+                            }, 
                             {
                                 "use_secondary_numeric_axis": false, 
                                 "sort_order": 600, 
@@ -414,7 +414,7 @@
                     "filename": "coag_indigenous_mortality_data.csv"
                 }
             ], 
-            "sort_order":3035, 
+            "sort_order": 3035, 
             "expansion_hint": "View more", 
             "about": "<p>Close the life expectancy gap within a generation (by 2031).</p>", 
             "refresh_rate": 3920, 

@@ -2,7 +2,7 @@
     "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Reduce overcrowding",
+    "subtitle": "Reduce overcrowding", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "remote_overcrowding-housing-hero", 
@@ -64,7 +64,7 @@
                             "editable": true, 
                             "name_as_label": false, 
                             "trend": false, 
-                            "traffic_light_scale": null,
+                            "traffic_light_scale": null, 
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
@@ -125,7 +125,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey",
+    "source_url": "http://www.abs.gov.au/websitedbs/d3310114.nsf/home/national+aboriginal+and+torres+strait+islander+social+survey", 
     "name": "Housing"
 }
 

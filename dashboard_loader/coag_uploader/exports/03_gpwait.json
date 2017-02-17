@@ -305,7 +305,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
@@ -609,7 +609,7 @@
                             "sort_order": 270, 
                             "heading": "Aust | 4-24 hrs", 
                             "description": ""
-                        },
+                        }, 
                         {
                             "url": "australia_over_24_hrs", 
                             "sort_order": 280, 
@@ -640,13 +640,13 @@
                             "sort_order": 30, 
                             "heading": "Within 4 hours (%)", 
                             "description": "The proportion of patients waiting less than 4 hours for an urgent GP appointment (%)."
-                        },
+                        }, 
                         {
                             "url": "percentage_4_to_24_hrs", 
                             "sort_order": 40, 
                             "heading": "4 to 24 hours (%)", 
                             "description": "The proportion of patients waiting from 4 to 24 hours for an urgent GP appointment (%)."
-                        },
+                        }, 
                         {
                             "url": "percentage_over_24_hrs", 
                             "sort_order": 50, 
@@ -659,14 +659,14 @@
             ], 
             "sort_order": 2640, 
             "expansion_hint": "View more", 
-            "about": "<p>Improve waiting times for general practitioners.</p>",
+            "about": "<p>Improve waiting times for general practitioners.</p>", 
             "refresh_rate": 3310, 
             "label": "health_gpwait", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4839.0",
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4839.0", 
     "name": "GP Waiting Times"
 }
 

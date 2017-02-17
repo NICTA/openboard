@@ -118,14 +118,14 @@
             "raw_data_sets": [], 
             "sort_order": 640, 
             "expansion_hint": "", 
-            "about": "<p>Improve waiting times for general practitioners.</p>",
+            "about": "<p>Improve waiting times for general practitioners.</p>", 
             "refresh_rate": 3310, 
             "label": "gpwait-health-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4839.0",
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4839.0", 
     "name": "Health"
 }
 

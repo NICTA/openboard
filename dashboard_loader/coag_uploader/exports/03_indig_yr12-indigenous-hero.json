@@ -1,8 +1,8 @@
 {
     "category": "indigenous", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au",
-    "subtitle": "Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent",
+    "source_url_text": "www.abs.gov.au", 
+    "subtitle": "Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent", 
     "subcategory": "summary", 
     "groups": [], 
     "url": "indig_yr12-indigenous-hero", 
@@ -47,7 +47,7 @@
                     "columns": null
                 }, 
                 {
-                    "expansion": false,
+                    "expansion": false, 
                     "sort_order": 300, 
                     "aspect": 3, 
                     "statistics": [], 
@@ -118,14 +118,14 @@
             "raw_data_sets": [], 
             "sort_order": 1020, 
             "expansion_hint": "", 
-            "about": "<p>Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent attainment rates by 2020.</p>",
+            "about": "<p>Halve the gap for Indigenous people aged 20-24 in Year 12 attainment or equivalent attainment rates by 2020.</p>", 
             "refresh_rate": 3610, 
             "label": "indig_yr12-indigenous-hero", 
             "parametisation": null, 
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200",
+    "source_url": "http://www.abs.gov.au/websitedbs/censushome.nsf/home/data?opendocument&navpos=200", 
     "name": "Indigenous"
 }
 

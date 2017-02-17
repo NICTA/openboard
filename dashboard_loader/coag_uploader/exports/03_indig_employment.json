@@ -2,7 +2,7 @@
     "category": "indigenous", 
     "edit_all_groups": [], 
     "source_url_text": "www.abs.gov.au", 
-    "subtitle": "Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians",
+    "subtitle": "Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "indigenous_indig_employment", 
@@ -255,7 +255,7 @@
                     "geo_window": null, 
                     "template": null, 
                     "columns": null
-                },
+                }, 
                 {
                     "expansion": true, 
                     "sort_order": 600, 
@@ -521,7 +521,7 @@
                             "sort_order": 30, 
                             "heading": "Indigenous Employment (%)", 
                             "description": "Indigenous employment rate."
-                        },
+                        }, 
                         {
                             "url": "indigenous_ci", 
                             "sort_order": 40, 
@@ -533,14 +533,14 @@
                             "sort_order": 50, 
                             "heading": "Non-Indigenous Employment (%)", 
                             "description": "Non-Indigenous employment rate."
-                        } 
+                        }
                     ], 
                     "filename": "coag_indigenous_employment_data.csv"
                 }
             ], 
             "sort_order": 3010, 
             "expansion_hint": "View more", 
-            "about": "<p>Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians within a decade (by 2018)</p>",
+            "about": "<p>Halve the gap in employment outcomes between Indigenous and non-Indigenous Australians within a decade (by 2018)</p>", 
             "refresh_rate": 3770, 
             "label": "indigenous_indig_employment", 
             "parametisation": null, 

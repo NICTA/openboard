@@ -1,8 +1,8 @@
 {
     "category": "indigenous", 
     "edit_all_groups": [], 
-    "source_url_text": "ACARA",
-    "subtitle": "Close the gap for Indigenous school attendance",
+    "source_url_text": "ACARA", 
+    "subtitle": "Close the gap for Indigenous school attendance", 
     "subcategory": "national agreement", 
     "groups": [], 
     "url": "indigenous_school_attendance", 
@@ -338,109 +338,109 @@
                         {
                             "url": "nsw_indigenous", 
                             "sort_order": 20, 
-                            "heading": "NSW | Indigenous School Attendance",
+                            "heading": "NSW | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "nsw_trajectory", 
                             "sort_order": 30, 
-                            "heading": "NSW | Trajectory",
+                            "heading": "NSW | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "vic_indigenous", 
                             "sort_order": 40, 
-                            "heading": "Vic | Indigenous School Attendance",
+                            "heading": "Vic | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "vic_trajectory", 
                             "sort_order": 50, 
-                            "heading": "Vic | Trajectory",
+                            "heading": "Vic | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "qld_indigenous", 
                             "sort_order": 60, 
-                            "heading": "Qld | Indigenous School Attendance",
+                            "heading": "Qld | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "qld_trajectory", 
                             "sort_order": 70, 
-                            "heading": "Qld | Trajectory",
+                            "heading": "Qld | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "wa_indigenous", 
                             "sort_order": 80, 
-                            "heading": "WA | Indigenous School Attendance",
+                            "heading": "WA | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "wa_trajectory", 
                             "sort_order": 90, 
-                            "heading": "WA | Trajectory",
+                            "heading": "WA | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "sa_indigenous", 
                             "sort_order": 100, 
-                            "heading": "SA | Indigenous School Attendance",
+                            "heading": "SA | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "sa_trajectory", 
                             "sort_order": 110, 
-                            "heading": "SA | Trajectory",
+                            "heading": "SA | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "tas_indigenous", 
                             "sort_order": 120, 
-                            "heading": "Tas | Indigenous School Attendance",
+                            "heading": "Tas | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "tas_trajectory", 
                             "sort_order": 130, 
-                            "heading": "Tas | Trajectory",
+                            "heading": "Tas | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "act_indigenous", 
                             "sort_order": 140, 
-                            "heading": "ACT | Indigenous School Attendance",
+                            "heading": "ACT | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "act_trajectory", 
                             "sort_order": 150, 
-                            "heading": "ACT | Trajectory",
+                            "heading": "ACT | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "nt_indigenous", 
                             "sort_order": 160, 
-                            "heading": "NT | Indigenous School Attendance",
+                            "heading": "NT | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "nt_trajectory", 
                             "sort_order": 170, 
-                            "heading": "NT | Trajectory",
+                            "heading": "NT | Trajectory", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_indigenous", 
                             "sort_order": 180, 
-                            "heading": "Aust | Indigenous School Attendance",
+                            "heading": "Aust | Indigenous School Attendance", 
                             "description": ""
                         }, 
                         {
                             "url": "australia_trajectory", 
                             "sort_order": 190, 
-                            "heading": "Aust | Trajectory",
+                            "heading": "Aust | Trajectory", 
                             "description": ""
                         }
                     ], 
@@ -467,7 +467,7 @@
                             "sort_order": 30, 
                             "heading": "Indigenous student attedance (%)", 
                             "description": "Indigenous student attendance rate, year 1 to 10 combined (%)"
-                        },
+                        }, 
                         {
                             "url": "indigenous_trajectory", 
                             "sort_order": 40, 
@@ -480,14 +480,14 @@
             ], 
             "sort_order": 3015, 
             "expansion_hint": "View more", 
-            "about": "<p>Close the gap between Indigenous and non‑Indigenous school attendance within five years from 2014</p>",
+            "about": "<p>Close the gap between Indigenous and non\u2011Indigenous school attendance within five years from 2014</p>", 
             "refresh_rate": 3580, 
             "label": "indigenous_school_attendance", 
             "parametisation": null, 
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.acara.edu.au/reporting/reporting.html",
+    "source_url": "http://www.acara.edu.au/reporting/reporting.html", 
     "name": "Indigenous School Attendance"
 }
 
