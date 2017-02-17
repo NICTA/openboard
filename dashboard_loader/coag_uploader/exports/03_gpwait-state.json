@@ -588,35 +588,35 @@
             ], 
             "views": [
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_act"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_nsw"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_nt"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_qld"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_sa"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_tas"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_vic"
                 }, 
                 {
-                    "sort_order": 140, 
+                    "sort_order": 130, 
                     "view": "healthcare_wa"
                 }
             ], 

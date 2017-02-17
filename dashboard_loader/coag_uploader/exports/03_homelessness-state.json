@@ -403,7 +403,7 @@
             ], 
             "views": [
                 {
-                    "sort_order": 200, 
+                    "sort_order": 110, 
                     "view": "housing_act"
                 }, 
                 {

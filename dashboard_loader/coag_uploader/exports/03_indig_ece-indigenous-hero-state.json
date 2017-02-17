@@ -222,49 +222,49 @@
             "views": [
                 {
                     "child_view": "indigenous_act", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
                     "child_view": "indigenous_nsw", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
                     "child_view": "indigenous_nt", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
                     "child_view": "indigenous_sa", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
                     "child_view": "indigenous_qld", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
                     "child_view": "indigenous_vic", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
                     "child_view": "indigenous_tas", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
                     "child_view": "indigenous_wa", 
-                    "sort_order": 605, 
+                    "sort_order": 611, 
                     "child_view_text": "See all", 
                     "view": "wa"
                 }

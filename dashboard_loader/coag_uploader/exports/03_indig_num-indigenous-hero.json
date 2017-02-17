@@ -185,7 +185,7 @@
             "views": [
                 {
                     "child_view": "indigenous", 
-                    "sort_order": 630, 
+                    "sort_order": 626, 
                     "child_view_text": "See all", 
                     "view": "aus"
                 }

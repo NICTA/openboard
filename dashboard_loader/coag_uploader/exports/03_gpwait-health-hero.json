@@ -109,7 +109,7 @@
             "views": [
                 {
                     "child_view": "healthcare", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "aus"
                 }

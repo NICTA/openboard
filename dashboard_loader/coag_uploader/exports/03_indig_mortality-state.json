@@ -353,19 +353,19 @@
             ], 
             "views": [
                 {
-                    "sort_order": 135, 
+                    "sort_order": 101, 
                     "view": "indigenous_nsw"
                 }, 
                 {
-                    "sort_order": 135, 
+                    "sort_order": 101, 
                     "view": "indigenous_nt"
                 }, 
                 {
-                    "sort_order": 135, 
+                    "sort_order": 101, 
                     "view": "indigenous_qld"
                 }, 
                 {
-                    "sort_order": 135, 
+                    "sort_order": 101, 
                     "view": "indigenous_sa"
                 }
             ], 

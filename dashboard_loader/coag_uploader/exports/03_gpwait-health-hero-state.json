@@ -222,49 +222,49 @@
             "views": [
                 {
                     "child_view": "healthcare_act", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "act"
                 }, 
                 {
                     "child_view": "healthcare_nsw", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "nsw"
                 }, 
                 {
                     "child_view": "healthcare_nt", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "nt"
                 }, 
                 {
                     "child_view": "healthcare_sa", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "sa"
                 }, 
                 {
                     "child_view": "healthcare_qld", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "qld"
                 }, 
                 {
                     "child_view": "healthcare_vic", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "vic"
                 }, 
                 {
                     "child_view": "healthcare_tas", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "tas"
                 }, 
                 {
                     "child_view": "healthcare_wa", 
-                    "sort_order": 440, 
+                    "sort_order": 430, 
                     "child_view_text": "See all", 
                     "view": "wa"
                 }
