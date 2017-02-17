@@ -132,7 +132,7 @@
                                 "label": "Non-Indigenous"
                             }
                         ], 
-                        "numeric_axis_label": "", 
+                        "numeric_axis_label": "Deaths per 100k", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 

@@ -85,7 +85,7 @@
                                 "label": "Australia"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% VET grads", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 

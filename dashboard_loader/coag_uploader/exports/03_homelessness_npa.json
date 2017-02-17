@@ -95,7 +95,7 @@
                                 "label": "Need for services met"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% clients", 
                         "graph_type": 2, 
                         "heading": ""
                     }, 
@@ -1196,7 +1196,7 @@
                                 "label": "Young people presenting alone"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% relevant clients", 
                         "graph_type": 2, 
                         "heading": "Proportion of specialist homelessness services clients experiencing family and domestic violence, and young people (15-24 years old) presenting alone"
                     }, 

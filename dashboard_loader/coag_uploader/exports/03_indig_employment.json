@@ -105,7 +105,7 @@
                                 "label": "National Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% employed", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -360,7 +360,7 @@
                                 "label": "Non-Indigenous"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% employed", 
                         "graph_type": 2, 
                         "heading": "Indigenous/Non-Indigenous Employment Rates by State"
                     }, 

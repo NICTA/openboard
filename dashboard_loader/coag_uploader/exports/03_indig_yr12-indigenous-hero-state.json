@@ -152,7 +152,7 @@
                                 "label": "{{ state_abbrev }} Benchmark"
                             }
                         ], 
-                        "numeric_axis_label": "%", 
+                        "numeric_axis_label": "% 20-24 year olds", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
