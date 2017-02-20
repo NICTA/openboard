@@ -428,7 +428,7 @@
                         {
                             "url": "tas_persons", 
                             "sort_order": 170, 
-                            "heading": "TAS | persons", 
+                            "heading": "Tas | persons", 
                             "description": ""
                         }, 
                         {
@@ -440,7 +440,7 @@
                         {
                             "url": "tas_rate10k", 
                             "sort_order": 190, 
-                            "heading": "TAS | rate per 10k", 
+                            "heading": "Tas | rate per 10k", 
                             "description": ""
                         }, 
                         {
