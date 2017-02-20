@@ -647,7 +647,7 @@ def populate_raw_data(widget_url, label, rds_url,
     return messages
 
 def populate_crosstab_raw_data(widget_url, label, rds_url,
-                    model, field_map, field_map_states=None, pval=None):
+                    model, field_map, field_map_states=None, query_kwargs={}, pval=None):
     messages = []
     if field_map_states is None:
         field_map_states = field_map
@@ -658,7 +658,7 @@ def populate_crosstab_raw_data(widget_url, label, rds_url,
     kwargs["year"] = None
     if pval:
         kwargs["pval"] = pval
-    for obj in model.objects.all().order_by("year", "financial_year", "state"):
+    for obj in model.objects.filter(**query_kwargs).order_by("year", "financial_year", "state"):
         if obj.year_display() != kwargs["year"]:
             if kwargs["year"]:
                 add_rawdatarecord(rds, sort_order, **kwargs)

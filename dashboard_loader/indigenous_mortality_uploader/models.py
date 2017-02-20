@@ -27,6 +27,11 @@ class IndigenousMortalityData(CoagDataBase):
     variability_upper=models.DecimalField(max_digits=6, decimal_places=1)
     indigenous_target=models.DecimalField(max_digits=6, decimal_places=1, blank=True, null=True)
     non_indigenous_projected=models.DecimalField(max_digits=6, decimal_places=1, blank=True, null=True)
+    def non_indigenous_csv_display(self):
+        if self.non_indigenous:
+            return unicode(self.non_indigenous)
+        else:
+            return "-"
     def tlc(self):
         if self.indigenous < self.variability_lower:
             return "on_track"

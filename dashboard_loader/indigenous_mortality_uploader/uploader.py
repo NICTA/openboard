@@ -157,8 +157,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         "indigenous_indig_mortality", "indigenous_indig_mortality",
                         "data_table", IndigenousMortalityData, 
                         { 
-                            "non_indigenous": "non_indigenous_rate",
+                            "non_indigenous_csv_display": "non_indigenous_rate",
                             "indigenous": "indigenous_rate",
+                        },
+                        query_kwargs = {
+                            "indigenous__isnull": False,
                         }
                 )
         )
@@ -228,8 +231,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "indigenous_indig_mortality_state", "indigenous_indig_mortality_state",
                             "data_table", IndigenousMortalityData, 
                             { 
-                                "non_indigenous": "non_indigenous_rate",
+                                "non_indigenous_csv_display": "non_indigenous_rate",
                                 "indigenous": "indigenous_rate",
+                            },
+                            query_kwargs = {
+                                "indigenous__isnull": False,
                             },
                             pval=pval
                     )
