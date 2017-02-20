@@ -54,7 +54,7 @@
                     "list_label_width": null, 
                     "url": "housing-rs-hero-graph", 
                     "graph": {
-                        "numeric_axis_always_show_zero": false, 
+                        "numeric_axis_always_show_zero": true, 
                         "display_options": {
                             "shaded": false, 
                             "stacked": false, 

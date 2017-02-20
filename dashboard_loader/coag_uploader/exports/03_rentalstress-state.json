@@ -91,7 +91,7 @@
                     "list_label_width": null, 
                     "url": "housing_rentalstress_summary_graph", 
                     "graph": {
-                        "numeric_axis_always_show_zero": false, 
+                        "numeric_axis_always_show_zero": true, 
                         "display_options": {
                             "shaded": false, 
                             "stacked": false, 
@@ -269,7 +269,7 @@
                     "list_label_width": null, 
                     "url": "housing_rentalstress_detail_graph", 
                     "graph": {
-                        "numeric_axis_always_show_zero": false, 
+                        "numeric_axis_always_show_zero": true, 
                         "display_options": {
                             "shaded": false, 
                             "stacked": false, 
