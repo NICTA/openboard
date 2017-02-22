@@ -69,34 +69,51 @@
                         "horiz_axis_label": "", 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "dataset", 
-                        "clusters": [], 
+                        "clusters": [
+                            {
+                                "url": "australia",
+                                "hyperlink": "",
+                                "sort_order": 100,
+                                "label": "National"
+                            }
+                        ], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
                         "horiz_axis_type": 2, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
-                                "sort_order": 100, 
+                                "sort_order": 101, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
-                                "dynamic_label": false, 
-                                "label": "National"
+                                "url": "reference_year", 
+                                "colour": "red-solid", 
+                                "dynamic_label": true, 
+                                "label": "Reference Year"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
-                                "sort_order": 300, 
+                                "sort_order": 201, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "latest_year", 
+                                "colour": "green-solid", 
+                                "dynamic_label": true, 
+                                "label": "Latest Year"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 301, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
                                 "dynamic_label": false, 
-                                "label": "National Benchmark"
+                                "label": "Trajectory"
                             }
                         ], 
                         "numeric_axis_label": "% students", 
-                        "graph_type": 1, 
+                        "graph_type": 2, 
                         "heading": ""
                     }, 
                     "tile_type": 6, 

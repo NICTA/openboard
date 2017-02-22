@@ -100,7 +100,9 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 "indigenous_school_attendance_state", "indigenous_school_attendance_state",
                                 verbosity))
         latest_aust = IndigenousSchoolAttendanceData.objects.filter(state=AUS).last()
+        reference_aust = IndigenousSchoolAttendanceData.objects.filter(state=AUS).first()
         latest_year = latest_aust.year
+        reference_year = reference_aust.year
         if latest_year == 2019:
             complete = True
         else:
@@ -117,17 +119,20 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         messages.extend(
                 update_my_graph_data(
                         "school_attendance-indigenous-hero", "school_attendance-indigenous-hero", 
-                        "indigenous-school_attendance-hero-graph")
+                        "indigenous-school_attendance-hero-graph",
+                        reference_year, latest_year)
         )
         messages.extend(
                 update_my_graph_data(
                         "indigenous_school_attendance", "indigenous_school_attendance",
-                        "indigenous_school_attendance_summary_graph")
+                        "indigenous_school_attendance_summary_graph",
+                        reference_year, latest_year)
         )
         messages.extend(
                 update_my_graph_data(
                         "indigenous_school_attendance", "indigenous_school_attendance",
                         "indigenous_school_attendance_detail_graph",
+                        reference_year, latest_year,
                         all_states=True)
         )
         messages.extend(
@@ -155,6 +160,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     update_my_graph_data(
                             "school_attendance-indigenous-hero-state", "school_attendance-indigenous-hero-state", 
                             "indigenous-school_attendance-hero-graph",
+                            reference_year, latest_year,
                             state_num = state_num,
                             pval=pval)
             )
@@ -162,6 +168,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     update_my_graph_data(
                             "indigenous_school_attendance_state", "indigenous_school_attendance_state",
                             "indigenous-school_attendance-summary-graph",
+                            reference_year, latest_year,
                             state_num = state_num,
                             pval=pval)
             )
@@ -169,6 +176,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     update_my_graph_data(
                             "indigenous_school_attendance_state", "indigenous_school_attendance_state",
                             "indigenous-school_attendance-detail-graph",
+                            reference_year, latest_year,
                             state_num = state_num,
                             pval=pval)
             )
@@ -199,32 +207,35 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
-def update_my_graph_data(wurl, wlbl, graph, 
+def update_my_graph_data(wurl, wlbl, graph,
+                ref_year, latest_year, 
                 all_states=False, state_num=0, pval=None):
     messages = []
     g = get_graph(wurl, wlbl, graph)
     clear_graph_data(g, pval=pval)
-    qry = IndigenousSchoolAttendanceData.objects
+    qry = IndigenousSchoolAttendanceData.objects.filter(year__in=(ref_year, latest_year))
     if all_states:
-        qry=qry.all()
+        qry=qry
     elif state_num:
         qry=qry.filter(state__in=[AUS, state_num])
     else:
         qry=qry.filter(state=AUS)
     for i in qry:
         if i.state != AUS and state_num:
-            ds = "state"
+            cluster = "state"
         else:
-            ds = i.state_display().lower()
+            cluster = i.state_display().lower()
+        if i.year == ref_year:
+            ds = "reference_year"
+        else:
+            ds = "latest_year"
         add_graph_data(g, ds, i.indigenous_attendance, 
-                        horiz_value=i.year_as_date(), pval=pval)
-        if i.indigenous_trajectory and (i.state == AUS or (not all_states and state_num==i.state)):
-            if i.state == AUS:
-                ds = "benchmark"
-            else:
-                ds = "benchmark_state"
-            add_graph_data(g, ds, i.indigenous_trajectory, 
-                    horiz_value=i.year_as_date(),
+                        cluster=cluster, pval=pval)
+        if i.year == latest_year:
+            add_graph_data(g, "benchmark", i.indigenous_trajectory, 
+                    cluster=cluster,
                     pval=pval)
+    set_dataset_override(g, "reference_year", unicode(ref_year), pval=pval)
+    set_dataset_override(g, "latest_year", unicode(latest_year), pval=pval)
     return messages
 
