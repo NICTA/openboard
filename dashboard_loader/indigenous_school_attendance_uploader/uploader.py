@@ -237,5 +237,6 @@ def update_my_graph_data(wurl, wlbl, graph,
                     pval=pval)
     set_dataset_override(g, "reference_year", unicode(ref_year), pval=pval)
     set_dataset_override(g, "latest_year", unicode(latest_year), pval=pval)
+    set_dataset_override(g, "benchmark", "%s Trajectory" % latest_year, pval=pval)
     return messages
 

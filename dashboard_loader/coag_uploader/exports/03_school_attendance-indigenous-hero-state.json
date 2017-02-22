@@ -151,7 +151,7 @@
                                 "hyperlink": "", 
                                 "url": "benchmark", 
                                 "colour": "green-dotted", 
-                                "dynamic_label": false, 
+                                "dynamic_label": true, 
                                 "label": "Trajectory"
                             }
                         ], 
