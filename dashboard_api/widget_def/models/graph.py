@@ -105,6 +105,7 @@ class GraphDefinition(models.Model):
                     (TIME, axis_types[TIME]),
                     (DATETIME, axis_types[DATETIME]),
                 ), default=0, help_text="The data-type for the horizontal axis. For line graphs only.")
+    vertical_axis_buffer = models.DecimalField(max_digits=3, decimal_places=0)
     def widget(self):
         """Returns the widget this graph ultimately belongs to."""
         return self.tile.widget
@@ -221,6 +222,7 @@ class GraphDefinition(models.Model):
             "dataset_label": self.dataset_label,
             "display_options": self.graphdisplayoptions.export(),
             "dynamic_clusters": self.dynamic_clusters,
+            "vertical_axis_buffer": self.vertical_axis_buffer,
             "clusters": [ c.export() for c in self.graphcluster_set.all() ],
             "datasets": [ d.export() for d in self.graphdataset_set.all() ],
         }
@@ -248,6 +250,7 @@ class GraphDefinition(models.Model):
         g.cluster_label = data.get("cluster_label", "cluster")
         g.dataset_label = data.get("dataset_label", "dataset")
         g.dynamic_clusters = data.get("dynamic_clusters", False)
+        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0.0")).quantize(Decimal(10)**(-1*cls.vertical_axis_buffer.decimal_places), rounding=decimal.ROUND_HALF_UP)
         g.save()
         GraphDisplayOptions.import_data(g, data.get("display_options"))
         cluster_urls = []
@@ -608,32 +611,6 @@ class GraphDisplayOptions(models.Model):
             if self.point_colour_map:
                 problems.extend(self.point_colour_map.validate())
         return problems
-
-class GraphClusterBase(models.Model):
-    """
-        Abstract base model for graph clusters.  Parent of both the static and dynamic graph cluster models.
-
-        Graph clusters represent clusters in clustered histograms or bar charts, and separate pies in a pie chart. 
-        They are not used by line graphs.
-    """
-    # Histo/bar clusters or Pies
-    graph=models.ForeignKey(GraphDefinition, help_text="The graph this cluster belongs to.")
-    url=models.SlugField(verbose_name="label", help_text="A short symbolic label for the cluster, as used in the API.")
-    label=models.CharField(verbose_name="name", max_length=80, help_text="A longer human-readable description of the cluster.")
-    hyperlink=models.URLField(blank=True, null=True, help_text="An optional external URL for this cluster to link to.")
-    sort_order=models.IntegerField(help_text="How to sort this cluster within the graph.")
-    def __unicode__(self):
-        return self.url
-    class Meta:
-        abstract=True
-        unique_together = [("graph", "sort_order"), ("graph", "url"), ("graph", "label")]
-        ordering = [ "graph", "sort_order" ]
-    def __getstate__(self, view=None):
-        return {
-            "label": self.url,
-            "name": parametise_label(self.graph.tile.widget, view, self.label),
-            "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
-        }
 
 class GraphCluster(GraphClusterBase):
     """Represents a statically defined graph cluster."""
