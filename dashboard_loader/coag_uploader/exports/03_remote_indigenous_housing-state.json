@@ -356,10 +356,6 @@
             "views": [
                 {
                     "sort_order": 150, 
-                    "view": "housing_act"
-                }, 
-                {
-                    "sort_order": 150, 
                     "view": "housing_nsw"
                 }, 
                 {
@@ -377,10 +373,6 @@
                 {
                     "sort_order": 150, 
                     "view": "housing_tas"
-                }, 
-                {
-                    "sort_order": 150, 
-                    "view": "housing_vic"
                 }, 
                 {
                     "sort_order": 150, 

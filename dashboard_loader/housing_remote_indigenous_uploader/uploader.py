@@ -173,6 +173,7 @@ def update_summary_graph_data(wurl, wlbl, graph_lbl, pval=None):
     add_graph_data(g, "year", data.new_houses, cluster="new", pval=pval)
     add_graph_data(g, "year", data.refurbishments, cluster="refurbished", pval=pval)
     yr = data.year_display()
+    set_dataset_override(g, "year", data.year_display(), pval=pval)
     if pval:
         set_dataset_override(g, "year", "%s (Aust)" % data.year_display())
         state_abbrev = pval.parameters()["state_abbrev"]
@@ -181,9 +182,9 @@ def update_summary_graph_data(wurl, wlbl, graph_lbl, pval=None):
         if data is not None:
             add_graph_data(g, "year_state", data.new_houses, cluster="new", pval=pval)
             add_graph_data(g, "year_state", data.refurbishments, cluster="refurbished", pval=pval)
-        set_dataset_override(g, "year_state", "%s (%s)" % (yr, state_abbrev))
-    else:
-        set_dataset_override(g, "year", yr)
+            set_dataset_override(g, "year_state", "%s (%s)" % (data.year_display(), state_abbrev), pval=pval)
+        else:
+            set_dataset_override(g, "year_state", "%s (%s)" % (yr, state_abbrev), pval=pval)
     return messages
 
 def update_detail_graph_data():
