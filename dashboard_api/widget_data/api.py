@@ -75,6 +75,22 @@ def api_get_graph_data(widget, view=None, pval=None, verbose=False):
         graph_json[graph.tile.url] = api_get_single_graph_data(graph, view, pval=pval, verbose=verbose)
     return graph_json
 
+def apply_vertical_axis_buffer(graph, vmin, vmax):
+    if vmin is None:
+        return (None, None)
+    diff = vmax - vmin
+    buff = diff * graph.vertical_axis_buffer
+    if vmin.is_signed():
+        if vmax.is_signed():
+            # vmin and vmax both -ve.
+            vmax = vmax + buff
+        else:
+            # Spans zero
+            pass
+    else:
+        vmin = vmin - buff
+    return vmin, vmax
+
 def api_get_single_graph_data(graph, view, pval=None, verbose=False):
     pval = resolve_pval(graph.widget().parametisation, view=view, pval=pval)
     graph_json = { "data": {} }
@@ -143,11 +159,13 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
                     json_val = ( gd.horiz_json_value(), json_val )
                 graph_json["data"][gd.dataset.url].append(json_val)
     if graph.use_numeric_axes():
+        numeric_min, numeric_max = apply_vertical_axis_buffer(graph, numeric_min, numeric_max)
         graph_json["%s_scale" % graph.numeric_axis_name()] = {
                 "min": numeric_min,
                 "max": numeric_max
         }
         if graph.use_secondary_numeric_axis:
+            numeric2_min, numeric2_max = apply_vertical_axis_buffer(graph, numeric2_min, numeric2_max)
             graph_json["%s_2_scale" % graph.numeric_axis_name()] = {
                     "min": numeric2_min,
                     "max": numeric2_max
