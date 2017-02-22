@@ -87,7 +87,7 @@
                     "expansion": false, 
                     "sort_order": 200, 
                     "grid": {
-                        "corner_label": "Child mortality per 100k", 
+                        "corner_label": "Child mortality per 100,000", 
                         "show_column_headers": true, 
                         "rows": [
                             {
@@ -413,7 +413,7 @@
                                 "label": "Indigenous"
                             }
                         ], 
-                        "numeric_axis_label": "Deaths per 100k", 
+                        "numeric_axis_label": "Deaths per 100,000", 
                         "graph_type": 2, 
                         "heading": "Child Mortality Rates"
                     }, 

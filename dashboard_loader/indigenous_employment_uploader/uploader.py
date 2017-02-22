@@ -171,54 +171,54 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "indig_employment-indigenous-hero-state", "indig_employment-indigenous-hero-state", 
                     'non_indigenous',
                     latest_aust.non_indigenous,
-                    trend=cmp(latest_aust.non_indigenous, earliest_aust.non_indigenous),
+# trend=cmp(latest_aust.non_indigenous, earliest_aust.non_indigenous),
                     pval=pval)
             set_statistic_data(
                     "indig_employment-indigenous-hero-state", "indig_employment-indigenous-hero-state", 
                     'indigenous',
                     latest_aust.indigenous,
                     traffic_light_code=latest_aust.benchmark_tlc(complete),
-                    trend=cmp(latest_aust.indigenous, earliest_aust.indigenous),
+# trend=cmp(latest_aust.indigenous, earliest_aust.indigenous),
                     pval=pval)
             set_statistic_data(
                     "indigenous_indig_employment_state", "indigenous_indig_employment_state",
                     'non_indigenous',
                     latest_aust.non_indigenous,
-                    trend=cmp(latest_aust.non_indigenous, earliest_aust.non_indigenous),
+# trend=cmp(latest_aust.non_indigenous, earliest_aust.non_indigenous),
                     pval=pval)
             set_statistic_data(
                     "indigenous_indig_employment_state", "indigenous_indig_employment_state",
                     'indigenous',
                     latest_aust.indigenous,
                     traffic_light_code=latest_aust.benchmark_tlc(complete),
-                    trend=cmp(latest_aust.indigenous, earliest_aust.indigenous),
+# trend=cmp(latest_aust.indigenous, earliest_aust.indigenous),
                     pval=pval)
  
             set_statistic_data(
                     "indig_employment-indigenous-hero-state", "indig_employment-indigenous-hero-state", 
                     'non_indigenous_state',
                     latest_state.non_indigenous,
-                    trend=cmp(latest_state.non_indigenous, earliest_state.non_indigenous),
+# trend=cmp(latest_state.non_indigenous, earliest_state.non_indigenous),
                     pval=pval)
             set_statistic_data(
                     "indig_employment-indigenous-hero-state", "indig_employment-indigenous-hero-state", 
                     'indigenous_state',
                     latest_state.indigenous,
                     traffic_light_code=latest_state.benchmark_tlc(complete),
-                    trend=cmp(latest_state.indigenous, earliest_state.indigenous),
+# trend=cmp(latest_state.indigenous, earliest_state.indigenous),
                     pval=pval)
             set_statistic_data(
                     "indigenous_indig_employment_state", "indigenous_indig_employment_state",
                     'non_indigenous_state',
                     latest_state.non_indigenous,
-                    trend=cmp(latest_state.non_indigenous, earliest_state.non_indigenous),
+# trend=cmp(latest_state.non_indigenous, earliest_state.non_indigenous),
                     pval=pval)
             set_statistic_data(
                     "indigenous_indig_employment_state", "indigenous_indig_employment_state",
                     'indigenous_state',
                     latest_state.indigenous,
                     traffic_light_code=latest_state.benchmark_tlc(complete),
-                    trend=cmp(latest_state.indigenous, earliest_state.indigenous),
+# trend=cmp(latest_state.indigenous, earliest_state.indigenous),
                     pval=pval)
             messages.extend(
                     update_my_graph_data(

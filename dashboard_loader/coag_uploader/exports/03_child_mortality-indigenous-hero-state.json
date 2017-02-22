@@ -87,7 +87,7 @@
                     "expansion": false, 
                     "sort_order": 300, 
                     "grid": {
-                        "corner_label": "Child mortality per 100k", 
+                        "corner_label": "Child mortality per 100,000", 
                         "show_column_headers": true, 
                         "rows": [
                             {
@@ -104,7 +104,7 @@
                                     "non_indigenous"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "Aust"
+                                "label": "Total"
                             }
                         ], 
                         "columns": [

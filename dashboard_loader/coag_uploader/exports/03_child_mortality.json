@@ -95,7 +95,7 @@
                                 "label": "Non-Indigenous"
                             }
                         ], 
-                        "numeric_axis_label": "Deaths per 100k", 
+                        "numeric_axis_label": "Deaths per 100,000", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
@@ -266,9 +266,9 @@
                                 "label": "Projected Non-Indigenous Rate"
                             }
                         ], 
-                        "numeric_axis_label": "Deaths per 100k", 
+                        "numeric_axis_label": "Deaths per 100,000", 
                         "graph_type": 1, 
-                        "heading": "Child Mortality Rates"
+                        "heading": "Child Mortality Rates for NSW, Qld, WA, SA and NT combined"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

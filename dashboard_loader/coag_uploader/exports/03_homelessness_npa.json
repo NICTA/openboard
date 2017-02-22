@@ -2,7 +2,7 @@
     "category": "housing", 
     "edit_all_groups": [], 
     "source_url_text": "AIHW", 
-    "subtitle": "(Homelessness) Accomodation and services needs met", 
+    "subtitle": "(Homelessness) Accommodation and services needs met", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
     "url": "housing_homelessness_npa", 
@@ -1139,7 +1139,7 @@
                         ], 
                         "numeric_axis_label": "% homelessness services clients", 
                         "graph_type": 2, 
-                        "heading": "Specialist homelessness services clients with needs met for accomodation and other services"
+                        "heading": "Specialist homelessness services clients with needs met for accommodation and other services"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 
