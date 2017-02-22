@@ -12,7 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 
 from django.db import models
 
@@ -250,7 +250,7 @@ class GraphDefinition(models.Model):
         g.cluster_label = data.get("cluster_label", "cluster")
         g.dataset_label = data.get("dataset_label", "dataset")
         g.dynamic_clusters = data.get("dynamic_clusters", False)
-        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0.0")).quantize(Decimal(10)**(-1*cls.vertical_axis_buffer.decimal_places), rounding=decimal.ROUND_HALF_UP)
+        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0.0")).quantize(Decimal(10)**(-1), rounding=ROUND_HALF_UP)
         g.save()
         GraphDisplayOptions.import_data(g, data.get("display_options"))
         cluster_urls = []
@@ -449,7 +449,7 @@ class PointColourRange(models.Model):
         if pcm.decimal_places == 0:
             pcr.min_value_int = data["min_value"]
         elif data["min_value"]:
-            pcr.min_value_dec = Decimal(data["min_value"]).quantize(Decimal(10)**(-1*self.colour_map.decimal_places), rounding=decimal.ROUND_HALF_UP)
+            pcr.min_value_dec = Decimal(data["min_value"]).quantize(Decimal(10)**(-1*self.colour_map.decimal_places), rounding=ROUND_HALF_UP)
         pcr.save()
         return pcr
 
