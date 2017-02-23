@@ -184,11 +184,11 @@
                 }, 
                 {
                     "value": "brown", 
-                    "key": "brown-solid"
+                    "key": "brown-dotted"
                 }, 
                 {
                     "value": "brown", 
-                    "key": "brown-dotted"
+                    "key": "brown-solid"
                 }, 
                 {
                     "value": "steelblue", 
@@ -196,11 +196,11 @@
                 }, 
                 {
                     "value": "steelblue", 
-                    "key": "dark_blue-solid"
+                    "key": "dark_blue-dotted"
                 }, 
                 {
                     "value": "steelblue", 
-                    "key": "dark_blue-dotted"
+                    "key": "dark_blue-solid"
                 }, 
                 {
                     "value": "#83a274", 
@@ -208,11 +208,11 @@
                 }, 
                 {
                     "value": "#83a274", 
-                    "key": "dark_green-solid"
+                    "key": "dark_green-dotted"
                 }, 
                 {
                     "value": "#83a274", 
-                    "key": "dark_green-dotted"
+                    "key": "dark_green-solid"
                 }, 
                 {
                     "value": "#aba453", 
@@ -220,11 +220,11 @@
                 }, 
                 {
                     "value": "#aba453", 
-                    "key": "gold-solid"
+                    "key": "gold-dotted"
                 }, 
                 {
                     "value": "#aba453", 
-                    "key": "gold-dotted"
+                    "key": "gold-solid"
                 }, 
                 {
                     "value": "#45bcac", 
@@ -256,11 +256,11 @@
                 }, 
                 {
                     "value": "#245046", 
-                    "key": "pale_blue-solid"
+                    "key": "pale_blue-dotted"
                 }, 
                 {
                     "value": "#245046", 
-                    "key": "pale_blue-dotted"
+                    "key": "pale_blue-solid"
                 }, 
                 {
                     "value": "purple", 
@@ -285,48 +285,30 @@
         {
             "properties": [
                 {
-                    "value": "#5a4400", 
-                    "key": "amber"
+                    "value": "7, 4", 
+                    "key": "dashed"
                 }, 
                 {
-                    "value": "#5a4400", 
-                    "key": "amber1"
-                }, 
-                {
-                    "value": "#5a4400", 
-                    "key": "amber2"
-                }, 
-                {
-                    "value": "#549409", 
-                    "key": "green"
-                }, 
-                {
-                    "value": "#549409", 
-                    "key": "green1"
-                }, 
-                {
-                    "value": "#549409", 
-                    "key": "green2"
-                }, 
-                {
-                    "value": "#616161", 
-                    "key": "grey1"
-                }, 
-                {
-                    "value": "#616161", 
-                    "key": "grey4"
-                }, 
-                {
-                    "value": "#AB4541", 
-                    "key": "red"
-                }, 
-                {
-                    "value": "#FFFF00", 
-                    "key": "yellow"
+                    "value": "0", 
+                    "key": "solid"
                 }
             ], 
-            "name": "Traffic Light Foreground", 
-            "label": "traffic_fore"
+            "name": "Dashes", 
+            "label": "stroke_dasharray"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "1", 
+                    "key": "dashed"
+                }, 
+                {
+                    "value": "0", 
+                    "key": "solid"
+                }
+            ], 
+            "name": "Stroke Dash Width", 
+            "label": "stroke_width"
         }, 
         {
             "properties": [
@@ -363,12 +345,66 @@
                     "key": "grey4"
                 }, 
                 {
+                    "value": "#f3ffe6", 
+                    "key": "pale_green"
+                }, 
+                {
                     "value": "#E5D2D1", 
                     "key": "red"
                 }
             ], 
             "name": "Traffic Light Background", 
             "label": "traffic_back"
+        }, 
+        {
+            "properties": [
+                {
+                    "value": "#5a4400", 
+                    "key": "amber"
+                }, 
+                {
+                    "value": "#5a4400", 
+                    "key": "amber1"
+                }, 
+                {
+                    "value": "#5a4400", 
+                    "key": "amber2"
+                }, 
+                {
+                    "value": "#549409", 
+                    "key": "green"
+                }, 
+                {
+                    "value": "#549409", 
+                    "key": "green1"
+                }, 
+                {
+                    "value": "#549409", 
+                    "key": "green2"
+                }, 
+                {
+                    "value": "#616161", 
+                    "key": "grey1"
+                }, 
+                {
+                    "value": "#616161", 
+                    "key": "grey4"
+                }, 
+                {
+                    "value": "#79d60b", 
+                    "key": "pale_green"
+                }, 
+                {
+                    "value": "#AB4541", 
+                    "key": "red"
+                }, 
+                {
+                    "value": "#FFFF00", 
+                    "key": "yellow"
+                }
+            ], 
+            "name": "Traffic Light Foreground", 
+            "label": "traffic_fore"
         }
     ], 
     "type": "PropertyGroup"
