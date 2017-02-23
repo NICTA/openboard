@@ -222,11 +222,13 @@ def update_my_graph_data(wurl, wlbl, graph,
                 ds = i.state_display().lower()
             add_graph_data(g, ds, i.indigenous_attainment, 
                             horiz_value=i.year_as_date(), pval=pval)
-        if i.indigenous_trajectory and (i.state == AUS or (not all_states and state_num==i.state)):
+        if i.indigenous_trajectory:
             if i.state == AUS:
                 ds = "benchmark"
-            else:
+            elif state_num:
                 ds = "benchmark_state"
+            else:
+                ds = i.state_display().lower() + "_benchmark"
             add_graph_data(g, ds, i.indigenous_trajectory, 
                     horiz_value=i.year_as_date(),
                     pval=pval)
