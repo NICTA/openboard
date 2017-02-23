@@ -326,13 +326,13 @@ def update_my_national_graph(wurl, wlbl, graph, summary=False, verbosity=0):
             add_graph_data(g, "indigenous", i.indigenous, horiz_value=i.year_as_date())
         if i.non_indigenous:
             add_graph_data(g, "non_indigenous", i.non_indigenous, horiz_value=i.year_as_date())
+        if i.indigenous_target:
+            add_graph_data(g, "indigenous_target", i.indigenous_target, horiz_value=i.year_as_date())
+        if i.non_indigenous_projected:
+            add_graph_data(g, "non_indigenous_projected", i.non_indigenous_projected, horiz_value=i.year_as_date())
         if not summary:
             add_graph_data(g, "indigenous_variability_lower", i.variability_lower, horiz_value=i.year_as_date())
             add_graph_data(g, "indigenous_variability_upper", i.variability_upper, horiz_value=i.year_as_date())
-            if i.indigenous_target:
-                add_graph_data(g, "indigenous_target", i.indigenous_target, horiz_value=i.year_as_date())
-            if i.non_indigenous_projected:
-                add_graph_data(g, "non_indigenous_projected", i.non_indigenous_projected, horiz_value=i.year_as_date())
     return messages
 
 def update_my_state_graph(pval, verbosity):

@@ -87,7 +87,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "reference_year", 
-                                "colour": "red-solid", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": true, 
                                 "label": "Reference Year"
                             }, 

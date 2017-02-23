@@ -80,7 +80,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "indigenous", 
-                                "colour": "orange", 
+                                "colour": "orange-solid", 
                                 "dynamic_label": false, 
                                 "label": "Indigenous"
                             }, 
@@ -90,9 +90,29 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "non_indigenous", 
-                                "colour": "purple", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "Non-Indigenous"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 301, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "indigenous_target", 
+                                "colour": "orange-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Indigenous Target"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 400, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "non_indigenous_projected", 
+                                "colour": "purple-dotted", 
+                                "dynamic_label": false, 
+                                "label": "Non-Indigenous Projected"
                             }
                         ], 
                         "numeric_axis_label": "Deaths per 100,000", 
