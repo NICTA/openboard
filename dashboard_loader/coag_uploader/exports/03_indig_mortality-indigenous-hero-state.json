@@ -129,7 +129,7 @@
                                 "url": "non_indigenous", 
                                 "colour": "purple-solid", 
                                 "dynamic_label": false, 
-                                "label": "Non-Indigenous"
+                                "label": "Non- Indigenous"
                             },
                             {
                                 "use_secondary_numeric_axis": false, 
@@ -149,7 +149,7 @@
                                 "url": "non_indigenous_projected", 
                                 "colour": "purple-dotted", 
                                 "dynamic_label": false, 
-                                "label": "Non-Indigenous Projected"
+                                "label": "Non- Indigenous Projected"
                             }
                         ], 
                         "numeric_axis_label": "Deaths per 100,000", 
