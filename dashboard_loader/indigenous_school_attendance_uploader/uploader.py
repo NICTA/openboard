@@ -213,7 +213,7 @@ def update_my_graph_data(wurl, wlbl, graph,
     messages = []
     g = get_graph(wurl, wlbl, graph)
     clear_graph_data(g, pval=pval)
-    qry = IndigenousSchoolAttendanceData.objects.filter(year__in=(ref_year, latest_year))
+    qry = IndigenousSchoolAttendanceData.objects.all()
     if all_states:
         qry=qry
     elif state_num:
@@ -227,8 +227,11 @@ def update_my_graph_data(wurl, wlbl, graph,
             cluster = i.state_display().lower()
         if i.year == ref_year:
             ds = "reference_year"
-        else:
+        elif i.year == latest_year:
             ds = "latest_year"
+        else:
+            ds = "mid_year"
+            set_dataset_override(g, "mid_year", unicode(i.year_display()), pval=pval)
         add_graph_data(g, ds, i.indigenous_attendance, 
                         cluster=cluster, pval=pval)
         if i.year == latest_year:

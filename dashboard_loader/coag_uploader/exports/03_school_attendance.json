@@ -93,6 +93,16 @@
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
+                                "sort_order": 150, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "mid_year", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": true, 
+                                "label": "Mid Year"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
                                 "sort_order": 201, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
@@ -286,6 +296,16 @@
                                 "colour": "purple-solid", 
                                 "dynamic_label": true, 
                                 "label": "Reference Year"
+                            }, 
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 150, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "mid_year", 
+                                "colour": "orange-solid", 
+                                "dynamic_label": true, 
+                                "label": "Mid Year"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
