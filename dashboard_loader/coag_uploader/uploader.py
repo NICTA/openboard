@@ -149,8 +149,11 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                 if date_parser:
                     _date = date_parser(first_cell)
                     if _date and _date != date:
+                        if all_rows_found(rows, optional_rows, fld_defaults):
+                            records_written += write_record(rows, date, None, None)
+                        else:
+                            zero_all_rows(rows)
                         date = _date
-                        zero_all_rows(rows)
                 try:
                     if multi_year:
                         (_year, _myr) = parse_multiyear(first_cell)
