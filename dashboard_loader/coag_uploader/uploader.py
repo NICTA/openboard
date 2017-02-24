@@ -96,7 +96,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
         start_from_col = 2
     else:
         start_from_col = 1
-    def write_record(rows, date):
+    def write_record(rows, date, isfy, myr):
         recs_written = 0
         for state, scol in state_cols.items():
             nulldata = False
@@ -136,7 +136,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
             first_cell=sheet["A%d" % row].value
         except IndexError:
             if all_rows_found(rows, optional_rows, fld_defaults):
-                records_written += write_record(rows, date)
+                records_written += write_record(rows, date, isfy, myr)
             else:
                 zero_all_rows(rows)
             break
@@ -160,17 +160,17 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                     if _year != date:
                         new_year = True
                     if _myr != myr:
-                        myr = _myr
                         new_year = True
                     if _isfy != isfy:
-                        isfy = _isfy
                         new_year = True
                     if new_year:
                         if all_rows_found(rows, optional_rows, fld_defaults):
-                            records_written += write_record(rows, date)
+                            records_written += write_record(rows, date, isfy, myr)
                         else:
                             zero_all_rows(rows)
                         date = _year
+                        isfy = _isfy
+                        myr = _myr
                 except Exception, e:
                     pass
         matches = []
