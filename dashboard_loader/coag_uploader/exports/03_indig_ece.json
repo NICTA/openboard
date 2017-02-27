@@ -302,7 +302,7 @@
             "raw_data_sets": [
                 {
                     "url": "data_table", 
-                    "name": "Indigenous Early Childhood Education Enrolement", 
+                    "name": "Indigenous Early Childhood Education Enrolment", 
                     "columns": [
                         {
                             "url": "year", 
@@ -423,7 +423,7 @@
                 }, 
                 {
                     "url": "indigenous_indig_ece", 
-                    "name": "Indigenous Early Childhood Education Enrolement Data", 
+                    "name": "Indigenous Early Childhood Education Enrolment Data", 
                     "columns": [
                         {
                             "url": "jurisdiction", 
@@ -441,13 +441,13 @@
                             "url": "indigenous", 
                             "sort_order": 30, 
                             "heading": "Indigenous", 
-                            "description": "Indigenous enrolement in early childhood education in the year before full time school."
+                            "description": "Indigenous enrolment in early childhood education in the year before full time school."
                         }, 
                         {
                             "url": "non_indigenous", 
                             "sort_order": 40, 
                             "heading": "Non-Indigenous", 
-                            "description": "Non-Indigenous enrolement in early childhood education in the year before full time school."
+                            "description": "Non-Indigenous enrolment in early childhood education in the year before full time school."
                         }
                     ], 
                     "filename": "coag_indigenous_early_childhood_education_data.csv"

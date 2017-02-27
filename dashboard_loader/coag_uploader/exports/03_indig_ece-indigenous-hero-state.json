@@ -87,7 +87,7 @@
                     "expansion": false, 
                     "sort_order": 300, 
                     "grid": {
-                        "corner_label": "Early Childhood Enrolement", 
+                        "corner_label": "Early Childhood Enrolment", 
                         "show_column_headers": true, 
                         "rows": [
                             {
