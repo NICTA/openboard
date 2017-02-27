@@ -30,7 +30,7 @@ class WidgetFamily(models.Model):
     presentation and data, consider making them a widget family.
     """
     subcategory = models.ForeignKey(Subcategory, help_text="The subcategory (and therefore category) of the widget family")
-    name = models.CharField(max_length=80, help_text="The name (main heading) of widgets in this family. May be parametised.")
+    name = models.CharField(max_length=120, help_text="The name (main heading) of widgets in this family. May be parametised.")
     subtitle = models.CharField(max_length=120, null=True, blank=True, help_text="The option subheading of widgets in this family. May be parametised.")
     url  = models.SlugField(unique=True, help_text="A short symbolic name used to refer to widgets in this family in the API. May be parametised.")
     source_url = models.URLField(max_length=400, help_text="An external URL that the user can be directed to for more information.  Typically the canonical source for the widget's data. May be parametised.")
