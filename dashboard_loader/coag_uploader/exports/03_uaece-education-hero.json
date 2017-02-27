@@ -53,7 +53,7 @@
                     "aspect": 3, 
                     "statistics": [
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Jurisdictions meeting target", 
                             "numbered_list": false, 
@@ -75,7 +75,7 @@
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": 1, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Target", 
                             "numbered_list": false, 

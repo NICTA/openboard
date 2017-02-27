@@ -90,7 +90,7 @@
                     "aspect": 3, 
                     "statistics": [
                         {
-                            "num_precision": null, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Children enrolled", 
                             "numbered_list": false, 
@@ -112,7 +112,7 @@
                             "sort_order": 10
                         }, 
                         {
-                            "num_precision": null, 
+                            "num_precision": 0, 
                             "icon_library": null, 
                             "name": "Target", 
                             "numbered_list": false, 

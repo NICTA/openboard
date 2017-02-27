@@ -141,7 +141,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             state_latest = AccessEceData.objects.get(year=latest_year, state=state_num)
             set_statistic_data("uaece-education-hero-state", "uaece-education-hero-state", 
                         "proportion_enrolled",
-                        state_latest.enrolled,
+                        int(state_latest.enrolled),
                         traffic_light_code=state_latest.tlc(),
                         pval=pval)
             set_statistic_data("uaece-education-hero-state", "uaece-education-hero-state", 
@@ -151,7 +151,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         pval=pval)
             set_statistic_data("education_uaece_state", "education_uaece_state",
                         "proportion_enrolled",
-                        state_latest.enrolled,
+                        int(state_latest.enrolled),
                         traffic_light_code=state_latest.tlc(),
                         pval=pval)
             set_statistic_data("education_uaece_state", "education_uaece_state",
