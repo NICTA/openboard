@@ -107,7 +107,7 @@
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
+                            "stat_type": 2, 
                             "unit_prefix": null, 
                             "sort_order": 10
                         }, 
@@ -129,7 +129,7 @@
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
+                            "stat_type": 2, 
                             "unit_prefix": null, 
                             "sort_order": 20
                         }
