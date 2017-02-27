@@ -211,7 +211,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "overcrowding", 
-                                "colour": "blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Remote Indigenous Overcrowding"
                             }

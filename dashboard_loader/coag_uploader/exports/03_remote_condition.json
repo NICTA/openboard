@@ -211,7 +211,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "condition", 
-                                "colour": "blue", 
+                                "colour": "green", 
                                 "dynamic_label": false, 
                                 "label": "Houses of Poor Condition"
                             }

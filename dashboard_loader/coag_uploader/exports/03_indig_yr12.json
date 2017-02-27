@@ -211,7 +211,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
-                                "colour": "blue-solid", 
+                                "colour": "pale_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "NSW"
                             }, 
@@ -221,7 +221,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nsw_benchmark", 
-                                "colour": "blue-dotted", 
+                                "colour": "pale_blue-dotted", 
                                 "dynamic_label": false, 
                                 "label": "NSW Benchmark"
                             }, 
@@ -231,7 +231,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "vic", 
-                                "colour": "orange-solid", 
+                                "colour": "dark_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "Vic"
                             }, 
@@ -241,7 +241,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "vic_benchmark", 
-                                "colour": "orange-dotted", 
+                                "colour": "dark_blue-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Vic Benchmark"
                             }, 
@@ -251,7 +251,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "qld", 
-                                "colour": "pale_blue-solid", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "Qld"
                             }, 
@@ -261,7 +261,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "qld_benchmark", 
-                                "colour": "pale_blue-dotted", 
+                                "colour": "purple-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Qld Benchmark"
                             }, 
@@ -271,7 +271,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "wa", 
-                                "colour": "purple-solid", 
+                                "colour": "gold-solid", 
                                 "dynamic_label": false, 
                                 "label": "WA"
                             }, 
@@ -281,7 +281,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "wa_benchmark", 
-                                "colour": "purple-dotted", 
+                                "colour": "gold-dotted", 
                                 "dynamic_label": false, 
                                 "label": "WA Benchmark"
                             }, 
@@ -291,7 +291,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "sa", 
-                                "colour": "gold-solid", 
+                                "colour": "orange-solid", 
                                 "dynamic_label": false, 
                                 "label": "SA"
                             }, 
@@ -301,7 +301,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "sa_benchmark", 
-                                "colour": "gold-dotted", 
+                                "colour": "orange-dotted", 
                                 "dynamic_label": false, 
                                 "label": "SA Benchmark"
                             }, 
@@ -311,7 +311,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "tas", 
-                                "colour": "dark_blue-solid", 
+                                "colour": "dark_green-solid", 
                                 "dynamic_label": false, 
                                 "label": "Tas"
                             }, 
@@ -321,7 +321,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "tas_benchmark", 
-                                "colour": "dark_blue-dotted", 
+                                "colour": "dark_green-dotted", 
                                 "dynamic_label": false, 
                                 "label": "Tas Benchmark"
                             }, 
@@ -331,7 +331,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "dark_green-solid", 
+                                "colour": "blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
@@ -341,7 +341,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "act_benchmark", 
-                                "colour": "dark_green-dotted", 
+                                "colour": "blue-dotted", 
                                 "dynamic_label": false, 
                                 "label": "ACT Benchmark"
                             }, 

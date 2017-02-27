@@ -285,7 +285,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "nsw", 
-                                "colour": "blue-solid", 
+                                "colour": "pale_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "NSW"
                             }, 
@@ -295,7 +295,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "vic", 
-                                "colour": "orange-solid", 
+                                "colour": "dark_blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "Vic"
                             }, 
@@ -305,7 +305,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "qld", 
-                                "colour": "pale_blue-solid", 
+                                "colour": "purple-solid", 
                                 "dynamic_label": false, 
                                 "label": "Qld"
                             }, 
@@ -315,7 +315,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "wa", 
-                                "colour": "purple-solid", 
+                                "colour": "gold-solid", 
                                 "dynamic_label": false, 
                                 "label": "WA"
                             }, 
@@ -325,7 +325,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "sa", 
-                                "colour": "gold-solid", 
+                                "colour": "orange-solid", 
                                 "dynamic_label": false, 
                                 "label": "SA"
                             }, 
@@ -335,7 +335,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "tas", 
-                                "colour": "dark_blue-solid", 
+                                "colour": "dark_green-solid", 
                                 "dynamic_label": false, 
                                 "label": "Tas"
                             }, 
@@ -345,7 +345,7 @@
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
                                 "url": "act", 
-                                "colour": "dark_green-solid", 
+                                "colour": "blue-solid", 
                                 "dynamic_label": false, 
                                 "label": "ACT"
                             }, 
