@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016, 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -101,21 +101,25 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data('life_expectancy-health-hero', 'life_expectancy-health-hero',
                         'men_life_exp',
                         latest_aust.males,
+                        label="Men (%s)" % latest_aust.year_display(),
                         traffic_light_code=male_tlc,
                         trend=male_trend)
         set_statistic_data('life_expectancy-health-hero', 'life_expectancy-health-hero',
                         'women_life_exp',
                         latest_aust.females,
+                        label="Women (%s)" % latest_aust.year_display(),
                         traffic_light_code=female_tlc,
                         trend=female_trend)
         set_statistic_data('health_life_expectancy', 'health_life_expectancy',
                         'men_life_exp',
                         latest_aust.males,
+                        label="Men (%s)" % latest_aust.year_display(),
                         traffic_light_code=male_tlc,
                         trend=male_trend)
         set_statistic_data('health_life_expectancy', 'health_life_expectancy',
                         'women_life_exp',
                         latest_aust.females,
+                        label="Women (%s)" % latest_aust.year_display(),
                         traffic_light_code=female_tlc,
                         trend=female_trend)
         messages.extend(
@@ -183,6 +187,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             traffic_light_code=female_state_tlc,
                             trend=female_state_trend,
                             pval=pval)
+            set_statistic_data('life_expectancy-health-hero-state', 'life_expectancy-health-hero-state',
+                            'year_1',
+                            latest_state.year_display(),
+                            pval=pval)
+            set_statistic_data('life_expectancy-health-hero-state', 'life_expectancy-health-hero-state',
+                            'year_2',
+                            latest_state.year_display(),
+                            pval=pval)
             set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
                             'men_life_exp',
                             latest_aust.males,
@@ -206,6 +218,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             latest_state.females,
                             traffic_light_code=female_state_tlc,
                             trend=female_state_trend,
+                            pval=pval)
+            set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
+                            'year_1',
+                            latest_state.year_display(),
+                            pval=pval)
+            set_statistic_data('health_life_expectancy_state', 'health_life_expectancy_state',
+                            'year_2',
+                            latest_state.year_display(),
                             pval=pval)
             messages.extend(
                     update_graph_data(

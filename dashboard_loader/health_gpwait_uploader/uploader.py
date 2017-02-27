@@ -107,19 +107,23 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         aust_4h_tlc, aust_4h_trend = indicator_tlc_trend(aust_ref.treated_within_4h, aust_latest.treated_within_4h)
         aust_24h_tlc, aust_24h_trend = indicator_tlc_trend(aust_ref.treated_over_24h, aust_latest.treated_over_24h, want_increase=False)
         set_statistic_data('gpwait-health-hero', 'gpwait-health-hero',
-                        'within_4_hrs', aust_ref.treated_within_4h,
+                        'within_4_hrs', aust_latest.treated_within_4h,
+                        label="Within 4 hrs (%s)" % aust_latest.year_display(),
                         trend=aust_4h_trend,
                         traffic_light_code=aust_4h_tlc)
         set_statistic_data('gpwait-health-hero', 'gpwait-health-hero',
                         'over_24_hrs', aust_latest.treated_over_24h,
+                        label="Over 24 hrs (%s)" % aust_latest.year_display(),
                         traffic_light_code=aust_24h_tlc,
                         trend=aust_24h_trend)
         set_statistic_data("health_gpwait", "health_gpwait",
-                        'within_4_hrs', aust_ref.treated_within_4h,
+                        'within_4_hrs', aust_latest.treated_within_4h,
+                        label="Within 4 hrs (%s)" % aust_latest.year_display(),
                         trend=aust_4h_trend,
                         traffic_light_code=aust_4h_tlc)
         set_statistic_data("health_gpwait", "health_gpwait",
                         'over_24_hrs', aust_latest.treated_over_24h,
+                        label="Over 24 hrs (%s)" % aust_latest.year_display(),
                         traffic_light_code=aust_24h_tlc,
                         trend=aust_24h_trend)
         messages.extend(
@@ -184,6 +188,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         traffic_light_code=state_24h_tlc,
                         trend=state_24h_trend,
                         pval=pval)
+            set_statistic_data('gpwait-health-hero-state', 'gpwait-health-hero-state',
+                        'year_1', state_latest.year_display(),
+                        pval=pval)
+            set_statistic_data('gpwait-health-hero-state', 'gpwait-health-hero-state',
+                        'year_2', state_latest.year_display(),
+                        pval=pval)
             set_statistic_data("health_gpwait_state", "health_gpwait_state",
                         'within_4_hrs', aust_ref.treated_within_4h,
                         trend=aust_4h_trend,
@@ -203,6 +213,12 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         'over_24_hrs_state', state_latest.treated_over_24h,
                         traffic_light_code=state_24h_tlc,
                         trend=state_24h_trend,
+                        pval=pval)
+            set_statistic_data("health_gpwait_state", "health_gpwait_state",
+                        'year_1', state_latest.year_display(),
+                        pval=pval)
+            set_statistic_data("health_gpwait_state", "health_gpwait_state",
+                        'year_2', state_latest.year_display(),
                         pval=pval)
             messages.extend(
                     update_graph_data(
