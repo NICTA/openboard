@@ -87,47 +87,63 @@
                     "expansion": false, 
                     "sort_order": 300, 
                     "grid": {
-                        "corner_label": "", 
-                        "show_column_headers": false, 
+                        "corner_label": "Year", 
+                        "show_column_headers": true, 
                         "rows": [
                             {
                                 "statistics": [
-                                    "year_3", 
-                                    "year_7"
+                                    "state_year_3", 
+                                    "australia_year_3"
                                 ], 
                                 "sort_order": 100, 
-                                "label": "Early"
+                                "label": "Year 3"
                             }, 
                             {
                                 "statistics": [
-                                    "year_5", 
-                                    "year_9"
+                                    "state_year_5", 
+                                    "australia_year_5"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "Late"
+                                "label": "Year 5"
+                            }, 
+                            {
+                                "statistics": [
+                                    "state_year_7", 
+                                    "australia_year_7"
+                                ], 
+                                "sort_order": 300, 
+                                "label": "Year 7"
+                            }, 
+                            {
+                                "statistics": [
+                                    "state_year_9", 
+                                    "australia_year_9"
+                                ], 
+                                "sort_order": 400, 
+                                "label": "Year 9"
                             }
                         ], 
                         "columns": [
                             {
                                 "sort_order": 100, 
-                                "label": "Primary"
+                                "label": "{{ state_abbrev }}"
                             }, 
                             {
                                 "sort_order": 200, 
-                                "label": "Secondary"
+                                "label": "Aust"
                             }
                         ], 
-                        "show_row_headers": false
+                        "show_row_headers": true
                     }, 
                     "aspect": 3, 
                     "statistics": [
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "year_3", 
+                            "url": "state_year_3", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -137,19 +153,19 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
+                            "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 100
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "year_5", 
+                            "url": "state_year_5", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -159,19 +175,19 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
+                            "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 200
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "year_7", 
+                            "url": "state_year_7", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -181,19 +197,19 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
+                            "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 300
                         }, 
                         {
-                            "num_precision": 0, 
+                            "num_precision": 1, 
                             "icon_library": null, 
                             "name": "", 
                             "numbered_list": false, 
                             "hyperlinkable": false, 
-                            "url": "year_9", 
+                            "url": "state_year_9", 
                             "traffic_light_automation": null, 
                             "footer": false, 
                             "editable": true, 
@@ -203,11 +219,99 @@
                             "unit_underfix": "", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
-                            "unit_suffix": "", 
+                            "unit_suffix": "%", 
                             "rotates": false, 
-                            "stat_type": 1, 
+                            "stat_type": 2, 
                             "unit_prefix": "", 
                             "sort_order": 400
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "australia_year_3", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 500
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "australia_year_5", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 600
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "australia_year_7", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 700
+                        }, 
+                        {
+                            "num_precision": 1, 
+                            "icon_library": null, 
+                            "name": "", 
+                            "numbered_list": false, 
+                            "hyperlinkable": false, 
+                            "url": "australia_year_9", 
+                            "traffic_light_automation": null, 
+                            "footer": false, 
+                            "editable": true, 
+                            "name_as_label": true, 
+                            "trend": false, 
+                            "traffic_light_scale": "Benchmark Scale", 
+                            "unit_underfix": "", 
+                            "unit_signed": false, 
+                            "unit_si_prefix_rounding": 0, 
+                            "unit_suffix": "%", 
+                            "rotates": false, 
+                            "stat_type": 2, 
+                            "unit_prefix": "", 
+                            "sort_order": 800
                         }
                     ], 
                     "list_label_width": null, 

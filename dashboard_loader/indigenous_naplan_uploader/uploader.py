@@ -76,8 +76,8 @@ file_format = {
 }
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-        messages = []
-#    try:
+    messages = []
+    try:
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
@@ -181,11 +181,13 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             state_num = state_map[pval.parameters()["state_abbrev"]]
             for obj in IndigenousNaplanData.objects.filter(subject=READING, state=state_num):
                 set_statistic_data("indig_lit-indigenous-hero-state", "indig_lit-indigenous-hero-state", 
-                                "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
+                                "state_year_%d" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
                                 traffic_light_code=obj.tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
-                                "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
+                                "state_year_%ds" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
                                 traffic_light_code=obj.tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
@@ -195,17 +197,29 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 pval=pval)
             for obj in IndigenousNaplanData.objects.filter(subject=READING, state=AUS):
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
+                                "australia_year_%ds" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
+                                traffic_light_code=obj.tlc(),
+                                pval=pval)
+                set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
+                                "australia_year_%d" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
+                                traffic_light_code=obj.tlc(),
+                                pval=pval)
+                set_statistic_data("indig_lit-indigenous-hero-state", "indig_lit-indigenous-hero-state", 
                                 "australia_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
                                 traffic_light_code=obj.tlc(),
                                 pval=pval)
             for obj in IndigenousNaplanData.objects.filter(subject=NUMERACY, state=state_num):
                 set_statistic_data("indig_num-indigenous-hero-state", "indig_num-indigenous-hero-state", 
-                                "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
+                                "state_year_%d" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
                                 traffic_light_code=obj.tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
-                                "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
+                                "state_year_%ds" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
                                 traffic_light_code=obj.tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
@@ -215,6 +229,16 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 pval=pval)
             for obj in IndigenousNaplanData.objects.filter(subject=NUMERACY, state=AUS):
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
+                                "australia_year_%ds" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
+                                traffic_light_code=obj.tlc(),
+                                pval=pval)
+                set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
+                                "australia_year_%d" % obj.year_lvl, 
+                                obj.indig_proportion_above_nms,
+                                traffic_light_code=obj.tlc(),
+                                pval=pval)
+                set_statistic_data("indig_num-indigenous-hero-state", "indig_num-indigenous-hero-state", 
                                 "australia_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
                                 traffic_light_code=obj.tlc(),
@@ -245,11 +269,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 use_dates=False,
                                 pval=pval)
                     )
-#    except LoaderException, e:
-#        raise e
-#    except Exception, e:
-#        raise LoaderException("Invalid file: %s" % unicode(e))
-        return messages
+    except LoaderException, e:
+        raise e
+    except Exception, e:
+        raise LoaderException("Invalid file: %s" % unicode(e))
+    return messages
 
 def read_cell(sheet, col, row, strip=False):
     cval = sheet["%s%d" % (col, row)].value
