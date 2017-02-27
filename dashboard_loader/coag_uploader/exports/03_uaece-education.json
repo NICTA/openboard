@@ -285,7 +285,7 @@
                                 "label": "Latest Year"
                             }
                         ], 
-                        "numeric_axis_label": "% enrollment", 
+                        "numeric_axis_label": "% enrolment", 
                         "graph_type": 2, 
                         "heading": "Access to quality early childhood education in the year before full-time school"
                     }, 
