@@ -152,7 +152,7 @@
                                 "label": "Projected"
                             }
                         ], 
-                        "numeric_axis_label": "Deaths per 100,000", 
+                        "numeric_axis_label": "{{ state_abbrev }} Deaths per 100,000", 
                         "graph_type": 1, 
                         "heading": ""
                     }, 
