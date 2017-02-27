@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'education_naplan_uploader',
     'education_participation_uploader',
     'education_ecenqs_uploader',
+    'education_uaece_uploader',
     'skills_cert3_uploader',
     'skills_higher_qual_uploader',
     'skills_improved_employment_uploader',
