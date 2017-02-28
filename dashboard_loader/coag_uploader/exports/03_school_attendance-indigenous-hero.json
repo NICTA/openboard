@@ -122,7 +122,7 @@
                                 "label": "Trajectory"
                             }
                         ], 
-                        "numeric_axis_label": "% students", 
+                        "numeric_axis_label": "% attendance rate", 
                         "graph_type": 2, 
                         "heading": ""
                     }, 

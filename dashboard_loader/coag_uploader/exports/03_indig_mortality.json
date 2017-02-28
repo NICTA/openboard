@@ -288,7 +288,7 @@
                         ], 
                         "numeric_axis_label": "Deaths per 100,000", 
                         "graph_type": 1, 
-                        "heading": "Age-standardised mortality rates for NSW, Qld, SA and NT combined"
+                        "heading": "Age-standardised mortality rates for NSW, Qld, WA, SA and NT combined"
                     }, 
                     "tile_type": 6, 
                     "geo_datasets": [], 

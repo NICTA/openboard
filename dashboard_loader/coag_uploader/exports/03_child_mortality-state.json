@@ -104,7 +104,7 @@
                                     "non_indigenous"
                                 ], 
                                 "sort_order": 200, 
-                                "label": "Aust"
+                                "label": "Total"
                             }
                         ], 
                         "columns": [
@@ -560,7 +560,7 @@
                             "url": "jurisdiction", 
                             "sort_order": 10, 
                             "heading": "Jurisdiction", 
-                            "description": "The Jurisdiction each row describes: A state or territory, or all of Australia."
+                            "description": "The Jurisdiction each row describes: A state or territory, or NSW, Qld, WA, SA and NT combined"
                         }, 
                         {
                             "url": "year", 
