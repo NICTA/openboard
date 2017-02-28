@@ -98,6 +98,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         latest = qry.last()
         set_statistic_data("remote_condition-housing-hero", "remote_condition-housing-hero",  
                         'reference', ref.percentage,
+                        traffic_light_code="new_indicator",
                         label=ref.year_display()
         )
         set_statistic_data("remote_condition-housing-hero", "remote_condition-housing-hero",  
@@ -107,6 +108,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         )
         set_statistic_data("housing_remote_condition", "housing_remote_condition",  
                         'reference', ref.percentage,
+                        traffic_light_code="new_indicator",
                         label=ref.year_display()
         )
         set_statistic_data("housing_remote_condition", "housing_remote_condition",  
