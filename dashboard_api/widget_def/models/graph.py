@@ -105,7 +105,7 @@ class GraphDefinition(models.Model):
                     (TIME, axis_types[TIME]),
                     (DATETIME, axis_types[DATETIME]),
                 ), default=0, help_text="The data-type for the horizontal axis. For line graphs only.")
-    vertical_axis_buffer = models.DecimalField(max_digits=3, decimal_places=0)
+    vertical_axis_buffer = models.DecimalField(default="0.0", max_digits=3, decimal_places=0)
     def widget(self):
         """Returns the widget this graph ultimately belongs to."""
         return self.tile.widget
