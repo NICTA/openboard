@@ -80,14 +80,11 @@ def apply_vertical_axis_buffer(graph, vmin, vmax):
         return (None, None)
     diff = vmax - vmin
     buff = diff * graph.vertical_axis_buffer / decimal.Decimal("100.0")
-    if vmin.is_signed():
-        if vmax.is_signed():
-            # vmin and vmax both -ve.
-            vmax = vmax + buff
-        else:
-            # Spans zero
-            pass
+    if vmin.is_signed() and not vmax.is_signed():
+        # Spans zero
+        pass
     else:
+        vmax = vmax + buff
         vmin = vmin - buff
     return vmin, vmax
 
