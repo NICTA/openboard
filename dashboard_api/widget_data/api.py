@@ -79,7 +79,7 @@ def apply_vertical_axis_buffer(graph, vmin, vmax):
     if vmin is None:
         return (None, None)
     diff = vmax - vmin
-    buff = diff * graph.vertical_axis_buffer
+    buff = diff * graph.vertical_axis_buffer / decimal.Decimal("100.0")
     if vmin.is_signed():
         if vmax.is_signed():
             # vmin and vmax both -ve.
