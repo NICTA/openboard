@@ -250,7 +250,7 @@ class GraphDefinition(models.Model):
         g.cluster_label = data.get("cluster_label", "cluster")
         g.dataset_label = data.get("dataset_label", "dataset")
         g.dynamic_clusters = data.get("dynamic_clusters", False)
-        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0")).quantize(Decimal(1)), rounding=ROUND_HALF_UP)
+        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0")).quantize(Decimal(1), rounding=ROUND_HALF_UP)
         g.save()
         GraphDisplayOptions.import_data(g, data.get("display_options"))
         cluster_urls = []
