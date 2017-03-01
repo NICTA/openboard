@@ -1,4 +1,4 @@
 django>=1.10.5,<2.0
-django-cors-headers>=2.02
+django-cors-headers>=2.0.2
 psycopg2>=2.6.2
 pytz>=2016.10
