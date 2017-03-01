@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015, 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -50,8 +50,13 @@ DATABASES = {
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED HOSTS must be set in production, eg:
+# ALLOWED_HOSTS = [ 'myserver.com.au', 'myserver_alternatename.com.au' ]
 ALLOWED_HOSTS = []
 
+# URL path used by Session Cookie and name of session cookie
+# SESSION_COOKIE_PATH = '/api/'
+# SESSION_COOKIE_NAME = 'openboard_sessionid'
 SESSION_COOKIE_PATH = "/api/"
 
 # CORS
@@ -74,11 +79,11 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Terria integration settings
 
-TERRIA_TOP_LEVEL_MENU = "My Dashboard Datasets"
-TERRIA_LAYER_OPACITY = 0.9
-TERRIA_BASE_MAP_NAME = "Positron (Light)"
-TERRIA_CORS_DOMAINS = [ "www.yourfrontend.website.url", ]
-TERRIA_API_BASE = [ "https://www.yourfrontend.website.url", ]
+# TERRIA_TOP_LEVEL_MENU = "My Dashboard Datasets"
+# TERRIA_LAYER_OPACITY = 0.9
+# TERRIA_BASE_MAP_NAME = "Positron (Light)"
+# TERRIA_CORS_DOMAINS = [ "www.yourfrontend.website.url", ]
+# TERRIA_API_BASE = [ "https://www.yourfrontend.website.url", ]
 
-# Allow Public access to API (for themes that are marked as not requiring auth
-PUBLIC_API_ACCESS = False
+# Allow Public access to API (for themes that are marked as not requiring auth)
+PUBLIC_API_ACCESS = True
