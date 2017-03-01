@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -233,7 +233,8 @@ class GraphAdmin(admin.ModelAdmin):
         ('Numeric Axes', {
             'fields': ('numeric_axis_label', 'numeric_axis_always_show_zero',
                     'use_secondary_numeric_axis',
-                    'secondary_numeric_axis_label', 'secondary_numeric_axis_always_show_zero',),
+                    'secondary_numeric_axis_label', 'secondary_numeric_axis_always_show_zero',
+                    'vertical_axis_buffer'),
             'description': 'Not used for Pie Charts',
             'classes': ('collapse',),
          }),

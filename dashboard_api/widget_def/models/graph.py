@@ -105,7 +105,7 @@ class GraphDefinition(models.Model):
                     (TIME, axis_types[TIME]),
                     (DATETIME, axis_types[DATETIME]),
                 ), default=0, help_text="The data-type for the horizontal axis. For line graphs only.")
-    vertical_axis_buffer = models.DecimalField(max_digits=3, decimal_places=0)
+    vertical_axis_buffer = models.DecimalField(default="0", max_digits=3, decimal_places=0)
     def widget(self):
         """Returns the widget this graph ultimately belongs to."""
         return self.tile.widget
@@ -222,7 +222,7 @@ class GraphDefinition(models.Model):
             "dataset_label": self.dataset_label,
             "display_options": self.graphdisplayoptions.export(),
             "dynamic_clusters": self.dynamic_clusters,
-            "vertical_axis_buffer": self.vertical_axis_buffer,
+            "vertical_axis_buffer": int(self.vertical_axis_buffer),
             "clusters": [ c.export() for c in self.graphcluster_set.all() ],
             "datasets": [ d.export() for d in self.graphdataset_set.all() ],
         }
@@ -250,7 +250,7 @@ class GraphDefinition(models.Model):
         g.cluster_label = data.get("cluster_label", "cluster")
         g.dataset_label = data.get("dataset_label", "dataset")
         g.dynamic_clusters = data.get("dynamic_clusters", False)
-        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0.0")).quantize(Decimal(10)**(-1), rounding=ROUND_HALF_UP)
+        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0")).quantize(Decimal(1), rounding=ROUND_HALF_UP)
         g.save()
         GraphDisplayOptions.import_data(g, data.get("display_options"))
         cluster_urls = []
@@ -649,6 +649,7 @@ class GraphDataset(models.Model):
     use_secondary_numeric_axis = models.BooleanField(default=False, help_text="If true, data for this dataset are plotted against the graph's secondary numeric axis (which obviously must be defined). Not supported for pie charts.")
     use_error_bars = models.BooleanField(default=False, help_text="If true the data for this dataset will be accompanied by an upper and lower uncertainty limit, which may be plotted as error-bars. Not supported for pie charts.")
     hyperlink=models.URLField(blank=True, null=True, help_text="An optional external URL for this dataset to link to. (May be parametised)")
+    hide_from_legend=models.BooleanField(default=False, help_text="If true, this dataset will be suppressed from the legend.")
     sort_order=models.IntegerField(help_text="How to sort this dataset within the graph.")
     class Meta:
         unique_together = [("graph", "url"), ("graph", "sort_order"), ("graph", "label")]
@@ -666,6 +667,7 @@ class GraphDataset(models.Model):
             "hyperlink": self.hyperlink,
             "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
             "use_error_bars": self.use_error_bars,
+            "hide_from_legend": self.hide_from_legend
         }
     def __unicode__(self):
         return self.url
@@ -682,6 +684,7 @@ class GraphDataset(models.Model):
         d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
         d.use_error_bars = data.get("use_error_bars", False)
         d.dynamic_label = data.get("dynamic_label", False)
+        d.hide_from_legend = data.get("hide_from_legend", False)
         d.save()
     def __getstate__(self, view=None):
         state = {
@@ -690,6 +693,7 @@ class GraphDataset(models.Model):
             "colour": parametise_label(self.graph.tile.widget, view, self.colour),
             "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
             "dynamic_name_display": self.dynamic_label,
+            "hide_from_legend": self.hide_from_legend,
         }
         if self.graph.use_secondary_numeric_axis:
             if self.graph.graph_type == self.graph.LINE:
