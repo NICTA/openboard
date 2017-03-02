@@ -471,6 +471,13 @@ class GraphDisplayOptions(models.Model):
        triangle: Represent datapoints as small triangles.
        vertical-bars: Represent datapoints as vertical bars extending to the horizontal axis.
                 Produces line-graphs that look like histograms.
+
+    Pie options (for pie graphs only):
+        circle: Traditional circular pie graphs.
+        ring:   Modern-style donut graphs.
+        linear_horizontal: Like a stacked bar graph, where the total length of each bar is always the same.
+        linear_vertical: Like a stacked histogram, where the total height of each bar is always the same.
+        patchwork: A rectangular area divided into a patchwork of variable-sized regions. 
     """
     LINE_NONE = 0
     LINE_STRAIGHT = 1
@@ -494,8 +501,22 @@ class GraphDisplayOptions(models.Model):
             (POINT_TRIANGLE, point_options[POINT_TRIANGLE]),
             (POINT_VERTICAL_BARS, point_options[POINT_VERTICAL_BARS]),
     ]
+    PIE_CIRCLE = 0
+    PIE_RING = 1
+    PIE_LINEAR_HORIZ = 2
+    PIE_LINEAR_VERT = 3
+    PIE_PATCHWORK = 4
+    pie_options = [ "circle", "ring", "linear_horizontal", "linear_vertical", "patchwork" ]
+    pie_option_choices = [
+            (PIE_CIRCLE, pie_options[PIE_CIRCLE]),
+            (PIE_RING, pie_options[PIE_RING]),
+            (PIE_LINEAR_HORIZ, pie_options[PIE_LINEAR_HORIZ]),
+            (PIE_LINEAR_VERT, pie_options[PIE_LINEAR_VERT]),
+            (PIE_PATCHWORK, pie_options[PIE_PATCHWORK]),
+    ]
     lines = models.SmallIntegerField(choices=line_option_choices, default=LINE_NONE, help_text="For line graphs, how to display the lines between datapoints.")
     points = models.SmallIntegerField(choices=point_option_choices, default=POINT_NONE, help_text="For line graphs, how to display the datapoints.")
+    pie = models.SmallIntegerField(choices=pie_option_choices, default=PIE_CIRCLE, help_text="For pie charts, how to display the pie(s)")
     single_graph = models.BooleanField(default=True, help_text="If false a line graph with multiple datasets is to be displayed as a set of single dataset graphs and a bar chart or histogram is displayed as a set of separate histograms instead of a single clustered histogram. Not supported for pie charts.")
     rotates = models.BooleanField(default=False, help_text="Can only be true if single graph is false.  Rather than a set of graphs being displayed, a single graph is at a time, but the various graphs are gradually rotated through. Not supported for pie charts.")
     shaded = models.BooleanField(default=False, help_text="For line graphs only. If true, the area under the line is to be shaded. Cannot be set if lines=none.")
@@ -515,6 +536,7 @@ class GraphDisplayOptions(models.Model):
             do.lines = cls.LINE_NONE
         do.shaded = False
         do.points = cls.POINT_NONE
+        do.pie = cls.PIE_CIRCLE
         do.single_graph = True
         do.stacked = False
         do.point_colour_map = None
@@ -532,6 +554,7 @@ class GraphDisplayOptions(models.Model):
         do.shaded = data["shaded"]
         do.single_graph = data["single_graph"]
         do.rotates = data.get("rotates", False)
+        do.pie = data.get("pie", cls.PIE_CIRCLE)
         if data["point_colour_map"]:
             do.point_colour_map = PointColourMap.objects.get(label=data["point_colour_map"])
         else:
@@ -541,7 +564,8 @@ class GraphDisplayOptions(models.Model):
     def export(self):
         data = {
             "lines": self.lines,    
-            "points": self.points,    
+            "points": self.points,
+            "pie": self.pie,    
             "single_graph": self.single_graph,    
             "rotates": self.rotates,    
             "stacked": self.stacked,    
@@ -575,7 +599,9 @@ class GraphDisplayOptions(models.Model):
             if not self.single_graph:
                 data["rotates"] = self.rotates
         else:
-            data = {}
+            data = {
+                "pie": self.pie_options[self.pie],
+            }
         return data
     def clean(self):
         if self.graph.graph_type == GraphDefinition.LINE:
@@ -584,6 +610,7 @@ class GraphDisplayOptions(models.Model):
                 self.point_colour_map = None
             if self.single_graph:
                 self.rotates = False
+            self.pie = self.CIRCLE
         elif self.graph.graph_type in (GraphDefinition.HISTOGRAM, GraphDefinition.BAR):
             self.lines = self.LINE_NONE
             self.points = self.POINT_NONE
@@ -591,6 +618,7 @@ class GraphDisplayOptions(models.Model):
             self.point_colour_map = None
             if self.single_graph:
                 self.rotates = False
+            self.pie = self.CIRCLE
         else:
             self.lines = self.LINE_NONE
             self.points = self.POINT_NONE
