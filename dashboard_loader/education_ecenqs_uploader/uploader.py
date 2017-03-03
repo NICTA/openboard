@@ -103,7 +103,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "reference",
                     aust_data["ref"]["val"],
                     label=aust_data["ref"]["year"],
-                    traffic_light_code=aust_data["tlc"])
+                    traffic_light_code="new_indicator")
         set_statistic_data("ecenqs-education-hero", "ecenqs-education-hero", 
                     "meeting_nqs",
                     aust_data["latest"]["val"],
@@ -114,7 +114,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "reference",
                     aust_data["ref"]["val"],
                     label=aust_data["ref"]["year"],
-                    traffic_light_code=aust_data["tlc"])
+                    traffic_light_code="new_indicator")
         set_statistic_data("education_ecenqs", "education_ecenqs",
                     "meeting_nqs",
                     aust_data["latest"]["val"],
@@ -155,7 +155,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("ecenqs-education-hero-state", "ecenqs-education-hero-state", 
                         "reference",
                         aust_data["ref"]["val"],
-                        traffic_light_code=aust_data["tlc"],
+                        traffic_light_code="new_indicator",
                         pval=pval)
             set_statistic_data("ecenqs-education-hero-state", "ecenqs-education-hero-state", 
                         "meeting_nqs",
@@ -166,7 +166,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("ecenqs-education-hero-state", "ecenqs-education-hero-state", 
                         "reference_state",
                         state_data["ref"]["val"],
-                        traffic_light_code=state_data["tlc"],
+                        traffic_light_code="new_indicator",
                         pval=pval)
             set_statistic_data("ecenqs-education-hero-state", "ecenqs-education-hero-state", 
                         "meeting_nqs_state",
@@ -185,7 +185,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("education_ecenqs_state", "education_ecenqs_state",
                         "reference",
                         aust_data["ref"]["val"],
-                        traffic_light_code=aust_data["tlc"],
+                        traffic_light_code="new_indicator",
                         pval=pval)
             set_statistic_data("education_ecenqs_state", "education_ecenqs_state",
                         "meeting_nqs",
@@ -196,7 +196,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("education_ecenqs_state", "education_ecenqs_state",
                         "reference_state",
                         state_data["ref"]["val"],
-                        traffic_light_code=state_data["tlc"],
+                        traffic_light_code="new_indicator",
                         pval=pval)
             set_statistic_data("education_ecenqs_state", "education_ecenqs_state",
                         "meeting_nqs_state",

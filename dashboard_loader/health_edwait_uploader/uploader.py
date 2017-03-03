@@ -102,7 +102,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data('edwait-health-hero', 'edwait-health-hero',
                         'reference', aust_ref.treated_ontime,
                         label=aust_ref.year_display(),
-                        traffic_light_code=aust_tlc)
+                        traffic_light_code="new_indicator")
         set_statistic_data('edwait-health-hero', 'edwait-health-hero',
                         'latest', aust_latest.treated_ontime,
                         traffic_light_code=aust_tlc,
@@ -111,7 +111,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data("health_edwait", "health_edwait",
                         'reference', aust_ref.treated_ontime,
                         label=aust_ref.year_display(),
-                        traffic_light_code=aust_tlc)
+                        traffic_light_code="new_indicator")
         set_statistic_data("health_edwait", "health_edwait",
                         'latest', aust_latest.treated_ontime,
                         traffic_light_code=aust_tlc,
@@ -149,7 +149,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data(
                             "edwait-health-hero-state", "edwait-health-hero-state", 
                             'reference', aust_ref.treated_ontime,
-                            traffic_light_code=aust_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data(
                             "edwait-health-hero-state", "edwait-health-hero-state", 
@@ -160,7 +160,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data(
                             "edwait-health-hero-state", "edwait-health-hero-state", 
                             'reference_state', state_ref.treated_ontime,
-                            traffic_light_code=state_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data(
                             "edwait-health-hero-state", "edwait-health-hero-state", 
@@ -178,7 +178,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             pval=pval)
             set_statistic_data("health_edwait_state", "health_edwait_state",
                             'reference', aust_ref.treated_ontime,
-                            traffic_light_code=aust_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data("health_edwait_state", "health_edwait_state",
                             'latest', aust_latest.treated_ontime,
@@ -187,7 +187,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             pval=pval)
             set_statistic_data("health_edwait_state", "health_edwait_state",
                             'reference_state', state_ref.treated_ontime,
-                            traffic_light_code=state_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data("health_edwait_state", "health_edwait_state",
                             'latest_state', state_latest.treated_ontime,

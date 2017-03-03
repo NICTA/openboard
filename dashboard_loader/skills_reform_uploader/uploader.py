@@ -159,6 +159,7 @@ def load_skills_reform_progress_grid(wb, sheet_name, verbosity=0):
     last_assessment = None
     assessment_sort_order = 0
     perfind_sort_order = 0
+    blank_rows = 0
     while True:
         if not columns_mapped:
             for col in column_labels(1, sheet.max_column):
@@ -187,6 +188,11 @@ def load_skills_reform_progress_grid(wb, sheet_name, verbosity=0):
                     messages.append("Records written: %d" % records_written)
                 return messages
             if cval is None:
+                blank_rows += 1
+                if blank_rows > 100:
+                    if verbosity > 1:
+                        messages.append("Records written: %d" % records_written)
+                    return messages
                 continue
             cval=cval.strip()
             kwargs["assessment"]=cval

@@ -76,8 +76,8 @@ file_format = {
 }
 
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
-    messages = []
-    try:
+        messages = []
+#try:
         if verbosity > 0:
             messages.append("Loading workbook...")
         wb = load_workbook(fh, read_only=True)
@@ -269,11 +269,11 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 use_dates=False,
                                 pval=pval)
                     )
-    except LoaderException, e:
-        raise e
-    except Exception, e:
-        raise LoaderException("Invalid file: %s" % unicode(e))
-    return messages
+#except LoaderException, e:
+#        raise e
+#    except Exception, e:
+#        raise LoaderException("Invalid file: %s" % unicode(e))
+        return messages
 
 def read_cell(sheet, col, row, strip=False):
     cval = sheet["%s%d" % (col, row)].value
@@ -339,6 +339,8 @@ def load_naplan_grid(wb, sheet_name,
             try:
                 _subj = read_cell(sheet, subject_col, row, True)
                 _yrlvl= read_cell(sheet, year_level_col, row)
+                if not _subj and not _yrlvl:
+                    raise IndexError()
                 if _subj != subj or _yrlvl != year_level:
                     if subj and year_level:
                         # Write out accumulated objects
@@ -356,6 +358,8 @@ def load_naplan_grid(wb, sheet_name,
                     fldname = discriminators[cval]
                     for st, scol in state_cols.items():
                         objs[st][fldname]=read_cell(sheet, scol, row)
+                elif not cval:
+                    raise IndexError()
             except IndexError:
                 if subj and year_level:
                     # Write out accumulated objects

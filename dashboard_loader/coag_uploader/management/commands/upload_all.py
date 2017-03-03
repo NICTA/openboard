@@ -30,5 +30,6 @@ class Command(BaseCommand):
             if appname == "coag_uploader":
                 continue
             filename_base = appname.rsplit('_', 1)[0]
+            print >> self.stdout, "Uploading %s..." % appname
             management.call_command('upload_data', appname, os.path.join(appname, filename_base + ".xlsx"), "unused", verbosity=verbosity)
 

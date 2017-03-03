@@ -105,7 +105,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data('participation-education-hero', 'participation-education-hero',
                         'reference', aust_ref.engaged(),
                         label=aust_ref.year_display(),
-                        traffic_light_code=aust_tlc)
+                        traffic_light_code="new_indicator")
         set_statistic_data('participation-education-hero', 'participation-education-hero',
                         'latest', aust_latest.engaged(),
                         traffic_light_code=aust_tlc,
@@ -114,7 +114,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data('education_participation', 'education_participation',
                         'reference', aust_ref.engaged(),
                         label=aust_ref.year_display(),
-                        traffic_light_code=aust_tlc)
+                        traffic_light_code="new_indicator")
         set_statistic_data('education_participation', 'education_participation',
                         'latest', aust_latest.engaged(),
                         traffic_light_code=aust_tlc,
@@ -158,7 +158,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data(
                             'participation-education-hero-state', 'participation-education-hero-state',
                             'reference', aust_ref.engaged(),
-                            traffic_light_code=aust_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data(
                             'participation-education-hero-state', 'participation-education-hero-state',
@@ -169,7 +169,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data(
                             'participation-education-hero-state', 'participation-education-hero-state',
                             'reference_state', state_ref.engaged(),
-                            traffic_light_code=state_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data(
                             'participation-education-hero-state', 'participation-education-hero-state',
@@ -187,7 +187,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             pval=pval)
             set_statistic_data('education_participation_state', 'education_participation_state',
                             'reference', aust_ref.engaged(),
-                            traffic_light_code=aust_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data('education_participation_state', 'education_participation_state',
                             'latest', aust_latest.engaged(),
@@ -196,7 +196,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             pval=pval)
             set_statistic_data('education_participation_state', 'education_participation_state',
                             'reference_state', state_ref.engaged(),
-                            traffic_light_code=state_tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data('education_participation_state', 'education_participation_state',
                             'latest_state', state_latest.engaged(),

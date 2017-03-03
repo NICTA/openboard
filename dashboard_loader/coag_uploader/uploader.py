@@ -245,6 +245,8 @@ def load_progress_grid(wb, sheet_name, data_category, dataset, model,
             for fldname, col in column_map.items():
                 try:
                     cval = sheet["%s%d" % (col, row)].value
+                    if not cval:
+                        raise IndexError()
                 except IndexError:
                     if verbosity > 1:
                         messages.append("Records written: %d" % records_written)

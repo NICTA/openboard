@@ -112,7 +112,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data('social_participation-disability-hero', 'social_participation-disability-hero',
                         'ref_participation',
                         earliest_aust.percentage,
-                        traffic_light_code=tlc,
+                        traffic_light_code="new_indicator",
                         label=earliest_aust.year_display()
                         )
         set_statistic_data('social_participation-disability-hero', 'social_participation-disability-hero',
@@ -125,7 +125,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data("disability_social_participation", "disability_social_participation",
                         'ref_participation',
                         earliest_aust.percentage,
-                        traffic_light_code=tlc,
+                        traffic_light_code="new_indicator",
                         label=earliest_aust.year_display()
                         )
         set_statistic_data("disability_social_participation", "disability_social_participation",
@@ -180,7 +180,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
                             'ref_participation',
                             earliest_aust.percentage,
-                            traffic_light_code=tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
                             'curr_participation',
@@ -191,7 +191,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
                             'ref_participation_state',
                             earliest_state.percentage,
-                            traffic_light_code=tlc_state,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data('social_participation-disability-hero-state', 'social_participation-disability-hero-state',
                             'curr_participation_state',
@@ -211,7 +211,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
                             'ref_participation',
                             earliest_aust.percentage,
-                            traffic_light_code=tlc,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
                             'curr_participation',
@@ -222,7 +222,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
                             'ref_participation_state',
                             earliest_state.percentage,
-                            traffic_light_code=tlc_state,
+                            traffic_light_code="new_indicator",
                             pval=pval)
             set_statistic_data("disability_social_participation_state", "disability_social_participation_state",
                             'curr_participation_state',
