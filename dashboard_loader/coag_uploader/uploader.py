@@ -131,6 +131,7 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
             recs_written += 1
         zero_all_rows(rows)
         return recs_written
+    blank_rows = 0
     while True:
         try:
             first_cell=sheet["A%d" % row].value
@@ -176,6 +177,14 @@ def load_state_grid(wb, sheet_name, data_category, dataset, abort_on, model, fir
                         myr = _myr
                 except Exception, e:
                     pass
+        else:
+            blank_rows += 1
+            if blank_rows > 100:
+                if all_rows_found(rows, optional_rows, fld_defaults):
+                    records_written += write_record(rows, date, isfy, myr)
+                else:
+                    zero_all_rows(rows)
+                break
         matches = []
         if date or not use_dates:
             for col in column_labels(start_from_col, sheet.max_column):
@@ -576,6 +585,8 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
         if rawkey:
             key = key_lookup[rawkey.lower()]
         value = sheet["B%d" % row].value
+        if not rawkey and not value:
+            break
         if key == "status":
             status = None
             for sv in statuses.values():

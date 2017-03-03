@@ -105,7 +105,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data(
                         "indig_ece-indigenous-hero", "indig_ece-indigenous-hero", 
                         'non_indigenous',
-                        latest_aust.non_indigenous)
+                        latest_aust.non_indigenous,
+                        traffic_light_code="new_benchmark")
         set_statistic_data(
                         "indig_ece-indigenous-hero", "indig_ece-indigenous-hero", 
                         'indigenous',
@@ -114,7 +115,8 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data(
                         "indigenous_indig_ece", "indigenous_indig_ece",
                         'non_indigenous',
-                        latest_aust.non_indigenous)
+                        latest_aust.non_indigenous,
+                        traffic_light_code="new_benchmark")
         set_statistic_data(
                         "indigenous_indig_ece", "indigenous_indig_ece",
                         'indigenous',
