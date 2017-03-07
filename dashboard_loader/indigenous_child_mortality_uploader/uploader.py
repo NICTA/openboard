@@ -149,7 +149,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             "child_mortality-indigenous-hero-state", "child_mortality-indigenous-hero-state", 
                             "indigenous_child_mortality_state", "indigenous_child_mortality_state",
                             IndigenousChildMortalityStateData, [],
-                            override_status="no_trend_data",
+                            override_status="no_trajectory",
                             verbosity=verbosity))
         messages.extend(
                  update_my_national_graph(

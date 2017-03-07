@@ -463,7 +463,7 @@ benchmark_statuses = {
         "icon": "no",
     },
     "new_benchmark": {
-        "short": "New benchmark",
+        "short": "Baseline for target",
         "long": "There is no time series data available for this benchmark yet, so it is not possible to assess progress at this point.",
         "tlc": "new_benchmark",
         "icon": "unknown",
@@ -478,6 +478,12 @@ benchmark_statuses = {
         "short": "Mixed Results",
         "long": "This benchmark includes a suite of results, which have shown a variety of positive, negative and/or no change. It is not possible to form an overall traffic light assessment.",
         "tlc": "mixed_results",
+        "icon": "unknown",
+    },
+    "no_trajectory": {
+        "short": "No Trajectory",
+        "long": "This jurisdiction has not agreed to a trajectory to support this target.",
+        "tlc": "not_applicable",
         "icon": "unknown",
     },
 }
@@ -532,6 +538,14 @@ indicator_statuses = {
     },
     "no_trend_data": {
         "short": "No trend data",
+        "long": "This jurisdiction has not agreed to a trajectory to support this target.",
+        "tlc": "no_trend_data",
+        "incr_trend": 0,
+        "decr_trend": 0,
+        "icon": "unknown",
+    },
+    "no_trajectory": {
+        "short": "No trajectory",
         "long": "There is no time-series data available for this indicator, so it is not possible to assess progress.",
         "tlc": "no_trend_data",
         "incr_trend": 0,
@@ -773,17 +787,17 @@ txt_block_template = Template("""<div class="coag_description">
     </div>
     <div class="coag_desc_body">
         {% for body_elem in desc.body %}
-            <p>{{ body_elem }}</p>
+            <p>{{ body_elem|urlize }}</p>
         {% endfor %}
         {% for body_elem in additional_body %}
-            <p>{{ body_elem }}</p>
+            <p>{{ body_elem|urlize }}</p>
         {% endfor %}
         {% for inf_elem in desc.influences %}
             <p>
                 {% if forloop.first %}
                     <b>Influences:</b>
                 {% endif %}
-                {{ inf_elem }}
+                {{ inf_elem|urlize }}
             </p>
         {% endfor %}
         {% for other_elem in desc.other %}
@@ -796,7 +810,7 @@ txt_block_template = Template("""<div class="coag_description">
         {% endfor %}
         {% if state_content %}
             {% for sc_elem in state_content %}
-                <p>{{ sc_elem }}</p>
+                <p>{{ sc_elem|urlize }}</p>
             {% endfor %}
         {% endif %}
     </div>
@@ -806,7 +820,7 @@ txt_block_template = Template("""<div class="coag_description">
                 <p>Notes:</p>
                 <ol>
         {% endif %}
-                    <li>{{ note }}</li>
+                    <li>{{ note|urlize }}</li>
         {% if forloop.last %}
                 </ol>
             </div>
@@ -910,6 +924,7 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                     override_status=None,
                     restrict_states=None,
                     use_benchmark_tls=False,
+                    no_data_override=None,
                     status_func=None,
                     status_func_kwargs={},
                     verbosity=0):
@@ -951,7 +966,9 @@ def update_state_stats(wurl_hero, wlbl_hero, wurl_dtl, wlbl_dtl,
                         if status not in my_statuses:
                            my_statuses.append(status)
                     if len(my_statuses) == 0:
-                        if use_benchmark_tls:
+                        if no_data_override:
+                           status = no_data_override
+                        elif use_benchmark_tls:
                             status = "new_benchmark"
                         else:
                             status = "no_data"
