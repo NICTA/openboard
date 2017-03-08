@@ -111,7 +111,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data("uaece-education-hero", "uaece-education-hero", 
                         "target",
                         95,
-                        traffic_light_code="achieved")
+                        traffic_light_code="new_benchmark")
         set_statistic_data("education_uaece", "education_uaece",
                         "jurisdictions_met",
                         jurisdictions_met,
@@ -119,7 +119,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         set_statistic_data("education_uaece", "education_uaece",
                         "target",
                         95,
-                        traffic_light_code="achieved")
+                        traffic_light_code="new_benchmark")
         messages.extend(populate_national_graph("education_uaece", "education_uaece_detail_graph"))
         messages.extend(
                 populate_raw_data("education_uaece", "education_uaece",
@@ -147,7 +147,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("uaece-education-hero-state", "uaece-education-hero-state", 
                         "target",
                         95,
-                        traffic_light_code="achieved",
+                        traffic_light_code="new_benchmark",
                         pval=pval)
             set_statistic_data("education_uaece_state", "education_uaece_state",
                         "proportion_enrolled",
@@ -157,7 +157,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("education_uaece_state", "education_uaece_state",
                         "target",
                         95,
-                        traffic_light_code="achieved",
+                        traffic_light_code="new_benchmark",
                         pval=pval)
             messages.extend(populate_state_graph("education_uaece_state", "education_uaece_detail_graph", 
                             state_num,

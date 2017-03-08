@@ -109,7 +109,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         latest_aust = HealthDiabetesData.objects.filter(state=AUS).order_by("year").last()
         set_statistic_data("diabetes-health-hero", "diabetes-health-hero",  
                         'benchmark', 5.0,
-                        traffic_light_code="on_track"
+                        traffic_light_code="new_benchmark"
         )
         set_statistic_data("diabetes-health-hero", "diabetes-health-hero",  
                         'prevalence', 
@@ -119,7 +119,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         )
         set_statistic_data("health_diabetes", "health_diabetes",  
                         'benchmark', 5.0,
-                        traffic_light_code="on_track"
+                        traffic_light_code="new_benchmark"
         )
         set_statistic_data("health_diabetes", "health_diabetes",  
                         'prevalence', 
@@ -155,7 +155,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             latest_state = HealthDiabetesData.objects.filter(state=state_num).order_by("year").last()
             set_statistic_data("diabetes-health-hero-state", "diabetes-health-hero-state",  
                             'benchmark', 5.0,
-                            traffic_light_code="on_track",
+                            traffic_light_code="new_benchmark",
                             pval=pval
             )
             set_statistic_data("diabetes-health-hero-state", "diabetes-health-hero-state",  
@@ -174,7 +174,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             )
             set_statistic_data("health_diabetes_state", "health_diabetes_state",  
                             'benchmark', 5.0,
-                            traffic_light_code="on_track",
+                            traffic_light_code="new_benchmark",
                             pval=pval
             )
             set_statistic_data("health_diabetes_state", "health_diabetes_state",  
