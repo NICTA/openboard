@@ -610,7 +610,7 @@ class GraphDisplayOptions(models.Model):
                 self.point_colour_map = None
             if self.single_graph:
                 self.rotates = False
-            self.pie = self.CIRCLE
+            self.pie = self.PIE_CIRCLE
         elif self.graph.graph_type in (GraphDefinition.HISTOGRAM, GraphDefinition.BAR):
             self.lines = self.LINE_NONE
             self.points = self.POINT_NONE
@@ -618,7 +618,7 @@ class GraphDisplayOptions(models.Model):
             self.point_colour_map = None
             if self.single_graph:
                 self.rotates = False
-            self.pie = self.CIRCLE
+            self.pie = self.PIE_CIRCLE
         else:
             self.lines = self.LINE_NONE
             self.points = self.POINT_NONE
