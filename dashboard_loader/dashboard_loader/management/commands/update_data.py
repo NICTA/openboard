@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015,2017 NICTA, CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -25,13 +25,13 @@ class Command(BaseCommand):
         parser.add_argument("-f", "--force", action="store_true", default=False, dest="force", help="Force loader to run")
         parser.add_argument("-V", "--VERBOSE", action="store_true", default=False, dest="super_verbose", help="Maximum verbosity")
         parser.add_argument('app', nargs="*", type=unicode)
-    def handle(self, *args, **options):
+    def handle(self, **options):
         verbosity = int(options["verbosity"])
         if options["super_verbose"]:
             verbosity = 10
-        if args:
+        if options["app"]:
             apps = []
-            for arg in args:
+            for arg in options["app"]:
                 try:
                     app = Loader.objects.get(app=arg)
                     apps.append(app)
