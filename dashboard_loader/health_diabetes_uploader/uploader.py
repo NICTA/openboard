@@ -166,7 +166,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             pval=pval
             )
             if latest_state.percentage > Decimal("5.0"):
-                tlc = "not_on_track"
+                tlc = "not_met"
             else:
                 tlc = "on_track"
             set_statistic_data("diabetes-health-hero-state", "diabetes-health-hero-state",  
