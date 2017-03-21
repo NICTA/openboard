@@ -169,7 +169,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             state_4h_tlc, state_4h_trend = indicator_tlc_trend(state_ref.treated_within_4h, state_latest.treated_within_4h)
             state_24h_tlc, state_24h_trend = indicator_tlc_trend(state_ref.treated_over_24h, state_latest.treated_over_24h, want_increase=False)
             set_statistic_data('gpwait-health-hero-state', 'gpwait-health-hero-state',
-                        'within_4_hrs', aust_ref.treated_within_4h,
+                        'within_4_hrs', aust_latest.treated_within_4h,
                         trend=aust_4h_trend,
                         traffic_light_code=aust_4h_tlc,
                         pval=pval)
@@ -179,7 +179,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         trend=aust_24h_trend,
                         pval=pval)
             set_statistic_data('gpwait-health-hero-state', 'gpwait-health-hero-state',
-                        'within_4_hrs_state', state_ref.treated_within_4h,
+                        'within_4_hrs_state', state_latest.treated_within_4h,
                         trend=state_4h_trend,
                         traffic_light_code=state_4h_tlc,
                         pval=pval)
@@ -195,7 +195,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         'year_2', state_latest.year_display(),
                         pval=pval)
             set_statistic_data("health_gpwait_state", "health_gpwait_state",
-                        'within_4_hrs', aust_ref.treated_within_4h,
+                        'within_4_hrs', aust_latest.treated_within_4h,
                         trend=aust_4h_trend,
                         traffic_light_code=aust_4h_tlc,
                         pval=pval)
@@ -205,7 +205,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         trend=aust_24h_trend,
                         pval=pval)
             set_statistic_data("health_gpwait_state", "health_gpwait_state",
-                        'within_4_hrs_state', state_ref.treated_within_4h,
+                        'within_4_hrs_state', state_latest.treated_within_4h,
                         trend=state_4h_trend,
                         traffic_light_code=state_4h_tlc,
                         pval=pval)

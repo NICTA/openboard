@@ -442,7 +442,7 @@
                             }
                         ], 
                         "numeric_axis_label": "% of patients", 
-                        "graph_type": 1, 
+                        "graph_type": 2, 
                         "heading": "Patients treated within national benchmarks for emergency department waiting time"
                     }, 
                     "tile_type": 6, 
