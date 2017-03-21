@@ -191,7 +191,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
             set_statistic_data("health_diabetes_state", "health_diabetes_state",  
                             'prevalence_state', 
                             latest_state.percentage,
-                            traffic_light_code="on_track",
+                            traffic_light_code=tlc,
                             label=latest_state.state_display() + " " + latest_aust.year_display(),
                             pval=pval
             )
