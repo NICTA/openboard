@@ -119,7 +119,7 @@
                                 "url": "accommodation_state", 
                                 "colour": "{{ colour }}", 
                                 "dynamic_label": false, 
-                                "label": "Accommodation needs met ({{ state_abbrev }}"
+                                "label": "Accommodation needs met ({{ state_abbrev }})"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 

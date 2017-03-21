@@ -165,10 +165,14 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                             label="National " + latest_aust.year_display(),
                             pval=pval
             )
+            if latest_state.percentage > Decimal("5.0"):
+                tlc = "not_on_track"
+            else:
+                tlc = "on_track"
             set_statistic_data("diabetes-health-hero-state", "diabetes-health-hero-state",  
                             'prevalence_state', 
                             latest_state.percentage,
-                            traffic_light_code="on_track",
+                            traffic_light_code=tlc,
                             label=latest_state.state_display() + " " + latest_aust.year_display(),
                             pval=pval
             )

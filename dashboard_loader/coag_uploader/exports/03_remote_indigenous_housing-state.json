@@ -355,27 +355,27 @@
             ], 
             "views": [
                 {
-                    "sort_order": 150, 
+                    "sort_order": 170, 
                     "view": "housing_nsw"
                 }, 
                 {
-                    "sort_order": 150, 
+                    "sort_order": 170, 
                     "view": "housing_nt"
                 }, 
                 {
-                    "sort_order": 150, 
+                    "sort_order": 170, 
                     "view": "housing_qld"
                 }, 
                 {
-                    "sort_order": 150, 
+                    "sort_order": 170, 
                     "view": "housing_sa"
                 }, 
                 {
-                    "sort_order": 150, 
+                    "sort_order": 170, 
                     "view": "housing_tas"
                 }, 
                 {
-                    "sort_order": 150, 
+                    "sort_order": 170, 
                     "view": "housing_wa"
                 }
             ], 
