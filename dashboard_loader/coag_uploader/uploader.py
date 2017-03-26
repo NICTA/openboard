@@ -1080,7 +1080,5 @@ def indicator_status_tlc(val_1, val_2, uncertainty_1=None, uncertainty_2=None, e
 
 def indicator_tlc_trend(ref_val, val, ref_uncertainty=None, uncertainty=None, ref_rse=None, rse=None, want_increase=True):
     direction = cmp(ref_val, val)
-    if want_increase:
-        direction *= -1
     return (indicator_status_tlc(ref_val, val, ref_uncertainty, uncertainty, ref_rse, rse, want_increase), direction)
 
