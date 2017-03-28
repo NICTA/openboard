@@ -1,7 +1,7 @@
 {
     "category": "skills", 
     "edit_all_groups": [], 
-    "source_url_text": "www.ncver.edu.au", 
+    "source_url_text": "Data source: NCVER", 
     "subtitle": "Increase the number of higher level qualifications", 
     "subcategory": "summary", 
     "groups": [], 
@@ -125,7 +125,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.ncver.edu.au", 
+    "source_url": "",
     "name": "Skills"
 }
 

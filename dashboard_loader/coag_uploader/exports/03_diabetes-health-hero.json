@@ -1,7 +1,7 @@
 {
     "category": "health", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
+    "source_url_text": "Data source: ABS", 
     "subtitle": "Reduce the prevalence of Type 2 Diabetes", 
     "subcategory": "summary", 
     "groups": [], 
@@ -125,7 +125,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au", 
+    "source_url": "http://www.abs.gov.au/australianhealthsurvey",
     "name": "Health"
 }
 

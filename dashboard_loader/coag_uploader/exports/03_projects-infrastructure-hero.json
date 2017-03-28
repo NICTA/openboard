@@ -1,7 +1,7 @@
 {
     "category": "infrastructure", 
     "edit_all_groups": [], 
-    "source_url_text": "infrastructure.gov.au", 
+    "source_url_text": "Data source: DIRD",
     "subtitle": "Road and rail projects", 
     "subcategory": "summary", 
     "groups": [], 
@@ -147,7 +147,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://infrastructure.gov.au", 
+    "source_url": "",
     "name": "Infrastructure"
 }
 

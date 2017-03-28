@@ -1,7 +1,7 @@
 {
     "category": "education", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
+    "source_url_text": "Data source: ABS", 
     "subtitle": "Improve post school education, training and employment", 
     "subcategory": "summary", 
     "groups": [], 
@@ -332,7 +332,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.abs.gov.au", 
+    "source_url": "http://www.abs.gov.au/Ausstats/abs@.nsf/0/CD2CE1EB2959AD07CA25750C000EF95F?OpenDocument",
     "name": "Education"
 }
 

@@ -1,7 +1,7 @@
 {
     "category": "housing", 
     "edit_all_groups": [], 
-    "source_url_text": "AIHW", 
+    "source_url_text": "Data source: AIHW", 
     "subtitle": "(Homelessness) Accommodation and services needs met", 
     "subcategory": "summary", 
     "groups": [], 
@@ -204,7 +204,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "https://www.aihw.gov.au/", 
+    "source_url": "https://www.aihw.gov.au/shsc", 
     "name": "Housing"
 }
 

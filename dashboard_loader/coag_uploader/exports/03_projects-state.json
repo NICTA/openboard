@@ -1,7 +1,7 @@
 {
     "category": "infrastructure", 
     "edit_all_groups": [], 
-    "source_url_text": "infrastructure.gov.au", 
+    "source_url_text": "Data source: DIRD",
     "subtitle": "Road and rail projects", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
@@ -613,7 +613,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://infrastructure.gov.au", 
+    "source_url": "",
     "name": "National Partnership Agreement on Land Transport Infrastructure Projects"
 }
 

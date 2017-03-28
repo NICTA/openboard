@@ -1,7 +1,7 @@
 {
     "category": "skills", 
     "edit_all_groups": [], 
-    "source_url_text": "www.ncver.edu.au", 
+    "source_url_text": "Data source: NCVER", 
     "subtitle": "Increase the number of higher level qualifications", 
     "subcategory": "national agreement", 
     "groups": [], 
@@ -605,7 +605,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.ncver.edu.au", 
+    "source_url": "",
     "name": "National Agreement for Skills and Workforce Development"
 }
 

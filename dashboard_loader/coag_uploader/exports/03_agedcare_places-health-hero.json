@@ -1,7 +1,7 @@
 {
     "category": "health", 
     "edit_all_groups": [], 
-    "source_url_text": "www.dss.gov.au", 
+    "source_url_text": "Data source: DSS",
     "subtitle": "Aged care places per 1,000 older people", 
     "subcategory": "summary", 
     "groups": [], 
@@ -115,7 +115,7 @@
             "deexpansion_hint": ""
         }
     ], 
-    "source_url": "http://www.dss.gov.au", 
+    "source_url": "", 
     "name": "Health"
 }
 

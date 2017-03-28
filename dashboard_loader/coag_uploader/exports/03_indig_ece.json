@@ -1,7 +1,7 @@
 {
     "category": "indigenous", 
     "edit_all_groups": [], 
-    "source_url_text": "www.abs.gov.au", 
+    "source_url_text": "Data source: ABS", 
     "subtitle": "Enrolment in early childhood education", 
     "subcategory": "national agreement", 
     "groups": [], 
@@ -462,7 +462,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.abs.gov.au", 
+    "source_url": "http://www.abs.gov.au/ausstats/abs@.nsf/mf/4240.0",
     "name": "National Indigenous Reform Agreement"
 }
 

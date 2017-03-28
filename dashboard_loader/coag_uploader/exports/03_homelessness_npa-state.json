@@ -1,7 +1,7 @@
 {
     "category": "housing", 
     "edit_all_groups": [], 
-    "source_url_text": "AIHW", 
+    "source_url_text": "Data source: AIHW", 
     "subtitle": "(Homelessness) Accommodation and services needs met", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
@@ -851,7 +851,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.aihw.gov.au/", 
+    "source_url": "http://www.aihw.gov.au/shsc", 
     "name": "National Partnership Agreement on Homelessness"
 }
 

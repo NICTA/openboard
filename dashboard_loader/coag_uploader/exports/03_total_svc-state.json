@@ -1,7 +1,7 @@
 {
     "category": "legal assistance", 
     "edit_all_groups": [], 
-    "source_url_text": "www.ag.gov.au", 
+    "source_url_text": "Data source: Attorney General's Department",
     "subtitle": "Targeting of legal representation services to financially disadvantaged people", 
     "subcategory": "national partnership agreement", 
     "groups": [], 
@@ -563,7 +563,7 @@
             "deexpansion_hint": "View less"
         }
     ], 
-    "source_url": "http://www.ag.gov.au", 
+    "source_url": "",
     "name": "National Partnership Agreement on Legal Assistance Services"
 }
 
