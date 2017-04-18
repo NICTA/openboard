@@ -117,12 +117,12 @@
                         ], 
                         "columns": [
                             {
-                                "sort_order": 100, 
-                                "label": "Within 4 hrs"
+                                "sort_order": 110, 
+                                "label": "Treated within 4 hrs"
                             }, 
                             {
-                                "sort_order": 200, 
-                                "label": "Over 24 hrs"
+                                "sort_order": 210, 
+                                "label": "Not treated within 24 hrs"
                             }
                         ], 
                         "show_row_headers": true
@@ -186,7 +186,7 @@
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
-                            "unit_underfix": "", 
+                            "unit_underfix": "of patients", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": "%", 
@@ -208,7 +208,7 @@
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
-                            "unit_underfix": "", 
+                            "unit_underfix": "of patients", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": "%", 
@@ -230,7 +230,7 @@
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
-                            "unit_underfix": "", 
+                            "unit_underfix": "of patients", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": "%", 
@@ -252,7 +252,7 @@
                             "name_as_label": true, 
                             "trend": true, 
                             "traffic_light_scale": "Indicator Scale", 
-                            "unit_underfix": "", 
+                            "unit_underfix": "of patients", 
                             "unit_signed": false, 
                             "unit_si_prefix_rounding": 0, 
                             "unit_suffix": "%", 

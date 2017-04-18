@@ -108,22 +108,22 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         aust_24h_tlc, aust_24h_trend = indicator_tlc_trend(aust_ref.treated_over_24h, aust_latest.treated_over_24h, want_increase=False)
         set_statistic_data('gpwait-health-hero', 'gpwait-health-hero',
                         'within_4_hrs', aust_latest.treated_within_4h,
-                        label="Within 4 hrs (%s)" % aust_latest.year_display(),
+                        label="Treated within 4 hrs (%s)" % aust_latest.year_display(),
                         trend=aust_4h_trend,
                         traffic_light_code=aust_4h_tlc)
         set_statistic_data('gpwait-health-hero', 'gpwait-health-hero',
                         'over_24_hrs', aust_latest.treated_over_24h,
-                        label="Over 24 hrs (%s)" % aust_latest.year_display(),
+                        label="Not treated within 24 hrs (%s)" % aust_latest.year_display(),
                         traffic_light_code=aust_24h_tlc,
                         trend=aust_24h_trend)
         set_statistic_data("health_gpwait", "health_gpwait",
                         'within_4_hrs', aust_latest.treated_within_4h,
-                        label="Within 4 hrs (%s)" % aust_latest.year_display(),
+                        label="Treated within 4 hrs (%s)" % aust_latest.year_display(),
                         trend=aust_4h_trend,
                         traffic_light_code=aust_4h_tlc)
         set_statistic_data("health_gpwait", "health_gpwait",
                         'over_24_hrs', aust_latest.treated_over_24h,
-                        label="Over 24 hrs (%s)" % aust_latest.year_display(),
+                        label="Not treated within 24 hrs (%s)" % aust_latest.year_display(),
                         traffic_light_code=aust_24h_tlc,
                         trend=aust_24h_trend)
         messages.extend(
