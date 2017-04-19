@@ -583,6 +583,8 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
         "nt": "nt",
         "australia": "australia",
         "aust": "australia",
+        "further info text": "further_info_txt",
+        "further info url": "further_info_url"
     }
     sheet = wb[sheetname]
     desc = {}
@@ -618,6 +620,14 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
             desc["measure"] = value
         elif key == "short_title":
             desc["short_title"] = value
+        elif key == "further_info_txt":
+            desc["further_info_txt"] = []
+            append_to = desc["further_info_txt"]
+            key = None
+        elif key == "further_info_url":
+            desc["further_info_url"] = []
+            append_to = desc["further_info_url"] 
+            key = None
         elif key == "body":
             desc["body"] = []
             append_to = desc["body"]
@@ -646,6 +656,8 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
         if not key and value:
             append_to.append(value)
         row += 1
+    if "further_info_txt" in desc:
+        desc["further_info"] = zip(desc["further_info_txt"], desc["further_info_url"])
     return desc
 
 def populate_raw_data(widget_url, label, rds_url,
@@ -812,6 +824,19 @@ txt_block_template = Template("""<div class="coag_description">
             {% for sc_elem in state_content %}
                 <p>{{ sc_elem|urlize }}</p>
             {% endfor %}
+        {% endif %}
+        {% if desc.further_info %}
+            <p><b>For futher info see:</b>
+                {% for txt, url in desc.further_info %}
+                    {% if url != "null" %}
+                        <a href="{{ url }}">
+                    {% endif %}
+                    {{ txt }}
+                    {% if url != "null" %}
+                        </a>
+                    {% endif %}
+                    </p>{% if not forloop.last %}<p>{% endif %}
+                {% endfor %}
         {% endif %}
     </div>
     {% for note in desc.notes %}
