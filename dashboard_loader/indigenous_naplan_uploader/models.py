@@ -53,7 +53,7 @@ class IndigenousNaplanData(CoagProgressBase):
         if self.on_track():
             return "on_track"
         else:
-            return "not_met"
+            return "not_on_track"
     class Meta(CoagProgressBase.Meta):
         unique_together=[
             ('state', 'subject', 'year_lvl'),
