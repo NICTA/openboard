@@ -131,27 +131,27 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         for obj in IndigenousNaplanData.objects.filter(subject=READING, state=AUS):
             set_statistic_data("indig_lit-indigenous-hero", "indig_lit-indigenous-hero", 
                             "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
-                            traffic_light_code=obj.tlc())
+                            traffic_light_code=obj.grid_tlc())
             set_statistic_data("indigenous_indig_lit", "indigenous_indig_lit", 
                             "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
-                            traffic_light_code=obj.tlc())
+                            traffic_light_code=obj.grid_tlc())
         for obj in IndigenousNaplanData.objects.filter(subject=READING):
             set_statistic_data("indigenous_indig_lit", "indigenous_indig_lit", 
                             "%s_year_%d" % (obj.state_display().lower(), obj.year_lvl), 
                             obj.indig_proportion_above_nms,
-                            traffic_light_code=obj.tlc())
+                            traffic_light_code=obj.grid_tlc())
         for obj in IndigenousNaplanData.objects.filter(subject=NUMERACY, state=AUS):
             set_statistic_data("indig_num-indigenous-hero", "indig_num-indigenous-hero", 
                             "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
-                            traffic_light_code=obj.tlc())
+                            traffic_light_code=obj.grid_tlc())
             set_statistic_data("indigenous_indig_num", "indigenous_indig_num", 
                             "year_%d" % obj.year_lvl, "Year %d" % obj.year_lvl,
-                            traffic_light_code=obj.tlc())
+                            traffic_light_code=obj.grid_tlc())
         for obj in IndigenousNaplanData.objects.filter(subject=NUMERACY):
             set_statistic_data("indigenous_indig_num", "indigenous_indig_num", 
                             "%s_year_%d" % (obj.state_display().lower(), obj.year_lvl), 
                             obj.indig_proportion_above_nms,
-                            traffic_light_code=obj.tlc())
+                            traffic_light_code=obj.grid_tlc())
         messages.extend(
                 populate_raw_data(
                             "indigenous_indig_num", "indigenous_indig_num", 
@@ -183,65 +183,65 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                 set_statistic_data("indig_lit-indigenous-hero-state", "indig_lit-indigenous-hero-state", 
                                 "state_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
                                 "state_year_%ds" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
                                 "state_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
             for obj in IndigenousNaplanData.objects.filter(subject=READING, state=AUS):
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
                                 "australia_year_%ds" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_lit_state", "indigenous_indig_lit_state", 
                                 "australia_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indig_lit-indigenous-hero-state", "indig_lit-indigenous-hero-state", 
                                 "australia_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
             for obj in IndigenousNaplanData.objects.filter(subject=NUMERACY, state=state_num):
                 set_statistic_data("indig_num-indigenous-hero-state", "indig_num-indigenous-hero-state", 
                                 "state_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
                                 "state_year_%ds" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
                                 "state_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
             for obj in IndigenousNaplanData.objects.filter(subject=NUMERACY, state=AUS):
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
                                 "australia_year_%ds" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indigenous_indig_num_state", "indigenous_indig_num_state", 
                                 "australia_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
                 set_statistic_data("indig_num-indigenous-hero-state", "indig_num-indigenous-hero-state", 
                                 "australia_year_%d" % obj.year_lvl, 
                                 obj.indig_proportion_above_nms,
-                                traffic_light_code=obj.tlc(),
+                                traffic_light_code=obj.grid_tlc(),
                                 pval=pval)
             messages.extend(
                     populate_raw_data(

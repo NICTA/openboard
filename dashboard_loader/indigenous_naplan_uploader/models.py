@@ -54,6 +54,11 @@ class IndigenousNaplanData(CoagProgressBase):
             return "on_track"
         else:
             return "not_on_track"
+    def grid_tlc(self):
+        if self.on_track():
+            return "on_track"
+        else:
+            return "not_met"
     class Meta(CoagProgressBase.Meta):
         unique_together=[
             ('state', 'subject', 'year_lvl'),
