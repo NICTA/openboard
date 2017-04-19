@@ -291,6 +291,10 @@
                 {
                     "sort_order": 170, 
                     "view": "housing"
+                },
+                {
+                    "sort_order": 45, 
+                    "view": "indigenous"
                 }
             ], 
             "default_frequency_text": "Annual", 

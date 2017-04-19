@@ -377,6 +377,30 @@
                 {
                     "sort_order": 170, 
                     "view": "housing_wa"
+                },
+                {
+                    "sort_order": 140, 
+                    "view": "indigenous_nsw"
+                }, 
+                {
+                    "sort_order": 140, 
+                    "view": "indigenous_nt"
+                }, 
+                {
+                    "sort_order": 140, 
+                    "view": "indigenous_qld"
+                }, 
+                {
+                    "sort_order": 140, 
+                    "view": "indigenous_sa"
+                }, 
+                {
+                    "sort_order": 140, 
+                    "view": "indigenous_tas"
+                }, 
+                {
+                    "sort_order": 140, 
+                    "view": "indigenous_wa"
                 }
             ], 
             "default_frequency_text": "Annual", 
