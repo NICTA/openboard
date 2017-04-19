@@ -191,7 +191,7 @@
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 1, 
+                            "lines": 0, 
                             "points": 0, 
                             "rotates": false
                         }, 
@@ -200,104 +200,89 @@
                         "horiz_axis_label": "", 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "dataset", 
-                        "clusters": [], 
+                        "clusters": [
+                            {
+                                "sort_order": 100, 
+                                "hyperlink": "", 
+                                "url": "nsw", 
+                                "label": "NSW"
+                            }, 
+                            {
+                                "sort_order": 200, 
+                                "hyperlink": "", 
+                                "url": "vic", 
+                                "label": "Vic"
+                            }, 
+                            {
+                                "sort_order": 300, 
+                                "hyperlink": "", 
+                                "url": "qld", 
+                                "label": "Qld"
+                            }, 
+                            {
+                                "sort_order": 400, 
+                                "hyperlink": "", 
+                                "url": "wa", 
+                                "label": "WA"
+                            }, 
+                            {
+                                "sort_order": 500, 
+                                "hyperlink": "", 
+                                "url": "sa", 
+                                "label": "SA"
+                            }, 
+                            {
+                                "sort_order": 600, 
+                                "hyperlink": "", 
+                                "url": "tas", 
+                                "label": "Tas"
+                            }, 
+                            {
+                                "sort_order": 700, 
+                                "hyperlink": "", 
+                                "url": "act", 
+                                "label": "ACT"
+                            }, 
+                            {
+                                "sort_order": 800, 
+                                "hyperlink": "", 
+                                "url": "nt", 
+                                "label": "NT"
+                            }, 
+                            {
+                                "sort_order": 900, 
+                                "hyperlink": "", 
+                                "url": "australia", 
+                                "label": "Aust"
+                            }
+                        ], 
                         "cluster_label": "cluster", 
                         "dynamic_clusters": false, 
                         "horiz_axis_type": 2, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
-                                "sort_order": 100, 
+                                "sort_order": 110, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "nsw", 
-                                "colour": "pale_blue-solid", 
-                                "dynamic_label": false, 
-                                "label": "NSW"
+                                "url": "reference", 
+                                "colour": "orange", 
+                                "dynamic_label": true, 
+                                "label": "Reference Year"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
-                                "sort_order": 200, 
+                                "sort_order": 210, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "vic", 
-                                "colour": "dark_blue-solid", 
-                                "dynamic_label": false, 
-                                "label": "Vic"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 300, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "qld", 
-                                "colour": "purple-solid", 
-                                "dynamic_label": false, 
-                                "label": "Qld"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 400, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "wa", 
-                                "colour": "gold-solid", 
-                                "dynamic_label": false, 
-                                "label": "WA"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 500, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "sa", 
-                                "colour": "orange-solid", 
-                                "dynamic_label": false, 
-                                "label": "SA"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 600, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "tas", 
-                                "colour": "dark_green-solid", 
-                                "dynamic_label": false, 
-                                "label": "Tas"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 700, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "act", 
-                                "colour": "blue-solid", 
-                                "dynamic_label": false, 
-                                "label": "ACT"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 800, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "nt", 
-                                "colour": "brown-solid", 
-                                "dynamic_label": false, 
-                                "label": "NT"
-                            }, 
-                            {
-                                "use_secondary_numeric_axis": false, 
-                                "sort_order": 900, 
-                                "use_error_bars": false, 
-                                "hyperlink": "", 
-                                "url": "australia", 
-                                "colour": "green-solid", 
-                                "dynamic_label": false, 
-                                "label": "Aust"
+                                "url": "latest_year", 
+                                "colour": "purple", 
+                                "dynamic_label": true, 
+                                "label": "Latest Year"
                             }
                         ], 
                         "numeric_axis_label": "% of school leavers", 
-                        "graph_type": 1, 
+                        "graph_type": 2, 
                         "heading": "School leavers aged 17-24 years who are fully engaging in education, training and/or employment"
                     }, 
                     "tile_type": 6, 

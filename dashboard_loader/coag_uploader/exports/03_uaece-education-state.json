@@ -265,7 +265,7 @@
                             "stacked": false, 
                             "single_graph": true, 
                             "point_colour_map": null, 
-                            "lines": 1, 
+                            "lines": 0, 
                             "points": 0, 
                             "rotates": false
                         }, 
@@ -274,34 +274,51 @@
                         "horiz_axis_label": null, 
                         "use_secondary_numeric_axis": false, 
                         "dataset_label": "", 
-                        "clusters": [], 
+                        "clusters": [
+                            {
+                                "url": "state",
+                                "hyperlink": "",
+                                "sort_order": 100,
+                                "label": "{{ state_abbrev }}"
+                            }
+                        ], 
                         "cluster_label": "", 
                         "dynamic_clusters": false, 
                         "horiz_axis_type": 2, 
                         "datasets": [
                             {
                                 "use_secondary_numeric_axis": false, 
-                                "sort_order": 100, 
+                                "sort_order": 110, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "state", 
-                                "colour": "{{ colour }}-solid", 
-                                "dynamic_label": false, 
-                                "label": "{{ state_abbrev }}"
+                                "url": "reference", 
+                                "colour": "orange", 
+                                "dynamic_label": true, 
+                                "label": "Reference Year"
                             }, 
                             {
                                 "use_secondary_numeric_axis": false, 
-                                "sort_order": 200, 
+                                "sort_order": 210, 
                                 "use_error_bars": false, 
                                 "hyperlink": "", 
-                                "url": "benchmark_state", 
-                                "colour": "{{ colour }}-dotted", 
-                                "dynamic_label": false, 
-                                "label": "Benchmark"
+                                "url": "recent", 
+                                "colour": "purple", 
+                                "dynamic_label": true, 
+                                "label": "Recent Year"
+                            },
+                            {
+                                "use_secondary_numeric_axis": false, 
+                                "sort_order": 310, 
+                                "use_error_bars": false, 
+                                "hyperlink": "", 
+                                "url": "latest", 
+                                "colour": "blue", 
+                                "dynamic_label": true, 
+                                "label": "Latest Year"
                             }
                         ], 
                         "numeric_axis_label": "% children enrolled", 
-                        "graph_type": 1, 
+                        "graph_type": 2, 
                         "heading": "Access to quality early childhood education in the year before full-time school"
                     }, 
                     "tile_type": 6, 

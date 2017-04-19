@@ -121,12 +121,10 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         label=aust_latest.year_display(),
                         trend=aust_trend)
         messages.extend(
-                update_graph_data(
+                update_my_graph(
                             'education_participation', 'education_participation',
                             "education_participation_detail_graph",
-                            EducationParticipationData, "engaged",
-                            use_error_bars=False,
-                            verbosity=verbosity)
+                            aust_ref, aust_latest, verbosity=verbosity)
         )
         messages.extend(
                 populate_raw_data('education_participation', 'education_participation',
@@ -242,6 +240,20 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise e
     except Exception, e:
         raise LoaderException("Invalid file: %s" % unicode(e))
+    return messages
+
+def update_my_graph(wurl, wlbl, graph, aref, alat, verbosity=0):
+    messages = []
+    g = get_graph(wurl, wlbl, graph)
+    clear_graph_data(g)
+    for o in EducationParticipationData.objects.filter(year__in=(aref.year,alat.year)).order_by("state", "year"):
+        if o.year == aref.year:
+            ds="reference"
+        else:
+            ds="latest_year"
+        add_graph_data(g, ds, o.engaged(), cluster=o.state_display().lower())
+    set_dataset_override(g, "reference", aref.year_display())
+    set_dataset_override(g, "latest_year", alat.year_display())
     return messages
 
 def update_my_state_graph(wurl, wlbl, graph, 

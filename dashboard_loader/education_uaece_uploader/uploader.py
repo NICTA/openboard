@@ -120,7 +120,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         "target",
                         95,
                         traffic_light_code="new_benchmark")
-        messages.extend(populate_national_graph("education_uaece", "education_uaece_detail_graph"))
+        messages.extend(populate_my_graph("education_uaece", "education_uaece_detail_graph"))
         messages.extend(
                 populate_raw_data("education_uaece", "education_uaece",
                                 "education_uaece", AccessEceData,
@@ -159,7 +159,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         95,
                         traffic_light_code="new_benchmark",
                         pval=pval)
-            messages.extend(populate_state_graph("education_uaece_state", "education_uaece_detail_graph", 
+            messages.extend(populate_my_graph("education_uaece_state", "education_uaece_detail_graph", 
                             state_num,
                             pval=pval))
             messages.extend(
@@ -184,27 +184,27 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
         raise LoaderException("Invalid file: %s" % unicode(e))
     return messages
 
-def populate_national_graph(wurl, graph):
+def populate_my_graph(wurl, graph, state_num=None, pval=None):
     messages = []
     g = get_graph(wurl, wurl, graph)
-    clear_graph_data(g)
+    clear_graph_data(g, pval=pval)
     year_map = {
         2008: "reference",
         2014: "recent",
         2015: "latest"
     }
-    for o in AccessEceData.objects.all():
+    if pval:
+        qry = AccessEceData.objects.filter(state=state_num)
+    else:
+        qry = AccessEceData.objects.all()
+    for o in qry:
+        if pval:
+            cluster = "state"
+        else:
+            cluster = o.state_display().lower()
         if o.year in year_map:
-            add_graph_data(g, year_map[o.year], o.enrolled, cluster=o.state_display().lower())
+            add_graph_data(g, year_map[o.year], o.enrolled, cluster=cluster)
     for y, ds in year_map.items():
         set_dataset_override(g, ds, unicode(y))
     return messages
 
-def populate_state_graph(wurl, graph, state_num, pval=None):
-    messages = []
-    g = get_graph(wurl, wurl, graph)
-    clear_graph_data(g, pval=pval)
-    for o in AccessEceData.objects.filter(state=state_num):
-        add_graph_data(g, "state", o.enrolled, horiz_value=o.year_as_date(), pval=pval)
-        add_graph_data(g, "benchmark_state", 95, horiz_value=o.year_as_date(), pval=pval)
-    return messages
