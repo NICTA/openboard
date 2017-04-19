@@ -125,12 +125,6 @@
                     "sort_order": 130, 
                     "child_view_text": "See all", 
                     "view": "aus"
-                },
-                {
-                    "child_view": "indigenous", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "aus"
                 }
             ], 
             "default_frequency_text": "Annual", 

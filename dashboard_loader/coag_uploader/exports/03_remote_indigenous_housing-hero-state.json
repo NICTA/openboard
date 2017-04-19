@@ -202,42 +202,6 @@
                     "sort_order": 130, 
                     "child_view_text": "See all", 
                     "view": "wa"
-                },
-                {
-                    "child_view": "indigenous_nsw", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "nsw"
-                }, 
-                {
-                    "child_view": "indigenous_nt", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "nt"
-                }, 
-                {
-                    "child_view": "indigenous_sa", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "sa"
-                }, 
-                {
-                    "child_view": "indigenous_qld", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "qld"
-                }, 
-                {
-                    "child_view": "indigenous_tas", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "tas"
-                }, 
-                {
-                    "child_view": "indigenous_wa", 
-                    "sort_order": 640, 
-                    "child_view_text": "See all", 
-                    "view": "wa"
                 }
             ], 
             "default_frequency_text": "Annual", 
