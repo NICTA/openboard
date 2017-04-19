@@ -160,7 +160,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                         traffic_light_code="new_benchmark",
                         pval=pval)
             messages.extend(populate_my_graph("education_uaece_state", "education_uaece_detail_graph", 
-                            state_num,
+                            state_num=state_num,
                             pval=pval))
             messages.extend(
                     populate_raw_data("education_uaece_state", "education_uaece_state",
@@ -203,7 +203,8 @@ def populate_my_graph(wurl, graph, state_num=None, pval=None):
         else:
             cluster = o.state_display().lower()
         if o.year in year_map:
-            add_graph_data(g, year_map[o.year], o.enrolled, cluster=cluster)
+            add_graph_data(g, year_map[o.year], o.enrolled, cluster=cluster, pval=pval)
+        else:
     for y, ds in year_map.items():
         set_dataset_override(g, ds, unicode(y))
     return messages
