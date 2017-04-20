@@ -101,9 +101,9 @@ class OpenboardAPIView(View):
             if self.view:
                 self.check_view()
             self.check_request(request)
+            json_data = self.api_method(request)
         except OpenboardAPIException, e:
             return e.response
-        json_data = self.api_method(request)
         if isinstance(json_data, HttpResponse):
             return json_data
         else:

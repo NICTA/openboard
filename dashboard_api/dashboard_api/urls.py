@@ -36,6 +36,9 @@ urlpatterns = [
 
     # Main API view for obtaining view definition (including widgets)
     url(r'^view/(?P<view_label>[^/]+)$', cache_page(60*20)(wdef_views.GetViewView.as_view()), name='get_view'),
+    
+    # API view for obtaining view definition with a single widget
+    url(r'^view/(?P<view_label>[^/]+)/widget/(?P<widget_label>[^/]+)$', cache_page(60*20)(wdef_views.GetViewWidgetView.as_view()), name='get_view_widget'),
 
     # Get Map Layers API view
     url(r'^map_layers/$', wdef_views.GetMapLayers.as_view(), name='get_map_layers'),

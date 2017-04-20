@@ -37,11 +37,20 @@ class GetViewView(OpenboardAPIView):
     def api_method(self, request):
         return api_get_view(self.view)
 
+class GetViewWidgetView(GetViewView):
+    def api_method(self, request):
+        widget_label = self.kwargs.get("widget_label")
+        js = super(GetViewWidgetView, self).api_method(request)
+        for w in js["widgets"]:
+            if w["label"] == widget_label:
+                return w
+        raise OpenboardAPIException(HttpResponseNotFound(u"<p><b>Requested widget %s is not declared in requested view %s.</b></p>" % (widget_label, self.view.label)))
+
 class MapViewBase(OpenboardAPIView):
     lookup_view = True
     def check_view(self):
         if not self.view.geo_window:
-            raise OpenAPIException(HttpResponseNotFound(u"<p><b>No Geo-window defined for view %s</b></p>" % self.view.label))
+            raise OpenboardAPIException(HttpResponseNotFound(u"<p><b>No Geo-window defined for view %s</b></p>" % self.view.label))
 
 class GetMapLayers(MapViewBase):
     def api_method(self, request):
