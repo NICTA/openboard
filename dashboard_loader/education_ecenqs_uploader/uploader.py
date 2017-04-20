@@ -68,8 +68,6 @@ file_format = {
         ],
 }
 
-indicators = "Improve the proportion of early childhood education and care services meeting the National Quality Standards"
-
 def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
     messages = []
     try:
@@ -87,7 +85,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                                 },
                                 verbosity=verbosity))
         desc = load_benchmark_description(wb, "Description", indicator=True)
-        messages.extend(update_stats(desc, indicators,
+        messages.extend(update_stats(desc, None,
                                 "ecenqs-education-hero", "ecenqs-education-hero", 
                                 "ecenqs-education-hero-state", "ecenqs-education-hero-state", 
                                 "education_ecenqs", "education_ecenqs",

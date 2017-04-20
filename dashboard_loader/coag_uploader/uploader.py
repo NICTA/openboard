@@ -584,7 +584,10 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
         "australia": "australia",
         "aust": "australia",
         "further info text": "further_info_txt",
-        "further info url": "further_info_url"
+        "further info url": "further_info_url",
+        "source": "source",
+        "references": "refs",
+        "refs": "refs"
     }
     sheet = wb[sheetname]
     desc = {}
@@ -639,6 +642,14 @@ def load_benchmark_description(wb, sheetname, indicator=False, additional_lookup
         elif key == "notes":
             desc["notes"] = []
             append_to = desc["notes"]
+            key = None
+        elif key == "source":
+            desc["source"] = []
+            append_to = desc["source"]
+            key = None
+        elif key == "refs":
+            desc["refs"] = []
+            append_to = desc["refs"]
             key = None
         elif key == "other":
             desc["other"] = []
@@ -846,6 +857,38 @@ txt_block_template = Template("""<div class="coag_description">
                 <ol>
         {% endif %}
                     <li>{{ note|urlize }}</li>
+        {% if forloop.last %}
+                </ol>
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% for source in desc.source %}
+        {% if forloop.first %}
+            <div class="coag_desc_notes">
+                <p>Sourced from:
+                {% if not forloop.last %}
+                    </p><ol>
+                {% endif %}
+        {% endif %}
+                    {% if forloop.counter0 != 0 or forloop.revcounter0 != 0 %}<li>{% endif %}
+                    {{ source|urlize }}
+                    {% if forloop.counter0 != 0 or forloop.revcounter0 != 0 %}</li>{% endif %}
+        {% if forloop.last %}
+                {% if not forloop.first %}
+                    </ol>
+                {% else %}
+                    </p>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% for ref in desc.refs %}
+        {% if forloop.first %}
+            <div class="coag_desc_notes">
+                <p>References:</p>
+                <ol>
+        {% endif %}
+                    <li>{{ source|urlize }}</li>
         {% if forloop.last %}
                 </ol>
             </div>
