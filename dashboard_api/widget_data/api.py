@@ -184,7 +184,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
         datasets[ds.url] = ds.__getstate__(view=view)
         del datasets[ds.url]["dynamic_name_display"]
         if ds.url in overrides:
-            ds.url["name"] = overrides[ds.url]
+            datasets[ds.url]["name"] = overrides[ds.url]
     if graph.is_histogram():
         datasets_attrib = "datasets"
     else:
