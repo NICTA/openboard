@@ -837,7 +837,7 @@ txt_block_template = Template("""<div class="coag_description">
             {% endfor %}
         {% endif %}
         {% if desc.further_info %}
-            <p><b>For futher info see:</b>
+            <p><b>For further info see:</b>
                 {% for txt, url in desc.further_info %}
                     {% if url != "null" %}
                         <a href="{{ url }}">
