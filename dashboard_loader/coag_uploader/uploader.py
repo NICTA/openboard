@@ -888,7 +888,7 @@ txt_block_template = Template("""<div class="coag_description">
                 <p>References:</p>
                 <ol>
         {% endif %}
-                    <li>{{ source|urlize }}</li>
+                    <li>{{ ref|urlize }}</li>
         {% if forloop.last %}
                 </ol>
             </div>
