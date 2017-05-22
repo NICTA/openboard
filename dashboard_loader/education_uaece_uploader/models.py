@@ -28,12 +28,12 @@ class AccessEceData(CoagDataBase):
         return self.enrolled >= decimal.Decimal(95)
     def tlc(self):
         if self.on_track():
-            if self.year <= 2015:
+            if self.year < 2015:
                 return "on_track"
             else:
                 return "achieved"
         else:
-            if self.year <= 2015:
+            if self.year < 2015:
                 return "not_on_track"
             else:
                 return "not_met"
