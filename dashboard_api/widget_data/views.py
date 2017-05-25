@@ -27,11 +27,13 @@ from widget_data.api import *
 class GetWidgetDataView(OpenboardAPIView):
     lookup_view = True
     lookup_widget = True
+    nocache = True
     def api_method(self, request):
         return api_get_widget_data(self.widget, self.view)
 
 class GraphViewBase(OpenboardAPIView):
     lookup_view = True
+    nocache = True
     def check_request(self, request):
         form = request.GET.get("form", "terse")
         if form == "terse":
@@ -62,11 +64,13 @@ class GetSingleGraphDataView(GraphViewBase):
 class GetRawDataView(OpenboardAPIView):
     lookup_view = True
     lookup_widget = True
+    nocache = True
     def api_method(self, request):
         return api_get_raw_data(self.widget, request, self.kwargs.get("rds_url"), view=self.view)
 
 class MapDataViewBase(OpenboardAPIView):
     lookup_view = True
+    nocache = True
     def check_request(self, request):
         if not self.window or self.window.view_override:
             view_window = self.view.geo_window
