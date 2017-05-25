@@ -157,7 +157,7 @@ class WidgetView(models.Model):
         for c in v.children.all():
             if c.label not in children_loaded:
                 c.delete()
-        for vwd in v.viewwidgetdeclaration_set.all():
+        for vwd in v.declarations.all():
             vwd.update_state_cache()
         return v
 
