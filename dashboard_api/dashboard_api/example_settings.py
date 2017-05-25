@@ -52,6 +52,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Sample file-cache config.  Omit CACHES if using external (e.g. AWS Cloudfront) caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/www/coag2_cache',
+    }
+}
+
 SESSION_COOKIE_PATH = "/api/"
 
 # CORS
