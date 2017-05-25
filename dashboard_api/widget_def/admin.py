@@ -53,7 +53,7 @@ class WidgetViewAdmin(admin.ModelAdmin):
             for vwd in v.declarations.all():
                 vwd.update_state_cache()
                 declarations_updated += 1
-        self.message_user(request, "Cached definitions for %d widget declarations updated", level=messages.INFO)
+        self.message_user(request, "Cached definitions for %d widget declarations updated" % declarations_updated, level=messages.INFO)
     update_widget_cache.short_description = "Update widget declaration caches"
 
 admin.site.register(WidgetView, WidgetViewAdmin)
@@ -189,7 +189,7 @@ class WidgetAdmin(admin.ModelAdmin):
             for vwd in w.viewwidgetdeclaration_set.all():
                 vwd.update_state_cache()
                 declarations_updated += 1
-        self.message_user(request, "Cached definitions for %d widget declarations updated", level=messages.INFO)
+        self.message_user(request, "Cached definitions for %d widget declarations updated" % declarations_updated, level=messages.INFO)
     update_widget_cache.short_description = "Update widget declaration caches"
 
 admin.site.register(WidgetDefinition, WidgetAdmin)
