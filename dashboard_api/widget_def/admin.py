@@ -186,7 +186,7 @@ class WidgetAdmin(admin.ModelAdmin):
     def update_widget_cache(self, request, queryset):
         declarations_updated = 0
         for w in queryset:
-            for vwd in w.viewwidgetdeclaration__set.all():
+            for vwd in w.viewwidgetdeclaration_set.all():
                 vwd.update_state_cache()
                 declarations_updated += 1
         self.message_user(request, "Cached definitions for %d widget declarations updated", level=messages.INFO)
