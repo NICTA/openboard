@@ -187,6 +187,14 @@ class WidgetDefinition(models.Model):
         for tile in w.tiledefinition_set.all():
             if tile.url not in tile_urls:
                 tile.delete()
+        rds_urls = []
+        RawDataSet = apps.get_app_config("widget_def").get_model("RawDataSet")
+        for ds in data.get("raw_data_sets", []):
+            rds = RawDataSet.import_data(w, ds)
+            rds_urls.append(rds.url)
+        for rds in RawDataSet.objects.filter(widget=w):
+            if rds.url not in rds_urls:
+                rds.delete()
         if "declarations" in data:
             print "WARNING: Old-style widget declarations ignored."
         ViewWidgetDeclaration = apps.get_app_config("widget_def").get_model("ViewWidgetDeclaration")
@@ -200,14 +208,6 @@ class WidgetDefinition(models.Model):
                     break
             if not found:
                 vwd.delete()
-        rds_urls = []
-        RawDataSet = apps.get_app_config("widget_def").get_model("RawDataSet")
-        for ds in data.get("raw_data_sets", []):
-            rds = RawDataSet.import_data(w, ds)
-            rds_urls.append(rds.url)
-        for rds in RawDataSet.objects.filter(widget=w):
-            if rds.url not in rds_urls:
-                rds.delete()
         return w
     def __unicode__(self):
         return "%s (%s)" % (unicode(self.family), self.label)

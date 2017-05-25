@@ -46,6 +46,15 @@ class ViewWidgetDeclInline(admin.TabularInline):
 class WidgetViewAdmin(admin.ModelAdmin):
     list_display = ('label', 'name', 'parent')
     inlines = [ ViewPropertyInline, ViewWidgetDeclInline ]
+    actions = ["update_widget_cache"]
+    def update_widget_cache(self, request, queryset):
+        declarations_updated = 0
+        for v in queryset:
+            for vwd in v.viewwidgetdeclaration__set.all():
+                vwd.update_state_cache()
+                declarations_updated += 1
+        self.message_user(request, "Cached definitions for %d widget declarations updated", level=messages.INFO)
+    update_widget_cache.short_description = "Update widget declaration caches"
 
 admin.site.register(WidgetView, WidgetViewAdmin)
 
@@ -164,7 +173,7 @@ class ViewDeclarationInline(admin.TabularInline):
 class WidgetAdmin(admin.ModelAdmin):
     inlines = [ViewDeclarationInline, TileInline]
     list_display = ('family', 'subtitle', 'label', 'subcategory', 'sort_order')
-    actions = ['validate']
+    actions = ['validate', 'update_widget_cache']
     def validate(self, request, queryset):
         problems = []
         for w in queryset:
@@ -174,6 +183,14 @@ class WidgetAdmin(admin.ModelAdmin):
         for problem in problems:
             self.message_user(request, problem, level=messages.ERROR)
     validate.short_description = "Check Widget Definitions for errors"
+    def update_widget_cache(self, request, queryset):
+        declarations_updated = 0
+        for w in queryset:
+            for vwd in w.viewwidgetdeclaration__set.all():
+                vwd.update_state_cache()
+                declarations_updated += 1
+        self.message_user(request, "Cached definitions for %d widget declarations updated", level=messages.INFO)
+    update_widget_cache.short_description = "Update widget declaration caches"
 
 admin.site.register(WidgetDefinition, WidgetAdmin)
 

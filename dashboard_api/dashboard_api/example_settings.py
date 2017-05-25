@@ -54,10 +54,17 @@ DEBUG = True
 # ALLOWED_HOSTS = [ 'myserver.com.au', 'myserver_alternatename.com.au' ]
 ALLOWED_HOSTS = []
 
+# Sample file-cache config.  Omit CACHES if using external (e.g. AWS Cloudfront) caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/www/coag2_cache',
+    }
+}
+
 # URL path used by Session Cookie and name of session cookie
-# SESSION_COOKIE_PATH = '/api/'
-# SESSION_COOKIE_NAME = 'openboard_sessionid'
 SESSION_COOKIE_PATH = "/api/"
+SESSION_COOKIE_NAME = 'openboard_sessionid'
 
 # CORS
 
