@@ -46,15 +46,13 @@ class ViewWidgetDeclInline(admin.TabularInline):
 class WidgetViewAdmin(admin.ModelAdmin):
     list_display = ('label', 'name', 'parent')
     inlines = [ ViewPropertyInline, ViewWidgetDeclInline ]
-    actions = ["update_widget_cache"]
-    def update_widget_cache(self, request, queryset):
+    def save_model(self, request, obj, form, change):
+        super(WidgetViewAdmin, self).save_model(request, obj, form, change)
         declarations_updated = 0
-        for v in queryset:
-            for vwd in v.declarations.all():
-                vwd.update_state_cache()
-                declarations_updated += 1
+        for vwd in obj.declarations.all():
+            vwd.update_state_cache()
+            declarations_updated += 1
         self.message_user(request, "Cached definitions for %d widget declarations updated" % declarations_updated, level=messages.INFO)
-    update_widget_cache.short_description = "Update widget declaration caches"
 
 admin.site.register(WidgetView, WidgetViewAdmin)
 
