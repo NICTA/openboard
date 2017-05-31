@@ -100,7 +100,7 @@ def upload_file(uploader, fh, actual_freq_display=None, verbosity=0):
                     "indigenous_remote-housing-hero-state", "indigenous_remote-housing-hero-state", 
                     "housing_remote_indigenous_state", "housing_remote_indigenous_state", 
                     None, [],
-                    override_status="no_data",
+                    override_status="improving",
                     verbosity=verbosity))
         messages.extend(update_summary_graph_data(
                     "indigenous_remote-housing-hero", 
