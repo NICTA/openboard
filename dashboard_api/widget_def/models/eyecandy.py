@@ -1,4 +1,4 @@
-#   Copyright 2015, 2016 CSIRO
+#   Copyright 2015, 2016, 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -15,41 +15,28 @@
 import decimal
 from django.apps import apps
 from django.db import models
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class IconLibrary(models.Model):
+class IconLibrary(models.Model, WidgetDefJsonMixin):
     """
     An icon library is collection of concepts to represented by images.
 
     Icons are only stored in Openboard by name. It is up to the front end implementation to
     supply the actual images.
     """
+    export_def = {
+        "library_name": JSON_ATTR(attribute="name"),
+        "codes": JSON_RECURSEDOWN("IconCode", "codes", "scale",  "value", app="widget_def")
+    }
+    export_lookup = { "library_name": "name" }
+    api_state_def = {
+        None:  JSON_RECURSEDOWN("IconCode", "codes", "scale", "value", app="widget_def")
+    }
     name=models.SlugField(unique=True, help_text="Name of the IconLibrary")
     def __unicode__(self):
         return self.name
-    def __getstate__(self):
-        return [ c.__getstate__() for c in self.iconcode_set.all() ]
-    def export(self):
-        return {
-            "library_name": self.name,
-            "codes": [ c.export() for c in self.iconcode_set.all() ]
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            l = IconLibrary.objects.get(name=data["library_name"])
-        except IconLibrary.DoesNotExist:
-            l = IconLibrary(name=data["library_name"])
-            l.save()
-        values = []
-        for c in data["codes"]:
-            IconCode.import_data(l, c)
-            values.append(c["value"])
-        for code in l.iconcode_set.all():
-            if code.value not in values:
-                code.delete()
-        return l
     def choices(self, allow_null=False):
         if allow_null:
             choices = [ ("", "--"), ]
@@ -58,74 +45,51 @@ class IconLibrary(models.Model):
         choices.extend([ (c.value, c.value) for c in self.iconcode_set.all() ])
         return choices
 
-class IconCode(models.Model):
+class IconCode(models.Model, WidgetDefJsonMixin):
     """
     Represents a single icon within an icon library.
     """
-    scale=models.ForeignKey(IconLibrary, verbose_name="Library", help_text="The IconLibrary this IconCode belongs to")
+    export_def = {
+        "scale": JSON_INHERITED("codes"),
+        "sort_order": JSON_IMPLIED(),
+        "value": JSON_ATTR(),
+        "description": JSON_ATTR()
+    }
+    export_lookup= { 
+        "scale": "scale",
+        "value": "value"
+    }
+    api_state_def = {
+        "library": JSON_STRINGIFY_ATTR(attribute="scale"),
+        "value": JSON_ATTR(),
+        "description": JSON_ATTR(),
+    }
+    scale=models.ForeignKey(IconLibrary, related_name="codes", verbose_name="Library", help_text="The IconLibrary this IconCode belongs to")
     value=models.SlugField(help_text="A short symbolic label for the icon, as used in the API")
     description=models.CharField(max_length=80, help_text="A longer description of the icon")
     sort_order=models.IntegerField(help_text="icons are sorted within a library by this field")
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
-    def export(self):
-        return {
-            "value": self.value,
-            "description": self.description,
-            "sort_order": self.sort_order
-        }
-    @classmethod
-    def import_data(cls, library, data):
-        try:
-            code = IconCode.objects.get(scale=library, value=data["value"])
-        except IconCode.DoesNotExist:
-            code = IconCode(scale=library, value=data["value"])
-        code.description = data["description"]
-        code.sort_order = data["sort_order"]
-        code.save()
-        return code
-    def __getstate__(self):
-        return {
-            "library": self.scale.name,
-            "value": self.value,
-            "alt_text": self.description
-        }
     class Meta:
         unique_together=[ ("scale", "value"), ("scale", "sort_order") ]
         ordering = [ "scale", "sort_order" ]
  
-class TrafficLightScale(models.Model):
+class TrafficLightScale(models.Model, WidgetDefJsonMixin):
     """
     Represents a scale of colours used to represent the intensity or severity of a metric.
     """
+    export_def = {
+        "scale_name": JSON_ATTR(attribute="name"),
+        "codes": JSON_RECURSEDOWN("TrafficLightScaleCode", "codes", "scale", "value", app="widget_def")
+    }
+    export_lookup={ "scale_name": "name" }
+    api_state_def = {
+        "scale": JSON_ATTR(attribute="name"),
+        "codes": JSON_RECURSEDOWN("TrafficLightScaleCode", "codes", "scale", "value", app="widget_def")
+    }
     name=models.CharField(max_length=80, unique=True, help_text="Identifies the traffic light scale")
     def __unicode__(self):
         return self.name
-    def export(self):
-        return {
-            "scale_name": self.name,
-            "codes": [ c.export() for c in self.trafficlightscalecode_set.all() ]
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            l = TrafficLightScale.objects.get(name=data["scale_name"])
-        except TrafficLightScale.DoesNotExist:
-            l = TrafficLightScale(name=data["scale_name"])
-            l.save()
-        values = []
-        for c in data["codes"]:
-            TrafficLightScaleCode.import_data(l, c)
-            values.append(c["value"])
-        for code in l.trafficlightscalecode_set.all():
-            if code.value not in values:
-                code.delete()
-        return l
-    def __getstate__(self):
-        return {
-            "scale": self.name,
-            "codes": [ c.__getstate__() for c in self.trafficlightscalecode_set.all() ]
-        }
     def choices(self, allow_null=False):
         if allow_null:
             choices = [ ("", "--"), ]
@@ -134,37 +98,30 @@ class TrafficLightScale(models.Model):
         choices.extend([ (c.value, c.value) for c in self.trafficlightscalecode_set.all() ])
         return choices
 
-class TrafficLightScaleCode(models.Model):
+class TrafficLightScaleCode(models.Model, WidgetDefJsonMixin):
     """
     Represents a colour in a :model:`TrafficLightScale`.
     """
-    scale = models.ForeignKey(TrafficLightScale, help_text="The traffic light scale")
+    export_def = {
+        "scale": JSON_INHERITED("codes"),
+        "sort_order": JSON_IMPLIED(),
+        "value": JSON_ATTR(),
+        "colour": JSON_ATTR()
+    }
+    export_lookup= { 
+        "scale": "scale",
+        "value": "value"
+    }
+    api_state_def = {
+        "value": JSON_ATTR(),
+        "colour": JSON_ATTR(),
+    }
+    scale = models.ForeignKey(TrafficLightScale, related_name="codes", help_text="The traffic light scale")
     value = models.SlugField(help_text="A short symbolic representation of the intensity/severity this code represents, as used in the API")
     colour = models.CharField(max_length=50, help_text="A description of the actual colour.  May exactl specify the colour (e.g. a hex code) but in general the exact colour scheme should be left to the front end implementation")
     sort_order = models.IntegerField(help_text='"Good" codes should have lower sort order than "Bad" codes.')
     def __unicode__(self):
         return "%s:%s" % (self.scale.name, self.value)
-    def export(self):
-        return {
-            "value": self.value,
-            "colour": self.colour,
-            "sort_order": self.sort_order
-        }
-    @classmethod
-    def import_data(cls, scale, data):
-        try:
-            code = TrafficLightScaleCode.objects.get(scale=scale, value=data["value"])
-        except TrafficLightScaleCode.DoesNotExist:
-            code = TrafficLightScaleCode(scale=scale, value=data["value"])
-        code.colour = data["colour"]
-        code.sort_order = data["sort_order"]
-        code.save()
-        return code
-    def __getstate__(self):
-        return {
-            "value": self.value,
-            "colour": self.colour
-        }
     class Meta:
         unique_together=[ ("scale", "value"), ("scale", "sort_order") ]
         ordering = [ "scale", "sort_order" ]
