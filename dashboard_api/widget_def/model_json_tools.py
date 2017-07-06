@@ -1,3 +1,5 @@
+import decimal
+
 from django.db.models import Model
 from django.db.utils import IntegrityError
 from django.apps import apps
@@ -34,6 +36,49 @@ class JSON_STRINGIFY_ATTR(JSON_ATTR):
         else:
             export[key] = unicode(getattr(obj, key))
         return
+
+class JSON_CAT_LOOKUP(JSON_ATTR):
+    def __init__(self, lookup_fields, imp_lookup, attribute=None):
+        self.fields=lookup_fields
+    def handle_export(self, obj, export, key, env):
+        o = obj
+        for fld in self.fields:
+            o = getattr(o, fld)
+            if callable(o):
+                o = o()
+        export[key] = o
+        return 
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        if self.attribute:
+            cons_args[self.attribute] = self.imp_lookup(js, key, imp_kwargs)
+        else:
+            cons_args[key] = self.imp_lookup(js, key, imp_kwargs)
+
+class JSON_NUM_ATTR(JSON_ATTR):
+    def __init__(self, precision, allow_int=True, attribute=None):
+        self.precision = precision
+        super(JSON_NUM_ATTR, self).__init__(attribute=attribute)
+    def handle_export(self, obj, export, key, env):
+        if self.attribute:
+            attrval = getattr(obj, self.attribute)
+        else:
+            attrval = getattr(obj, key)
+        if attrval is None:
+            export[key] = None
+        elif allow_int and attrval == attrval.to_integral_value():
+            export[key] = int(attrval)
+        else:
+            export[key] = float(attrval)
+        return
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        if js[key] is None:
+            val = None
+        else:
+            val = decimal.Decimal(("%%.%df" % self.precision) % js[key]) 
+        if self.attribute:
+            cons_args[self.attribute] = val
+        else:
+            cons_args[key] = val
 
 class JSON_SOLE_ATTR(JSON_ATTR):
     def handle_export(self, obj, export, key, env):
@@ -82,13 +127,14 @@ class JSON_INHERITED(JSON_ATTR):
         getattr(imp_kwargs[key], self.related).add(obj, bulk=False)
 
 class JSON_RECURSEDOWN(JSON_ATTR):
-    def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, suppress_if_empty=False):
+    def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, suppress_if_empty=False):
         super(JSON_RECURSEDOWN, self).__init__()
         self.related = related_name
         self.related_attr = related_attr
         self.app = app
         self.model = model
         self.suppress_if_empty = suppress_if_empty
+        self.merge = merge
         self.sub_attr_key = sub_attr_key
         if sub_exp_key:
             self.sub_exp_key = sub_exp_key
@@ -118,12 +164,15 @@ class JSON_RECURSEDOWN(JSON_ATTR):
         else:
             _js = js[key]
         keys_in_import=[]
-        for js_elem in _js:
-            keys_in_import.append(js_elem[self.sub_exp_key])
-        for elem in getattr(obj,self.related).all():
-            elem_key = getattr(elem, self.sub_attr_key)
-            if elem_key not in keys_in_import:
-                elem.delete()
+        if self.merge:
+            for js_elem in _js:
+                keys_in_import.append(js_elem[self.sub_exp_key])
+            for elem in getattr(obj,self.related).all():
+                elem_key = getattr(elem, self.sub_attr_key)
+                if elem_key not in keys_in_import:
+                    elem.delete()
+        else:
+            getattr(obj, self.related).delete()
         for i in range(len(_js)):
             kwargs = base_kwargs.copy()
             kwargs["sort_order"] = (i + 1)*100
