@@ -245,13 +245,33 @@ class TrafficLightAutoRule(models.Model, WidgetDefJsonMixin):
         unique_together=(("strategy", "default_val", "min_val", "map_val"))
         ordering=("strategy", "default_val", "-min_val", "map_val")
 
-class TrafficLightAutomation(models.Model):
+class TrafficLightAutomation(models.Model, WidgetDefJsonMixin):
     """
     An actual traffic light automation instance.
 
     Consists of a :model:`TrafficLightAutoStrategy` and a statistic to be automated.  
     (And also a target value if the strategy is of RELATIVE type.)
     """
+    export_def = {
+        "url": JSON_ATTR(),
+        "strategy": JSON_STRINGIFY_ATTR(),
+        "target_value": JSON_NUM_ATTR(precision=4),
+        "target_statistic": JSON_COMPLEX_LOOKUP_WRAPPER(
+                attribute="target_statistic",
+                null=True,
+                exporter=lambda o: { "widget": o.tile.widget.url(), "label": o.tile.widget.label, "url": o.url },
+                model="Statistic",
+                app="widget_def",
+                importer_kwargs=lambda js: {
+                            "tile__widget__family__url": js["widget"],
+                            "tile__widget__label": js["label"],
+                            "url": js["url"]
+                },
+                warning_on_importer_fail="Warning: Incomplete import of TrafficLightAutomation %s target statistic doesn't exist. You will need to set\n\tthe target statistic or value manually, or reimport after importing the relevant widget.",
+                name_key_for_warning="url"
+        )
+    }
+    export_lookup = { "url": "url" }
     url = models.SlugField(unique=True, help_text="Identifies the automation")
     # 2,4  ==>  Statistic.NUMERIC, Statistic.NUMERIC_KVL
     # Can't reference directly because of circular dependencies.  Think on this.
@@ -263,51 +283,6 @@ class TrafficLightAutomation(models.Model):
     strategy = models.ForeignKey(TrafficLightAutoStrategy, help_text="The automation strategy")
     def __unicode__(self):
         return self.url
-    def export(self):
-        data = {
-            "url": self.url,
-            "strategy": self.strategy.url
-        }
-        if self.target_statistic:
-            data["target_statistic"] = {
-                "widget": self.target_statistic.tile.widget.url(),
-                "label": self.target_statistic.tile.widget.label,
-                "url": self.target_statistic.url
-            }
-        else:
-            data["target_statistic"] = None
-        if self.target_value is None:
-            data["target_value"] = None
-        elif self.target_value == self.target_value.to_integral_value():
-            data["target_value"] = int(self.target_value)
-        else:
-            data["target_value"] = float(self.target_value)
-        return data
-    @classmethod
-    def import_data(cls, data):
-        try:
-            tla = cls.objects.get(url=data["url"])
-        except cls.DoesNotExist:
-            tla = cls(url=data["url"])
-        tla.strategy = TrafficLightAutoStrategy.objects.get(url=data["strategy"])
-        if data["target_statistic"] is None:
-            tla.target_statistic = None
-        else:
-            Statistic = apps.get_app_config("widget_def").get_model("Statistic")
-            try:
-                tla.target_statistic = Statistic.objects.get(tile__widget__family__url=data["target_statistic"]["widget"],
-                                tile__widget__label=data["target_statistic"]["label"],
-                                url=data["target_statistic"]["url"])
-            except Statistic.DoesNotExist:
-                tla.target_statistic = None
-                tla.target_value = Decimal("100.0")
-                print "Warning: Incomplete import of TrafficLightAutomation %s target statistic doesn't exist. You will need to set\n\tthe target statistic or value manually, or reimport after importing the relevant widget." % tla.url
-        if data["target_value"] is None:
-            tla.target_value = None
-        else:
-            tla.target_value = Decimal(data["target_value"])
-        tla.save()
-        return tla
     def validate(self):
         problems = []
         if self.target_statistic and self.target_value is not None:

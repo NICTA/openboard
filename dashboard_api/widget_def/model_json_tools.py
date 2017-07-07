@@ -126,6 +126,33 @@ class JSON_INHERITED(JSON_ATTR):
     def recurse_import(self,js, obj, key, imp_kwargs, env):
         getattr(imp_kwargs[key], self.related).add(obj, bulk=False)
 
+class JSON_COMPLEX_LOOKUP_WRAPPER(JSON_ATTR):
+    def __init__(self, attribute, null, exporter, 
+                    model, app, importer_kwargs, 
+                    warning_on_importer_fail, name_key_for_warning):
+        self.attribute = attribute
+        self.null = null
+        self.model = model
+        self.app = app
+        self.exporter = exporter
+        self.importer_kwargs = importer_kwargs
+        self.warning_on_importer_fail = warning_on_importer_fail
+        self.name_key_for_warning = name_key_for_warning
+    def handle_export(self, obj, export, key, env):
+        export[key] = exporter(getattr(obj,self.attribute))
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        mdl = apps.get_app_config(self.app).get_model(self.model)
+        if self.null and js[key] is None:
+            lookup = None
+        else:
+            kwargs = self.importer_kwargs(js[key])
+            try:
+                lookup = mdl.objects.get(**kwargs)
+            except mdl.DoesNotExist:
+                print self.warning_on_importer_fail % js[self.name_key_for_warning]
+                lookup = None
+        cons_args[self.attribute] = lookup
+
 class JSON_RECURSEDOWN(JSON_ATTR):
     def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, suppress_if_empty=False):
         super(JSON_RECURSEDOWN, self).__init__()
