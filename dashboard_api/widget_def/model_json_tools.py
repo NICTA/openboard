@@ -211,7 +211,21 @@ class JSON_RECURSEDOWN(JSON_ATTR):
                     saved = True
                 except IntegrityError:
                     kwargs["sort_order"] += 1
-              
+
+class JSON_RECURSEDICT(JSON_ATTR):
+   def __init__(self, related, key_attr, value_attr): 
+       self.related = related
+       self.key_attr = key_attr
+       self.value_attr = value_attr
+   def handle_export(self, obj, export, key, env):
+        exp = {}
+        for o in getattr(obj, self.related).all():
+            exp[getattr(o, self.key_attr)] = getattr(o, self.value_attr)
+        export[key] = exp
+        return
+   def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        pass
+
 class WidgetDefJsonMixin(object):
     export_def = {
     }
