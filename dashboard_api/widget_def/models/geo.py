@@ -22,15 +22,27 @@ from django.contrib.gis.geos import Point, Polygon
 import django.contrib.gis.gdal.geometries as geoms
 
 from dashboard_api.validators import validate_html_colour
+from widget_def.model_json_tools import *
 from widget_def.view_tools import csv_escape, max_with_nulls
 from widget_def.models import TileDefinition, WidgetView
 from widget_data.models import GeoFeature, GeoProperty
 from widget_def.parametisation import parametise_label
 
-class GeoWindow(models.Model):
+class GeoWindow(models.Model, WidgetDefJsonMixin):
     """
     Represents a rectangular viewing window for geospatial data.
     """
+    export_def = {
+        "name": JSON_ATTR(),
+        "view_override": JSON_ATTR(),
+        ( "east", "north" ): JSON_GEO_COORD(attribute="north_east"),
+        ( "west", "south" ): JSON_GEO_COORD(attribute="south_west"),
+    }
+    export_lookup= { "name": "name" }
+    api_state_def = {
+        ( "east", "north" ): JSON_GEO_COORD(attribute="north_east", view_override_attribute="view_override", view_replacement_attribute="geo_window"),
+        ( "west", "south" ): JSON_GEO_COORD(attribute="south_west", view_override_attribute="view_override", view_replacement_attribute="geo_window"),
+    }
     name=models.CharField(max_length=128, 
                     unique=True, help_text="For internal reference only")
     north_east = models.PointField(help_text="Coordinates of north-east corner of window")
@@ -61,38 +73,8 @@ class GeoWindow(models.Model):
         ssee = Point(ee, ss)
         ssww = Point(ww, ss)
         return Polygon([nnee, nnww, ssww, ssee, nnee])
-    def __getstate__(self,view=None):
-        if self.view_override and view and view.geo_window:
-            return view.geo_window.__getstate__()
-        else:
-            return {
-                "north": self.north_east.y,
-                "south": self.south_west.y,
-                "east": self.north_east.x,
-                "west": self.south_west.x,
-            }
-    def export(self):
-        return {
-            "name": self.name,
-            "north": self.north_east.y,
-            "south": self.south_west.y,
-            "east": self.north_east.x,
-            "west": self.south_west.x,
-            "view_override": self.view_override,
-        }
     def __unicode__(self):
         return self.name
-    @classmethod
-    def import_data(cls, data):
-        try:
-            win = cls.objects.get(name=data["name"])
-        except cls.DoesNotExist:
-            win = cls(name=data["name"])
-        win.north_east = Point(data["east"], data["north"])
-        win.south_west = Point(data["west"], data["south"])
-        win.view_override = data.get("view_override", False)
-        win.save()
-        return win
 
 class ColourScaleTable(object):
     class Entry(object):

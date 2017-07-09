@@ -15,7 +15,7 @@ class JSON_ATTR(object):
     """Default handler.  Just use the attribute"""
     def __init__(self, attribute=None):
         self.attribute = attribute
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         if self.attribute:
             export[key] = getattr(obj, self.attribute)
         else:
@@ -30,7 +30,7 @@ class JSON_ATTR(object):
         pass
 
 class JSON_STRINGIFY_ATTR(JSON_ATTR):
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         if self.attribute:
             export[key] = unicode(getattr(obj, self.attribute))
         else:
@@ -40,7 +40,7 @@ class JSON_STRINGIFY_ATTR(JSON_ATTR):
 class JSON_CAT_LOOKUP(JSON_ATTR):
     def __init__(self, lookup_fields, imp_lookup, attribute=None):
         self.fields=lookup_fields
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         o = obj
         for fld in self.fields:
             o = getattr(o, fld)
@@ -58,7 +58,7 @@ class JSON_NUM_ATTR(JSON_ATTR):
     def __init__(self, precision, allow_int=True, attribute=None):
         self.precision = precision
         super(JSON_NUM_ATTR, self).__init__(attribute=attribute)
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         if self.attribute:
             attrval = getattr(obj, self.attribute)
         else:
@@ -81,7 +81,7 @@ class JSON_NUM_ATTR(JSON_ATTR):
             cons_args[key] = val
 
 class JSON_SOLE_ATTR(JSON_ATTR):
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         super(JSON_SOLE_ATTR, self).handle_export(obj, export, key, env)
         env["single_export_field"] = key
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
@@ -91,7 +91,7 @@ class JSON_OPT_ATTR(JSON_ATTR):
     def __init__(self, decider=None, attribute=None):
         self.decider = decider
         self.attribute = attribute
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         if self.decider:
             do_it = getattr(obj, self.decider)
         else:
@@ -138,8 +138,8 @@ class JSON_COMPLEX_LOOKUP_WRAPPER(JSON_ATTR):
         self.importer_kwargs = importer_kwargs
         self.warning_on_importer_fail = warning_on_importer_fail
         self.name_key_for_warning = name_key_for_warning
-    def handle_export(self, obj, export, key, env):
-        export[key] = exporter(getattr(obj,self.attribute))
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
+        export[key] = self.exporter(getattr(obj,self.attribute))
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         mdl = apps.get_app_config(self.app).get_model(self.model)
         if self.null and js[key] is None:
@@ -152,6 +152,26 @@ class JSON_COMPLEX_LOOKUP_WRAPPER(JSON_ATTR):
                 print self.warning_on_importer_fail % js[self.name_key_for_warning]
                 lookup = None
         cons_args[self.attribute] = lookup
+
+class JSON_GEO_COORD(JSON_ATTR):
+    def __init__(self, attribute, view_override_attribute=None, view_replacement_attribute=None):
+        super(JSON_GEO_COORD, self).__init__(attribute=attribute)
+        self.view_override_attr = view_override_attribute
+        self.view_replacement_attr = view_replacement_attribute
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
+        keyx, keyy = key
+        if self.view_override_attr and getattr(obj, self.view_override_attr) and view and getattr(view, self.view_replacement_attr):
+            repl_win = getattr(view, self.view_replacement_attr)
+            export[keyx] = repl_win.x
+            export[keyy] = repl_win.y
+        else:
+            export[keyx] = getattr(obj, self.attribute).x 
+            export[keyy] = getattr(obj, self.attribute).y 
+        return
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        keyx, keyy = key
+        from django.contrib.gis.geos import Point
+        cons_args[self.attribute] = Point(js[keyx], js[keyy])
 
 class JSON_RECURSEDOWN(JSON_ATTR):
     def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, suppress_if_empty=False):
@@ -167,14 +187,17 @@ class JSON_RECURSEDOWN(JSON_ATTR):
             self.sub_exp_key = sub_exp_key
         else:
             self.sub_exp_key = sub_attr_key
-    def handle_export(self, obj, export, key, env):
+    def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         if self.suppress_if_empty and getattr(obj, self.related).count() == 0:
             pass
         elif key:
             export[key] = [ o.export() for o in getattr(obj, self.related).all() ] 
         else: 
             for o in getattr(obj, self.related).all():
-                export.append(o.export())
+                if view:
+                    export.append(getattr(o, recurse_func)(view=view))
+                else:
+                    export.append(getattr(o, recurse_func)())
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         pass
     def recurse_import(self,js, obj, key, imp_kwargs, env):
@@ -217,7 +240,7 @@ class JSON_RECURSEDICT(JSON_ATTR):
        self.related = related
        self.key_attr = key_attr
        self.value_attr = value_attr
-   def handle_export(self, obj, export, key, env):
+   def handle_export(self, obj, export, key, env, recurse_func="export", view=None):
         exp = {}
         for o in getattr(obj, self.related).all():
             exp[getattr(o, self.key_attr)] = getattr(o, self.value_attr)
@@ -255,7 +278,7 @@ class WidgetDefJsonMixin(object):
             "single_export_field": False
         }
         for k, v in self.api_state_def.items():
-            v.handle_export(self, data, k, env)
+            v.handle_export(self, data, k, env, recurse_func="__getstate__", view=view)
         if env["single_export_field"]:
             return data[env["single_export_field"]]
         else:
