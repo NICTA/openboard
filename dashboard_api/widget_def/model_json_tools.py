@@ -16,11 +16,12 @@ def call_or_get_attr(obj, name):
 
 class JSON_ATTR(object):
     """Default handler.  Just use the attribute"""
-    def __init__(self, attribute=None, parametise=False, solo=False, importer=None):
+    def __init__(self, attribute=None, parametise=False, solo=False, default=None, importer=None):
         self.attribute = attribute
         self.parametise = parametise
         self.solo = solo
         self.importer = importer
+        self.default = default
     def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
         if self.attribute:
             export[key] = call_or_get_attr(obj, self.attribute)
@@ -31,14 +32,14 @@ class JSON_ATTR(object):
                 # TODO
                 pass
             export[key] = parametise_label(parametisation, view, export[key])
-        if solo:
+        if self.solo:
             env["single_export_field"] = key
         return
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
-        if solo:
+        if self.solo:
             val = js
         else:
-            val = js[key]
+            val = js.get(key, self.default)
         if self.importer:
             val = self.importer(val)   
         if self.attribute:
@@ -56,7 +57,7 @@ class JSON_PASSDOWN(JSON_ATTR):
             val = call_or_get_attr(obj, key)
         val = getattr(val, recurse_func)(parametisation=parametisation, view=view)
         export[key] = val
-        if solo:
+        if self.solo:
             env["single_export_field"] = key
         return
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
@@ -278,7 +279,7 @@ class JSON_RECURSEDOWN(JSON_ATTR):
                 if elem_key not in keys_in_import:
                     elem.delete()
         else:
-            getattr(obj, self.related).delete()
+            getattr(obj, self.related).all().delete()
         for i in range(len(_js)):
             kwargs = base_kwargs.copy()
             kwargs["sort_order"] = (i + 1)*100
@@ -354,7 +355,7 @@ class WidgetDefJsonMixin(object):
                 for k,v in cons_args.items():
                     if k not in cls.export_lookup:
                         setattr(obj, k, v)
-            except obj.DoesNotExist:
+            except cls.DoesNotExist:
                 obj = cls(**cons_args)
         else:
             obj = cls(**cons_args)

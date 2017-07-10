@@ -62,7 +62,7 @@ class IconCode(models.Model, WidgetDefJsonMixin):
     api_state_def = {
         "library": JSON_STRINGIFY_ATTR(attribute="scale"),
         "value": JSON_ATTR(),
-        "description": JSON_ATTR(),
+        "alt_text": JSON_ATTR(attribute="description"),
     }
     scale=models.ForeignKey(IconLibrary, related_name="codes", verbose_name="Library", help_text="The IconLibrary this IconCode belongs to")
     value=models.SlugField(help_text="A short symbolic label for the icon, as used in the API")

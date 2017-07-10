@@ -34,7 +34,7 @@ class GeoWindow(models.Model, WidgetDefJsonMixin):
     """
     export_def = {
         "name": JSON_ATTR(),
-        "view_override": JSON_ATTR(),
+        "view_override": JSON_ATTR(default=False),
         ( "east", "north" ): JSON_GEO_COORD(attribute="north_east"),
         ( "west", "south" ): JSON_GEO_COORD(attribute="south_west"),
     }
@@ -264,7 +264,7 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
                                                     "name": js["subcategory"],
                                                     "category__name": js["category"]
                                                 }),
-        "view_declarations": JSON_RECURSEDOWN("ViewGeoDatasetDeclaration", "declarations", "dataset", "view", merge=False, app="widget_def"),
+        "declarations": JSON_RECURSEDOWN("ViewGeoDatasetDeclaration", "declarations", "dataset", "view", merge=False, app="widget_def"),
         "properties": JSON_RECURSEDOWN("GeoPropertyDefinition", "properties", "dataset", "url", app="widget_def"),
     }
     export_lookup = { "url": "url" }
@@ -477,18 +477,6 @@ class ViewGeoDatasetDeclaration(models.Model, WidgetDefJsonMixin):
     }
     dataset = models.ForeignKey(GeoDataset, related_name="declarations", help_text="The GeoDataset to include in the WidgetView")
     view = models.ForeignKey(WidgetView, help_text="The WidgetView the GeoDataset is to be included in")
-    def __getstate__(self):
-        return self.dataset.__getstate__()
-    def export(self):
-        return self.view.label
-    @classmethod
-    def import_data(cls, dataset, data):
-        try:
-            return cls.objects.get(dataset=dataset, view__label=data)
-        except cls.DoesNotExist:
-            decl = cls(dataset=dataset, view=WidgetView.objects.get(label=data))
-            decl.save()
-            return decl
 
 class GeoPropertyDefinition(models.Model,WidgetDefJsonMixin):
     """A Property of geodataset. Every feature in the dataset should have a value for this property."""
