@@ -174,45 +174,39 @@ class ColourScaleTable(object):
         rgb = self.rgb(value)
         return "%02X%02X%02X" % rgb
 
-class GeoColourScale(models.Model):
+class GeoColourScale(models.Model, WidgetDefJsonMixin):
     """
     Defines a colour scale for geospatial datasets.
 
     A colour scale consists of a series of :model:`widget_def.GeoColourPoint`s
     """
+    export_def={
+        "url": JSON_ATTR(),
+        "autoscale": JSON_ATTR(),
+        "points": JSON_RECURSEDOWN("GeoColourPoint", "points", "scale", "value", merge=False, app="widget_def")
+    }
+    export_lookup = { "url": "url" }
     url=models.SlugField(unique=True, help_text="Identifies the colour scale")
     autoscale=models.BooleanField(default=True, help_text="If true colour table is auto-scaled from the defined colour point value range to the minimum and maximum values supplied at runtime.")
     def table(self, mini=None, maxi=None):
         """Generate a ColourScaleTable for this colour scale"""
         return ColourScaleTable(self, mini, maxi)
-    def export(self):
-        return {
-            "url": self.url,
-            "autoscale": self.autoscale,
-            "points": [ p.export() for p in self.geocolourpoint_set.all() ]
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            scale = cls.objects.get(url=data["url"])
-        except cls.DoesNotExist:
-            scale = cls(url=data["url"])
-        scale.autoscale = data["autoscale"]
-        scale.save()
-        scale.geocolourpoint_set.delete()
-        for p in data["points"]:
-            GeoColourPoint.import_data(scale, p)
-        return scale
     def __unicode__(self):
         return self.url
 
-class GeoColourPoint(models.Model):
+class GeoColourPoint(models.Model, WidgetDefJsonMixin):
     """
     A colour point within a :model:`widget_def.GeoColourScale`
 
     Defines a value and an associated colour.
     """
-    scale=models.ForeignKey(GeoColourScale, help_text="The colour scale")
+    export_def = {
+        "scale": JSON_INHERITED("points"),
+        "value": JSON_NUM_ATTR(precision=4),
+        "colour": JSON_ATTR()
+    }
+    export_lookup = { "scale": "scale", "value": "value" }
+    scale=models.ForeignKey(GeoColourScale, related_name="points", help_text="The colour scale")
     value=models.DecimalField(max_digits=15, decimal_places=4, help_text="The value")
     colour=models.CharField(max_length=6, validators=[validate_html_colour], help_text="The colour. Stored as a 3 or 6 digit hex string")
     def rgb(self):
@@ -233,24 +227,11 @@ class GeoColourPoint(models.Model):
         return self.rgb()[1]
     def blue(self):
         return self.rgb()[2]
-    def export(self):
-        data = { "colour": self.colour }
-        if self.value == self.value.to_integral_value():
-            data["value"] = int(self.value)
-        else:
-            data["value"] = float(self.value)
-        return data
-    @classmethod
-    def import_data(cls, scale, data):
-        p = cls(scale=scale, colour=data["colour"])
-        p.value = decimal.Decimal("%.4f" % data["value"])
-        p.save()
-        return p
     class Meta:
         unique_together=[('scale', 'value')]
         ordering=('scale', 'value')
 
-class GeoDataset(models.Model): 
+class GeoDataset(models.Model, WidgetDefJsonMixin): 
     """
     Defines a geospatial dataset. 
     
@@ -263,6 +244,40 @@ class GeoDataset(models.Model):
     PREDEFINED: Dataset consists of data defined against any of the predefined boundary sets supported by the geo-csv-au standard.
     EXTERNAL: Dataset is simply the URL of an externally hosted geospatial dataset. See TerriaJS for supported formats and protocols.
     """
+    export_def = {
+        "url": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "geom_type": JSON_ATTR(),
+        "ext_url": JSON_ATTR(),
+        "ext_type": JSON_ATTR(),
+        "ext_extra": JSON_ATTR(),
+        "sort_order": JSON_ATTR(),
+        ("category", "subcategory"): JSON_SIMPLE_LOOKUP_WRAPPER(attribute="subcategory", 
+                                                null=False,
+                                                exporters=(
+                                                    lambda o: o.category.name,
+                                                    lambda o: o.name,
+                                                ),
+                                                model="Subcategory",
+                                                app="widget_def",
+                                                importer_kwargs=lambda js: {
+                                                    "name": js["subcategory"],
+                                                    "category__name": js["category"]
+                                                }),
+        "view_declarations": JSON_RECURSEDOWN("ViewGeoDatasetDeclaration", "declarations", "dataset", "view", merge=False, app="widget_def"),
+        "properties": JSON_RECURSEDOWN("GeoPropertyDefinition", "properties", "dataset", "url", app="widget_def"),
+    }
+    export_lookup = { "url": "url" }
+    api_state_def = {
+        "category": JSON_CAT_LOOKUP(lookup_fields=["subcategory", "category", "name"], imp_lookup=None),
+        "subcategory": JSON_CAT_LOOKUP(lookup_fields=["subcategory", "name"], imp_lookup=None),
+        "label": JSON_ATTR(attribute="url"),
+        "name": JSON_ATTR(attribute="label", parametise=True),
+        "geom_type":  JSON_ATTR(attribute="datatype"),
+        "external_url": JSON_OPT_ATTR(decider="is_external", parametise=True),
+        "external_type": JSON_OPT_ATTR(decider="is_external"),
+        "properties": JSON_RECURSEDOWN("GeoPropertyDefinition", "properties", "dataset", "url", app="widget_def", suppress_decider="is_external")
+    }
     _lud_cache = None
     POINT = 1
     LINE = 2
@@ -335,6 +350,9 @@ class GeoDataset(models.Model):
     def is_external(self):
         """Returns true if this is an external dataset"""
         return self.geom_type == self.EXTERNAL
+    def is_internal(self):
+        """Returns true if this is an internal dataset"""
+        return self.geom_type != self.EXTERNAL
     def terria_prefer_csv(self):
         """Returns true if this dataset can be represented in CSV file"""
         return self.geom_type in (self.POINT,self.PREDEFINED)
@@ -412,69 +430,6 @@ class GeoDataset(models.Model):
             lud_property = GeoProperty.objects.filter(feature__dataset=self).aggregate(lud=models.Max('last_updated'))['lud']
             self._lud_cache = max_with_nulls(lud_feature, lud_property)
         return self._lud_cache
-    def __getstate__(self, view=None, parametisation=None):
-        state =  {
-            "category": self.subcategory.category.name,
-            "subcategory": self.subcategory.name,
-            "label": self.url,
-            "name": parametise_label(parametisation, view, self.label),
-            "geom_type": self.geom_types[self.geom_type],
-        }
-        if self.is_external():
-            state["external_url"] = parametise_label(parametisation, view, self.ext_url)
-            state["external_type"] = self.ext_type
-        else:
-            state["properties"] = [ 
-                    p.__getstate__() 
-                    for p in self.geopropertydefinition_set.all() 
-            ]
-        return state
-    def export(self):
-        return {
-            "url": self.url,
-            "label": self.label,
-            "category": self.subcategory.category.name,
-            "subcategory": self.subcategory.name,
-            "geom_type": self.geom_type,
-            "ext_url": self.ext_url,
-            "ext_type": self.ext_type,
-            "ext_extra": self.ext_extra,
-            "sort_order": self.sort_order,
-            "view_declarations": [ d.export() for d in self.viewgeodatasetdeclaration_set.all() ],
-            "properties":   [ p.export() for p in self.geopropertydefinition_set.all() ],
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            ds = cls.objects.get(url=data["url"])
-        except cls.DoesNotExist:
-            ds = cls(url=data["url"])
-        ds.label = data["label"]
-        ds.geom_type = data["geom_type"]
-        ds.ext_url = data.get("ext_url")
-        ds.ext_type = data.get("ext_type")
-        ds.ext_extra = data.get("ext_extra")
-        ds.sort_order = data["sort_order"]
-        Subcategory = apps.get_app_config("widget_def").get_model("Subcategory")
-        ds.subcategory = Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
-        ds.save()
-        if "declarations" in data:
-            print "WARNING: Old-style GeoDataset declarations ignored."
-        props = []
-        for p in data["properties"]:
-            prop = GeoPropertyDefinition.import_data(ds, p)
-            props.append(prop.url)
-        for prop in ds.geopropertydefinition_set.all():
-            if prop.url not in props:
-                prop.delete()
-        decls = []
-        for d in data.get("view_declarations", []):
-            decl = ViewGeoDatasetDeclaration.__import__(ds, d)
-            decls.append(d)
-        for decl in ds.viewgeodatasetdeclaration_set.all():
-            if decl.view.label not in decls:
-                decl.delete()
-        return ds
     def csv_header_row(self, use_urls=False):
         """
             Generate (as a string) the header row of a CSV dump of this dataset.  
@@ -508,11 +463,19 @@ class GeoDataset(models.Model):
         unique_together=(("subcategory", "sort_order"), ("subcategory", "label"))
         ordering = ("subcategory", "sort_order")
 
-class ViewGeoDatasetDeclaration(models.Model):
+class ViewGeoDatasetDeclaration(models.Model, WidgetDefJsonMixin):
     """
         Declares that a given :model:`widget_def.GeoDataset` should be included in a given :model:`widget_def.WidgetView`
     """
-    dataset = models.ForeignKey(GeoDataset, help_text="The GeoDataset to include in the WidgetView")
+    export_def = {
+        "dataset": JSON_INHERITED("declarations"),
+        "view": JSON_ATTR(solo=True, importer=lambda x: WidgetView.objects.get(label=x))
+    }
+    export_lookup = { "dataset": "dataset", "view": "view" }
+    api_state_def = {
+        "dataset": JSON_PASSDOWN(solo=True)
+    }
+    dataset = models.ForeignKey(GeoDataset, related_name="declarations", help_text="The GeoDataset to include in the WidgetView")
     view = models.ForeignKey(WidgetView, help_text="The WidgetView the GeoDataset is to be included in")
     def __getstate__(self):
         return self.dataset.__getstate__()
@@ -527,15 +490,33 @@ class ViewGeoDatasetDeclaration(models.Model):
             decl.save()
             return decl
 
-class GeoPropertyDefinition(models.Model):
+class GeoPropertyDefinition(models.Model,WidgetDefJsonMixin):
     """A Property of geodataset. Every feature in the dataset should have a value for this property."""
+    export_def = {
+        "dataset": JSON_INHERITED("properties"),
+        "type": JSON_ATTR(attribute="property_type"),
+        "url": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "data_property": JSON_ATTR(),
+        "predefined_geom_property": JSON_ATTR(),
+        "num_precision": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED(),
+    }
+    export_lookup = { "dataset": "dataset", "url": "url" }
+    api_state_def = {
+        "label": JSON_ATTR(attribute="url"),
+        "name": JSON_ATTR(attribute="label"),
+        "type": JSON_ATTR(attribute="type_of_property"),
+        "class": JSON_ATTR(attribute="property_class"),
+        "num_precision": JSON_OPT_ATTR(attribute="num_precision", decider="is_numeric")
+    }
     STRING = 1
     NUMERIC = 2
     DATE=3
     TIME=4
     DATETIME=5
     property_types=('-', 'string', 'numeric', 'date', 'time', 'datetime')
-    dataset = models.ForeignKey(GeoDataset, help_text="The GeoDataset the property is defined for")
+    dataset = models.ForeignKey(GeoDataset, related_name="properties", help_text="The GeoDataset the property is defined for")
     url = models.SlugField(verbose_name="label", help_text="A short symbolic name for the property, as used by the API")
     label = models.CharField(verbose_name="name", max_length=256, help_text="A longer descriptive name for the property")
     property_type=models.SmallIntegerField(choices=(
@@ -549,6 +530,8 @@ class GeoPropertyDefinition(models.Model):
     predefined_geom_property=models.BooleanField(default=False, help_text="This property describes a pre-defined geometry, as specified in csv-geo-au. Can only be set for a Predefined GeoDataset, for which it must be the first property.")
     data_property=models.BooleanField(default=False, help_text="Only one dataset property can be flagged as a data property. It is the property whose value is used to colour-code the map display of the the GeoDataSet")
     sort_order = models.IntegerField(help_text="Sort order of property within a GeoDataset")
+    def type_of_property(self):
+        return self.property_types[self.property_type]
     def clean(self):
         if self.property_type != self.NUMERIC:
             self.num_precision = None
@@ -565,45 +548,15 @@ class GeoPropertyDefinition(models.Model):
         if self.data_property and self.predefined_geom_property:
             problems.append("Property %s of geo-dataset %s is marked as both a data property and a predefined geometry property." % (self.url, self.dataset.url))
         return problems
-    def __getstate__(self):
-        data = {
-            "label": self.url,
-            "name": self.label,
-            "type": self.property_types[self.property_type],
-        }
+    def property_class(self):
         if self.data_property:
-            data["class"] = "data"
+            return "data"
         elif self.predefined_geom_property:
-            data["class"] = "predefined"
+            return "predefined"
         else:
-            data["class"] = "other"
-        if self.property_type == self.NUMERIC:
-            data["num_precision"] = self.num_precision
-        return data
-    def export(self):
-        return {
-            "type": self.property_type,
-            "url": self.url,
-            "label": self.label,
-            "data_property": self.data_property,
-            "predefined_geom_property": self.predefined_geom_property,
-            "num_precision": self.num_precision,
-            "sort_order": self.sort_order,
-        }
-    @classmethod
-    def import_data(cls, dataset, data):
-        try:
-            prop = cls.objects.get(dataset=dataset, url=data["url"])
-        except cls.DoesNotExist:
-            prop = cls(dataset=dataset, url=data["url"])
-        prop.label = data["label"]
-        prop.property_type = data["type"]
-        prop.num_precision = data["num_precision"]
-        prop.data_property = data.get("data_property", False)
-        prop.predefined_geom_property = data.get("predefined_geom_property", False)
-        prop.sort_order = data["sort_order"]
-        prop.save()
-        return prop
+            return "other"
+    def is_numeric(self):
+        return self.property_type == self.NUMERIC
     class Meta:
         unique_together=(('dataset', 'url'), ('dataset', 'label'), ('dataset', 'sort_order'))
         ordering = ('dataset', 'sort_order')

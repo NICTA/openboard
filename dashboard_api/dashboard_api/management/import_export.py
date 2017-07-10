@@ -15,9 +15,7 @@
 from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation, ViewFamily, PropertyGroup
 from widget_def.models.reference import AllCategories
 from widget_data.api import *
-
-class ImportExportException(Exception):
-    pass
+from dashboard_api.management.exceptions import ImportExportException
 
 def sanitise_widget_arg(widget):
     if not isinstance(widget, WidgetFamily):
