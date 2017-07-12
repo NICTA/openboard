@@ -13,6 +13,7 @@
 #   limitations under the License.
 
 from django.db import models
+from widget_def.model_json_tools import *
 from widget_def.models.views import WidgetView, ViewProperty
 
 # Create your models here.
@@ -20,7 +21,7 @@ from widget_def.models.views import WidgetView, ViewProperty
 class ViewDoesNotHaveAllKeys(Exception):
     pass
 
-class Parametisation(models.Model):
+class Parametisation(models.Model, WidgetDefJsonMixin):
     """
     A :model:`widget_def.WidgetDefinition` may be parametised by associating it with a Parametisation.
 
@@ -35,6 +36,12 @@ class Parametisation(models.Model):
     within a particular view determined by rendering the template with a Context equal to the view's
     properties.
     """
+    export_def = {
+        "url": JSON_ATTR(),
+        "name": JSON_ATTR(),
+        "keys": JSON_RECURSEDOWN("ParametisationKey", "pkeys", "param", "key", app="widget_def")
+    }
+    export_lookup = { "url": "url" }
     url=models.SlugField(unique=True, help_text="A short symbolic name used by export commands")
     name=models.CharField(max_length=128, unique=True, help_text="A longer descriptive name.")
     def __unicode__(self):
@@ -56,7 +63,7 @@ class Parametisation(models.Model):
             pass
     def keys(self):
         """Returns this Parametisation's keys (as a list of strings)"""
-        return [ pk.key for pk in self.parametisationkey_set.all() ]
+        return [ pk.key for pk in self.pkeys.all() ]
     def update(self, view=None):
         """
         Update :model:`ParametisationValue` objects for this Parametisation. For specified view or all views.
@@ -155,13 +162,18 @@ class Parametisation(models.Model):
     class Meta:
         ordering = ("name",)
 
-class ParametisationKey(models.Model):
+class ParametisationKey(models.Model, WidgetDefJsonMixin):
     """
     A key that is parametised by a :model:`Parametisation`.
 
     Every view that declares a widget with this Parametisation is assumed to have a property with this key.
     """
-    param = models.ForeignKey(Parametisation, help_text="The Parametisation")
+    export_def = {
+        "param": JSON_INHERITED("pkeys"),
+        "key": JSON_ATTR(solo=True)
+    }
+    export_lookup = { "url": "url" }
+    param = models.ForeignKey(Parametisation, related_name="pkeys", help_text="The Parametisation")
     key = models.CharField(max_length=120, help_text="The parametised key")
     def __unicode__(self):
         return "%s[%s]" % (self.param.name, self.key)
