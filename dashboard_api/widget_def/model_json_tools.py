@@ -46,7 +46,7 @@ class JSON_ATTR(object):
             cons_args[self.attribute] = val
         else:
             cons_args[key] = val
-    def recurse_import(self, js, obj, key, imp_kwargs, env):
+    def recurse_import(self, js, obj, key, imp_kwargs, env, do_not_delete=False):
         pass
 
 class JSON_PASSDOWN(JSON_ATTR):
@@ -147,7 +147,7 @@ class JSON_INHERITED(JSON_ATTR):
         pass
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         cons_args[key] = imp_kwargs[key]
-    def recurse_import(self,js, obj, key, imp_kwargs, env):
+    def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
         getattr(imp_kwargs[key], self.related).add(obj, bulk=False)
 
 class JSON_COMPLEX_LOOKUP_WRAPPER(JSON_ATTR):
@@ -257,7 +257,7 @@ class JSON_RECURSEDOWN(JSON_ATTR):
                     export.append(getattr(o, recurse_func)())
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         pass
-    def recurse_import(self,js, obj, key, imp_kwargs, env):
+    def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
         if self.app:
             model = apps.get_app_config(self.app).get_model(self.model)
         else:
@@ -276,13 +276,15 @@ class JSON_RECURSEDOWN(JSON_ATTR):
                 keys_in_import.append(js_elem[self.sub_exp_key])
             for elem in getattr(obj,self.related).all():
                 elem_key = getattr(elem, self.sub_attr_key)
-                if elem_key not in keys_in_import:
+                if elem_key not in keys_in_import and not do_not_delete:
                     elem.delete()
-        else:
+        elif not do_not_delete:
             getattr(obj, self.related).all().delete()
         for i in range(len(_js)):
             kwargs = base_kwargs.copy()
-            kwargs["sort_order"] = (i + 1)*100
+            kwargs["merge"] = do_not_delete
+            if "sort_order" not in kwargs:
+                kwargs["sort_order"] = (i + 1)*100
             kwargs["js"] = _js[i]
             saved = False
             while not saved:
@@ -309,7 +311,7 @@ class JSON_RECURSEDICT(JSON_ATTR):
 class WidgetDefJsonMixin(object):
     export_def = {
     }
-    export_lookup = []
+    export_lookup = {}
     api_state_def = {
     }
     def export(self):
@@ -343,6 +345,11 @@ class WidgetDefJsonMixin(object):
     @classmethod
     def import_data(cls, js, **kwargs):
         cons_args = kwargs.copy()
+        if "merge" in kwargs:
+            merge = kwargs["merge"]
+            del cons_args["merge"]
+        else:
+            merge = False
         env = { "save": True }
         for k, v in cls.export_def.items():
             v.handle_import(js, cons_args, k, kwargs, env)
@@ -362,6 +369,6 @@ class WidgetDefJsonMixin(object):
         if env["save"]:
             obj.save()
         for k, v in cls.export_def.items():
-            v.recurse_import(js, obj, k, kwargs, env)
+            v.recurse_import(js, obj, k, kwargs, env, do_not_delete=merge)
         return obj
 
