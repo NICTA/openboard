@@ -18,5 +18,5 @@ class WidgetDefConfig(AppConfig):
     name = "widget_def"
     verbose_name = "Widget Definitions"
     def ready(self):
-        import widget_def.parametisation
+        import widget_def.param_signals
 

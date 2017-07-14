@@ -22,16 +22,16 @@ class JSON_ATTR(object):
         self.solo = solo
         self.importer = importer
         self.default = default
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.attribute:
             export[key] = call_or_get_attr(obj, self.attribute)
         else:
             export[key] = call_or_get_attr(obj, key)
         if self.parametise and recurse_func != "export":
-            if parametisation is None and view is not None:
+            if kwargs.get("parametisation") is None and kwargs.get("view") is not None:
                 # TODO
                 pass
-            export[key] = parametise_label(parametisation, view, export[key])
+            export[key] = parametise_label(kwargs.get("parametisation"), kwargs.get("view"), export[key])
         if self.solo:
             env["single_export_field"] = key
         return
@@ -49,13 +49,39 @@ class JSON_ATTR(object):
     def recurse_import(self, js, obj, key, imp_kwargs, env, do_not_delete=False):
         pass
 
+class JSON_CONST(JSON_ATTR):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+        export[key] = self.default
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        pass
+
+class JSON_CONDITIONAL_EXPORT(JSON_ATTR):
+    def __init__(self, condition, yes, no):
+        self.condition = condition,
+        self.yes = yes
+        self.no = no
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+        if self.condition(obj, kwargs):
+            self.yes.handle_export(obj, export, key, env, recurse_func, **kwargs)
+        else:
+            self.no.handle_export(obj, export, key, env, recurse_func, **kwargs)
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        pass
+
+class JSON_COMPLEX_IMPORTER_ATTR(JSON_ATTR):
+    def __init__(self, complex_importer=None, **kwargs):
+        super(JSON_COMPLEX_IMPORTER_ATTR, self).__init__(**kwargs)
+        self.complex_importer = complex_importer
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        self.complex_importer(js, cons_args)
+
 class JSON_PASSDOWN(JSON_ATTR):
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.attribute:
             val = call_or_get_attr(obj, self.attribute)
         else:
             val = call_or_get_attr(obj, key)
-        val = getattr(val, recurse_func)(parametisation=parametisation, view=view)
+        val = getattr(val, recurse_func)(**kwargs)
         export[key] = val
         if self.solo:
             env["single_export_field"] = key
@@ -64,7 +90,7 @@ class JSON_PASSDOWN(JSON_ATTR):
         pass
 
 class JSON_STRINGIFY_ATTR(JSON_ATTR):
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.attribute:
             export[key] = unicode(getattr(obj, self.attribute))
         else:
@@ -72,29 +98,38 @@ class JSON_STRINGIFY_ATTR(JSON_ATTR):
         return
 
 class JSON_CAT_LOOKUP(JSON_ATTR):
-    def __init__(self, lookup_fields, imp_lookup, attribute=None):
+    def __init__(self, lookup_fields, imp_lookup, optional=False, attribute=None):
         super(JSON_CAT_LOOKUP, self).__init__(attribute=attribute)
         self.fields=lookup_fields
         self.imp_lookup=imp_lookup
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+        self.optional = optional
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         o = obj
         for fld in self.fields:
             o = getattr(o, fld)
+            if o is None and self.optional:
+                return
             if callable(o):
                 o = o()
         export[key] = o
         return 
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
-        if self.attribute:
-            cons_args[self.attribute] = self.imp_lookup(js, key, imp_kwargs)
-        else:
-            cons_args[key] = self.imp_lookup(js, key, imp_kwargs)
+        try:
+            if self.attribute:
+                cons_args[self.attribute] = self.imp_lookup(js, key, imp_kwargs)
+            else:
+                cons_args[key] = self.imp_lookup(js, key, imp_kwargs)
+        except KeyError:
+            if self.attribute:
+                cons_args[self.attribute] = None
+            else:
+                cons_args[key] = None
 
 class JSON_NUM_ATTR(JSON_ATTR):
     def __init__(self, precision, allow_int=True, attribute=None):
         self.precision = precision
         super(JSON_NUM_ATTR, self).__init__(attribute=attribute)
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.attribute:
             attrval = getattr(obj, self.attribute)
         else:
@@ -120,14 +155,13 @@ class JSON_OPT_ATTR(JSON_ATTR):
     def __init__(self, decider=None, attribute=None, parametise=False):
         super(JSON_OPT_ATTR, self).__init__(attribute=attribute, parametise=parametise)
         self.decider = decider
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.decider:
             do_it = call_or_get_attr(obj, self.decider)
         else:
             do_it = call_or_get_attr(obj, key)
         if do_it:
-            super(JSON_OPT_ATTR, self).handle_export(obj, export, key, env, recurse_func, 
-                            parametisation=parametisation, view=view)
+            super(JSON_OPT_ATTR, self).handle_export(obj, export, key, env, recurse_func, **kwargs)
         return
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         if key in js:
@@ -140,15 +174,24 @@ class JSON_IMPLIED(JSON_ATTR):
         cons_args[key] = imp_kwargs[key]
 
 class JSON_INHERITED(JSON_ATTR):
-    def __init__(self, related_name):
+    def __init__(self, related_name, optional=False):
         super(JSON_INHERITED, self).__init__()
         self.related = related_name
+        self.optional=optional
     def handle_export(self, *args, **kwargs):
         pass
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
-        cons_args[key] = imp_kwargs[key]
+        try:
+            cons_args[key] = imp_kwargs[key]
+        except KeyError:
+            if not self.optional:
+                raise
     def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
-        getattr(imp_kwargs[key], self.related).add(obj, bulk=False)
+        try:
+            getattr(imp_kwargs[key], self.related).add(obj, bulk=False)
+        except KeyError:
+            if not self.optional:
+                raise
 
 class JSON_COMPLEX_LOOKUP_WRAPPER(JSON_ATTR):
     def __init__(self, attribute, null, exporter, 
@@ -162,7 +205,7 @@ class JSON_COMPLEX_LOOKUP_WRAPPER(JSON_ATTR):
         self.importer_kwargs = importer_kwargs
         self.warning_on_importer_fail = warning_on_importer_fail
         self.name_key_for_warning = name_key_for_warning
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         export[key] = self.exporter(getattr(obj,self.attribute))
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         mdl = apps.get_app_config(self.app).get_model(self.model)
@@ -189,7 +232,7 @@ class JSON_SIMPLE_LOOKUP_WRAPPER(JSON_ATTR):
         self.importer_kwargs = importer_kwargs
         self.warning_on_importer_fail = warning_on_importer_fail
         self.name_key_for_warning = name_key_for_warning
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         for k, exporter in zip(key, self.exporters):
             export[k] = exporter(getattr(obj,self.attribute))
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
@@ -212,7 +255,7 @@ class JSON_GEO_COORD(JSON_ATTR):
         super(JSON_GEO_COORD, self).__init__(attribute=attribute)
         self.view_override_attr = view_override_attribute
         self.view_replacement_attr = view_replacement_attribute
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         keyx, keyy = key
         if self.view_override_attr and getattr(obj, self.view_override_attr) and view and getattr(view, self.view_replacement_attr):
             repl_win = getattr(view, self.view_replacement_attr)
@@ -228,7 +271,7 @@ class JSON_GEO_COORD(JSON_ATTR):
         cons_args[self.attribute] = Point(js[keyx], js[keyy])
 
 class JSON_RECURSEDOWN(JSON_ATTR):
-    def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, suppress_if_empty=False, suppress_decider=None):
+    def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, recurse_attr_chain=[], suppress_if_empty=False, suppress_decider=None, recurse_obj_arg=None, recurse_func_override=None):
         super(JSON_RECURSEDOWN, self).__init__()
         self.related = related_name
         self.related_attr = related_attr
@@ -238,30 +281,46 @@ class JSON_RECURSEDOWN(JSON_ATTR):
         self.suppress_decider = suppress_decider
         self.merge = merge
         self.sub_attr_key = sub_attr_key
+        self.recurse_attr_chain = recurse_attr_chain
+        self.recurse_func_override = recurse_func_override
+        self.recurse_obj_arg = recurse_obj_arg
         if sub_exp_key:
             self.sub_exp_key = sub_exp_key
         else:
             self.sub_exp_key = sub_attr_key
-    def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+    def recurse_loop(self, obj):
+        return getattr(obj, self.related).all()
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.suppress_if_empty and getattr(obj, self.related).count() == 0:
             pass
         elif self.suppress_decider and call_or_get_attr(obj, self.suppress_decider):
             pass
-        elif key:
-            export[key] = [ o.export() for o in getattr(obj, self.related).all() ] 
-        else: 
-            for o in getattr(obj, self.related).all():
-                if view:
-                    export.append(getattr(o, recurse_func)(parametisation=parametisation, view=view))
+        else:
+            if key:
+                export[key] = []
+                exp_target = export[key]
+            else:
+                exp_target = export
+            for o in self.recurse_loop(obj):
+                for attr in self.recurse_attr_chain:
+                    o = getattr(o, attr)
+                if self.recurse_func_override:
+                    func = getattr(o, self.recurse_func_override)
                 else:
-                    export.append(getattr(o, recurse_func)())
+                    func = getattr(o, recurse_func)
+                func_kwargs = kwargs.copy()
+                if self.recurse_obj_arg:
+                    func_kwargs[self.recurse_obj_arg] = obj
+                exp_target.append(func(**kwargs))
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         pass
-    def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
+    def get_model(self):
         if self.app:
-            model = apps.get_app_config(self.app).get_model(self.model)
+            return apps.get_app_config(self.app).get_model(self.model)
         else:
-            model = self.model
+            return self.model
+    def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
+        model = self.get_model()
         base_kwargs = {}
         base_kwargs[self.related_attr] = obj
         if key is None:
@@ -294,15 +353,19 @@ class JSON_RECURSEDOWN(JSON_ATTR):
                 except IntegrityError:
                     kwargs["sort_order"] += 1
 
+class JSON_SELF_RECURSEDOWN(JSON_RECURSEDOWN):
+    def recurse_loop(self, obj):
+        return self.get_model().objects.filter(parent=obj.parent).exclude(id=obj.id)
+
 class JSON_RECURSEDICT(JSON_ATTR):
    def __init__(self, related, key_attr, value_attr): 
        self.related = related
        self.key_attr = key_attr
        self.value_attr = value_attr
-   def handle_export(self, obj, export, key, env, recurse_func="export", parametisation=None, view=None):
+   def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         exp = {}
         for o in getattr(obj, self.related).all():
-            exp[getattr(o, self.key_attr)] = getattr(o, self.value_attr)
+            exp[call_or_get_attr(o, self.key_attr)] = call_or_get_attr(o, self.value_attr)
         export[key] = exp
         return
    def handle_import(self, js, cons_args, key, imp_kwargs, env):
@@ -328,7 +391,7 @@ class WidgetDefJsonMixin(object):
             return exp[env["single_export_field"]]
         else:
             return exp
-    def __getstate__(self, parametisation=None, view=None):
+    def __getstate__(self, **kwargs):
         if None in self.api_state_def:
             data = []
         else:
@@ -337,7 +400,7 @@ class WidgetDefJsonMixin(object):
             "single_export_field": False
         }
         for k, v in self.api_state_def.items():
-            v.handle_export(self, data, k, env, recurse_func="__getstate__", parametisation=parametisation, view=view)
+            v.handle_export(self, data, k, env, recurse_func="__getstate__", **kwargs)
         if env["single_export_field"]:
             return data[env["single_export_field"]]
         else:
