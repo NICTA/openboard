@@ -98,14 +98,14 @@ class ColourScaleTable(object):
         if gcs.autoscale:
             if mini is None or maxi is None:
                 raise Exception("Must provide min and max values for autoscaling table")
-            first_p = gcs.geocolourpoint_set.all()[0]
-            last_p  = gcs.geocolourpoint_set.order_by('-value')[0]
+            first_p = gcs.points.all()[0]
+            last_p  = gcs.points.order_by('-value')[0]
             if mini == maxi:
                 # Degenerate case
                 self.add_entry(mini, mini, first_p, first_p)
                 return
             prev_p = None
-            for p in gcs.geocolourpoint_set.all():
+            for p in gcs.points.all():
                 if prev_p is not None:
                     self.add_entry(
                             (prev_p.value - first_p.value)/(last_p.value - first_p.value)*(maxi-mini) + mini,
@@ -117,7 +117,7 @@ class ColourScaleTable(object):
         else:
             # Manual scaling: ignore mini and maxi
             prev_p = None
-            for p in gcs.geocolourpoint_set.all():
+            for p in gcs.points.all():
                 if prev_p is None:
                     # Less than manual range
                     self.add_entry(None, p.value, p, p)
@@ -323,7 +323,7 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
         """
         if self.colour_map:
             try:
-                data_prop = self.geopropertydefinition_set.get(data_property=True)
+                data_prop = self.properties.get(data_property=True)
                 aggs = GeoProperty.objects.filter(feature__dataset=self, prop=data_prop).aggregate(models.Min("intval"), models.Max("intval"), models.Min("decval"), models.Max("decval"))
                 intmin = aggs["intval__min"]
                 intmax = aggs["intval__max"]
@@ -370,7 +370,7 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
         """
         arr = []
         d = {}
-        for prop in self.geopropertydefinition_set.all():
+        for prop in self.properties.all():
             arr.append(prop)
             d[prop.url] = prop
         return (arr, d)
@@ -401,7 +401,7 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
                 except TypeError:
                     problems.append("Extra JSON for external Geodataset %s is not a valid JSON object" % self.url)
         firstprop = True
-        for prop in self.geopropertydefinition_set.all():
+        for prop in self.properties.all():
             if prop.data_property:
                 data_properties.append(prop.url)
             problems.extend(prop.validate())
@@ -416,11 +416,11 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
         elif self.geom_type == self.PREDEFINED and len(data_properties) != 1:
             problems.append("Predefined geometry geodataset %s does not have a data property set" % self.url)
         refs = 0
-        refs += self.viewgeodatasetdeclaration_set.count()
+        refs += self.declarations.count()
         refs += self.tiledefinition_set.count()
         if refs == 0:
             problems.append("Geodataset %s is not referenced - no declarations and not used in any map tiles" % self.url)
-        for decl in self.viewgeodatasetdeclaration_set.all():
+        for decl in self.declarations.all():
             if not decl.view.geo_window:
                 problems.append("Geodataset %s has a declaration for view %s which has no geo-window defined" % (self.url, decl.view.label))
         return problems
@@ -443,7 +443,7 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
         else:
             out = "lat,lon"
             skip_comma = False
-        for prop in self.geopropertydefinition_set.all():
+        for prop in self.properties.all():
             if skip_comma:
                 skip_comma = False
             else:

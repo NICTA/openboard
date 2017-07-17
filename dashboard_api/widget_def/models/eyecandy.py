@@ -42,7 +42,7 @@ class IconLibrary(models.Model, WidgetDefJsonMixin):
             choices = [ ("", "--"), ]
         else:
             choices = []
-        choices.extend([ (c.value, c.value) for c in self.iconcode_set.all() ])
+        choices.extend([ (c.value, c.value) for c in self.codes.all() ])
         return choices
 
 class IconCode(models.Model, WidgetDefJsonMixin):
@@ -95,7 +95,7 @@ class TrafficLightScale(models.Model, WidgetDefJsonMixin):
             choices = [ ("", "--"), ]
         else:
             choices = []
-        choices.extend([ (c.value, c.value) for c in self.trafficlightscalecode_set.all() ])
+        choices.extend([ (c.value, c.value) for c in self.codes.all() ])
         return choices
 
 class TrafficLightScaleCode(models.Model, WidgetDefJsonMixin):

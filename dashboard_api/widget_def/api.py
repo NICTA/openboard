@@ -43,7 +43,7 @@ def api_get_map_layers(view, hierarchical=False):
                 "menu_label" : cat.name,
                 "content" : [],
             }
-            for sub in cat.subcategory_set.all():
+            for sub in cat.subcategories.all():
                 sm = {
                     "menu_label" : sub.name,
                     "content" : [],
@@ -91,7 +91,7 @@ def api_get_terria_init(view, shown=[]):
             "isOpen": "true",
             "items" : [],
         }
-        for sub in cat.subcategory_set.all():
+        for sub in cat.subcategories.all():
             sm = {
                 "name" : sub.name,
                 "type": "group",
@@ -137,7 +137,7 @@ def catalog_entry(ds, view, shown=[]):
         entry["type"] = "csv"
         get_args["format"] = "csv"
         try:
-            dataprop = ds.geopropertydefinition_set.get(data_property=True)
+            dataprop = ds.properties.get(data_property=True)
             entry["tableStyle"] = { "dataVariable": dataprop.label }
             tab = ds.colour_table()
             if tab:
@@ -170,7 +170,7 @@ def api_get_property(grp, key):
     except PropertyGroup.DoesNotExist:
         raise Http404("This Property Group does not exist")
     try:
-        prop = group.property_set.get(key=key)
+        prop = group.properties.get(key=key)
     except Property.DoesNotExist:
         raise Http404("This Property does not exist in this Property Group")
     return prop.value
