@@ -87,7 +87,7 @@ class Parametisation(models.Model, WidgetDefJsonMixin):
                     pv.delete()
             return
         keys = self.keys()
-        if view.viewproperty_set.filter(key__in=keys).count() < len(keys):
+        if view.properties.filter(key__in=keys).count() < len(keys):
             # View does not have properties for all of this Parametisation's keys:
             # Remove any pvals for this Parametisation and View.  Cleanup any resulting unused pvals.
             for pv in view.parametisationvalue_set.filter(param=self):
@@ -112,11 +112,11 @@ class Parametisation(models.Model, WidgetDefJsonMixin):
             pv.views.add(view)
         # OK, so we have a view and a pval which may or may not match.
         pv_params = pv.parameters()
-        v_params  = view.properties()
+        v_params  = view.my_properties()
         for key in keys:
             if key not in pv_params:
                 # pval doesn't have the key. Better add it in then!
-                prop = view.viewproperty_set.get(key=key)
+                prop = view.properties.get(key=key)
                 pkv = ParameterValue(
                         pv=pv,
                         key=prop.key,
@@ -209,7 +209,7 @@ class ParametisationValue(models.Model):
         return True
     def matches(self, view):
         """Tests whether a view's properties match this ParametisationValue"""
-        return self.matches_parameters(view.properties())
+        return self.matches_parameters(view.my_properties())
     def __unicode__(self):
         return "%s: %s" % (unicode(self.param), ", ".join([ unicode(pv) for pv in self.parametervalue_set.all() ]))
     class Meta:

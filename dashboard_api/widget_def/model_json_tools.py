@@ -3,6 +3,7 @@ import decimal
 from django.db.models import Model
 from django.db.utils import IntegrityError
 from django.apps import apps
+from django.core.exceptions import ObjectDoesNotExist
 
 from dashboard_api.management.exceptions import ImportExportException
 from widget_def.parametisation import parametise_label
@@ -98,11 +99,12 @@ class JSON_STRINGIFY_ATTR(JSON_ATTR):
         return
 
 class JSON_CAT_LOOKUP(JSON_ATTR):
-    def __init__(self, lookup_fields, imp_lookup, optional=False, attribute=None):
+    def __init__(self, lookup_fields, imp_lookup, import_model=None, optional=False, attribute=None):
         super(JSON_CAT_LOOKUP, self).__init__(attribute=attribute)
         self.fields=lookup_fields
         self.imp_lookup=imp_lookup
         self.optional = optional
+        self.import_model = import_model
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         o = obj
         for fld in self.fields:
@@ -115,15 +117,20 @@ class JSON_CAT_LOOKUP(JSON_ATTR):
         return 
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         try:
-            if self.attribute:
-                cons_args[self.attribute] = self.imp_lookup(js, key, imp_kwargs)
-            else:
-                cons_args[key] = self.imp_lookup(js, key, imp_kwargs)
+            obj = self.imp_lookup(js, key, imp_kwargs)
         except KeyError:
-            if self.attribute:
-                cons_args[self.attribute] = None
+            obj = None
+        except ObjectDoesNotExist:
+            if self.import_model and key:
+                obj=self.import_model.import_data(js=js[key])
+            elif self.import_model:
+                obj=self.import_model.import_data(js=js)
             else:
-                cons_args[key] = None
+                raise
+        if self.attribute:
+            cons_args[self.attribute] = obj
+        else:
+            cons_args[key] = obj
 
 class JSON_NUM_ATTR(JSON_ATTR):
     def __init__(self, precision, allow_int=True, attribute=None):
@@ -342,7 +349,7 @@ class JSON_RECURSEDOWN(JSON_ATTR):
         for i in range(len(_js)):
             kwargs = base_kwargs.copy()
             kwargs["merge"] = do_not_delete
-            if "sort_order" not in kwargs:
+            if isinstance(model.export_def.get("sort_order"), JSON_IMPLIED):
                 kwargs["sort_order"] = (i + 1)*100
             kwargs["js"] = _js[i]
             saved = False
@@ -351,7 +358,10 @@ class JSON_RECURSEDOWN(JSON_ATTR):
                     model.import_data(**kwargs)
                     saved = True
                 except IntegrityError:
-                    kwargs["sort_order"] += 1
+                    if isinstance(model.export_def.get("sort_order"), JSON_IMPLIED):
+                        kwargs["sort_order"] += 1
+                    else:
+                        raise
 
 class JSON_SELF_RECURSEDOWN(JSON_RECURSEDOWN):
     def recurse_loop(self, obj):

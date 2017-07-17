@@ -28,8 +28,8 @@ class ViewType(models.Model, WidgetDefJsonMixin):
     """
     export_def = {
         "name": JSON_ATTR(),
-        "show_children": JSON_ATTR(),
-        "show_siblings": JSON_ATTR(),
+        "show_children": JSON_ATTR(default=False),
+        "show_siblings": JSON_ATTR(default=False),
     }
     export_lookup = { "name": "name" }
     name = models.CharField(max_length=120, unique=True, help_text="The name of the view type, as it appears in the API")
@@ -46,7 +46,7 @@ class WidgetView(models.Model, WidgetDefJsonMixin):
         "parent": JSON_INHERITED("children", optional=True),
         "name": JSON_ATTR(),
         "label": JSON_ATTR(),
-        "view_type": JSON_CAT_LOOKUP(["view_type", "export"], lambda js, k, kw: ViewType.objects.get(name=js["view_type"]["name"])),
+        "view_type": JSON_CAT_LOOKUP(["view_type", "export"], lambda js, k, kw: ViewType.objects.get(name=js["view_type"]["name"]), import_model=ViewType),
         "sort_order": JSON_ATTR(),
         "external_url": JSON_ATTR(),
         "requires_authentication": JSON_ATTR(),
