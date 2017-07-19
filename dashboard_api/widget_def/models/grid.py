@@ -57,14 +57,14 @@ class GridDefinition(models.Model):
         if nrows < 1:
             problems.append("Number of GridRows must be at least one (not %d)" % nrows)
         required_stat_count = ncols * nrows
-        stat_count = self.tile.statistic_set.count()
+        stat_count = self.tile.statistics.count()
         gridstat_count = self.gridstatistic_set.count()
         nongrid_stat_count = stat_count - gridstat_count
         if self.tile.tile_type == self.tile.GRID_SINGLE_STAT:
             if nongrid_stat_count != 1:
                 problems.append("Tiles of type grid_single_stat must have a single non-grid stat")
             else:
-                first_stat = self.tile.statistic_set.all()[0]
+                first_stat = self.tile.statistics.all()[0]
                 if first_stat.gridstatistic_set.count() != 0:
                     problems.append("Tiles of type grid_single_stat must have a single non-grid stat which is the statistic with the lowest sort order")
         else:

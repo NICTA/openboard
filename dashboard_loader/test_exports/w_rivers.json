@@ -34,8 +34,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 100
+                            "unit_prefix": ""
                         }, 
                         {
                             "num_precision": 2, 
@@ -56,8 +55,7 @@
                             "unit_suffix": "m3/s", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 200
+                            "unit_prefix": ""
                         }
                     ], 
                     "list_label_width": null, 
@@ -105,8 +103,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 5, 
-                            "unit_prefix": null, 
-                            "sort_order": 100
+                            "unit_prefix": null
                         }
                     ], 
                     "list_label_width": 100, 

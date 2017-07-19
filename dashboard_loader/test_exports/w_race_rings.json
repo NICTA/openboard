@@ -33,8 +33,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 100
+                            "unit_prefix": ""
                         }, 
                         {
                             "num_precision": 0, 
@@ -55,8 +54,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 200
+                            "unit_prefix": ""
                         }
                     ], 
                     "list_label_width": null, 
@@ -92,8 +90,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 4, 
-                            "unit_prefix": "", 
-                            "sort_order": 100
+                            "unit_prefix": ""
                         }
                     ], 
                     "list_label_width": 50, 

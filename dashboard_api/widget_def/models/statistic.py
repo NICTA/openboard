@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -22,12 +22,22 @@ from widget_data.models import StatisticData, StatisticListItem
 from widget_def.models.tile_def import TileDefinition
 from widget_def.models.eyecandy import IconLibrary, TrafficLightScale, TrafficLightAutoStrategy, TrafficLightAutomation
 from widget_def.parametisation import parametise_label, resolve_pval
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
 tz = pytz.timezone(settings.TIME_ZONE)
 
-class Statistic(models.Model):
+def stat_unit_exporter(stat):
+    members = [ "prefix", "suffix", "underfix", "signed" ]
+    exp={}
+    for m in members:
+        mv = getattr(stat, "unit_" + m)
+        if mv:
+            exp[m] = mv
+    return exp
+
+class Statistic(models.Model, WidgetDefJsonMixin):
     """
     Represents a single chunk of data to be displayed in a widget. May be a scalar or a list.
 
@@ -68,7 +78,50 @@ class Statistic(models.Model):
     stat_types = [ "-", "string", "numeric", "string_kv_list", "numeric_kv_list", "string_list", 
                    "am_pm" , "event_list" , "long_string", "long_string_list", "hierarchical_event_list", 
                    "null" ]
-    tile = models.ForeignKey(TileDefinition, help_text="The widget tile this statistic appears in")
+    export_def = {
+        "tile": JSON_INHERITED("statistics"),
+        "name": JSON_ATTR(),
+        "url": JSON_ATTR(),
+        "name_as_label": JSON_ATTR(),
+        "stat_type": JSON_ATTR(),
+        "traffic_light_scale": JSON_CAT_LOOKUP(["traffic_light_scale", "name"], lambda js, k, kw: TrafficLightScale.objects.get(name=js["traffic_light_scale"])),
+        "traffic_light_automation": JSON_CAT_LOOKUP(["traffic_light_automation", "url"], lambda js, k, kw: TrafficLightAutomation.objects.get(url=js["traffic_light_automation"])),
+        "icon_library": JSON_CAT_LOOKUP(["icon_library", "name"], lambda js, k, kw: IconLibrary.objects.get(name=js["icon_library"])),
+        "trend": JSON_ATTR(),
+        "hyperlinkable": JSON_ATTR(),
+        "numbered_list": JSON_ATTR(),
+        "footer": JSON_ATTR(),
+        "rotates": JSON_ATTR(),
+        "editable": JSON_ATTR(),
+        "num_precision": JSON_ATTR(),
+        "unit_prefix": JSON_ATTR(),
+        "unit_suffix": JSON_ATTR(),
+        "unit_underfix": JSON_ATTR(),
+        "unit_si_prefix_rounding": JSON_ATTR(),
+        "unit_signed": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED(),
+    }
+    export_lookup = { "tile": "tile", "url": "url" }
+    api_state_def = {
+        "label": JSON_ATTR(attribute="url"),
+        "type": JSON_EXP_ARRAY_LOOKUP(lookup_array=stat_types, attribute="stat_type"),
+        "name": JSON_OPT_ATTR(decider=["tile", "is_grid"],parametise=True),
+        "display_name": JSON_OPT_ATTR(decider=["tile", "is_grid"], attribute="name_as_label"),
+        "precision": JSON_OPT_ATTR(decider="is_numeric", attribute="num_precision"),
+        "unit": JSON_OPT_ATTR(decider="is_numeric", attribute="self", exporter=stat_unit_exporter),
+        "traffic_light_scale": JSON_CONDITIONAL_EXPORT(
+                lambda obj, kwargs : (obj.traffic_light_automation is None),
+                JSON_PASSDOWN(),
+                JSON_PASSDOWN(attribute="traffic_light_automation")
+        ),
+        "trend": JSON_ATTR(),
+        "icon_library": JSON_CAT_LOOKUP(["icon_library", "name"], None),
+        "rotates": JSON_OPT_ATTR(),
+        "numbered_list": JSON_OPT_ATTR(decider="is_display_list"),
+        "hyperlinkable": JSON_OPT_ATTR(decider="is_data_list"),
+        "footer": JSON_ATTR()
+    }
+    tile = models.ForeignKey(TileDefinition, related_name="statistics", help_text="The widget tile this statistic appears in")
     name = models.CharField(max_length=80, blank=True, help_text="A pretty descriptive name for the statistic - may be blank if the statistic is be unlabeled")
     url = models.SlugField(verbose_name="A short symbolic name that identifies the statistic, used within the API")
     name_as_label=models.BooleanField(verbose_name="display_name", default=True, help_text="If true, the name field is used as the display name for the statistic. If false, a display name for the statistic is supplied dynamically with the widget data.")
@@ -157,6 +210,8 @@ class Statistic(models.Model):
         return problems
     def __unicode__(self):
         return "%s[%s]" % (self.tile,self.name)
+    def widget(self):
+        return self.tile.widget
     def is_numeric(self):
         """Returns true if this is a numeric statistic (numeric or numeric_kv_list type)"""
         return self.stat_type in (self.NUMERIC, self.NUMERIC_KVL)
@@ -215,7 +270,7 @@ class Statistic(models.Model):
 
         Data returned as a single :model:`widget_data.StatisticData` object or a :model:`widget_data.StatisticListItem` query result if is_data_list() returns True.
         """
-        pval=resolve_pval(self.tile.widget.parametisation,view=view,pval=pval)
+        pval=resolve_pval(self.widget().parametisation,view=view,pval=pval)
         if self.is_data_list():
             data = StatisticListItem.objects.filter(statistic=self)
             if pval:
@@ -285,7 +340,7 @@ class Statistic(models.Model):
 
         update: If true and the last_updated value is cached, then the cached value is dropped and recalculated.
         """
-        pval=resolve_pval(self.tile.widget.parametisation,view=view,pval=pval)
+        pval=resolve_pval(self.widget().parametisation,view=view,pval=pval)
         if pval:
             if self._lud_cache and self._lud_cache.get(pval.id) and not update:
                 return self._lud_cache[pval.id]
@@ -310,115 +365,6 @@ class Statistic(models.Model):
                 except StatisticData.DoesNotExist:
                     self._lud_cache = None
             return self._lud_cache
-    def export(self):
-        if self.traffic_light_scale:
-            traffic_light_scale_name = self.traffic_light_scale.name
-        else:
-            traffic_light_scale_name = None
-        if self.icon_library:
-            icon_library_name = self.icon_library.name
-        else:
-            icon_library_name = None
-        if self.traffic_light_automation:
-            automation = self.traffic_light_automation.url
-        else:
-            automation = None
-        return {
-            "name": self.name,
-            "url": self.url,
-            "name_as_label": self.name_as_label,
-            "stat_type": self.stat_type,
-            "traffic_light_scale": traffic_light_scale_name,
-            "traffic_light_automation": automation,
-            "icon_library": icon_library_name,
-            "trend": self.trend,
-            "hyperlinkable": self.hyperlinkable,
-            "numbered_list": self.numbered_list,
-            "footer": self.footer,
-            "rotates": self.rotates,
-            "editable": self.editable,
-            "num_precision": self.num_precision,
-            "unit_prefix": self.unit_prefix,
-            "unit_suffix": self.unit_suffix,
-            "unit_underfix": self.unit_underfix,
-            "unit_si_prefix_rounding": self.unit_si_prefix_rounding,
-            "unit_signed": self.unit_signed,
-            "sort_order": self.sort_order,
-        }
-    @classmethod
-    def import_data(cls, tile, data):
-        try:
-            s = Statistic.objects.get(tile=tile, url=data["url"])
-        except Statistic.DoesNotExist:
-            s = Statistic(tile=tile, url=data["url"])
-        s.name = data["name"]
-        s.name_as_label = data["name_as_label"]
-        s.stat_type = data["stat_type"]
-        s.hyperlinkable = data.get("hyperlinkable", False)
-        s.numbered_list = data.get("numbered_list", False)
-        s.footer = data.get("footer", False)
-        s.rotates = data.get("rotates", False)
-        s.editable = data.get("editable", True)
-        s.trend = data["trend"]
-        s.num_precision = data["num_precision"]
-        s.unit_prefix = data["unit_prefix"]
-        s.unit_suffix = data["unit_suffix"]
-        s.unit_underfix = data["unit_underfix"]
-        s.unit_signed = data["unit_signed"]
-        s.unit_si_prefix_rounding = data.get("unit_si_prefix_rounding", 0)
-        s.sort_order = data["sort_order"]
-        if data["traffic_light_scale"]:
-            s.traffic_light_scale = TrafficLightScale.objects.get(name=data["traffic_light_scale"])
-        else:
-            s.traffic_light_scale = None
-        if data["icon_library"]:
-            s.icon_library = IconLibrary.objects.get(name=data["icon_library"])
-        else:
-            s.icon_library = None
-        if data.get("traffic_light_automation"):
-            s.traffic_light_automation = TrafficLightAutomation.objects.get(url=data["traffic_light_automation"])
-        s.save()
-        return s
-    def __getstate__(self, view):
-        state = {
-            "label": self.url,
-            "type": self.stat_types[self.stat_type],
-        }
-        if self.tile.tile_type != TileDefinition.GRID:
-            state["name"] = parametise_label(self.tile.widget, view, self.name)
-            state["display_name"] = self.name_as_label
-        if self.is_numeric():
-            state["precision"] = self.num_precision
-            state["unit"] = {}
-            if self.unit_prefix:
-                state["unit"]["prefix"] = self.unit_prefix 
-            if self.unit_suffix:
-                state["unit"]["suffix"] = self.unit_suffix 
-            if self.unit_underfix:
-                state["unit"]["underfix"] = self.unit_underfix 
-            if self.unit_signed:
-                state["unit"]["signed"] = True
-            if self.unit_si_prefix_rounding > 0:
-                state["unit"]["si_prefix_rounding"] = self.unit_si_prefix_rounding
-        if self.traffic_light_scale:
-            state["traffic_light_scale"] = self.traffic_light_scale.__getstate__()
-        elif self.traffic_light_automation:
-            state["traffic_light_scale"] = self.traffic_light_automation.strategy.scale.__getstate__()
-        else:
-            state["traffic_light_scale"] = None
-        if self.stat_type not in (self.STRING_LIST, self.LONG_STRING_LIST):
-            state["trend"] = self.trend
-            if self.icon_library:
-                state["icon_library"] = self.icon_library.name
-            else:
-                state["icon_library"] = None
-        if self.rotates:
-            state["rotates"] = self.rotates
-        if self.is_display_list():
-            state["numbered_list"] = self.numbered_list
-        if self.is_data_list():
-            state["hyperlinkable"] = self.hyperlinkable
-        state["footer"] = self.footer
         return state
     class Meta:
         unique_together = [("tile", "url")]

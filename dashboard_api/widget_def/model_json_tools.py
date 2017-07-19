@@ -17,26 +17,46 @@ def call_or_get_attr(obj, name):
 
 class JSON_ATTR(object):
     """Default handler.  Just use the attribute"""
-    def __init__(self, attribute=None, parametise=False, solo=False, default=None, importer=None):
+    def __init__(self, attribute=None, parametise=False, solo=False, default=None, importer=None, exporter=None):
         self.attribute = attribute
         self.parametise = parametise
         self.solo = solo
         self.importer = importer
         self.default = default
+        self.exporter = exporter
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.attribute:
-            export[key] = call_or_get_attr(obj, self.attribute)
+            attr = self.attribute
         else:
-            export[key] = call_or_get_attr(obj, key)
-        if self.parametise and recurse_func != "export":
-            if kwargs.get("parametisation") is None and kwargs.get("view") is not None:
-                # TODO
-                pass
-            export[key] = parametise_label(kwargs.get("parametisation"), kwargs.get("view"), export[key])
+            attr = key
+        if self.exporter:
+            if attr=="self":
+                export[key] = self.exporter(obj)
+            else:
+                export[key] = self.exporter(getattr(obj, attr))
+        else:
+            export[key] = call_or_get_attr(obj, attr)
+        if self.parametise:
+            export[key] = self.apply_parametisation(obj, export[key], **kwargs)
         if self.solo:
             env["single_export_field"] = key
         return
+    def apply_parametisation(self, obj, val, **kwargs):
+        parametisation_or_widget = kwargs.get("parametisation") 
+        view = kwargs.get("view")
+        if not parametisation_or_widget:
+            try:
+                parametisation_or_widget = getattr(obj, "widget")
+                if callable(parametisation_or_widget):
+                    parametisation_or_widget = parametisation_or_widget()
+            except AttributeError:
+                pass
+        if view is None or parametisation_or_widget is None:
+            raise ImportExportException("Cannot determine which parametisation to use")
+        return parametise_label(parametisation_or_widget, view, val)
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        if self.parametise:
+            raise ImportExportException("Cannot perform import on a parametised export")
         if self.solo:
             val = js
         else:
@@ -56,9 +76,21 @@ class JSON_CONST(JSON_ATTR):
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         pass
 
+class JSON_EXP_ARRAY_LOOKUP(JSON_ATTR):
+    def __init__(self, lookup_array, *args, **kwargs):
+        super(JSON_EXP_ARRAY_LOOKUP, self).__init__(*args, **kwargs)
+        self.lookup_array = lookup_array
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+        if self.attribute:
+            export[key] = self.lookup_array[call_or_get_attr(obj, self.attribute)]
+        else:
+            export[key] = self.lookup_array[call_or_get_attr(obj, key)]
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        pass
+
 class JSON_CONDITIONAL_EXPORT(JSON_ATTR):
     def __init__(self, condition, yes, no):
-        self.condition = condition,
+        self.condition = condition
         self.yes = yes
         self.no = no
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
@@ -77,13 +109,19 @@ class JSON_COMPLEX_IMPORTER_ATTR(JSON_ATTR):
         self.complex_importer(js, cons_args)
 
 class JSON_PASSDOWN(JSON_ATTR):
+    def __init__(self, optional=False, **kwargs):
+        super(JSON_PASSDOWN, self).__init__(**kwargs)
+        self.optional = optional
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         if self.attribute:
             val = call_or_get_attr(obj, self.attribute)
         else:
             val = call_or_get_attr(obj, key)
-        val = getattr(val, recurse_func)(**kwargs)
-        export[key] = val
+        if val is None:
+            export[key] = val
+        else:
+            val = getattr(val, recurse_func)(**kwargs)
+            export[key] = val
         if self.solo:
             env["single_export_field"] = key
         return
@@ -109,7 +147,9 @@ class JSON_CAT_LOOKUP(JSON_ATTR):
         o = obj
         for fld in self.fields:
             o = getattr(o, fld)
-            if o is None and self.optional:
+            if o is None:
+                if not self.optional:
+                    export[key] = None
                 return
             if callable(o):
                 o = o()
@@ -121,7 +161,9 @@ class JSON_CAT_LOOKUP(JSON_ATTR):
         except KeyError:
             obj = None
         except ObjectDoesNotExist:
-            if self.import_model and key:
+            if js[key] is None:
+                obj = None
+            elif self.import_model and key:
                 obj=self.import_model.import_data(js=js[key])
             elif self.import_model:
                 obj=self.import_model.import_data(js=js)
@@ -159,15 +201,26 @@ class JSON_NUM_ATTR(JSON_ATTR):
             cons_args[key] = val
 
 class JSON_OPT_ATTR(JSON_ATTR):
-    def __init__(self, decider=None, attribute=None, parametise=False):
-        super(JSON_OPT_ATTR, self).__init__(attribute=attribute, parametise=parametise)
+    def __init__(self, decider=None, **kwargs):
+        super(JSON_OPT_ATTR, self).__init__(**kwargs)
         self.decider = decider
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
-        if self.decider:
-            do_it = call_or_get_attr(obj, self.decider)
+        if self.decider is None:
+            doit = call_or_get_attr(obj, key)
+        elif isinstance(self.decider,basestring):
+            doit = call_or_get_attr(obj, self.decider)
         else:
-            do_it = call_or_get_attr(obj, key)
-        if do_it:
+            try:
+                decider_list = list(self.decider)
+                o = obj
+                for decider_element in decider_list:
+                    o = getattr(o, decider_element)
+                    if callable(o):
+                        o = o()
+                doit = o
+            except TypeError:
+                raise ImportExportException("decider not iterable")
+        if doit:
             super(JSON_OPT_ATTR, self).handle_export(obj, export, key, env, recurse_func, **kwargs)
         return
     def handle_import(self, js, cons_args, key, imp_kwargs, env):

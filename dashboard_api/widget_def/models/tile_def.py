@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -176,11 +176,11 @@ class TileDefinition(models.Model):
                                 self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR, self.TIME_LINE,
                                 self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, self.TEXT_TEMPLATE, 
                                 self.TAG_CLOUD):
-            state["statistics"] = [ s.__getstate__(view) for s in self.statistic_set.all() ]
+            state["statistics"] = [ s.__getstate__(view=view) for s in self.statistics.all() ]
         if self.tile_type == self.GRID_SINGLE_STAT:
             state["statistics"] = []
-            for s in self.statistic_set.all():
-                if s.gridstatistic_set.count() == 0:
+            for s in self.statistics.all():
+                if s.gridstatistics.count() == 0:
                     state["statistics"].append(s.__getstate__(view))
         elif self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
             if self.list_label_width:
@@ -217,7 +217,7 @@ class TileDefinition(models.Model):
             "sort_order": self.sort_order,
             "columns": self.columns,
             "list_label_width": self.list_label_width,
-            "statistics": [ s.export() for s in self.statistic_set.all() ],
+            "statistics": [ s.export() for s in self.statistics.all() ],
             "geo_window": None,
             "geo_datasets": [ ds.url for ds in self.geo_datasets.all() ],
         }
@@ -279,10 +279,12 @@ class TileDefinition(models.Model):
                 t.geo_datasets.add(GeoDataset.objects.get(url=ds))
         stat_urls = []
         Statistic = apps.get_app_config("widget_def").get_model("Statistic")
+        so = 100
         for s in data["statistics"]:
-            Statistic.import_data(t, s)
+            Statistic.import_data(tile=t, js=s, sort_order=so)
             stat_urls.append(s["url"])
-        for stat in t.statistic_set.all():
+            so += 100
+        for stat in t.statistics.all():
             if stat.url not in stat_urls:
                 stat.delete()
         GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
@@ -300,7 +302,7 @@ class TileDefinition(models.Model):
             if not self.list_label_width:
                 self.list_label_width = 50
         elif self.tile_type in (self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
-            for stat in self.statistic_set.all():
+            for stat in self.statistics.all():
                 if stat.stat_type == stat.STRING_LIST:
                     self.list_label_width = 100
         else:
@@ -358,7 +360,7 @@ class TileDefinition(models.Model):
         elif self.tile_type == self.TEXT_BLOCK:
             max_scalar_stat_count = 0
             min_scalar_stat_count = 0
-        stats = self.statistic_set.all()
+        stats = self.statistics.all()
         scalar_stats = 0
         list_stats = 0
         for s in stats:
@@ -398,7 +400,7 @@ class TileDefinition(models.Model):
                     pass
         # only single_list_Stat tile should have list statistics
         if self.tile_type not in (self.MULTI_LIST_STAT, self.TAG_CLOUD, self.SINGLE_LIST_STAT, self.NEWSTICKER, self.NEWSFEED, self.CALENDAR, self.TIME_LINE):
-            for stat in self.statistic_set.all():
+            for stat in self.statistics.all():
                 if stat.is_display_list():
                     problems.append("Tile %s of Widget %s is not a list stat tile, a calendar, tag cloud, news or time line tile and contains statistic %s, which is a list statistic. (Lists can only appear in tiles of the types listed)." % (self.url, self.widget.url(), stat.url))
         # Validate list_label_width:
@@ -410,7 +412,7 @@ class TileDefinition(models.Model):
                 problems.append("Tile %s of Widget %s is of list type but does not have the list label width set" % (self.url, self.widget.url()))
             else:
                 first_stat = True
-                for stat in self.statistic_set.all():
+                for stat in self.statistics.all():
                     if first_stat:
                         first_stat = False
                     else:
@@ -420,15 +422,15 @@ class TileDefinition(models.Model):
                         if self.list_label_width != 100:
                             problems.append("Tile %s of Widget %s has a string list stat but does not have the list label width set to 100%%" % (self.url, self.widget.url()))
         if self.tile_type == self.NEWSFEED:
-            for stat in self.statistic_set.all():
+            for stat in self.statistics.all():
                 if stat.stat_type != stat.STRING_KVL:
                     problems.append("Tile %s of Widget %s is a Newsfeed tile but has a non string kv list statistic" % (self.url, self.widget.url()))
         if self.tile_type == self.TAG_CLOUD:
-            for stat in self.statistic_set.all():
+            for stat in self.statistics.all():
                 if stat.stat_type != stat.NUMERIC_KVL:
                     problems.append("Tile %s of Widget %s is a Newsfeed tile but has a non numeric kv list statistic" % (self.url, self.widget.url()))
         if self.tile_type == self.NEWSTICKER:
-            for stat in self.statistic_set.all():
+            for stat in self.statistics.all():
                 if stat.stat_type != stat.STRING_LIST:
                     problems.append("Tile %s of Widget %s is a Newsticker tile but has a non string list statistic" % (self.url, self.widget.url()))
         # Must gave a graph if and only if a graph tile
@@ -474,7 +476,7 @@ class TileDefinition(models.Model):
                         referenced_urls.append(ref)
                     except Statistic.DoesNotExist:
                         problems.append("Text template of tile %s of Widget %s references statistic %s which is not defined" % (self.url, self.widget.url(), ref))
-                for stat in self.statistic_set.all():
+                for stat in self.statistics.all():
                     if stat.url not in referenced_urls:
                         problems.append("Text template of tile %s of Widget %s does not reference defined statistic %s" % (self.url, self.widget.url(), stat.url))
         # Validate Map
@@ -487,13 +489,15 @@ class TileDefinition(models.Model):
                 problems.extend(ds.validate())
         # Validate all stats.
         stat_names = []
-        for stat in self.statistic_set.all():
+        for stat in self.statistics.all():
             problems.extend(stat.validate())
             if stat.name in stat_names:
                 problems.append("Multiple statistics with name '%s' in tile %s of Widget %s" % (stat.name, self.url, self.widget.url()))
             elif stat.name:
                 stat_names.append(stat.name)
         return problems
+    def is_grid(self):
+        return self.tile_type in (self.GRID, self.GRID_SINGLE_STAT)
     def __unicode__(self):
         if self.expansion:
             return "%s (%s - expansion tile %d)" % (unicode(self.widget), self.url, self.sort_order)
