@@ -203,7 +203,7 @@ class TileDefinition(models.Model):
             }
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
-            state["grid"] = GridDefinition.objects.get(tile=self).__getstate__(view)
+            state["grid"] = GridDefinition.objects.get(tile=self).__getstate__(view=view)
         if self.tile_type == self.MAIN_STAT:
             state["main_stat_count"] = self.main_stat_count
         return state
@@ -239,7 +239,7 @@ class TileDefinition(models.Model):
                 exp["graph"] = None
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             try:
-                g = self.griddefinition
+                g = self.grid
                 exp["grid"] = g.export()
             except models.ObjectDoesNotExist:
                 exp["grid"] = None
@@ -290,7 +290,8 @@ class TileDefinition(models.Model):
         GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
         GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
         GraphDefinition.import_data(t, data.get("graph"))
-        GridDefinition.import_data(t, data.get("grid"))
+        if "grid" in data:
+            GridDefinition.import_data(tile=t, js=data["grid"])
         return t
     def clean(self):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
@@ -448,13 +449,13 @@ class TileDefinition(models.Model):
         # Must have a grid if and only if a grid tile
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
             try:
-                g = self.griddefinition
+                g = self.grid
                 problems.extend(g.validate())
             except models.ObjectDoesNotExist:
                 problems.append("Tile %s of Widget %s is a grid tile but does not have a grid defined" % (self.url, self.widget.url()))
         else:
             try:
-                self.griddefinition.delete()
+                self.grid.delete()
             except models.ObjectDoesNotExist:
                 pass
         # Validate template

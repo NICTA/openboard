@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 NICTA
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,16 +12,43 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+from collections import OrderedDict
+
 from django.db import models
 
 from widget_def.models.tile_def import TileDefinition
 from widget_def.models.statistic import Statistic
 from widget_def.parametisation import parametise_label
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class GridDefinition(models.Model):
+class GridDefinition(models.Model, WidgetDefJsonMixin):
+    """
+    Defines a grid for a grid type tile. Models a fixed-size rectangular table of statistics.
+
+    May have column headers, or row headers, or both or neither.
+
+    If a grid has both column and row headers, it may also have a corner label.
+    """
+    export_def = OrderedDict([
+        ("tile", JSON_INHERITED("grid")),
+        ("corner_label", JSON_ATTR()),
+        ("show_column_headers", JSON_ATTR()),
+        ("show_row_headers", JSON_ATTR()),
+        ("columns", JSON_RECURSEDOWN("GridColumn", "columns", "grid", "label", app="widget_def")),
+        ("rows", JSON_RECURSEDOWN("GridRow", "rows", "grid", "label", app="widget_def"))
+    ])
+    export_lookup = { "tile": "tile" }
+    api_state_def = {
+        "corner_label": JSON_ATTR(parametise=True),
+        "show_column_headers": JSON_ATTR(),
+        "show_row_headers": JSON_ATTR(),
+        "columns": JSON_RECURSEDOWN("GridColumn", "columns", "grid", "label", app="widget_def"),
+        "rows": JSON_RECURSEDOWN("GridRow", "rows", "grid", "label", app="widget_def"),
+    }
     tile = models.OneToOneField(TileDefinition, limit_choices_to=models.Q(
+                                related_name="grid",
                                 tile_type__in=(TileDefinition.GRID,
                                             TileDefinition.GRID_SINGLE_STAT)
                                 ))
@@ -32,26 +59,10 @@ class GridDefinition(models.Model):
         return self.tile.widget
     def __unicode__(self):
         return "Grid for tile: %s" % unicode(self.tile)
-    def export(self):
-        return {
-            "corner_label": self.corner_label,
-            "show_column_headers": self.show_column_headers,
-            "show_row_headers": self.show_row_headers,
-            "columns": [ c.export() for c in self.gridcolumn_set.all() ],
-            "rows": [ c.export() for c in self.gridrow_set.all() ],
-        }
-    def __getstate__(self, view=None):
-        return {
-            "corner_header": parametise_label(self.tile.widget, view, self.corner_label),
-            "show_column_headers": self.show_column_headers,
-            "show_row_headers": self.show_row_headers,
-            "columns": [ c.__getstate__(view) for c in self.gridcolumn_set.all() ],
-            "rows": [ c.__getstate__(view) for c in self.gridrow_set.all() ],
-        }
     def validate(self):
         problems = []
-        ncols = self.gridcolumn_set.count()
-        nrows = self.gridrow_set.count()
+        ncols = self.columns.count()
+        nrows = self.rows.count()
         if ncols < 1:
             problems.append("Number of GridColumns must be at least one (not %d)" % ncols)
         if nrows < 1:
@@ -80,112 +91,73 @@ class GridDefinition(models.Model):
             if gs.statistic.tile != self.tile:
                 problems.append("Data mismatch in grid, statistic %s", gs.statistic.url)
         return problems
-    @classmethod
-    def import_data(cls, tile, data):
-        try:
-            g = cls.objects.get(tile=tile)
-            if not data:
-                g.delete()
-                return
-        except cls.DoesNotExist:
-            if data:
-                g = cls(tile=tile)
-            else:
-                return 
-        g.corner_label = data["corner_label"]
-        g.show_column_headers = data["show_column_headers"]
-        g.show_row_headers = data["show_row_headers"]
-        g.save()
-        columns = []
-        for c in data["columns"]:
-            col = GridColumn.import_data(g, c)
-            columns.append(col.label)
-        for col in g.gridcolumn_set.all():
-            if col.label not in columns:
-                col.delete()
-        rows = []
-        for r in data["rows"]:
-            row = GridRow.import_data(g, r)
-            rows.append(row.label)
-        for row in g.gridrow_set.all():
-            if row.label not in rows:
-                row.delete()
 
-class GridColumn(models.Model):
-    grid = models.ForeignKey(GridDefinition)
+class GridColumn(models.Model, WidgetDefJsonMixin):
+    export_def = {
+        "grid": JSON_INHERITED("columns"),
+        "label": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED()
+    }
+    export_lookup = { "grid": "grid", "label": "label" }
+    api_state_def = {
+        "header": JSON_ATTR(attribute="label", parametise=True)
+    }
+    grid = models.ForeignKey(GridDefinition, related_name="columns")
     label = models.CharField(verbose_name="header", max_length=50)
     sort_order = models.IntegerField()
-    def export(self):
-        return {
-            "label": self.label,
-            "sort_order": self.sort_order,
-        }
-    def __getstate__(self, view=None):
-        return {
-            "header": parametise_label(self.grid.tile.widget, view, self.label),
-        }
-    @classmethod
-    def import_data(cls, grid, data):
-        try:
-            gc = cls.objects.get(grid=grid, label=data["label"])
-        except cls.DoesNotExist:
-            gc = cls(grid=grid, label=data["label"])
-        gc.sort_order = data["sort_order"]
-        gc.save()
-        return gc
+    def widget(self):
+        return self.grid.tile.widget
     class Meta:
         unique_together=( ("grid", "label"), ("grid", "sort_order") )
         ordering = ("grid", "sort_order")
     def __unicode__(self):
         return "Column %s" % self.label
 
-class GridRow(models.Model):
-    grid = models.ForeignKey(GridDefinition)
+class GridRow(models.Model, WidgetDefJsonMixin):
+    class JSON_GRID_STAT(JSON_ATTR):
+        def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+            if recurse_func == "export":
+                export[key] = [ gs.statistic.url for gs in obj.grid_stats() ]
+            else:
+                export[key] = [ getattr(gs, recurse_func)(**kwargs) for gs in obj.grid_stats() ]
+        def handle_import(self, js, cons_args, key, imp_kwargs, env):
+            pass
+        def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
+            obj.grid.gridstatistic_set.filter(row=obj).delete()
+            for (col, sdata) in zip(obj.grid.columns.all(), js[key]):
+                stat = Statistic.objects.get(tile=obj.grid.tile, url=sdata)
+                gs = GridStatistic(grid=obj.grid, row=obj, column=col, statistic=stat)
+                gs.save()
+    export_def = {
+        "grid": JSON_INHERITED("rows"),
+        "label": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED(),
+        "statistics": JSON_GRID_STAT()
+    }
+    export_lookup = { "grid": "grid", "label": "label" }
+    api_state_def = {
+        "header": JSON_ATTR(attribute="label", parametise=True),
+        "statistics": JSON_GRID_STAT()
+    }
+    grid = models.ForeignKey(GridDefinition, related_name="rows")
     label = models.CharField(verbose_name="header", max_length=50)
     sort_order = models.IntegerField()
-    def export(self):
-        return {
-            "label": self.label,
-            "sort_order": self.sort_order,
-            "statistics": [ s.statistic.url for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
-        }
-    def __getstate__(self, view=None):
-        return {
-            "header": parametise_label(self.grid.tile.widget, view, self.label),
-            "statistics": [ s.__getstate__(view) for s in self.grid.gridstatistic_set.filter(row=self).order_by("column") ]
-        }
-    @classmethod
-    def import_data(cls, grid, data):
-        try:
-            gr = cls.objects.get(grid=grid, label=data["label"])
-        except cls.DoesNotExist:
-            gr = cls(grid=grid, label=data["label"])
-        gr.sort_order = data["sort_order"]
-        gr.save()
-        grid.gridstatistic_set.filter(row=gr).delete()
-        for (col, sdata) in zip(grid.gridcolumn_set.all(), data["statistics"]):
-            stat = Statistic.objects.get(tile=grid.tile, url = sdata)
-            try:
-                gs = GridStatistic.objects.get(grid=grid, row=gr, column=col, statistic=stat)
-            except GridStatistic.DoesNotExist:
-                gs = GridStatistic(grid=grid, row=gr, column=col, statistic=stat)
-                gs.save()
-        return gr
+    def grid_stats(self):
+        return self.grid.gridstatistic_set.filter(row=self).order_by("column")
     class Meta:
         unique_together=( ("grid", "label"), ("grid", "sort_order") )
         ordering = ("grid", "sort_order")
     def __unicode__(self):
         return "Row %s" % self.label
 
-class GridStatistic(models.Model):
+class GridStatistic(models.Model, WidgetDefJsonMixin):
     grid = models.ForeignKey(GridDefinition)
     column = models.ForeignKey(GridColumn)
     row = models.ForeignKey(GridRow)
     statistic = models.ForeignKey(Statistic)
-    def export(self):
-        return self.statistic.export()
-    def __getstate__(self, view=None):
-        return self.statistic.__getstate__(view)
+    api_state_def = {
+        "statistic": JSON_PASSDOWN(solo=True)
+    }
     class Meta:
         unique_together = ( ("grid", "column", "row"), ("grid", "statistic") )
         ordering = ("grid", "row", "column")

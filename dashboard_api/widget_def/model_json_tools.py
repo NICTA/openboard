@@ -1,3 +1,17 @@
+#   Copyright 2017 CSIRO
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
 import decimal
 
 from django.db.models import Model
@@ -60,6 +74,8 @@ class JSON_ATTR(object):
         if self.solo:
             val = js
         else:
+            if js is None:
+                print "key", key, "cons_args:", cons_args, "imp_kwargs", imp_kwargs, "I am a", self.__class__.__name__
             val = js.get(key, self.default)
         if self.importer:
             val = self.importer(val)   
@@ -478,6 +494,8 @@ class WidgetDefJsonMixin(object):
             merge = False
         env = { "save": True }
         for k, v in cls.export_def.items():
+            if k == "corner_label":
+                print "Importing a ", cls.__name__, " and js is ", js
             v.handle_import(js, cons_args, k, kwargs, env)
         if cls.export_lookup:
             get_kwargs = {}
