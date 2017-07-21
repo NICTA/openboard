@@ -110,7 +110,7 @@ class WidgetView(models.Model, WidgetDefJsonMixin):
     def my_properties(self):
         return { vp.key: vp.value() for vp in self.properties.all() }
 
-def property_importer(js, cons_args):
+def property_importer(js, cons_args, imp_kwargs):
     cons_args["intval"] = None
     cons_args["strval"] = None
     cons_args["boolval"] = None

@@ -192,18 +192,15 @@ class TileDefinition(models.Model):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.MULTI_LIST_STAT, self.SINGLE_LIST_STAT):
             state["columns"] = self.columns
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
-            GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
-            g = GraphDefinition.objects.get(tile=self)
-            state["graph"] = g.__getstate__(view)
+            state["graph"] = self.graph.__getstate__(view=view)
         if self.tile_type == self.MAP:
             state["map"] = {
                 "url": self.url,
-                "window": self.geo_window.__getstate__(view),
-                "layers": [ ds.__getstate__(view=view,parametisation=self.widget.paremetisation) for ds in self.geo_datasets.all() ],
+                "window": self.geo_window.__getstate__(view=view),
+                "layers": [ ds.__getstate__(view=view,parametisation=self.widget.parametisation) for ds in self.geo_datasets.all() ],
             }
         if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
-            GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
-            state["grid"] = GridDefinition.objects.get(tile=self).__getstate__(view=view)
+            state["grid"] = self.grid.__getstate__(view=view)
         if self.tile_type == self.MAIN_STAT:
             state["main_stat_count"] = self.main_stat_count
         return state
@@ -233,7 +230,7 @@ class TileDefinition(models.Model):
             exp["geo_window"] = self.geo_window.name
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             try:
-                g = self.graphdefinition
+                g = self.graph
                 exp["graph"] = g.export()
             except models.ObjectDoesNotExist:
                 exp["graph"] = None
@@ -289,7 +286,8 @@ class TileDefinition(models.Model):
                 stat.delete()
         GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
         GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
-        GraphDefinition.import_data(t, data.get("graph"))
+        if "graph" in data:
+            GraphDefinition.import_data(tile=t, js=data["graph"])
         if "grid" in data:
             GridDefinition.import_data(tile=t, js=data["grid"])
         return t
@@ -437,13 +435,13 @@ class TileDefinition(models.Model):
         # Must gave a graph if and only if a graph tile
         if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
             try:
-                g = self.graphdefinition
+                g = self.graph
                 problems.extend(g.validate())
             except models.ObjectDoesNotExist:
                 problems.append("Tile %s of Widget %s is a graph tile but does not have a graph defined" % (self.url, self.widget.url()))
         else:
             try:
-                self.graphdefinition.delete()
+                self.graph.delete()
             except models.ObjectDoesNotExist:
                 pass
         # Must have a grid if and only if a grid tile

@@ -12,7 +12,6 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from decimal import Decimal
 import pytz
 
 from django.conf import settings
@@ -21,7 +20,7 @@ from django.db import models
 from widget_data.models import StatisticData, StatisticListItem
 from widget_def.models.tile_def import TileDefinition
 from widget_def.models.eyecandy import IconLibrary, TrafficLightScale, TrafficLightAutoStrategy, TrafficLightAutomation
-from widget_def.parametisation import parametise_label, resolve_pval
+from widget_def.parametisation import resolve_pval
 from widget_def.model_json_tools import *
 
 # Create your models here.
