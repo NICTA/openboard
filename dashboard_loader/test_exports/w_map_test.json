@@ -11,7 +11,6 @@
             "tiles": [
                 {
                     "expansion": false, 
-                    "sort_order": 100, 
                     "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 

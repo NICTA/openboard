@@ -417,7 +417,7 @@ class GeoDataset(models.Model, WidgetDefJsonMixin):
             problems.append("Predefined geometry geodataset %s does not have a data property set" % self.url)
         refs = 0
         refs += self.declarations.count()
-        refs += self.tiledefinition_set.count()
+        refs += self.tiles.count()
         if refs == 0:
             problems.append("Geodataset %s is not referenced - no declarations and not used in any map tiles" % self.url)
         for decl in self.declarations.all():

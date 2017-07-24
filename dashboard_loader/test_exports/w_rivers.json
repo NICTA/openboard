@@ -12,7 +12,6 @@
                 {
                     "expansion": false, 
                     "main_stat_count": 2, 
-                    "sort_order": 100, 
                     "aspect": 1, 
                     "statistics": [
                         {
@@ -68,7 +67,6 @@
                 }, 
                 {
                     "expansion": false, 
-                    "sort_order": 150, 
                     "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
@@ -81,7 +79,6 @@
                 }, 
                 {
                     "expansion": true, 
-                    "sort_order": 200, 
                     "aspect": 1, 
                     "statistics": [
                         {

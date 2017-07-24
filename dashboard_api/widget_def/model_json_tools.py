@@ -17,7 +17,7 @@ import decimal
 from django.db.models import Model
 from django.db.utils import IntegrityError
 from django.apps import apps
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist 
 
 from dashboard_api.management.exceptions import ImportExportException
 from widget_def.parametisation import parametise_label
@@ -86,6 +86,11 @@ class JSON_ATTR(object):
         if self.solo:
             env["single_export_field"] = key
         return
+    def attr_name(self, key):
+        if self.attribute:
+            return self.attribute
+        else:
+            return key
     def apply_parametisation(self, obj, val, **kwargs):
         parametisation_or_widget = kwargs.get("parametisation") 
         view = kwargs.get("view")
@@ -173,6 +178,31 @@ class JSON_COMPLEX_IMPORTER_ATTR(JSON_ATTR):
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         self.complex_importer(js, cons_args, imp_kwargs)
 
+class JSON_MANYTOMANY_REF(JSON_ATTR):
+    def __init__(self, refattr, model, app, *args, **kwargs):
+        self.refattr=refattr
+        self.model = model
+        self.app = app
+        super(JSON_MANYTOMANY_REF, self).__init__(**kwargs)
+    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+        m2m_mgr = getattr(obj,self.attr_name(key))
+        export[key]=[ getattr(o, self.refattr) for o in m2m_mgr.all() ]
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        env["m2m_js"] = js[key]
+    def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
+        m2m_mgr = getattr(obj,self.attr_name(key))
+        m2m_mgr.clear()
+        for ref in env["m2m_js"]:
+            get_kwargs = { self.refattr: ref }
+            obj = self.get_model().objects.get(**get_kwargs)
+            m2m_mgr.add(obj)
+    #TODO Defined elsewhere. make it a mixin.
+    def get_model(self):
+        if self.app:
+            return apps.get_app_config(self.app).get_model(self.model)
+        else:
+            return self.model
+            
 class JSON_PASSDOWN(JSON_ATTR):
     def __init__(self, optional=False, model=None, app=None, related_attr=None, **kwargs):
         super(JSON_PASSDOWN, self).__init__(**kwargs)
@@ -180,11 +210,16 @@ class JSON_PASSDOWN(JSON_ATTR):
         self.model = model
         self.app = app
         self.related_attr = related_attr
-    def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
-        if self.attribute:
-            val = call_or_get_attr(obj, self.attribute)
-        else:
-            val = call_or_get_attr(obj, key)
+    def _handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+        try:
+            if self.attribute:
+                val = call_or_get_attr(obj, self.attribute)
+            else:
+                val = call_or_get_attr(obj, key)
+        except AttributeError:
+            if self.optional:
+                return
+            raise
         if val is None:
             export[key] = val
         else:
@@ -202,9 +237,14 @@ class JSON_PASSDOWN(JSON_ATTR):
             return self.model
     def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
         model = self.get_model()
-        kwargs = {
-            "js": js[key]
-        }
+        try:
+            kwargs = {
+                "js": js[key]
+            }
+        except KeyError:
+            if self.optional:
+                return
+            raise ImportExportException("Non optional passdown is missing")
         if self.related_attr:
             kwargs[self.related_attr] = obj
         else:
@@ -286,6 +326,17 @@ class JSON_NUM_ATTR(JSON_ATTR):
             cons_args[self.attribute] = val
         else:
             cons_args[key] = val
+
+class JSON_EXP_SUB_DICT(JSON_ATTR):
+    def __init__(self, defn, **kwargs):
+        super(JSON_EXP_SUB_DICT,self).__init__(**kwargs)
+        self.sub_handlers=defn
+    def _handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
+        export[key]={}
+        for key, handler in self.sub_handlers.items():
+            handler.handle_export(obj, export[key], env, recurse_func, **kwargs)
+    def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        pass
 
 class JSON_OPT_ATTR(JSON_ATTR):
     def __init__(self, decider=None, **kwargs):
@@ -419,7 +470,7 @@ class JSON_GEO_COORD(JSON_ATTR):
         cons_args[self.attribute] = Point(js[keyx], js[keyy])
 
 class JSON_RECURSEDOWN(JSON_ATTR):
-    def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, recurse_attr_chain=[], suppress_if_empty=False, decider=None, suppress_decider=None, recurse_obj_arg=None, recurse_func_override=None):
+    def __init__(self, model, related_name, related_attr, sub_attr_key, sub_exp_key=None, app=None, merge=True, recurse_attr_chain=[], suppress_if_empty=False, decider=None, suppress_decider=None, recurse_obj_arg=None, recurse_func_override=None,loop_extra={}):
         super(JSON_RECURSEDOWN, self).__init__()
         self.related = related_name
         self.related_attr = related_attr
@@ -433,14 +484,18 @@ class JSON_RECURSEDOWN(JSON_ATTR):
         self.recurse_attr_chain = recurse_attr_chain
         self.recurse_func_override = recurse_func_override
         self.recurse_obj_arg = recurse_obj_arg
+        self.loop_extra = loop_extra
         if sub_exp_key:
             self.sub_exp_key = sub_exp_key
         else:
             self.sub_exp_key = sub_attr_key
     def recurse_loop(self, obj):
-        return getattr(obj, self.related).all()
+        if self.loop_extra:
+           return getattr(obj, self.related).extra(self.loop_extra)
+        else: 
+            return getattr(obj, self.related).all()
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
-        if self.suppress_if_empty and getattr(obj, self.related).count() == 0:
+        if self.suppress_if_empty and self.recurse_loop(obj).count() == 0:
             return
         if self.decider and not call_or_get_attr(obj, self.decider):
             return
@@ -583,6 +638,11 @@ class WidgetDefJsonMixin(object):
         else:
             obj = cls(**cons_args)
         if env["save"]:
+            try:
+                clean = getattr(obj, "clean")
+                clean()
+            except AttributeError:
+                pass
             obj.save()
         for k, v in cls.export_def.items():
             v.recurse_import(js, obj, k, kwargs, env, do_not_delete=merge)

@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -53,10 +53,10 @@ class WidgetDefinition(models.Model):
             problems.append("Widget %s:%s has no 'about' information" % (self.url(), self.label))
         if self.viewwidgetdeclaration_set.all().count() == 0:
             problems.append("Widget %s:%s has no declarations" % (self.url(), self.label))
-        default_tiles = self.tiledefinition_set.filter(expansion=False).count()
+        default_tiles = self.tiles.filter(expansion=False).count()
         if default_tiles < 1:
             problems.append("Widget %s:%s has no default (non-expansion) tiles - must have at least one" % (self.url(), self.label))
-        tiles = self.tiledefinition_set.all()
+        tiles = self.tiles.all()
         if tiles.count() == default_tiles:
             if self.expansion_hint or self.deexpansion_hint:
                 problems.append("widget %s:%s has no expansion tiles but expansion hint or deexpansion hint is set" % (self.url(), self.label))
@@ -133,7 +133,7 @@ class WidgetDefinition(models.Model):
             "display": {
                 "expansion_hint": self.expansion_hint,
                 "deexpansion_hint": self.deexpansion_hint,
-                "tiles": [ tile.__getstate__(view) for tile in self.tiledefinition_set.all() ],
+                "tiles": [ tile.__getstate__(view=view) for tile in self.tiles.all() ],
             },
             "source_url": parametise_label(self, view, self.source_url()),
             "source_url_text": parametise_label(self, view, self.family.source_url_text),
@@ -152,7 +152,7 @@ class WidgetDefinition(models.Model):
             "label": self.label,
             "default_frequency_text": self.default_frequency_text,
             "about": self.about,
-            "tiles": [ t.export() for t in self.tiledefinition_set.all() ],
+            "tiles": [ t.export() for t in self.tiles.all() ],
             "views": [ vwd.export() for vwd in self.viewwidgetdeclaration_set.all() ],
             "raw_data_sets": [ rds.export() for rds in self.rawdataset_set.all() ],
         }
@@ -181,10 +181,12 @@ class WidgetDefinition(models.Model):
         w.save()
         tile_urls = []
         TileDefinition = apps.get_app_config("widget_def").get_model("TileDefinition")
+        i = 0
         for t in data["tiles"]:
-            TileDefinition.import_data(w, t)
+            i += 1
+            TileDefinition.import_data(widget=w, js=t, sort_order=i*100)
             tile_urls.append(t["url"])
-        for tile in w.tiledefinition_set.all():
+        for tile in w.tiles.all():
             if tile.url not in tile_urls:
                 tile.delete()
         rds_urls = []
@@ -241,7 +243,7 @@ class WidgetDefinition(models.Model):
             lud_listdata = StatisticListItem.objects.filter(statistic__tile__widget=self).aggregate(lud=models.Max('last_updated'))['lud']
             lud_graphdata = GraphData.objects.filter(graph__tile__widget=self).aggregate(lud=models.Max("last_updated"))["lud"]
             luds_mapdata = [None]
-            for t in self.tiledefinition_set.all():
+            for t in self.tiles.all():
                 for ds in t.geo_datasets.all():
                     luds_mapdata.append(ds.data_last_updated(update))
             self._lud_cache = max_with_nulls(lud_statdata, lud_listdata, lud_graphdata, *luds_mapdata)

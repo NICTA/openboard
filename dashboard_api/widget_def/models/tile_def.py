@@ -20,10 +20,11 @@ from django.apps import apps
 
 from widget_def.models.widget_definition import WidgetDefinition
 from widget_def.parametisation import parametise_label
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class TileDefinition(models.Model):
+class TileDefinition(models.Model, WidgetDefJsonMixin):
     """
     Represents a tile or panel within a widget.
 
@@ -131,7 +132,52 @@ class TileDefinition(models.Model):
                 "multi_list_stat", "tag_cloud",
                 "time_line", "text_template", "text_block",
                 "main_stat" ]
-    widget = models.ForeignKey(WidgetDefinition, help_text="The widget the tile is part of")
+    export_def = {
+        "widget": JSON_INHERITED("tiles"),
+        "tile_type": JSON_ATTR(),
+        "expansion": JSON_ATTR(),
+        "aspect": JSON_ATTR(default=1),
+        "url": JSON_ATTR(),
+        "template": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED(),
+        "columns": JSON_ATTR(),
+        "list_label_width": JSON_ATTR(),
+        "main_stat_count": JSON_ATTR(decider="is_main_stat"),
+        "geo_window": JSON_CAT_LOOKUP(["geo_window","name"], lambda js, key, imp_kwargs:apps.get_app_config("widget_def").get_model("GeoWindow").objects.get(name=js["geo_window"])),
+        "statistics": JSON_RECURSEDOWN("Statistic", "statistics", "tile", "url", app="widget_def"),
+        "geo_datasets": JSON_MANYTOMANY_REF("url", "GeoDataset", "widget_def"),
+        "graph": JSON_PASSDOWN(optional=True, model="GraphDefinition", app="widget_def", related_attr="tile"),
+        "grid": JSON_PASSDOWN(optional=True, model="GridDefinition", app="widget_def", related_attr="tile"),
+    }
+    export_lookup = { "widget": "widget", "url": "url" }
+    api_state_def = {
+        "type": JSON_EXP_ARRAY_LOOKUP(tile_types, attribute="tile_type"),
+        "expansion": JSON_ATTR(),
+        "aspect": JSON_ATTR(),
+        "statistics": JSON_CONDITIONAL_EXPORT(
+                lambda obj, kwargs: obj.is_grid_stat(),
+                JSON_RECURSEDOWN(None, "statistics", None, None, 
+                    loop_extra={
+                        "where": [
+                            "not exists (select * from widget_def_gridstatistic wgs where wgs.statistic_id = widget_def_statistic.id )"
+                        ]
+                }),
+                JSON_RECURSEDOWN(None, "statistics", None, None, 
+                    decider="has_statistics"),
+        ),
+        "list_label_width": JSON_ATTR(decider="is_simple_list"),
+        "template": JSON_ATTR(decider="is_text_template", parametise=True),
+        "columns": JSON_ATTR(decider="is_list"),
+        "graph": JSON_PASSDOWN(decider="is_graph"),
+        "grid": JSON_PASSDOWN(decider="is_grid"),
+        "map": JSON_EXP_SUB_DICT({
+            "url": JSON_ATTR(),
+            "window": JSON_PASSDOWN(attribute="geo_window"),
+            "layers": JSON_RECURSEDOWN(None, "geo_datasets", None, None)
+        }, decider="is_map"),
+        "main_stat_count": JSON_ATTR(decider="is_main_stat")
+    }
+    widget = models.ForeignKey(WidgetDefinition, related_name="tiles", help_text="The widget the tile is part of")
     tile_type = models.SmallIntegerField(choices=(
 # (SINGLE_MAIN_STAT, tile_types[SINGLE_MAIN_STAT]),
 #                    (DOUBLE_MAIN_STAT, tile_types[DOUBLE_MAIN_STAT]),
@@ -165,132 +211,36 @@ class TileDefinition(models.Model):
     geo_datasets = models.ManyToManyField("GeoDataset", blank=True, help_text="For map tiles. The geodatasets to display on the map")
     main_stat_count = models.SmallIntegerField(blank=True, null=True, help_text="For main_stat tiles. The number of Statistics that are 'main' statistics. The remainder are 'secondary'. The main statistics are the ones that are sorted first within the tile.")
     # graph_def, map_def
-    def __getstate__(self, view=None):
-        state = {
-            "type": self.tile_types[self.tile_type],
-            "expansion": self.expansion,
-            "aspect": self.aspect,
-        }
-        if self.tile_type in (self.NEWSFEED, self.NEWSTICKER, 
-                                self.SINGLE_LIST_STAT, self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, self.MAIN_STAT,
-                                self.PRIORITY_LIST, self.URGENCY_LIST, self.CALENDAR, self.TIME_LINE,
-                                self.MULTI_LIST_STAT, self.GRAPH_SINGLE_STAT, self.TEXT_TEMPLATE, 
-                                self.TAG_CLOUD):
-            state["statistics"] = [ s.__getstate__(view=view) for s in self.statistics.all() ]
-        if self.tile_type == self.GRID_SINGLE_STAT:
-            state["statistics"] = []
-            for s in self.statistics.all():
-                if s.gridstatistics.count() == 0:
-                    state["statistics"].append(s.__getstate__(view))
-        elif self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST):
-            if self.list_label_width:
-                state["list_label_width"] = self.list_label_width
-            else:
-                state["list_label_width"] = 50
-        if self.tile_type == self.TEXT_TEMPLATE:
-            state["template"] = parametise_label(self.widget, view, self.template)
-        if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.MULTI_LIST_STAT, self.SINGLE_LIST_STAT):
-            state["columns"] = self.columns
-        if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
-            state["graph"] = self.graph.__getstate__(view=view)
-        if self.tile_type == self.MAP:
-            state["map"] = {
-                "url": self.url,
-                "window": self.geo_window.__getstate__(view=view),
-                "layers": [ ds.__getstate__(view=view,parametisation=self.widget.parametisation) for ds in self.geo_datasets.all() ],
-            }
-        if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
-            state["grid"] = self.grid.__getstate__(view=view)
-        if self.tile_type == self.MAIN_STAT:
-            state["main_stat_count"] = self.main_stat_count
-        return state
+    def has_statistics(self):
+        return self.tile_type in (self.NEWSFEED, self.NEWSTICKER, 
+                self.SINGLE_LIST_STAT, 
+                self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT, 
+                self.MAIN_STAT,
+                self.PRIORITY_LIST, self.URGENCY_LIST, 
+                self.CALENDAR, self.TIME_LINE, self.MULTI_LIST_STAT, 
+                self.GRAPH_SINGLE_STAT, self.TEXT_TEMPLATE, 
+                self.TAG_CLOUD)
+    def is_main_stat(self):
+        return self.tile_type == self.MAIN_STAT
+    def is_grid(self):
+        return self.tile_type in (self.GRID, self.GRID_SINGLE_STAT)
+    def is_graph(self):
+        return self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT)
+    def is_grid_stat(self):
+        return self.tile_type == self.GRID_SINGLE_STAT
+    def is_map(self):
+        return self.tile_type == self.MAP
+    def is_list(self):
+        return self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST, self.MULTI_LIST_STAT)
+    def is_simple_list(self):
+        return self.tile_type in (self.SINGLE_LIST_STAT, self.PRIORITY_LIST, self.URGENCY_LIST)
+    def is_text_template(self):
+        return self.tile_type == self.TEXT_TEMPLATE
     def export(self):
-        exp = {
-            "tile_type": self.tile_type,
-            "expansion": self.expansion,
-            "aspect": self.aspect,
-            "url": self.url,
-            "template": self.template,
-            "sort_order": self.sort_order,
-            "columns": self.columns,
-            "list_label_width": self.list_label_width,
-            "statistics": [ s.export() for s in self.statistics.all() ],
-            "geo_window": None,
-            "geo_datasets": [ ds.url for ds in self.geo_datasets.all() ],
-        }
-        if self.tile_type == self.SINGLE_MAIN_STAT:
-            exp["tile_type"] = self.MAIN_STAT
-            exp["main_stat_count"] = 1
-        elif self.tile_type == self.DOUBLE_MAIN_STAT:
-            exp["tile_type"] = self.MAIN_STAT
-            exp["main_stat_count"] = 2
-        elif self.tile_type == self.MAIN_STAT:
-            exp["main_stat_count"] = self.main_stat_count
-        if self.geo_window:
-            exp["geo_window"] = self.geo_window.name
-        if self.tile_type in (self.GRAPH, self.GRAPH_SINGLE_STAT):
-            try:
-                g = self.graph
-                exp["graph"] = g.export()
-            except models.ObjectDoesNotExist:
-                exp["graph"] = None
-        if self.tile_type in (self.GRID, self.GRID_SINGLE_STAT):
-            try:
-                g = self.grid
-                exp["grid"] = g.export()
-            except models.ObjectDoesNotExist:
-                exp["grid"] = None
-        return exp
-    @classmethod
-    def import_data(cls, widget, data):
-        try:
-            t = TileDefinition.objects.get(widget=widget, url=data["url"])
-        except TileDefinition.DoesNotExist:
-            t = TileDefinition(widget=widget, url=data["url"])
-        t.tile_type = data["tile_type"]
-        if t.tile_type == cls.SINGLE_MAIN_STAT:
-            t.tile_type = cls.MAIN_STAT
-            t.main_stat_count = 1
-        elif t.tile_type == cls.DOUBLE_MAIN_STAT:
-            t.tile_type = cls.MAIN_STAT
-            t.main_stat_count = 2
-        elif t.tile_type == cls.MAIN_STAT:
-            t.main_stat_count = data["main_stat_count"]
-        t.expansion = data["expansion"]
-        t.aspect = data.get("aspect", 1)
-        t.list_label_width = data.get("list_label_width")
-        t.template = data.get("template")
-        t.columns = data.get("columns")
-        t.sort_order = data["sort_order"]
-        GeoWindow = apps.get_app_config("widget_def").get_model("GeoWindow")
-        GeoDataset = apps.get_app_config("widget_def").get_model("GeoDataset")
-        if data.get("geo_window"):
-            t.geo_window = GeoWindow.objects.get(name=data["geo_window"])
-        else:
-            t.geo_window = None
-        t.clean()
-        t.save()
-        t.geo_datasets.clear()
-        if "geo_datasets" in data:
-            for ds in data["geo_datasets"]:
-                t.geo_datasets.add(GeoDataset.objects.get(url=ds))
-        stat_urls = []
-        Statistic = apps.get_app_config("widget_def").get_model("Statistic")
-        so = 100
-        for s in data["statistics"]:
-            Statistic.import_data(tile=t, js=s, sort_order=so)
-            stat_urls.append(s["url"])
-            so += 100
-        for stat in t.statistics.all():
-            if stat.url not in stat_urls:
-                stat.delete()
-        GraphDefinition = apps.get_app_config("widget_def").get_model("GraphDefinition")
-        GridDefinition = apps.get_app_config("widget_def").get_model("GridDefinition")
-        if "graph" in data:
-            GraphDefinition.import_data(tile=t, js=data["graph"])
-        if "grid" in data:
-            GridDefinition.import_data(tile=t, js=data["grid"])
-        return t
+        if self.tile_type in (self.SINGLE_MAIN_STAT, self.DOUBLE_MAIN_STAT):
+            self.clear()
+            self.save()
+        return super(TileDefinition, self).export()
     def clean(self):
         if self.tile_type in (self.PRIORITY_LIST, self.URGENCY_LIST, self.SINGLE_LIST_STAT, self.MULTI_LIST_STAT):
             if self.columns is None:
@@ -306,7 +256,13 @@ class TileDefinition(models.Model):
                     self.list_label_width = 100
         else:
             self.list_label_width = None
-        if self.tile_type != self.MAIN_STAT:
+        if self.tile_type == self.SINGLE_MAIN_STAT:
+            self.tile_type = self.MAIN_STAT
+            self.main_stat_count = 1
+        elif self.tile_type == self.DOUBLE_MAIN_STAT:
+            self.tile_type = self.MAIN_STAT
+            self.main_stat_count = 2
+        elif self.tile_type != self.MAIN_STAT:
             self.main_stat_count = None
         if self.tile_type != self.TEXT_TEMPLATE:
             self.template = None
@@ -495,8 +451,6 @@ class TileDefinition(models.Model):
             elif stat.name:
                 stat_names.append(stat.name)
         return problems
-    def is_grid(self):
-        return self.tile_type in (self.GRID, self.GRID_SINGLE_STAT)
     def __unicode__(self):
         if self.expansion:
             return "%s (%s - expansion tile %d)" % (unicode(self.widget), self.url, self.sort_order)

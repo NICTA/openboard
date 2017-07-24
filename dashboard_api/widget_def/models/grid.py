@@ -47,8 +47,8 @@ class GridDefinition(models.Model, WidgetDefJsonMixin):
         "columns": JSON_RECURSEDOWN("GridColumn", "columns", "grid", "label", app="widget_def"),
         "rows": JSON_RECURSEDOWN("GridRow", "rows", "grid", "label", app="widget_def"),
     }
-    tile = models.OneToOneField(TileDefinition, limit_choices_to=models.Q(
-                                related_name="grid",
+    tile = models.OneToOneField(TileDefinition, related_name="grid", 
+                                limit_choices_to=models.Q(
                                 tile_type__in=(TileDefinition.GRID,
                                             TileDefinition.GRID_SINGLE_STAT)
                                 ))
