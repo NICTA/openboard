@@ -140,8 +140,8 @@ class WidgetDefinition(models.Model):
             "refresh_rate": self.refresh_rate,
             "about": parametise_label(self, view, self.about),
         }
-        if self.rawdataset_set.all().count() > 0:
-            data["raw_data_sets"] = [ rds.__getstate__(view) for rds in self.rawdataset_set.all() ]
+        if self.raw_datasets.all().count() > 0:
+            data["raw_data_sets"] = [ rds.__getstate__(view=view) for rds in self.raw_datasets.all() ]
         return data
     def export(self):
         data = {
@@ -154,7 +154,7 @@ class WidgetDefinition(models.Model):
             "about": self.about,
             "tiles": [ t.export() for t in self.tiles.all() ],
             "views": [ vwd.export() for vwd in self.viewwidgetdeclaration_set.all() ],
-            "raw_data_sets": [ rds.export() for rds in self.rawdataset_set.all() ],
+            "raw_data_sets": [ rds.export() for rds in self.raw_datasets.all() ],
         }
         if self.parametisation:
             data["parametisation"] = self.parametisation.url

@@ -177,7 +177,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             clusters_attrib = "clusters"
         else:
             clusters_attrib = "pies"
-        graph_json[clusters_attrib] = [ c.__getstate__(view) for c in graph.clusters(pval) ]
+        graph_json[clusters_attrib] = [ c.__getstate__(view=view) for c in graph.clusters(pval) ]
     overrides = get_graph_overrides(graph.datasets, GraphDatasetData, "dataset", pval)
     datasets = {}
     for ds in graph.datasets.all():
