@@ -101,18 +101,15 @@
                 }
             ], 
             "about": "<p>a Test Widget</p>", 
-            "sort_order": 200, 
             "deexpansion_hint": "Show less", 
             "parametisation": null,
             "default_frequency_text": "Annual",
             "views": [
                 {
-                    "view": "tall_frt_lall_migration",
-                    "sort_order": 200
+                    "view": "tall_frt_lall_migration"
                 },
                 {
-                    "view": "tall_fyear_lall_migration",
-                    "sort_order": 200
+                    "view": "tall_fyear_lall_migration"
                 }
             ], 
             "refresh_rate": 3456, 

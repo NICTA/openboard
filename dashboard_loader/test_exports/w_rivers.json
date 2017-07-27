@@ -114,21 +114,17 @@
             ], 
             "views": [
                 {
-                    "sort_order": 300, 
                     "view": "tall_fyear_larnor_migration"
                 }, 
                 {
-                    "sort_order": 300, 
                     "view": "tall_fyear_lgondor_migration"
                 }, 
                 {
-                    "sort_order": 300, 
                     "view": "tall_fyear_lrhovanion_migration"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 500, 
             "expansion_hint": "More", 
             "about": "<p>Summary data about the rivers of {{location|capfirst}}.</p>", 
             "refresh_rate": 3000, 

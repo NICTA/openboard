@@ -19,7 +19,7 @@ from django.db import models
 from widget_data.models import GraphData, GraphDatasetData
 from widget_def.models.graphbase import GraphClusterBase
 from widget_def.models.tile_def import TileDefinition
-from widget_def.parametisation import parametise_label, resolve_pval
+from widget_def.parametisation import resolve_pval
 from widget_def.model_json_tools import *
 
 # Create your models here.

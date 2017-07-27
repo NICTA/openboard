@@ -34,7 +34,7 @@ def export_widget_data(widget):
     defs = WidgetDefinition.objects.filter(family=widget)
     data = { "family": widget.url, "widgets": [] }
     for wd in defs:
-        if wd.viewwidgetdeclaration_set.all().count() > 0:
+        if wd.views.all().count() > 0:
             if wd.parametisation:
                 for pval in wd.parametisation.parametisationvalue_set.all():
                     wdata = {

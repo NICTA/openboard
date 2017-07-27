@@ -18,13 +18,14 @@ from django.db.models import Model
 from django.db.utils import IntegrityError
 from django.apps import apps
 from django.core.exceptions import ObjectDoesNotExist 
+from django.db.models.manager import BaseManager
 
 from dashboard_api.management.exceptions import ImportExportException
 from widget_def.parametisation import parametise_label
 
 def call_or_get_attr(obj, name):
     a = getattr(obj, name)
-    if callable(a):
+    if callable(a) and not isinstance(a, BaseManager):
         return a()
     else:
         return a
@@ -179,18 +180,27 @@ class JSON_COMPLEX_IMPORTER_ATTR(JSON_ATTR):
         self.complex_importer(js, cons_args, imp_kwargs)
 
 class JSON_MANYTOMANY_REF(JSON_ATTR):
-    def __init__(self, refattr, model, app, *args, **kwargs):
+    def __init__(self, refattr, model, app, manager_chain=[], **kwargs):
         self.refattr=refattr
+        self.manager_chain=manager_chain
         self.model = model
         self.app = app
         super(JSON_MANYTOMANY_REF, self).__init__(**kwargs)
+    def get_manager(self, obj, key):
+        if self.manager_chain:
+            mgr = obj
+            for elem in self.manager_chain:
+                mgr = call_or_get_attr(mgr, elem)
+            return mgr
+        else:
+            return getattr(obj, self.attr_name(key))
     def handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
-        m2m_mgr = getattr(obj,self.attr_name(key))
+        m2m_mgr = self.get_manager(obj, key)
         export[key]=[ getattr(o, self.refattr) for o in m2m_mgr.all() ]
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         env["m2m_js"] = js[key]
     def recurse_import(self,js, obj, key, imp_kwargs, env, do_not_delete=False):
-        m2m_mgr = getattr(obj,self.attr_name(key))
+        m2m_mgr = self.get_manager(obj, key)
         m2m_mgr.clear()
         for ref in env["m2m_js"]:
             get_kwargs = { self.refattr: ref }
@@ -204,12 +214,13 @@ class JSON_MANYTOMANY_REF(JSON_ATTR):
             return self.model
             
 class JSON_PASSDOWN(JSON_ATTR):
-    def __init__(self, optional=False, model=None, app=None, related_attr=None, **kwargs):
+    def __init__(self, optional=False, model=None, app=None, related_attr=None, extend=None, **kwargs):
         super(JSON_PASSDOWN, self).__init__(**kwargs)
         self.optional = optional
         self.model = model
         self.app = app
         self.related_attr = related_attr
+        self.extend = extend
     def _handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         try:
             if self.attribute:
@@ -227,8 +238,13 @@ class JSON_PASSDOWN(JSON_ATTR):
             export[key] = val
         if self.solo:
             env["single_export_field"] = key
+        if self.extend:
+            for subkey, handler in self.extend.items():
+                handler.handle_export(obj, export[key], subkey, env, recurse_func, **kwargs)
         return
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
+        if self.extend:
+            raise ImportExportException("Cannot import extended passdowns")
         env["save"] = True
     def get_model(self):
         if self.app:
@@ -333,8 +349,8 @@ class JSON_EXP_SUB_DICT(JSON_ATTR):
         self.sub_handlers=defn
     def _handle_export(self, obj, export, key, env, recurse_func="export", **kwargs):
         export[key]={}
-        for key, handler in self.sub_handlers.items():
-            handler.handle_export(obj, export[key], env, recurse_func, **kwargs)
+        for subkey, handler in self.sub_handlers.items():
+            handler.handle_export(obj, export[key], subkey, env, recurse_func, **kwargs)
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         pass
 

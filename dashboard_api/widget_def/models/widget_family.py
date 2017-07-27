@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -19,16 +19,40 @@ from django.contrib.auth.models import Permission, Group
 
 from widget_def.models.reference import Subcategory
 from widget_def.models.widget_definition import WidgetDefinition
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class WidgetFamily(models.Model):
+class WidgetFamily(models.Model, WidgetDefJsonMixin):
     """
     Represents a family of closely related widgets. 
 
     When you have two widgets in two views with the same heading and subheading but which require slightly different
     presentation and data, consider making them a widget family.
     """
+    export_def = {
+        ("category", "subcategory"): JSON_SIMPLE_LOOKUP_WRAPPER(attribute="subcategory", 
+                                                null=False,
+                                                exporters=(
+                                                    lambda o: o.category.name,
+                                                    lambda o: o.name,
+                                                ),
+                                                model="Subcategory",
+                                                app="widget_def",
+                                                importer_kwargs=lambda js: {
+                                                    "name": js["subcategory"],
+                                                    "category__name": js["category"]
+                                                }),
+        "subtitle": JSON_ATTR(),
+        "name": JSON_ATTR(),
+        "url": JSON_ATTR(),
+        "source_url": JSON_ATTR(),
+        "source_url_text": JSON_ATTR(),
+        "groups": JSON_MANYTOMANY_REF("name", "Group", "auth", manager_chain=["edit_permission", "group_set"]),
+        "edit_all_groups": JSON_MANYTOMANY_REF("name", "Group", "auth", manager_chain=["edit_all_permission", "group_set"]),
+        "definitions": JSON_RECURSEDOWN("WidgetDefinition", "definitions", "family", "label", app="widget_def")
+    }
+    export_lookup={ "url": "url" }
     subcategory = models.ForeignKey(Subcategory, help_text="The subcategory (and therefore category) of the widget family")
     name = models.CharField(max_length=120, help_text="The name (main heading) of widgets in this family. May be parametised.")
     subtitle = models.CharField(max_length=120, null=True, blank=True, help_text="The option subheading of widgets in this family. May be parametised.")
@@ -98,68 +122,4 @@ class WidgetFamily(models.Model):
             return "%s (%s)" % (self.name, self.subtitle)
         else:
             return self.name
-    def export(self):
-        return {
-            "category": self.subcategory.category.name,
-            "subcategory": self.subcategory.name,
-            "subtitle": self.subtitle,
-            "name": self.name,
-            "url": self.url,
-            "source_url": self.source_url,
-            "source_url_text": self.source_url_text,
-            "definitions": [ wd.export() for wd in self.widgetdefinition_set.all() ],
-            "groups": [ g.name for g in self.edit_permission().group_set.all() ],
-            "edit_all_groups": [ g.name for g in self.edit_all_permission().group_set.all() ],
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            fam = cls.objects.get(url=data["url"])
-        except cls.DoesNotExist:
-            fam = cls(url=data["url"])
-        fam.subcategory =  Subcategory.objects.get(name=data["subcategory"], category__name=data["category"])
-        if data.get("subtitle"):
-            fam.subtitle = data["subtitle"]
-        else:
-            fam.subtitle = None
-        fam.name = data["name"]
-        fam.source_url = data["source_url"]
-        fam.source_url_text = data["source_url_text"]
-        fam.save()
-        definitions = []
-        for defn in data["definitions"]:
-            WidgetDefinition.import_data(fam, defn)
-            definitions.append(defn["label"])
-        for defn in fam.widgetdefinition_set.all():
-            if defn.label not in definitions:
-                defn.delete()
-        p = fam.edit_permission()
-        grps = []
-        for g in data.get("groups", []):
-            try:
-                grp = Group.objects.get(name=g)
-            except Group.DoesNotExist:
-                grp = Group(name=g)
-                grp.save()
-            grp.permissions.add(p)
-            grps.append(grp)
-        for g in Group.objects.all():
-            if g in grps:
-                continue
-            g.permissions.remove(p) 
-        p = fam.edit_all_permission()
-        grps = []
-        for g in data.get("edit_all_groups", []):
-            try:
-                grp = Group.objects.get(name=g)
-            except Group.DoesNotExist:
-                grp = Group(name=g)
-                grp.save()
-            grp.permissions.add(p)
-            grps.append(grp)
-        for g in Group.objects.all():
-            if g in grps:
-                continue
-            g.permissions.remove(p) 
-        return fam
 

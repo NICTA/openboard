@@ -204,18 +204,15 @@
                 }
             ], 
             "about": "<p>A Test Widget</p>", 
-            "sort_order": 100, 
             "parametisation": null,
             "deexpansion_hint": "Show less",
             "default_frequency_text": "Annual",
             "views": [
                 {
-                    "view": "tall_frt_lall_migration",
-                    "sort_order": 100
+                    "view": "tall_frt_lall_migration"
                 },
                 {
-                    "view": "tall_fyear_lall_migration",
-                    "sort_order": 100
+                    "view": "tall_fyear_lall_migration"
                 }
             ], 
             "refresh_rate": 5000, 
@@ -318,25 +315,20 @@
             ], 
             "parametisation": null,
             "about": "<p>A Test Widget</p>", 
-            "sort_order": 120, 
             "deexpansion_hint": "Show less", 
             "default_frequency_text": "Annual",
             "views": [ 
                 {
-                    "view": "tall_frt_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tall_frt_lgondor_migration"
                 },
                 {
-                    "view": "tall_fyear_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tall_fyear_lgondor_migration"
                 },
                 {
-                    "view": "tmen_frt_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tmen_frt_lgondor_migration"
                 },
                 {
-                    "view": "tmen_fyear_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tmen_fyear_lgondor_migration"
                 }
             ], 
             "refresh_rate": 3456, 
