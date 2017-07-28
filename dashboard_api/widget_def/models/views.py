@@ -199,12 +199,12 @@ class ViewFamily(models.Model, WidgetDefJsonMixin):
         "name": JSON_ATTR(),
         "family": JSON_ATTR(attribute="label"),
         "sort_order": JSON_ATTR(),
-        "members": JSON_RECURSEDOWN("ViewFamilyMember", "members", "family", "name", app="widget_def")
+        "members": JSON_RECURSEDOWN("ViewFamilyMember", "members", "family", "view", app="widget_def")
     }
-    export_lookup={ "name": "name" }
+    export_lookup={ "family": "label" }
     api_state_def={
         "name": JSON_ATTR(),
-        "members": JSON_RECURSEDOWN("ViewFamilyMember", "members", "family", "name", app="widget_def")
+        "members": JSON_RECURSEDOWN("ViewFamilyMember", "members", "family", "name", app="widget_def", merge=False)
     }
     name = models.CharField(max_length=120, null=True, blank=True, help_text="The display name for the secondary menu")
     label = models.SlugField(unique=True, help_text="The symbolic label for the view, as used in the API.")
@@ -222,6 +222,7 @@ class ViewFamilyMember(models.Model, WidgetDefJsonMixin):
         "family": JSON_INHERITED("members"),
         "view": JSON_CAT_LOOKUP(["view", "label"],
                         lambda js, key, imp_kwargs: WidgetView.objects.get(label=js["view"])),
+        "name": JSON_ATTR(),
         "sort_order": JSON_IMPLIED()
     }
     export_lookup = { "family": "family", "view": "view" }

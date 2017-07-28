@@ -142,6 +142,8 @@ class GridRow(models.Model, WidgetDefJsonMixin):
     grid = models.ForeignKey(GridDefinition, related_name="rows")
     label = models.CharField(verbose_name="header", max_length=50)
     sort_order = models.IntegerField()
+    def widget(self):
+        return self.grid.tile.widget
     def grid_stats(self):
         return self.grid.gridstatistic_set.filter(row=self).order_by("column")
     class Meta:
