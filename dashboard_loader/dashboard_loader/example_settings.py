@@ -1,4 +1,4 @@
-#   Copyright 2015 NICTA
+#   Copyright 2015, 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -30,7 +30,12 @@ SECRET_KEY = 'pho^sdf_%k)t9sh2l#3_2wl^3u5a%ia38^$$a)x-2654j9bmg#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED HOSTS must be set in production, eg:
+# ALLOWED_HOSTS = [ 'myserver.com.au', 'myserver_alternatename.com.au' ]
 ALLOWED_HOSTS = []
+
+# SECURE_SSL_REDIRECT should be True in production. (Redirects http requests to https)
+# SECURE_SSL_REDIRECT = True
 
 INSTALLED_APPS = INSTALLED_APPS + (
         # Your loader/uploader apps here
@@ -49,11 +54,18 @@ DATABASES = {
     }
 }
 
+# Absolute local URLs to Login/Logout views.
 # LOGIN_URL = "/data/login"
 # LOGOUT_URL = "/data/logout"
+
+# Absolute local URL where static resources are mounted.
 # STATIC_URL = "/static/"
 
-# SESSION_COOKIE_PATH = '/data/'
-
+# Absolute local URL of the main dashboard_loader page, used by admin app.
 # ADMIN_SITE_URL = '/data/'
+
+# URL path used by Session Cookie and name of session cookie
+# SESSION_COOKIE_PATH = '/data/'
+# SESSION_COOKIE_NAME = 'openboard_admin_sessionid'
+
 

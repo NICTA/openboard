@@ -108,7 +108,7 @@ class TrafficLightAutoRuleAdminInline(admin.TabularInline):
         if len(request.resolver_match.args) == 1:
             strategy = TrafficLightAutoStrategy.objects.get(id=int(request.resolver_match.args[0]))
             if db_field.name == "code":
-                kwargs["queryset"] = strategy.scale.trafficlightscalecode_set.all()
+                kwargs["queryset"] = strategy.scale.codes.all()
         return super(TrafficLightAutoRuleAdminInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 class TrafficLightAutoStrategyAdmin(admin.ModelAdmin):

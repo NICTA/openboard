@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,11 +12,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from django.apps import AppConfig
 
-class WidgetDefConfig(AppConfig):
-    name = "widget_def"
-    verbose_name = "Widget Definitions"
-    def ready(self):
-        import widget_def.param_signals
+class ImportExportException(Exception):
+    pass
+
 

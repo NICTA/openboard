@@ -323,7 +323,7 @@ def get_traffic_light_code(stat, value):
     if not stat.traffic_light_scale:
         raise LoaderException("Statistic %s does not have a traffic light scale" % stat.url)
     try:
-        return stat.traffic_light_scale.trafficlightscalecode_set.get(value=value)
+        return stat.traffic_light_scale.codes.get(value=value)
     except TrafficLightScaleCode.DoesNotExist:
         raise LoaderException("Traffic light code %s not found in scale %s for statistic %s" % (value,stat.traffic_light_scale.name, stat.url))
 

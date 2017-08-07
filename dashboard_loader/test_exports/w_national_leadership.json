@@ -11,7 +11,6 @@
             "tiles": [
                 {
                     "expansion": false, 
-                    "sort_order": 10, 
                     "aspect": 0, 
                     "statistics": [
                         {
@@ -33,8 +32,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 100
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -55,8 +53,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 200
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -77,8 +74,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 300
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -99,8 +95,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 400
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -121,8 +116,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 500
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -143,8 +137,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 600
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -165,8 +158,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 700
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -187,8 +179,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 800
+                            "unit_prefix": null
                         }
                     ], 
                     "list_label_width": 50, 
@@ -201,7 +192,6 @@
                 }, 
                 {
                     "expansion": true, 
-                    "sort_order": 20, 
                     "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
@@ -214,18 +204,15 @@
                 }
             ], 
             "about": "<p>A Test Widget</p>", 
-            "sort_order": 100, 
             "parametisation": null,
             "deexpansion_hint": "Show less",
             "default_frequency_text": "Annual",
             "views": [
                 {
-                    "view": "tall_frt_lall_migration",
-                    "sort_order": 100
+                    "view": "tall_frt_lall_migration"
                 },
                 {
-                    "view": "tall_fyear_lall_migration",
-                    "sort_order": 100
+                    "view": "tall_fyear_lall_migration"
                 }
             ], 
             "refresh_rate": 5000, 
@@ -237,7 +224,6 @@
             "tiles": [
                 {
                     "expansion": false, 
-                    "sort_order": 100, 
                     "aspect": 0, 
                     "statistics": [
                         {
@@ -259,8 +245,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 100
+                            "unit_prefix": null
                         }, 
                         {
                             "num_precision": null, 
@@ -281,8 +266,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 1, 
-                            "unit_prefix": null, 
-                            "sort_order": 200
+                            "unit_prefix": null
                         }
                     ], 
                     "list_label_width": null, 
@@ -296,7 +280,6 @@
                 }, 
                 {
                     "expansion": true, 
-                    "sort_order": 200, 
                     "aspect": 1, 
                     "statistics": [
                         {
@@ -318,8 +301,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 5, 
-                            "unit_prefix": null, 
-                            "sort_order": 100
+                            "unit_prefix": null
                         }
                     ], 
                     "list_label_width": 100, 
@@ -333,25 +315,20 @@
             ], 
             "parametisation": null,
             "about": "<p>A Test Widget</p>", 
-            "sort_order": 120, 
             "deexpansion_hint": "Show less", 
             "default_frequency_text": "Annual",
             "views": [ 
                 {
-                    "view": "tall_frt_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tall_frt_lgondor_migration"
                 },
                 {
-                    "view": "tall_fyear_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tall_fyear_lgondor_migration"
                 },
                 {
-                    "view": "tmen_frt_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tmen_frt_lgondor_migration"
                 },
                 {
-                    "view": "tmen_fyear_lgondor_migration",
-                    "sort_order": 120
+                    "view": "tmen_fyear_lgondor_migration"
                 }
             ], 
             "refresh_rate": 3456, 

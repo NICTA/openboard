@@ -15,9 +15,7 @@
 from widget_def.models import WidgetFamily, WidgetDefinition, TrafficLightScale, IconLibrary, PointColourMap, GeoWindow, GeoDataset, GeoColourScale, TrafficLightAutoStrategy, TrafficLightAutomation, WidgetView, Parametisation, ViewFamily, PropertyGroup
 from widget_def.models.reference import AllCategories
 from widget_data.api import *
-
-class ImportExportException(Exception):
-    pass
+from dashboard_api.management.exceptions import ImportExportException
 
 def sanitise_widget_arg(widget):
     if not isinstance(widget, WidgetFamily):
@@ -36,7 +34,7 @@ def export_widget_data(widget):
     defs = WidgetDefinition.objects.filter(family=widget)
     data = { "family": widget.url, "widgets": [] }
     for wd in defs:
-        if wd.viewwidgetdeclaration_set.all().count() > 0:
+        if wd.views.all().count() > 0:
             if wd.parametisation:
                 for pval in wd.parametisation.parametisationvalue_set.all():
                     wdata = {
@@ -44,7 +42,7 @@ def export_widget_data(widget):
                         "parameters": pval.parameters(),
                         "data": api_get_widget_data(wd, pval=pval),
                         "graph_data": api_get_graph_data(wd, pval=pval),
-                        "raw_datasets": { rds.url: rds.json(pval=pval) for rds in wd.rawdataset_set.all() },
+                        "raw_datasets": { rds.url: rds.json(pval=pval) for rds in wd.raw_datasets.all() },
                     }
                     data["widgets"].append(wdata)
             else:
@@ -52,7 +50,7 @@ def export_widget_data(widget):
                     "label": wd.label,
                     "data": api_get_widget_data(wd),
                     "graph_data": api_get_graph_data(wd),
-                    "raw_datasets": { rds.url: rds.json() for rds in wd.rawdataset_set.all() },
+                    "raw_datasets": { rds.url: rds.json() for rds in wd.raw_datasets.all() },
                 }
                 data["widgets"].append(wdata)
     return data

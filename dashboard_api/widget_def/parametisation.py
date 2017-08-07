@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -12,32 +12,16 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
 from django.template import Engine, Context
-from widget_def.models.parametisation import Parametisation, ParametisationValue, ViewDoesNotHaveAllKeys
-from widget_def.models.views import WidgetView, ViewProperty
-from widget_def.models.widget_decl import ViewWidgetDeclaration
+from django.apps import apps
 
 class ParametisationException(Exception):
     pass
 
-@receiver(post_save, sender=WidgetView)
-@receiver(post_delete, sender=WidgetView)
-@receiver(post_save, sender=ViewWidgetDeclaration)
-@receiver(post_delete, sender=ViewWidgetDeclaration)
-@receiver(post_save, sender=ViewProperty)
-@receiver(post_delete, sender=ViewProperty)
-def update_parametisations(sender, instance, **kwargs):
-    if sender == WidgetView:
-        v = instance
-    else:
-        v = instance.view
-    Parametisation.update_all(v)
-
 def parametise_label(widget_or_parametisation, view, text):
     if text is None:
         return None
+    Parametisation = apps.get_app_config("widget_def").get_model("Parametisation")
     if widget_or_parametisation:
         if isinstance(widget_or_parametisation, Parametisation):
             param = widget_or_parametisation
@@ -46,7 +30,7 @@ def parametise_label(widget_or_parametisation, view, text):
     else:
          param = None
     if param:
-        context = Context(view.properties())
+        context = Context(view.my_properties())
         eng = Engine.get_default()
         template = eng.from_string(text)
         return template.render(context)

@@ -1,4 +1,4 @@
-#   Copyright 2015,2016 CSIRO
+#   Copyright 2015,2016,2107 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             for cluster in graph.clusters(pval):
                 graph_json["data"][cluster.url] = {}
         else:
-            for dataset in graph.graphdataset_set.all():
+            for dataset in graph.datasets.all():
                 graph_json["data"][dataset.url] = []
     numeric_min = None
     numeric_max = None
@@ -177,10 +177,10 @@ def api_get_single_graph_data(graph, view, pval=None, verbose=False):
             clusters_attrib = "clusters"
         else:
             clusters_attrib = "pies"
-        graph_json[clusters_attrib] = [ c.__getstate__(view) for c in graph.clusters(pval) ]
-    overrides = get_graph_overrides(graph.graphdataset_set, GraphDatasetData, "dataset", pval)
+        graph_json[clusters_attrib] = [ c.__getstate__(view=view) for c in graph.clusters(pval) ]
+    overrides = get_graph_overrides(graph.datasets, GraphDatasetData, "dataset", pval)
     datasets = {}
-    for ds in graph.graphdataset_set.all():
+    for ds in graph.datasets.all():
         datasets[ds.url] = ds.__getstate__(view=view)
         del datasets[ds.url]["dynamic_name_display"]
         if ds.url in overrides:
