@@ -532,7 +532,7 @@ class JSON_RECURSEDOWN(JSON_ATTR):
             func_kwargs = kwargs.copy()
             if self.recurse_obj_arg:
                 func_kwargs[self.recurse_obj_arg] = obj
-            exp_target.append(func(**kwargs))
+            exp_target.append(func(**func_kwargs))
     def handle_import(self, js, cons_args, key, imp_kwargs, env):
         pass
     def get_model(self):
