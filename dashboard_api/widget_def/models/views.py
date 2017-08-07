@@ -51,7 +51,7 @@ class WidgetView(models.Model, WidgetDefJsonMixin):
         "external_url": JSON_ATTR(),
         "requires_authentication": JSON_ATTR(),
         "geo_window": JSON_CAT_LOOKUP(["geo_window", "name"], lambda js, k, kw: apps.get_app_config("widget_def").get_model("GeoWindow").objects.get(name=js["geo_window"]), optional=True),
-        "children": JSON_RECURSEDOWN("WidgetView", "children", "parent", "name", app="widget_def"),
+        "children": JSON_RECURSEDOWN("WidgetView", "children", "parent", "label", app="widget_def"),
         "properties": JSON_RECURSEDOWN("ViewProperty", "properties", "view", "key", app="widget_def")
     }
     export_lookup = { "label": "label" }
@@ -65,10 +65,10 @@ class WidgetView(models.Model, WidgetDefJsonMixin):
         "properties": JSON_RECURSEDICT("properties", "key", "value"),
         "widgets": JSON_RECURSEDOWN("ViewWidgetDeclaration", "widgets", "view", "definition", app="widget_def"),
         "other_menus": JSON_RECURSEDOWN("ViewFamilyMember", "family_memberships", "view", "family", app="widget_def", recurse_attr_chain=["family"], recurse_obj_arg="enclosing_view", suppress_if_empty=True),
-        "children": JSON_RECURSEDOWN("WidgetView", "children", "parent", "name", app="widget_def", suppress_decider="suppress_children", recurse_func_override="desc"),
+        "children": JSON_RECURSEDOWN("WidgetView", "children", "parent", "label", app="widget_def", suppress_decider="suppress_children", recurse_func_override="desc"),
         "siblings": JSON_SELF_RECURSEDOWN("WidgetView", None, None, None, app="widget_def", suppress_decider="suppress_siblings", recurse_func_override="desc")
     }
-    name = models.CharField(max_length=120, help_text="The display name for the view, as displayed in links to the view, and in the view itself", unique=True)
+    name = models.CharField(max_length=120, help_text="The display name for the view, as displayed in links to the view, and in the view itself")
     label = models.SlugField(unique=True, help_text="The symbolic label for the view, as used in the API.")
     parent = models.ForeignKey("self", null=True,blank=True, related_name="children", help_text="The parent WidgetView. If null, this WidgetView is a root node in a view hierarchy.")
     external_url = models.URLField(null=True, blank=True, help_text="If not null, then this Widget View is not hosted locally, but is merely a placeholder for a view hosted by another Openboard instance, and this is the API root URL for that external Openboard instance.")
@@ -82,6 +82,7 @@ class WidgetView(models.Model, WidgetDefJsonMixin):
         return not self.view_type.show_siblings
     class Meta:
         unique_together=[
+            ("parent", "name"),
             ("parent", "sort_order"),
         ]
         ordering=["parent__label", "sort_order"]
