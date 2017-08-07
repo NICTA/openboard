@@ -138,11 +138,6 @@ class Migration(migrations.Migration):
             name='family',
             field=models.ForeignKey(help_text=b'The widget family', on_delete=django.db.models.deletion.CASCADE, related_name='definitions', to='widget_def.WidgetFamily'),
         ),
-        migrations.AlterField(
-            model_name='widgetview',
-            name='name',
-            field=models.CharField(help_text=b'The display name for the view, as displayed in links to the view, and in the view itself', max_length=120, unique=True),
-        ),
         migrations.AlterUniqueTogether(
             name='widgetview',
             unique_together=set([('parent', 'sort_order')]),
