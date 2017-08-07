@@ -19,11 +19,12 @@ from django.db import models
 from widget_data.models import GraphData, GraphDatasetData
 from widget_def.models.graphbase import GraphClusterBase
 from widget_def.models.tile_def import TileDefinition
-from widget_def.parametisation import parametise_label, resolve_pval
+from widget_def.parametisation import resolve_pval
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class GraphDefinition(models.Model):
+class GraphDefinition(models.Model, WidgetDefJsonMixin):
     """
     Defines a graph object (within a graph tile, within a widget).
 
@@ -78,7 +79,70 @@ class GraphDefinition(models.Model):
     TIME = 3
     DATETIME = 4
     axis_types = [ "-", "numeric", "date", "time", "datetime" ]
-    tile = models.OneToOneField(TileDefinition, limit_choices_to=models.Q(
+    export_def = {
+        "tile": JSON_INHERITED("graph"),
+        "heading": JSON_ATTR(),
+        "graph_type": JSON_ATTR(),
+        "numeric_axis_label": JSON_ATTR(),
+        "numeric_axis_always_show_zero": JSON_ATTR(),
+        "secondary_numeric_axis_label": JSON_ATTR(),
+        "secondary_numeric_axis_always_show_zero": JSON_ATTR(),
+        "horiz_axis_label": JSON_ATTR(),
+        "horiz_axis_type": JSON_ATTR(),
+        "cluster_label": JSON_ATTR(),
+        "dataset_label": JSON_ATTR(),
+        "display_options": JSON_PASSDOWN(model="GraphDisplayOptions",app="widget_def", attribute="options", related_attr="graph"),
+        "dynamic_clusters": JSON_ATTR(),
+        "vertical_axis_buffer": JSON_NUM_ATTR(precision=0),
+        "clusters": JSON_RECURSEDOWN("GraphCluster", "graphcluster_set", "graph", "url", app="widget_def"),
+        "datasets": JSON_RECURSEDOWN("GraphDataset", "datasets", "graph", "url", app="widget_def")
+    }
+    export_lookup = { "tile": "tile" }
+    api_state_def = {
+        "heading": JSON_ATTR(parametise=True),
+        "graph_type": JSON_EXP_ARRAY_LOOKUP(graph_types),
+        "label": JSON_CAT_LOOKUP(["tile", "url"], None),
+        "display_options": JSON_PASSDOWN(attribute="options"),
+       
+        # LINE
+        "vertical_axis": JSON_EXPORT_DICT(exp_dict={
+                    "name": JSON_ATTR(attribute="numeric_axis_label", parametise=True),
+                    "always_show_zero": JSON_ATTR(attribute="numeric_axis_always_show_zero")
+                }, deciders=["is_linegraph"]),
+        "secondary_vertical_axis": JSON_EXPORT_DICT(exp_dict={
+                    "name": JSON_ATTR(attribute="secondary_numeric_axis_label", parametise=True),
+                    "always_show_zero": JSON_ATTR(attribute="secondary_numeric_axis_always_show_zero")
+                }, deciders=["is_linegraph", "use_secondary_numeric_axis"]),
+        "horizontal_axis": JSON_EXPORT_DICT(exp_dict={
+                    "name": JSON_ATTR(attribute="horiz_axis_label", parametise=True),
+                    "type": JSON_EXP_ARRAY_LOOKUP(axis_types, attribute="horiz_axis_type")
+                }, deciders=["is_linegraph"]),
+        "line_label": JSON_OPT_ATTR(attribute="dataset_label", decider="is_linegraph"),
+        "lines": JSON_RECURSEDOWN("GraphDataset", "datasets", "graph", "url", app="widget_def", decider="is_linegraph"),
+
+        # BAR, HISTOGRAM
+        "numeric_axis": JSON_EXPORT_DICT(exp_dict={
+                    "name": JSON_ATTR(attribute="numeric_axis_label", parametise=True),
+                    "always_show_zero": JSON_ATTR(attribute="numeric_axis_always_show_zero")
+                }, deciders=["is_histogram"]),
+        "secondary_numeric_axis": JSON_EXPORT_DICT(exp_dict={
+                    "name": JSON_ATTR(attribute="secondary_numeric_axis_label", parametise=True),
+                    "always_show_zero": JSON_ATTR(attribute="secondary_numeric_axis_always_show_zero")
+                }, deciders=["is_histogram", "use_secondary_numeric_axis"]),
+        "cluster_label": JSON_OPT_ATTR(attribute="cluster_label", decider="is_histogram"),
+        "bar_label": JSON_OPT_ATTR(attribute="dataset_label", decider="is_histogram"),
+        "dynamic_clusters": JSON_OPT_ATTR(attribute="dynamic_clusters", decider="is_histogram"),
+        "clusters": JSON_RECURSEDOWN("GraphCluster", "graphcluster_set", "graph", "url", app="widget_def", decider="is_histogram", suppress_decider="dynamic_clusters"),
+        "bars": JSON_RECURSEDOWN("GraphDataset", "datasets", "graph", "url", app="widget_def", decider="is_histogram"),
+
+        # PIE
+        "pie_label": JSON_OPT_ATTR(attribute="cluster_label", decider="is_piechart"),
+        "sector_label": JSON_OPT_ATTR(attribute="dataset_label", decider="is_piechart"),
+        "dynamic_pies": JSON_OPT_ATTR(attribute="dynamic_clusters", decider="is_piechart"),
+        "pies": JSON_RECURSEDOWN("GraphCluster", "graphcluster_set", "graph", "url", app="widget_def", decider="is_piechart", suppress_decider="dynamic_clusters"),
+        "sectors": JSON_RECURSEDOWN("GraphDataset", "datasets", "graph", "url", app="widget_def", decider="is_piechart")
+    }
+    tile = models.OneToOneField(TileDefinition, related_name="graph", limit_choices_to=models.Q(
                                         tile_type__in=(TileDefinition.GRAPH, TileDefinition.GRAPH_SINGLE_STAT),
                                 ), 
                     help_text="The widget tile this graph is to be displayed in")
@@ -125,6 +189,12 @@ class GraphDefinition(models.Model):
             return self.dynamicgraphcluster_set.filter(param_value=pval)
         else:
             return self.graphcluster_set.all()
+    def is_linegraph(self):
+        """Returns True for line graphs. False otherwise."""
+        return self.graph_type == self.LINE
+    def is_piechart(self):
+        """Returns True for pie charts. False otherwise."""
+        return self.graph_type == self.PIE
     def is_histogram(self):
         """Returns True for bar and histogram graphs. False otherwise."""
         return self.graph_type in (self.BAR, self.HISTOGRAM)
@@ -154,7 +224,7 @@ class GraphDefinition(models.Model):
         """Initial data for the supplementary graph data forms. (Dynamic dataset labels and dynamic clusters.)"""
         result = {}
         # TODO: dynamic cluster definition
-        for d in self.graphdataset_set.filter(dynamic_label=True):
+        for d in self.datasets.filter(dynamic_label=True):
             try:
                 dat = GraphDatasetData.objects.get(dataset=d,
                         param_value=pval)
@@ -207,113 +277,6 @@ class GraphDefinition(models.Model):
         ordering=('tile',)
     def __unicode__(self):
         return "%s:%s:graph" % (self.tile.widget.url(), self.tile.url)
-    def export(self):
-        return {
-            "heading": self.heading,
-            "graph_type": self.graph_type,
-            "numeric_axis_label": self.numeric_axis_label,
-            "numeric_axis_always_show_zero": self.numeric_axis_always_show_zero,
-            "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
-            "secondary_numeric_axis_label": self.secondary_numeric_axis_label,
-            "secondary_numeric_axis_always_show_zero": self.secondary_numeric_axis_always_show_zero,
-            "horiz_axis_label": self.horiz_axis_label,
-            "horiz_axis_type": self.horiz_axis_type,
-            "cluster_label": self.cluster_label,
-            "dataset_label": self.dataset_label,
-            "display_options": self.graphdisplayoptions.export(),
-            "dynamic_clusters": self.dynamic_clusters,
-            "vertical_axis_buffer": int(self.vertical_axis_buffer),
-            "clusters": [ c.export() for c in self.graphcluster_set.all() ],
-            "datasets": [ d.export() for d in self.graphdataset_set.all() ],
-        }
-    @classmethod
-    def import_data(cls, tile, data):
-        try:
-            g = GraphDefinition.objects.get(tile=tile)
-            if not data:
-                g.delete()
-                return
-        except GraphDefinition.DoesNotExist:
-            if data:
-                g = GraphDefinition(tile=tile)
-            else:
-                return
-        g.heading = data["heading"]
-        g.graph_type = data["graph_type"]
-        g.numeric_axis_label = data["numeric_axis_label"]
-        g.numeric_axis_always_show_zero = data["numeric_axis_always_show_zero"]
-        g.user_secondary_numeric_axis = data["use_secondary_numeric_axis"]
-        g.secondary_numeric_axis_label = data["secondary_numeric_axis_label"]
-        g.secondary_numeric_axis_always_show_zero = data["secondary_numeric_axis_always_show_zero"]
-        g.horiz_axis_label = data["horiz_axis_label"]
-        g.horiz_axis_type = data["horiz_axis_type"]
-        g.cluster_label = data.get("cluster_label", "cluster")
-        g.dataset_label = data.get("dataset_label", "dataset")
-        g.dynamic_clusters = data.get("dynamic_clusters", False)
-        g.vertical_axis_buffer = Decimal(data.get("vertical_axis_buffer", "0")).quantize(Decimal(1), rounding=ROUND_HALF_UP)
-        g.save()
-        GraphDisplayOptions.import_data(g, data.get("display_options"))
-        cluster_urls = []
-        for c_data in data["clusters"]:
-            GraphCluster.import_data(g, c_data)
-            cluster_urls.append(c_data["url"])
-        for cluster in g.graphcluster_set.all():
-            if cluster.url not in cluster_urls:
-                cluster.delete()
-        dataset_urls = []
-        for dataset in data["datasets"]:
-            GraphDataset.import_data(g, dataset)
-            dataset_urls.append(dataset["url"])
-        for dataset in g.graphdataset_set.all():
-            if dataset.url not in dataset_urls:
-                dataset.delete()
-    def __getstate__(self, view=None):
-        state = {
-            "heading": parametise_label(self.widget(), view, self.heading),
-            "graph_type": self.graph_types[self.graph_type],
-            "label": self.tile.url,
-            "display_options": self.graphdisplayoptions.__getstate__(self.graph_type),
-        }
-        if self.graph_type == self.LINE:
-            state["vertical_axis"] = {
-                "name": parametise_label(self.widget(), view, self.numeric_axis_label),
-                "always_show_zero": self.numeric_axis_always_show_zero,
-            }
-            if self.use_secondary_numeric_axis:
-                state["secondary_vertical_axis"] = {
-                    "name": parametise_label(self.widget(), view, self.secondary_numeric_axis_label),
-                    "always_show_zero": self.secondary_numeric_axis_always_show_zero,
-                }
-            state["horizontal_axis"] = {
-                "name": parametise_label(self.tile.widget, view, self.horiz_axis_label),
-                "type": self.axis_types[self.horiz_axis_type]
-            }
-            state["line_label"] = self.dataset_label
-            state["lines"] = [ d.__getstate__(view) for d in self.graphdataset_set.all() ]
-        elif self.graph_type in (self.HISTOGRAM, self.BAR):
-            state["numeric_axis"] = {
-                "name": parametise_label(self.tile.widget, view, self.numeric_axis_label),
-                "always_show_zero": self.numeric_axis_always_show_zero,
-            }
-            if self.use_secondary_numeric_axis:
-                state["secondary_numeric_axis"] = {
-                    "name": parametise_label(self.tile.widget, view, self.secondary_numeric_axis_label),
-                    "always_show_zero": self.secondary_numeric_axis_always_show_zero,
-                }
-            state["cluster_label"] = self.cluster_label
-            state["bar_label"] = self.dataset_label
-            state["dynamic_clusters"] = self.dynamic_clusters
-            if not self.dynamic_clusters:
-                state["clusters"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
-            state["bars"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
-        elif self.graph_type == self.PIE:
-            state["sector_label"] = self.dataset_label
-            state["pie_label"] = self.cluster_label
-            state["dynamic_pies"] = self.dynamic_clusters
-            if not self.dynamic_clusters:
-                state["pies"] = [ c.__getstate__(view) for c in self.graphcluster_set.all() ]
-            state["sectors"] = [ d.__getstate__(view) for d in self.graphdataset_set.all()]
-        return state
     def clean(self):
         if not self.use_numeric_axes():
             self.numeric_axis_label = None
@@ -332,11 +295,11 @@ class GraphDefinition(models.Model):
         self.clean()
         self.save()
         try:
-            self.graphdisplayoptions
+            self.options
         except GraphDisplayOptions.DoesNotExist:
             GraphDisplayOptions.create_default(self)
-        problems.extend(self.graphdisplayoptions.validate())
-        for ds in self.graphdataset_set.all():
+        problems.extend(self.options.validate())
+        for ds in self.datasets.all():
             ds.clean()
             ds.save()
         if self.use_clusters():
@@ -347,50 +310,39 @@ class GraphDefinition(models.Model):
                 problems.append("Graph for tile %s of widget %s is a line graph but has dynamic_clusters set" % (self.tile.url, self.tile.widget.url()))
             if self.horiz_axis_type == 0:
                 problems.append("Graph for tile %s of widget %s is a line graph but does not specify horizontal axis type" % (self.tile.url, self.tile.widget.url()))
-        if self.graphdataset_set.count() == 0:
+        if self.datasets.count() == 0:
             problems.append("Graph for tile %s of widget %s has no datasets defined" % (self.tile.url, self.widget().url()))
-        if self.graphdataset_set.filter(use_error_bars=True).count() > 0 and not self.use_numeric_axes():
+        if self.datasets.filter(use_error_bars=True).count() > 0 and not self.use_numeric_axes():
             problems.append("Pie chart for tile %s of widget %s uses error bars on a dataset." % (self.tile.url, self.widget().url()))
         return problems
 
-class PointColourMap(models.Model):
+class PointColourMap(models.Model, WidgetDefJsonMixin):
     """
     Represents a colour map that allows different points on a line graph to be colour coded by their value.
     """
+    export_def = {
+        "label": JSON_ATTR(),
+        "decimal_places": JSON_ATTR(),
+        "map": JSON_RECURSEDOWN("PointColourRange", "ranges", "colour_map", "min_value", sub_exp_key="min_value_json", merge=False, app="widget_def")
+    }
+    export_lookup = { "label": "label" }
+    api_state_def = {
+        "name": JSON_ATTR(attribute="label"),
+        "map": JSON_RECURSEDOWN("PointColourRange", "sorted_ranges", "colour_map", "min_value") 
+    }
     label=models.CharField(verbose_name="name", max_length=50, unique=True, help_text="A label to identify this colour map to support re-use.")
     decimal_places = models.SmallIntegerField(default=0, help_text="Numeric precision of data-range values for this map. Good for it to match the numeric_axis type of the graph, but not required.")
     class Meta:
         ordering = ('label',)
     def __unicode__(self):
         return self.label
-    def export(self):
-        return {
-            "label": self.label,
-            "decimal_places": self.decimal_places,
-            "map": [ r.export() for r in self.pointcolourrange_set.all() ]
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            m = PointColourMap.objects.get(label=data["label"])
-            m.decimal_places = data["decimal_places"]
-        except PointColourMap.DoesNotExist:
-            m = PointColourMap(label=data["label"], decimal_places=data["decimal_places"])
-        m.save()
-        m.pointcolourrange_set.all().delete()
-        for r in data["map"]:
-            PointColourRange.import_data(m, r)
-        return m
-    def __getstate__(self):
-        data = {
-            "name": self.label,
-            "map": [ self.pointcolourrange_set.get(min_value_dec__isnull=True, min_value_int__isnull=True).__getstate__() ],
-        }
+    def sorted_ranges(self):
+        sr = [ self.ranges.get(min_value_dec__isnull=True, min_value_int__isnunll=True) ]
         if self.decimal_places == 0:
-            data["map"].extend([ r.__getstate__() for r in self.pointcolourrange_set.filter(min_value_int__isnull=False)])
+            sr.extend(self.ranges.filter(min_value_int__isnull=False))
         else:
-            data["map"].extend([ r.__getstate__() for r in self.pointcolourrange_set.filter(min_value_dec__isnull=False)])
-        return data
+            sr.extend(self.ranges.filter(min_value_dec__isnull=False))
+        return sr 
     def validate(self):
         problems = []
         ranges = self.pointcolourrange_set.all()
@@ -406,7 +358,14 @@ class PointColourMap(models.Model):
             problems.append("Colour map %s has no null minimum value range")
         return problems
 
-class PointColourRange(models.Model):
+def pcr_minval_importer(js, cons_args, imp_kwargs):
+    dps = imp_kwargs["colour_map"].decimal_places
+    if dps == 0:
+        cons_args["min_value_int"] = js["min_value"]
+    elif js["min_value"] is not None:
+        cons_args["min_value_dec"] = Decimal(js["min_value"]).quantize(Decimal(10)**(-1*dps), rounding=ROUND_HALF_UP)
+
+class PointColourRange(models.Model, WidgetDefJsonMixin):
     """
     Represents the data range for a single colour within a :model:`widget_def.PointColourMap`
 
@@ -414,7 +373,16 @@ class PointColourRange(models.Model):
     minimum value of next PointColourRange, then this colour is used.  The first colour range in a map may have a 
     null minimum value.
     """
-    colour_map = models.ForeignKey(PointColourMap, help_text="The PointColourMap object")
+    export_def = {
+        "colour_map": JSON_INHERITED("ranges"),
+        "colour": JSON_ATTR(),
+        "min_value": JSON_COMPLEX_IMPORTER_ATTR(attribute="min_value_json", importer=pcr_minval_importer)
+    }
+    api_state_def = {
+        "colour": JSON_ATTR(),
+        "min_value": JSON_ATTR(attribute="min_value_json")
+    }
+    colour_map = models.ForeignKey(PointColourMap, related_name="ranges", help_text="The PointColourMap object")
     min_value_dec = models.DecimalField(max_digits=10, decimal_places=4, blank=True, null=True, help_text="The minimum value for this colour range, used if PointColourMap.decimal_places != 0.")
     min_value_int = models.IntegerField(blank=True, null=True)
     colour = models.CharField(max_length=50, help_text="The colour. Format is implementation specific. May be e.g. a hex code, or may simply be a word colour-hint.")
@@ -439,21 +407,8 @@ class PointColourRange(models.Model):
             return float(minval)
         else:
             return minval
-    def export(self):
-        return { "colour": self.colour, "min_value": self.min_value_json() }
-    def __getstate__(self):
-        return self.export()
-    @classmethod
-    def import_data(cls, pcm, data):
-        pcr = PointColourRange(colour_map=pcm, colour=data["colour"])
-        if pcm.decimal_places == 0:
-            pcr.min_value_int = data["min_value"]
-        elif data["min_value"]:
-            pcr.min_value_dec = Decimal(data["min_value"]).quantize(Decimal(10)**(-1*self.colour_map.decimal_places), rounding=ROUND_HALF_UP)
-        pcr.save()
-        return pcr
 
-class GraphDisplayOptions(models.Model):
+class GraphDisplayOptions(models.Model, WidgetDefJsonMixin):
     """
     Graph display options.
    
@@ -514,6 +469,35 @@ class GraphDisplayOptions(models.Model):
             (PIE_LINEAR_VERT, pie_options[PIE_LINEAR_VERT]),
             (PIE_PATCHWORK, pie_options[PIE_PATCHWORK]),
     ]
+    export_def = {
+        "graph": JSON_INHERITED("options"),
+        "lines": JSON_ATTR(),
+        "points": JSON_ATTR(),
+        "pie": JSON_ATTR(),
+        "single_graph": JSON_ATTR(),
+        "rotates": JSON_ATTR(),
+        "stacked": JSON_ATTR(),
+        "shaded": JSON_ATTR(),
+        "point_colour_map": JSON_CAT_LOOKUP(["point_colour_map", "label"], lambda js, key, imp_kwargs: PointColourMap.objects.get(label=js["point_colour_map"]))
+    }
+    export_lookup = { "graph": "graph" }
+    api_state_def = {
+        # LINE, HISTOGRAM, BAR
+        "single_graph": JSON_ATTR(decider="isnt_piechart"),
+        "rotates": JSON_ATTR(decider="isnt_piechart", suppress_decider="single_graph"),
+
+        # LINE
+        "lines": JSON_EXP_ARRAY_LOOKUP(line_options, decider="is_linegraph"),
+        "points": JSON_EXP_ARRAY_LOOKUP(point_options, decider="is_linegraph"),
+        "shaded": JSON_ATTR(decider="is_linegraph"),
+        "point_colour_map": JSON_PASSDOWN(deciders=["is_linegraph", "points"], optional=True),
+
+        # HISTOGRAM, BAR
+        "stacked": JSON_ATTR(decider="is_histogram"),
+
+        # PIE
+        "pie": JSON_EXP_ARRAY_LOOKUP(pie_options, decider="is_piechart"),
+    }
     lines = models.SmallIntegerField(choices=line_option_choices, default=LINE_NONE, help_text="For line graphs, how to display the lines between datapoints.")
     points = models.SmallIntegerField(choices=point_option_choices, default=POINT_NONE, help_text="For line graphs, how to display the datapoints.")
     pie = models.SmallIntegerField(choices=pie_option_choices, default=PIE_CIRCLE, help_text="For pie charts, how to display the pie(s)")
@@ -522,12 +506,12 @@ class GraphDisplayOptions(models.Model):
     shaded = models.BooleanField(default=False, help_text="For line graphs only. If true, the area under the line is to be shaded. Cannot be set if lines=none.")
     stacked = models.BooleanField(default=False, help_text="For bar or histogram charts only. If true they are displayed as a stacked histogram instead of a clustered histogram.  (i.e. the bars for each cluster are stacked on top of each other instead of being placed side by side)")
     point_colour_map = models.ForeignKey(PointColourMap, blank=True, null=True, help_text="""Indicates how points should be coloured, based on their vertical axis value.  Optional.  If null, then use the colours in the Graph Dataset Definition.  N.B. Must be null if "points" is "none".""")
-    graph=models.OneToOneField(GraphDefinition, help_text="The graph")
+    graph=models.OneToOneField(GraphDefinition, related_name="options", help_text="The graph")
     @classmethod
     def create_default(cls, g):
         """Create a default GraphDisplayOption object for a new graph."""
         try:
-            do = g.graphdisplayoptions
+            do = g.options
         except GraphDisplayOptions.DoesNotExist:
             do = GraphDisplayOptions(graph=g)
         if g.graph_type == g.LINE:
@@ -542,67 +526,14 @@ class GraphDisplayOptions(models.Model):
         do.point_colour_map = None
         do.save()
         return do
-    @classmethod
-    def import_data(cls, g, data):
-        try:
-            do = g.graphdisplayoptions
-        except GraphDisplayOptions.DoesNotExist:
-            do = GraphDisplayOptions(graph=g)
-        do.lines = data["lines"]
-        do.points = data["points"]
-        do.stacked = data["stacked"]
-        do.shaded = data["shaded"]
-        do.single_graph = data["single_graph"]
-        do.rotates = data.get("rotates", False)
-        do.pie = data.get("pie", cls.PIE_CIRCLE)
-        if data["point_colour_map"]:
-            do.point_colour_map = PointColourMap.objects.get(label=data["point_colour_map"])
-        else:
-            do.point_colour_map = None
-        do.save()
-        return do
-    def export(self):
-        data = {
-            "lines": self.lines,    
-            "points": self.points,
-            "pie": self.pie,    
-            "single_graph": self.single_graph,    
-            "rotates": self.rotates,    
-            "stacked": self.stacked,    
-            "shaded": self.shaded,    
-        }
-        if self.point_colour_map:
-            data["point_colour_map"] = self.point_colour_map.label
-        else:
-            data["point_colour_map"] = None
-        return data
-    def __getstate__(self, graph_type):
-        if graph_type == GraphDefinition.LINE:
-            data = {
-                "lines": self.line_options[self.lines],
-                "points": self.point_options[self.points],
-                "single_graph": self.single_graph,
-                "shaded": self.shaded,
-            }
-            if not self.single_graph:
-                data["rotates"] = self.rotates
-            if self.points:
-                if self.point_colour_map:
-                    data["point_colour_map"] = self.point_colour_map.__getstate__()
-                else:
-                    data["point_colour_map"] = None
-        elif graph_type in (GraphDefinition.HISTOGRAM, GraphDefinition.BAR):
-            data = {
-                "stacked": self.stacked,
-                "single_graph": self.single_graph,
-            }
-            if not self.single_graph:
-                data["rotates"] = self.rotates
-        else:
-            data = {
-                "pie": self.pie_options[self.pie],
-            }
-        return data
+    def is_linegraph(self):
+        return self.graph.is_linegraph()
+    def is_histogram(self):
+        return self.graph.is_histogram()
+    def is_piechart(self):
+        return self.graph.is_piechart()
+    def isnt_piechart(self):
+        return not self.graph.is_piechart()
     def clean(self):
         if self.graph.graph_type == GraphDefinition.LINE:
             self.stacked = False
@@ -640,27 +571,18 @@ class GraphDisplayOptions(models.Model):
                 problems.extend(self.point_colour_map.validate())
         return problems
 
-class GraphCluster(GraphClusterBase):
+class GraphCluster(GraphClusterBase, WidgetDefJsonMixin):
     """Represents a statically defined graph cluster."""
-    def export(self):
-        return {
-            "url": self.url,
-            "sort_order": self.sort_order,
-            "label": self.label,
-            "hyperlink": self.hyperlink,
-        }
-    @classmethod
-    def import_data(cls, g, data):
-        try:
-            c = GraphCluster.objects.get(graph=g, url=data["url"])
-        except GraphCluster.DoesNotExist:
-            c = GraphCluster(graph=g, url=data["url"])
-        c.sort_order = data["sort_order"]
-        c.label = data["label"]
-        c.hyperlink = data["hyperlink"]
-        c.save()
+    export_def = {
+        "graph": JSON_INHERITED("graphcluster_set"),
+        "url": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "hyperlink": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED(),
+    }
+    export_lookup = { "graph": "graph", "url": "url" }
 
-class GraphDataset(models.Model):
+class GraphDataset(models.Model, WidgetDefJsonMixin):
     """
     Represents a graph dataset
 
@@ -668,8 +590,32 @@ class GraphDataset(models.Model):
 
     A simple way to tell the difference between a cluster and dataset is that a dataset is colour-coded.
     """
+    export_def = {
+        "graph": JSON_INHERITED("datasets"),
+        "url": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "dynamic_label": JSON_ATTR(),
+        "colour": JSON_ATTR(),
+        "hyperlink": JSON_ATTR(),
+        "use_secondary_numeric_axis": JSON_ATTR(),
+        "use_error_bars": JSON_ATTR(),
+        "hide_from_legend": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED()
+    }
+    export_lookup = { "graph": "graph", "url": "url" }
+    api_state_def = {
+        "label": JSON_ATTR(attribute="url"),
+        "name": JSON_ATTR(attribute="label", parametise=True),
+        "colour": JSON_ATTR(parametise=True),
+        "hyperlink": JSON_ATTR(parametise=True),
+        "dynamic_name_display": JSON_ATTR(attribute="dynamic_label"),
+        "hide_from_legend": JSON_ATTR(),
+        "use_secondary_vertical_axis": JSON_ATTR(attribute="use_secondary_numeric_axis", decider=["graph", "use_secondary_numeric_axis"], deciders=["is_linegraph"]),
+        "use_secondary_numeric_axis": JSON_ATTR(decider=["graph", "use_secondary_numeric_axis"], suppress_decider="is_linegraph"),
+        "use_error_bars": JSON_ATTR(decider=["graph", "use_numeric_axes"])
+    }
     # Lines, Bars, or Sectors
-    graph=models.ForeignKey(GraphDefinition, help_text="The graph the dataset belongs to")
+    graph=models.ForeignKey(GraphDefinition, related_name="datasets", help_text="The graph the dataset belongs to")
     url=models.SlugField(verbose_name="label", help_text="A short symbolic label for the dataset, as used in the API.")
     label=models.CharField(verbose_name="name", max_length=80, help_text="A longer human-readable description of the dataset. (May be parametised)")
     dynamic_label=models.BooleanField(default=False, help_text="If false, the name (label) of the dataset is used. If true, this may be over-ridden by a dynamic value supplied with the data for the graph.")
@@ -682,53 +628,13 @@ class GraphDataset(models.Model):
     class Meta:
         unique_together = [("graph", "url"), ("graph", "sort_order"), ("graph", "label")]
         ordering = [ "graph", "sort_order" ]
+    def widget(self):
+        return self.graph.tile.widget
+    def is_linegraph(self):
+        return self.graph.is_linegraph()
     def clean(self):
         if not self.graph.use_secondary_numeric_axis:
             self.use_secondary_numeric_axis = False
-    def export(self):
-        return {
-            "url": self.url,
-            "sort_order": self.sort_order,
-            "label": self.label,
-            "dynamic_label": self.dynamic_label,
-            "colour": self.colour,
-            "hyperlink": self.hyperlink,
-            "use_secondary_numeric_axis": self.use_secondary_numeric_axis,
-            "use_error_bars": self.use_error_bars,
-            "hide_from_legend": self.hide_from_legend
-        }
     def __unicode__(self):
         return self.url
-    @classmethod
-    def import_data(cls, g, data):
-        try:
-            d = GraphDataset.objects.get(graph=g, url=data["url"])
-        except GraphDataset.DoesNotExist:
-            d = GraphDataset(graph=g, url=data["url"])
-        d.label = data["label"]
-        d.sort_order = data["sort_order"]
-        d.colour = data["colour"]
-        d.hyperlink = data["hyperlink"]
-        d.use_secondary_numeric_axis = data["use_secondary_numeric_axis"]
-        d.use_error_bars = data.get("use_error_bars", False)
-        d.dynamic_label = data.get("dynamic_label", False)
-        d.hide_from_legend = data.get("hide_from_legend", False)
-        d.save()
-    def __getstate__(self, view=None):
-        state = {
-            "label": self.url,
-            "name": parametise_label(self.graph.tile.widget, view, self.label),
-            "colour": parametise_label(self.graph.tile.widget, view, self.colour),
-            "hyperlink": parametise_label(self.graph.tile.widget, view, self.hyperlink),
-            "dynamic_name_display": self.dynamic_label,
-            "hide_from_legend": self.hide_from_legend,
-        }
-        if self.graph.use_secondary_numeric_axis:
-            if self.graph.graph_type == self.graph.LINE:
-                state["use_secondary_vertical_axis"] = self.use_secondary_numeric_axis
-            else:
-                state["use_secondary_numeric_axis"] = self.use_secondary_numeric_axis
-        if self.graph.use_numeric_axes():
-            state["use_error_bars"] = self.use_error_bars
-        return state
 

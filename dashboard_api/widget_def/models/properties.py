@@ -13,20 +13,29 @@
 #   limitations under the License.
 
 from django.db import models
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class PropertyGroup(models.Model):
+class PropertyGroup(models.Model, WidgetDefJsonMixin):
+    """
+    A Property Group is a family of related properties.
+    It can be thought of as a dictionary of server-stored values. The interpretation of properties
+    and property groups is implementation-specific.
+    """
+    export_def = {
+        "name": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "properties": JSON_RECURSEDOWN("Property", "properties", "group", "key", app="widget_def")
+    }
+    export_lookup = { "name": "name" }
+    api_state_def = {
+        "name": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "properties": JSON_RECURSEDICT("properties", "key", "value")
+    }
     name = models.CharField(max_length=80, help_text="Descriptive name of the Property Group", unique=True)
     label = models.SlugField(help_text="Short symbolic name of the Property Group, as used in API", unique=True)
-    def __unicode__(self):
-        return "%s[%s]" % (self.name, self.label)
-    def export(self):
-        return {
-            "name": self.name,
-            "label": self.label,
-            "properties": [ { "key": p.key, "value": p.value } for p in self.property_set.all() ]
-        }
     @classmethod
     def import_data(cls, data):
         if data.get("type"):
@@ -34,48 +43,27 @@ class PropertyGroup(models.Model):
             for pg in data["exports"]:
                 output.append(cls.import_data(pg))
             return output
-        try:
-            pg = cls.objects.get(label=data["label"])
-        except cls.DoesNotExist:
-            pg = cls(label=data["label"])
-        pg.name = data["name"]
-        pg.save()
-        pg.property_set.all().delete()
-        for pd in data["properties"]:
-            Property.import_data(pg, pd)
-        return pg
-    def __getstate__(self):
-        return {
-            "name": self.name,
-            "label": self.label,
-            "properties": { p.key: p.value for p in self.property_set.all() }
-        }
+        return super(PropertyGroup, cls).import_data(data)
+    def __unicode__(self):
+        return "%s[%s]" % (self.name, self.label)
     def getindex(self):
         return {
             "name": self.name,
             "label": self.label,
         }
 
-class Property(models.Model):
-    group = models.ForeignKey(PropertyGroup, help_text="The group this property belongs to")
+class Property(models.Model, WidgetDefJsonMixin):
+    export_def = {
+        "group": JSON_INHERITED(related_name="properties"),
+        "key": JSON_ATTR(),
+        "value": JSON_ATTR(),
+    }
+    export_lookup = { "group": "group", "key": "key" }
+    group = models.ForeignKey(PropertyGroup, related_name="properties", help_text="The group this property belongs to")
     key = models.CharField(max_length=255, help_text="The key (lookup value) of this property")
     value = models.CharField(max_length=1024, help_text="The value (mapped value) of this property")
     def __unicode__(self):
         return '(%s) "%s": "%s"' % (self.group.label, self.key, self.value)
-    def export(self):
-        return {
-            "key": self.key,
-            "value": self.value
-        }
-    @classmethod
-    def import_data(cls, grp, data):
-        try:
-            p = cls.objects.get(group=grp, key=data["key"])
-        except cls.DoesNotExist:
-            p = cls(group=grp, key=data["key"])
-        p.value = data["value"]
-        p.save()
-        return p
     class Meta:
         unique_together = [ ('group', 'key'), ]
         ordering = [ 'group', 'key' ]

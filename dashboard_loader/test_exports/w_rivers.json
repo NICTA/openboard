@@ -12,7 +12,6 @@
                 {
                     "expansion": false, 
                     "main_stat_count": 2, 
-                    "sort_order": 100, 
                     "aspect": 1, 
                     "statistics": [
                         {
@@ -34,8 +33,7 @@
                             "unit_suffix": "", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 100
+                            "unit_prefix": ""
                         }, 
                         {
                             "num_precision": 2, 
@@ -56,8 +54,7 @@
                             "unit_suffix": "m3/s", 
                             "rotates": false, 
                             "stat_type": 2, 
-                            "unit_prefix": "", 
-                            "sort_order": 200
+                            "unit_prefix": ""
                         }
                     ], 
                     "list_label_width": null, 
@@ -70,7 +67,6 @@
                 }, 
                 {
                     "expansion": false, 
-                    "sort_order": 150, 
                     "aspect": 1, 
                     "statistics": [], 
                     "list_label_width": null, 
@@ -83,7 +79,6 @@
                 }, 
                 {
                     "expansion": true, 
-                    "sort_order": 200, 
                     "aspect": 1, 
                     "statistics": [
                         {
@@ -105,8 +100,7 @@
                             "unit_suffix": null, 
                             "rotates": false, 
                             "stat_type": 5, 
-                            "unit_prefix": null, 
-                            "sort_order": 100
+                            "unit_prefix": null
                         }
                     ], 
                     "list_label_width": 100, 
@@ -120,21 +114,17 @@
             ], 
             "views": [
                 {
-                    "sort_order": 300, 
                     "view": "tall_fyear_larnor_migration"
                 }, 
                 {
-                    "sort_order": 300, 
                     "view": "tall_fyear_lgondor_migration"
                 }, 
                 {
-                    "sort_order": 300, 
                     "view": "tall_fyear_lrhovanion_migration"
                 }
             ], 
             "default_frequency_text": "Annual", 
             "raw_data_sets": [], 
-            "sort_order": 500, 
             "expansion_hint": "More", 
             "about": "<p>Summary data about the rivers of {{location|capfirst}}.</p>", 
             "refresh_rate": 3000, 

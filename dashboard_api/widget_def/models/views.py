@@ -1,4 +1,4 @@
-#   Copyright 2016 CSIRO
+#   Copyright 2016,2017 CSIRO
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -16,41 +16,58 @@ import decimal
 
 from django.db import models
 from django.apps import apps
+from widget_def.model_json_tools import *
 
 # Create your models here.
 
-class ViewType(models.Model):
+class ViewType(models.Model, WidgetDefJsonMixin):
     """
     A type of :model:`widget_def.WidgetView`
 
     Typically used by the front end implementation to choose the appropriate display template for a WidgetView.
     """
+    export_def = {
+        "name": JSON_ATTR(),
+        "show_children": JSON_ATTR(default=False),
+        "show_siblings": JSON_ATTR(default=False),
+    }
+    export_lookup = { "name": "name" }
     name = models.CharField(max_length=120, unique=True, help_text="The name of the view type, as it appears in the API")
     show_children = models.BooleanField(default=False, help_text="If true views of this type should show links to their child views")
     show_siblings = models.BooleanField(default=False, help_text="If true views of this type should show links to their sibling views")
     def __unicode__(self):
         return self.name
-    def export(self):
-        return {
-            "name": self.name,
-            "show_children": self.show_children,
-            "show_siblings": self.show_siblings
-        }
-    @classmethod
-    def import_data(cls, data):
-        try:
-            vt = cls.objects.get(name=data["name"])
-        except cls.DoesNotExist:
-            vt = cls(name=data["name"])
-        vt.show_children = data["show_children"]
-        vt.show_siblings = data.get("show_siblings", False)
-        vt.save()
-        return vt
 
-class WidgetView(models.Model):
+class WidgetView(models.Model, WidgetDefJsonMixin):
     """
     A WidgetView is a collection of widgets to be displayed at once - a dashboard in a hierarchical family of dashboards.
     """
+    export_def = {
+        "parent": JSON_INHERITED("children", optional=True),
+        "name": JSON_ATTR(),
+        "label": JSON_ATTR(),
+        "view_type": JSON_CAT_LOOKUP(["view_type", "export"], lambda js, k, kw: ViewType.objects.get(name=js["view_type"]["name"]), import_model=ViewType),
+        "sort_order": JSON_ATTR(),
+        "external_url": JSON_ATTR(),
+        "requires_authentication": JSON_ATTR(),
+        "geo_window": JSON_CAT_LOOKUP(["geo_window", "name"], lambda js, k, kw: apps.get_app_config("widget_def").get_model("GeoWindow").objects.get(name=js["geo_window"]), optional=True),
+        "children": JSON_RECURSEDOWN("WidgetView", "children", "parent", "label", app="widget_def"),
+        "properties": JSON_RECURSEDOWN("ViewProperty", "properties", "view", "key", app="widget_def")
+    }
+    export_lookup = { "label": "label" }
+    api_state_def = {
+        "crumbs": JSON_ATTR("crumbs"),
+        "type": JSON_CAT_LOOKUP(["view_type", "name"], None),
+        "label": JSON_ATTR(),
+        "name": JSON_ATTR(),
+        "show_children": JSON_CAT_LOOKUP(["view_type", "show_children"], None),
+        "show_siblings": JSON_CAT_LOOKUP(["view_type", "show_siblings"], None),
+        "properties": JSON_RECURSEDICT("properties", "key", "value"),
+        "widgets": JSON_RECURSEDOWN("ViewWidgetDeclaration", "widgets", "view", "definition", app="widget_def"),
+        "other_menus": JSON_RECURSEDOWN("ViewFamilyMember", "family_memberships", "view", "family", app="widget_def", recurse_attr_chain=["family"], recurse_obj_arg="enclosing_view", suppress_if_empty=True),
+        "children": JSON_RECURSEDOWN("WidgetView", "children", "parent", "label", app="widget_def", suppress_decider="suppress_children", recurse_func_override="desc"),
+        "siblings": JSON_SELF_RECURSEDOWN("WidgetView", None, None, None, app="widget_def", suppress_decider="suppress_siblings", recurse_func_override="desc")
+    }
     name = models.CharField(max_length=120, help_text="The display name for the view, as displayed in links to the view, and in the view itself")
     label = models.SlugField(unique=True, help_text="The symbolic label for the view, as used in the API.")
     parent = models.ForeignKey("self", null=True,blank=True, related_name="children", help_text="The parent WidgetView. If null, this WidgetView is a root node in a view hierarchy.")
@@ -59,6 +76,10 @@ class WidgetView(models.Model):
     sort_order = models.IntegerField(help_text="WidgetViews are sorted by parent, then by this field")
     requires_authentication = models.BooleanField(default=False, help_text="If true then authentication is required to access this view. Note that authentication is not supported across externally hosted WidgetViews.")
     geo_window = models.ForeignKey("GeoWindow", null=True, blank=True, help_text="A geospatial window - a rectangle that defines the initial viewing area for geodatasets under this WidgetView.  A WidgetView with a non-null geowindow may contain GeoDatasets as well as widgets.")
+    def suppress_children(self):
+        return not self.view_type.show_children
+    def suppress_siblings(self):
+        return not self.view_type.show_siblings
     class Meta:
         unique_together=[
             ("parent", "name"),
@@ -87,81 +108,24 @@ class WidgetView(models.Model):
             v = v.parent
         c.reverse() 
         return c
-    def properties(self):
-        return { vp.key: vp.value() for vp in self.viewproperty_set.all() }
-    def __getstate__(self):
-        data = {
-            "crumbs": self.crumbs(),
-            "type": self.view_type.name,
-            "label": self.label,
-            "name": self.name,
-            "show_children": self.view_type.show_children,
-            "show_siblings": self.view_type.show_siblings,
-            "properties": { p.key: p.value() for p in self.viewproperty_set.all() },
-            "widgets": [ decl.__getstate__() for decl in self.widgets.all() ], 
-        }
-        other_menus = []
-        for vfm in self.viewfamilymember_set.order_by("family"):
-            other_menus.append(vfm.family.__getstate__(self))
-        if other_menus:
-            data["other_menus"] = other_menus
-        if self.view_type.show_children:
-            data["children"] = [ c.desc() for c in self.children.all() ]
-        if self.view_type.show_siblings:
-            if self.parent:
-                data["siblings"] = [ c.desc() for c in self.parent.children.exclude(id=self.id) ]
-            else:
-                data["siblings"] = [ c.desc() for c in WidgetView.objects.filter(parent__isnull=True) ]
-        return data
-    def export(self):
-        data = {
-            "name": self.name,
-            "label": self.label,
-            "view_type": self.view_type.export(),
-            "sort_order": self.sort_order,
-            "external_url": self.external_url,
-            "requires_authentication": self.requires_authentication,
-            "properties": [ p.export() for p in self.viewproperty_set.all() ],
-            "children": [ c.export() for c in self.children.all() ],
-        }
-        if self.geo_window:
-            data["geo_window"] = self.geo_window.name
-        return data
-    @classmethod
-    def import_data(cls, data, parent=None):
-        try:
-            v = cls.objects.get(label=data["label"])
-        except cls.DoesNotExist:
-            v = cls(label=data["label"])
-        v.parent = parent
-        v.name = data["name"]
-        v.view_type = ViewType.import_data(data["view_type"])
-        v.sort_order = data["sort_order"]
-        v.requires_authentication = data["requires_authentication"]
-        v.external_url = data.get("external_url")
-        if "geo_window" in data:
-            GeoWindow = apps.get_app_config("widget_def").get_model("GeoWindow")
-            v.geo_window = GeoWindow.objects.get(name=data["geo_window"])
-        else:
-            v.geo_window = None
-        v.save()
-        # properties
-        v.viewproperty_set.all().delete()
-        for p in data["properties"]:
-            ViewProperty.import_data(v, p)
-        # children
-        children_loaded = []
-        for c in data["children"]:
-            cl = cls.import_data(c, parent=v) 
-            children_loaded.append(cl.label)
-        for c in v.children.all():
-            if c.label not in children_loaded:
-                c.delete()
-        for vwd in v.declarations.all():
-            vwd.update_state_cache()
-        return v
+    def my_properties(self):
+        return { vp.key: vp.value() for vp in self.properties.all() }
 
-class ViewProperty(models.Model):
+def property_importer(js, cons_args, imp_kwargs):
+    cons_args["intval"] = None
+    cons_args["strval"] = None
+    cons_args["boolval"] = None
+    cons_args["decval"] = None
+    if js["type"] == 0:
+        cons_args["intval"] = js["value"]
+    elif js["type"] == 1:
+        cons_args["strval"] = js["value"]
+    elif js["type"] == 2:
+        cons_args["boolval"] = js["value"]
+    elif js["type"] == 3:
+        cons_args["decval"] = decimal.Decimal(js["value"])
+
+class ViewProperty(models.Model, WidgetDefJsonMixin):
     """
     Views can have arbitrary key-value properties which can be used by front-end implementations for
     any purpose.  View properties also support :model:`widget_def.Parametisation`
@@ -176,7 +140,13 @@ class ViewProperty(models.Model):
         BOOL_PROPERTY: "boolean",
         DEC_PROPERTY: "decimal",
     }
-    view=models.ForeignKey(WidgetView, help_text="The view this property belongs to")
+    export_def = {
+        "key": JSON_ATTR(),
+        "type": JSON_ATTR(attribute="property_type"),
+        "value": JSON_COMPLEX_IMPORTER_ATTR(complex_importer=property_importer)
+    }
+    export_lookup = { "view":"view", "key":"key" }
+    view=models.ForeignKey(WidgetView, related_name="properties", help_text="The view this property belongs to")
     key=models.CharField(max_length=120, help_text="The key for this property")
     property_type=models.SmallIntegerField(choices=property_types.items(), help_text="The datatype of this property")
     strval=models.TextField(blank=True, null=True, help_text="The value (for string properties)")
@@ -219,42 +189,24 @@ class ViewProperty(models.Model):
         return "%s: %s" % (self.key, unicode(self.value()))
     class Meta:
         unique_together=[ ("view", "key") ]
-    def export(self):
-        data = {
-            "key": self.key,
-            "type": self.property_type,
-        }
-        if self.property_type == self.INT_PROPERTY:
-            data["value"] = self.intval
-        elif self.property_type == self.BOOL_PROPERTY:
-            data["value"] = self.boolval
-        else:
-            data["value"] = unicode(self.value())
-        return data
-    @classmethod
-    def import_data(cls, view, data):
-        try:
-            vp = cls.objects.get(view=view, key=data["key"])
-        except cls.DoesNotExist:
-            vp = cls(view=view, key=data["key"])
-        vp.property_type = data["type"]
-        if vp.property_type == cls.INT_PROPERTY:
-            vp.intval = data["value"]
-        elif vp.property_type == cls.BOOL_PROPERTY:
-            vp.boolval = data["value"]
-        elif vp.property_type == cls.DEC_PROPERTY:
-            vp.decval = decimal.Decimal(data["value"])
-        else:
-            vp.strval = data["value"]
-        vp.save()
-        return vp
 
-class ViewFamily(models.Model):
+class ViewFamily(models.Model, WidgetDefJsonMixin):
     """
     A ViewFamily is a set of :model:`widget_def.WidgetView`s that are related across hierarchical boundaries.
 
     They are used to represent secondary menus that may cut across the main view hierarchy.
     """
+    export_def = {
+        "name": JSON_ATTR(),
+        "family": JSON_ATTR(attribute="label"),
+        "sort_order": JSON_ATTR(),
+        "members": JSON_RECURSEDOWN("ViewFamilyMember", "members", "family", "view", app="widget_def")
+    }
+    export_lookup={ "family": "label" }
+    api_state_def={
+        "name": JSON_ATTR(),
+        "members": JSON_RECURSEDOWN("ViewFamilyMember", "members", "family", "name", app="widget_def", merge=False)
+    }
     name = models.CharField(max_length=120, null=True, blank=True, help_text="The display name for the secondary menu")
     label = models.SlugField(unique=True, help_text="The symbolic label for the view, as used in the API.")
     sort_order = models.IntegerField(unique=True, help_text="The secondary menus for a view are sorted by this field")
@@ -262,36 +214,29 @@ class ViewFamily(models.Model):
         ordering = ('sort_order', )
     def __unicode__(self):
         return "ViewFamily %s" % self.label
-    def export(self):
-        return {
-            "name": self.name,
-            "family": self.label,
-            "sort_order": self.sort_order,
-            "members": [ fm.export() for fm in self.viewfamilymember_set.all() ],
-        }
-    @classmethod
-    def import_data(cls, data):
-        fam, created = ViewFamily.objects.update_or_create(label=data["family"], defaults={"name": data["name"], "sort_order": data["sort_order"]})
-        members = []
-        for m in data["members"]:
-            vfm = ViewFamilyMember.import_data(fam, m)
-            members.append(vfm.view.label)
-        for vfm in fam.viewfamilymember_set.all():
-            if vfm.view.label not in members:
-                vfm.delete()
-        return fam
-    def __getstate__(self, enclosing_view):
-        return {
-            "name": self.name,
-            "members": [ vfm.__getstate__(enclosing_view) for vfm in self.viewfamilymember_set.all() ]
-        }
 
-class ViewFamilyMember(models.Model):
+class ViewFamilyMember(models.Model, WidgetDefJsonMixin):
     """
     Marks a :model:`widget_def.WidgetView` as belonging to a :model:`widget_def.ViewFamily`.
     """
-    family = models.ForeignKey(ViewFamily, help_text="The family belonged to")
-    view = models.ForeignKey(WidgetView, help_text="The view belonging to")
+    export_def = {
+        "family": JSON_INHERITED("members"),
+        "view": JSON_CAT_LOOKUP(["view", "label"],
+                        lambda js, key, imp_kwargs: WidgetView.objects.get(label=js["view"])),
+        "name": JSON_ATTR(),
+        "sort_order": JSON_IMPLIED()
+    }
+    export_lookup = { "family": "family", "view": "view" }
+    api_state_def = {
+        "menu_entry": JSON_ATTR(attribute="name"),
+        "view": JSON_CONDITIONAL_EXPORT(
+                lambda obj, kwargs: kwargs["enclosing_view"] == obj.view,
+                JSON_CONST(default="self"),
+                JSON_CAT_LOOKUP(["view", "desc"], None)
+                )
+    }
+    family = models.ForeignKey(ViewFamily, related_name="members", help_text="The family belonged to")
+    view = models.ForeignKey(WidgetView, related_name="family_memberships", help_text="The view belonging to")
     name = models.CharField(max_length=120, help_text="How this view is labeled in the family menu.")
     sort_order = models.IntegerField(help_text="How the views are sorted within the family")
     class Meta:
@@ -303,26 +248,4 @@ class ViewFamilyMember(models.Model):
         ordering= ('family', 'sort_order')
     def __unicode__(self):
         return "%s (%s)" % (self.family.label, self.name)
-    def export(self):
-        return { 
-            "view": self.view.label,
-            "name": self.name,
-            "sort_order": self.sort_order
-        }
-    @classmethod
-    def import_data(cls, family, data):
-        view = WidgetView.objects.get(label=data["view"])
-        vfm, created = cls.objects.update_or_create(view=view, family=family, defaults={"name": data["name"], "sort_order": data["sort_order"] })
-        return vfm
-    def __getstate__(self, from_view):
-        if from_view == self.view:
-            return {
-                "menu_entry": self.name,
-                "view": "self",
-            }
-        else:
-            return {
-                "menu_entry": self.name,
-                "view": self.view.desc(),
-            }
 
